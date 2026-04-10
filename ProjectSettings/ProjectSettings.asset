@@ -641,13 +641,13 @@ PlayerSettings:
   splashScreenBackgroundSourcePortrait: {fileID: 0}
   blurSplashScreenBackground: 0
   spritePackerPolicy: 
-  webGLMemorySize: 256
+  webGLMemorySize: 512
   webGLExceptionSupport: 1
   webGLNameFilesAsHashes: 0
   webGLShowDiagnostics: 0
   webGLDataCaching: 0
   webGLDebugSymbols: 1
-  webGLEmscriptenArgs: ' -s TOTAL_MEMORY=256MB'
+  webGLEmscriptenArgs: ' -s TOTAL_MEMORY=512MB'
   webGLModulesDirectory: 
   webGLTemplate: APPLICATION:Minimal
   webGLAnalyzeBuildSize: 0
