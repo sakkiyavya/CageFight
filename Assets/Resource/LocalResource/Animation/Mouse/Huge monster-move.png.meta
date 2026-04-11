@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3064cad545c1a4f44b274c4be84e62d2
+guid: 4d9799ef22d19154f8836a444ed8c0da
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 135
+  spritePixelsToUnits: 38
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,169 +97,211 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: A hundred years of ice
+      name: Huge monster-move_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 324
-        width: 204
-        height: 247
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bf39ccd593620244282a9430aeb627f4
-      internalID: 379898550
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Compound X-13
-      rect:
-        serializedVersion: 2
-        x: 283
-        y: 300
-        width: 108
-        height: 300
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9893cba16e13a9a47a0969d808400aa5
-      internalID: -2142101616
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor chicken roll
-      rect:
-        serializedVersion: 2
-        x: 493
-        y: 300
-        width: 140
-        height: 300
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f5e7b035fedbfdf43b21d5212e9c2934
-      internalID: 1524001617
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "BOOM\uFF01"
-      rect:
-        serializedVersion: 2
-        x: 685
-        y: 316
-        width: 206
-        height: 265
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 22fe65cc0b579784c8a9118cbb5d9dcb
-      internalID: -754083571
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Giant potion
-      rect:
-        serializedVersion: 2
-        x: 10
-        y: 23
-        width: 213
-        height: 257
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 923d230a0bd001149b02c04e50a5eef3
-      internalID: 1153768701
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: The audience attacked
-      rect:
-        serializedVersion: 2
-        x: 242
-        y: 32
+        x: 0
+        y: 222.5
         width: 200
-        height: 229
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 222.5
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fddb9aa9839479d408ad4cde91298fa1
-      internalID: 1434582458
+      spriteID: b6f6aaa21ab810348ab239e2ee8e9d3a
+      internalID: -2078958296
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Zip potion
+      name: Huge monster-move_1
       rect:
         serializedVersion: 2
-        x: 463
-        y: 25
-        width: 188
-        height: 247
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 200
+        y: 222.5
+        width: 200
+        height: 222.5
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 817a83822815d3549bcc5b5bc55636a4
-      internalID: -852331885
+      spriteID: d6b9d925e4c44c74eaca91384be57a8a
+      internalID: 600788997
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prefabricate
+      name: Huge monster-move_2
       rect:
         serializedVersion: 2
-        x: 675
-        y: 5
-        width: 225
-        height: 291
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 400
+        y: 223
+        width: 200
+        height: 222
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec7f80010918f904c85bf4eac3166bd0
-      internalID: -1307679866
+      spriteID: aa53b35a3151a8b48856d46017254da3
+      internalID: 808153984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-move_3
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 222.5
+        width: 200
+        height: 222.5
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: deba239ca300a16498cc2bae54329a37
+      internalID: -369444157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-move_4
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 222.5
+        width: 200
+        height: 222.5
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac140845c74a2eb46861f1c67deb015b
+      internalID: 375040759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-move_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 200
+        height: 222
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 604cdc4a337caa34b826cc0c5c7a2222
+      internalID: 1005468655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-move_6
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 1
+        width: 200
+        height: 222
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 039b25e219401204d83c4413ad492297
+      internalID: -1803802566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-move_7
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 1
+        width: 200
+        height: 222
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4c7c6108453d9e41969e5cb6ce058cf
+      internalID: -358763471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-move_8
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 1
+        width: 200
+        height: 222
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b241df4adc56c8b46982a8a9d488f673
+      internalID: -98456271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-move_9
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0.5
+        width: 200
+        height: 222.5
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8efdcd0f0851624ab4d3847f9e7aecb
+      internalID: 956518760
       vertices: []
       indices: 
       edges: []
@@ -275,14 +317,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      A hundred years of ice: 379898550
-      "BOOM\uFF01": -754083571
-      Compound X-13: -2142101616
-      DabaDoctor chicken roll: 1524001617
-      Giant potion: 1153768701
-      Prefabricate: -1307679866
-      The audience attacked: 1434582458
-      Zip potion: -852331885
+      Huge monster-move_0: -2078958296
+      Huge monster-move_1: 600788997
+      Huge monster-move_2: 808153984
+      Huge monster-move_3: -369444157
+      Huge monster-move_4: 375040759
+      Huge monster-move_5: 1005468655
+      Huge monster-move_6: -1803802566
+      Huge monster-move_7: -358763471
+      Huge monster-move_8: -98456271
+      Huge monster-move_9: 956518760
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

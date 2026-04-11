@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f33ac325b78db414ca0ce2b02141a9cc
+guid: 6c01f5e629182904aa1fcb46115d76bb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 30
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,379 +97,421 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Miner rat-move_0
+      name: Boulder-attack_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 605
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 900
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58aa64eea0109574a8a9af8cd6d8b82e
-      internalID: 710962668
+      spriteID: fbc27f33fb70fa946b1374b6d8bba47c
+      internalID: -804643025
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_1
+      name: Boulder-attack_1
       rect:
         serializedVersion: 2
-        x: 283
-        y: 605
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 266
+        y: 900
+        width: 268
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7c15464a508115d4eb2cd54b5bae7d64
-      internalID: -1599369235
+      spriteID: f60d1fb644701524b9f1311ece2dff0a
+      internalID: -98800564
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_2
+      name: Boulder-attack_2
       rect:
         serializedVersion: 2
-        x: 565
-        y: 605
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 534
+        y: 900
+        width: 268
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 86cc976d11fdc9748be4991503302606
-      internalID: 1817814057
+      spriteID: 99fddcea93a69054da76debd1b240f41
+      internalID: -1602986148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_3
+      name: Boulder-attack_3
       rect:
         serializedVersion: 2
-        x: 847
-        y: 605
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 801
+        y: 900
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec9c005e1d67add4f96610cedc658e92
-      internalID: 728570841
+      spriteID: 08eacfa9b7db4654bb43fa0823db580e
+      internalID: 1086596998
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_4
+      name: Boulder-attack_4
       rect:
         serializedVersion: 2
-        x: 1129
-        y: 605
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 1068
+        y: 900
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aff49926fcad2e0438f72f0b2f0ad68a
-      internalID: -317368992
+      spriteID: 4cb4d74f7c0a57a428ee179d9135edd5
+      internalID: -755763960
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_5
+      name: Boulder-attack_5
       rect:
         serializedVersion: 2
-        x: 1411
-        y: 605
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 600
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7db8617d9bce2c24984b03f2718ff97d
-      internalID: 1917533008
+      spriteID: 013b7e87d904e9b4193ff78daa0f1672
+      internalID: -781638350
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_6
+      name: Boulder-attack_6
       rect:
         serializedVersion: 2
-        x: 1
-        y: 315
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 267
+        y: 600
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a5939e566c33fb41a44bb82ef0cd718
-      internalID: -1513863465
+      spriteID: 4989a2dbba576c8439f73074eb4b304e
+      internalID: -576691186
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_7
+      name: Boulder-attack_7
       rect:
         serializedVersion: 2
-        x: 283
-        y: 315
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 534
+        y: 600
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ddcfee4f95f7c264084ecb328cf4df99
-      internalID: -1042856792
+      spriteID: d32c6c5dd1fe03244a169b54c176e717
+      internalID: 1533481420
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_8
+      name: Boulder-attack_8
       rect:
         serializedVersion: 2
-        x: 565
-        y: 315
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 801
+        y: 600
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03092f60e1224c5498d42b0018b73eea
-      internalID: -488060782
+      spriteID: fa73178a563ec184ba9e583974b4d5ee
+      internalID: 461206886
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_9
+      name: Boulder-attack_9
       rect:
         serializedVersion: 2
-        x: 847
-        y: 315
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 1068
+        y: 600
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5af5c3d9bca8d54a98512f72115455c
-      internalID: -523121802
+      spriteID: 669d2c32bbf242448a2fae0e83b2e2cf
+      internalID: 1947365597
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_10
+      name: Boulder-attack_10
       rect:
         serializedVersion: 2
-        x: 1129
-        y: 315
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 300
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9af0312c8853e7b4ab5e119c232c201c
-      internalID: -1116437931
+      spriteID: dbfa03a7d6333f14881ced1055f00ca2
+      internalID: -2089946839
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_11
+      name: Boulder-attack_11
       rect:
         serializedVersion: 2
-        x: 1411
-        y: 315
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 267
+        y: 301
+        width: 268
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8931e26e4e8e21a49b128928d8ce7a75
-      internalID: 1431925020
+      spriteID: 77cb820d3dac85c48a04a068d1640a69
+      internalID: -445813107
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_12
+      name: Boulder-attack_12
       rect:
         serializedVersion: 2
-        x: 1
-        y: 25
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 534
+        y: 300
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46c6d1ffea12895428a5ad828b1182c7
-      internalID: 1266497928
+      spriteID: b7548375e2249a54cbff748c9679f208
+      internalID: -2009058556
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_13
+      name: Boulder-attack_13
       rect:
         serializedVersion: 2
-        x: 283
-        y: 25
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 801
+        y: 300
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc2f1074e4721db4188ae51ce7463fd4
-      internalID: -1305552052
+      spriteID: 93eb5dea7d2ad3043b0da8a6c0fb53c5
+      internalID: 160256489
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_14
+      name: Boulder-attack_14
       rect:
         serializedVersion: 2
-        x: 565
-        y: 25
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 1068
+        y: 300
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efaff9240058a294f9342b94e4005411
-      internalID: 87326899
+      spriteID: d0e1ce0091dfb4f40b70d6091342f083
+      internalID: -521443343
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_15
+      name: Boulder-attack_15
       rect:
         serializedVersion: 2
-        x: 847
-        y: 25
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 0
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e12eeff0095f5794ca3da79b457dc30c
-      internalID: -975033506
+      spriteID: fd5c1acffd3c1b547bab42ef4b0c930f
+      internalID: 1062767387
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_16
+      name: Boulder-attack_16
       rect:
         serializedVersion: 2
-        x: 1129
-        y: 27
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 267
+        y: 0
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f765f72ed8d23714ab925f844b5a122c
-      internalID: -2025022056
+      spriteID: 1c3fd95227e7790418b59df9ead6af1c
+      internalID: 1834788388
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner rat-move_17
+      name: Boulder-attack_17
       rect:
         serializedVersion: 2
-        x: 1411
-        y: 25
-        width: 282
-        height: 290
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 534
+        y: 0
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 675086239bebfb2409dd72c2a2ffdbd2
-      internalID: -1309982043
+      spriteID: 654b5055424125c4398e27cc374f02ec
+      internalID: -1777144866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boulder-attack_18
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 0
+        width: 267.6
+        height: 300
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1be070958b09f944a8bf1cea87d65ee1
+      internalID: -2111809929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boulder-attack_19
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 0
+        width: 267.6
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c32aa4665479c774d812fa9f20ebe7fb
+      internalID: 1099535194
       vertices: []
       indices: 
       edges: []
@@ -485,24 +527,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Miner rat-move_0: 710962668
-      Miner rat-move_1: -1599369235
-      Miner rat-move_10: -1116437931
-      Miner rat-move_11: 1431925020
-      Miner rat-move_12: 1266497928
-      Miner rat-move_13: -1305552052
-      Miner rat-move_14: 87326899
-      Miner rat-move_15: -975033506
-      Miner rat-move_16: -2025022056
-      Miner rat-move_17: -1309982043
-      Miner rat-move_2: 1817814057
-      Miner rat-move_3: 728570841
-      Miner rat-move_4: -317368992
-      Miner rat-move_5: 1917533008
-      Miner rat-move_6: -1513863465
-      Miner rat-move_7: -1042856792
-      Miner rat-move_8: -488060782
-      Miner rat-move_9: -523121802
+      Boulder-attack_0: -804643025
+      Boulder-attack_1: -98800564
+      Boulder-attack_10: -2089946839
+      Boulder-attack_11: -445813107
+      Boulder-attack_12: -2009058556
+      Boulder-attack_13: 160256489
+      Boulder-attack_14: -521443343
+      Boulder-attack_15: 1062767387
+      Boulder-attack_16: 1834788388
+      Boulder-attack_17: -1777144866
+      Boulder-attack_18: -2111809929
+      Boulder-attack_19: 1099535194
+      Boulder-attack_2: -1602986148
+      Boulder-attack_3: 1086596998
+      Boulder-attack_4: -755763960
+      Boulder-attack_5: -781638350
+      Boulder-attack_6: -576691186
+      Boulder-attack_7: 1533481420
+      Boulder-attack_8: 461206886
+      Boulder-attack_9: 1947365597
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

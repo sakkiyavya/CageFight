@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3064cad545c1a4f44b274c4be84e62d2
+guid: afe1190612e94ed45a4a9474e040c1f0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 135
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,169 +97,190 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: A hundred years of ice
+      name: DabaDoctor-move_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 324
-        width: 204
-        height: 247
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bf39ccd593620244282a9430aeb627f4
-      internalID: 379898550
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Compound X-13
-      rect:
-        serializedVersion: 2
-        x: 283
+        x: 0
         y: 300
-        width: 108
+        width: 270
         height: 300
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9893cba16e13a9a47a0969d808400aa5
-      internalID: -2142101616
+      spriteID: c59233f5e90f45d44b43d917923abaf1
+      internalID: 667153167
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor chicken roll
+      name: DabaDoctor-move_1
       rect:
         serializedVersion: 2
-        x: 493
+        x: 270
         y: 300
-        width: 140
+        width: 270
         height: 300
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5e7b035fedbfdf43b21d5212e9c2934
-      internalID: 1524001617
+      spriteID: 67883840db9eef0478685cfcf94f12bd
+      internalID: 1701350527
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "BOOM\uFF01"
+      name: DabaDoctor-move_2
       rect:
         serializedVersion: 2
-        x: 685
-        y: 316
-        width: 206
-        height: 265
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 540
+        y: 300
+        width: 270
+        height: 300
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22fe65cc0b579784c8a9118cbb5d9dcb
-      internalID: -754083571
+      spriteID: 25dac5e9add55d04f807f8919e1ef8fc
+      internalID: 74250458
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Giant potion
+      name: DabaDoctor-move_3
       rect:
         serializedVersion: 2
-        x: 10
-        y: 23
-        width: 213
-        height: 257
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 810
+        y: 300
+        width: 270
+        height: 300
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 923d230a0bd001149b02c04e50a5eef3
-      internalID: 1153768701
+      spriteID: 5ee3216a2ff39de46985e37e57c1a4b1
+      internalID: -2011386152
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: The audience attacked
+      name: DabaDoctor-move_4
       rect:
         serializedVersion: 2
-        x: 242
-        y: 32
-        width: 200
-        height: 229
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1080
+        y: 300
+        width: 270
+        height: 300
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fddb9aa9839479d408ad4cde91298fa1
-      internalID: 1434582458
+      spriteID: ee9137e63de3a914cb31bd3d4053ad73
+      internalID: 1008555421
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Zip potion
+      name: DabaDoctor-move_5
       rect:
         serializedVersion: 2
-        x: 463
-        y: 25
-        width: 188
-        height: 247
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 0
+        width: 270
+        height: 300
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 817a83822815d3549bcc5b5bc55636a4
-      internalID: -852331885
+      spriteID: 59705425519483946a2ff3650f625c24
+      internalID: 1540471706
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Prefabricate
+      name: DabaDoctor-move_6
       rect:
         serializedVersion: 2
-        x: 675
-        y: 5
-        width: 225
-        height: 291
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 270
+        y: 0
+        width: 270
+        height: 300
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec7f80010918f904c85bf4eac3166bd0
-      internalID: -1307679866
+      spriteID: aff385330b5d6fb42bec5eda1be92d56
+      internalID: -832674247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DabaDoctor-move_7
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 0
+        width: 270
+        height: 300
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a53ab38a941edbf468a6f9ff9e8530e4
+      internalID: -1785594324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DabaDoctor-move_8
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 0
+        width: 270
+        height: 300
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f87a179f35a22d94ebd555bef63596da
+      internalID: 1575552633
       vertices: []
       indices: 
       edges: []
@@ -275,14 +296,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      A hundred years of ice: 379898550
-      "BOOM\uFF01": -754083571
-      Compound X-13: -2142101616
-      DabaDoctor chicken roll: 1524001617
-      Giant potion: 1153768701
-      Prefabricate: -1307679866
-      The audience attacked: 1434582458
-      Zip potion: -852331885
+      DabaDoctor-move_0: 667153167
+      DabaDoctor-move_1: 1701350527
+      DabaDoctor-move_2: 74250458
+      DabaDoctor-move_3: -2011386152
+      DabaDoctor-move_4: 1008555421
+      DabaDoctor-move_5: 1540471706
+      DabaDoctor-move_6: -832674247
+      DabaDoctor-move_7: -1785594324
+      DabaDoctor-move_8: 1575552633
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
