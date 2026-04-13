@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0ea9d34321a108040945b20384f055ea
+guid: fc8f11e5bc0ea8948867aeb7ce18c0bd
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,169 +97,253 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Giant potion_0
+      name: Battle
       rect:
         serializedVersion: 2
         x: 0
-        y: 250.5
-        width: 225
-        height: 250.5
+        y: 533.3334
+        width: 200
+        height: 266.66666
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 588ed1d85a058c447aa493561764b766
-      internalID: 1788016230
+      spriteID: 9116f43df1b468540b8fd5adad6ac3ab
+      internalID: -1517837344
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Giant potion_1
+      name: CD
       rect:
         serializedVersion: 2
-        x: 225
-        y: 250.5
-        width: 225
-        height: 250.5
+        x: 200
+        y: 533.3334
+        width: 200
+        height: 266.66666
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e797485e30e90545a16f877787feec1
-      internalID: -1392768109
+      spriteID: 1120ca19ee7586841815ff3b05f32970
+      internalID: -1721617330
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Giant potion_2
+      name: Chart
       rect:
         serializedVersion: 2
-        x: 450
-        y: 250.5
-        width: 225
-        height: 250.5
+        x: 400
+        y: 533.3334
+        width: 200
+        height: 266.66666
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4205a313a5a5db846952631c2a2e6f1c
-      internalID: 510249602
+      spriteID: 32a7b959d3980a846a0c84608a2c41db
+      internalID: -414808788
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Giant potion_3
+      name: Degree-1
       rect:
         serializedVersion: 2
-        x: 675
-        y: 250.5
-        width: 225
-        height: 250.5
+        x: 600
+        y: 533.3334
+        width: 200
+        height: 266.66666
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 396fd32357e523e44b3f8d849d4a92f7
-      internalID: -728453489
+      spriteID: 75a423369b17b034faf745eb456651e9
+      internalID: 1990085397
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Giant potion_4
+      name: Degree-2
       rect:
         serializedVersion: 2
         x: 0
-        y: 0.5
-        width: 225
-        height: 250.5
+        y: 267.33334
+        width: 200
+        height: 266.66666
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c50498e777deea4d9cb495fea2a851b
-      internalID: -1464835443
+      spriteID: f1a617da844048a458cac4a259eeef11
+      internalID: -853629113
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Giant potion_5
+      name: Degree-3
       rect:
         serializedVersion: 2
-        x: 225
-        y: 0.5
-        width: 225
-        height: 250.5
+        x: 200
+        y: 267.33334
+        width: 200
+        height: 266.66666
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 464582526aada904690e48d6721bd13c
-      internalID: -1612540981
+      spriteID: 880ca6b16ce35e245bd9ef211c686375
+      internalID: -1588928314
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Giant potion_6
+      name: Magic attack
       rect:
         serializedVersion: 2
-        x: 450
-        y: 0.5
-        width: 225
-        height: 250.5
+        x: 400
+        y: 267.33334
+        width: 200
+        height: 266.66666
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cbf23e67cf1d64b47aeb6bc6f26375e2
-      internalID: 785622916
+      spriteID: 87ef61f4ab55cc146ba67b02c78d52e5
+      internalID: 376340320
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Giant potion_7
+      name: Time
       rect:
         serializedVersion: 2
-        x: 675
-        y: 0.5
-        width: 225
-        height: 250.5
+        x: 600
+        y: 267.33334
+        width: 200
+        height: 266.66666
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23e161ae55dd6cf458bdf4338db9fac2
-      internalID: -2012687738
+      spriteID: eb046c4e915bdfd478f23955e3e4e41d
+      internalID: -1054308070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mall
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1.3333435
+        width: 200
+        height: 266.66666
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75c8cbf124b012b49bb8d75b5e060871
+      internalID: -1498531239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Magic
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 1.3333435
+        width: 200
+        height: 266.66666
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbdcf1b49204e214dabcb83cee200240
+      internalID: -336664745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lock
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 1.3333435
+        width: 200
+        height: 266.66666
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fb7d75c9c785e94cbfbb312a6bac551
+      internalID: 141818922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UP
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 1.3333435
+        width: 200
+        height: 266.66666
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44a6c779cc5775f4c91c6728b8232acd
+      internalID: 1223326591
       vertices: []
       indices: 
       edges: []
@@ -275,14 +359,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Giant potion_0: 1788016230
-      Giant potion_1: -1392768109
-      Giant potion_2: 510249602
-      Giant potion_3: -728453489
-      Giant potion_4: -1464835443
-      Giant potion_5: -1612540981
-      Giant potion_6: 785622916
-      Giant potion_7: -2012687738
+      Battle: -1517837344
+      CD: -1721617330
+      Chart: -414808788
+      Degree-1: 1990085397
+      Degree-2: -853629113
+      Degree-3: -1588928314
+      Lock: 141818922
+      Magic: -336664745
+      Magic attack: 376340320
+      Mall: -1498531239
+      Time: -1054308070
+      UP: 1223326591
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

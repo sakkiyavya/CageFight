@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0ea9d34321a108040945b20384f055ea
+guid: 29ce7bbb33e8a9f4db2ecc3adfa0a4e7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,169 +97,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Giant potion_0
+      name: Banner-Cat
       rect:
         serializedVersion: 2
-        x: 0
-        y: 250.5
-        width: 225
-        height: 250.5
+        x: 39
+        y: 331
+        width: 323
+        height: 238
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 588ed1d85a058c447aa493561764b766
-      internalID: 1788016230
+      spriteID: 1346e052050c77b4ea47f2d53021e75c
+      internalID: 1238484792
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Giant potion_1
+      name: Banner-Chicken
       rect:
         serializedVersion: 2
-        x: 225
-        y: 250.5
-        width: 225
-        height: 250.5
+        x: 439
+        y: 331
+        width: 323
+        height: 238
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e797485e30e90545a16f877787feec1
-      internalID: -1392768109
+      spriteID: 37b49715a3d997a4a85eb9cfd47f64a1
+      internalID: -227636118
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Giant potion_2
+      name: Banner-Dog
       rect:
         serializedVersion: 2
-        x: 450
-        y: 250.5
-        width: 225
-        height: 250.5
+        x: 39
+        y: 31
+        width: 323
+        height: 238
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4205a313a5a5db846952631c2a2e6f1c
-      internalID: 510249602
+      spriteID: c908821bd8130e64f96e4558a97ad3cf
+      internalID: 1795702992
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Giant potion_3
+      name: Banner-Mouse
       rect:
         serializedVersion: 2
-        x: 675
-        y: 250.5
-        width: 225
-        height: 250.5
+        x: 439
+        y: 31
+        width: 323
+        height: 238
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 396fd32357e523e44b3f8d849d4a92f7
-      internalID: -728453489
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Giant potion_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0.5
-        width: 225
-        height: 250.5
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1c50498e777deea4d9cb495fea2a851b
-      internalID: -1464835443
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Giant potion_5
-      rect:
-        serializedVersion: 2
-        x: 225
-        y: 0.5
-        width: 225
-        height: 250.5
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 464582526aada904690e48d6721bd13c
-      internalID: -1612540981
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Giant potion_6
-      rect:
-        serializedVersion: 2
-        x: 450
-        y: 0.5
-        width: 225
-        height: 250.5
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cbf23e67cf1d64b47aeb6bc6f26375e2
-      internalID: 785622916
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Giant potion_7
-      rect:
-        serializedVersion: 2
-        x: 675
-        y: 0.5
-        width: 225
-        height: 250.5
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 23e161ae55dd6cf458bdf4338db9fac2
-      internalID: -2012687738
+      spriteID: 033fdd6a01026844693e1982fea171ea
+      internalID: -806385135
       vertices: []
       indices: 
       edges: []
@@ -275,14 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Giant potion_0: 1788016230
-      Giant potion_1: -1392768109
-      Giant potion_2: 510249602
-      Giant potion_3: -728453489
-      Giant potion_4: -1464835443
-      Giant potion_5: -1612540981
-      Giant potion_6: 785622916
-      Giant potion_7: -2012687738
+      Banner-Cat: 1238484792
+      Banner-Chicken: -227636118
+      Banner-Dog: 1795702992
+      Banner-Mouse: -806385135
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
