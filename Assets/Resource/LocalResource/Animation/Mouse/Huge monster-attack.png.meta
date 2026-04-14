@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9c790edc28d146e4794c0d972ba51bd3
+guid: b587929064ed4d14a9ed6dc7edd4b705
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 130
+  spritePixelsToUnits: 75
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_0
+      name: Huge monster-attack_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 900
-        width: 300
-        height: 300
+        y: 746.25
+        width: 399
+        height: 248.75
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0a7914aa3e44354e9e57ed2798c5e2a
-      internalID: -1310011123
+      spriteID: 9821d4f54529470498dc591e072ac49b
+      internalID: -1832084956
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_1
+      name: Huge monster-attack_1
       rect:
         serializedVersion: 2
-        x: 300
-        y: 900
-        width: 300
-        height: 300
+        x: 399
+        y: 746.25
+        width: 399
+        height: 248.75
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46c6d2198e6973240ba46bf337931aff
-      internalID: -2137031617
+      spriteID: 3eb14c082e3593446ac15b29cb9b7582
+      internalID: 1210155495
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_2
+      name: Huge monster-attack_2
       rect:
         serializedVersion: 2
-        x: 600
-        y: 900
-        width: 300
-        height: 300
+        x: 798
+        y: 746.25
+        width: 399
+        height: 248.75
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e1bce30da62d46488196f807f51b3c2
-      internalID: -1651920919
+      spriteID: 68bc07df1975c8d49b714187e1f8e89b
+      internalID: 21050108
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_3
+      name: Huge monster-attack_3
       rect:
         serializedVersion: 2
-        x: 900
-        y: 900
-        width: 300
-        height: 300
+        x: 1197
+        y: 746.25
+        width: 399
+        height: 248.75
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c96d695d8e0b41146a33b8562e27dabf
-      internalID: -1949673848
+      spriteID: ad43430314cb1d241b1a2ef06f9b6e77
+      internalID: -844650056
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_4
+      name: Huge monster-attack_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 600
-        width: 300
-        height: 300
+        x: 1596
+        y: 746.25
+        width: 399
+        height: 248.75
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,83 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a43363ab88dfe0478248ed642e92207
-      internalID: -1464877271
+      spriteID: 51248768158ae204d84583829da6aef5
+      internalID: 193837232
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_5
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 600
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1cb5f8fdae96ad541b4358506c14b9c8
-      internalID: 36833796
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_6
-      rect:
-        serializedVersion: 2
-        x: 600
-        y: 600
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 09055e0244802124db1405cbc5b97530
-      internalID: -2003278151
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_7
-      rect:
-        serializedVersion: 2
-        x: 900
-        y: 600
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b6ca7d58da72948409bd1b3d8ec756e2
-      internalID: 1246060714
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_8
+      name: Huge monster-attack_5
       rect:
         serializedVersion: 2
         x: 0
-        y: 300
-        width: 300
-        height: 300
+        y: 498.25
+        width: 399
+        height: 248.75
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,20 +216,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 896c9c4e64a0d794080016ce43dba22a
-      internalID: 1314767642
+      spriteID: 7e0b17309fe46ce42a193ca7d439942a
+      internalID: 851261525
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_9
+      name: Huge monster-attack_6
       rect:
         serializedVersion: 2
-        x: 300
-        y: 300
-        width: 300
-        height: 300
+        x: 399
+        y: 498.25
+        width: 399
+        height: 248.75
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32644bdf129cd454a8aa7c310cb34db1
-      internalID: -1879556972
+      spriteID: cfa529653e7aa0d4ea58d84020d53fcb
+      internalID: -288030613
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_10
+      name: Huge monster-attack_7
       rect:
         serializedVersion: 2
-        x: 600
-        y: 300
-        width: 300
-        height: 300
+        x: 798
+        y: 498.25
+        width: 399
+        height: 248.75
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,20 +258,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bb2f1973a4ee214eaa5de4f7ed1c4a8
-      internalID: -760158580
+      spriteID: a32b9d1a35b76b74cac8e184fbb1297e
+      internalID: -1253965518
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_11
+      name: Huge monster-attack_8
       rect:
         serializedVersion: 2
-        x: 900
-        y: 300
-        width: 300
-        height: 300
+        x: 1197
+        y: 498.25
+        width: 399
+        height: 248.75
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,20 +279,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 266633c753747ab40a81dfcf67994eca
-      internalID: 780204721
+      spriteID: 4c1e3c0c57618874bb8bf7bd5180cf87
+      internalID: -1506120661
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_12
+      name: Huge monster-attack_9
+      rect:
+        serializedVersion: 2
+        x: 1596
+        y: 498.25
+        width: 399
+        height: 248.75
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1632d998598cb8b449f9d275a815c52b
+      internalID: 1529288982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-attack_10
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 300
-        height: 300
+        y: 250.25
+        width: 399
+        height: 248.75
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,20 +321,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd812e831faa42044858de89939a0b98
-      internalID: -597816416
+      spriteID: 77b91f0d88ee23849842f04168b3681c
+      internalID: 4394049
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_13
+      name: Huge monster-attack_11
       rect:
         serializedVersion: 2
-        x: 300
-        y: 0
-        width: 300
-        height: 300
+        x: 399
+        y: 250.25
+        width: 399
+        height: 248.75
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -384,20 +342,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7aad37668727aae4b8f1dd895b33374c
-      internalID: 1816103689
+      spriteID: 36a7dbd6af9a389489a1ace0b74ae0e6
+      internalID: 1069664427
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_14
+      name: Huge monster-attack_12
       rect:
         serializedVersion: 2
-        x: 600
-        y: 0
-        width: 300
-        height: 300
+        x: 798
+        y: 250.25
+        width: 399
+        height: 248.75
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -405,20 +363,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b28e3020d9019d04384dd515e5f4fb57
-      internalID: 321655723
+      spriteID: dfad9384e5de8ba4ca64823ed8e3734e
+      internalID: -1150938564
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_15
+      name: Huge monster-attack_13
       rect:
         serializedVersion: 2
-        x: 900
-        y: 0
-        width: 300
-        height: 300
+        x: 1197
+        y: 250.25
+        width: 399
+        height: 248.75
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -426,8 +384,134 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92ae7d0d95de13e4fae1a7890a29b187
-      internalID: -1628384137
+      spriteID: a2ad77462c6ba8943bd602e9b74e4205
+      internalID: -249538385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-attack_14
+      rect:
+        serializedVersion: 2
+        x: 1596
+        y: 250.25
+        width: 399
+        height: 248.75
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49cb5f80720b9494fa5db91501c08e41
+      internalID: -1396780694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-attack_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2.25
+        width: 399
+        height: 248.75
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa6e286b3f3ae914b8054aac6437a40a
+      internalID: -1182323737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-attack_16
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 2.25
+        width: 399
+        height: 248.75
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5ba98efcc1cbee4ba7f1992311c9c53
+      internalID: -106068312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-attack_17
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 2.25
+        width: 399
+        height: 248.75
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31c8f172c7bd25c42832b33bc251c1b6
+      internalID: 1990228055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-attack_18
+      rect:
+        serializedVersion: 2
+        x: 1197
+        y: 2.25
+        width: 399
+        height: 248.75
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7e6a349da83bbe45b7c5731e982e898
+      internalID: -670909628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-attack_19
+      rect:
+        serializedVersion: 2
+        x: 1596
+        y: 2.25
+        width: 399
+        height: 248.75
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa10f3323981b6b4f82128c1c7417014
+      internalID: 1710659996
       vertices: []
       indices: 
       edges: []
@@ -443,22 +527,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DabaDoctor-attack_001_0: -1310011123
-      DabaDoctor-attack_001_1: -2137031617
-      DabaDoctor-attack_001_10: -760158580
-      DabaDoctor-attack_001_11: 780204721
-      DabaDoctor-attack_001_12: -597816416
-      DabaDoctor-attack_001_13: 1816103689
-      DabaDoctor-attack_001_14: 321655723
-      DabaDoctor-attack_001_15: -1628384137
-      DabaDoctor-attack_001_2: -1651920919
-      DabaDoctor-attack_001_3: -1949673848
-      DabaDoctor-attack_001_4: -1464877271
-      DabaDoctor-attack_001_5: 36833796
-      DabaDoctor-attack_001_6: -2003278151
-      DabaDoctor-attack_001_7: 1246060714
-      DabaDoctor-attack_001_8: 1314767642
-      DabaDoctor-attack_001_9: -1879556972
+      Huge monster-attack_0: -1832084956
+      Huge monster-attack_1: 1210155495
+      Huge monster-attack_10: 4394049
+      Huge monster-attack_11: 1069664427
+      Huge monster-attack_12: -1150938564
+      Huge monster-attack_13: -249538385
+      Huge monster-attack_14: -1396780694
+      Huge monster-attack_15: -1182323737
+      Huge monster-attack_16: -106068312
+      Huge monster-attack_17: 1990228055
+      Huge monster-attack_18: -670909628
+      Huge monster-attack_19: 1710659996
+      Huge monster-attack_2: 21050108
+      Huge monster-attack_3: -844650056
+      Huge monster-attack_4: 193837232
+      Huge monster-attack_5: 851261525
+      Huge monster-attack_6: -288030613
+      Huge monster-attack_7: -1253965518
+      Huge monster-attack_8: -1506120661
+      Huge monster-attack_9: 1529288982
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

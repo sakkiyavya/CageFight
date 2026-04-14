@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9c790edc28d146e4794c0d972ba51bd3
+guid: 538599a2a69a2cf4685e82e376c3bfbb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 130
+  spritePixelsToUnits: 75
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,181 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 900
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e0a7914aa3e44354e9e57ed2798c5e2a
-      internalID: -1310011123
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_1
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 900
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 46c6d2198e6973240ba46bf337931aff
-      internalID: -2137031617
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_2
-      rect:
-        serializedVersion: 2
-        x: 600
-        y: 900
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7e1bce30da62d46488196f807f51b3c2
-      internalID: -1651920919
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_3
-      rect:
-        serializedVersion: 2
-        x: 900
-        y: 900
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c96d695d8e0b41146a33b8562e27dabf
-      internalID: -1949673848
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 600
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9a43363ab88dfe0478248ed642e92207
-      internalID: -1464877271
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_5
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 600
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1cb5f8fdae96ad541b4358506c14b9c8
-      internalID: 36833796
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_6
-      rect:
-        serializedVersion: 2
-        x: 600
-        y: 600
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 09055e0244802124db1405cbc5b97530
-      internalID: -2003278151
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_7
-      rect:
-        serializedVersion: 2
-        x: 900
-        y: 600
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b6ca7d58da72948409bd1b3d8ec756e2
-      internalID: 1246060714
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_8
+      name: Mouse engineer-free_0
       rect:
         serializedVersion: 2
         x: 0
         y: 300
-        width: 300
-        height: 300
+        width: 111.5
+        height: 150
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 896c9c4e64a0d794080016ce43dba22a
-      internalID: 1314767642
+      spriteID: 7f03504ea70d3eb478f513f833299757
+      internalID: -1686492351
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_9
+      name: Mouse engineer-free_1
       rect:
         serializedVersion: 2
-        x: 300
+        x: 111
         y: 300
-        width: 300
-        height: 300
+        width: 111.5
+        height: 150
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32644bdf129cd454a8aa7c310cb34db1
-      internalID: -1879556972
+      spriteID: 0bb49eec1dd872944b356d12dc13c92f
+      internalID: -74902904
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_10
+      name: Mouse engineer-free_2
       rect:
         serializedVersion: 2
-        x: 600
+        x: 222
         y: 300
-        width: 300
-        height: 300
+        width: 111.5
+        height: 150
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bb2f1973a4ee214eaa5de4f7ed1c4a8
-      internalID: -760158580
+      spriteID: eb84381f7a3947546b7f8e43cb8ab6b7
+      internalID: -463803197
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_11
+      name: Mouse engineer-free_3
       rect:
         serializedVersion: 2
-        x: 900
+        x: 333
         y: 300
-        width: 300
-        height: 300
+        width: 111.5
+        height: 150
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,20 +174,104 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 266633c753747ab40a81dfcf67994eca
-      internalID: 780204721
+      spriteID: e12e361cc342ba14289e395fa56df3fc
+      internalID: -1676864662
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_12
+      name: Mouse engineer-free_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 150
+        width: 111.5
+        height: 150
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bd406070e478d84d90f958cf0efafb4
+      internalID: -327446117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mouse engineer-free_5
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 150
+        width: 111.5
+        height: 150
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 458c5e81e66fc474e8d71ddf3726eac1
+      internalID: -725468977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mouse engineer-free_6
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 150
+        width: 111.5
+        height: 150
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 870263ed4282a6944a396847bb2827f9
+      internalID: -2002015693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mouse engineer-free_7
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 150
+        width: 111.5
+        height: 150
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56b81bb01c801f143b6a5d4ad529ce44
+      internalID: -2047226902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mouse engineer-free_8
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 300
-        height: 300
+        width: 111.5
+        height: 150
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,20 +279,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd812e831faa42044858de89939a0b98
-      internalID: -597816416
+      spriteID: 63f4a7064790db64cb80f59d10660bf5
+      internalID: -1292706841
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_13
+      name: Mouse engineer-free_9
       rect:
         serializedVersion: 2
-        x: 300
+        x: 111
         y: 0
-        width: 300
-        height: 300
+        width: 111.5
+        height: 150
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -384,20 +300,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7aad37668727aae4b8f1dd895b33374c
-      internalID: 1816103689
+      spriteID: d76063aeb2cc8b24083400e8542ab4f0
+      internalID: 713822215
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_14
+      name: Mouse engineer-free_10
       rect:
         serializedVersion: 2
-        x: 600
+        x: 222
         y: 0
-        width: 300
-        height: 300
+        width: 111.5
+        height: 150
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -405,20 +321,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b28e3020d9019d04384dd515e5f4fb57
-      internalID: 321655723
+      spriteID: a6c7f9d71824ecc47aeb3d3054f0c693
+      internalID: -1578192027
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_15
+      name: Mouse engineer-free_11
       rect:
         serializedVersion: 2
-        x: 900
+        x: 333
         y: 0
-        width: 300
-        height: 300
+        width: 111.5
+        height: 150
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -426,8 +342,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92ae7d0d95de13e4fae1a7890a29b187
-      internalID: -1628384137
+      spriteID: 4b67522888864994495fda4af14fb2ed
+      internalID: -1122260969
       vertices: []
       indices: 
       edges: []
@@ -443,22 +359,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DabaDoctor-attack_001_0: -1310011123
-      DabaDoctor-attack_001_1: -2137031617
-      DabaDoctor-attack_001_10: -760158580
-      DabaDoctor-attack_001_11: 780204721
-      DabaDoctor-attack_001_12: -597816416
-      DabaDoctor-attack_001_13: 1816103689
-      DabaDoctor-attack_001_14: 321655723
-      DabaDoctor-attack_001_15: -1628384137
-      DabaDoctor-attack_001_2: -1651920919
-      DabaDoctor-attack_001_3: -1949673848
-      DabaDoctor-attack_001_4: -1464877271
-      DabaDoctor-attack_001_5: 36833796
-      DabaDoctor-attack_001_6: -2003278151
-      DabaDoctor-attack_001_7: 1246060714
-      DabaDoctor-attack_001_8: 1314767642
-      DabaDoctor-attack_001_9: -1879556972
+      Mouse engineer-free_0: -1686492351
+      Mouse engineer-free_1: -74902904
+      Mouse engineer-free_10: -1578192027
+      Mouse engineer-free_11: -1122260969
+      Mouse engineer-free_2: -463803197
+      Mouse engineer-free_3: -1676864662
+      Mouse engineer-free_4: -327446117
+      Mouse engineer-free_5: -725468977
+      Mouse engineer-free_6: -2002015693
+      Mouse engineer-free_7: -2047226902
+      Mouse engineer-free_8: -1292706841
+      Mouse engineer-free_9: 713822215
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9c790edc28d146e4794c0d972ba51bd3
+guid: 4ecb479e474493f4c8d60d2be79c4deb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 130
+  spritePixelsToUnits: 75
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_0
+      name: Boulder-move_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 900
+        y: 666.6666
         width: 300
-        height: 300
+        height: 333.33334
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0a7914aa3e44354e9e57ed2798c5e2a
-      internalID: -1310011123
+      spriteID: 4e8590d2134c80146ad72173c45781dd
+      internalID: -1909728681
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_1
+      name: Boulder-move_1
       rect:
         serializedVersion: 2
         x: 300
-        y: 900
+        y: 666.6666
         width: 300
-        height: 300
+        height: 333.33334
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46c6d2198e6973240ba46bf337931aff
-      internalID: -2137031617
+      spriteID: c8701bed09a75fc419ffa8f7ce159438
+      internalID: -1102996667
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_2
+      name: Boulder-move_2
       rect:
         serializedVersion: 2
         x: 600
-        y: 900
+        y: 666.6666
         width: 300
-        height: 300
+        height: 333.33334
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e1bce30da62d46488196f807f51b3c2
-      internalID: -1651920919
+      spriteID: 999540fc508ee1c47aa39e123c560643
+      internalID: -957592328
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_3
+      name: Boulder-move_3
       rect:
         serializedVersion: 2
         x: 900
-        y: 900
+        y: 666.6666
         width: 300
-        height: 300
+        height: 333.33334
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +174,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c96d695d8e0b41146a33b8562e27dabf
-      internalID: -1949673848
+      spriteID: 0794955b4b2273e4bba4bad6c1cfbb51
+      internalID: -2052520481
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_4
+      name: Boulder-move_4
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 666.6666
+        width: 300
+        height: 333.33334
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae98b2c8d69b29440baab154bc33b78a
+      internalID: -569152356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boulder-move_5
       rect:
         serializedVersion: 2
         x: 0
-        y: 600
+        y: 333.66666
         width: 300
-        height: 300
+        height: 333.33334
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +216,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a43363ab88dfe0478248ed642e92207
-      internalID: -1464877271
+      spriteID: 9596943c799c0a742b4337fad350c258
+      internalID: 466515909
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_5
+      name: Boulder-move_6
       rect:
         serializedVersion: 2
         x: 300
-        y: 600
+        y: 333.66666
         width: 300
-        height: 300
+        height: 333.33334
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1cb5f8fdae96ad541b4358506c14b9c8
-      internalID: 36833796
+      spriteID: 3104cbddb2e65c240b13a16e27e42607
+      internalID: 599187742
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_6
+      name: Boulder-move_7
       rect:
         serializedVersion: 2
         x: 600
-        y: 600
+        y: 333.66666
         width: 300
-        height: 300
+        height: 333.33334
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +258,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09055e0244802124db1405cbc5b97530
-      internalID: -2003278151
+      spriteID: f8892eb84372f9949a6fe9e16889ea5d
+      internalID: 179795644
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_7
+      name: Boulder-move_8
       rect:
         serializedVersion: 2
         x: 900
-        y: 600
+        y: 333.66666
         width: 300
-        height: 300
+        height: 333.33334
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,20 +279,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6ca7d58da72948409bd1b3d8ec756e2
-      internalID: 1246060714
+      spriteID: 7039b6f7e539d7f4bb0dbbc59650f346
+      internalID: -1866707237
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_8
+      name: Boulder-move_9
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 333.66666
+        width: 300
+        height: 333.33334
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93d3c49a816cc114683bde322225dd79
+      internalID: 1524667505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boulder-move_10
       rect:
         serializedVersion: 2
         x: 0
-        y: 300
+        y: 0.6666565
         width: 300
-        height: 300
+        height: 333.33334
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,20 +321,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 896c9c4e64a0d794080016ce43dba22a
-      internalID: 1314767642
+      spriteID: b9729047a8cf3e2409e5ee6b3c83def8
+      internalID: 69001870
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_9
+      name: Boulder-move_11
       rect:
         serializedVersion: 2
         x: 300
-        y: 300
+        y: 0.6666565
         width: 300
-        height: 300
+        height: 333.33334
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,20 +342,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32644bdf129cd454a8aa7c310cb34db1
-      internalID: -1879556972
+      spriteID: 7e473db0685637746940ecb9dca2d123
+      internalID: 2006405902
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_10
+      name: Boulder-move_12
       rect:
         serializedVersion: 2
         x: 600
-        y: 300
+        y: 0.6666565
         width: 300
-        height: 300
+        height: 333.33334
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,20 +363,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bb2f1973a4ee214eaa5de4f7ed1c4a8
-      internalID: -760158580
+      spriteID: bb778d1929b27304a81a3be190fd3dfe
+      internalID: -1482394834
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-attack_001_11
+      name: Boulder-move_13
       rect:
         serializedVersion: 2
         x: 900
-        y: 300
+        y: 0.6666565
         width: 300
-        height: 300
+        height: 333.33334
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,92 +384,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 266633c753747ab40a81dfcf67994eca
-      internalID: 780204721
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_12
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cd812e831faa42044858de89939a0b98
-      internalID: -597816416
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_13
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 0
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7aad37668727aae4b8f1dd895b33374c
-      internalID: 1816103689
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_14
-      rect:
-        serializedVersion: 2
-        x: 600
-        y: 0
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b28e3020d9019d04384dd515e5f4fb57
-      internalID: 321655723
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-attack_001_15
-      rect:
-        serializedVersion: 2
-        x: 900
-        y: 0
-        width: 300
-        height: 300
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 92ae7d0d95de13e4fae1a7890a29b187
-      internalID: -1628384137
+      spriteID: 06515aef877228a4daf6438bc85961ab
+      internalID: -1182656739
       vertices: []
       indices: 
       edges: []
@@ -443,22 +401,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DabaDoctor-attack_001_0: -1310011123
-      DabaDoctor-attack_001_1: -2137031617
-      DabaDoctor-attack_001_10: -760158580
-      DabaDoctor-attack_001_11: 780204721
-      DabaDoctor-attack_001_12: -597816416
-      DabaDoctor-attack_001_13: 1816103689
-      DabaDoctor-attack_001_14: 321655723
-      DabaDoctor-attack_001_15: -1628384137
-      DabaDoctor-attack_001_2: -1651920919
-      DabaDoctor-attack_001_3: -1949673848
-      DabaDoctor-attack_001_4: -1464877271
-      DabaDoctor-attack_001_5: 36833796
-      DabaDoctor-attack_001_6: -2003278151
-      DabaDoctor-attack_001_7: 1246060714
-      DabaDoctor-attack_001_8: 1314767642
-      DabaDoctor-attack_001_9: -1879556972
+      Boulder-move_0: -1909728681
+      Boulder-move_1: -1102996667
+      Boulder-move_10: 69001870
+      Boulder-move_11: 2006405902
+      Boulder-move_12: -1482394834
+      Boulder-move_13: -1182656739
+      Boulder-move_2: -957592328
+      Boulder-move_3: -2052520481
+      Boulder-move_4: -569152356
+      Boulder-move_5: 466515909
+      Boulder-move_6: 599187742
+      Boulder-move_7: 179795644
+      Boulder-move_8: -1866707237
+      Boulder-move_9: 1524667505
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
