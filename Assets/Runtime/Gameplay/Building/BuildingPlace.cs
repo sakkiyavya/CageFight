@@ -5,7 +5,6 @@ using UnityEngine;
 public class BuildingPlace : MonoBehaviour
 {
     public static BuildingPlace Instance { get; private set; }
-
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -33,6 +32,8 @@ public class BuildingPlace : MonoBehaviour
         {
             fingerHandler.TryBind(initialFingerId);
         }
+
+        Debug.Log("进入放置模式");
     }
 
     /// <summary>
@@ -47,7 +48,7 @@ public class BuildingPlace : MonoBehaviour
         if (currentBuilding.ChechValid())
         {
             // 正式占用地图网格
-            MapCells.Instance.UseCells(currentBuilding.GetOccupyCells());
+            MapCells.Instance.UseCells(currentBuilding.GetOccupyCells(), currentBuilding.gameObject);
             
             // 完成放置
             currentBuilding = null;
@@ -56,13 +57,16 @@ public class BuildingPlace : MonoBehaviour
             return true;
         }
 
+        // Debug.LogError("位置不合法");
         // 位置不合法，销毁并释放
-        Destroy(currentBuilding);
+        Destroy(currentBuilding.gameObject);
         currentBuilding = null;
         isInPlaceMode = false;
         fingerHandler.Unbind();
         return false;
     }
+
+    private Vector2Int lastBasePos = new Vector2Int(-999, -999); // 记录上次检测时的网格起始坐标
 
     private void Update()
     {
@@ -81,7 +85,11 @@ public class BuildingPlace : MonoBehaviour
                         UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(t.fingerId))
                         continue;
 
-                    if (fingerHandler.TryBind(t.fingerId)) break;
+                    if (fingerHandler.TryBind(t.fingerId)) 
+                    {
+                        lastBasePos = new Vector2Int(-999, -999); // 绑定新手指时重置记录
+                        break;
+                    }
                 }
             }
         }
@@ -97,13 +105,25 @@ public class BuildingPlace : MonoBehaviour
                 Vector3 worldPos = Camera.main.ScreenToWorldPoint(touch.position);
                 worldPos.z = 0;
 
-                Vector2Int gridPos = new Vector2Int(Mathf.FloorToInt(worldPos.x), Mathf.FloorToInt(worldPos.y));
-                Vector2 snappedPos = new Vector2(
-                    gridPos.x + currentBuilding.occupySpace.x / 2f,
-                    gridPos.y + currentBuilding.occupySpace.y / 2f
+                // 计算对齐后的网格左下角起始坐标
+                Vector2Int currentBasePos = new Vector2Int(
+                    Mathf.FloorToInt(worldPos.x - currentBuilding.occupySpace.x / 2f),
+                    Mathf.FloorToInt(worldPos.y - currentBuilding.occupySpace.y / 2f)
                 );
 
+                // 计算建筑中心点位置（用于视觉同步）
+                Vector2 snappedPos = new Vector2(
+                    currentBasePos.x + currentBuilding.occupySpace.x / 2f,
+                    currentBasePos.y + currentBuilding.occupySpace.y / 2f
+                );
                 currentBuilding.transform.position = snappedPos;
+
+                // 性能优化：只有在网格坐标发生变化时，才重新检测合法性
+                if (currentBasePos != lastBasePos)
+                {
+                    currentBuilding.ChechValid();
+                    lastBasePos = currentBasePos;
+                }
             }
 
             // 抬起手指时释放绑定
