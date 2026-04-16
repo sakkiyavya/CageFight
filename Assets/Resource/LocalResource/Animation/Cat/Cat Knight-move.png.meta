@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4d9799ef22d19154f8836a444ed8c0da
+guid: 3e3fc544f03cf2744a50e150ebfa61b8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Huge monster-move_0
+      name: Cat Knight-move_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 375
-        width: 338
-        height: 375
+        y: 800
+        width: 288
+        height: 400
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 263e7afc0cd45634494847aa2b977ceb
-      internalID: -1490822244
+      spriteID: 3fc3e492b98fc474395cf46fb51ee2dd
+      internalID: 184504280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-move_1
+      name: Cat Knight-move_1
       rect:
         serializedVersion: 2
-        x: 338
-        y: 375
-        width: 338
-        height: 375
+        x: 288
+        y: 800
+        width: 288
+        height: 400
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2edd11c6cfacb4b4290143c4c29d7cee
-      internalID: -1557749888
+      spriteID: 8081d3cfa8133da4ebf13d38752ec37a
+      internalID: -1920770653
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-move_2
+      name: Cat Knight-move_2
       rect:
         serializedVersion: 2
-        x: 676
-        y: 375
-        width: 338
-        height: 375
+        x: 576
+        y: 800
+        width: 288
+        height: 400
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7623362a1da30f34989f8a8a613ea284
-      internalID: 870319481
+      spriteID: 2ecfa09e782488f419fbf3ec54b13dee
+      internalID: 210190957
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-move_3
+      name: Cat Knight-move_3
       rect:
         serializedVersion: 2
-        x: 1014
-        y: 375
-        width: 338
-        height: 375
+        x: 0
+        y: 400
+        width: 288
+        height: 400
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 537439866ef0bce41a16f01ceba2d55f
-      internalID: -1086255620
+      spriteID: 783bc008354dab9499266d38d5eece06
+      internalID: 491964896
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-move_4
+      name: Cat Knight-move_4
       rect:
         serializedVersion: 2
-        x: 1352
-        y: 375
-        width: 338
-        height: 375
+        x: 288
+        y: 400
+        width: 288
+        height: 400
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +195,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 113eb12257112f94e9dc3ae0dceefd90
-      internalID: 1245020499
+      spriteID: ecc761d952cd48640bd55924571353ad
+      internalID: 1499462062
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-move_5
+      name: Cat Knight-move_5
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 400
+        width: 288
+        height: 400
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 201114b03d115934dab98eadc5937588
+      internalID: -1433669276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-move_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 338
-        height: 375
+        width: 288
+        height: 400
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d36cfcf298573dd42b473731427ab0ed
-      internalID: 2007043038
+      spriteID: 6388323405c780e4eaa35c89fd5b9751
+      internalID: 41873031
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-move_6
+      name: Cat Knight-move_7
       rect:
         serializedVersion: 2
-        x: 338
+        x: 288
         y: 0
-        width: 338
-        height: 375
+        width: 288
+        height: 400
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +258,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f975d59d2a839b946be5a55d109d9773
-      internalID: 507933518
+      spriteID: 81456a285ad4e60479ff8593490480ec
+      internalID: 697174402
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-move_7
+      name: Cat Knight-move_8
       rect:
         serializedVersion: 2
-        x: 676
+        x: 576
         y: 0
-        width: 338
-        height: 375
+        width: 288
+        height: 400
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,50 +279,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc7c4462be8fed049bebc23cb4fb7288
-      internalID: 2119846540
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Huge monster-move_8
-      rect:
-        serializedVersion: 2
-        x: 1014
-        y: 0
-        width: 338
-        height: 375
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1a5818a9853b87743a38080b165dd967
-      internalID: 408552267
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Huge monster-move_9
-      rect:
-        serializedVersion: 2
-        x: 1352
-        y: 0
-        width: 338
-        height: 375
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df9ca7bad9b5d2e4ab5604e41dfdf04f
-      internalID: 795840295
+      spriteID: d73b98ff0565897489a77cd0e687b63d
+      internalID: -1369643033
       vertices: []
       indices: 
       edges: []
@@ -317,16 +296,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Huge monster-move_0: -1490822244
-      Huge monster-move_1: -1557749888
-      Huge monster-move_2: 870319481
-      Huge monster-move_3: -1086255620
-      Huge monster-move_4: 1245020499
-      Huge monster-move_5: 2007043038
-      Huge monster-move_6: 507933518
-      Huge monster-move_7: 2119846540
-      Huge monster-move_8: 408552267
-      Huge monster-move_9: 795840295
+      Cat Knight-move_0: 184504280
+      Cat Knight-move_1: -1920770653
+      Cat Knight-move_2: 210190957
+      Cat Knight-move_3: 491964896
+      Cat Knight-move_4: 1499462062
+      Cat Knight-move_5: -1433669276
+      Cat Knight-move_6: 41873031
+      Cat Knight-move_7: 697174402
+      Cat Knight-move_8: -1369643033
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
