@@ -5,13 +5,25 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]
 public class UISystemBase : MonoBehaviour
 {
-    [Header("UI Effect 设置")]
-    public Vector2 startPosition;     // 初始的 AnchoredPosition
-    public Vector2 endPosition;       // 结束的 AnchoredPosition
-    public float transitionTime = 0.5f; // 变换所需时间（秒）
+    [Header("起始状态 (位置/尺寸/旋转/缩放)")]
+    public Vector3 startPos;
+    public Vector3 startSize;
+    public Vector3 startRot;
+    public Vector3 startScale = Vector3.one;
 
-    protected List<UISystemBase> subUI = new List<UISystemBase>();
-    protected bool isOpenSubUI = true;
+    [Header("结束状态 (位置/尺寸/旋转/缩放)")]
+    public Vector3 endPos;
+    public Vector3 endSize;
+    public Vector3 endRot;
+    public Vector3 endScale = Vector3.one;
+
+    [Header("动画设置")]
+    public float transitionTime = 0.5f;
+
+    public float buttonRadius = 100;
+
+    public List<UISystemBase> subUI = new List<UISystemBase>();
+    protected bool isOpen = true;
 
     protected RectTransform rectTransform;
     protected Coroutine effectCoroutine;
@@ -21,25 +33,25 @@ public class UISystemBase : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    // 重载 UIEffect 方法，允许传入 bool 值控制方向 (true=向结束位置，false=向起始位置)
+    // 控制动画方向 (true=向结束状态，false=向起始状态)
     public virtual void UIMotionEffect(bool toEnd)
     {
         PlayDirectionMove(toEnd);
+        SubUIEffect(toEnd);
     }
+
     public virtual void UISparkEffect(bool toEnd)
     {
-        
+        // 预留其他特效接口
     }
-    // 内部封装的核心插值移动控制
+
     protected virtual void PlayDirectionMove(bool toEnd)
     {
-        // 如果当前有正在执行的动画，先停掉，防止动画冲突
         if (effectCoroutine != null)
         {
             StopCoroutine(effectCoroutine);
         }
         
-        // 启动协程开始平滑移动
         effectCoroutine = StartCoroutine(MoveUIEffectRoutine(toEnd));
     }
 
@@ -47,48 +59,53 @@ public class UISystemBase : MonoBehaviour
     {
         float elapsedTime = 0f;
         
-        // 根据方向设定我们本次移动的起点和终点
-        Vector2 fromPos = toEnd ? startPosition : endPosition;
-        Vector2 toPos   = toEnd ? endPosition   : startPosition;
+        // 确定起始和结束数值
+        Vector3 fromP = toEnd ? startPos : endPos;
+        Vector3 fromS = toEnd ? startSize : endSize;
+        Vector3 fromR = toEnd ? startRot : endRot;
+        Vector3 fromSc = toEnd ? startScale : endScale;
 
-        // 确保一开始的时候处于计算得出的起点位置
-        rectTransform.anchoredPosition = fromPos;
+        Vector3 toP = toEnd ? endPos : startPos;
+        Vector3 toS = toEnd ? endSize : startSize;
+        Vector3 toR = toEnd ? endRot : startRot;
+        Vector3 toSc = toEnd ? endScale : startScale;
 
-        // 根据时间进行循环实现平滑插值
+        // 转换旋转
+        Quaternion fromRotQ = Quaternion.Euler(fromR);
+        Quaternion toRotQ = Quaternion.Euler(toR);
+
         while (elapsedTime < transitionTime)
         {
             elapsedTime += Time.deltaTime;
-            // 计算当前经过时间的比例 (0 到 1 之间)
-            float t = elapsedTime / transitionTime;
+            float t = Mathf.SmoothStep(0, 1, elapsedTime / transitionTime);
             
-            // 线性插值计算当前帧所在的位置
-            rectTransform.anchoredPosition = Vector2.Lerp(fromPos, toPos, t);
+            // 全量属性插值
+            rectTransform.anchoredPosition = Vector2.Lerp(fromP, toP, t);
+            rectTransform.sizeDelta = Vector2.Lerp(fromS, toS, t);
+            rectTransform.localRotation = Quaternion.Lerp(fromRotQ, toRotQ, t);
+            rectTransform.localScale = Vector3.Lerp(fromSc, toSc, t);
             
-            // 等待下一帧再继续
             yield return null; 
         }
 
-        // 动画结束时，强制贴合到精准的目标终点位置
-        rectTransform.anchoredPosition = toPos;
+        // 确保最终状态精准对齐
+        rectTransform.anchoredPosition = toP;
+        rectTransform.sizeDelta = toS;
+        rectTransform.localRotation = toRotQ;
+        rectTransform.localScale = toSc;
+
         effectCoroutine = null;
     }
 
-    protected virtual void SubUIEffect()
+    protected virtual void SubUIEffect(bool toEnd)
     {
         if(subUI.Count > 0)
+        {
             foreach(var ui in subUI)
             {
-                ui.UIMotionEffect(isOpenSubUI);
-                ui.UISparkEffect(isOpenSubUI);
+                ui.UIMotionEffect(toEnd);
+                ui.UISparkEffect(toEnd);
             }
-
-        UIMotionEffect(isOpenSubUI);
-        UISparkEffect(isOpenSubUI);
-
-        isOpenSubUI = !isOpenSubUI;
+        }
     }
-
-
-
-
 }

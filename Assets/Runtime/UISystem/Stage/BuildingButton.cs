@@ -4,8 +4,8 @@ using UnityEngine.EventSystems;
 public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandler
 {
     public GameObject targetBuilding;
-    public float buttonRadius = 100;
-
+    
+    
     public void OnPointerDown(PointerEventData eventData)
     {
         if (targetBuilding == null || BuildingPlace.Instance == null) return;
@@ -18,9 +18,9 @@ public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandl
         // 参考 JoyStick 的做法，使用 ScreenPointToLocalPointInRectangle 将屏幕点转换为 UI 局部坐标
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.position, eventData.pressEventCamera, out localPosition))
         {
-            // 在局部坐标系下判断点击点距离中心的长度是否在半径内
-            if (localPosition.magnitude <= buttonRadius)
-            {
+            // // 在局部坐标系下判断点击点距离中心的长度是否在半径内
+            // if (localPosition.magnitude <= buttonRadius)
+            // {
                 // 实例化建筑并进入放置模式
                 GameObject obj = Instantiate(targetBuilding);
                 BuildingBase building = obj.GetComponent<BuildingBase>();
@@ -29,7 +29,7 @@ public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandl
                 {
                     BuildingPlace.Instance.EnterPlaceMode(building, eventData.pointerId);
                 }
-            }
+            // }
         }
     }
 
