@@ -48,9 +48,8 @@ public class BuildingPlace : MonoBehaviour
         if (currentBuilding.ChechValid())
         {
             // 正式占用地图网格
-            MapCells.Instance.UseCells(currentBuilding.GetOccupyCells(), currentBuilding.gameObject);
-            
             // 完成放置
+            currentBuilding.StartBuild();
             currentBuilding = null;
             isInPlaceMode = false;
             fingerHandler.Unbind();
@@ -117,6 +116,7 @@ public class BuildingPlace : MonoBehaviour
                     currentBasePos.y + currentBuilding.occupySpace.y / 2f
                 );
                 currentBuilding.transform.position = snappedPos;
+                currentBuilding.RefreshOccupancy();
 
                 // 性能优化：只有在网格坐标发生变化时，才重新检测合法性
                 if (currentBasePos != lastBasePos)

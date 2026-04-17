@@ -3,21 +3,21 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
-/// 地图网格数据管理类，记录网格的占用情况
+/// 鍦板浘缃戞牸鏁版嵁绠＄悊绫伙紝璁板綍缃戞牸鐨勫崰鐢ㄦ儏鍐?
 /// </summary>
-
 [ExecuteAlways]
 public class MapCells : MonoBehaviour
 {
     static MapCells instance;
     public static MapCells Instance => instance;
+    public int Version => version;
 
-    [Header("地图尺寸")]
+    [Header("鍦板浘灏哄")]
     public int width = 20;
     public int height = 20;
 
-    // 使用二维数组记录占用情况，每个格子存储占用的物体集合
     private HashSet<GameObject>[,] cellData;
+    private int version;
 
     private void Awake()
     {
@@ -31,9 +31,6 @@ public class MapCells : MonoBehaviour
         InitializeGrid();
     }
 
-    /// <summary>
-    /// 初始化并填充网格数据
-    /// </summary>
     public void InitializeGrid()
     {
         cellData = new HashSet<GameObject>[width, height];
@@ -45,42 +42,12 @@ public class MapCells : MonoBehaviour
             }
         }
 
-        // 如果在编辑器模式下，扫描场景中已有的建筑
-        if (!Application.isPlaying)
-        {
-            RefreshEditorOccupancy();
-        }
+        version++;
     }
 
-    /// <summary>
-    /// 编辑器模式下扫描所有建筑并记录占用
-    /// </summary>
-    public void RefreshEditorOccupancy()
-    {
-        if (cellData == null) InitializeGrid();
-        
-        // 清理所有网格
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                cellData[x, y].Clear();
-            }
-        }
-
-        BuildingBase[] buildings = FindObjectsOfType<BuildingBase>();
-        foreach (var b in buildings)
-        {
-            UseCells(b.GetOccupyCells(), b.gameObject);
-        }
-    }
-
-    /// <summary>
-    /// 占用指定的网格集合
-    /// </summary>
     public void UseCells(List<Vector2Int> cells, GameObject occupier)
     {
-        if (occupier == null) return;
+        if (occupier == null || cellData == null) return;
 
         foreach (var pos in cells)
         {
@@ -94,12 +61,9 @@ public class MapCells : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 移除指定的网格占用
-    /// </summary>
     public void UnuseCells(List<Vector2Int> cells, GameObject occupier)
     {
-        if (occupier == null) return;
+        if (occupier == null || cellData == null) return;
 
         foreach (var pos in cells)
         {
@@ -113,60 +77,64 @@ public class MapCells : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 检测给定的网格集合中是否有任何一个已被占用
-    /// </summary>
     public bool IsUse(List<Vector2Int> cells)
     {
+        if (cellData == null) return true;
+
         foreach (var pos in cells)
         {
             int x = pos.x;
             int y = pos.y;
 
-            if (!IsInRange(x, y)) return true; // 越界视为不可用
+            if (!IsInRange(x, y)) return true;
             if (cellData[x, y].Count > 0) return true;
         }
         return false;
     }
+
     public bool IsUse(Vector2Int cell)
     {
+        if (cellData == null || !IsInRange(cell.x, cell.y)) return false;
         return cellData[cell.x, cell.y].Count > 0;
     }
 
-    /// <summary>
-    /// 获取特定网格的所有占用对象列表
-    /// </summary>
     public List<GameObject> GetOccupiers(int x, int y)
     {
         if (cellData == null || !IsInRange(x, y)) return new List<GameObject>();
-        
-        // 将 HashSet 转换为 List 返回
         return new List<GameObject>(cellData[x, y]);
     }
+
+    public int GetOccupierCount(int x, int y)
+    {
+        if (cellData == null || !IsInRange(x, y)) return 0;
+        return cellData[x, y].Count;
+    }
+
     public List<GameObject> GetOccupiers(List<Vector2Int> cells)
     {
         if (cellData == null) return new List<GameObject>();
-        List<GameObject> objs = new List<GameObject>();
 
-        foreach(var pos in cells)
+        List<GameObject> objs = new List<GameObject>();
+        foreach (var pos in cells)
         {
-            if(IsInRange(pos.x, pos.y))
-                foreach(var obj in cellData[pos.x, pos.y])
+            if (IsInRange(pos.x, pos.y))
+            {
+                foreach (var obj in cellData[pos.x, pos.y])
                 {
                     objs.Add(obj);
                 }
+            }
         }
 
         return objs;
     }
 
-
-    private bool IsInRange(int x, int y)
+    public bool IsInRange(int x, int y)
     {
         return x >= 0 && x < width && y >= 0 && y < height;
     }
 
-
+#if UNITY_EDITOR
     void OnValidate()
     {
         InitializeGrid();
@@ -177,4 +145,5 @@ public class MapCells : MonoBehaviour
             return;
         }
     }
+#endif
 }

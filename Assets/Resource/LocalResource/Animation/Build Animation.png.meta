@@ -93,6 +93,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -100,12 +126,12 @@ TextureImporter:
       name: Build Animation_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 5
         y: 336
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 218
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -123,10 +149,10 @@ TextureImporter:
         serializedVersion: 2
         x: 240
         y: 336
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 221
+        height: 77
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -142,12 +168,12 @@ TextureImporter:
       name: Build Animation_2
       rect:
         serializedVersion: 2
-        x: 480
+        x: 499
         y: 336
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 210
+        height: 130
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -163,12 +189,12 @@ TextureImporter:
       name: Build Animation_3
       rect:
         serializedVersion: 2
-        x: 720
+        x: 762
         y: 336
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 198
+        height: 166
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -184,12 +210,12 @@ TextureImporter:
       name: Build Animation_4
       rect:
         serializedVersion: 2
-        x: 960
+        x: 1002
         y: 336
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 198
+        height: 163
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -205,12 +231,12 @@ TextureImporter:
       name: Build Animation_5
       rect:
         serializedVersion: 2
-        x: 0
+        x: 42
         y: 168
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 198
+        height: 159
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -226,12 +252,12 @@ TextureImporter:
       name: Build Animation_6
       rect:
         serializedVersion: 2
-        x: 240
+        x: 282
         y: 168
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 198
+        height: 159
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -247,12 +273,12 @@ TextureImporter:
       name: Build Animation_7
       rect:
         serializedVersion: 2
-        x: 480
+        x: 522
         y: 168
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 198
+        height: 159
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -268,12 +294,12 @@ TextureImporter:
       name: Build Animation_8
       rect:
         serializedVersion: 2
-        x: 720
+        x: 762
         y: 168
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 198
+        height: 159
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -289,12 +315,12 @@ TextureImporter:
       name: Build Animation_9
       rect:
         serializedVersion: 2
-        x: 960
+        x: 1002
         y: 168
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 198
+        height: 159
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -310,12 +336,12 @@ TextureImporter:
       name: Build Animation_10
       rect:
         serializedVersion: 2
-        x: 0
+        x: 42
         y: 0
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 198
+        height: 159
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -331,12 +357,12 @@ TextureImporter:
       name: Build Animation_11
       rect:
         serializedVersion: 2
-        x: 240
+        x: 282
         y: 0
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 198
+        height: 159
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -352,12 +378,12 @@ TextureImporter:
       name: Build Animation_12
       rect:
         serializedVersion: 2
-        x: 480
+        x: 522
         y: 0
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 198
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -373,12 +399,12 @@ TextureImporter:
       name: Build Animation_13
       rect:
         serializedVersion: 2
-        x: 720
+        x: 762
         y: 0
-        width: 240
-        height: 168
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 198
+        height: 165
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

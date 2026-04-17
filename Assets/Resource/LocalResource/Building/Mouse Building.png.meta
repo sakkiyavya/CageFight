@@ -93,257 +93,304 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Barracks1
+      name: Mouse Building_0
       rect:
         serializedVersion: 2
         x: 33
         y: 850
         width: 256
         height: 267
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92dbbd2a177a8e946a3d59443f841339
-      internalID: 2004181113
+      spriteID: a5b74350c96bd0443bddbcbe6c0c31d9
+      internalID: -1478765817
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Barracks2
+      name: Mouse Building_1
       rect:
         serializedVersion: 2
         x: 310
         y: 832
         width: 286
         height: 333
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0a57b14a5e6e7a4ba3311e3f2f50f76
-      internalID: 869973188
+      spriteID: 82796f624dbb39b4db5d113f79928259
+      internalID: -1158796470
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Barracks3
+      name: Mouse Building_2
       rect:
         serializedVersion: 2
         x: 597
         y: 825
         width: 307
         height: 375
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a4bbd481b8c8274a9c7e01f5a6df5fe
-      internalID: -129916528
+      spriteID: 6ebd3066df000be47809d50d04a1fc57
+      internalID: 1600589616
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: base1
+      name: Mouse Building_3
       rect:
         serializedVersion: 2
         x: 903
         y: 809
         width: 293
         height: 220
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e11ce554d0de164eaa46d270772d32a
-      internalID: -582943655
+      spriteID: 9a368d0a9824cf54989fb3064bfc41cf
+      internalID: 1258555925
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: base2
+      name: Mouse Building_4
       rect:
         serializedVersion: 2
         x: 8
         y: 410
         width: 280
         height: 299
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe11f58a22d6c7a4e882509564de5851
-      internalID: -707985311
+      spriteID: 3f5b6066a6aefd048bbd8325571c3793
+      internalID: 1645356504
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: base3
+      name: Mouse Building_5
       rect:
         serializedVersion: 2
         x: 311
-        y: 413
+        y: 411
         width: 287
         height: 379
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 988a34a3204bcba42a8ca77778763ed7
-      internalID: -2006286318
+      spriteID: afe13d5e8beddd346851dae343e5380a
+      internalID: -1844087040
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dark barracks1
+      name: Mouse Building_6
       rect:
         serializedVersion: 2
         x: 611
         y: 410
         width: 286
         height: 344
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3fdc74aa2367d324795e4fe3c144a0ce
-      internalID: -2072261342
+      spriteID: d26b9f8548eacbf41af2f29089f70558
+      internalID: -1873336656
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dark barracks2
+      name: Mouse Building_7
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 407
+        width: 10
+        height: 10
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 170d91dfae623684ca73c0debec69aaf
+      internalID: -1337979249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mouse Building_8
       rect:
         serializedVersion: 2
         x: 906
-        y: 411
+        y: 409
         width: 294
         height: 384
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dfb99992a65d9064c995312c9bb96164
-      internalID: 220777526
+      spriteID: a59016614c195e945914ef7f04fd91ae
+      internalID: -732045681
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dark barracks3
+      name: Mouse Building_9
       rect:
         serializedVersion: 2
         x: 5
         y: 9
         width: 300
         height: 387
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 06bac749a3b77824eabb558cd7f1cc6b
-      internalID: -27746319
+      spriteID: 3ab031c1ce1c6e24b94b1f49fe7eab05
+      internalID: -2077677749
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sentry tower1
+      name: Mouse Building_10
       rect:
         serializedVersion: 2
         x: 323
         y: 19
         width: 261
         height: 324
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2dd0afd18be4bd945991ab4bdf49d549
-      internalID: -1859425778
+      spriteID: 9636d589f72343c47ab0ef59ab2a7401
+      internalID: 612971131
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sentry tower2
+      name: Mouse Building_11
       rect:
         serializedVersion: 2
         x: 623
-        y: 31
+        y: 29
         width: 260
         height: 319
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e83cb0550a7636448b30b5bf613471c1
-      internalID: -295883016
+      spriteID: 44046a3978ca32447953c6fa997e697e
+      internalID: -95217447
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sentry tower3
+      name: Mouse Building_12
       rect:
         serializedVersion: 2
         x: 925
         y: 27
         width: 262
         height: 322
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2769e7b050e8e8b498cece3b64cbcb4b
-      internalID: 1699275588
+      spriteID: 8299953162233574c9c7a0505fed71da
+      internalID: 1876447159
       vertices: []
       indices: 
       edges: []
@@ -359,19 +406,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Barracks1: 2004181113
-      Barracks2: 869973188
-      Barracks3: -129916528
-      Dark barracks1: -2072261342
-      Dark barracks2: 220777526
-      Dark barracks3: -27746319
+      Mouse Building_0: -1478765817
+      Mouse Building_1: -1158796470
+      Mouse Building_10: 612971131
+      Mouse Building_11: -95217447
+      Mouse Building_12: 1876447159
+      Mouse Building_2: 1600589616
+      Mouse Building_3: 1258555925
+      Mouse Building_4: 1645356504
+      Mouse Building_5: -1844087040
+      Mouse Building_6: -1873336656
       Mouse Building_7: -1337979249
-      Sentry tower1: -1859425778
-      Sentry tower2: -295883016
-      Sentry tower3: 1699275588
-      base1: -582943655
-      base2: -707985311
-      base3: -2006286318
+      Mouse Building_8: -732045681
+      Mouse Building_9: -2077677749
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
