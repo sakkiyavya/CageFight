@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -101,18 +101,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 250.5
-        width: 225
-        height: 250.5
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 400
+        width: 350
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 588ed1d85a058c447aa493561764b766
-      internalID: 1788016230
+      spriteID: 8f12bfc37d550b044aaffca1edab8cd4
+      internalID: -701776219
       vertices: []
       indices: 
       edges: []
@@ -121,19 +121,19 @@ TextureImporter:
       name: Giant potion_1
       rect:
         serializedVersion: 2
-        x: 225
-        y: 250.5
-        width: 225
-        height: 250.5
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 350
+        y: 400
+        width: 350
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e797485e30e90545a16f877787feec1
-      internalID: -1392768109
+      spriteID: 35c68e64f2c5fa64eb76d6510b239099
+      internalID: 358791166
       vertices: []
       indices: 
       edges: []
@@ -142,19 +142,19 @@ TextureImporter:
       name: Giant potion_2
       rect:
         serializedVersion: 2
-        x: 450
-        y: 250.5
-        width: 225
-        height: 250.5
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 700
+        y: 400
+        width: 350
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4205a313a5a5db846952631c2a2e6f1c
-      internalID: 510249602
+      spriteID: afbc7378218aaa24aa25520f2a2d9280
+      internalID: -1327448928
       vertices: []
       indices: 
       edges: []
@@ -163,19 +163,19 @@ TextureImporter:
       name: Giant potion_3
       rect:
         serializedVersion: 2
-        x: 675
-        y: 250.5
-        width: 225
-        height: 250.5
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1050
+        y: 400
+        width: 350
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 396fd32357e523e44b3f8d849d4a92f7
-      internalID: -728453489
+      spriteID: 2da6ca4d4e9306b43ae2473ba7f07a01
+      internalID: 777886891
       vertices: []
       indices: 
       edges: []
@@ -185,18 +185,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0.5
-        width: 225
-        height: 250.5
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 0
+        width: 350
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c50498e777deea4d9cb495fea2a851b
-      internalID: -1464835443
+      spriteID: 2f1a5c760abaea040ab5b9c689e614cf
+      internalID: -538965310
       vertices: []
       indices: 
       edges: []
@@ -205,19 +205,19 @@ TextureImporter:
       name: Giant potion_5
       rect:
         serializedVersion: 2
-        x: 225
-        y: 0.5
-        width: 225
-        height: 250.5
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 350
+        y: 0
+        width: 350
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 464582526aada904690e48d6721bd13c
-      internalID: -1612540981
+      spriteID: 03fd4b3e32773d84dadc654c183dbcb1
+      internalID: 579066067
       vertices: []
       indices: 
       edges: []
@@ -226,19 +226,19 @@ TextureImporter:
       name: Giant potion_6
       rect:
         serializedVersion: 2
-        x: 450
-        y: 0.5
-        width: 225
-        height: 250.5
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 700
+        y: 0
+        width: 350
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cbf23e67cf1d64b47aeb6bc6f26375e2
-      internalID: 785622916
+      spriteID: 19278bd6f561bc741ad6699ff0395bb0
+      internalID: 237674608
       vertices: []
       indices: 
       edges: []
@@ -247,19 +247,19 @@ TextureImporter:
       name: Giant potion_7
       rect:
         serializedVersion: 2
-        x: 675
-        y: 0.5
-        width: 225
-        height: 250.5
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1050
+        y: 0
+        width: 350
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23e161ae55dd6cf458bdf4338db9fac2
-      internalID: -2012687738
+      spriteID: 21ddce67206313241976fcf669734070
+      internalID: 761360275
       vertices: []
       indices: 
       edges: []
@@ -275,14 +275,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Giant potion_0: 1788016230
-      Giant potion_1: -1392768109
-      Giant potion_2: 510249602
-      Giant potion_3: -728453489
-      Giant potion_4: -1464835443
-      Giant potion_5: -1612540981
-      Giant potion_6: 785622916
-      Giant potion_7: -2012687738
+      Giant potion_0: -701776219
+      Giant potion_1: 358791166
+      Giant potion_2: -1327448928
+      Giant potion_3: 777886891
+      Giant potion_4: -538965310
+      Giant potion_5: 579066067
+      Giant potion_6: 237674608
+      Giant potion_7: 761360275
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 150
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,12 +69,12 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
-    crunchedCompression: 0
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0
@@ -101,18 +101,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 285
-        width: 240
-        height: 285
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        y: 1800
+        width: 504
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6301a3f15d3c46409304891f9bd820d
-      internalID: -199877436
+      spriteID: 57695d049dfac3346ad488e55c4c2f25
+      internalID: 1608385683
       vertices: []
       indices: 
       edges: []
@@ -121,19 +121,19 @@ TextureImporter:
       name: Mouse engineer-move_1
       rect:
         serializedVersion: 2
-        x: 240
-        y: 285
-        width: 240
-        height: 285
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 504
+        y: 1800
+        width: 504
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0256c8bba1e3fe44081eeee30d25b233
-      internalID: -377060710
+      spriteID: 9356a5103ce3c914992840bf077bfef7
+      internalID: 641774203
       vertices: []
       indices: 
       edges: []
@@ -142,19 +142,19 @@ TextureImporter:
       name: Mouse engineer-move_2
       rect:
         serializedVersion: 2
-        x: 480
-        y: 285
-        width: 240
-        height: 285
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 1008
+        y: 1800
+        width: 504
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79309e4eb4170ea41b9aec0237a5c72f
-      internalID: -1823740690
+      spriteID: 72c9d949989d0e645984d140b6aea954
+      internalID: 742019000
       vertices: []
       indices: 
       edges: []
@@ -163,19 +163,19 @@ TextureImporter:
       name: Mouse engineer-move_3
       rect:
         serializedVersion: 2
-        x: 720
-        y: 285
-        width: 240
-        height: 285
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 1200
+        width: 504
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 275e0cc47d5b8c7468b1f59a0e0587b5
-      internalID: -484003053
+      spriteID: f2a16354b8db61044ad8e303eebb1166
+      internalID: 1334374674
       vertices: []
       indices: 
       edges: []
@@ -184,19 +184,19 @@ TextureImporter:
       name: Mouse engineer-move_4
       rect:
         serializedVersion: 2
-        x: 960
-        y: 285
-        width: 240
-        height: 285
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 504
+        y: 1200
+        width: 504
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a877e852de7a6d24ca13c95b01389213
-      internalID: 486152019
+      spriteID: 78a2de2bb29ad8a43b404eed916f4705
+      internalID: -684296770
       vertices: []
       indices: 
       edges: []
@@ -205,19 +205,19 @@ TextureImporter:
       name: Mouse engineer-move_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 240
-        height: 285
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 1008
+        y: 1200
+        width: 504
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 090b5c427e73ff74196a236df810bef0
-      internalID: -980280035
+      spriteID: 3752a439099fd6e4c8d7f0b1b52dee63
+      internalID: -841301776
       vertices: []
       indices: 
       edges: []
@@ -226,19 +226,19 @@ TextureImporter:
       name: Mouse engineer-move_6
       rect:
         serializedVersion: 2
-        x: 240
-        y: 0
-        width: 240
-        height: 285
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 600
+        width: 504
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1aa699d71a22d8e4c82ef21de13bf91a
-      internalID: 773282510
+      spriteID: 6fdf01542e578d4408f9d67edf0d7a16
+      internalID: -1084231039
       vertices: []
       indices: 
       edges: []
@@ -247,19 +247,19 @@ TextureImporter:
       name: Mouse engineer-move_7
       rect:
         serializedVersion: 2
-        x: 480
-        y: 0
-        width: 240
-        height: 285
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 504
+        y: 600
+        width: 504
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce324771eaa59d64380f638c82c8ce7a
-      internalID: -426104003
+      spriteID: 60970d04e66648f4bac2bb2794766559
+      internalID: 1394206022
       vertices: []
       indices: 
       edges: []
@@ -268,19 +268,19 @@ TextureImporter:
       name: Mouse engineer-move_8
       rect:
         serializedVersion: 2
-        x: 720
-        y: 0
-        width: 240
-        height: 285
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 1008
+        y: 600
+        width: 504
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e505f768b087f8a4ebd0ef6660686e61
-      internalID: -1071509523
+      spriteID: d0a6e74e91b0aba4183c60dd8a67e9fe
+      internalID: -383868139
       vertices: []
       indices: 
       edges: []
@@ -289,19 +289,19 @@ TextureImporter:
       name: Mouse engineer-move_9
       rect:
         serializedVersion: 2
-        x: 960
+        x: 0
         y: 0
-        width: 240
-        height: 285
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 504
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fbc0e5d4eb2ff204d96e9d75da98322c
-      internalID: -1410253047
+      spriteID: d3bbd52690ea0634d9d9bad4d1c24096
+      internalID: 1560199412
       vertices: []
       indices: 
       edges: []
@@ -317,16 +317,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Mouse engineer-move_0: -199877436
-      Mouse engineer-move_1: -377060710
-      Mouse engineer-move_2: -1823740690
-      Mouse engineer-move_3: -484003053
-      Mouse engineer-move_4: 486152019
-      Mouse engineer-move_5: -980280035
-      Mouse engineer-move_6: 773282510
-      Mouse engineer-move_7: -426104003
-      Mouse engineer-move_8: -1071509523
-      Mouse engineer-move_9: -1410253047
+      Mouse engineer-move_0: 1608385683
+      Mouse engineer-move_1: 641774203
+      Mouse engineer-move_2: 742019000
+      Mouse engineer-move_3: 1334374674
+      Mouse engineer-move_4: -684296770
+      Mouse engineer-move_5: -841301776
+      Mouse engineer-move_6: -1084231039
+      Mouse engineer-move_7: 1394206022
+      Mouse engineer-move_8: -383868139
+      Mouse engineer-move_9: 1560199412
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

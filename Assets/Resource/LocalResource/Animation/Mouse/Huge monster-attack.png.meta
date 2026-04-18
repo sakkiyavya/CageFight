@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b587929064ed4d14a9ed6dc7edd4b705
+guid: c5fbb11ac275ea0468c266a11e5d8a38
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 75
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,12 +69,12 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
-    crunchedCompression: 0
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Huge monster-attack_0
+      name: 1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 746.25
-        width: 399
-        height: 248.75
+        y: 1491.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9821d4f54529470498dc591e072ac49b
-      internalID: -1832084956
+      spriteID: f2bc2352796bea542ab34af52bdbb3da
+      internalID: 1338848828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_1
+      name: 1_1
       rect:
         serializedVersion: 2
-        x: 399
-        y: 746.25
-        width: 399
-        height: 248.75
+        x: 598
+        y: 1491.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3eb14c082e3593446ac15b29cb9b7582
-      internalID: 1210155495
+      spriteID: 33616aa56bfc46a4f97d876e415e6797
+      internalID: -1376844642
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_2
+      name: 1_2
       rect:
         serializedVersion: 2
-        x: 798
-        y: 746.25
-        width: 399
-        height: 248.75
+        x: 1196
+        y: 1491.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68bc07df1975c8d49b714187e1f8e89b
-      internalID: 21050108
+      spriteID: ec315dc29de7dcb44a90b00a11db9efe
+      internalID: 1367009162
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_3
+      name: 1_3
       rect:
         serializedVersion: 2
-        x: 1197
-        y: 746.25
-        width: 399
-        height: 248.75
+        x: 1794
+        y: 1491.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,41 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad43430314cb1d241b1a2ef06f9b6e77
-      internalID: -844650056
+      spriteID: 6ecef9b296317614b9da1b5dbd909f5f
+      internalID: -1667045413
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_4
-      rect:
-        serializedVersion: 2
-        x: 1596
-        y: 746.25
-        width: 399
-        height: 248.75
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 51248768158ae204d84583829da6aef5
-      internalID: 193837232
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Huge monster-attack_5
+      name: 1_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 498.25
-        width: 399
-        height: 248.75
+        y: 1119.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,20 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e0b17309fe46ce42a193ca7d439942a
-      internalID: 851261525
+      spriteID: c36a3e3db0fa7754cab27e01a408c900
+      internalID: 968583617
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_6
+      name: 1_5
       rect:
         serializedVersion: 2
-        x: 399
-        y: 498.25
-        width: 399
-        height: 248.75
+        x: 598
+        y: 1119.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +216,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cfa529653e7aa0d4ea58d84020d53fcb
-      internalID: -288030613
+      spriteID: 1bfc0707b5278e84ea78057c6dbee4f3
+      internalID: 940623510
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_7
+      name: 1_6
       rect:
         serializedVersion: 2
-        x: 798
-        y: 498.25
-        width: 399
-        height: 248.75
+        x: 1196
+        y: 1119.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a32b9d1a35b76b74cac8e184fbb1297e
-      internalID: -1253965518
+      spriteID: 362344686d87b8a4695e8e5ce55e0df5
+      internalID: 1527599953
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_8
+      name: 1_7
       rect:
         serializedVersion: 2
-        x: 1197
-        y: 498.25
-        width: 399
-        height: 248.75
+        x: 1794
+        y: 1119.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,41 +258,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c1e3c0c57618874bb8bf7bd5180cf87
-      internalID: -1506120661
+      spriteID: 4558620adf6ee2243b727f19a85329e6
+      internalID: 1370343636
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_9
-      rect:
-        serializedVersion: 2
-        x: 1596
-        y: 498.25
-        width: 399
-        height: 248.75
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1632d998598cb8b449f9d275a815c52b
-      internalID: 1529288982
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Huge monster-attack_10
+      name: 1_8
       rect:
         serializedVersion: 2
         x: 0
-        y: 250.25
-        width: 399
-        height: 248.75
+        y: 747.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,20 +279,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77b91f0d88ee23849842f04168b3681c
-      internalID: 4394049
+      spriteID: 5a6e5b0eb8131fe4c9f13b768cf7a1d8
+      internalID: -50384082
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_11
+      name: 1_9
       rect:
         serializedVersion: 2
-        x: 399
-        y: 250.25
-        width: 399
-        height: 248.75
+        x: 598
+        y: 747.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,20 +300,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36a7dbd6af9a389489a1ace0b74ae0e6
-      internalID: 1069664427
+      spriteID: 2c1869964981e6340be889383b95a622
+      internalID: -2024193475
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_12
+      name: 1_10
       rect:
         serializedVersion: 2
-        x: 798
-        y: 250.25
-        width: 399
-        height: 248.75
+        x: 1196
+        y: 747.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,20 +321,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dfad9384e5de8ba4ca64823ed8e3734e
-      internalID: -1150938564
+      spriteID: c228e43ee9b3f984898310b227c241b8
+      internalID: 1022223176
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_13
+      name: 1_11
       rect:
         serializedVersion: 2
-        x: 1197
-        y: 250.25
-        width: 399
-        height: 248.75
+        x: 1794
+        y: 747.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -384,41 +342,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2ad77462c6ba8943bd602e9b74e4205
-      internalID: -249538385
+      spriteID: 6cd1310dc00944c468174b4e6dc8d4d1
+      internalID: 2140363578
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_14
-      rect:
-        serializedVersion: 2
-        x: 1596
-        y: 250.25
-        width: 399
-        height: 248.75
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 49cb5f80720b9494fa5db91501c08e41
-      internalID: -1396780694
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Huge monster-attack_15
+      name: 1_12
       rect:
         serializedVersion: 2
         x: 0
-        y: 2.25
-        width: 399
-        height: 248.75
+        y: 375.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -426,20 +363,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa6e286b3f3ae914b8054aac6437a40a
-      internalID: -1182323737
+      spriteID: 1803d818384bf3c43909bc00d80030d0
+      internalID: -248887444
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_16
+      name: 1_13
       rect:
         serializedVersion: 2
-        x: 399
-        y: 2.25
-        width: 399
-        height: 248.75
+        x: 598
+        y: 375.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -447,20 +384,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5ba98efcc1cbee4ba7f1992311c9c53
-      internalID: -106068312
+      spriteID: 8802424816387d647bb081b091839558
+      internalID: 1361561283
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_17
+      name: 1_14
       rect:
         serializedVersion: 2
-        x: 798
-        y: 2.25
-        width: 399
-        height: 248.75
+        x: 1196
+        y: 375.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -468,20 +405,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31c8f172c7bd25c42832b33bc251c1b6
-      internalID: 1990228055
+      spriteID: 124cd2fef40e42d49a2b880abffe8f5c
+      internalID: 1745743692
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_18
+      name: 1_15
       rect:
         serializedVersion: 2
-        x: 1197
-        y: 2.25
-        width: 399
-        height: 248.75
+        x: 1794
+        y: 375.2
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -489,20 +426,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7e6a349da83bbe45b7c5731e982e898
-      internalID: -670909628
+      spriteID: e6d61e6d7f7126343941dd896dd92527
+      internalID: 1257042480
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-attack_19
+      name: 1_16
       rect:
         serializedVersion: 2
-        x: 1596
-        y: 2.25
-        width: 399
-        height: 248.75
+        x: 0
+        y: 3.2000122
+        width: 598
+        height: 372.8
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -510,8 +447,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa10f3323981b6b4f82128c1c7417014
-      internalID: 1710659996
+      spriteID: 06830778664a6df4f961fdf052e7a32d
+      internalID: -733801288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1_17
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 3.2000122
+        width: 598
+        height: 372.8
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6823cd1239a4e474bb04b2742e2a5522
+      internalID: 630605432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1_18
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 3.2000122
+        width: 598
+        height: 372.8
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e66387f2eaa1255418cd9027532f590a
+      internalID: -614947792
       vertices: []
       indices: 
       edges: []
@@ -527,26 +506,25 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Huge monster-attack_0: -1832084956
-      Huge monster-attack_1: 1210155495
-      Huge monster-attack_10: 4394049
-      Huge monster-attack_11: 1069664427
-      Huge monster-attack_12: -1150938564
-      Huge monster-attack_13: -249538385
-      Huge monster-attack_14: -1396780694
-      Huge monster-attack_15: -1182323737
-      Huge monster-attack_16: -106068312
-      Huge monster-attack_17: 1990228055
-      Huge monster-attack_18: -670909628
-      Huge monster-attack_19: 1710659996
-      Huge monster-attack_2: 21050108
-      Huge monster-attack_3: -844650056
-      Huge monster-attack_4: 193837232
-      Huge monster-attack_5: 851261525
-      Huge monster-attack_6: -288030613
-      Huge monster-attack_7: -1253965518
-      Huge monster-attack_8: -1506120661
-      Huge monster-attack_9: 1529288982
+      1_0: 1338848828
+      1_1: -1376844642
+      1_10: 1022223176
+      1_11: 2140363578
+      1_12: -248887444
+      1_13: 1361561283
+      1_14: 1745743692
+      1_15: 1257042480
+      1_16: -733801288
+      1_17: 630605432
+      1_18: -614947792
+      1_2: 1367009162
+      1_3: -1667045413
+      1_4: 968583617
+      1_5: 940623510
+      1_6: 1527599953
+      1_7: 1370343636
+      1_8: -50384082
+      1_9: -2024193475
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

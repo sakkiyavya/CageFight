@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6c01f5e629182904aa1fcb46115d76bb
+guid: 9076c7cbdb19f25429e9c0cd419e0946
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 35
+  spritePixelsToUnits: 95
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,12 +69,12 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
-    crunchedCompression: 0
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Boulder-attack_0
+      name: Boulder-attack 1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 654.75
-        width: 182
-        height: 218.25
+        y: 1800
+        width: 500
+        height: 600
       alignment: 9
       pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc71a8b8f195f5a48aa0d484ff8b799a
-      internalID: 1106363169
+      spriteID: 2b4611028b0186243a0349243768fb40
+      internalID: 2093593702
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boulder-attack_1
+      name: Boulder-attack 1_1
       rect:
         serializedVersion: 2
-        x: 182
-        y: 654.75
-        width: 182
-        height: 218.25
+        x: 500
+        y: 1800
+        width: 500
+        height: 600
       alignment: 9
       pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9723f658330dd24084c9d047c8a7ddf
-      internalID: 985015470
+      spriteID: 46212efb6bfe3094084534e7998536b2
+      internalID: 40062443
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boulder-attack_2
+      name: Boulder-attack 1_2
       rect:
         serializedVersion: 2
-        x: 364
-        y: 654.75
-        width: 182
-        height: 218.25
+        x: 1000
+        y: 1800
+        width: 500
+        height: 600
       alignment: 9
       pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 115535c232ca31a4685fd75afe4cc722
-      internalID: -69808497
+      spriteID: 0ae8d3df21462584aabde9efa03e7ecd
+      internalID: 858396330
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boulder-attack_3
+      name: Boulder-attack 1_3
       rect:
         serializedVersion: 2
-        x: 546
-        y: 654.75
-        width: 182
-        height: 218.25
+        x: 1500
+        y: 1800
+        width: 500
+        height: 600
       alignment: 9
       pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,104 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f3b5fed3018eb84aad11b3e0d87e049
-      internalID: -1232521718
+      spriteID: 92e90918bcbab56438095cd658fed291
+      internalID: 2113034628
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boulder-attack_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 436.75
-        width: 182
-        height: 218.25
-      alignment: 9
-      pivot: {x: 0.5, y: 0.09}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d7d4fba461489043a3c6ea284f2b896
-      internalID: 272880153
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boulder-attack_5
-      rect:
-        serializedVersion: 2
-        x: 182
-        y: 436.75
-        width: 182
-        height: 218.25
-      alignment: 9
-      pivot: {x: 0.5, y: 0.09}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dd2f6575050450e45ab20e510194caf3
-      internalID: -166025440
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boulder-attack_6
-      rect:
-        serializedVersion: 2
-        x: 364
-        y: 436.75
-        width: 182
-        height: 218.25
-      alignment: 9
-      pivot: {x: 0.5, y: 0.09}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4c8c212d7bd246348a551308f244ceb7
-      internalID: 169054892
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boulder-attack_7
-      rect:
-        serializedVersion: 2
-        x: 546
-        y: 436.75
-        width: 182
-        height: 218.25
-      alignment: 9
-      pivot: {x: 0.5, y: 0.09}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e8ac9188d2b032c4f9ebf18c2dd51f4c
-      internalID: 541903506
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boulder-attack_8
+      name: Boulder-attack 1_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 218.75
-        width: 182
-        height: 218.25
+        y: 1200
+        width: 500
+        height: 600
       alignment: 9
       pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,20 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2aab918e27261f4ca126e2703788aac
-      internalID: -309202156
+      spriteID: b4b4a7b034488b648aba62076b189122
+      internalID: -1536975086
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boulder-attack_9
+      name: Boulder-attack 1_5
       rect:
         serializedVersion: 2
-        x: 182
-        y: 218.75
-        width: 182
-        height: 218.25
+        x: 500
+        y: 1200
+        width: 500
+        height: 600
       alignment: 9
       pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,20 +216,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 639925ce52513e54ca72dd748f0227a2
-      internalID: 1892695599
+      spriteID: 6a388f1d7fe11c549bd264d3edc31219
+      internalID: 2080991250
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boulder-attack_10
+      name: Boulder-attack 1_6
       rect:
         serializedVersion: 2
-        x: 364
-        y: 218.75
-        width: 182
-        height: 218.25
+        x: 1000
+        y: 1200
+        width: 500
+        height: 600
       alignment: 9
       pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb50ce4644174704ca59cdb75bec2ffd
-      internalID: -1639401471
+      spriteID: 2dcfb259f40d08f47952e35669847b48
+      internalID: -1020632152
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boulder-attack_11
+      name: Boulder-attack 1_7
       rect:
         serializedVersion: 2
-        x: 546
-        y: 218.75
-        width: 182
-        height: 218.25
+        x: 1500
+        y: 1200
+        width: 500
+        height: 600
       alignment: 9
       pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,20 +258,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d57074d59267ca649b1a160c0bfa8872
-      internalID: 110050661
+      spriteID: 4be3c7f2610fa0e45855391444341af7
+      internalID: 463133959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boulder-attack_12
+      name: Boulder-attack 1_8
       rect:
         serializedVersion: 2
         x: 0
-        y: 0.75
-        width: 182
-        height: 218.25
+        y: 600
+        width: 500
+        height: 600
       alignment: 9
       pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,20 +279,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0f3cfa0ae037534c9f210222cf7c7c0
-      internalID: 1137106173
+      spriteID: e3c29c9974af92c42a6f6c266f967966
+      internalID: -478043403
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boulder-attack_13
+      name: Boulder-attack 1_9
       rect:
         serializedVersion: 2
-        x: 182
-        y: 0.75
-        width: 182
-        height: 218.25
+        x: 500
+        y: 600
+        width: 500
+        height: 600
       alignment: 9
       pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -384,20 +300,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9647fd3a7128497448d9cda3a70cb291
-      internalID: 552151740
+      spriteID: 9b00b8a7ffc756e4abd6f116e2acd857
+      internalID: 311697638
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boulder-attack_14
+      name: Boulder-attack 1_10
       rect:
         serializedVersion: 2
-        x: 364
-        y: 0.75
-        width: 182
-        height: 218.25
+        x: 1000
+        y: 600
+        width: 500
+        height: 600
       alignment: 9
       pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -405,20 +321,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab93918a6347086499b1d137a171baf5
-      internalID: 828776339
+      spriteID: 6fd9b16a0a312034695549c086a20363
+      internalID: -555330312
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boulder-attack_15
+      name: Boulder-attack 1_11
       rect:
         serializedVersion: 2
-        x: 546
-        y: 0.75
-        width: 182
-        height: 218.25
+        x: 1500
+        y: 600
+        width: 500
+        height: 600
       alignment: 9
       pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -426,8 +342,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 616b46f9745f76447811b6ac1e6733dd
-      internalID: 894614907
+      spriteID: 5b8f815c49356f0409dd843440c8595d
+      internalID: 783704761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boulder-attack 1_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 500
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5c5112ef9737d347993afcbef1468d3
+      internalID: -633187692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boulder-attack 1_13
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 0
+        width: 500
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dccbb18da34e549429dfe925196c5f22
+      internalID: 1128943216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boulder-attack 1_14
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 0
+        width: 500
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99a8cbaf7df259e4c9a4efc391dc1ea1
+      internalID: 1792641127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boulder-attack 1_15
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 0
+        width: 500
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44a849aba1952ec48803cb3e2d08c5b0
+      internalID: 151315028
       vertices: []
       indices: 
       edges: []
@@ -443,22 +443,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Boulder-attack_0: 1106363169
-      Boulder-attack_1: 985015470
-      Boulder-attack_10: -1639401471
-      Boulder-attack_11: 110050661
-      Boulder-attack_12: 1137106173
-      Boulder-attack_13: 552151740
-      Boulder-attack_14: 828776339
-      Boulder-attack_15: 894614907
-      Boulder-attack_2: -69808497
-      Boulder-attack_3: -1232521718
-      Boulder-attack_4: 272880153
-      Boulder-attack_5: -166025440
-      Boulder-attack_6: 169054892
-      Boulder-attack_7: 541903506
-      Boulder-attack_8: -309202156
-      Boulder-attack_9: 1892695599
+      Boulder-attack 1_0: 2093593702
+      Boulder-attack 1_1: 40062443
+      Boulder-attack 1_10: -555330312
+      Boulder-attack 1_11: 783704761
+      Boulder-attack 1_12: -633187692
+      Boulder-attack 1_13: 1128943216
+      Boulder-attack 1_14: 1792641127
+      Boulder-attack 1_15: 151315028
+      Boulder-attack 1_2: 858396330
+      Boulder-attack 1_3: 2113034628
+      Boulder-attack 1_4: -1536975086
+      Boulder-attack 1_5: 2080991250
+      Boulder-attack 1_6: -1020632152
+      Boulder-attack 1_7: 463133959
+      Boulder-attack 1_8: -478043403
+      Boulder-attack 1_9: 311697638
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

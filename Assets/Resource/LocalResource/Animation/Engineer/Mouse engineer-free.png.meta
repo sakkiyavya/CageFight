@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 75
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,12 +69,12 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
-    crunchedCompression: 0
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0
@@ -101,18 +101,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 300
-        width: 111.5
-        height: 150
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        y: 1800
+        width: 445.33334
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f03504ea70d3eb478f513f833299757
-      internalID: -1686492351
+      spriteID: 5dceb64621b62364c98d5df46a0e3aa2
+      internalID: -2102368743
       vertices: []
       indices: 
       edges: []
@@ -121,19 +121,19 @@ TextureImporter:
       name: Mouse engineer-free_1
       rect:
         serializedVersion: 2
-        x: 111
-        y: 300
-        width: 111.5
-        height: 150
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 445
+        y: 1800
+        width: 445.33334
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0bb49eec1dd872944b356d12dc13c92f
-      internalID: -74902904
+      spriteID: 6d8660b34078a53459fddae6c6fcdab1
+      internalID: 525699383
       vertices: []
       indices: 
       edges: []
@@ -142,19 +142,19 @@ TextureImporter:
       name: Mouse engineer-free_2
       rect:
         serializedVersion: 2
-        x: 222
-        y: 300
-        width: 111.5
-        height: 150
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 890
+        y: 1800
+        width: 445.33334
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb84381f7a3947546b7f8e43cb8ab6b7
-      internalID: -463803197
+      spriteID: aff1fea87d0102d4490b429a7734bd35
+      internalID: 486090566
       vertices: []
       indices: 
       edges: []
@@ -163,19 +163,19 @@ TextureImporter:
       name: Mouse engineer-free_3
       rect:
         serializedVersion: 2
-        x: 333
-        y: 300
-        width: 111.5
-        height: 150
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 1200
+        width: 445.33334
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e12e361cc342ba14289e395fa56df3fc
-      internalID: -1676864662
+      spriteID: f7303cdf515407742aaa97f6ec1b7869
+      internalID: 1686524754
       vertices: []
       indices: 
       edges: []
@@ -184,19 +184,19 @@ TextureImporter:
       name: Mouse engineer-free_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 150
-        width: 111.5
-        height: 150
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 445
+        y: 1200
+        width: 445.33334
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bd406070e478d84d90f958cf0efafb4
-      internalID: -327446117
+      spriteID: d25f2f1422c485c439cc7977483cad38
+      internalID: 2045604680
       vertices: []
       indices: 
       edges: []
@@ -205,19 +205,19 @@ TextureImporter:
       name: Mouse engineer-free_5
       rect:
         serializedVersion: 2
-        x: 111
-        y: 150
-        width: 111.5
-        height: 150
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 890
+        y: 1200
+        width: 445.33334
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 458c5e81e66fc474e8d71ddf3726eac1
-      internalID: -725468977
+      spriteID: afb7dbd8cd135af4e8904f61f55a4004
+      internalID: -266393497
       vertices: []
       indices: 
       edges: []
@@ -226,19 +226,19 @@ TextureImporter:
       name: Mouse engineer-free_6
       rect:
         serializedVersion: 2
-        x: 222
-        y: 150
-        width: 111.5
-        height: 150
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 600
+        width: 445.33334
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 870263ed4282a6944a396847bb2827f9
-      internalID: -2002015693
+      spriteID: a8dbef3eba648e442b8b808d462167f5
+      internalID: 440261535
       vertices: []
       indices: 
       edges: []
@@ -247,19 +247,19 @@ TextureImporter:
       name: Mouse engineer-free_7
       rect:
         serializedVersion: 2
-        x: 333
-        y: 150
-        width: 111.5
-        height: 150
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 445
+        y: 600
+        width: 445.33334
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56b81bb01c801f143b6a5d4ad529ce44
-      internalID: -2047226902
+      spriteID: ebe5e96f601b4fe459db9bdc36955561
+      internalID: 631991762
       vertices: []
       indices: 
       edges: []
@@ -268,19 +268,19 @@ TextureImporter:
       name: Mouse engineer-free_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 111.5
-        height: 150
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 890
+        y: 600
+        width: 445.33334
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63f4a7064790db64cb80f59d10660bf5
-      internalID: -1292706841
+      spriteID: 7dd299133794ef048b9ad22f85a453f4
+      internalID: 348236248
       vertices: []
       indices: 
       edges: []
@@ -289,19 +289,19 @@ TextureImporter:
       name: Mouse engineer-free_9
       rect:
         serializedVersion: 2
-        x: 111
+        x: 0
         y: 0
-        width: 111.5
-        height: 150
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 445.33334
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d76063aeb2cc8b24083400e8542ab4f0
-      internalID: 713822215
+      spriteID: 02d48959ae7e7ef44aec73c48cd806a4
+      internalID: -1176022298
       vertices: []
       indices: 
       edges: []
@@ -310,19 +310,19 @@ TextureImporter:
       name: Mouse engineer-free_10
       rect:
         serializedVersion: 2
-        x: 222
+        x: 445
         y: 0
-        width: 111.5
-        height: 150
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 445.33334
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6c7f9d71824ecc47aeb3d3054f0c693
-      internalID: -1578192027
+      spriteID: 3e1da74ea97610d4ab633c34414e2547
+      internalID: -1558879885
       vertices: []
       indices: 
       edges: []
@@ -331,19 +331,19 @@ TextureImporter:
       name: Mouse engineer-free_11
       rect:
         serializedVersion: 2
-        x: 333
+        x: 890
         y: 0
-        width: 111.5
-        height: 150
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 445.33334
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.07}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b67522888864994495fda4af14fb2ed
-      internalID: -1122260969
+      spriteID: f64a1a3567dab4147a9af6bc1bc6def8
+      internalID: 1699232591
       vertices: []
       indices: 
       edges: []
@@ -359,18 +359,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Mouse engineer-free_0: -1686492351
-      Mouse engineer-free_1: -74902904
-      Mouse engineer-free_10: -1578192027
-      Mouse engineer-free_11: -1122260969
-      Mouse engineer-free_2: -463803197
-      Mouse engineer-free_3: -1676864662
-      Mouse engineer-free_4: -327446117
-      Mouse engineer-free_5: -725468977
-      Mouse engineer-free_6: -2002015693
-      Mouse engineer-free_7: -2047226902
-      Mouse engineer-free_8: -1292706841
-      Mouse engineer-free_9: 713822215
+      Mouse engineer-free_0: -2102368743
+      Mouse engineer-free_1: 525699383
+      Mouse engineer-free_10: -1558879885
+      Mouse engineer-free_11: 1699232591
+      Mouse engineer-free_2: 486090566
+      Mouse engineer-free_3: 1686524754
+      Mouse engineer-free_4: 2045604680
+      Mouse engineer-free_5: -266393497
+      Mouse engineer-free_6: 440261535
+      Mouse engineer-free_7: 631991762
+      Mouse engineer-free_8: 348236248
+      Mouse engineer-free_9: -1176022298
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

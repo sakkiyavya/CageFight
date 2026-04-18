@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4d9799ef22d19154f8836a444ed8c0da
+guid: 1328618cdcc9a0a4084c6b77f404fe36
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 165
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,12 +69,12 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
-    crunchedCompression: 0
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Huge monster-move_0
+      name: Huge monster-move 1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 375
-        width: 338
-        height: 375
+        y: 1800
+        width: 533.3333
+        height: 600
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 263e7afc0cd45634494847aa2b977ceb
-      internalID: -1490822244
+      spriteID: 3f30fb2571695b74695d8efade585498
+      internalID: 561795507
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-move_1
+      name: Huge monster-move 1_1
       rect:
         serializedVersion: 2
-        x: 338
-        y: 375
-        width: 338
-        height: 375
+        x: 533
+        y: 1800
+        width: 533.3333
+        height: 600
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2edd11c6cfacb4b4290143c4c29d7cee
-      internalID: -1557749888
+      spriteID: 8d0694b5254d07f48a4ff5196b3f7518
+      internalID: -1846244556
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-move_2
+      name: Huge monster-move 1_2
       rect:
         serializedVersion: 2
-        x: 676
-        y: 375
-        width: 338
-        height: 375
+        x: 1066
+        y: 1800
+        width: 533.3333
+        height: 600
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7623362a1da30f34989f8a8a613ea284
-      internalID: 870319481
+      spriteID: bd2d11f05c267fd4d922cd2d21c1cea1
+      internalID: 1953775441
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-move_3
+      name: Huge monster-move 1_3
       rect:
         serializedVersion: 2
-        x: 1014
-        y: 375
-        width: 338
-        height: 375
+        x: 0
+        y: 1200
+        width: 533.3333
+        height: 600
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 537439866ef0bce41a16f01ceba2d55f
-      internalID: -1086255620
+      spriteID: 7f35ed78e1d65f1449ac0239bed90305
+      internalID: -1392941782
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-move_4
+      name: Huge monster-move 1_4
       rect:
         serializedVersion: 2
-        x: 1352
-        y: 375
-        width: 338
-        height: 375
+        x: 533
+        y: 1200
+        width: 533.3333
+        height: 600
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +195,104 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 113eb12257112f94e9dc3ae0dceefd90
-      internalID: 1245020499
+      spriteID: 91f0a31f03dc7354a8f4f25d68e8a2c5
+      internalID: -1973178311
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Huge monster-move_5
+      name: Huge monster-move 1_5
+      rect:
+        serializedVersion: 2
+        x: 1066
+        y: 1200
+        width: 533.3333
+        height: 600
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46923a88c859c92479d4fa672db78edf
+      internalID: -1156567503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-move 1_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 600
+        width: 533.3333
+        height: 600
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c60c686e559770c458ab8bf7f87bdc05
+      internalID: -649610145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-move 1_7
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 600
+        width: 533.3333
+        height: 600
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bc22df7eb0c30f4e9dbbe83c66c44a3
+      internalID: -1713703906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-move 1_8
+      rect:
+        serializedVersion: 2
+        x: 1066
+        y: 600
+        width: 533.3333
+        height: 600
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35c827ce229ab344d81d9824dabbe1ef
+      internalID: -1882448575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Huge monster-move 1_9
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 338
-        height: 375
+        width: 533.3333
+        height: 600
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,92 +300,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d36cfcf298573dd42b473731427ab0ed
-      internalID: 2007043038
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Huge monster-move_6
-      rect:
-        serializedVersion: 2
-        x: 338
-        y: 0
-        width: 338
-        height: 375
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f975d59d2a839b946be5a55d109d9773
-      internalID: 507933518
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Huge monster-move_7
-      rect:
-        serializedVersion: 2
-        x: 676
-        y: 0
-        width: 338
-        height: 375
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dc7c4462be8fed049bebc23cb4fb7288
-      internalID: 2119846540
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Huge monster-move_8
-      rect:
-        serializedVersion: 2
-        x: 1014
-        y: 0
-        width: 338
-        height: 375
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1a5818a9853b87743a38080b165dd967
-      internalID: 408552267
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Huge monster-move_9
-      rect:
-        serializedVersion: 2
-        x: 1352
-        y: 0
-        width: 338
-        height: 375
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df9ca7bad9b5d2e4ab5604e41dfdf04f
-      internalID: 795840295
+      spriteID: 37db7b5fd75a773449c346ef6724562c
+      internalID: -1749038264
       vertices: []
       indices: 
       edges: []
@@ -317,16 +317,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Huge monster-move_0: -1490822244
-      Huge monster-move_1: -1557749888
-      Huge monster-move_2: 870319481
-      Huge monster-move_3: -1086255620
-      Huge monster-move_4: 1245020499
-      Huge monster-move_5: 2007043038
-      Huge monster-move_6: 507933518
-      Huge monster-move_7: 2119846540
-      Huge monster-move_8: 408552267
-      Huge monster-move_9: 795840295
+      Huge monster-move 1_0: 561795507
+      Huge monster-move 1_1: -1846244556
+      Huge monster-move 1_2: 1953775441
+      Huge monster-move 1_3: -1392941782
+      Huge monster-move 1_4: -1973178311
+      Huge monster-move 1_5: -1156567503
+      Huge monster-move 1_6: -649610145
+      Huge monster-move 1_7: -1713703906
+      Huge monster-move 1_8: -1882448575
+      Huge monster-move 1_9: -1749038264
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
