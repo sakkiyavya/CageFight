@@ -1,0 +1,688 @@
+fileFormatVersion: 2
+guid: c0fa58fe06d88ff46828cf4d1795f017
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 60
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Horrible monster-attack_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2160
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4741f7cb3abe46241ab33428a5c0f838
+      internalID: 2015707432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_1
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 2160
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ce054b4b6208434e911ca25e100d3c1
+      internalID: -2085438034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_2
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 2160
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f128854c8af70da469adfd7e5e0e9e3d
+      internalID: -582227408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_3
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 2160
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a48e59e9233370849b978ea275d1207f
+      internalID: 630241570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_4
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 2160
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f1909cbe9f76ca4299e825bba52782f
+      internalID: 2083696086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_5
+      rect:
+        serializedVersion: 2
+        x: 2500
+        y: 2160
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2418339bbfe92f440a12ee8c6ffd3599
+      internalID: -1741421345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1620
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcfc8a031e3b0be4d87f3b4675decfbf
+      internalID: -787695416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_7
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 1620
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c162619bb1ac6941b97f24481d55b80
+      internalID: 1603836078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_8
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 1620
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 311d11852ea476e4ba2678adc4cc6492
+      internalID: 867884350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_9
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 1620
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 036ea093672269d4991f982ec7869d68
+      internalID: -14530793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_10
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 1620
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b1caf76025da85448833acf37985179
+      internalID: -1007137174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_11
+      rect:
+        serializedVersion: 2
+        x: 2500
+        y: 1620
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e00a34eee23944e49929bf551b3d42f9
+      internalID: 187290012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1080
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0ef42fc3f97d3347a946803792b216a
+      internalID: 317269112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_13
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 1080
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c02c1e3daa83e15438ce60d7aa80c1eb
+      internalID: -1658612429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_14
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 1080
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a925b09a4ef9ec14e98deb1a2a2cd0c2
+      internalID: 324726018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_15
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 1080
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34ed0c647f40a714ba2a22f6f4c74d2b
+      internalID: 1229782512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_16
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 1080
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc68714783c3db04e809e2d4fc770d8c
+      internalID: -784133490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_17
+      rect:
+        serializedVersion: 2
+        x: 2500
+        y: 1080
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db7637c324c10754f915809da304fa3f
+      internalID: 1631612602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 540
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b3abe13f8b49d94ea98796cf5335ce2
+      internalID: -1436578734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_19
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 540
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dc7ec762b79517419556ed95b69b2ca
+      internalID: -750921305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_20
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 540
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5aa821c1c7e622e4f9c92f64802cc405
+      internalID: 623486118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_21
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 540
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9fc199bf70e3c44db88631c7f8ee8ac
+      internalID: 907490080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_22
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 540
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e68781aad4da52499ddda1f8ff49f42
+      internalID: 1147339297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_23
+      rect:
+        serializedVersion: 2
+        x: 2500
+        y: 540
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14151b6186e405f41b90aed666073eb7
+      internalID: 989559670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c90499100f6a9c4c9d87a290084bbdd
+      internalID: 1364807409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Horrible monster-attack_25
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 0
+        width: 500
+        height: 540
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f4c9d29a11ebe04a8c304ea693d3cff
+      internalID: 328710839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Horrible monster-attack_0: 2015707432
+      Horrible monster-attack_1: -2085438034
+      Horrible monster-attack_10: -1007137174
+      Horrible monster-attack_11: 187290012
+      Horrible monster-attack_12: 317269112
+      Horrible monster-attack_13: -1658612429
+      Horrible monster-attack_14: 324726018
+      Horrible monster-attack_15: 1229782512
+      Horrible monster-attack_16: -784133490
+      Horrible monster-attack_17: 1631612602
+      Horrible monster-attack_18: -1436578734
+      Horrible monster-attack_19: -750921305
+      Horrible monster-attack_2: -582227408
+      Horrible monster-attack_20: 623486118
+      Horrible monster-attack_21: 907490080
+      Horrible monster-attack_22: 1147339297
+      Horrible monster-attack_23: 989559670
+      Horrible monster-attack_24: 1364807409
+      Horrible monster-attack_25: 328710839
+      Horrible monster-attack_26: -470622673
+      Horrible monster-attack_27: 71203062
+      Horrible monster-attack_3: 630241570
+      Horrible monster-attack_4: 2083696086
+      Horrible monster-attack_5: -1741421345
+      Horrible monster-attack_6: -787695416
+      Horrible monster-attack_7: 1603836078
+      Horrible monster-attack_8: 867884350
+      Horrible monster-attack_9: -14530793
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
