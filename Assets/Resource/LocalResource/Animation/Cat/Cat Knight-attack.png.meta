@@ -1,0 +1,642 @@
+fileFormatVersion: 2
+guid: a4200f45554bd1d4fba0f975f7492d5c
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 130
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Cat Knight-attack_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1410
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a801902d3bcb1ea478e7cd10fd08ae5d
+      internalID: -468494995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_1
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 1410
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ac6b718854c2a44586c8757f5da9a9b
+      internalID: -653427250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_2
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 1410
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6b759612ed9be045a733152bfb581ec
+      internalID: 792459324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_3
+      rect:
+        serializedVersion: 2
+        x: 1998
+        y: 1410
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4cd4f9049fd8514c94af8daf5fc7f55
+      internalID: 500506132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_4
+      rect:
+        serializedVersion: 2
+        x: 2664
+        y: 1410
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3d377142f0f98b43ba6df71298cf3c1
+      internalID: 156134169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_5
+      rect:
+        serializedVersion: 2
+        x: 3330
+        y: 1410
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5408fa79184c9d42a84b879aba01746
+      internalID: 411102579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 940
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de3a1cca0f5ac1648be9ee4be8811fe7
+      internalID: -159354761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_7
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 940
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92f6db877dd703f499b192e58e2d51f1
+      internalID: 1511324303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_8
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 940
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38435cd735ff17e49a1b7b200216d30b
+      internalID: -1059463095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_9
+      rect:
+        serializedVersion: 2
+        x: 1998
+        y: 940
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8290b6110fe3d346abf2de198475778
+      internalID: 1507825924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_10
+      rect:
+        serializedVersion: 2
+        x: 2664
+        y: 940
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5df9b66f3b74cb14cbb285926cdb43d7
+      internalID: -83251256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_11
+      rect:
+        serializedVersion: 2
+        x: 3330
+        y: 940
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d198e828087a0e34885a1e80aa2faedf
+      internalID: -1629555869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 470
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40b07ab7ed5993d4485322118f72933d
+      internalID: 1414878934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_13
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 470
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bc0bd89f37822c47babea649cc6aaee
+      internalID: 1621225512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_14
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 470
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad15ddbce7697974db0fe0baba386fcb
+      internalID: 3683558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_15
+      rect:
+        serializedVersion: 2
+        x: 1998
+        y: 470
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53225fa01adbad8478a25aac3a0ea858
+      internalID: -2057262136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_16
+      rect:
+        serializedVersion: 2
+        x: 2664
+        y: 470
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dce570c5f1768e42bffec0b7abbc256
+      internalID: -902117680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_17
+      rect:
+        serializedVersion: 2
+        x: 3330
+        y: 470
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ddfa035bcf298c439eaa2df5a47941c
+      internalID: 932168396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1175b1e750e2c014f9d57e5a1ecabebf
+      internalID: -2129369894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_19
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 0
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e433a21b23b13894fa7075974ec3eaee
+      internalID: -1132687877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_20
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 0
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ac2150623f4b8d4aa9770d8386fe6b3
+      internalID: -135275325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_21
+      rect:
+        serializedVersion: 2
+        x: 1998
+        y: 0
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f022a7a414c43ba41b842f65b02819ed
+      internalID: -501338332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_22
+      rect:
+        serializedVersion: 2
+        x: 2664
+        y: 0
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cba81232352c8cb4591f94a58a661848
+      internalID: 1696492326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Knight-attack_23
+      rect:
+        serializedVersion: 2
+        x: 3330
+        y: 0
+        width: 666.6667
+        height: 470
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 130699218fabc7e4eb8cd620fb1a9050
+      internalID: 847618380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Cat Knight-attack_0: -468494995
+      Cat Knight-attack_1: -653427250
+      Cat Knight-attack_10: -83251256
+      Cat Knight-attack_11: -1629555869
+      Cat Knight-attack_12: 1414878934
+      Cat Knight-attack_13: 1621225512
+      Cat Knight-attack_14: 3683558
+      Cat Knight-attack_15: -2057262136
+      Cat Knight-attack_16: -902117680
+      Cat Knight-attack_17: 932168396
+      Cat Knight-attack_18: -2129369894
+      Cat Knight-attack_19: -1132687877
+      Cat Knight-attack_2: 792459324
+      Cat Knight-attack_20: -135275325
+      Cat Knight-attack_21: -501338332
+      Cat Knight-attack_22: 1696492326
+      Cat Knight-attack_23: 847618380
+      Cat Knight-attack_3: 500506132
+      Cat Knight-attack_4: 156134169
+      Cat Knight-attack_5: 411102579
+      Cat Knight-attack_6: -159354761
+      Cat Knight-attack_7: 1511324303
+      Cat Knight-attack_8: -1059463095
+      Cat Knight-attack_9: 1507825924
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
