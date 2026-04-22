@@ -94,8 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7313114682076757547}
   - component: {fileID: 8805327267830802300}
-  - component: {fileID: 6113352984862282545}
   - component: {fileID: -1641600381577905295}
+  - component: {fileID: -5396025553226621785}
   m_Layer: 0
   m_Name: Camp
   m_TagString: Untagged
@@ -161,32 +161,17 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1478765817, guid: a086560a2c86d6c4dab8dab9d2c20457, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 226065175, guid: a086560a2c86d6c4dab8dab9d2c20457, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.2, y: 3.3375}
+  m_Size: {x: 2.8888888, y: 3.0222223}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6113352984862282545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520427044543007020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cf2e35a025abb041aa4dd331b6487a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  occupySpace: {x: 2, y: 1}
-  buildAnime: {fileID: 5926670886179881280, guid: 77d831c9df4bd984abdd7b40ef8cfb65, type: 3}
-  buildTime: 3
 --- !u!114 &-1641600381577905295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +187,21 @@ MonoBehaviour:
   HpBarUp: {fileID: 7256817948440773354}
   HpBarBottom: {fileID: 1039306232219568459}
   barSustainTime: 2
+--- !u!114 &-5396025553226621785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2520427044543007020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f73bdea57857b4aa359266127eb3fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  occupySpace: {x: 2, y: 1}
+  buildAnime: {fileID: 5926670886179881280, guid: 77d831c9df4bd984abdd7b40ef8cfb65, type: 3}
+  buildTime: 3
 --- !u!1 &7256817948440773354
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public class MapCells : MonoBehaviour
     private HashSet<GameObject>[,] cellData;
     private int version;
 
+    // 初始化网格单例。
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -31,6 +32,7 @@ public class MapCells : MonoBehaviour
         InitializeGrid();
     }
 
+    // 重建网格占用数据。
     public void InitializeGrid()
     {
         cellData = new HashSet<GameObject>[width, height];
@@ -45,6 +47,7 @@ public class MapCells : MonoBehaviour
         version++;
     }
 
+    // 标记格子被对象占用。
     public void UseCells(List<Vector2Int> cells, GameObject occupier)
     {
         if (occupier == null || cellData == null) return;
@@ -61,6 +64,7 @@ public class MapCells : MonoBehaviour
         }
     }
 
+    // 释放对象占用的格子。
     public void UnuseCells(List<Vector2Int> cells, GameObject occupier)
     {
         if (occupier == null || cellData == null) return;
@@ -77,6 +81,7 @@ public class MapCells : MonoBehaviour
         }
     }
 
+    // 检查一组格子是否被占用。
     public bool IsUse(List<Vector2Int> cells)
     {
         if (cellData == null) return true;
@@ -92,24 +97,28 @@ public class MapCells : MonoBehaviour
         return false;
     }
 
+    // 检查单个格子是否被占用。
     public bool IsUse(Vector2Int cell)
     {
         if (cellData == null || !IsInRange(cell.x, cell.y)) return false;
         return cellData[cell.x, cell.y].Count > 0;
     }
 
+    // 获取单个格子的占用对象。
     public List<GameObject> GetOccupiers(int x, int y)
     {
         if (cellData == null || !IsInRange(x, y)) return new List<GameObject>();
         return new List<GameObject>(cellData[x, y]);
     }
 
+    // 获取单个格子的占用数量。
     public int GetOccupierCount(int x, int y)
     {
         if (cellData == null || !IsInRange(x, y)) return 0;
         return cellData[x, y].Count;
     }
 
+    // 获取一组格子的占用对象。
     public List<GameObject> GetOccupiers(List<Vector2Int> cells)
     {
         if (cellData == null) return new List<GameObject>();
@@ -129,12 +138,14 @@ public class MapCells : MonoBehaviour
         return objs;
     }
 
+    // 判断坐标是否在网格内。
     public bool IsInRange(int x, int y)
     {
         return x >= 0 && x < width && y >= 0 && y < height;
     }
 
 #if UNITY_EDITOR
+    // 编辑器下校验网格数据。
     void OnValidate()
     {
         InitializeGrid();

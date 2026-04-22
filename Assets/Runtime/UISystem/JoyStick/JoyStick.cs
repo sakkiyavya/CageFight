@@ -26,12 +26,14 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     // 手指绑定处理器
     private FingerIDHander fingerHandler = new FingerIDHander();
 
+    // 初始化摇杆单例。
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
+    // 处理摇杆按下。
     public void OnPointerDown(PointerEventData eventData)
     {
         // 尝试绑定当前点击的手指 ID
@@ -42,6 +44,7 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         }
     }
 
+    // 处理摇杆拖拽。
     public void OnDrag(PointerEventData eventData)
     {
         // 校验是否为绑定的那根手指，防止其他手指干扰
@@ -60,6 +63,7 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         }
     }
 
+    // 处理摇杆抬起。
     public void OnPointerUp(PointerEventData eventData)
     {
         // 校验并释放绑定
