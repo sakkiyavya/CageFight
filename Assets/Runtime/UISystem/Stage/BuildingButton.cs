@@ -6,6 +6,7 @@ public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandl
     public GameObject targetBuilding;
     
     
+    // 开始拖出建筑。
     public void OnPointerDown(PointerEventData eventData)
     {
         if (targetBuilding == null || BuildingPlace.Instance == null) return;
@@ -33,6 +34,7 @@ public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandl
         }
     }
 
+    // 结束建筑放置。
     public void OnPointerUp(PointerEventData eventData)
     {
         // 手指抬起，尝试在当前位置放下建筑

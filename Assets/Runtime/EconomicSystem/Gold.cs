@@ -8,6 +8,7 @@ public class Gold : MonoBehaviour
 
     [SerializeField] private int gold = 0;
 
+    // 初始化黄金单例。
     private void Awake()
     {
         if (Instance == null)
@@ -20,6 +21,7 @@ public class Gold : MonoBehaviour
         }
     }
 
+    // 增加黄金数量。
     public void GainGold(int amount)
     {
         if (amount <= 0)
@@ -30,6 +32,7 @@ public class Gold : MonoBehaviour
         gold += amount;
     }
 
+    // 消耗指定黄金。
     public bool ConsumeGold(int amount)
     {
         if (amount < 0)

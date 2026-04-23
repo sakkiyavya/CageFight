@@ -4,11 +4,14 @@ using UnityEngine;
 
 public enum DamageType
 {
-    
+    normal = 0,
+    magic = 1,
 }
 public struct Damage
 {
-    public int damage;
+    public int initialDamage;
+
+    public int finalDamage;
     public DamageType type;
 }
 

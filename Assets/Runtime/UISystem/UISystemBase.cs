@@ -28,6 +28,7 @@ public class UISystemBase : MonoBehaviour
     protected RectTransform rectTransform;
     protected Coroutine effectCoroutine;
 
+    // 缓存矩形组件。
     protected virtual void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -40,11 +41,13 @@ public class UISystemBase : MonoBehaviour
         SubUIEffect(toEnd);
     }
 
+    // 播放额外界面特效。
     public virtual void UISparkEffect(bool toEnd)
     {
         // 预留其他特效接口
     }
 
+    // 播放位移动画。
     protected virtual void PlayDirectionMove(bool toEnd)
     {
         if (effectCoroutine != null)
@@ -55,6 +58,7 @@ public class UISystemBase : MonoBehaviour
         effectCoroutine = StartCoroutine(MoveUIEffectRoutine(toEnd));
     }
 
+    // 执行界面过渡协程。
     protected virtual IEnumerator MoveUIEffectRoutine(bool toEnd)
     {
         float elapsedTime = 0f;
@@ -97,6 +101,7 @@ public class UISystemBase : MonoBehaviour
         effectCoroutine = null;
     }
 
+    // 同步子界面效果。
     protected virtual void SubUIEffect(bool toEnd)
     {
         if(subUI.Count > 0)

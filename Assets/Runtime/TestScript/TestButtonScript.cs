@@ -22,6 +22,7 @@ public class TestButtonScript : MonoBehaviour
         
     }
 
+    // 创建新的测试对象。
     public void CreateNewObj()
     {
         GameObject o = Instantiate(obj);

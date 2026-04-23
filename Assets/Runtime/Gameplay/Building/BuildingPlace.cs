@@ -5,6 +5,7 @@ using UnityEngine;
 public class BuildingPlace : MonoBehaviour
 {
     public static BuildingPlace Instance { get; private set; }
+    // 初始化放置管理器。
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -67,6 +68,7 @@ public class BuildingPlace : MonoBehaviour
 
     private Vector2Int lastBasePos = new Vector2Int(-999, -999); // 记录上次检测时的网格起始坐标
 
+    // 持续更新建筑预览位置。
     private void Update()
     {
         if (!isInPlaceMode || currentBuilding == null) return;

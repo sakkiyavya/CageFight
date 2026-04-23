@@ -19,29 +19,34 @@ public class BuildingBase : MonoBehaviour
     private Coroutine buildCoroutine;
     private GameObject buildAnimeInstance;
     BuildingHealth buildingHealth;
+    // 缓存建筑组件。
     private void Awake()
     {
         CacheComponents();
     }
 
+    // 启用时同步占用数据。
     private void OnEnable()
     {
         CacheComponents();
         RefreshOccupancy();
     }
 
+    // 禁用时清理占用状态。
     private void OnDisable()
     {
         StopBuildRoutine();
         ClearOccupiedCells();
     }
 
+    // 销毁时清理占用状态。
     private void OnDestroy()
     {
         StopBuildRoutine();
         ClearOccupiedCells();
     }
 
+    // 检查当前位置是否可放置。
     public bool ChechValid()
     {
         MapCells mapCells = MapCells.Instance;
@@ -79,6 +84,7 @@ public class BuildingBase : MonoBehaviour
         return isValid;
     }
 
+    // 开始建筑施工流程。
     public void StartBuild()
     {
         if(buildAnime == null) return;
@@ -92,6 +98,7 @@ public class BuildingBase : MonoBehaviour
         buildCoroutine = StartCoroutine(BuildRoutine());
     }
 
+    // 获取当前占用的格子。
     public List<Vector2Int> GetOccupyCells()
     {
         Vector2Int basePos = GetBasePos();
@@ -107,6 +114,7 @@ public class BuildingBase : MonoBehaviour
         return cells;
     }
 
+    // 计算占用区域基点。
     private Vector2Int GetBasePos()
     {
         return new Vector2Int(
@@ -115,6 +123,7 @@ public class BuildingBase : MonoBehaviour
         );
     }
 
+    // 刷新地图占用状态。
     public void RefreshOccupancy()
     {
         MapCells mapCells = MapCells.Instance;
@@ -149,6 +158,7 @@ public class BuildingBase : MonoBehaviour
         hasRegisteredOccupancy = true;
     }
 
+    // 清除已登记的占用格子。
     private void ClearOccupiedCells()
     {
         if (!hasRegisteredOccupancy)
@@ -166,6 +176,7 @@ public class BuildingBase : MonoBehaviour
         lastMapVersion = -1;
     }
 
+    // 执行施工协程。
     private IEnumerator BuildRoutine()
     {
         CacheComponents();
@@ -218,6 +229,7 @@ public class BuildingBase : MonoBehaviour
         buildCoroutine = null;
     }
 
+    // 停止施工流程。
     private void StopBuildRoutine()
     {
         if (buildCoroutine != null)
@@ -229,6 +241,7 @@ public class BuildingBase : MonoBehaviour
         CleanupBuildAnimeInstance();
     }
 
+    // 清理施工特效实例。
     private void CleanupBuildAnimeInstance()
     {
         if (buildAnimeInstance == null)
@@ -248,6 +261,7 @@ public class BuildingBase : MonoBehaviour
         buildAnimeInstance = null;
     }
 
+    // 缓存常用组件。
     private void CacheComponents()
     {
         if (spr == null)
@@ -260,6 +274,7 @@ public class BuildingBase : MonoBehaviour
         }
     }
 
+    // 编辑器下实时同步占用。
     private void Update()
     {
         #if UNITY_EDITOR
@@ -272,6 +287,7 @@ public class BuildingBase : MonoBehaviour
 
 #if UNITY_EDITOR
 
+    // 绘制并校正编辑器预览。
     private void OnDrawGizmos()
     {
         if (Application.isPlaying) return;

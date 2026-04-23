@@ -1,13 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Coins : MonoBehaviour
 {
     public static Coins Instance { get; private set; }
 
-    [SerializeField] private int coins = 0;
+    [SerializeField]int coins = 0;
+    [SerializeField]int coinPerSec = 0;
 
+    public int CurrentCoins => coins;
+    public int CurrentCoinPerSec => coinPerSec;
+    public Action<int> OnGainCoins;
+    public Action<int> OnConsumeCoins;
+
+    float nextGainTime = -1;
+
+    // 初始化金币单例。
     private void Awake()
     {
         if (Instance == null)
@@ -20,6 +28,15 @@ public class Coins : MonoBehaviour
         }
     }
 
+    // 每秒结算一次金币增长。
+    private void Update()
+    {
+        if(Time.time < nextGainTime) return;
+        nextGainTime = Time.time + 1f;
+        GainCoins(coinPerSec);
+    }
+
+    // 增加金币数量。
     public void GainCoins(int amount)
     {
         if (amount <= 0)
@@ -28,8 +45,10 @@ public class Coins : MonoBehaviour
         }
 
         coins += amount;
+        OnGainCoins?.Invoke(amount);
     }
 
+    // 消耗指定金币。
     public bool ConsumeCoins(int amount)
     {
         if (amount < 0)
@@ -43,6 +62,7 @@ public class Coins : MonoBehaviour
         }
 
         coins -= amount;
+        OnConsumeCoins?.Invoke(amount);
         return true;
     }
 }
