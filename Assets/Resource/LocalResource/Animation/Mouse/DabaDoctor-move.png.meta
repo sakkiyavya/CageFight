@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 135
+  spritePixelsToUnits: 360
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -101,18 +101,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 300
-        width: 270
-        height: 300
+        y: 1280
+        width: 530.6667
+        height: 640
       alignment: 9
-      pivot: {x: 0.55, y: 0.09}
+      pivot: {x: 0.5, y: 0.04}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c59233f5e90f45d44b43d917923abaf1
-      internalID: 667153167
+      spriteID: 60f27cd97bd2ba34fb8c15a4e5e605f8
+      internalID: -1524848756
       vertices: []
       indices: 
       edges: []
@@ -121,19 +121,19 @@ TextureImporter:
       name: DabaDoctor-move_1
       rect:
         serializedVersion: 2
-        x: 270
-        y: 300
-        width: 270
-        height: 300
+        x: 530
+        y: 1280
+        width: 530.6667
+        height: 640
       alignment: 9
-      pivot: {x: 0.55, y: 0.09}
+      pivot: {x: 0.5, y: 0.04}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67883840db9eef0478685cfcf94f12bd
-      internalID: 1701350527
+      spriteID: 671ea17daa3147a4dbf6bdd8923c5ed8
+      internalID: -587679732
       vertices: []
       indices: 
       edges: []
@@ -142,19 +142,19 @@ TextureImporter:
       name: DabaDoctor-move_2
       rect:
         serializedVersion: 2
-        x: 540
-        y: 300
-        width: 270
-        height: 300
+        x: 1060
+        y: 1280
+        width: 530.6667
+        height: 640
       alignment: 9
-      pivot: {x: 0.55, y: 0.09}
+      pivot: {x: 0.5, y: 0.04}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25dac5e9add55d04f807f8919e1ef8fc
-      internalID: 74250458
+      spriteID: 1e1534a950aa7d34b987ef6ee959f097
+      internalID: 2103917353
       vertices: []
       indices: 
       edges: []
@@ -163,19 +163,19 @@ TextureImporter:
       name: DabaDoctor-move_3
       rect:
         serializedVersion: 2
-        x: 810
-        y: 300
-        width: 270
-        height: 300
+        x: 0
+        y: 640
+        width: 530.6667
+        height: 640
       alignment: 9
-      pivot: {x: 0.55, y: 0.09}
+      pivot: {x: 0.5, y: 0.04}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ee3216a2ff39de46985e37e57c1a4b1
-      internalID: -2011386152
+      spriteID: 516e3a61b34883643b29e3876105eccc
+      internalID: 2023713099
       vertices: []
       indices: 
       edges: []
@@ -184,103 +184,103 @@ TextureImporter:
       name: DabaDoctor-move_4
       rect:
         serializedVersion: 2
-        x: 1080
-        y: 300
-        width: 270
-        height: 300
+        x: 530
+        y: 640
+        width: 530.6667
+        height: 640
       alignment: 9
-      pivot: {x: 0.55, y: 0.09}
+      pivot: {x: 0.5, y: 0.04}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee9137e63de3a914cb31bd3d4053ad73
-      internalID: 1008555421
+      spriteID: 1dec9226b8a8f4e42ab9e3fe9c6ceb8e
+      internalID: -1412758843
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-move_10
+      name: DabaDoctor-move_5
+      rect:
+        serializedVersion: 2
+        x: 1060
+        y: 640
+        width: 530.6667
+        height: 640
+      alignment: 9
+      pivot: {x: 0.5, y: 0.04}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61defd31c055aa94a944356158826047
+      internalID: 872318517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DabaDoctor-move_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 270
-        height: 300
+        width: 530.6667
+        height: 640
       alignment: 9
-      pivot: {x: 0.55, y: 0.09}
+      pivot: {x: 0.5, y: 0.04}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 649c37bba890bd24a8903f526d471a15
-      internalID: -1947699856
+      spriteID: c59aa344424c0534e9b92ba0a5145bdd
+      internalID: -1623091804
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-move_11
+      name: DabaDoctor-move_7
       rect:
         serializedVersion: 2
-        x: 270
+        x: 530
         y: 0
-        width: 270
-        height: 300
+        width: 530.6667
+        height: 640
       alignment: 9
-      pivot: {x: 0.55, y: 0.09}
+      pivot: {x: 0.5, y: 0.04}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dfb30d19150eaf04fa520784088e0908
-      internalID: -2020162021
+      spriteID: d981f1be648c0644383abc6dcbfb81a4
+      internalID: -1861638452
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DabaDoctor-move_12
+      name: DabaDoctor-move_8
       rect:
         serializedVersion: 2
-        x: 540
+        x: 1060
         y: 0
-        width: 270
-        height: 300
+        width: 530.6667
+        height: 640
       alignment: 9
-      pivot: {x: 0.55, y: 0.09}
+      pivot: {x: 0.5, y: 0.04}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37791b9741caf9d458fbb9998053ff70
-      internalID: -1012317198
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DabaDoctor-move_13
-      rect:
-        serializedVersion: 2
-        x: 810
-        y: 0
-        width: 270
-        height: 300
-      alignment: 9
-      pivot: {x: 0.55, y: 0.09}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cd5bc0b30d57bc7499f6b4e40d2d6925
-      internalID: 1010392833
+      spriteID: 5f9cf87047ebb6a43bbc28956e469922
+      internalID: 350035628
       vertices: []
       indices: 
       edges: []
@@ -296,20 +296,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DabaDoctor-move_0: 667153167
-      DabaDoctor-move_1: 1701350527
-      DabaDoctor-move_10: -1947699856
-      DabaDoctor-move_11: -2020162021
-      DabaDoctor-move_12: -1012317198
-      DabaDoctor-move_13: 1010392833
-      DabaDoctor-move_2: 74250458
-      DabaDoctor-move_3: -2011386152
-      DabaDoctor-move_4: 1008555421
-      DabaDoctor-move_5: 1540471706
-      DabaDoctor-move_6: -832674247
-      DabaDoctor-move_7: -1785594324
-      DabaDoctor-move_8: 1575552633
-      DabaDoctor-move_9: -1532714299
+      DabaDoctor-move_0: -1524848756
+      DabaDoctor-move_1: -587679732
+      DabaDoctor-move_2: 2103917353
+      DabaDoctor-move_3: 2023713099
+      DabaDoctor-move_4: -1412758843
+      DabaDoctor-move_5: 872318517
+      DabaDoctor-move_6: -1623091804
+      DabaDoctor-move_7: -1861638452
+      DabaDoctor-move_8: 350035628
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
