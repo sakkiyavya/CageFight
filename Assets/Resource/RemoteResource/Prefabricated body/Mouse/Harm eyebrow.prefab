@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2839452068448390139}
   - component: {fileID: 5782128274417571720}
   - component: {fileID: 5407869302942258291}
+  - component: {fileID: 5454066947671987638}
   m_Layer: 0
   m_Name: Harm eyebrow
   m_TagString: Untagged
@@ -106,3 +107,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5454066947671987638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57720819243006128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3b297af1c05b0498e81fa5eb29712a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSound1: {fileID: 8300000, guid: 1537cbbe6ab02eb4ebede1d22d5e7c26, type: 3}
+  attackSound2: {fileID: 8300000, guid: cd6bfe1f4c7dcc54d99cb2e086e20efa, type: 3}
+  randomizeSounds: 0
+  pitchVariation: 0.8

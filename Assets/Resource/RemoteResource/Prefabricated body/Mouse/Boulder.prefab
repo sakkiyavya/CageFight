@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7281629881418380218}
   - component: {fileID: 88270294773355163}
   - component: {fileID: 429525563225115166}
+  - component: {fileID: 117915548386930840}
   m_Layer: 0
   m_Name: Boulder
   m_TagString: Untagged
@@ -74,12 +75,12 @@ SpriteRenderer:
   m_SortingLayerID: -1552972343
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2093593702, guid: 9076c7cbdb19f25429e9c0cd419e0946, type: 3}
+  m_Sprite: {fileID: 1410641952, guid: 993996531ef25d548840e4db039b08c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.2, y: 6.2357144}
+  m_Size: {x: 6.9008694, y: 6.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -106,3 +107,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &117915548386930840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3062758516945766433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3b297af1c05b0498e81fa5eb29712a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSound1: {fileID: 8300000, guid: acbbe468503a9414cb38c0df958727fe, type: 3}
+  attackSound2: {fileID: 8300000, guid: 0d98685f0ef3f5348a96343d5590b478, type: 3}
+  randomizeSounds: 0
+  pitchVariation: 0.8

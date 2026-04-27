@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5726911602799910803}
   - component: {fileID: 492033090063897554}
   - component: {fileID: 1262404055007227752}
+  - component: {fileID: 8192308768324571188}
   m_Layer: 0
   m_Name: Horrible monster
   m_TagString: Untagged
@@ -106,3 +107,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8192308768324571188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016457220928666952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3b297af1c05b0498e81fa5eb29712a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSound1: {fileID: 8300000, guid: 5c432575c4d901347b9d8dca665772fe, type: 3}
+  attackSound2: {fileID: 8300000, guid: d59dfafb393f5074d9b508e0092b3136, type: 3}
+  randomizeSounds: 0
+  pitchVariation: 0.8

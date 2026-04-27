@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5680869247007921418}
   - component: {fileID: 1389216592866422119}
   - component: {fileID: 526410950865886046}
+  - component: {fileID: 8596844990052594052}
   m_Layer: 0
   m_Name: Miner head
   m_TagString: Untagged
@@ -106,3 +107,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8596844990052594052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3511997814397319732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3b297af1c05b0498e81fa5eb29712a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSound1: {fileID: 8300000, guid: 098a8eda267288649ba46514d41b85c1, type: 3}
+  attackSound2: {fileID: 8300000, guid: 9c7b2ae6339d56d4785c769c9c72926b, type: 3}
+  randomizeSounds: 0
+  pitchVariation: 0.8
