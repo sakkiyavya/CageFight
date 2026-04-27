@@ -3,8 +3,28 @@ using UnityEngine;
 using System.Collections;
 
 [ExecuteAlways]
-public class BuildingBase : MonoBehaviour
+public class BuildingBase : MonoBehaviour, ILevelComponent
 {
+    public System.Type DataType => typeof(BuildingBaseData);
+
+    public ComponentData ExtractData()
+    {
+        return new BuildingBaseData
+        {
+            occupySpace = this.occupySpace,
+            buildTime = this.buildTime
+        };
+    }
+
+    public void ApplyData(ComponentData data)
+    {
+        if (data is BuildingBaseData bData)
+        {
+            this.occupySpace = bData.occupySpace;
+            this.buildTime = bData.buildTime;
+        }
+    }
+
     public Vector2Int occupySpace = Vector2Int.one;
     public GameObject buildAnime;
     public float buildTime = 3f;

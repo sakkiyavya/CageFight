@@ -1,8 +1,32 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-public class BuildingHealth : MonoBehaviour, ICollide
+public class BuildingHealth : MonoBehaviour, ICollide, ILevelComponent
 {
+    public System.Type DataType => typeof(BuildingHealthData);
+
+    public ComponentData ExtractData()
+    {
+        return new BuildingHealthData
+        {
+            barSustainTime = this.barSustainTime,
+            defen = this.defen,
+            magicDefen = this.magicDefen,
+            maxHp = this.MaxHp
+        };
+    }
+
+    public void ApplyData(ComponentData data)
+    {
+        if (data is BuildingHealthData hData)
+        {
+            this.barSustainTime = hData.barSustainTime;
+            this.defen = hData.defen;
+            this.magicDefen = hData.magicDefen;
+            this.MaxHp = hData.maxHp;
+        }
+    }
+
     public GameObject HpBarUp;
     public GameObject HpBarBottom;
     public float barSustainTime = 2f;

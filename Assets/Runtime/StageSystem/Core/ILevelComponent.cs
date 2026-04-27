@@ -15,5 +15,10 @@ public interface ILevelComponent
     /// </summary>
     /// <param name="data">从配置中读取的组件数据</param>
     void ApplyData(ComponentData data);
+
+    /// <summary>
+    /// 编辑器时：负责把自己身上的参数打包成 ComponentData 返回给系统
+    /// </summary>
+    ComponentData ExtractData();
 }
 
