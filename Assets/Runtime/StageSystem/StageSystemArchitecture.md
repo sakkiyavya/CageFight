@@ -48,20 +48,26 @@
 
 ## 三、 编辑器系统设计（Editor Layer）
 
-编辑器本质上是一个“**场景解析器与生成器**”，提供直观的拖拽体验。
+为了保持最大限度的简洁与非侵入性，系统**摒弃了挂载额外 Authoring 脚本**的传统方式，采用 Inspector 原生扩展与独立的构建窗口。
 
-1. **Authoring 组件机制 (标记与采集)**
-   - 在用于编辑的 Prefab 上挂载 `LevelObjectAuthoring` (MonoBehaviour，仅 Editor 使用)。
-   - 包含字段：`PrefabKey`（下拉框选择）和 `List<IAuthoringComponent>`（用于收集特定组件数据）。
-2. **Scene → 数据（Save Pipeline）**
-   - 遍历当前场景中所有带有 `LevelObjectAuthoring` 的 GameObject。
-   - 提取 Transform，读取 `PrefabKey`，并调用各 `IAuthoringComponent.ExtractData()` 转换为 `ComponentData`。
-   - 将组装好的 `LevelObjectData` 写入 `LevelConfig` (SO) 并执行 `EditorUtility.SetDirty` 和 `AssetDatabase.SaveAssets`。
-3. **数据 → Scene（Load Pipeline & 预览）**
-   - 读取 `LevelConfig`。
-   - 实例化对应的 Editor Prefab（带有 Authoring 组件），还原 Transform 和组件参数。
+1. **无侵入式标记机制 (Inspector 扩展)**
+   - **无需额外挂载任何组件**。通过扩展 Editor 底层（如 `Editor.finishedDefaultHeaderGUI`），在场景中选中任何 GameObject 时，其 Inspector 面板顶部会多出一个名为“**关卡物品**”的复选框。
+   - 只有同时满足以下两个条件的物体，才会被系统认为是合法的关卡元素：
+     1. 该复选框被勾选。
+     2. 该物体必须是一个 Prefab 的实例（确保在运行时可以通过 `prefabKey` 追溯并生成）。
+2. **关卡构建工具窗口 (Level Builder Window)**
+   - 在顶部菜单栏新增功能入口：**[关卡构建 -> 创建新关卡]**。
+   - 点击后弹出一个简洁的 Editor 窗口，包含三个核心部分：
+     1. **保存路径**：指定生成的 `LevelConfig` SO 文件存放的具体目录（例如 `Assets/Config/Levels/`）。
+     2. **关卡编号 (Level ID)**：`uint` 类型，用于标识这是第几关。
+     3. **确认按钮**：点击后触发采集与保存管线。
+3. **Scene → 数据（采集与保存管线）**
+   - 点击确认后，工具会遍历当前场景中的所有根节点。
+   - 筛选出所有勾选了“关卡物品”且是 Prefab 的对象。
+   - 提取它们的 Transform 数据，并利用反射或其他机制提取它们身上已有组件的参数，封装为 `ComponentData`。
+   - 最终根据填写的路径和关卡编号，生成或覆盖对应的 `LevelConfig` ScriptableObject。
 4. **Scene 清理机制**
-   - 在执行 Load 之前，销毁场景根节点下所有挂载了 `LevelObjectAuthoring` 的对象，确保场景是一个干净的画布。
+   - 同样提供从配置加载场景预览的功能。在加载前，会自动销毁场景中所有被标记为“关卡物品”的对象，确保预览环境纯净。
 
 ---
 
@@ -124,12 +130,13 @@
 
 1. **研发工作流 (程序)**
    - 定义新的 `ComponentData` 结构。
-   - 编写 `Authoring` 脚本（用于编辑器填数据）。
-   - 编写 `RuntimeLogic` 脚本（用于读取数据执行逻辑）。
+   - 编写 `RuntimeLogic` 脚本（用于读取数据执行逻辑），并挂载到 Prefab 上。
+   - 编写 Editor 下的参数提取逻辑（如果该组件需要被记录）。
 2. **关卡编辑工作流 (策划/关卡设计)**
    - 打开专门的 LevelEditor 场景（纯净画布）。
-   - 从库中拖拽挂有 `Authoring` 组件的 Prefab 搭建关卡。
-   - 点击自定义菜单 **[Tools -> Level -> Save To Config]**。
+   - 从库中拖拽预先做好的 Prefab 到场景中搭建关卡。
+   - 选中需要记录的物体，在 Inspector 中勾选**“关卡物品”**复选框。
+   - 点击菜单栏 **[关卡构建 -> 创建新关卡]**，在弹出的窗口中填好路径和关数，点击确认生成配置。
 3. **测试预览工作流**
-   - 编辑器内清空场景，点击 **[Tools -> Level -> Load From Config]** 还原场景检查是否无误。
-   - 点击 Play 按钮，系统自动进入 Runtime 模式，使用 LevelLoader 加载当前配置进行实机试玩。
+   - 编辑器内清空场景，提供入口从生成的 Config 中还原场景以供检查。
+   - 点击 Play 按钮，系统自动进入 Runtime 模式，使用 LevelLoader 加载配置进行实机试玩。

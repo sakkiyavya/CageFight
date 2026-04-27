@@ -1,5 +1,4 @@
 using System;
-using CageFight.StageSystem.Model;
 
 /// <summary>
 /// 所有挂载在 Prefab 上，且需要接收关卡配置参数覆盖的运行时组件，都需要实现此接口。
