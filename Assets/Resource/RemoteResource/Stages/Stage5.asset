@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ef6c8b64f543249a7d45a2148ddbf4, type: 3}
+  m_Name: Stage5
+  m_EditorClassIdentifier: 
+  levelId: 5
+  objects:
+  - instanceId: 1000
+    prefabKey: Camp
+    transform:
+      position: {x: 17, y: 2.5, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 6581317681451892750
+    - rid: 6581317681451892751
+  - instanceId: 1001
+    prefabKey: Camp
+    transform:
+      position: {x: 20, y: 2.5, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 6581317681451892752
+    - rid: 6581317681451892753
+  - instanceId: 1002
+    prefabKey: Camp
+    transform:
+      position: {x: 24, y: 3.5, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 6581317681451892754
+    - rid: 6581317681451892755
+  - instanceId: 1003
+    prefabKey: Camp
+    transform:
+      position: {x: 11, y: 2.5, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 6581317681451892756
+    - rid: 6581317681451892757
+  references:
+    version: 2
+    RefIds:
+    - rid: 6581317681451892750
+      type: {class: BuildingHealthData, ns: , asm: Assembly-CSharp}
+      data:
+        barSustainTime: 2
+        defen: 10
+        magicDefen: 5
+        maxHp: 100
+    - rid: 6581317681451892751
+      type: {class: BuildingBaseData, ns: , asm: Assembly-CSharp}
+      data:
+        occupySpace: {x: 2, y: 1}
+        buildTime: 3
+    - rid: 6581317681451892752
+      type: {class: BuildingHealthData, ns: , asm: Assembly-CSharp}
+      data:
+        barSustainTime: 2
+        defen: 10
+        magicDefen: 5
+        maxHp: 100
+    - rid: 6581317681451892753
+      type: {class: BuildingBaseData, ns: , asm: Assembly-CSharp}
+      data:
+        occupySpace: {x: 2, y: 1}
+        buildTime: 3
+    - rid: 6581317681451892754
+      type: {class: BuildingHealthData, ns: , asm: Assembly-CSharp}
+      data:
+        barSustainTime: 2
+        defen: 10
+        magicDefen: 5
+        maxHp: 100
+    - rid: 6581317681451892755
+      type: {class: BuildingBaseData, ns: , asm: Assembly-CSharp}
+      data:
+        occupySpace: {x: 2, y: 1}
+        buildTime: 3
+    - rid: 6581317681451892756
+      type: {class: BuildingHealthData, ns: , asm: Assembly-CSharp}
+      data:
+        barSustainTime: 2
+        defen: 10
+        magicDefen: 5
+        maxHp: 100
+    - rid: 6581317681451892757
+      type: {class: BuildingBaseData, ns: , asm: Assembly-CSharp}
+      data:
+        occupySpace: {x: 2, y: 1}
+        buildTime: 3
