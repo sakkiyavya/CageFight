@@ -1,0 +1,515 @@
+using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
+
+/// <summary>
+/// 动画事件触发：击落摄像机前所有指定Sorting Layer的物体
+/// 修复版 - 解决动画事件不生效的问题
+/// </summary>
+public class CameraKnockDownEffect : MonoBehaviour
+{
+    [Header("目标设置")]
+    [Tooltip("要击落的Sorting Layer名称")]
+    public string targetSortingLayer = "Player";
+
+    [Tooltip("搜索半径（摄像机前方）")]
+    public float searchRadius = 10f;
+
+    [Tooltip("使用屏幕坐标检测（推荐）")]
+    public bool useScreenDetection = true;
+
+    [Header("屏幕检测设置")]
+    [Tooltip("屏幕横向扩展范围（0-1）")]
+    [Range(0, 1)] public float screenExtendHorizontal = 0.2f;
+
+    [Tooltip("屏幕纵向扩展范围（0-1）")]
+    [Range(0, 1)] public float screenExtendVertical = 0.2f;
+
+    [Header("击落效果")]
+    [Tooltip("向下击落的力量")]
+    public float knockDownForce = 15f;
+
+    [Tooltip("击退力量（远离摄像机）")]
+    public float knockBackForce = 5f;
+
+    [Tooltip("旋转力量")]
+    public float rotationForce = 3f;
+
+    [Tooltip("重力缩放（击落后）")]
+    public float gravityScale = 3f;
+
+    [Tooltip("击落后的销毁延迟")]
+    public float destroyDelay = 5f;
+
+    [Header("调试设置")]
+    [Tooltip("调试模式，显示检测范围")]
+    public bool debugMode = true;
+
+    [Tooltip("动画事件触发时打印详细信息")]
+    public bool verboseLogging = true;
+
+    [Tooltip("强制触发一次（测试用）")]
+    public bool forceTriggerOnce = false;
+
+    [Header("状态")]
+    [Tooltip("已击落的物体列表")]
+    [SerializeField] private List<GameObject> knockedObjects = new List<GameObject>();
+
+    [Tooltip("是否已触发过强制触发")]
+    private bool hasForceTriggered = false;
+
+    // 私有变量
+    private Camera mainCamera;
+    private int targetLayerID = -1;
+
+    private void Start()
+    {
+        InitializeCameraAndLayer();
+    }
+
+    private void Update()
+    {
+        // 强制触发测试
+        if (forceTriggerOnce && !hasForceTriggered)
+        {
+            hasForceTriggered = true;
+            Debug.LogWarning("强制触发一次！");
+            KnockDownAllTargets();
+        }
+    }
+
+    /// <summary>
+    /// 初始化摄像机和图层
+    /// </summary>
+    private void InitializeCameraAndLayer()
+    {
+        mainCamera = Camera.main;
+
+        if (mainCamera == null)
+        {
+            Debug.LogError("没有找到MainCamera标签的摄像机！");
+        }
+        else
+        {
+            Debug.Log($"找到主摄像机: {mainCamera.name}");
+        }
+
+        // 获取Sorting Layer的ID
+        targetLayerID = SortingLayer.NameToID(targetSortingLayer);
+
+        if (targetLayerID == 0)
+        {
+            Debug.LogError($"未找到Sorting Layer: {targetSortingLayer}！");
+            Debug.Log("可用的Sorting Layers:");
+            foreach (SortingLayer layer in SortingLayer.layers)
+            {
+                Debug.Log($"  - {layer.name} (ID: {layer.id})");
+            }
+        }
+        else
+        {
+            Debug.Log($"目标Sorting Layer: {targetSortingLayer} (ID: {targetLayerID})");
+        }
+    }
+
+    /// <summary>
+    /// 动画事件调用：击落所有目标物体
+    /// 在Animation Event的Function中填"KnockDownAllTargets"
+    /// </summary>
+    public void KnockDownAllTargets()
+    {
+        Debug.Log($"动画事件触发！开始击落Sorting Layer为 {targetSortingLayer} 的所有物体");
+
+        // 检查组件状态
+        if (!enabled || !gameObject.activeInHierarchy)
+        {
+            Debug.LogError("脚本被禁用或物体未激活！");
+            return;
+        }
+
+        // 检查必要组件
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+            if (mainCamera == null)
+            {
+                Debug.LogError("未找到主摄像机！");
+                return;
+            }
+        }
+
+        if (targetLayerID == 0)
+        {
+            Debug.LogError($"无效的Sorting Layer ID: {targetSortingLayer}");
+            return;
+        }
+
+        // 查找并击落所有目标物体
+        FindAndKnockDownTargets();
+    }
+
+    /// <summary>
+    /// 手动触发击落效果
+    /// </summary>
+    [ContextMenu("手动触发击落效果")]
+    public void ManualTriggerKnockDown()
+    {
+        Debug.Log($"手动触发：开始击落Sorting Layer为 {targetSortingLayer} 的所有物体");
+        FindAndKnockDownTargets();
+    }
+
+    /// <summary>
+    /// 查找并击落目标物体
+    /// </summary>
+    private void FindAndKnockDownTargets()
+    {
+        // 清空之前击落的物体列表
+        knockedObjects.Clear();
+
+        // 方法1：查找所有带有SpriteRenderer的游戏物体
+        SpriteRenderer[] allSprites = FindObjectsOfType<SpriteRenderer>(true); // 包含未激活的
+
+        Debug.Log($"找到 {allSprites.Length} 个SpriteRenderer");
+
+        int targetsFound = 0;
+        int targetsProcessed = 0;
+
+        foreach (SpriteRenderer sprite in allSprites)
+        {
+            // 检查Sorting Layer是否匹配
+            if (sprite.sortingLayerID == targetLayerID)
+            {
+                targetsFound++;
+
+                if (verboseLogging)
+                {
+                    Debug.Log($"找到目标物体: {sprite.gameObject.name} (图层: {sprite.sortingLayerName})");
+                }
+
+                // 检查物体是否在摄像机前方检测范围内
+                if (IsTargetVisible(sprite.gameObject))
+                {
+                    if (verboseLogging)
+                    {
+                        Debug.Log($"物体 {sprite.gameObject.name} 在检测范围内，将击落");
+                    }
+
+                    // 击落这个物体
+                    KnockDownObject(sprite.gameObject);
+                    targetsProcessed++;
+
+                    // 添加到已击落列表
+                    if (!knockedObjects.Contains(sprite.gameObject))
+                    {
+                        knockedObjects.Add(sprite.gameObject);
+                    }
+                }
+            }
+        }
+
+        Debug.Log($"击落完成！找到 {targetsFound} 个目标，击落了 {targetsProcessed} 个物体");
+
+        if (targetsFound == 0)
+        {
+            Debug.LogWarning($"没有找到任何Sorting Layer为 {targetSortingLayer} 的物体！");
+            Debug.Log("请检查：");
+            Debug.Log("1. 物体是否有SpriteRenderer组件");
+            Debug.Log($"2. SpriteRenderer的Sorting Layer是否设置为 {targetSortingLayer}");
+            Debug.Log("3. 物体是否在场景中（不是预制体）");
+        }
+    }
+
+    /// <summary>
+    /// 检查目标是否可见
+    /// </summary>
+    private bool IsTargetVisible(GameObject target)
+    {
+        if (useScreenDetection)
+        {
+            return IsTargetOnScreen(target);
+        }
+        else
+        {
+            return IsTargetInRadius(target);
+        }
+    }
+
+    /// <summary>
+    /// 检查目标是否在摄像机前方半径内
+    /// </summary>
+    private bool IsTargetInRadius(GameObject target)
+    {
+        if (mainCamera == null || target == null) return false;
+
+        Vector3 targetViewportPos = mainCamera.WorldToViewportPoint(target.transform.position);
+
+        // 检查是否在摄像机前方
+        if (targetViewportPos.z < 0) return false;
+
+        // 计算到屏幕中心的距离
+        Vector2 screenCenter = new Vector2(0.5f, 0.5f);
+        Vector2 targetPos = new Vector2(targetViewportPos.x, targetViewportPos.y);
+
+        float distance = Vector2.Distance(screenCenter, targetPos);
+
+        // 将视口距离转换为实际距离
+        return distance <= (searchRadius / 100f);
+    }
+
+    /// <summary>
+    /// 检查目标是否在屏幕上
+    /// </summary>
+    private bool IsTargetOnScreen(GameObject target)
+    {
+        if (mainCamera == null || target == null) return false;
+
+        Vector3 viewportPos = mainCamera.WorldToViewportPoint(target.transform.position);
+
+        if (verboseLogging)
+        {
+            Debug.Log($"物体 {target.name} 的视口坐标: {viewportPos}");
+        }
+
+        // 检查是否在摄像机前方
+        if (viewportPos.z < 0)
+        {
+            if (verboseLogging) Debug.Log($"物体 {target.name} 在摄像机后方");
+            return false;
+        }
+
+        // 扩展屏幕范围
+        float minX = 0f - screenExtendHorizontal;
+        float maxX = 1f + screenExtendHorizontal;
+        float minY = 0f - screenExtendVertical;
+        float maxY = 1f + screenExtendVertical;
+
+        bool isOnScreen = viewportPos.x >= minX && viewportPos.x <= maxX &&
+                          viewportPos.y >= minY && viewportPos.y <= maxY;
+
+        if (verboseLogging)
+        {
+            Debug.Log($"物体 {target.name} 在屏幕内: {isOnScreen} (范围: X[{minX},{maxX}], Y[{minY},{maxY}])");
+        }
+
+        return isOnScreen;
+    }
+
+    /// <summary>
+    /// 击落单个物体
+    /// </summary>
+    private void KnockDownObject(GameObject target)
+    {
+        if (target == null) return;
+
+        Debug.Log($"正在击落物体: {target.name}");
+
+        // 停止物体的当前行为
+        DisableAllBehaviors(target);
+
+        // 确保物体有Rigidbody2D组件
+        Rigidbody2D rb = target.GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            rb = target.AddComponent<Rigidbody2D>();
+            Debug.Log($"为 {target.name} 添加了Rigidbody2D组件");
+        }
+
+        // 启用物理
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.gravityScale = gravityScale;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous; // 连续检测避免穿透
+
+        // 计算击落方向
+        Vector2 knockDirection = GetKnockDownDirection(target);
+
+        // 施加击落力量
+        rb.AddForce(knockDirection * knockDownForce, ForceMode2D.Impulse);
+        Debug.Log($"对 {target.name} 施加力量: {knockDirection * knockDownForce}");
+
+        // 施加旋转力量
+        if (rotationForce > 0)
+        {
+            float randomRotation = Random.Range(-rotationForce, rotationForce);
+            rb.AddTorque(randomRotation, ForceMode2D.Impulse);
+        }
+
+        // 应用视觉效果
+        ApplyVisualEffects(target);
+
+        // 添加自动销毁
+        StartCoroutine(DestroyAfterDelay(target, destroyDelay));
+    }
+
+    /// <summary>
+    /// 获取击落方向
+    /// </summary>
+    private Vector2 GetKnockDownDirection(GameObject target)
+    {
+        Vector2 direction = Vector2.down;
+
+        if (mainCamera != null && knockBackForce > 0)
+        {
+            // 添加远离摄像机的方向
+            Vector3 cameraToTarget = target.transform.position - mainCamera.transform.position;
+            Vector2 awayFromCamera = new Vector2(cameraToTarget.x, cameraToTarget.y).normalized;
+            direction += awayFromCamera * 0.3f;
+        }
+
+        return direction.normalized;
+    }
+
+    /// <summary>
+    /// 禁用物体的所有行为组件
+    /// </summary>
+    private void DisableAllBehaviors(GameObject target)
+    {
+        if (target == null) return;
+
+        // 1. 禁用所有MonoBehaviour脚本
+        MonoBehaviour[] scripts = target.GetComponents<MonoBehaviour>();
+        int disabledCount = 0;
+
+        foreach (MonoBehaviour script in scripts)
+        {
+            if (script != null && script != this && script.enabled)
+            {
+                script.enabled = false;
+                disabledCount++;
+            }
+        }
+
+        // 2. 停止动画
+        Animator animator = target.GetComponent<Animator>();
+        if (animator != null && animator.enabled)
+        {
+            animator.enabled = false;
+            disabledCount++;
+        }
+
+        // 3. 停止其他可能的行为
+        ParticleSystem ps = target.GetComponent<ParticleSystem>();
+        if (ps != null && ps.isPlaying)
+        {
+            ps.Stop();
+        }
+
+        Debug.Log($"禁用了 {target.name} 的 {disabledCount} 个行为组件");
+    }
+
+    /// <summary>
+    /// 应用视觉效果
+    /// </summary>
+    private void ApplyVisualEffects(GameObject target)
+    {
+        SpriteRenderer spriteRenderer = target.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            // 更改为灰色，表示被击落
+            spriteRenderer.color = new Color(0.6f, 0.6f, 0.6f, 0.8f);
+
+            // 添加闪烁效果
+            StartCoroutine(FlashEffect(spriteRenderer));
+        }
+    }
+
+    /// <summary>
+    /// 闪烁效果
+    /// </summary>
+    private IEnumerator FlashEffect(SpriteRenderer renderer)
+    {
+        if (renderer == null) yield break;
+
+        Color originalColor = renderer.color;
+        for (int i = 0; i < 3; i++)
+        {
+            renderer.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            renderer.color = originalColor;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    /// <summary>
+    /// 延迟销毁物体
+    /// </summary>
+    private IEnumerator DestroyAfterDelay(GameObject target, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (target != null)
+        {
+            // 淡出效果
+            SpriteRenderer spriteRenderer = target.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                float fadeDuration = 1f;
+                float elapsedTime = 0f;
+                Color startColor = spriteRenderer.color;
+
+                while (elapsedTime < fadeDuration && target != null)
+                {
+                    elapsedTime += Time.deltaTime;
+                    float t = Mathf.Clamp01(elapsedTime / fadeDuration);
+                    Color newColor = new Color(
+                        startColor.r,
+                        startColor.g,
+                        startColor.b,
+                        Mathf.Lerp(startColor.a, 0, t)
+                    );
+                    spriteRenderer.color = newColor;
+                    yield return null;
+                }
+            }
+
+            // 从击落列表中移除
+            knockedObjects.Remove(target);
+
+            // 销毁物体
+            Destroy(target);
+            Debug.Log($"已销毁物体: {target.name}");
+        }
+    }
+
+    /// <summary>
+    /// 清除所有被击落的物体
+    /// </summary>
+    [ContextMenu("清除所有被击落物体")]
+    public void ClearAllKnockedObjects()
+    {
+        Debug.Log($"正在清除 {knockedObjects.Count} 个被击落的物体");
+
+        foreach (GameObject obj in knockedObjects.ToArray())
+        {
+            if (obj != null)
+            {
+                Destroy(obj);
+            }
+        }
+
+        knockedObjects.Clear();
+        Debug.Log("已清除所有被击落的物体");
+    }
+
+    /// <summary>
+    /// 查找所有Player层的物体
+    /// </summary>
+    [ContextMenu("查找所有Player层物体")]
+    public void FindAllPlayerLayerObjects()
+    {
+        SpriteRenderer[] allSprites = FindObjectsOfType<SpriteRenderer>(true);
+        int count = 0;
+
+        Debug.Log("=== 所有Player层物体列表 ===");
+
+        foreach (SpriteRenderer sprite in allSprites)
+        {
+            if (sprite.sortingLayerID == targetLayerID)
+            {
+                count++;
+                Debug.Log($"{count}. {sprite.gameObject.name} (激活: {sprite.gameObject.activeInHierarchy})");
+            }
+        }
+
+        Debug.Log($"=== 总计: {count} 个物体 ===");
+    }
+}

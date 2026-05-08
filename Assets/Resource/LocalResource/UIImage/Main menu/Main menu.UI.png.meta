@@ -97,49 +97,70 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gold bar and ID UI
+      name: Main menu.UI_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 686
+        y: 688
         width: 1000
-        height: 282
+        height: 280
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c40080c9e6595094c842b010e791df5b
-      internalID: 753911472
+      spriteID: 0b223ac995786e740896019e01bf330c
+      internalID: -1943024127
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Button
+      name: Main menu.UI_1
       rect:
         serializedVersion: 2
-        x: 8
-        y: 592
-        width: 176
-        height: 92
+        x: 16
+        y: 503
+        width: 113
+        height: 169
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36af0d71ba8f3384c8b67f984eb7e1eb
-      internalID: -1546421484
+      spriteID: 838212361460ca74399cd2f8748b5dbb
+      internalID: 668254105
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Begin
+      name: Main menu.UI_2
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 604
+        width: 97
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0367e4fdd25aa0946a13e2336aba6f2d
+      internalID: 1003050293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main menu.UI_3
       rect:
         serializedVersion: 2
         x: 550
@@ -147,14 +168,35 @@ TextureImporter:
         width: 443
         height: 610
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d1d105de129c164c80defc94971a2b8
-      internalID: 1355392742
+      spriteID: 92205d0525d1d2046ad095da80aae5bc
+      internalID: -2046782063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main menu.UI_4
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 180
+        width: 462
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd64046aa124eec4a9f909cf1ba17b7a
+      internalID: 341752146
       vertices: []
       indices: 
       edges: []
@@ -170,9 +212,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Begin: 1355392742
-      Button: -1546421484
-      Gold bar and ID UI: 753911472
+      Main menu.UI_0: -1943024127
+      Main menu.UI_1: 668254105
+      Main menu.UI_2: 1003050293
+      Main menu.UI_3: -2046782063
+      Main menu.UI_4: 341752146
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
