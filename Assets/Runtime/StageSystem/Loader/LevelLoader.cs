@@ -6,23 +6,51 @@ using UnityEngine;
 /// </summary>
 public class LevelLoader : MonoBehaviour
 {
-    // 待实现：这里未来需要引入 PrefabRegistry 进行资源寻址。
-    // public PrefabRegistry registry;
+    [Tooltip("请将生成的 PrefabRegistry 拖入此处")]
+    public PrefabRegistry registry;
 
     /// <summary>
     /// 运行时加载并生成关卡实体的核心入口
     /// </summary>
     public void LoadLevelAtRuntime(LevelConfig config)
     {
+        if (registry == null)
+        {
+            Debug.LogError("LevelLoader 缺少 PrefabRegistry 引用，无法加载资源！");
+            return;
+        }
+
         Debug.Log($"运行时准备加载关卡配置：ID={config.levelId}");
         
         foreach (var objData in config.objects)
         {
-            // 【占位】
-            // 1. GameObject prefab = registry.GetPrefab(objData.prefabKey);
-            // 2. GameObject instance = Instantiate(prefab);
-            // 3. 还原 Transform ...
-            // 4. 遍历 instance 上的 ILevelComponent，调用 ApplyData()...
+            // 1. 通过字典高速查找到资源实体
+            GameObject prefab = registry.GetPrefab(objData.prefabKey);
+            if (prefab == null) continue;
+
+            // 2. 实机实例化
+            GameObject instance = Instantiate(prefab);
+
+            // 3. 还原 Transform
+            instance.transform.position = objData.transform.position;
+            instance.transform.eulerAngles = objData.transform.rotation;
+            instance.transform.localScale = objData.transform.scale;
+
+            // 4. 将提取出来的数据重新注入给组件
+            var levelComponents = instance.GetComponentsInChildren<ILevelComponent>(true);
+            foreach (var savedData in objData.components)
+            {
+                foreach (var comp in levelComponents)
+                {
+                    if (comp.DataType == savedData.GetType())
+                    {
+                        comp.ApplyData(savedData);
+                        break;
+                    }
+                }
+            }
         }
+        
+        Debug.Log($"<color=cyan>关卡 {config.levelId} 实机加载完成！</color>");
     }
 }

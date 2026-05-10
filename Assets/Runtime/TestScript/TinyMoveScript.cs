@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
+// using Unity.Mathematics;
 using UnityEngine;
 
 public class TinyMoveScript : MonoBehaviour
@@ -14,6 +14,6 @@ public class TinyMoveScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(3 * (float)math.cos(Time.time * 3.1415), 3 * (float)math.sin(Time.time * 3.1415), 0);
+        transform.position = new Vector3(3 * (float)Mathf.Cos(Time.time * 3.1415f), 3 * (float)Mathf.Sin(Time.time * 3.1415f), 0);
     }
 }
