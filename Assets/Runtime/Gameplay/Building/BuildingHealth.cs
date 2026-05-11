@@ -1,9 +1,16 @@
 // using Unity.Mathematics;
 using UnityEngine;
 
-public class BuildingHealth : MonoBehaviour, ICollide, ILevelComponent
+public class BuildingHealth : MonoBehaviour, ILevelComponent, ICollide
 {
     #region ILevelComponent实现
+    #region ICollide实现
+    public Damage OnCollide(Damage damage)
+    {
+        print(damage.Source.name);
+        return TakeDamage(damage);
+    }
+    #endregion
     public System.Type DataType => typeof(BuildingHealthData);
 
     public ComponentData ExtractData()
@@ -80,15 +87,7 @@ public class BuildingHealth : MonoBehaviour, ICollide, ILevelComponent
     // 处理受到的伤害。
     public Damage TakeDamage(Damage damage)
     {
-        int finalDamage = 0;
-
-
-        Damage result = new Damage();
-        result.initialDamage = damage.initialDamage;
-        result.finalDamage = finalDamage;
-        result.type = damage.type;
-
-        return result;
+        return DamageComputor.DamageCompute(damage);
     }
 
     // 恢复指定生命值。
@@ -176,11 +175,5 @@ public class BuildingHealth : MonoBehaviour, ICollide, ILevelComponent
         {
             HpBarBottom.SetActive(active);
         }
-    }
-
-    // 处理外部碰撞。
-    public void OnCollide(Collider2D other)
-    {
-        
     }
 }

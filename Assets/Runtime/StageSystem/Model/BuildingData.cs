@@ -16,3 +16,9 @@ public class BuildingHealthData : ComponentData
     public int magicDefen;
     public int maxHp;
 }
+
+[Serializable]
+public class BuildingAIData : ComponentData
+{
+    // 预留给建筑 AI 的序列化参数（如攻击间隔、索敌范围等）
+}

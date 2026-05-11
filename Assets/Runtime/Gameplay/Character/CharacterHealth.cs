@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterHealth : MonoBehaviour, ICollide, ILevelComponent
+public class CharacterHealth : MonoBehaviour, ILevelComponent, ICollide
 {
     #region ILevelComponent实现
     public System.Type DataType => typeof(CharacterHealthData);
@@ -27,7 +27,13 @@ public class CharacterHealth : MonoBehaviour, ICollide, ILevelComponent
         }
     }
     #endregion
-
+    #region ICollide实现
+    public Damage OnCollide(Damage damage)
+    {
+        print(damage.Source.name);
+        return TakeDamage(damage);
+    }
+    #endregion
     public GameObject HpBarUp;
     public GameObject HpBarBottom;
     public float barSustainTime = 2f;
@@ -77,12 +83,7 @@ public class CharacterHealth : MonoBehaviour, ICollide, ILevelComponent
 
     public Damage TakeDamage(Damage damage)
     {
-        int finalDamage = 0;
-        Damage result = new Damage();
-        result.initialDamage = damage.initialDamage;
-        result.finalDamage = finalDamage;
-        result.type = damage.type;
-        return result;
+        return DamageComputor.DamageCompute(damage);
     }
 
     public void Heal(int amount) { throw new System.NotImplementedException(); }
@@ -115,5 +116,5 @@ public class CharacterHealth : MonoBehaviour, ICollide, ILevelComponent
         if (HpBarBottom != null) HpBarBottom.SetActive(active);
     }
 
-    public void OnCollide(Collider2D other) { }
+
 }
