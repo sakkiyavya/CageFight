@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class BuildingHealth : MonoBehaviour, ICollide, ILevelComponent
 {
+    #region ILevelComponent实现
     public System.Type DataType => typeof(BuildingHealthData);
 
     public ComponentData ExtractData()
@@ -26,7 +27,7 @@ public class BuildingHealth : MonoBehaviour, ICollide, ILevelComponent
             this.MaxHp = hData.maxHp;
         }
     }
-
+    #endregion
     public GameObject HpBarUp;
     public GameObject HpBarBottom;
     public float barSustainTime = 2f;

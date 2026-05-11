@@ -5,6 +5,7 @@ using System.Collections;
 [ExecuteAlways]
 public class BuildingBase : MonoBehaviour, ILevelComponent
 {
+    #region ILevelComponent实现
     public System.Type DataType => typeof(BuildingBaseData);
 
     public ComponentData ExtractData()
@@ -24,7 +25,7 @@ public class BuildingBase : MonoBehaviour, ILevelComponent
             this.buildTime = bData.buildTime;
         }
     }
-
+    #endregion
     public Vector2Int occupySpace = Vector2Int.one;
     public GameObject buildAnime;
     public float buildTime = 3f;
