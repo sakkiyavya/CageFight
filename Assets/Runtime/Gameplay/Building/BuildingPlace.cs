@@ -100,22 +100,24 @@ public class BuildingPlace : MonoBehaviour
         if (activeTouch.HasValue)
         {
             Touch touch = activeTouch.Value;
-
             if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary)
             {
                 Vector3 worldPos = Camera.main.ScreenToWorldPoint(touch.position);
                 worldPos.z = 0;
 
+                GameObjectProperty prop = currentBuilding.GetComponent<GameObjectProperty>();
+                Vector2Int occupySpace = prop != null ? prop.occupySpace : Vector2Int.one;
+
                 // 计算对齐后的网格左下角起始坐标
                 Vector2Int currentBasePos = new Vector2Int(
-                    Mathf.FloorToInt(worldPos.x - currentBuilding.occupySpace.x / 2f),
-                    Mathf.FloorToInt(worldPos.y - currentBuilding.occupySpace.y / 2f)
+                    Mathf.FloorToInt(worldPos.x - occupySpace.x / 2f),
+                    Mathf.FloorToInt(worldPos.y - occupySpace.y / 2f)
                 );
 
                 // 计算建筑中心点位置（用于视觉同步）
                 Vector2 snappedPos = new Vector2(
-                    currentBasePos.x + currentBuilding.occupySpace.x / 2f,
-                    currentBasePos.y + currentBuilding.occupySpace.y / 2f
+                    currentBasePos.x + occupySpace.x / 2f,
+                    currentBasePos.y + occupySpace.y / 2f
                 );
                 currentBuilding.transform.position = snappedPos;
                 currentBuilding.RefreshOccupancy();

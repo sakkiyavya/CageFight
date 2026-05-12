@@ -1,53 +1,24 @@
 // using Unity.Mathematics;
 using UnityEngine;
 
-public class BuildingHealth : MonoBehaviour, ILevelComponent, ICollide
+[RequireComponent(typeof(GameObjectProperty))]
+public class BuildingHealth : MonoBehaviour, ICollide
 {
-    #region ILevelComponent实现
-    #region ICollide实现
+    // ICollide implementation retained
     public Damage OnCollide(Damage damage)
     {
         print(damage.Source.name);
         return TakeDamage(damage);
     }
-    #endregion
-    public System.Type DataType => typeof(BuildingHealthData);
 
-    public ComponentData ExtractData()
+    private GameObjectProperty _prop;
+    private void Awake()
     {
-        return new BuildingHealthData
-        {
-            barSustainTime = this.barSustainTime,
-            defen = this.defen,
-            magicDefen = this.magicDefen,
-            maxHp = this.MaxHp
-        };
+        _prop = GetComponent<GameObjectProperty>();
     }
-
-    public void ApplyData(ComponentData data)
-    {
-        if (data is BuildingHealthData hData)
-        {
-            this.barSustainTime = hData.barSustainTime;
-            this.defen = hData.defen;
-            this.magicDefen = hData.magicDefen;
-            this.MaxHp = hData.maxHp;
-        }
-    }
-    #endregion
     public GameObject HpBarUp;
     public GameObject HpBarBottom;
-    public float barSustainTime = 2f;
-    [SerializeField]
-    [Header("防御")]
-    private int defen = 10;public int Defen => defen;
-    [SerializeField]
-    [Header("魔法防御")]
-    private int magicDefen = 5;public int MagicDefen => magicDefen;
-    [SerializeField]
-    [Header("最大生命值")]
-    private int MaxHp = 100;public int MaxHP => MaxHp;
-    private int hp;public int HP => hp;
+    private int hp; public int HP => hp;
     
 
     private float hideTime = -1f;
@@ -72,7 +43,7 @@ public class BuildingHealth : MonoBehaviour, ILevelComponent, ICollide
     // 按百分比设置血量。
     public void SetPercentHp(float percent)
     {
-        hp = Mathf.RoundToInt(MaxHp * Mathf.Clamp01(percent));
+        hp = Mathf.RoundToInt(_prop.maxHp * Mathf.Clamp01(percent));
         ApplyBarVisual();
         ShowBarTemporarily();
     }
@@ -151,7 +122,7 @@ public class BuildingHealth : MonoBehaviour, ILevelComponent, ICollide
     {
         if (HpBarUp != null)
         {
-            float scaleX = MaxHp > 0 ? (float)hp / MaxHp : 0f;
+            float scaleX = _prop.maxHp > 0 ? (float)hp / _prop.maxHp : 0f;
             HpBarUp.transform.localScale = new Vector3(scaleX, 1f, 1f);
         }
     }
@@ -160,7 +131,7 @@ public class BuildingHealth : MonoBehaviour, ILevelComponent, ICollide
     private void ShowBarTemporarily()
     {
         SetBarActive(true);
-        hideTime = Time.time + barSustainTime;
+        hideTime = Time.time + _prop.barSustainTime;
     }
 
     // 统一控制血条显隐。

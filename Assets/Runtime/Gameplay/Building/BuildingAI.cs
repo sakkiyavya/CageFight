@@ -1,24 +1,14 @@
 using UnityEngine;
 
-public class BuildingAI : MonoBehaviour, ILevelComponent
+[RequireComponent(typeof(GameObjectProperty))]
+public class BuildingAI : MonoBehaviour
 {
-    #region ILevelComponent实现
-    public System.Type DataType => typeof(BuildingAIData);
+    private GameObjectProperty _prop;
 
-    public ComponentData ExtractData()
+    private void Awake()
     {
-        return new BuildingAIData
-        {
-        };
+        _prop = GetComponent<GameObjectProperty>();
     }
-
-    public void ApplyData(ComponentData data)
-    {
-        if (data is BuildingAIData aiData)
-        {
-        }
-    }
-    #endregion
 
     // TODO: 实现在此处处理建筑的 AI 逻辑。
 

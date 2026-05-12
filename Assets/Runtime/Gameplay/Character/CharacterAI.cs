@@ -1,30 +1,16 @@
 using UnityEngine;
 
-public class CharacterAI : MonoBehaviour, ILevelComponent
+[RequireComponent(typeof(GameObjectProperty))]
+public class CharacterAI : MonoBehaviour
 {
-    #region ILevelComponent实现
-    public System.Type DataType => typeof(CharacterAIData);
+    private GameObjectProperty _prop;
 
-    public ComponentData ExtractData()
+    private void Awake()
     {
-        return new CharacterAIData
-        {
-            moveSpeed = this.moveSpeed
-        };
+        _prop = GetComponent<GameObjectProperty>();
     }
 
-    public void ApplyData(ComponentData data)
-    {
-        if (data is CharacterAIData aiData)
-        {
-            this.moveSpeed = aiData.moveSpeed;
-        }
-    }
-    #endregion
-
-    [SerializeField]
-    [Header("移动速度")]
-    private float moveSpeed = 3f; public float MoveSpeed => moveSpeed;
+    public float MoveSpeed => _prop.moveSpeed;
 
     // TODO: 可以在此处实现基础的 AI 逻辑（如寻路、状态机等）
     protected virtual void AIBehaviour()

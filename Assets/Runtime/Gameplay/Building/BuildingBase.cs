@@ -2,35 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 
-[ExecuteAlways]
-public class BuildingBase : MonoBehaviour, ILevelComponent
+[RequireComponent(typeof(GameObjectProperty))]
+public class BuildingBase : MonoBehaviour
 {
-    #region ILevelComponent实现
-    public System.Type DataType => typeof(BuildingBaseData);
-
-    public ComponentData ExtractData()
-    {
-        return new BuildingBaseData
-        {
-            occupySpace = this.occupySpace,
-            buildTime = this.buildTime
-        };
-    }
-
-    public void ApplyData(ComponentData data)
-    {
-        if (data is BuildingBaseData bData)
-        {
-            this.occupySpace = bData.occupySpace;
-            this.buildTime = bData.buildTime;
-        }
-    }
-    #endregion
-    public Vector2Int occupySpace = Vector2Int.one;
-    public GameObject buildAnime;
-    public float buildTime = 3f;
+    #region 属性引用及基础变量
+    private GameObjectProperty _prop;
     protected bool isCompleted = false;
     protected SpriteRenderer spr;
+    #endregion
 
     private List<Vector2Int> occupiedCells = new List<Vector2Int>();
     private Vector2Int lastOccupyBasePos = new Vector2Int(int.MinValue, int.MinValue);
@@ -43,6 +22,7 @@ public class BuildingBase : MonoBehaviour, ILevelComponent
     // 缓存建筑组件。
     private void Awake()
     {
+        _prop = GetComponent<GameObjectProperty>();
         CacheComponents();
     }
 
@@ -108,7 +88,7 @@ public class BuildingBase : MonoBehaviour, ILevelComponent
     // 开始建筑施工流程。
     public void StartBuild()
     {
-        if(buildAnime == null) return;
+        if(_prop.buildAnime == null) return;
         if (buildCoroutine != null)
         {
             StopCoroutine(buildCoroutine);
@@ -125,9 +105,9 @@ public class BuildingBase : MonoBehaviour, ILevelComponent
         Vector2Int basePos = GetBasePos();
 
         List<Vector2Int> cells = new List<Vector2Int>();
-        for (int x = 0; x < occupySpace.x; x++)
+        for (int x = 0; x < _prop.occupySpace.x; x++)
         {
-            for (int y = 0; y < occupySpace.y; y++)
+            for (int y = 0; y < _prop.occupySpace.y; y++)
             {
                 cells.Add(new Vector2Int(basePos.x + x, basePos.y + y));
             }
@@ -139,14 +119,17 @@ public class BuildingBase : MonoBehaviour, ILevelComponent
     private Vector2Int GetBasePos()
     {
         return new Vector2Int(
-            Mathf.FloorToInt(transform.position.x - occupySpace.x / 2f),
-            Mathf.FloorToInt(transform.position.y - occupySpace.y / 2f)
+            Mathf.FloorToInt(transform.position.x - _prop.occupySpace.x / 2f),
+            Mathf.FloorToInt(transform.position.y - _prop.occupySpace.y / 2f)
         );
     }
 
     // 刷新地图占用状态。
     public void RefreshOccupancy()
     {
+        CacheComponents();
+        if (_prop == null) return;
+
         MapCells mapCells = MapCells.Instance;
         if (mapCells == null)
         {
@@ -157,7 +140,7 @@ public class BuildingBase : MonoBehaviour, ILevelComponent
         bool needsSync =
             !hasRegisteredOccupancy ||
             currentBasePos != lastOccupyBasePos ||
-            occupySpace != lastOccupySpace ||
+            _prop.occupySpace != lastOccupySpace ||
             mapCells.Version != lastMapVersion;
 
         if (!needsSync)
@@ -174,7 +157,7 @@ public class BuildingBase : MonoBehaviour, ILevelComponent
         mapCells.UseCells(occupiedCells, gameObject);
 
         lastOccupyBasePos = currentBasePos;
-        lastOccupySpace = occupySpace;
+        lastOccupySpace = _prop.occupySpace;
         lastMapVersion = mapCells.Version;
         hasRegisteredOccupancy = true;
     }
@@ -213,21 +196,21 @@ public class BuildingBase : MonoBehaviour, ILevelComponent
             spr.enabled = false;
         }
 
-        if (buildAnime != null)
+        if (_prop.buildAnime != null)
         {
-            buildAnimeInstance = Instantiate(buildAnime, transform.position, transform.rotation);
+            buildAnimeInstance = Instantiate(_prop.buildAnime, transform.position, transform.rotation);
         }
 
-        if (buildTime > 0f)
+        if (_prop.buildTime > 0f)
         {
             float elapsed = 0f;
-            while (elapsed < buildTime)
+            while (elapsed < _prop.buildTime)
             {
                 elapsed += Time.deltaTime;
 
                 if (buildingHealth != null)
                 {
-                    float percent = Mathf.Clamp01(elapsed / buildTime);
+                    float percent = Mathf.Clamp01(elapsed / _prop.buildTime);
                     buildingHealth.SetPercentHp(percent);
                 }
 
@@ -293,6 +276,10 @@ public class BuildingBase : MonoBehaviour, ILevelComponent
         {
             buildingHealth = GetComponent<BuildingHealth>();
         }
+        if (_prop == null)
+        {
+            _prop = GetComponent<GameObjectProperty>();
+        }
     }
 
     // 编辑器下实时同步占用。
@@ -312,10 +299,12 @@ public class BuildingBase : MonoBehaviour, ILevelComponent
     private void OnDrawGizmos()
     {
         if (Application.isPlaying) return;
+        CacheComponents();
+        if (_prop == null) return;
 
         Vector2 snappedPos = new Vector2(
-            Mathf.FloorToInt(transform.position.x - occupySpace.x / 2f) + occupySpace.x / 2f,
-            Mathf.FloorToInt(transform.position.y - occupySpace.y / 2f) + occupySpace.y / 2f
+            Mathf.FloorToInt(transform.position.x - _prop.occupySpace.x / 2f) + _prop.occupySpace.x / 2f,
+            Mathf.FloorToInt(transform.position.y - _prop.occupySpace.y / 2f) + _prop.occupySpace.y / 2f
         );
 
         transform.position = new Vector3(snappedPos.x, snappedPos.y, transform.position.z);

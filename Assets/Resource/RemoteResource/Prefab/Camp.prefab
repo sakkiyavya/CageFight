@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 8805327267830802300}
   - component: {fileID: -1641600381577905295}
   - component: {fileID: -5396025553226621785}
+  - component: {fileID: 1630966805328636007}
   m_Layer: 0
   m_Name: Camp
   m_TagString: Untagged
@@ -186,10 +187,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 7256817948440773354}
   HpBarBottom: {fileID: 1039306232219568459}
-  barSustainTime: 2
-  defen: 10
-  magicDefen: 5
-  MaxHp: 100
 --- !u!114 &-5396025553226621785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,9 +199,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f73bdea57857b4aa359266127eb3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1630966805328636007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2520427044543007020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d49988eb09b0124bae402f398f1ba43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 1
+  side: 0
+  maxHp: 100
+  defense: 10
+  magicDefense: 5
+  atk: 10
+  magicAtk: 5
+  atkRange: 1.5
+  barSustainTime: 2
+  buildTime: 3
+  moveSpeed: 3
   occupySpace: {x: 2, y: 1}
   buildAnime: {fileID: 5926670886179881280, guid: 77d831c9df4bd984abdd7b40ef8cfb65, type: 3}
-  buildTime: 3
 --- !u!1 &7256817948440773354
 GameObject:
   m_ObjectHideFlags: 0

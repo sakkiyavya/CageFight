@@ -1,32 +1,14 @@
 using UnityEngine;
 
-public class CharacterHealth : MonoBehaviour, ILevelComponent, ICollide
+[RequireComponent(typeof(GameObjectProperty))]
+public class CharacterHealth : MonoBehaviour, ICollide
 {
-    #region ILevelComponent实现
-    public System.Type DataType => typeof(CharacterHealthData);
-
-    public ComponentData ExtractData()
+    // ILevelComponent removed; data handled by GameObjectProperty
+    private GameObjectProperty _prop;
+    private void Awake()
     {
-        return new CharacterHealthData
-        {
-            barSustainTime = this.barSustainTime,
-            defen = this.defen,
-            magicDefen = this.magicDefen,
-            maxHp = this.MaxHp
-        };
+        _prop = GetComponent<GameObjectProperty>();
     }
-
-    public void ApplyData(ComponentData data)
-    {
-        if (data is CharacterHealthData hData)
-        {
-            this.barSustainTime = hData.barSustainTime;
-            this.defen = hData.defen;
-            this.magicDefen = hData.magicDefen;
-            this.MaxHp = hData.maxHp;
-        }
-    }
-    #endregion
     #region ICollide实现
     public Damage OnCollide(Damage damage)
     {
@@ -36,20 +18,6 @@ public class CharacterHealth : MonoBehaviour, ILevelComponent, ICollide
     #endregion
     public GameObject HpBarUp;
     public GameObject HpBarBottom;
-    public float barSustainTime = 2f;
-
-    [SerializeField]
-    [Header("防御")]
-    private int defen = 10; public int Defen => defen;
-
-    [SerializeField]
-    [Header("魔法防御")]
-    private int magicDefen = 5; public int MagicDefen => magicDefen;
-
-    [SerializeField]
-    [Header("最大生命值")]
-    private int MaxHp = 100; public int MaxHP => MaxHp;
-
     private int hp; public int HP => hp;
     private float hideTime = -1f;
 
@@ -70,7 +38,7 @@ public class CharacterHealth : MonoBehaviour, ILevelComponent, ICollide
 
     public void SetPercentHp(float percent)
     {
-        hp = Mathf.RoundToInt(MaxHp * Mathf.Clamp01(percent));
+        hp = Mathf.RoundToInt(_prop.maxHp * Mathf.Clamp01(percent));
         ApplyBarVisual();
         ShowBarTemporarily();
     }
@@ -83,13 +51,17 @@ public class CharacterHealth : MonoBehaviour, ILevelComponent, ICollide
 
     public Damage TakeDamage(Damage damage)
     {
+        ShowBarTemporarily();
+        hp -= damage.initialDamage;
+        hp = Mathf.Max(hp, 0);
+        if(hp <= 0) Die();
         return DamageComputor.DamageCompute(damage);
     }
 
     public void Heal(int amount) { throw new System.NotImplementedException(); }
     public void RestoreFullHp() { throw new System.NotImplementedException(); }
     public void ReduceToZero() { throw new System.NotImplementedException(); }
-    public void Die() { throw new System.NotImplementedException(); }
+    public void Die() { print(name + " Die!"); }
     public void Revive() { throw new System.NotImplementedException(); }
     public bool IsDead() { throw new System.NotImplementedException(); }
     public float GetHpPercent() { throw new System.NotImplementedException(); }
@@ -99,7 +71,7 @@ public class CharacterHealth : MonoBehaviour, ILevelComponent, ICollide
     {
         if (HpBarUp != null)
         {
-            float scaleX = MaxHp > 0 ? (float)hp / MaxHp : 0f;
+            float scaleX = _prop.maxHp > 0 ? (float)hp / _prop.maxHp : 0f;
             HpBarUp.transform.localScale = new Vector3(scaleX, 1f, 1f);
         }
     }
@@ -107,7 +79,8 @@ public class CharacterHealth : MonoBehaviour, ILevelComponent, ICollide
     private void ShowBarTemporarily()
     {
         SetBarActive(true);
-        hideTime = Time.time + barSustainTime;
+        ApplyBarVisual();
+        hideTime = Time.time + _prop.barSustainTime;
     }
 
     private void SetBarActive(bool active)
