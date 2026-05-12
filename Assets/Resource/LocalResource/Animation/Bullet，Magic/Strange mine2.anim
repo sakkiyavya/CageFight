@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Giant potion
+  m_Name: Strange mine2
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,21 +21,23 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -701776219, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
-    - time: 0.1
-      value: {fileID: 358791166, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
+      value: {fileID: -1632184252, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
+    - time: 0.083333336
+      value: {fileID: 377689058, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
     - time: 0.18333334
-      value: {fileID: -1327448928, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
+      value: {fileID: 696342093, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
     - time: 0.28333333
-      value: {fileID: 777886891, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
+      value: {fileID: -441912022, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
     - time: 0.38333333
-      value: {fileID: -538965310, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
+      value: {fileID: 770152736, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
     - time: 0.48333332
-      value: {fileID: 579066067, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
-    - time: 0.56666666
-      value: {fileID: 237674608, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
-    - time: 0.6666667
-      value: {fileID: 761360275, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
+      value: {fileID: 814354529, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
+    - time: 0.5833333
+      value: {fileID: -985445888, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
+    - time: 0.68333334
+      value: {fileID: -207639135, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
+    - time: 0.78333336
+      value: {fileID: 1429414171, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -58,20 +60,21 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -701776219, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
-    - {fileID: 358791166, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
-    - {fileID: -1327448928, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
-    - {fileID: 777886891, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
-    - {fileID: -538965310, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
-    - {fileID: 579066067, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
-    - {fileID: 237674608, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
-    - {fileID: 761360275, guid: 0ea9d34321a108040945b20384f055ea, type: 3}
+    - {fileID: -1632184252, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
+    - {fileID: 377689058, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
+    - {fileID: 696342093, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
+    - {fileID: -441912022, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
+    - {fileID: 770152736, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
+    - {fileID: 814354529, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
+    - {fileID: -985445888, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
+    - {fileID: -207639135, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
+    - {fileID: 1429414171, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.68333334
+    m_StopTime: 0.8
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
