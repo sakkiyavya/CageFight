@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public enum DamageType
     normal = 0,
     magic = 1,
 }
+[Serializable]
 public struct Damage
 {
     public int initialDamage;
@@ -14,9 +16,17 @@ public struct Damage
     public int finalDamage;
     public DamageType type;
 
-    public GameObject Source;
+    public GameObject source;
     public GameObject target;
     
+    public static Damage DefaultDamage => new Damage
+    {
+        initialDamage = 10,
+        finalDamage = 0,
+        type = DamageType.normal,
+        source = null,
+        target = null
+    };
 }
 
 public static class DamageComputor

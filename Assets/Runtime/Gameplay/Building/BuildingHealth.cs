@@ -7,7 +7,7 @@ public class BuildingHealth : MonoBehaviour, ICollide
     // ICollide implementation retained
     public Damage OnCollide(Damage damage)
     {
-        print(damage.Source.name);
+        print(damage.source.name);
         return TakeDamage(damage);
     }
 

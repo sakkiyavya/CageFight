@@ -8,11 +8,14 @@ public class CharacterHealth : MonoBehaviour, ICollide
     private void Awake()
     {
         _prop = GetComponent<GameObjectProperty>();
+        hp = _prop.maxHp;
     }
     #region ICollide实现
     public Damage OnCollide(Damage damage)
     {
-        print(damage.Source.name);
+        if(damage.source)
+            print(damage.source.name);
+        
         return TakeDamage(damage);
     }
     #endregion
@@ -51,9 +54,9 @@ public class CharacterHealth : MonoBehaviour, ICollide
 
     public Damage TakeDamage(Damage damage)
     {
-        ShowBarTemporarily();
         hp -= damage.initialDamage;
         hp = Mathf.Max(hp, 0);
+        ShowBarTemporarily();
         if(hp <= 0) Die();
         return DamageComputor.DamageCompute(damage);
     }
