@@ -24,6 +24,9 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
     public float barSustainTime = 2f;
     public float buildTime = 3f;
     public float moveSpeed = 3f;
+
+    [Header("实时信息")]
+    public GameObject target;
     [Header("空间属性")]
     public Vector2Int occupySpace = Vector2Int.one;
     public GameObject buildAnime;

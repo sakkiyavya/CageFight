@@ -282,15 +282,10 @@ public class BuildingBase : MonoBehaviour
         }
     }
 
-    // 编辑器下实时同步占用。
+    // 持续同步占用。
     private void Update()
     {
-        #if UNITY_EDITOR
-        if (!Application.isPlaying)
-        {
-            RefreshOccupancy();
-        }
-        #endif
+        RefreshOccupancy();
     }
 
 #if UNITY_EDITOR

@@ -1,21 +1,26 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 public class CharacterAI : MonoBehaviour
 {
+    public List<BehaviourBase> Behaviours = new List<BehaviourBase>();
     private GameObjectProperty _prop;
-
+    private CharacterHealth _health;
     private void Awake()
     {
         _prop = GetComponent<GameObjectProperty>();
+        _health = GetComponent<CharacterHealth>();
     }
 
     public float MoveSpeed => _prop.moveSpeed;
 
-    // TODO: 可以在此处实现基础的 AI 逻辑（如寻路、状态机等）
     protected virtual void AIBehaviour()
     {
-        
+        foreach (var behaviour in Behaviours)
+        {
+            behaviour.AIBehaviour(gameObject, _prop, _health);
+        }
     }
 
     void Update()

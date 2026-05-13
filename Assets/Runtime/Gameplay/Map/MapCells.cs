@@ -12,7 +12,7 @@ public class MapCells : MonoBehaviour
     public static MapCells Instance => instance;
     public int Version => version;
 
-    [Header("鍦板浘灏哄")]
+    [Header("地图尺寸")]
     public int width = 20;
     public int height = 20;
 
