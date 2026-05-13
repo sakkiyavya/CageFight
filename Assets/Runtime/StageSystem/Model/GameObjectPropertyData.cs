@@ -22,7 +22,8 @@ public class GameObjectPropertyData : ComponentData
     public int magicDefense;
     public int atk;
     public int magicAtk;
-    public float atkRange;
+    public Vector2Int atkRange = Vector2Int.one;
+    public bool isFacingLeft = true;
     public Vector2Int occupySpace;
     public float barSustainTime;
     public float buildTime;

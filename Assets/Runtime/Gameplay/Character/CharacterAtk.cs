@@ -12,5 +12,5 @@ public class CharacterAtk : MonoBehaviour
 
     public int Atk => _prop.atk;
     public int MagicAtk => _prop.magicAtk;
-    public float AtkRange => _prop.atkRange;
+    public Vector2Int AtkRange => _prop.atkRange;
 }

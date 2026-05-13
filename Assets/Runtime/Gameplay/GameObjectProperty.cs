@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -18,7 +19,8 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
     [Header("攻击属性")]
     public int atk = 10;
     public int magicAtk = 5;
-    public float atkRange = 1.5f;
+    public Vector2Int atkRange = Vector2Int.one;
+    public GameObject atkObj;
 
     [Header("额外属性")]
     public float barSustainTime = 2f;
@@ -27,6 +29,13 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
 
     [Header("实时信息")]
     public GameObject target;
+    public List<Vector2Int> path = new List<Vector2Int>();
+    public bool isFacingLeft = true;
+    
+    // AI 增量搜索会话
+    public AStarUtility.PathSearchSession currentPathSession;
+    public EnemyScanSession currentScanSession;
+
     [Header("空间属性")]
     public Vector2Int occupySpace = Vector2Int.one;
     public GameObject buildAnime;
@@ -47,6 +56,7 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
             atk = this.atk,
             magicAtk = this.magicAtk,
             atkRange = this.atkRange,
+            isFacingLeft = this.isFacingLeft,
             occupySpace = this.occupySpace,
             moveSpeed = this.moveSpeed
         };
@@ -64,6 +74,7 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
             this.atk = pData.atk;
             this.magicAtk = pData.magicAtk;
             this.atkRange = pData.atkRange;
+            this.isFacingLeft = pData.isFacingLeft;
             this.occupySpace = pData.occupySpace;
             this.moveSpeed = pData.moveSpeed;
         }

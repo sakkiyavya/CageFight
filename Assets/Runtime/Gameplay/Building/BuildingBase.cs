@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 
+[ExecuteAlways]
 [RequireComponent(typeof(GameObjectProperty))]
 public class BuildingBase : MonoBehaviour
 {
@@ -119,8 +120,8 @@ public class BuildingBase : MonoBehaviour
     private Vector2Int GetBasePos()
     {
         return new Vector2Int(
-            Mathf.FloorToInt(transform.position.x - _prop.occupySpace.x / 2f),
-            Mathf.FloorToInt(transform.position.y - _prop.occupySpace.y / 2f)
+            (int)(transform.position.x - _prop.occupySpace.x / 2f + 0.5f),
+            (int)(transform.position.y - _prop.occupySpace.y / 2f + 0.5f)
         );
     }
 
@@ -298,8 +299,8 @@ public class BuildingBase : MonoBehaviour
         if (_prop == null) return;
 
         Vector2 snappedPos = new Vector2(
-            Mathf.FloorToInt(transform.position.x - _prop.occupySpace.x / 2f) + _prop.occupySpace.x / 2f,
-            Mathf.FloorToInt(transform.position.y - _prop.occupySpace.y / 2f) + _prop.occupySpace.y / 2f
+            (int)(transform.position.x - _prop.occupySpace.x / 2f + 0.5f) + _prop.occupySpace.x / 2f,
+            (int)(transform.position.y - _prop.occupySpace.y / 2f + 0.5f) + _prop.occupySpace.y / 2f
         );
 
         transform.position = new Vector3(snappedPos.x, snappedPos.y, transform.position.z);

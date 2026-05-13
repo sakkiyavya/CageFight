@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BehaviourBase : MonoBehaviour
 {
-    public virtual void AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    public virtual bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
-        
+        return false;
     }
 }
