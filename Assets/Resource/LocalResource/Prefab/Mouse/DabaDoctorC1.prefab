@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7280553527418544983}
   - component: {fileID: 2618675648709447366}
   - component: {fileID: 2709710213947072586}
+  - component: {fileID: 4286174634220009365}
   m_Layer: 0
   m_Name: DabaDoctorC1
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -1552972343
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1310011123, guid: 9c790edc28d146e4794c0d972ba51bd3, type: 3}
+  m_Sprite: {fileID: 418437172, guid: a1b0692d9b3f0464f97e720b366e50a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,3 +124,48 @@ MonoBehaviour:
   attackSound2: {fileID: 0}
   randomizeSounds: 0
   pitchVariation: 0.8
+--- !u!61 &4286174634220009365
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910795234881758600}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.011182725, y: 1.0621871}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.1}
+    oldSize: {x: 3.44, y: 2.96}
+    newSize: {x: 2, y: 2.2265625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.1140138, y: 2.1300943}
+  m_EdgeRadius: 0
