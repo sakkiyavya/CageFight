@@ -21,6 +21,7 @@ public class GameObjectPropertyData : ComponentData
     public int defense;
     public int magicDefense;
     public int atk;
+    public float atkRate;
     public int magicAtk;
     public Vector2Int atkRange = Vector2Int.one;
     public bool isFacingLeft = true;
@@ -29,4 +30,6 @@ public class GameObjectPropertyData : ComponentData
     public float buildTime;
     public float moveSpeed;
     public int side;
+    public GameObject atkObj;
+    public GameObject buildAnime;
 }

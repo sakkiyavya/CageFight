@@ -18,6 +18,7 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
 
     [Header("攻击属性")]
     public int atk = 10;
+    public float atkRate = 1f;
     public int magicAtk = 5;
     public Vector2Int atkRange = Vector2Int.one;
     public GameObject atkObj;
@@ -54,11 +55,16 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
             defense = this.defense,
             magicDefense = this.magicDefense,
             atk = this.atk,
+            atkRate = this.atkRate,
             magicAtk = this.magicAtk,
             atkRange = this.atkRange,
             isFacingLeft = this.isFacingLeft,
             occupySpace = this.occupySpace,
-            moveSpeed = this.moveSpeed
+            barSustainTime = this.barSustainTime,
+            buildTime = this.buildTime,
+            moveSpeed = this.moveSpeed,
+            atkObj = this.atkObj,
+            buildAnime = this.buildAnime
         };
     }
 
@@ -72,11 +78,16 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
             this.defense = pData.defense;
             this.magicDefense = pData.magicDefense;
             this.atk = pData.atk;
+            this.atkRate = pData.atkRate;
             this.magicAtk = pData.magicAtk;
             this.atkRange = pData.atkRange;
             this.isFacingLeft = pData.isFacingLeft;
             this.occupySpace = pData.occupySpace;
+            this.barSustainTime = pData.barSustainTime;
+            this.buildTime = pData.buildTime;
             this.moveSpeed = pData.moveSpeed;
+            this.atkObj = pData.atkObj;
+            this.buildAnime = pData.buildAnime;
         }
     }
 
