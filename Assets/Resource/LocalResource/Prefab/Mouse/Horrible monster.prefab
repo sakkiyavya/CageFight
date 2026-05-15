@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 492033090063897554}
   - component: {fileID: 1262404055007227752}
   - component: {fileID: 8192308768324571188}
+  - component: {fileID: 2367487445872930606}
   m_Layer: 0
   m_Name: Horrible monster
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -1552972343
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2015707432, guid: c0fa58fe06d88ff46828cf4d1795f017, type: 3}
+  m_Sprite: {fileID: 1777263160, guid: ce36dd197fcc34e479ba7b9c890c532c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,3 +124,48 @@ MonoBehaviour:
   attackSound2: {fileID: 8300000, guid: d59dfafb393f5074d9b508e0092b3136, type: 3}
   randomizeSounds: 0
   pitchVariation: 0.8
+--- !u!61 &2367487445872930606
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016457220928666952}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.24406695, y: 1.689857}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.44, y: 0.11}
+    oldSize: {x: 7.04, y: 4.92}
+    newSize: {x: 5, y: 5.4}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.912562, y: 3.6032124}
+  m_EdgeRadius: 0

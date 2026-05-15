@@ -9,6 +9,9 @@ public class AttackSoundController : MonoBehaviour
     [Tooltip("次要攻击音效（可选）")]
     public AudioClip attackSound2;
 
+    [Tooltip("次要攻击音效（可选）")]
+    public AudioClip attackSound3;
+
     [Header("设置")]
     [Tooltip("是否随机播放两个音效")]
     public bool randomizeSounds = false;
@@ -99,6 +102,9 @@ public class AttackSoundController : MonoBehaviour
             case 2:
                 clip = attackSound2;
                 break;
+            case 3:
+                clip = attackSound3;
+                break;
             default:
                 Debug.LogWarning($"无效的音效编号: {soundNumber}，使用默认音效");
                 clip = attackSound1;
@@ -129,6 +135,14 @@ public class AttackSoundController : MonoBehaviour
         if (attackSound2 != null)
         {
             audioSource.PlayOneShot(attackSound2);
+        }
+    }
+    [ContextMenu("测试音效3")]
+    public void TestSound3()
+    {
+        if (attackSound1 != null)
+        {
+            audioSource.PlayOneShot(attackSound3);
         }
     }
 }
