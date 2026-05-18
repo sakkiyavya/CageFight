@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8669082716792518397}
   - component: {fileID: 6672209162778196055}
   - component: {fileID: 8675880046638475648}
+  - component: {fileID: 6292769560795112585}
   m_Layer: 0
   m_Name: Miner rat
   m_TagString: Unit
@@ -142,6 +143,7 @@ MonoBehaviour:
   defense: 0
   magicDefense: 0
   atk: 10
+  atkRate: 1
   magicAtk: 0
   atkRange: {x: 1, y: 1}
   atkObj: {fileID: 0}
@@ -237,3 +239,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7958976, y: 1.9510231}
   m_EdgeRadius: 0
+--- !u!114 &6292769560795112585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672173276656494716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3b297af1c05b0498e81fa5eb29712a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSound1: {fileID: 8300000, guid: 26ec4b1e9fc67df43944b026547eea58, type: 3}
+  attackSound2: {fileID: 0}
+  attackSound3: {fileID: 0}
+  randomizeSounds: 0
+  pitchVariation: 0.8

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5782128274417571720}
   - component: {fileID: 5407869302942258291}
   - component: {fileID: 5454066947671987638}
+  - component: {fileID: 1509651159476647431}
   m_Layer: 0
   m_Name: Harm eyebrow
   m_TagString: Untagged
@@ -121,5 +122,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackSound1: {fileID: 8300000, guid: 1537cbbe6ab02eb4ebede1d22d5e7c26, type: 3}
   attackSound2: {fileID: 8300000, guid: cd6bfe1f4c7dcc54d99cb2e086e20efa, type: 3}
+  attackSound3: {fileID: 0}
   randomizeSounds: 0
   pitchVariation: 0.8
+--- !u!61 &1509651159476647431
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57720819243006128}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.080013275, y: 0.9653483}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.45, y: 0.1}
+    oldSize: {x: 3.2, y: 2.64}
+    newSize: {x: 3.2533333, y: 3.8666666}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.99236536, y: 2.0321012}
+  m_EdgeRadius: 0
