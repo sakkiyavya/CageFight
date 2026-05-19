@@ -7,6 +7,11 @@ public class Move : BehaviourBase
     private Vector2Int _nextCell;
     private SpriteRenderer _spr;
 
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        _spr = self.GetComponentInChildren<SpriteRenderer>();
+    }
+
     public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
         // 否定条件占位符：如果没有路径数据，则无法移动
@@ -27,7 +32,7 @@ public class Move : BehaviourBase
         _lastPos = self.transform.position;
         self.transform.position = Vector3.MoveTowards(self.transform.position, _targetWorldPos, step);
 
-        // 更新朝向逻辑：素材默认朝左
+        // 更新朝向逻辑：素材默认朝右
         if (self.transform.position.x < _lastPos.x)
         {
             prop.isFacingLeft = true;
@@ -38,10 +43,9 @@ public class Move : BehaviourBase
         }
 
         // 应用视觉翻转
-        if (_spr == null) _spr = self.GetComponentInChildren<SpriteRenderer>();
         if (_spr != null)
         {
-            _spr.flipX = !prop.isFacingLeft;
+            _spr.flipX = prop.isFacingLeft;
         }
 
         // 如果足够接近目标格点，则从路径中移除该点，准备前往下一个点

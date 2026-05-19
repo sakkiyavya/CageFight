@@ -20,6 +20,7 @@ public class CharacterBase : MonoBehaviour
     private void Update()
     {
         RefreshOccupancy();
+        UpdateAtkRange();
     }
 
     private void OnDisable()
@@ -100,8 +101,27 @@ public class CharacterBase : MonoBehaviour
         lastMapVersion = -1;
     }
 
+    /// <summary>
+    /// 根据当前占用网格和朝向，计算并更新攻击范围的世界坐标到 prop。
+    /// </summary>
+    public void UpdateAtkRange()
+    {
+        if (_prop == null) _prop = GetComponent<GameObjectProperty>();
+        if (_prop == null) return;
+
+        // 确保占用信息最新
+        Vector2Int basePos = lastOccupyBasePos;
+
+        int startX = _prop.isFacingLeft
+            ? basePos.x - _prop.atkRange.x + 1
+            : basePos.x;
+        int startY = basePos.y + Mathf.CeilToInt((_prop.occupySpace.y - _prop.atkRange.y) / 2.0f);
+
+        _prop.atkRangeMin = new Vector2Int(startX, startY);
+        _prop.atkRangeMax = new Vector2Int(startX + _prop.atkRange.x - 1, startY + _prop.atkRange.y - 1);
+    }
+
 #if UNITY_EDITOR
-    // 绘制并校正编辑器预览
     private void OnDrawGizmos()
     {
         if (Application.isPlaying) return;
@@ -109,6 +129,7 @@ public class CharacterBase : MonoBehaviour
         if (_prop == null) return;
 
         RefreshOccupancy();
+        UpdateAtkRange();
 
         // 1. 绘制当前占用的格子 (青色)
         Gizmos.color = Color.cyan;
@@ -117,21 +138,13 @@ public class CharacterBase : MonoBehaviour
             Gizmos.DrawWireCube(new Vector3(cell.x + 0.5f, cell.y + 0.5f, 0), Vector3.one);
         }
 
-        // 2. 绘制攻击范围 (红色)
+        // 2. 绘制攻击范围 (红色)，使用 prop 中已计算好的世界坐标
         Gizmos.color = Color.red;
-        Vector2Int baseX = lastOccupyBasePos;
-        Vector2Int rangeSize = _prop.atkRange;
-        bool isLeft = _prop.isFacingLeft;
-
-        int startX = isLeft ? lastOccupyBasePos.x - rangeSize.x : lastOccupyBasePos.x + _prop.occupySpace.x;
-        // 垂直对齐：居中，y为偶数时偏上 (使用 CeilToInt 实现偏上对齐)
-        int startY = lastOccupyBasePos.y + Mathf.CeilToInt((_prop.occupySpace.y - rangeSize.y) / 2.0f);
-
-        for (int x = 0; x < rangeSize.x; x++)
+        for (int x = _prop.atkRangeMin.x; x <= _prop.atkRangeMax.x; x++)
         {
-            for (int y = 0; y < rangeSize.y; y++)
+            for (int y = _prop.atkRangeMin.y; y <= _prop.atkRangeMax.y; y++)
             {
-                Gizmos.DrawWireCube(new Vector3(startX + x + 0.5f, startY + y + 0.5f, 0), Vector3.one * 0.8f);
+                Gizmos.DrawWireCube(new Vector3(x + 0.5f, y + 0.5f, 0), Vector3.one * 0.8f);
             }
         }
     }

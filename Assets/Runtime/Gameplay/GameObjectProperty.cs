@@ -17,6 +17,7 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
     public int magicDefense = 5;
 
     [Header("攻击属性")]
+    public bool isRemoteAtk = false;
     public int atk = 10;
     public float atkRate = 1f;
     public int magicAtk = 5;
@@ -31,8 +32,12 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
     [Header("实时信息")]
     public GameObject target;
     public List<Vector2Int> path = new List<Vector2Int>();
-    public bool isFacingLeft = true;
-    
+    public bool isFacingLeft = false;
+    public bool isAttack = false;
+    // 攻击范围的世界坐标（左下角和右上角），由 CharacterBase 每帧更新
+    public Vector2Int atkRangeMin;
+    public Vector2Int atkRangeMax;
+
     // AI 增量搜索会话
     public AStarUtility.PathSearchSession currentPathSession;
     public EnemyScanSession currentScanSession;
@@ -58,6 +63,7 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
             atkRate = this.atkRate,
             magicAtk = this.magicAtk,
             atkRange = this.atkRange,
+            isRemoteAtk = this.isRemoteAtk,
             isFacingLeft = this.isFacingLeft,
             occupySpace = this.occupySpace,
             barSustainTime = this.barSustainTime,
@@ -81,6 +87,7 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
             this.atkRate = pData.atkRate;
             this.magicAtk = pData.magicAtk;
             this.atkRange = pData.atkRange;
+            this.isRemoteAtk = pData.isRemoteAtk;
             this.isFacingLeft = pData.isFacingLeft;
             this.occupySpace = pData.occupySpace;
             this.barSustainTime = pData.barSustainTime;

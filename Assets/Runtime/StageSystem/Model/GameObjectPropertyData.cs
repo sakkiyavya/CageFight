@@ -24,6 +24,7 @@ public class GameObjectPropertyData : ComponentData
     public float atkRate;
     public int magicAtk;
     public Vector2Int atkRange = Vector2Int.one;
+    public bool isRemoteAtk;
     public bool isFacingLeft = true;
     public Vector2Int occupySpace;
     public float barSustainTime;

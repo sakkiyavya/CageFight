@@ -8,4 +8,9 @@ public class BehaviourBase : MonoBehaviour
     {
         return false;
     }
+
+    public virtual void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        
+    }
 }

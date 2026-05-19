@@ -13,6 +13,17 @@ public class CharacterAI : MonoBehaviour
         _health = GetComponent<CharacterHealth>();
     }
 
+    void Start()
+    {
+        foreach(var behaviour in Behaviours)
+        {
+            if (behaviour != null)
+            {
+                behaviour.Init(gameObject, _prop, _health);
+            }
+        }
+    }
+
     public float MoveSpeed => _prop.moveSpeed;
 
     protected virtual void AIBehaviour()
