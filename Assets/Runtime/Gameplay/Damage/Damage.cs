@@ -11,6 +11,7 @@ public enum DamageType
 [Serializable]
 public struct Damage
 {
+    public int side;
     public int initialDamage;
 
     public int finalDamage;
@@ -21,6 +22,7 @@ public struct Damage
     
     public static Damage DefaultDamage => new Damage
     {
+        side = 0,
         initialDamage = 10,
         finalDamage = 0,
         type = DamageType.normal,

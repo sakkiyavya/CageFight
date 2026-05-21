@@ -56,23 +56,23 @@ public class Attack : BehaviourBase
         return false;
     }
 
-    public void ShootProjectile()
-    {
-        if (_prop == null || _prop.atkObj == null || _self == null) return;
+    // public void ShootProjectile()
+    // {
+    //     if (_prop == null || _prop.atkObj == null || _self == null) return;
 
-        GameObject projectile = GameObjectPool.Instance.Get(_prop.atkObj);
-        if (projectile != null)
-        {
-            projectile.transform.position = _self.transform.position;
+    //     GameObject projectile = GameObjectPool.Instance.Get(_prop.atkObj);
+    //     if (projectile != null)
+    //     {
+    //         projectile.transform.position = _self.transform.position;
 
-            DamageSource ds = projectile.GetComponent<DamageSource>();
-            if (ds != null)
-            {
-                ds.damage.initialDamage = _prop.atk;
-                ds.damage.source = _self;
-                // ds.damage.target = _prop.target;
-                ds.damage.type = DamageType.normal;
-            }
-        }
-    }
+    //         DamageSource ds = projectile.GetComponent<DamageSource>();
+    //         if (ds != null)
+    //         {
+    //             ds.damage.initialDamage = _prop.atk;
+    //             ds.damage.source = _self;
+    //             // ds.damage.target = _prop.target;
+    //             ds.damage.type = DamageType.normal;
+    //         }
+    //     }
+    // }
 }

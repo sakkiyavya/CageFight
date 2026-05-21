@@ -4,24 +4,29 @@ using UnityEngine;
 [RequireComponent(typeof(GameObjectProperty))]
 public class BuildingHealth : MonoBehaviour, ICollide
 {
+    private int hp; public int HP => hp;
+    private float hideTime = -1f;
+
+    private GameObjectProperty _prop;
+    public GameObject HpBarUp;
+    public GameObject HpBarBottom;
+
     // ICollide implementation retained
+    public bool IsFriendly(Damage damage)
+    {
+        return damage.side == _prop.side;
+    }
     public Damage OnCollide(Damage damage)
     {
         print(damage.source.name);
         return TakeDamage(damage);
     }
-
-    private GameObjectProperty _prop;
+    
     private void Awake()
     {
         _prop = GetComponent<GameObjectProperty>();
     }
-    public GameObject HpBarUp;
-    public GameObject HpBarBottom;
-    private int hp; public int HP => hp;
-    
 
-    private float hideTime = -1f;
 
     // 初始化血条显示。
     private void Start()

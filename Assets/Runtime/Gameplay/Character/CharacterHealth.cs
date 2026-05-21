@@ -11,8 +11,13 @@ public class CharacterHealth : MonoBehaviour, ICollide
         hp = _prop.maxHp;
     }
     #region ICollide实现
-    public Damage OnCollide(Damage damage)
+    public bool IsFriendly(Damage damage)
     {
+        // 简单示例：如果双方属于同一阵营，则视为友好
+        return damage.side == _prop.side;
+    }
+    public Damage OnCollide(Damage damage)
+    {   
         if(damage.source)
             print(damage.source.name);
         

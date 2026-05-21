@@ -71,7 +71,7 @@ public class GameObjectPool : MonoBehaviour
             obj = CreateNewInstance(prefab);
         }
 
-        obj.transform.SetParent(null);
+        // obj.transform.SetParent(null);
         obj.SetActive(true);
 
         return obj;

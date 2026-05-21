@@ -20,6 +20,9 @@ public class DamageSource : MonoBehaviour
         if(c == null)
             return;
 
+        if(c.IsFriendly(damage))
+            return;
+
         damage.target = collision.gameObject;
         c.OnCollide(damage);
     }
@@ -36,5 +39,10 @@ public class DamageSource : MonoBehaviour
         {
             GameObjectPool.Instance.Release(gameObject);
         }
+    }
+
+    void OnEnable()
+    {
+        Init();
     }
 }

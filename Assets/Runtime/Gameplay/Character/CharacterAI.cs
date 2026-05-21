@@ -7,10 +7,12 @@ public class CharacterAI : MonoBehaviour
     public List<BehaviourBase> Behaviours = new List<BehaviourBase>();
     private GameObjectProperty _prop;
     private CharacterHealth _health;
+    private Animator _animator;
     private void Awake()
     {
         _prop = GetComponent<GameObjectProperty>();
         _health = GetComponent<CharacterHealth>();
+        _animator = GetComponent<Animator>();
     }
 
     void Start()
@@ -33,11 +35,33 @@ public class CharacterAI : MonoBehaviour
             if(behaviour.AIBehaviour(gameObject, _prop, _health))
                 break;
         }
+        _animator.SetBool("IsAtt", _prop.isAttack);
     }
 
     void Update()
     {
         AIBehaviour();
+    }
+
+    public void ShootProjectile()
+    {
+        if (_prop == null || _prop.atkObj == null) return;
+
+        GameObject projectile = GameObjectPool.Instance.Get(_prop.atkObj);
+        if (projectile != null)
+        {
+            print(name + "  ShootProjectile");
+            projectile.transform.position = transform.position;
+            DamageSource ds = projectile.GetComponent<DamageSource>();
+            if (ds != null)
+            {
+                ds.damage.initialDamage = _prop.atk;
+                ds.damage.source = gameObject;
+                ds.damage.side = _prop.side;
+                // ds.damage.target = _prop.target;
+                ds.damage.type = DamageType.normal;
+            }
+        }
     }
 
 }
