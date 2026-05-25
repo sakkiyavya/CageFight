@@ -127,17 +127,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d49988eb09b0124bae402f398f1ba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 0
-  side: 1
-  maxHp: 100
+  objectType: 2
+  side: 0
+  maxHp: 3000
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 10
+  atk: 200
   atkRate: 1
   magicAtk: 0
-  atkRange: {x: 1, y: 1}
-  atkObj: {fileID: 0}
+  atkRange: {x: 2, y: 2}
+  atkObj: {fileID: 7757649065831184645, guid: 852a966747abf2a4d8cc9752fb16ac88, type: 3}
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
@@ -145,8 +145,8 @@ MonoBehaviour:
   path: []
   isFacingLeft: 1
   isAttack: 0
-  atkRangeMin: {x: 0, y: 0}
-  atkRangeMax: {x: 0, y: 0}
+  atkRangeMin: {x: 12, y: 3}
+  atkRangeMax: {x: 13, y: 4}
   occupySpace: {x: 1, y: 1}
   buildAnime: {fileID: 0}
 --- !u!114 &4998131854678585493
@@ -224,7 +224,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0130079985, y: 1.0676512}
+  m_Offset: {x: -0.0010180473, y: 1.0676512}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.07}
@@ -235,7 +235,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.161587, y: 2.2578409}
+  m_Size: {x: 1.4413424, y: 2.2578409}
   m_EdgeRadius: 0
 --- !u!1001 &1551021449647964757
 PrefabInstance:

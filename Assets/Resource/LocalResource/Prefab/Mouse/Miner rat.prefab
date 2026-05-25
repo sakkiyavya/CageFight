@@ -127,17 +127,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d49988eb09b0124bae402f398f1ba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 0
-  side: 0
-  maxHp: 100
+  objectType: 2
+  side: 1
+  maxHp: 800
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 10
+  atk: 150
   atkRate: 1
   magicAtk: 0
-  atkRange: {x: 1, y: 1}
-  atkObj: {fileID: 0}
+  atkRange: {x: 1, y: 2}
+  atkObj: {fileID: 7757649065831184645, guid: 852a966747abf2a4d8cc9752fb16ac88, type: 3}
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
@@ -145,8 +145,8 @@ MonoBehaviour:
   path: []
   isFacingLeft: 1
   isAttack: 0
-  atkRangeMin: {x: 0, y: 0}
-  atkRangeMax: {x: 0, y: 0}
+  atkRangeMin: {x: 3, y: 4}
+  atkRangeMax: {x: 3, y: 5}
   occupySpace: {x: 1, y: 1}
   buildAnime: {fileID: 0}
 --- !u!114 &9222986287733818326
