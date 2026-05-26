@@ -15,6 +15,8 @@ public struct Damage
     public int initialDamage;
 
     public int finalDamage;
+
+    public float repel;
     public DamageType type;
 
     public GameObject source;
@@ -27,7 +29,8 @@ public struct Damage
         finalDamage = 0,
         type = DamageType.normal,
         source = null,
-        target = null
+        target = null,
+        repel = 0,
     };
 }
 

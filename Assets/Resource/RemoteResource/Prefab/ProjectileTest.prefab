@@ -172,9 +172,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage:
+    side: 0
     initialDamage: 10
     finalDamage: 0
+    repel: 1
     type: 0
     source: {fileID: 0}
     target: {fileID: 0}
   sustainTime: 0.2
+  collideTimes: 5

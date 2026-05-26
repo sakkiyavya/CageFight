@@ -6,8 +6,6 @@ using UnityEngine;
 /// </summary>
 public class GameplayState : SceneStateBase
 {
-    public GameplayState(SceneFSM fsm) : base(fsm) { }
-
     public override IEnumerator Enter()
     {
         Debug.Log("[GameplayState] Enter - 场景关卡构造完毕，游戏正式开始，初始化场上怪物与基地！");

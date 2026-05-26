@@ -6,8 +6,6 @@ using UnityEngine;
 /// </summary>
 public class LoadingState : SceneStateBase
 {
-    public LoadingState(SceneFSM fsm) : base(fsm) { }
-
     public override IEnumerator Enter()
     {
         Debug.Log("[LoadingState] Enter - 正在打开加载黑屏遮罩，加载基础数据...");

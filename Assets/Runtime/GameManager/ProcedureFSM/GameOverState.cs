@@ -6,8 +6,6 @@ using UnityEngine;
 /// </summary>
 public class GameOverState : SceneStateBase
 {
-    public GameOverState(SceneFSM fsm) : base(fsm) { }
-
     public override IEnumerator Enter()
     {
         Debug.Log("[GameOverState] Enter - 战斗结束，展现胜利/失败结算 UI 弹窗！");

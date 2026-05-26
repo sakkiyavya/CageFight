@@ -34,6 +34,7 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
     public List<Vector2Int> path = new List<Vector2Int>();
     public bool isFacingLeft = false;
     public bool isAttack = false;
+    public float repelDistance = 0f;
     // 攻击范围的世界坐标（左下角和右上角），由 CharacterBase 每帧更新
     public Vector2Int atkRangeMin;
     public Vector2Int atkRangeMax;

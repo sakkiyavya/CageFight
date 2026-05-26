@@ -41,6 +41,38 @@ public class UISystemBase : MonoBehaviour
         SubUIEffect(toEnd);
     }
 
+    // 协程版本：等待本体动画及所有子UI动画全部播完后返回。
+    // 外部用法：yield return StartCoroutine(ui.UIMotionEffectRoutine(toEnd));
+    public virtual IEnumerator UIMotionEffectRoutine(bool toEnd)
+    {
+        // 停止旧协程，直接执行本体动画协程并等待完成
+        if (effectCoroutine != null)
+        {
+            StopCoroutine(effectCoroutine);
+            effectCoroutine = null;
+        }
+
+        yield return MoveUIEffectRoutine(toEnd);
+
+        // 同步等待所有子UI动画完成
+        if (subUI.Count > 0)
+        {
+            List<Coroutine> subRoutines = new List<Coroutine>();
+            foreach (var ui in subUI)
+            {
+                if (ui != null)
+                {
+                    subRoutines.Add(ui.StartCoroutine(ui.UIMotionEffectRoutine(toEnd)));
+                    ui.UISparkEffect(toEnd);
+                }
+            }
+            foreach (var routine in subRoutines)
+            {
+                yield return routine;
+            }
+        }
+    }
+
     // 播放额外界面特效。
     public virtual void UISparkEffect(bool toEnd)
     {

@@ -38,9 +38,19 @@ public class CharacterAI : MonoBehaviour
         _animator.SetBool("IsAtt", _prop.isAttack);
     }
 
+    protected virtual void Repel()
+    {
+        if (_prop.repelDistance > 0.1f)
+        {
+            transform.position += (_prop.isFacingLeft ? Vector3.right : Vector3.left) * _prop.repelDistance * 0.02f;
+            _prop.repelDistance *= 0.98f;
+        }
+    }
+
     void Update()
     {
         AIBehaviour();
+        Repel();
     }
 
     public void ShootProjectile()
@@ -50,7 +60,7 @@ public class CharacterAI : MonoBehaviour
         GameObject projectile = GameObjectPool.Instance.Get(_prop.atkObj);
         if (projectile != null)
         {
-            print(name + "  ShootProjectile");
+            // print(name + "  ShootProjectile");
             projectile.transform.position = transform.position;
             DamageSource ds = projectile.GetComponent<DamageSource>();
             if (ds != null)
