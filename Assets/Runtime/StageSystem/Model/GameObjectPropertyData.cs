@@ -30,6 +30,7 @@ public class GameObjectPropertyData : ComponentData
     public float barSustainTime;
     public float buildTime;
     public float moveSpeed;
+    public float repel;
     public int side;
     public GameObject atkObj;
     public GameObject buildAnime;

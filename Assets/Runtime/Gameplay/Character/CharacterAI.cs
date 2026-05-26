@@ -68,6 +68,7 @@ public class CharacterAI : MonoBehaviour
                 ds.damage.initialDamage = _prop.atk;
                 ds.damage.source = gameObject;
                 ds.damage.side = _prop.side;
+                ds.damage.repel = _prop.repel;
                 // ds.damage.target = _prop.target;
                 ds.damage.type = DamageType.normal;
             }

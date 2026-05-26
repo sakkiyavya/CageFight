@@ -3900,6 +3900,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 624740151884049495, guid: 6a6a49dd7d078c4459439abfdccb4649, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 624740151884049495, guid: 6a6a49dd7d078c4459439abfdccb4649, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 624740151884049495, guid: 6a6a49dd7d078c4459439abfdccb4649, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 3.0933335
+      objectReference: {fileID: 0}
     - target: {fileID: 992242328458724562, guid: 6a6a49dd7d078c4459439abfdccb4649, type: 3}
       propertyPath: m_Name
       value: CharacterTestDef
@@ -4074,6 +4086,26 @@ PrefabInstance:
     - target: {fileID: 672173276656494716, guid: 223c653ff237bd842ad5670b6bb3bdc4, type: 3}
       propertyPath: m_Name
       value: Miner rat
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634497546090817552, guid: 223c653ff237bd842ad5670b6bb3bdc4, type: 3}
+      propertyPath: repel
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634497546090817552, guid: 223c653ff237bd842ad5670b6bb3bdc4, type: 3}
+      propertyPath: atkRangeMax.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634497546090817552, guid: 223c653ff237bd842ad5670b6bb3bdc4, type: 3}
+      propertyPath: atkRangeMax.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634497546090817552, guid: 223c653ff237bd842ad5670b6bb3bdc4, type: 3}
+      propertyPath: atkRangeMin.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634497546090817552, guid: 223c653ff237bd842ad5670b6bb3bdc4, type: 3}
+      propertyPath: atkRangeMin.y
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4736440202452500785, guid: 223c653ff237bd842ad5670b6bb3bdc4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4415,6 +4447,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 624740151884049495, guid: 6a6a49dd7d078c4459439abfdccb4649, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 624740151884049495, guid: 6a6a49dd7d078c4459439abfdccb4649, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 624740151884049495, guid: 6a6a49dd7d078c4459439abfdccb4649, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 3.0933335
+      objectReference: {fileID: 0}
     - target: {fileID: 992242328458724562, guid: 6a6a49dd7d078c4459439abfdccb4649, type: 3}
       propertyPath: m_Name
       value: CharacterTestDef (1)

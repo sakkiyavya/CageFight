@@ -21,6 +21,7 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
     public int atk = 10;
     public float atkRate = 1f;
     public int magicAtk = 5;
+    public float repel = 1;
     public Vector2Int atkRange = Vector2Int.one;
     public GameObject atkObj;
 
@@ -71,7 +72,8 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
             buildTime = this.buildTime,
             moveSpeed = this.moveSpeed,
             atkObj = this.atkObj,
-            buildAnime = this.buildAnime
+            buildAnime = this.buildAnime,
+            repel = this.repel
         };
     }
 
@@ -96,6 +98,7 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
             this.moveSpeed = pData.moveSpeed;
             this.atkObj = pData.atkObj;
             this.buildAnime = pData.buildAnime;
+            this.repel = pData.repel;
         }
     }
 
