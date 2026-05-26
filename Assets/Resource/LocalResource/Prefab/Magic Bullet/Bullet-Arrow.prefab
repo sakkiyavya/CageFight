@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2719577681657107066}
   - component: {fileID: 2587133263602924673}
   - component: {fileID: 3592329450330198937}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet-Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,9 @@ MonoBehaviour:
     side: 0
     initialDamage: 10
     finalDamage: 0
+    repel: 0
     type: 0
     source: {fileID: 0}
     target: {fileID: 0}
   sustainTime: 3
+  collideTimes: 5
