@@ -5,6 +5,7 @@ using UnityEngine;
 public class DamageSource : MonoBehaviour
 {
     public Damage damage = Damage.DefaultDamage;
+    public GameObject target;
     public float sustainTime = 0.2f;
     public int collideTimes = 5;
     float _remainTime = 0f;
@@ -39,6 +40,11 @@ public class DamageSource : MonoBehaviour
     }
 
     void Update()
+    {
+        TimeUpdate();
+    }
+
+    void TimeUpdate()
     {
         _remainTime -= Time.deltaTime;
         if(_remainTime <= 0)

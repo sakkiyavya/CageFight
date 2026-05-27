@@ -22,6 +22,7 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
     public float atkRate = 1f;
     public int magicAtk = 5;
     public float repel = 1;
+    [Min(0.1f)]public float antiRepel = 1;
     public Vector2Int atkRange = Vector2Int.one;
     public GameObject atkObj;
 

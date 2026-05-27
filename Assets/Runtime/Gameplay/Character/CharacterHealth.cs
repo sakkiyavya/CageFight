@@ -62,7 +62,7 @@ public class CharacterHealth : MonoBehaviour, ICollide
         hp -= damage.initialDamage;
         hp = Mathf.Max(hp, 0);
         ShowBarTemporarily();
-        _prop.repelDistance = damage.repel;
+        _prop.repelDistance = damage.repel / _prop.antiRepel;
         if(hp <= 0) Die();
         return DamageComputor.DamageCompute(damage);
     }
