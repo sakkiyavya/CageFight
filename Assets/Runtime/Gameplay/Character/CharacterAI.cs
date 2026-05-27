@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterAI : MonoBehaviour
 {
     public List<BehaviourBase> Behaviours = new List<BehaviourBase>();
+    [SerializeField]private Transform shootPoint;
     private GameObjectProperty _prop;
     private CharacterHealth _health;
     private Animator _animator;
@@ -61,7 +62,12 @@ public class CharacterAI : MonoBehaviour
         if (projectile != null)
         {
             // print(name + "  ShootProjectile");
-            projectile.transform.position = transform.position;
+            if(shootPoint)
+                projectile.transform.position = shootPoint.transform.position;
+            else
+                projectile.transform.position = transform.position;
+
+            
             DamageSource ds = projectile.GetComponent<DamageSource>();
             if (ds != null)
             {
