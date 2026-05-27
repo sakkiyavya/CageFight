@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &236024368177267688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 967447790848509825}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &967447790848509825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236024368177267688}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.921, y: 1.642, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 577590928655336013}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7374091422099466681
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,6 +71,7 @@ Transform:
   - {fileID: 332001500888155346}
   - {fileID: 1875641045114618917}
   - {fileID: 9035062787132674847}
+  - {fileID: 967447790848509825}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8770162204962876705
@@ -181,8 +213,10 @@ MonoBehaviour:
   atk: 350
   atkRate: 1
   magicAtk: 350
+  repel: 3
+  antiRepel: 5
   atkRange: {x: 3, y: 2}
-  atkObj: {fileID: 0}
+  atkObj: {fileID: 403774059082912154, guid: fbd74515f1d8bf34680b185c3cf50bde, type: 3}
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 1.6
@@ -190,8 +224,9 @@ MonoBehaviour:
   path: []
   isFacingLeft: 0
   isAttack: 0
-  atkRangeMin: {x: 16, y: -7}
-  atkRangeMax: {x: 18, y: -6}
+  repelDistance: 0
+  atkRangeMin: {x: 0, y: 0}
+  atkRangeMax: {x: 2, y: 1}
   occupySpace: {x: 1, y: 1}
   buildAnime: {fileID: 0}
 --- !u!114 &8126410015573282750
@@ -211,6 +246,7 @@ MonoBehaviour:
   - {fileID: 4095522112265269679}
   - {fileID: 2207241329314492372}
   - {fileID: 2606166356837572270}
+  shootPoint: {fileID: 967447790848509825}
 --- !u!114 &5233793139939805910
 MonoBehaviour:
   m_ObjectHideFlags: 0
