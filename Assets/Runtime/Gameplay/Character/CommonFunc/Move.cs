@@ -6,10 +6,12 @@ public class Move : BehaviourBase
     private Vector3 _lastPos;
     private Vector2Int _nextCell;
     private SpriteRenderer _spr;
+    Transform _transform;
 
     public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
         _spr = self.GetComponentInChildren<SpriteRenderer>();
+        _transform = self.transform;
     }
 
     public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
@@ -43,9 +45,13 @@ public class Move : BehaviourBase
         }
 
         // 应用视觉翻转
-        if (_spr != null)
+        // if (_spr != null)
+        // {
+        //     _spr.flipX = prop.isFacingLeft;
+        // }
+        if(_transform)
         {
-            _spr.flipX = prop.isFacingLeft;
+            _transform.localScale = new Vector3(prop.isFacingLeft ? -1 : 1, 1, 1);
         }
 
         // 如果足够接近目标格点，则从路径中移除该点，准备前往下一个点
