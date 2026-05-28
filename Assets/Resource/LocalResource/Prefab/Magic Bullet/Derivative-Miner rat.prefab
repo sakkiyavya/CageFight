@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 4728601111592035759}
   - component: {fileID: 3541295312352307150}
   - component: {fileID: 5389285152999983648}
-  m_Layer: 0
+  - component: {fileID: 4690727579288760434}
+  m_Layer: 6
   m_Name: Derivative-Miner rat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 495858691
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1925408422, guid: b4b1e41545e8c7b47b71474693fa1c0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -116,7 +117,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -175,7 +176,23 @@ MonoBehaviour:
     side: 0
     initialDamage: 10
     finalDamage: 0
+    repel: 0
     type: 0
     source: {fileID: 0}
     target: {fileID: 0}
-  sustainTime: 0.2
+  target: {fileID: 0}
+  sustainTime: 3
+  collideTimes: 1
+--- !u!114 &4690727579288760434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223682783677796760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518e316481635134099e32455f6814a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
