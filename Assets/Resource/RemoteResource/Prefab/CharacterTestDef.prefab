@@ -98,7 +98,6 @@ GameObject:
   - component: {fileID: 7645335925328254593}
   - component: {fileID: 2695615690707569310}
   - component: {fileID: 7539604640385859826}
-  - component: {fileID: 3610800174523159431}
   - component: {fileID: 5005209560710290015}
   m_Layer: 0
   m_Name: CharacterTestDef
@@ -242,9 +241,12 @@ MonoBehaviour:
   maxHp: 100
   defense: 10
   magicDefense: 5
+  isRemoteAtk: 0
   atk: 10
   atkRate: 1
   magicAtk: 5
+  repel: 1
+  antiRepel: 1
   atkRange: {x: 2, y: 2}
   atkObj: {fileID: 0}
   barSustainTime: 2
@@ -253,6 +255,10 @@ MonoBehaviour:
   target: {fileID: 0}
   path: []
   isFacingLeft: 1
+  isAttack: 0
+  repelDistance: 0
+  atkRangeMin: {x: 0, y: 0}
+  atkRangeMax: {x: 0, y: 0}
   occupySpace: {x: 1, y: 1}
   buildAnime: {fileID: 0}
 --- !u!114 &2695615690707569310
@@ -272,6 +278,7 @@ MonoBehaviour:
   - {fileID: 2372726584799124621}
   - {fileID: 9119734976474719112}
   - {fileID: 6202364602353308172}
+  shootPoint: {fileID: 0}
 --- !u!114 &7539604640385859826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,18 +293,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 8598687031827253770}
   HpBarBottom: {fileID: 848565538799800907}
---- !u!114 &3610800174523159431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 992242328458724562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be093fd393322994f83442f937bc3a11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5005209560710290015
 MonoBehaviour:
   m_ObjectHideFlags: 0

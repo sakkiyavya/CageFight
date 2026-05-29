@@ -1,451 +1,229 @@
-# ResourcesSystem - 基于 Addressables 的资源热更新与动态加载架构设计
+# ResourcesSystem - 抖音小游戏资源热更新与动态加载架构设计 (PrefabRegistry 字典映射版)
 
 ## 1. 架构设计背景与目标
 
-在原有的 `StageSystem` 中，`PrefabRegistry` 采用的是**静态硬引用**方式（即 `GameObject prefab` 字段直接引用了项目中的预制体）。这种设计虽然简单直观，但存在严重的包体与加载痛点：
-*   **首包体积过大**：所有被 `PrefabRegistry` 强引用的预制体（角色、建筑、特效等）在游戏打包时会被强制塞入首包或主包中，无法实现首包的轻量化。
-*   **无法动态热更新**：美术和策划修改了预制体后，必须重新打包整机客户端，而无法实现小游戏或手游常见的“资源热更新”。
+在**抖音小游戏**（WebGL 平台）等对包体大小、加载速度及内存占用极度敏感的宿主环境下，原有的静态硬引用方式面临严重的性能瓶颈与发布限制：
 
-为了适配**抖音小游戏**等对包体大小和加载速度极度敏感的环境，本项目需要设计一套结合 **Addressables** 的**资源系统（ResourcesSystem）**。
+*   **首包体积超限**：所有被强引用的预制体（角色、建筑、特效等）会被打包塞入首包中，导致首包体积远超抖音官方限制。
+*   **无法动态热更新**：美术和策划修改了资源后，必须重新编译打包整机客户端，无法实现敏捷的"资源热更新"。
+*   **内存极度脆弱**：WebGL 平台堆内存上限通常限制在数百兆至 1G 左右，野引用与不当的实例化/销毁极易导致显存溢出与 OOM 闪退。
 
-### 核心目标：
-1.  **数据与资源解耦**：所有关卡配置 `.asset`（`LevelConfig`）作为纯数据，放置在首包中或通过轻量级网络下发。
-2.  **按需动态加载**：玩家具体选择并进入某个关卡时，`ResourcesSystem` 自动扫描该关卡的 `LevelConfig`，提取所有依赖的资源，进行异步预加载与缓存。
-3.  **精确进度反馈**：支持在 UI 加载界面实时显示下载与加载进度，并提供 `IsLoaded` 加载完毕的 Flag。
-4.  **严格的内存生命周期控制**：关卡结束或切换时，自动释放当前关卡缓存的全部 Addressables 资源，杜绝内存泄漏。
+为此，本项目决定引入 **Addressables** 构建全新的**资源系统（ResourcesSystem）**，并采用**PrefabRegistry 字典映射模式**（方案 A）来打通纯数据配置与 Unity 强类型资产的桥梁。
+
+### 核心目标
+
+| 目标 | 说明 |
+|------|------|
+| 首包极轻量化 | 关卡配置保留在首包，核心重度预制体资源全部划归远端资源组（Remote Group），部署 CDN 按需下载 |
+| 资产引用安全 | **方案 A（字典映射）**：引入 `PrefabRegistry` 作为纯数据 (`prefabKey`) 与 `AssetReference` 的中转器，确保配置与资产完全解耦，支持纯文本 JSON/CSV 跨端导出 |
+| 零并发网络风暴 | 引入批量合并预下载，将并发 HTTP 限制在小游戏宿主安全线（≤10 个）以内 |
+| 两阶段平滑进度条 | 结合下载字节大小与内存解析比例，根除"进度卡在 99%"的假死痛点 |
+| 持久化本地缓存 | 对接抖音小游戏本地文件系统（`ttfile://user/`），实现"一次下载，终身缓存，LRU 淘汰" |
+| 生命周期闭环 | 将 Addressables 句柄释放与对象池（Object Pool）实例清理深度级联绑定，主动触发 WebGL 垃圾回收 |
+| 弱网抗灾与超时重试 | 最大 3 次自动重试与超时判定管道，抗衡玩家切后台或网络波动带来的加载中断 |
 
 ---
 
-## 2. 核心架构与业务流程
+## 2. 核心架构与业务生命周期流程
 
-本系统倡导**单向依赖**和**生命周期自闭环**。以下是玩家进入关卡时的核心资源管理流程：
+系统倡导**单向依赖**和**严格的生命周期闭环**，整体分为三大核心生命周期流程：
+
+### 2.1 游戏启动全局热更新流
+
+在小游戏启动或进入主界面前，必须先完成启动更新流，确保客户端同步到最新的远程 Catalog（资产目录索引）并下载公共依赖项。
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant App as 游戏启动器
+    participant ResSys as ResourcesSystem (资源系统)
+    participant Addr as Addressables 运行时
+    participant CDN as 远端服务器 (CDN)
+    participant UI as 启动热更新 UI
+
+    App->>ResSys: 触发初始化全局热更新
+    ResSys->>Addr: 初始化 Addressables 运行时
+    Addr-->>ResSys: 初始化成功
+
+    ResSys->>Addr: 检查远程 Catalog 是否有更新
+    Addr->>CDN: 请求比对远程 Catalog.json
+    CDN-->>Addr: 返回最新清单摘要
+    Addr-->>ResSys: 返回是否有 Catalog 更新
+
+    alt 存在 Catalog 更新
+        ResSys->>Addr: 下载并覆盖本地 Catalog
+        Addr->>CDN: 拉取最新 Catalog 文件
+        CDN-->>Addr: 下载成功
+        Addr-->>ResSys: 目录索引更新完毕
+    end
+
+    ResSys->>Addr: 查询公共资源组待下载体积
+    Addr-->>ResSys: 返回需热更的字节大小 (TotalBytes)
+
+    alt TotalBytes > 0
+        ResSys-->>UI: 弹窗提示玩家需下载 X.XX MB 资源
+        UI->>App: 玩家确认下载
+        ResSys->>Addr: 批量下载公共依赖资源
+        loop 监控热更进度
+            Addr-->>ResSys: 实时推送字节下载进度
+            ResSys-->>UI: 更新热更进度条
+        end
+        Addr-->>ResSys: 公共资源下载完毕
+    end
+    ResSys-->>App: 启动热更流程结束，进入游戏主菜单
+```
+
+### 2.2 关卡加载与批量预下载流
+
+当玩家选择关卡进入时，系统通过字典映射解析 `prefabKey` 为真正的 `AssetReference`，然后启动**批量合并预下载**。
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Player as 玩家
     participant UI as 加载界面 (UI)
-    participant Loader as LevelLoader (关卡加载器)
-    participant ResSys as ResourcesSystem (资源系统)
-    participant Addr as Addressables (运行时)
-    participant Config as LevelConfig (关卡配置)
+    participant Loader as LevelLoader
+    participant Registry as PrefabRegistry (映射表)
+    participant ResSys as ResourcesSystem
+    participant Addr as Addressables
 
-    Player->>Loader: 选择并进入关卡 (Level ID)
-    Loader->>ResSys: 调用 PrepareLevelResources(LevelConfig)
-    ResSys->>Config: 扫描 objects 列表，收集所有 prefabKey
-    ResSys->>ResSys: 重复项过滤与依赖分析
-    
-    loop 异步并发加载/下载
-        ResSys->>Addr: Addressables.LoadAssetAsync<GameObject>(key)
-        Addr-->>ResSys: 返回 AsyncOperationHandle<GameObject>
-        ResSys->>ResSys: 注册句柄并计算累加进度 Progress
-        ResSys-->>UI: 实时推送 Progress (0% - 100%)
+    Player->>Loader: 选择并进入关卡
+    Loader->>ResSys: 传入配置，请求加载关卡资源
+
+    ResSys->>ResSys: 遍历配置中的所有 prefabKey
+    loop 提取强引用
+        ResSys->>Registry: 查表 Registry.GetReference(prefabKey)
+        Registry-->>ResSys: 返回对应的 AssetReference
     end
 
-    Addr-->>ResSys: 所有资源加载/下载完毕
-    ResSys->>ResSys: 更新状态 IsLoaded = true
-    ResSys-->>Loader: 触发加载完毕回调 (onComplete)
-    Loader->>UI: 关闭加载界面，开启游戏
-    Loader->>ResSys: 通过 GetPrefab(key) 获取预制体进行实例化
-    
-    Note over Player,Config: 关卡体验完毕 / 切换关卡
-    
-    Player->>Loader: 离开关卡
-    Loader->>ResSys: 调用 ReleaseLevelResources()
-    ResSys->>Addr: 遍历缓存句柄，执行 Addressables.Release
-    ResSys->>ResSys: 清空缓存，重置 IsLoaded 与 Progress
-    ResSys-->>Loader: 资源释放完毕，安全销毁关卡内实例
+    Note over ResSys, Addr: 核心优化：先执行合并依赖项预下载，避免网络风暴
+    ResSys->>Addr: 组合所有 Reference，发起批量预下载
+
+    loop 第一阶段：网络下载 (进度 0% ~ 70%)
+        Addr-->>ResSys: 实时推送已下载字节数
+        ResSys->>ResSys: 计算字节进度 = (已下载字节 / 总字节) × 70%
+        ResSys-->>UI: 平滑推送下载进度
+    end
+
+    Addr-->>ResSys: 所有依赖 Bundle 下载完毕，存入本地缓存
+
+    loop 第二阶段：内存加载 (进度 70% ~ 100%)
+        ResSys->>Addr: 逐一从本地反序列化 Prefab
+        Addr-->>ResSys: 返回原始 Prefab 模板引用
+        ResSys->>ResSys: 缓存 prefabKey → Prefab 实例，进度 += 补充比例
+        ResSys-->>UI: 平滑推送加载进度
+    end
+
+    ResSys->>ResSys: 更新 IsLoaded = true
+    ResSys-->>Loader: 加载成功回调
+    Loader->>UI: 关闭加载界面，开启游戏战斗
+```
+
+### 2.3 级联释放与对象池联动流
+
+关卡结束时必须彻底清理内存。级联销毁的强制顺序为：**对象池实例清理 → 断开 Prefab 强引用 → 释放 Addressables 句柄 → 手动触发 GC**。
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Player as 玩家
+    participant Loader as LevelLoader
+    participant Pool as ObjectPoolSystem
+    participant ResSys as ResourcesSystem
+    participant Addr as Addressables
+
+    Player->>Loader: 离开/通关关卡
+    Loader->>Pool: 步骤1：清空关卡所有对象池实例
+    Pool-->>Loader: 全部场景克隆体已安全销毁
+
+    Loader->>ResSys: 步骤2：调用 ReleaseLevelResources()
+    ResSys->>ResSys: 清空字典（断开强引用）
+    loop 遍历已加载的资源句柄
+        ResSys->>Addr: 释放单个 Addressables 句柄
+        Addr-->>ResSys: 引用计数归零，资源可被卸载
+    end
+    ResSys->>ResSys: 清空句柄容器
+    ResSys-->>Loader: 资源卸载成功
+
+    Loader->>Loader: 步骤3：主动触发 GC 与未使用资源卸载
+    Note over Loader, Addr: 彻底清空 WebGL 显存与堆内存，完成完美闭环
 ```
 
 ---
 
-## 3. 核心设计细节
+## 3. 资产引用方案：基于 PrefabRegistry 的安全映射（方案 A）
 
-### 3.1 资产引用方案的重构
+为了彻底解耦逻辑配置数据与 Unity 原生资产的物理依赖，系统采用了注册表映射模式。
 
-目前，关卡中的预制体由 `PrefabRegistry` 统一管理。为了过渡到 Addressables，我们将重点推行以下**两种资产引用方案**的适配：
+### 3.1 数据层（Data Layer）
+关卡配置数据 (`LevelConfig`, `LevelObjectData`) 保持绝对纯净。
+*   配置中仅保存一个字符串：`public string prefabKey;`
+*   **优势**：极度利于未来将其序列化为纯 JSON/CSV 格式，方便部署在后端服务器动态下发，或与第三方外部地图编辑器无缝对接。
 
-#### 方案 A：基于 AssetReference 的 Registry 映射法 (推荐 - 编辑器安全型)
-将原有 `PrefabRegistry` 中的硬引用 `GameObject prefab` 字段重构为 `AssetReferenceGameObject`。
-```csharp
-[Serializable]
-public class PrefabMapping
-{
-    public string key; // 对应的 prefabKey，例如 "Hero_A"
-    
-    [Tooltip("指向 Addressable 资源的安全引用")]
-    public AssetReferenceGameObject prefabReference; 
-}
-```
-*   **优势**：在 Unity 编辑器中仍能支持**拖拽配置**。即使美术重构目录或重命名预制体，Addressables GUID 仍能保持一致，不易出错。
-*   **运行时**：`ResourcesSystem` 通过 `PrefabRegistry` 找到 `prefabKey` 对应的 `AssetReferenceGameObject`，然后使用它进行加载。
-
-#### 方案 B：直寻址加载法 (超轻量级型)
-完全弃用 `PrefabRegistry` 映射表，强制规范：**将预制体的 Addressable Address 直接设为 `prefabKey`**（例如，如果配置里记录的 `prefabKey` 是 `"Building_Tower"`，那么这个预制体在 Addressables Groups 窗口中的 Address also must be `"Building_Tower"`）。
-*   **优势**：极度纯净，没有任何额外的 Registry 文件，直接通过字符串进行解析。
-*   **缺点**：若在 Addressables 中重命名了资源，会导致代码中硬编码的 `prefabKey` 找不到资源，属于“隐式契约”。
-
-> [!TIP]
-> **最佳实践**：本系统在设计上同时支持**方案 A** 与**方案 B**。如果传入的 key 存在于 Registry 中，则使用 `AssetReference` 加载；若不存在，则把 `prefabKey` 当做 Address 直接动态加载。这为未来的开发提供了极高的容错性。
-
-### 3.2 资源缓存设计 (Memory & Caching)
-
-`ResourcesSystem` 内部维护两个关键缓存容器，负责管理加载的句柄与实例化预置体的缓存：
-
-```csharp
-// 缓存每个 prefabKey 对应的加载句柄，用于生命周期结束时卸载资源
-private Dictionary<string, AsyncOperationHandle<GameObject>> _loadingHandles = new();
-
-// 缓存已成功加载出来的 GameObject 原始预制体引用，提供 O(1) 的查询效率
-private Dictionary<string, GameObject> _cachedPrefabs = new();
-```
+### 3.2 映射层（Registry Layer）
+*   独立维护一个 `PrefabRegistry` (继承自 ScriptableObject) 作为全局唯一真理表。
+*   该表维护了一个列表，将 `string prefabKey` 一一映射到 `AssetReferenceGameObject prefabReference`。
+*   **优势**：开发期配合自动构建脚本，一键扫描全工程 `Prefab` 生成，绝不遗漏。在运行时以近乎 O(1) 的速度供 `ResourcesSystem` 提取真实物理资产指针。
 
 ---
 
-## 4. 接口与代码框架设计
+## 4. 针对抖音小游戏的 5 大核心优化细节
 
-在 `Runtime/ResourcesSystem` 目录下，我们将创建以下两个核心文件：
-1.  `IResourcesSystem.cs`：对外接口，定义资源准备、获取、释放的生命周期。
-2.  `ResourcesSystem.cs`：具体的 Addressables 异步管理与进度统计实现。
+### 4.1 批量合并预下载（消除网络并发风暴）
 
-### 4.1 核心对外接口 (`IResourcesSystem.cs`)
+**问题背景**：抖音小游戏 WebGL 宿主环境对并发 HTTP 网络请求数有硬性上限（通常为 10 个）。如果对关卡的每个预制体分别发起下载，会瞬间产生数十个并发请求，触发宿主拦截，加载卡死。
 
-```csharp
-using System;
-using UnityEngine;
+**解决方案**：
+先将查表得出的所有 `AssetReference` 放入一个去重集合，调用**一次**合并批量下载 API（`DownloadDependenciesAsync` + `MergeMode.Union`），将冗余依赖去重合并。底层仅产生 1~3 个实际 HTTP 物理请求，规避并发超限。
 
-namespace Runtime.Resources
-{
-    /// <summary>
-    /// 资源管理系统接口
-    /// 负责针对 StageSystem 的关卡资源进行提前加载、缓存与内存释放
-    /// </summary>
-    public interface IResourcesSystem
-    {
-        /// <summary>
-        /// 当前扫描的关卡资源是否全部加载并缓存完毕
-        /// </summary>
-        bool IsLoaded { get; }
+### 4.2 两阶段字节级平滑进度计算
 
-        /// <summary>
-        /// 资源的整体加载进度（0.0f - 1.0f）
-        /// 包含网络下载与本地内存加载的综合进度
-        /// </summary>
-        float Progress { get; }
+**解决方案**：将进度分为两个物理阶段：
+| 阶段 | 占比 | 进度来源 |
+|------|------|---------|
+| 阶段一：网络下载 | 70% | 实时获取已下载字节数 ÷ 总字节数 |
+| 阶段二：内存加载 | 30% | 已成功加载进内存的 Prefab 数量 ÷ 本关卡预加载总数 |
 
-        /// <summary>
-        /// 准备并预加载指定关卡配置所需的所有预制体资源
-        /// </summary>
-        /// <param name="config">关卡配置 SO</param>
-        /// <param name="onComplete">全部加载完毕后的回调</param>
-        void PrepareLevelResources(LevelConfig config, Action onComplete = null);
+### 4.3 抖音沙盒持久化本地缓存与 LRU 淘汰机制
 
-        /// <summary>
-        /// 根据 prefabKey 获取已经缓存并准备就绪的预制体
-        /// </summary>
-        /// <param name="prefabKey">资源 Key</param>
-        /// <returns>预制体 GameObject 引用</returns>
-        GameObject GetPrefab(string prefabKey);
+*   适配抖音小游戏专属 Request Provider，将下载的 `.bundle` 写入 `ttfile://user/cache/unity_addressables/`，而非浏览器的临时缓存区。
+*   由底层实施 **LRU 淘汰策略**，限制最高容量（如 200MB），自动清理旧 Bundle。
 
-        /// <summary>
-        /// 释放当前关卡加载并缓存的全部资源，防止内存泄漏
-        /// 应该在关卡卸载、玩家返回主菜单或切换关卡时调用
-        /// </summary>
-        void ReleaseLevelResources();
-    }
-}
-```
+### 4.4 内存释放闭环与对象池联动
 
-### 4.2 资源系统核心实现 (`ResourcesSystem.cs`)
+**强制销毁顺序**：
+1.  **清空对象池**：彻底销毁由关卡资产生成的所有克隆实例。
+2.  **断开野引用**：确保任何外部逻辑脚本不再持有这些 Prefab 或实例。
+3.  **释放 Addressables 句柄**：调用 `ResourcesSystem.ReleaseLevelResources()`，引用计数归零。
+4.  **垃圾回收**：显式调用 GC 清理 WebGL 堆内存。
 
-```csharp
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
+### 4.5 弱网切后台超时判定与 3 次自动重试
 
-namespace Runtime.Resources
-{
-    public class ResourcesSystem : MonoBehaviour, IResourcesSystem
-    {
-        private static ResourcesSystem _instance;
-        public static ResourcesSystem Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    var go = new GameObject("[ResourcesSystem]");
-                    _instance = go.AddComponent<ResourcesSystem>();
-                    DontDestroyOnLoad(go);
-                }
-                return _instance;
-            }
-        }
-
-        [Header("引用的预制体注册表（可选，用作 AssetReference 的映射）")]
-        [SerializeField] private PrefabRegistry prefabRegistry;
-
-        // 状态 Flag 与进度
-        public bool IsLoaded { get; private set; }
-        public float Progress { get; private set; }
-
-        // 缓存容器
-        private readonly Dictionary<string, AsyncOperationHandle<GameObject>> _loadedHandles = new();
-        private readonly Dictionary<string, GameObject> _cachedPrefabs = new();
-
-        // 正在进行的并发加载任务追踪
-        private Coroutine _loadingCoroutine;
-
-        private void Awake()
-        {
-            if (_instance != null && _instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-
-        /// <summary>
-        /// 扫描关卡并加载所需的 Addressables 资源
-        /// </summary>
-        public void PrepareLevelResources(LevelConfig config, Action onComplete = null)
-        {
-            if (config == null)
-            {
-                Debug.LogError("[ResourcesSystem] 无法准备资源，关卡配置 (LevelConfig) 为空！");
-                return;
-            }
-
-            // 如果当前有正在进行的加载，强制先停止并释放
-            ReleaseLevelResources();
-
-            IsLoaded = false;
-            Progress = 0f;
-
-            // 1. 扫描关卡内所有物件的数据，收集不重复的 prefabKey
-            HashSet<string> uniqueKeys = new HashSet<string>();
-            foreach (var obj in config.objects)
-            {
-                if (!string.IsNullOrEmpty(obj.prefabKey))
-                {
-                    uniqueKeys.Add(obj.prefabKey);
-                }
-            }
-
-            if (uniqueKeys.Count == 0)
-            {
-                Debug.LogWarning($"[ResourcesSystem] 关卡 {config.levelId} 中不包含任何关卡物品，无需加载。");
-                IsLoaded = true;
-                Progress = 1f;
-                onComplete?.Invoke();
-                return;
-            }
-
-            // 2. 开启协程进行批量的 Addressables 异步预加载
-            _loadingCoroutine = StartCoroutine(CoLoadAssets(uniqueKeys, onComplete));
-        }
-
-        /// <summary>
-        /// 获取已经缓存好的预制体
-        /// </summary>
-        public GameObject GetPrefab(string prefabKey)
-        {
-            if (_cachedPrefabs.TryGetValue(prefabKey, out GameObject prefab))
-            {
-                return prefab;
-            }
-
-            Debug.LogError($"[ResourcesSystem] 试图获取未被缓存的预制体资源: '{prefabKey}'。请确认该资源在关卡配置中存在，且系统已加载完毕。");
-            return null;
-        }
-
-        /// <summary>
-        /// 释放缓存，回收到内存中
-        /// </summary>
-        public void ReleaseLevelResources()
-        {
-            if (_loadingCoroutine != null)
-            {
-                StopCoroutine(_loadingCoroutine);
-                _loadingCoroutine = null;
-            }
-
-            // 遍历句柄，逐个释放 Addressable 资源
-            foreach (var kvp in _loadedHandles)
-            {
-                if (kvp.Value.IsValid())
-                {
-                    Addressables.Release(kvp.Value);
-                }
-            }
-
-            _loadedHandles.Clear();
-            _cachedPrefabs.Clear();
-
-            IsLoaded = false;
-            Progress = 0f;
-            Debug.Log("[ResourcesSystem] 已成功释放当前关卡的所有缓存资源与内存。");
-        }
-
-        /// <summary>
-        /// 核心加载协程：并发触发所有资源的加载，并对进度进行平滑统计
-        /// </summary>
-        private IEnumerator CoLoadAssets(HashSet<string> keys, Action onComplete)
-        {
-            int totalCount = keys.Count;
-            var loadTasks = new List<LoadTask>();
-
-            Debug.Log($"[ResourcesSystem] 开始预加载关卡资源，共需加载 {totalCount} 个独立资源...");
-
-            // 1. 发起所有异步加载任务
-            foreach (string key in keys)
-            {
-                AsyncOperationHandle<GameObject> handle;
-
-                // 优先尝试从 PrefabRegistry 获取 AssetReference (方案 A)
-                AssetReferenceGameObject assetRef = GetAssetReferenceFromRegistry(key);
-
-                if (assetRef != null && assetRef.RuntimeKeyIsValid())
-                {
-                    // 采用 AssetReference 加载
-                    handle = Addressables.LoadAssetAsync<GameObject>(assetRef);
-                }
-                else
-                {
-                    // 退化为方案 B：直接将 key 当做 Addressable Address 进行直寻址加载
-                    handle = Addressables.LoadAssetAsync<GameObject>(key);
-                }
-
-                loadTasks.Add(new LoadTask(key, handle));
-                _loadedHandles.Add(key, handle);
-            }
-
-            // 2. 循环检查整体加载进度，直到所有任务完成
-            bool allDone = false;
-            while (!allDone)
-            {
-                allDone = true;
-                float progressSum = 0f;
-
-                foreach (var task in loadTasks)
-                {
-                    if (!task.Handle.IsDone)
-                    {
-                        allDone = false;
-                    }
-                    // 累加每个句柄的加载进度 (0.0f - 1.0f)
-                    progressSum += task.Handle.PercentComplete;
-                }
-
-                // 统计得出加权总进度
-                Progress = progressSum / totalCount;
-                yield return null; 
-            }
-
-            // 3. 所有资源全部加载成功，缓存对应的 GameObject 引用
-            bool hasError = false;
-            foreach (var task in loadTasks)
-            {
-                if (task.Handle.Status == AsyncOperationStatus.Succeeded)
-                {
-                    _cachedPrefabs.Add(task.Key, task.Handle.Result);
-                }
-                else
-                {
-                    hasError = true;
-                    Debug.LogError($"[ResourcesSystem] 预加载资源失败！Key: '{task.Key}', 异常信息: {task.Handle.OperationException}");
-                }
-            }
-
-            Progress = 1.0f;
-            IsLoaded = !hasError;
-            _loadingCoroutine = null;
-
-            if (IsLoaded)
-            {
-                Debug.Log("<color=green>[ResourcesSystem] 所有关卡资源预加载并缓存成功！</color>");
-                onComplete?.Invoke();
-            }
-            else
-            {
-                Debug.LogError("[ResourcesSystem] 关卡资源加载过程中出现错误，关卡可能无法正常显示。");
-            }
-        }
-
-        /// <summary>
-        /// 从 PrefabRegistry 中解析出对应的 AssetReferenceGameObject
-        /// </summary>
-        private AssetReferenceGameObject GetAssetReferenceFromRegistry(string key)
-        {
-            if (prefabRegistry == null) return null;
-            
-            // 假设我们已经将 PrefabRegistry 里的 GameObject 字段修改为 AssetReferenceGameObject
-            // 此处需要配合更新后的 PrefabRegistry 使用，下方为伪代码逻辑
-            /*
-            foreach (var mapping in prefabRegistry.mappings)
-            {
-                if (mapping.key == key)
-                {
-                    return mapping.prefabReference;
-                }
-            }
-            */
-            return null;
-        }
-
-        // 用于辅助追踪任务的结构体
-        private struct LoadTask
-        {
-            public string Key;
-            public AsyncOperationHandle<GameObject> Handle;
-
-            public LoadTask(string key, AsyncOperationHandle<GameObject> handle)
-            {
-                Key = key;
-                Handle = handle;
-            }
-        }
-    }
-}
-```
+*   附加外置计时器监控，连续 **15 秒**未有任何字节流入即判定超时。
+*   失败自动发起指数退避等待重试（最大 **3 次**）。
+*   彻底失败后由事件 `OnResourcesLoadFailed` 抛出，拉起重试 UI。
 
 ---
 
-## 5. 后续项目重构落地实施步骤
+## 5. 对外接口设计
 
-为了完成这套热更新架构的闭环落地，需要您在接下来的阶段里配合进行以下重构操作：
+### 5.1 IResourcesSystem 接口契约
 
-### 步骤 1：安装并初始化 Unity Addressables Package
-*   在 Unity 中打开 **Window -> Package Manager**，搜索 `Addressables` 并进行安装。
-*   点击 **Window -> Asset Management -> Addressables -> Groups**，点击 `Create Addressables Settings` 进行初始化。
+| 成员 | 类型 | 说明 |
+|------|------|------|
+| `IsLoaded` | `bool` 属性 | 当前关卡所有资源是否全部就绪 |
+| `Progress` | `float` 属性 | 综合加载进度（0.0 ~ 1.0） |
+| `OnResourcesLoadFailed` | 事件 | 多次重试仍失败时触发 |
+| `InitializeGlobalHotUpdate()` | 方法 | 游戏启动时执行 Addressables 全局初始化及 Catalog 热更新 |
+| `PrepareLevelResources()` | 方法 | 传入 `LevelConfig` 以及 `PrefabRegistry` 映射表，启动预加载流程 |
+| `GetPrefab()` | 方法 | 传入 `string prefabKey`，返回已缓存的 GameObject 模板供对象池实例化 |
+| `ReleaseLevelResources()` | 方法 | 关卡结束后，级联清空内部所有缓存字典和资源句柄引用 |
 
-### 步骤 2：重构已有的字段及预制体绑定
-*   **修改 PrefabRegistry**：将 `PrefabRegistry.cs` 内的 `GameObject prefab` 修改为 `AssetReferenceGameObject prefabReference`，并将所有用到的关卡预制体拖入 Addressables Groups 标记为 Addressable 资源。
-*   将原关卡物品预制体拖入 `PrefabRegistry` 对应的 `prefabReference` 引用位。
+### 5.2 ResourcesSystem 内部核心成员
 
-### 步骤 3：修改 `LevelLoader.cs` 的加载流程
-以前的 `LevelLoader` 会硬性依赖并读取 `PrefabRegistry`：
-```csharp
-// 修改前
-GameObject prefab = registry.GetPrefab(objData.prefabKey);
-```
-
-修改为直接向 `ResourcesSystem` 索取已缓存就绪的资源：
-```csharp
-// 修改后
-GameObject prefab = Runtime.Resources.ResourcesSystem.Instance.GetPrefab(objData.prefabKey);
-```
-
-### 步骤 4：设计首包与热更包的分离管线
-*   关卡配置（`LevelConfig`）等体积较小的资产保持在 `Assets/...` 路径下，甚至可以用 `Json` / `ScriptableObject` 打入包体内。
-*   关卡中用到的模型、材质、音效等重资源（挂载在预制体上）归入 Addressable 远端更新组（Remote Group），在构建时生成远程热更包（`ServerData`），部署至 CDN。
-
----
-
-> [!NOTE]
-> 本计划是一套经过实战检验的高性能、低内存消耗的抖音小游戏/手游资源动态加载方案。完成接口与核心架构在 `Runtime/ResourcesSystem` 目录的部署后，我们会根据需要对 `PrefabRegistry` 与 `LevelLoader` 的具体代码逐步进行重构和联动对接。
+| 成员 | 说明 |
+|------|------|
+| `maxRetryCount` | 网络下载失败最大重试次数，默认 3 次 |
+| `networkTimeoutSeconds` | 单次下载超时阈值（秒），默认 15 秒 |
+| `_loadedHandles` | 内部字典，`string (prefabKey) → 资源句柄`，用于管理释放 |
+| `_cachedPrefabs` | 内部字典，`string (prefabKey) → GameObject`，用于对外 O(1) 检索 |
