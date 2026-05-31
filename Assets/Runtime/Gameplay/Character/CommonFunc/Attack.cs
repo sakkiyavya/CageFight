@@ -14,7 +14,7 @@ public class Attack : BehaviourBase
 
     public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
-         if (prop.target == null)
+        if (prop.target == null)
         {
             prop.isAttack = false;
             return false;

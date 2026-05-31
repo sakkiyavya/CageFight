@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LevelBuilderWindow : EditorWindow
 {
-    private string savePath = "Assets/Resource/RemoteResource/Stages";
+    private string savePath = "Assets/RemoteResource/Stages";
     private uint levelId = 1;
 
     [MenuItem("关卡构建/创建新关卡")]

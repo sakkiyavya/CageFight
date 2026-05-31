@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623e03b063e9e5f489f82afe328f422a, type: 3}
+  m_Name: PrefabRegistry
+  m_EditorClassIdentifier: 
+  mappings:
+  - key: CharacterTestDef
+    prefabReference:
+      m_AssetGUID: 6a6a49dd7d078c4459439abfdccb4649
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 992242328458724562, guid: 6a6a49dd7d078c4459439abfdccb4649, type: 3}
+  - key: Damb ass
+    prefabReference:
+      m_AssetGUID: c422b498c00e6bb4da9897579762c068
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 299742171776721008, guid: c422b498c00e6bb4da9897579762c068, type: 3}
+  - key: Miner rat
+    prefabReference:
+      m_AssetGUID: 223c653ff237bd842ad5670b6bb3bdc4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 672173276656494716, guid: 223c653ff237bd842ad5670b6bb3bdc4, type: 3}
+  - key: Mouse eyes
+    prefabReference:
+      m_AssetGUID: 5aca7eb3b1f68474e9239eadf1b6457d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 982494216309753114, guid: 5aca7eb3b1f68474e9239eadf1b6457d, type: 3}

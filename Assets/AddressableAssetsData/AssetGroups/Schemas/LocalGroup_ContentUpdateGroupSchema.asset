@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 623e03b063e9e5f489f82afe328f422a, type: 3}
-  m_Name: PrefabRegistry
+  m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
+  m_Name: LocalGroup_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  mappings:
-  - key: CharacterTestDef
-    prefab: {fileID: 992242328458724562, guid: 6a6a49dd7d078c4459439abfdccb4649, type: 3}
+  m_Group: {fileID: 11400000, guid: c5f4c849de60cf04f878b73c4883765e, type: 2}
+  m_StaticContent: 0

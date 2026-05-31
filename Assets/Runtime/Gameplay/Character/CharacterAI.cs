@@ -36,7 +36,8 @@ public class CharacterAI : MonoBehaviour
             if(behaviour.AIBehaviour(gameObject, _prop, _health))
                 break;
         }
-        _animator.SetBool("IsAtt", _prop.isAttack);
+        if(_animator)
+            _animator.SetBool("IsAtt", _prop.isAttack);
     }
 
     protected virtual void Repel()

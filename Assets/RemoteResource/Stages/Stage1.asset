@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ef6c8b64f543249a7d45a2148ddbf4, type: 3}
+  m_Name: Stage1
+  m_EditorClassIdentifier: 
+  levelId: 1
+  objects:
+  - instanceId: 1000
+    prefabKey: CharacterTestDef
+    transform:
+      position: {x: 2.71, y: 2.17, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 7112315925233926144
+  - instanceId: 1001
+    prefabKey: CharacterTestDef
+    transform:
+      position: {x: 13.87, y: 2.17, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 7112315925233926145
+  references:
+    version: 2
+    RefIds:
+    - rid: 7112315925233926144
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 100
+        defense: 10
+        magicDefense: 5
+        atk: 10
+        atkRate: 1
+        magicAtk: 5
+        atkRange: {x: 2, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 1
+        side: 0
+        atkObj: {fileID: 7757649065831184645, guid: 852a966747abf2a4d8cc9752fb16ac88, type: 3}
+        buildAnime: {fileID: 0}
+    - rid: 7112315925233926145
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 100
+        defense: 10
+        magicDefense: 5
+        atk: 10
+        atkRate: 1
+        magicAtk: 5
+        atkRange: {x: 2, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 1
+        side: 1
+        atkObj: {fileID: 7757649065831184645, guid: 852a966747abf2a4d8cc9752fb16ac88, type: 3}
+        buildAnime: {fileID: 0}

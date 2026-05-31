@@ -163,7 +163,25 @@ sequenceDiagram
 ### 3.2 映射层（Registry Layer）
 *   独立维护一个 `PrefabRegistry` (继承自 ScriptableObject) 作为全局唯一真理表。
 *   该表维护了一个列表，将 `string prefabKey` 一一映射到 `AssetReferenceGameObject prefabReference`。
-*   **优势**：开发期配合自动构建脚本，一键扫描全工程 `Prefab` 生成，绝不遗漏。在运行时以近乎 O(1) 的速度供 `ResourcesSystem` 提取真实物理资产指针。
+*   **极佳优化设计**：为了兼顾**“编辑器高频调试的便利性”**与**“出包打包时首包体积的彻底解耦”**，原有的物理 `GameObject prefab` 强引用字段在适配后**不进行直接删除**，而是通过 **`#if UNITY_EDITOR` 条件编译宏** 进行包裹保护。
+    *   **在 Editor 模式下**，它依然保持原有的 GameObject 拖拽配置与免热更关卡同步预览。
+    *   **在打包发布时**，由于打包平台为非 Editor 平台，该强引用字段自动剔除，不会占用首包体积，运行时仅依靠 `prefabReference` 异步拉取远程包，实现真正的轻量化热更新。
+
+```csharp
+[Serializable]
+public class PrefabMapping
+{
+    public string key; // 对应的 prefabKey，例如 "Hero_A"
+    
+    [Tooltip("指向 Addressable 资源的安全引用")]
+    public AssetReferenceGameObject prefabReference; 
+
+#if UNITY_EDITOR
+    [Tooltip("仅在编辑器下保留的物理硬引用，用于编辑状态下免热更预览，打包时会自动剔除，不占用首包体积")]
+    public GameObject prefab;
+#endif
+}
+```
 
 ---
 
@@ -182,7 +200,7 @@ sequenceDiagram
 | 阶段 | 占比 | 进度来源 |
 |------|------|---------|
 | 阶段一：网络下载 | 70% | 实时获取已下载字节数 ÷ 总字节数 |
-| 阶段二：内存加载 | 30% | 已成功加载进内存的 Prefab 数量 ÷ 本关卡预加载总数 |
+| 阶段二：内存加载 | 30% | 已成功加载进内存 of Prefab 数量 ÷ 本关卡预加载总数 |
 
 ### 4.3 抖音沙盒持久化本地缓存与 LRU 淘汰机制
 
