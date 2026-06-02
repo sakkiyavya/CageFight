@@ -1,5 +1,6 @@
 using System;
 using UnityEditor;
+using UnityEditor.AddressableAssets;
 using UnityEngine;
 
 [CustomPropertyDrawer(typeof(ResourceKeyAttribute))]
@@ -7,71 +8,102 @@ public class ResourceKeyAttributeDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        // 只有 String 类型的字段才应用此绘制逻辑
+        EditorGUI.BeginProperty(position, label, property);
+
         if (property.propertyType != SerializedPropertyType.String)
         {
             EditorGUI.PropertyField(position, property, label);
+            EditorGUI.EndProperty();
             return;
         }
 
         ResourceKeyAttribute attr = attribute as ResourceKeyAttribute;
         Type resourceType = attr != null ? attr.ResourceType : typeof(UnityEngine.Object);
 
-        // 将一行分为左右两块：左侧照常显示输入框，右侧提供拖拽感应区
-        float dropAreaWidth = 60f;
-        Rect textFieldRect = new Rect(position.x, position.y, position.width - dropAreaWidth - 5f, position.height);
-        Rect dropRect = new Rect(position.x + position.width - dropAreaWidth, position.y, dropAreaWidth, position.height);
-
-        // 绘制普通的文本框
-        property.stringValue = EditorGUI.TextField(textFieldRect, label, property.stringValue);
-
-        // 绘制拖拽提示框
-        GUIStyle dropStyle = new GUIStyle(EditorStyles.helpBox);
-        dropStyle.alignment = TextAnchor.MiddleCenter;
-        GUI.Box(dropRect, "拖入对象", dropStyle);
-
-        // 处理拖拽事件
-        Event evt = Event.current;
-        if (dropRect.Contains(evt.mousePosition) || textFieldRect.Contains(evt.mousePosition))
+        if (!typeof(UnityEngine.Object).IsAssignableFrom(resourceType))
         {
-            if (evt.type == EventType.DragUpdated)
-            {
-                bool canDrop = false;
-                foreach (var obj in DragAndDrop.objectReferences)
-                {
-                    // 验证拖拽物体的类型是否符合 Attribute 的声明要求
-                    if (resourceType.IsAssignableFrom(obj.GetType()))
-                    {
-                        canDrop = true;
-                        break;
-                    }
-                }
+            property.stringValue = EditorGUI.TextField(position, label, property.stringValue);
+            EditorGUI.EndProperty();
+            return;
+        }
 
-                if (canDrop)
-                {
-                    DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
-                    evt.Use();
-                }
-                else
-                {
-                    DragAndDrop.visualMode = DragAndDropVisualMode.Rejected;
-                }
-            }
-            else if (evt.type == EventType.DragPerform)
+        UnityEngine.Object currentObject = FindObjectByName(property.stringValue, resourceType);
+
+        EditorGUI.BeginChangeCheck();
+        UnityEngine.Object selectedObject = EditorGUI.ObjectField(position, label, currentObject, resourceType, false);
+        if (EditorGUI.EndChangeCheck())
+        {
+            if (selectedObject == null)
             {
-                DragAndDrop.AcceptDrag();
-                foreach (var obj in DragAndDrop.objectReferences)
-                {
-                    if (resourceType.IsAssignableFrom(obj.GetType()))
-                    {
-                        // 提取名字赋给字符串字段
-                        property.stringValue = obj.name;
-                        property.serializedObject.ApplyModifiedProperties();
-                        break;
-                    }
-                }
-                evt.Use();
+                property.stringValue = string.Empty;
+            }
+            else if (IsValidResourceObject(selectedObject))
+            {
+                property.stringValue = selectedObject.name;
             }
         }
+
+        EditorGUI.EndProperty();
+    }
+
+    private static UnityEngine.Object FindObjectByName(string objectName, Type resourceType)
+    {
+        if (string.IsNullOrEmpty(objectName))
+        {
+            return null;
+        }
+
+        string[] guids = AssetDatabase.FindAssets(objectName);
+        foreach (string guid in guids)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            UnityEngine.Object asset = AssetDatabase.LoadAssetAtPath(path, resourceType);
+            if (asset != null && asset.name == objectName)
+            {
+                return asset;
+            }
+        }
+
+        foreach (UnityEngine.Object obj in Resources.FindObjectsOfTypeAll(resourceType))
+        {
+            if (obj.name == objectName && EditorUtility.IsPersistent(obj))
+            {
+                return obj;
+            }
+        }
+
+        return null;
+    }
+
+    private static bool IsValidResourceObject(UnityEngine.Object obj)
+    {
+        if (obj is GameObject gameObject && !PrefabUtility.IsPartOfPrefabAsset(gameObject))
+        {
+            EditorUtility.DisplayDialog("资源选择无效", $"对象 \"{obj.name}\" 不是 Prefab 资源，不能作为资源 Key。", "确定");
+            return false;
+        }
+
+        string path = AssetDatabase.GetAssetPath(obj);
+        string guid = AssetDatabase.AssetPathToGUID(path);
+        if (string.IsNullOrEmpty(guid))
+        {
+            EditorUtility.DisplayDialog("资源选择无效", $"对象 \"{obj.name}\" 不是项目资源，不能作为资源 Key。", "确定");
+            return false;
+        }
+
+        var settings = AddressableAssetSettingsDefaultObject.Settings;
+        if (settings == null)
+        {
+            EditorUtility.DisplayDialog("资源选择无效", "当前项目还没有 Addressables Settings，请先初始化 Addressables。", "确定");
+            return false;
+        }
+
+        if (settings.FindAssetEntry(guid) == null)
+        {
+            EditorUtility.DisplayDialog("资源选择无效", $"对象 \"{obj.name}\" 没有打包进 Addressables，不能作为资源 Key。", "确定");
+            return false;
+        }
+
+        return true;
     }
 }

@@ -140,7 +140,7 @@ MonoBehaviour:
   repel: 1
   antiRepel: 1
   atkRange: {x: 1, y: 2}
-  atkObj: {fileID: 5163532789582871555, guid: ca1f8462bff752d45bff40ba0d6ab3f9, type: 3}
+  atkObj: ProjectileTest
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
@@ -152,7 +152,7 @@ MonoBehaviour:
   atkRangeMin: {x: 0, y: 0}
   atkRangeMax: {x: 0, y: 1}
   occupySpace: {x: 1, y: 1}
-  buildAnime: {fileID: 0}
+  buildAnime: 
 --- !u!114 &9222986287733818326
 MonoBehaviour:
   m_ObjectHideFlags: 0
