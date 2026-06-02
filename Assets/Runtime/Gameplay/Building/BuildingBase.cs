@@ -197,9 +197,13 @@ public class BuildingBase : MonoBehaviour
             spr.enabled = false;
         }
 
-        if (_prop.buildAnime != null)
+        if (!string.IsNullOrEmpty(_prop.buildAnime))
         {
-            buildAnimeInstance = Instantiate(_prop.buildAnime, transform.position, transform.rotation);
+            GameObject animePrefab = ResourceManager.Instance.GetGameObject(_prop.buildAnime);
+            if (animePrefab != null)
+            {
+                buildAnimeInstance = Instantiate(animePrefab, transform.position, transform.rotation);
+            }
         }
 
         if (_prop.buildTime > 0f)

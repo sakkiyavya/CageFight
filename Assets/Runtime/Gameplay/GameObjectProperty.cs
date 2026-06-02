@@ -24,7 +24,8 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
     public float repel = 1;
     [Min(0.1f)]public float antiRepel = 1;
     public Vector2Int atkRange = Vector2Int.one;
-    public GameObject atkObj;
+    [ResourceKey(typeof(GameObject))]
+    public string atkObj;
 
     [Header("额外属性")]
     public float barSustainTime = 2f;
@@ -47,7 +48,8 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
 
     [Header("空间属性")]
     public Vector2Int occupySpace = Vector2Int.one;
-    public GameObject buildAnime;
+    [ResourceKey(typeof(GameObject))]
+    public string buildAnime;
 
     #region ILevelComponent 实现
 

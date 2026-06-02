@@ -82,7 +82,7 @@ public class ResourceManager : MonoBehaviour
     // --- 生命周期管理 ---
 
     /// <summary>
-    /// 提前加载场景中的所有资源（当前主要提取 LevelConfig 中的预制体）
+    /// 提前加载场景中的所有资源
     /// </summary>
     public void LoadStageResources(LevelConfig level)
     {
@@ -94,7 +94,7 @@ public class ResourceManager : MonoBehaviour
 
         if (prefabRegistry == null)
         {
-            Debug.LogError("[ResourceManager] 尚未配置 PrefabRegistry，无法解析 GameObject 映射！");
+            Debug.LogWarning("[ResourceManager] 尚未配置 PrefabRegistry，基于 Registry 的预制体解析将失效！");
             return;
         }
 
@@ -104,35 +104,67 @@ public class ResourceManager : MonoBehaviour
 
     private IEnumerator CoLoadStageResources(LevelConfig level)
     {
-        prefabRegistry.Initialize();
+        // 0. Catalog 热更新检查
+        Debug.Log("[ResourceManager] 开始检查 Catalog 更新...");
+        var checkHandle = Addressables.CheckForCatalogUpdates(false);
+        yield return checkHandle;
 
-        // 1. 收集关卡所需的所有的 prefabKey
-        HashSet<string> uniquePrefabKeys = new HashSet<string>();
+        if (checkHandle.Status == AsyncOperationStatus.Succeeded && checkHandle.Result.Count > 0)
+        {
+            Debug.Log($"[ResourceManager] 发现 {checkHandle.Result.Count} 个 Catalog 更新，开始下载...");
+            var updateHandle = Addressables.UpdateCatalogs(checkHandle.Result, false);
+            yield return updateHandle;
+            
+            if (updateHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+                Debug.Log("[ResourceManager] Catalog 更新完成！");
+            }
+            else
+            {
+                Debug.LogError("[ResourceManager] Catalog 更新失败！");
+            }
+            Addressables.Release(updateHandle);
+        }
+        Addressables.Release(checkHandle);
+
+        if (prefabRegistry != null)
+        {
+            prefabRegistry.Initialize();
+        }
+
+        // 1. 通过反射扫描关卡数据，收集所有标记了 ResourceKeyAttribute 的 key 及其对应的 Type
+        Dictionary<string, Type> keysWithTypes = new Dictionary<string, Type>();
+        HashSet<object> visited = new HashSet<object>();
+        ScanForResourceKeys(level, keysWithTypes, visited);
+
         List<object> keysToDownload = new List<object>();
 
-        if (level != null && level.objects != null)
+        // 准备所有的底层 Addressables Key
+        foreach (var kvp in keysWithTypes)
         {
-            foreach (var obj in level.objects)
+            string key = kvp.Key;
+            Type resType = kvp.Value;
+            object addressableKey = key; // 默认情况下，Addressable Key 就是这个 string 名称
+
+            // 如果是 GameObject 类型，我们优先从 PrefabRegistry 中寻找它映射的 AssetReference
+            if (resType == typeof(GameObject) && prefabRegistry != null)
             {
-                if (!string.IsNullOrEmpty(obj.prefabKey) && uniquePrefabKeys.Add(obj.prefabKey))
+                var reference = prefabRegistry.GetReference(key);
+                if (reference != null && reference.RuntimeKeyIsValid())
                 {
-                    var reference = prefabRegistry.GetReference(obj.prefabKey);
-                    if (reference != null && reference.RuntimeKeyIsValid())
-                    {
-                        keysToDownload.Add(reference);
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"[ResourceManager] 在 Registry 中找不到 prefabKey: {obj.prefabKey}");
-                    }
+                    addressableKey = reference;
                 }
             }
+
+            keysToDownload.Add(addressableKey);
         }
 
         // 2. 批量合并下载依赖 (避免网络风暴)
         if (keysToDownload.Count > 0)
         {
-            var downloadHandle = Addressables.DownloadDependenciesAsync(keysToDownload, Addressables.MergeMode.Union);
+            Debug.Log($"[ResourceManager] 开始批量下载 {keysToDownload.Count} 个资源的依赖...");
+            // 显式转换为 IEnumerable 以消除 IList<object> 重载过时的警告
+            var downloadHandle = Addressables.DownloadDependenciesAsync((IEnumerable)keysToDownload, Addressables.MergeMode.Union);
             yield return downloadHandle;
 
             if (downloadHandle.Status != AsyncOperationStatus.Succeeded)
@@ -145,34 +177,127 @@ public class ResourceManager : MonoBehaviour
                 Addressables.Release(downloadHandle);
             }
 
-            // 3. 逐个将 GameObject 加载至内存并存入字典
-            foreach (var pKey in uniquePrefabKeys)
+            // 3. 逐个将资源加载至内存并存入对应的分类字典
+            foreach (var kvp in keysWithTypes)
             {
-                var reference = prefabRegistry.GetReference(pKey);
-                if (reference != null && reference.RuntimeKeyIsValid())
-                {
-                    var handle = Addressables.LoadAssetAsync<GameObject>(reference);
-                    yield return handle;
+                string key = kvp.Key;
+                Type resType = kvp.Value;
+                object addressableKey = key;
 
+                if (resType == typeof(GameObject) && prefabRegistry != null)
+                {
+                    var reference = prefabRegistry.GetReference(key);
+                    if (reference != null && reference.RuntimeKeyIsValid())
+                    {
+                        addressableKey = reference;
+                    }
+                }
+
+                if (resType == typeof(GameObject))
+                {
+                    var handle = Addressables.LoadAssetAsync<GameObject>(addressableKey);
+                    yield return handle;
                     if (handle.Status == AsyncOperationStatus.Succeeded)
                     {
-                        _gameObjectDict[pKey] = handle.Result;
+                        _gameObjectDict[key] = handle.Result;
                         _handlesToRelease.Add(handle);
                     }
-                    else
+                    else Debug.LogError($"[ResourceManager] 加载 GameObject 失败！Key: {key}");
+                }
+                else if (resType == typeof(AudioClip))
+                {
+                    var handle = Addressables.LoadAssetAsync<AudioClip>(addressableKey);
+                    yield return handle;
+                    if (handle.Status == AsyncOperationStatus.Succeeded)
                     {
-                        Debug.LogError($"[ResourceManager] 加载预制体 {pKey} 失败！");
+                        _audioDict[key] = handle.Result;
+                        _handlesToRelease.Add(handle);
                     }
+                    else Debug.LogError($"[ResourceManager] 加载 AudioClip 失败！Key: {key}");
+                }
+                else if (resType == typeof(Texture2D))
+                {
+                    var handle = Addressables.LoadAssetAsync<Texture2D>(addressableKey);
+                    yield return handle;
+                    if (handle.Status == AsyncOperationStatus.Succeeded)
+                    {
+                        _textureDict[key] = handle.Result;
+                        _handlesToRelease.Add(handle);
+                    }
+                    else Debug.LogError($"[ResourceManager] 加载 Texture2D 失败！Key: {key}");
+                }
+                else if (resType == typeof(AnimationClip))
+                {
+                    var handle = Addressables.LoadAssetAsync<AnimationClip>(addressableKey);
+                    yield return handle;
+                    if (handle.Status == AsyncOperationStatus.Succeeded)
+                    {
+                        _animationDict[key] = handle.Result;
+                        _handlesToRelease.Add(handle);
+                    }
+                    else Debug.LogError($"[ResourceManager] 加载 AnimationClip 失败！Key: {key}");
+                }
+                else if (resType == typeof(RuntimeAnimatorController))
+                {
+                    var handle = Addressables.LoadAssetAsync<RuntimeAnimatorController>(addressableKey);
+                    yield return handle;
+                    if (handle.Status == AsyncOperationStatus.Succeeded)
+                    {
+                        _animatorControllerDict[key] = handle.Result;
+                        _handlesToRelease.Add(handle);
+                    }
+                    else Debug.LogError($"[ResourceManager] 加载 RuntimeAnimatorController 失败！Key: {key}");
                 }
             }
         }
 
-        // 注意：其他资源（Audio, Texture等）暂时未在 LevelConfig 里声明，如果后续加入，
-        // 可以在这里扩展，根据策略“Key就等于资源名称”直接调用 Addressables.LoadAssetAsync(name)
-
         CurrentState = ResourceState.LoadComplete;
         Debug.Log("[ResourceManager] 关卡预加载完成！");
         OnLoadComplete?.Invoke();
+    }
+
+    /// <summary>
+    /// 反射递归扫描对象中的所有 ResourceKeyAttribute
+    /// </summary>
+    private void ScanForResourceKeys(object obj, Dictionary<string, Type> keysWithTypes, HashSet<object> visited)
+    {
+        if (obj == null) return;
+        if (!visited.Add(obj)) return; // 防循环引用
+
+        Type type = obj.GetType();
+        if (type.IsPrimitive || type == typeof(string) || type.IsEnum) return;
+
+        // 处理集合类型
+        if (obj is IEnumerable enumerable)
+        {
+            foreach (var item in enumerable)
+            {
+                ScanForResourceKeys(item, keysWithTypes, visited);
+            }
+            return;
+        }
+
+        var fields = type.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        foreach (var field in fields)
+        {
+            if (field.FieldType == typeof(string))
+            {
+                var attr = Attribute.GetCustomAttribute(field, typeof(ResourceKeyAttribute)) as ResourceKeyAttribute;
+                if (attr != null)
+                {
+                    string key = field.GetValue(obj) as string;
+                    if (!string.IsNullOrEmpty(key) && !keysWithTypes.ContainsKey(key))
+                    {
+                        keysWithTypes[key] = attr.ResourceType;
+                    }
+                }
+            }
+            else if (!field.FieldType.IsPrimitive && field.FieldType != typeof(string) && !field.FieldType.IsEnum)
+            {
+                var val = field.GetValue(obj);
+                ScanForResourceKeys(val, keysWithTypes, visited);
+            }
+        }
     }
 
     /// <summary>

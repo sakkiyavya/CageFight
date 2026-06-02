@@ -32,6 +32,9 @@ public class GameObjectPropertyData : ComponentData
     public float moveSpeed;
     public float repel;
     public int side;
-    public GameObject atkObj;
-    public GameObject buildAnime;
+    [ResourceKey(typeof(GameObject))]
+    public string atkObj;
+
+    [ResourceKey(typeof(GameObject))]
+    public string buildAnime;
 }

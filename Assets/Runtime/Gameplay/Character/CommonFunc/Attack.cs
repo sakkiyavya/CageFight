@@ -58,9 +58,12 @@ public class Attack : BehaviourBase
 
     // public void ShootProjectile()
     // {
-    //     if (_prop == null || _prop.atkObj == null || _self == null) return;
+    //     if (_prop == null || string.IsNullOrEmpty(_prop.atkObj) || _self == null) return;
 
-    //     GameObject projectile = GameObjectPool.Instance.Get(_prop.atkObj);
+    //     GameObject atkPrefab = ResourceManager.Instance.GetGameObject(_prop.atkObj);
+    //     if (atkPrefab == null) return;
+
+    //     GameObject projectile = GameObjectPool.Instance.Get(atkPrefab);
     //     if (projectile != null)
     //     {
     //         projectile.transform.position = _self.transform.position;
