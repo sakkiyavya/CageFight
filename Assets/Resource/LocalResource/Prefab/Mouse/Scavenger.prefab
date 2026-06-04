@@ -185,7 +185,7 @@ MonoBehaviour:
   repel: 0.5
   antiRepel: 1
   atkRange: {x: 10, y: 4}
-  atkObj: {fileID: 5776716328276947799, guid: 91eed7dad5274ba429b5fb743ba458c3, type: 3}
+  atkObj: Bullet-Stone-Scavenger
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
@@ -194,10 +194,10 @@ MonoBehaviour:
   isFacingLeft: 0
   isAttack: 0
   repelDistance: 0
-  atkRangeMin: {x: 0, y: -8}
-  atkRangeMax: {x: 9, y: -5}
+  atkRangeMin: {x: 11, y: 1}
+  atkRangeMax: {x: 20, y: 4}
   occupySpace: {x: 1, y: 1}
-  buildAnime: {fileID: 0}
+  buildAnime: 
 --- !u!114 &8541243144248460584
 MonoBehaviour:
   m_ObjectHideFlags: 0
