@@ -1196,7 +1196,7 @@ Transform:
   m_GameObject: {fileID: 686321799}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.29, y: 3.18, z: 0}
+  m_LocalPosition: {x: 9.79, y: 3.18, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2375,7 +2375,7 @@ Transform:
   m_GameObject: {fileID: 1901156913}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.67, y: -3.16, z: 0}
+  m_LocalPosition: {x: -7.36, y: -3.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2459,7 +2459,7 @@ Transform:
   m_GameObject: {fileID: 1904398604}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.51, y: -3.85, z: 0}
+  m_LocalPosition: {x: 7.47, y: -3.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3757,6 +3757,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81bdf19e5b1b9164ba11a6ffd3d50a94, type: 3}
+--- !u!1001 &4405652415227345533
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3098748190037644352, guid: 07e0ecaac8918604cb97e6013c5fe160, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.76202583
+      objectReference: {fileID: 0}
+    - target: {fileID: 3098748190037644352, guid: 07e0ecaac8918604cb97e6013c5fe160, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -27.356148
+      objectReference: {fileID: 0}
+    - target: {fileID: 3098748190037644352, guid: 07e0ecaac8918604cb97e6013c5fe160, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3098748190037644352, guid: 07e0ecaac8918604cb97e6013c5fe160, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3098748190037644352, guid: 07e0ecaac8918604cb97e6013c5fe160, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3098748190037644352, guid: 07e0ecaac8918604cb97e6013c5fe160, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3098748190037644352, guid: 07e0ecaac8918604cb97e6013c5fe160, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3098748190037644352, guid: 07e0ecaac8918604cb97e6013c5fe160, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3098748190037644352, guid: 07e0ecaac8918604cb97e6013c5fe160, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3098748190037644352, guid: 07e0ecaac8918604cb97e6013c5fe160, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179310577836475495, guid: 07e0ecaac8918604cb97e6013c5fe160, type: 3}
+      propertyPath: m_Name
+      value: BabaDoctor Believer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 07e0ecaac8918604cb97e6013c5fe160, type: 3}
 --- !u!1001 &5076404689652410525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5190,3 +5247,4 @@ SceneRoots:
   - {fileID: 6527635095713085329}
   - {fileID: 882892735}
   - {fileID: 885518186}
+  - {fileID: 4405652415227345533}
