@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: af54579e78fec464bbcc6b5754c27d9d
+guid: 8e8a6431b4c9aa14ebbf9bb2708cf033
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Set  UI_0
+      name: Boss blood_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 107
-        width: 160
-        height: 153
+        x: 38
+        y: 175
+        width: 1324
+        height: 194
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6493c2b933134b42a042916950e96b7
-      internalID: -1551861483
+      spriteID: 8641f928eb11190439ae0758b5a94383
+      internalID: -1687411502
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Set  UI_1
+      name: Boss blood_1
       rect:
         serializedVersion: 2
-        x: 174
-        y: 0
-        width: 106
-        height: 112
+        x: 246
+        y: 32
+        width: 1034
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,50 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79ae0f5a5956fb34f8ee956bc6679be8
-      internalID: 861791993
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Set  UI_2
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 16
-        width: 81
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f05d1070f5d89ba4fa1d10926edea00b
-      internalID: 1149651585
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Set  UI_3
-      rect:
-        serializedVersion: 2
-        x: 88
-        y: 0
-        width: 72
-        height: 92
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e29290dbad72edf4ab7f61c1ee4e2553
-      internalID: 2039169152
+      spriteID: b5b541e4b2ac9804b879925de1637fff
+      internalID: 741059581
       vertices: []
       indices: 
       edges: []
@@ -191,10 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Set  UI_0: -1551861483
-      Set  UI_1: 861791993
-      Set  UI_2: 1149651585
-      Set  UI_3: 2039169152
+      Boss blood_0: -1687411502
+      Boss blood_1: 741059581
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

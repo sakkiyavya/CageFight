@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: af54579e78fec464bbcc6b5754c27d9d
+guid: 38f2166944268db47b263f7a1c4477c2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 600
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -93,89 +93,73 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Set  UI_0
+      name: Building blood1
       rect:
         serializedVersion: 2
         x: 0
-        y: 107
-        width: 160
-        height: 153
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 172
+        width: 2025
+        height: 76
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6493c2b933134b42a042916950e96b7
-      internalID: -1551861483
+      spriteID: 08b73ab3d4786224eb007d48452315ed
+      internalID: -1794161729
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Set  UI_1
+      name: Building blood2
       rect:
         serializedVersion: 2
-        x: 174
+        x: 1
         y: 0
-        width: 106
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 2161
+        height: 168
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79ae0f5a5956fb34f8ee956bc6679be8
-      internalID: 861791993
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Set  UI_2
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 16
-        width: 81
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f05d1070f5d89ba4fa1d10926edea00b
-      internalID: 1149651585
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Set  UI_3
-      rect:
-        serializedVersion: 2
-        x: 88
-        y: 0
-        width: 72
-        height: 92
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e29290dbad72edf4ab7f61c1ee4e2553
-      internalID: 2039169152
+      spriteID: 5fa4fcef6d2d5684a9b8cfa8e8afff71
+      internalID: 761027171
       vertices: []
       indices: 
       edges: []
@@ -191,10 +175,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Set  UI_0: -1551861483
-      Set  UI_1: 861791993
-      Set  UI_2: 1149651585
-      Set  UI_3: 2039169152
+      Building blood1: -1794161729
+      Building blood2: 761027171
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

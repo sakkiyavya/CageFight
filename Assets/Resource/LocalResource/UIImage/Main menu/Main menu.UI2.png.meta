@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: af54579e78fec464bbcc6b5754c27d9d
+guid: 0409bc469422b184a975e0235f9eb03c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Set  UI_0
+      name: Main menu.UI2_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 107
-        width: 160
-        height: 153
+        y: 406
+        width: 392
+        height: 365
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6493c2b933134b42a042916950e96b7
-      internalID: -1551861483
+      spriteID: a3da9858c7c7c014c9db2852d8b4a431
+      internalID: 1379782959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Set  UI_1
+      name: Main menu.UI2_1
       rect:
         serializedVersion: 2
-        x: 174
-        y: 0
-        width: 106
-        height: 112
+        x: 408
+        y: 399
+        width: 289
+        height: 329
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79ae0f5a5956fb34f8ee956bc6679be8
-      internalID: 861791993
+      spriteID: 9a21ecfdd40164244802da4b6df6595f
+      internalID: -556482278
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Set  UI_2
+      name: Main menu.UI2_2
       rect:
         serializedVersion: 2
-        x: 3
-        y: 16
-        width: 81
-        height: 64
+        x: 760
+        y: 416
+        width: 344
+        height: 344
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f05d1070f5d89ba4fa1d10926edea00b
-      internalID: 1149651585
+      spriteID: 5467e9e12c9b4804f9e9ee0e493105f0
+      internalID: 1267806988
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Set  UI_3
+      name: Main menu.UI2_3
       rect:
         serializedVersion: 2
-        x: 88
-        y: 0
-        width: 72
-        height: 92
+        x: 16
+        y: 47
+        width: 338
+        height: 329
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,8 +174,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e29290dbad72edf4ab7f61c1ee4e2553
-      internalID: 2039169152
+      spriteID: a65991a7bfeaa9e46bf1190363f655d6
+      internalID: 1605943521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main menu.UI2_4
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 30
+        width: 350
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 419f7431320164e49ae329588d1c89ed
+      internalID: -987354510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main menu.UI2_5
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 32
+        width: 320
+        height: 378
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d678c12197d2c754085e4a854b625536
+      internalID: 24929220
       vertices: []
       indices: 
       edges: []
@@ -191,10 +233,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Set  UI_0: -1551861483
-      Set  UI_1: 861791993
-      Set  UI_2: 1149651585
-      Set  UI_3: 2039169152
+      Main menu.UI2_0: 1379782959
+      Main menu.UI2_1: -556482278
+      Main menu.UI2_2: 1267806988
+      Main menu.UI2_3: 1605943521
+      Main menu.UI2_4: -987354510
+      Main menu.UI2_5: 24929220
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
