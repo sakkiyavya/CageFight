@@ -1,0 +1,928 @@
+fileFormatVersion: 2
+guid: 2c2a93374cf4ccc45a3959d333d45030
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 60
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Game victory AP_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7290
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 142d2ddc82a2e214391731550022115f
+      internalID: 1408794634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_1
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 7290
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 826bf2862b7ca3c4d842eeb02bba0841
+      internalID: -1980915263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_2
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 7290
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4793f66de913de94caa9a6d022d7a386
+      internalID: -755474396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_3
+      rect:
+        serializedVersion: 2
+        x: 4320
+        y: 7290
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f8ebdd7ccaf0dc4bb402c242f92af70
+      internalID: -812265329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6480
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfc1d056cf1e77a46accfc20989a595f
+      internalID: -184110190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_5
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 6480
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5afbdd8bf6705e046b62c0160e290cf2
+      internalID: 406710112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_6
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 6480
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 309a4f0d21468bd468cb3a7c8445e5ee
+      internalID: 1445259779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_7
+      rect:
+        serializedVersion: 2
+        x: 4320
+        y: 6480
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93933e01841f31d429899e4ac3579b63
+      internalID: -1532557533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5670
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aaec7967569ae9c448e9d12577512a1d
+      internalID: 146492260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_9
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 5670
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f50049ce1e43cc64b9c14f66561f4d35
+      internalID: -498948424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_10
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 5670
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edaea2e318291ad449c6610eee5b758b
+      internalID: -176221523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_11
+      rect:
+        serializedVersion: 2
+        x: 4320
+        y: 5670
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02dd12d20a467d7448a79b5f58c0c056
+      internalID: -2001230799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4860
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebb53e0bebd0695409054fb246ff13d8
+      internalID: -178289940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_13
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 4860
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c8b412f775fd144d9844aa0928f7d51
+      internalID: 1101296690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_14
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 4860
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd671d6d6d90182498677032ce084f61
+      internalID: 260268691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_15
+      rect:
+        serializedVersion: 2
+        x: 4320
+        y: 4860
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85ff6646526bd304db412bad8d376a29
+      internalID: -971823508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4050
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afc1113ad7fb58740942750f936a58ba
+      internalID: 489288398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_17
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 4050
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efbf7e73f15321e4aa3468006451d591
+      internalID: 1747419269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_18
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 4050
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 978289331155c924b85d1a1b292d2d98
+      internalID: 648363505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_19
+      rect:
+        serializedVersion: 2
+        x: 4320
+        y: 4050
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ca6df064aec12f45a107843c52ffed0
+      internalID: 1318381634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3240
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96fa9b7a581c10d4a8727c46fe354ec6
+      internalID: -136672707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_21
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 3240
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e441a95358f216748b6b2eae9c30138f
+      internalID: -1857862038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_22
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 3240
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab074b667cd4be442b77ffb90978f61c
+      internalID: 448607543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_23
+      rect:
+        serializedVersion: 2
+        x: 4320
+        y: 3240
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11b7174673d1a184bbe699dc614797db
+      internalID: -750011757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2430
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c8af841e5756ab4486f5d917a8bbb9a
+      internalID: 1700864573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_25
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 2430
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 478296ddab43edd4e9cf9ab90a942515
+      internalID: -87467560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_26
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 2430
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93a1e9452374b9f42b15c4c6ba359804
+      internalID: -854457426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_27
+      rect:
+        serializedVersion: 2
+        x: 4320
+        y: 2430
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c373c74a6d4182e44b5d9bf661b4f441
+      internalID: -1912775816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1620
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bef9aab16d473f542ab95e0d4c399cb6
+      internalID: -152125473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_29
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1620
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e43cb212f0b4aaa40ae98f0dfabbe813
+      internalID: -1537196562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_30
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 1620
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9044ffbbf27f94f41a154207f68230a6
+      internalID: -846689544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_31
+      rect:
+        serializedVersion: 2
+        x: 4320
+        y: 1620
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31e45fcbf8beacd4e9ce82c3c417bbcf
+      internalID: 432479234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 810
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 721f7b627aa9e0547bd5fb717d2162d0
+      internalID: 1821241224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_33
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 810
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96e0c3a6c1913064c8ec50140b09f7be
+      internalID: 1168640725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_34
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 810
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b7f5a2b53579994381f058657c39765
+      internalID: -491520657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_35
+      rect:
+        serializedVersion: 2
+        x: 4320
+        y: 810
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de0512f017228e74cb82500f3f87723a
+      internalID: -875533273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game victory AP_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1440
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13e2184c097ca784bb0ef4b33595fc51
+      internalID: 1738147417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Game victory AP_0: 1408794634
+      Game victory AP_1: -1980915263
+      Game victory AP_10: -176221523
+      Game victory AP_11: -2001230799
+      Game victory AP_12: -178289940
+      Game victory AP_13: 1101296690
+      Game victory AP_14: 260268691
+      Game victory AP_15: -971823508
+      Game victory AP_16: 489288398
+      Game victory AP_17: 1747419269
+      Game victory AP_18: 648363505
+      Game victory AP_19: 1318381634
+      Game victory AP_2: -755474396
+      Game victory AP_20: -136672707
+      Game victory AP_21: -1857862038
+      Game victory AP_22: 448607543
+      Game victory AP_23: -750011757
+      Game victory AP_24: 1700864573
+      Game victory AP_25: -87467560
+      Game victory AP_26: -854457426
+      Game victory AP_27: -1912775816
+      Game victory AP_28: -152125473
+      Game victory AP_29: -1537196562
+      Game victory AP_3: -812265329
+      Game victory AP_30: -846689544
+      Game victory AP_31: 432479234
+      Game victory AP_32: 1821241224
+      Game victory AP_33: 1168640725
+      Game victory AP_34: -491520657
+      Game victory AP_35: -875533273
+      Game victory AP_36: 1738147417
+      Game victory AP_4: -184110190
+      Game victory AP_5: 406710112
+      Game victory AP_6: 1445259779
+      Game victory AP_7: -1532557533
+      Game victory AP_8: 146492260
+      Game victory AP_9: -498948424
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
