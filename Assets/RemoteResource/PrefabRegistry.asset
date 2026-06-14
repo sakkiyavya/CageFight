@@ -13,20 +13,6 @@ MonoBehaviour:
   m_Name: PrefabRegistry
   m_EditorClassIdentifier: 
   mappings:
-  - key: CharacterTestDef
-    prefabReference:
-      m_AssetGUID: 6a6a49dd7d078c4459439abfdccb4649
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 992242328458724562, guid: 6a6a49dd7d078c4459439abfdccb4649, type: 3}
-  - key: Damb ass
-    prefabReference:
-      m_AssetGUID: c422b498c00e6bb4da9897579762c068
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 299742171776721008, guid: c422b498c00e6bb4da9897579762c068, type: 3}
   - key: Miner rat
     prefabReference:
       m_AssetGUID: 223c653ff237bd842ad5670b6bb3bdc4
@@ -41,3 +27,192 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 982494216309753114, guid: 5aca7eb3b1f68474e9239eadf1b6457d, type: 3}
+  - key: CharacterTestDef
+    prefabReference:
+      m_AssetGUID: 6a6a49dd7d078c4459439abfdccb4649
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 992242328458724562, guid: 6a6a49dd7d078c4459439abfdccb4649, type: 3}
+  - key: Damb ass
+    prefabReference:
+      m_AssetGUID: c422b498c00e6bb4da9897579762c068
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 299742171776721008, guid: c422b498c00e6bb4da9897579762c068, type: 3}
+  - key: Bullet-Arrow
+    prefabReference:
+      m_AssetGUID: 25536b5c2ec7d884ea89c64eecb389ad
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 8995867475893393603, guid: 25536b5c2ec7d884ea89c64eecb389ad, type: 3}
+  - key: Bullet-Stone-Scavenger
+    prefabReference:
+      m_AssetGUID: 91eed7dad5274ba429b5fb743ba458c3
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 5776716328276947799, guid: 91eed7dad5274ba429b5fb743ba458c3, type: 3}
+  - key: Bullet-Miner rat
+    prefabReference:
+      m_AssetGUID: ca1f8462bff752d45bff40ba0d6ab3f9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 5163532789582871555, guid: ca1f8462bff752d45bff40ba0d6ab3f9, type: 3}
+  - key: Bullet-Mass-produce mouse
+    prefabReference:
+      m_AssetGUID: f29c61e4329bbdc4bbbb99eef3e6797b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 1909531030874728491, guid: f29c61e4329bbdc4bbbb99eef3e6797b, type: 3}
+  - key: Bullet-Huge monster
+    prefabReference:
+      m_AssetGUID: fbd74515f1d8bf34680b185c3cf50bde
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 403774059082912154, guid: fbd74515f1d8bf34680b185c3cf50bde, type: 3}
+  - key: FindPath
+    prefabReference:
+      m_AssetGUID: 05d8b304555cd294abe3379eb112d58e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 2939250887226813576, guid: 05d8b304555cd294abe3379eb112d58e, type: 3}
+  - key: Camp
+    prefabReference:
+      m_AssetGUID: 18ee951aae5b692449029cacc30c2e98
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 2520427044543007020, guid: 18ee951aae5b692449029cacc30c2e98, type: 3}
+  - key: Game over
+    prefabReference:
+      m_AssetGUID: 688b7b63cad963e4f9aa873214c73615
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 5224355892735509772, guid: 688b7b63cad963e4f9aa873214c73615, type: 3}
+  - key: Build Animation
+    prefabReference:
+      m_AssetGUID: 77d831c9df4bd984abdd7b40ef8cfb65
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 5926670886179881280, guid: 77d831c9df4bd984abdd7b40ef8cfb65, type: 3}
+  - key: ProjectileTest
+    prefabReference:
+      m_AssetGUID: 852a966747abf2a4d8cc9752fb16ac88
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 7757649065831184645, guid: 852a966747abf2a4d8cc9752fb16ac88, type: 3}
+  - key: Attack
+    prefabReference:
+      m_AssetGUID: befdb84e27fced9488bc5fdf6a2acbd2
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 510794879075809389, guid: befdb84e27fced9488bc5fdf6a2acbd2, type: 3}
+  - key: FindEnemy
+    prefabReference:
+      m_AssetGUID: c6339cd6af44f614682661b30ac09366
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 1550610482499113095, guid: c6339cd6af44f614682661b30ac09366, type: 3}
+  - key: Move
+    prefabReference:
+      m_AssetGUID: f1dfe0092e4f02740afc8f1414718f40
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 1460251372945402035, guid: f1dfe0092e4f02740afc8f1414718f40, type: 3}
+  - key: Skunk
+    prefabReference:
+      m_AssetGUID: 0cd7d657c9af42f488e760d1edc2929c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 3149827497484431231, guid: 0cd7d657c9af42f488e760d1edc2929c, type: 3}
+  - key: Transparent
+    prefabReference:
+      m_AssetGUID: 10528c98401bdbe4b994ba6ae3e25eb4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 7263268245366708561, guid: 10528c98401bdbe4b994ba6ae3e25eb4, type: 3}
+  - key: Audience
+    prefabReference:
+      m_AssetGUID: 1f0d700978acdb5429f19101d806bcd9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 2163697474060057655, guid: 1f0d700978acdb5429f19101d806bcd9, type: 3}
+  - key: Horrible monster
+    prefabReference:
+      m_AssetGUID: 25fed55ed2d4a604b96d35975e1aaa81
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 6016457220928666952, guid: 25fed55ed2d4a604b96d35975e1aaa81, type: 3}
+  - key: BOOM bro
+    prefabReference:
+      m_AssetGUID: 2e9de8b1868bf324c9038a78ad8db0ad
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 7386541229179265649, guid: 2e9de8b1868bf324c9038a78ad8db0ad, type: 3}
+  - key: Harm eyebrow
+    prefabReference:
+      m_AssetGUID: 81bdf19e5b1b9164ba11a6ffd3d50a94
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 57720819243006128, guid: 81bdf19e5b1b9164ba11a6ffd3d50a94, type: 3}
+  - key: Scavenger
+    prefabReference:
+      m_AssetGUID: 9fa379f4013be0744827776a979b1953
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 2591021704081421468, guid: 9fa379f4013be0744827776a979b1953, type: 3}
+  - key: jierui
+    prefabReference:
+      m_AssetGUID: ad9ff266bdcc3be438877815831cca36
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 4806428073784452881, guid: ad9ff266bdcc3be438877815831cca36, type: 3}
+  - key: Miner head
+    prefabReference:
+      m_AssetGUID: b9b25a2ab6f688f4ab1a10cbf83e167d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 3511997814397319732, guid: b9b25a2ab6f688f4ab1a10cbf83e167d, type: 3}
+  - key: Boulder
+    prefabReference:
+      m_AssetGUID: d66d72b76dfd553449292bbc2694209e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 3062758516945766433, guid: d66d72b76dfd553449292bbc2694209e, type: 3}
+  - key: Huge monster
+    prefabReference:
+      m_AssetGUID: e8e3ce429376a5d4ab44cf047497eb40
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 7374091422099466681, guid: e8e3ce429376a5d4ab44cf047497eb40, type: 3}
+  - key: BabaDoctorC1
+    prefabReference:
+      m_AssetGUID: ed092a6df613cd64692fef2d8e4ff85a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 4910795234881758600, guid: ed092a6df613cd64692fef2d8e4ff85a, type: 3}
