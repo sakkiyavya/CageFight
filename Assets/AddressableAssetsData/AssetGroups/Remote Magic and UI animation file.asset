@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Remote Magic animation file
+  m_Name: Remote Magic and UI animation file
   m_EditorClassIdentifier: 
-  m_GroupName: Remote Magic animation file
+  m_GroupName: Remote Magic and UI animation file
   m_Data:
     m_SerializedData: []
   m_GUID: 93c920ea50fc8f14d896d34d0f899f37
@@ -24,6 +24,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 04da907c7ff538d4cb3729f8677f37b4
     m_Address: Car magic AC
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 10b1b9534c2f027458655f27d4f0b5e6
+    m_Address: Build Animation2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1184d703a447d934183ef4ddb1428daf
+    m_Address: Game over AC
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -52,6 +62,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6579d155892a2004cb205b5c185cbc3c
+    m_Address: Build Animation
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c1f1520d91b3224e8e503dec3f3bbd6
+    m_Address: Game victory AC
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c819677d168b8f4382e45bb859864ea
+    m_Address: Build Animation AC
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7f752d059bedad94f94e2e27fd53943a
     m_Address: Magic energy sing
     m_ReadOnly: 0
@@ -59,6 +84,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8ce91ec77d8334847b580089b483ebab
     m_Address: Strange mine
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8db40cd5ce4fd2a459da329f460b882f
+    m_Address: Game over1
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -87,6 +117,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b386a0beaf8ca164c92d8daebc615848
+    m_Address: Game victory1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bb67748d1659fa6468a66e0bd6f738f4
     m_Address: Huge cheese AC
     m_ReadOnly: 0
@@ -104,6 +139,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d1be59e0875a3a94eba7a29c4b774459
     m_Address: Strange mine AC
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ea46f1f4bb5378e4798ed00b0dac52d7
+    m_Address: Game over2
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
