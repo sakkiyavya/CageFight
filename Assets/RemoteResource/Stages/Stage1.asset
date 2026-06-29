@@ -30,6 +30,12 @@ MonoBehaviour:
       scale: {x: 1, y: 1, z: 1}
     components:
     - rid: 7112315925233926145
+  prefabs:
+  - CharacterTestDef
+  audios: []
+  textures: []
+  animationClips: []
+  animatorControllers: []
   references:
     version: 2
     RefIds:
@@ -52,8 +58,8 @@ MonoBehaviour:
         moveSpeed: 3
         repel: 1
         side: 0
-        atkObj: {fileID: 7757649065831184645, guid: 852a966747abf2a4d8cc9752fb16ac88, type: 3}
-        buildAnime: {fileID: 0}
+        atkObj: 
+        buildAnime: 
     - rid: 7112315925233926145
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
@@ -73,5 +79,5 @@ MonoBehaviour:
         moveSpeed: 3
         repel: 1
         side: 1
-        atkObj: {fileID: 7757649065831184645, guid: 852a966747abf2a4d8cc9752fb16ac88, type: 3}
-        buildAnime: {fileID: 0}
+        atkObj: 
+        buildAnime: 

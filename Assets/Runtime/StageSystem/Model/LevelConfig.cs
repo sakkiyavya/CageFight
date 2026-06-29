@@ -27,5 +27,20 @@ public class LevelConfig : ScriptableObject
 
     [Tooltip("该关卡内包含的所有物体数据集合")]
     public List<LevelObjectData> objects = new List<LevelObjectData>();
+
+    [Tooltip("预制体资源 Key 清单")]
+    public List<string> prefabs = new List<string>();
+
+    [Tooltip("音频资源 Key 清单")]
+    public List<string> audios = new List<string>();
+
+    [Tooltip("纹理资源 Key 清单")]
+    public List<string> textures = new List<string>();
+
+    [Tooltip("动画片段资源 Key 清单")]
+    public List<string> animationClips = new List<string>();
+
+    [Tooltip("动画控制器资源 Key 清单")]
+    public List<string> animatorControllers = new List<string>();
 }
 

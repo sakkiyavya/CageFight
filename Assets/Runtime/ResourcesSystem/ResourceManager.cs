@@ -26,6 +26,18 @@ public class ResourceManager : MonoBehaviour
     [Tooltip("Prefab 映射表，负责将纯文本的 prefabKey 映射到实际的 AssetReference")]
     public PrefabRegistry prefabRegistry;
 
+    [Tooltip("Texture 映射表")]
+    public TextureRegistry textureRegistry;
+
+    [Tooltip("Audio 映射表")]
+    public AudioRegistry audioRegistry;
+
+    [Tooltip("AnimationClip 映射表")]
+    public AnimationClipRegistry animationClipRegistry;
+
+    [Tooltip("AnimatorController 映射表")]
+    public AnimatorControllerRegistry animatorControllerRegistry;
+
     public ResourceState CurrentState { get; private set; } = ResourceState.None;
 
     public event Action OnLoadComplete;
@@ -92,9 +104,10 @@ public class ResourceManager : MonoBehaviour
             return;
         }
 
-        if (prefabRegistry == null)
+        if (prefabRegistry == null && textureRegistry == null && audioRegistry == null && 
+            animationClipRegistry == null && animatorControllerRegistry == null)
         {
-            Debug.LogWarning("[ResourceManager] 尚未配置 PrefabRegistry，基于 Registry 的预制体解析将失效！");
+            Debug.LogError("[ResourceManager] 所有 Registry 均未配置！无法预加载任何资源。");
             return;
         }
 
@@ -127,36 +140,110 @@ public class ResourceManager : MonoBehaviour
         }
         Addressables.Release(checkHandle);
 
-        if (prefabRegistry != null)
+        // 初始化所有已配置的注册表
+        if (prefabRegistry != null) prefabRegistry.Initialize();
+        if (textureRegistry != null) textureRegistry.Initialize();
+        if (audioRegistry != null) audioRegistry.Initialize();
+        if (animationClipRegistry != null) animationClipRegistry.Initialize();
+        if (animatorControllerRegistry != null) animatorControllerRegistry.Initialize();
+
+        // 1. 根据 LevelConfig 的 5 个分类列表，收集所有资源 Key 并通过对应的 Registry 解析真实句柄
+        Dictionary<string, Type> keysWithTypes = new Dictionary<string, Type>();
+        Dictionary<string, object> keysWithAddressableKeys = new Dictionary<string, object>();
+
+        // 处理 Prefabs (GameObject)
+        if (level.prefabs != null)
         {
-            prefabRegistry.Initialize();
+            foreach (string key in level.prefabs)
+            {
+                if (string.IsNullOrEmpty(key)) continue;
+                keysWithTypes[key] = typeof(GameObject);
+
+                object addressableKey = key;
+                if (prefabRegistry != null && prefabRegistry.GetReference(key) is { } prefabRef && prefabRef.RuntimeKeyIsValid())
+                {
+                    addressableKey = prefabRef;
+                }
+                keysWithAddressableKeys[key] = addressableKey;
+            }
         }
 
-        // 1. 通过反射扫描关卡数据，收集所有标记了 ResourceKeyAttribute 的 key 及其对应的 Type
-        Dictionary<string, Type> keysWithTypes = new Dictionary<string, Type>();
-        HashSet<object> visited = new HashSet<object>();
-        ScanForResourceKeys(level, keysWithTypes, visited);
+        // 处理 Audios (AudioClip)
+        if (level.audios != null)
+        {
+            foreach (string key in level.audios)
+            {
+                if (string.IsNullOrEmpty(key)) continue;
+                keysWithTypes[key] = typeof(AudioClip);
+
+                object addressableKey = key;
+                if (audioRegistry != null && audioRegistry.GetReference(key) is { } audioRef && audioRef.RuntimeKeyIsValid())
+                {
+                    addressableKey = audioRef;
+                }
+                keysWithAddressableKeys[key] = addressableKey;
+            }
+        }
+
+        // 处理 Textures (Texture2D)
+        if (level.textures != null)
+        {
+            foreach (string key in level.textures)
+            {
+                if (string.IsNullOrEmpty(key)) continue;
+                keysWithTypes[key] = typeof(Texture2D);
+
+                object addressableKey = key;
+                if (textureRegistry != null && textureRegistry.GetReference(key) is { } textureRef && textureRef.RuntimeKeyIsValid())
+                {
+                    addressableKey = textureRef;
+                }
+                keysWithAddressableKeys[key] = addressableKey;
+            }
+        }
+
+        // 处理 AnimationClips (AnimationClip)
+        if (level.animationClips != null)
+        {
+            foreach (string key in level.animationClips)
+            {
+                if (string.IsNullOrEmpty(key)) continue;
+                keysWithTypes[key] = typeof(AnimationClip);
+
+                object addressableKey = key;
+                if (animationClipRegistry != null && animationClipRegistry.GetReference(key) is { } animClipRef && animClipRef.RuntimeKeyIsValid())
+                {
+                    addressableKey = animClipRef;
+                }
+                keysWithAddressableKeys[key] = addressableKey;
+            }
+        }
+
+        // 处理 AnimatorControllers (RuntimeAnimatorController)
+        if (level.animatorControllers != null)
+        {
+            foreach (string key in level.animatorControllers)
+            {
+                if (string.IsNullOrEmpty(key)) continue;
+                keysWithTypes[key] = typeof(RuntimeAnimatorController);
+
+                object addressableKey = key;
+                if (animatorControllerRegistry != null && animatorControllerRegistry.GetReference(key) is { } animCtrlRef && animCtrlRef.RuntimeKeyIsValid())
+                {
+                    addressableKey = animCtrlRef;
+                }
+                keysWithAddressableKeys[key] = addressableKey;
+            }
+        }
 
         List<object> keysToDownload = new List<object>();
-
-        // 准备所有的底层 Addressables Key
         foreach (var kvp in keysWithTypes)
         {
             string key = kvp.Key;
-            Type resType = kvp.Value;
-            object addressableKey = key; // 默认情况下，Addressable Key 就是这个 string 名称
-
-            // 如果是 GameObject 类型，我们优先从 PrefabRegistry 中寻找它映射的 AssetReference
-            if (resType == typeof(GameObject) && prefabRegistry != null)
+            if (keysWithAddressableKeys.TryGetValue(key, out var addrKey))
             {
-                var reference = prefabRegistry.GetReference(key);
-                if (reference != null && reference.RuntimeKeyIsValid())
-                {
-                    addressableKey = reference;
-                }
+                keysToDownload.Add(addrKey);
             }
-
-            keysToDownload.Add(addressableKey);
         }
 
         // 2. 批量合并下载依赖 (避免网络风暴)
@@ -164,7 +251,7 @@ public class ResourceManager : MonoBehaviour
         {
             Debug.Log($"[ResourceManager] 开始批量下载 {keysToDownload.Count} 个资源的依赖...");
             // 显式转换为 IEnumerable 以消除 IList<object> 重载过时的警告
-            var downloadHandle = Addressables.DownloadDependenciesAsync((IEnumerable)keysToDownload, Addressables.MergeMode.Union);
+            var downloadHandle = Addressables.DownloadDependenciesAsync((System.Collections.IEnumerable)keysToDownload, Addressables.MergeMode.Union);
             yield return downloadHandle;
 
             if (downloadHandle.Status != AsyncOperationStatus.Succeeded)
@@ -182,16 +269,7 @@ public class ResourceManager : MonoBehaviour
             {
                 string key = kvp.Key;
                 Type resType = kvp.Value;
-                object addressableKey = key;
-
-                if (resType == typeof(GameObject) && prefabRegistry != null)
-                {
-                    var reference = prefabRegistry.GetReference(key);
-                    if (reference != null && reference.RuntimeKeyIsValid())
-                    {
-                        addressableKey = reference;
-                    }
-                }
+                object addressableKey = keysWithAddressableKeys[key];
 
                 if (resType == typeof(GameObject))
                 {
@@ -254,50 +332,6 @@ public class ResourceManager : MonoBehaviour
         CurrentState = ResourceState.LoadComplete;
         Debug.Log("[ResourceManager] 关卡预加载完成！");
         OnLoadComplete?.Invoke();
-    }
-
-    /// <summary>
-    /// 反射递归扫描对象中的所有 ResourceKeyAttribute
-    /// </summary>
-    private void ScanForResourceKeys(object obj, Dictionary<string, Type> keysWithTypes, HashSet<object> visited)
-    {
-        if (obj == null) return;
-        if (!visited.Add(obj)) return; // 防循环引用
-
-        Type type = obj.GetType();
-        if (type.IsPrimitive || type == typeof(string) || type.IsEnum) return;
-
-        // 处理集合类型
-        if (obj is IEnumerable enumerable)
-        {
-            foreach (var item in enumerable)
-            {
-                ScanForResourceKeys(item, keysWithTypes, visited);
-            }
-            return;
-        }
-
-        var fields = type.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        foreach (var field in fields)
-        {
-            if (field.FieldType == typeof(string))
-            {
-                var attr = Attribute.GetCustomAttribute(field, typeof(ResourceKeyAttribute)) as ResourceKeyAttribute;
-                if (attr != null)
-                {
-                    string key = field.GetValue(obj) as string;
-                    if (!string.IsNullOrEmpty(key) && !keysWithTypes.ContainsKey(key))
-                    {
-                        keysWithTypes[key] = attr.ResourceType;
-                    }
-                }
-            }
-            else if (!field.FieldType.IsPrimitive && field.FieldType != typeof(string) && !field.FieldType.IsEnum)
-            {
-                var val = field.GetValue(obj);
-                ScanForResourceKeys(val, keysWithTypes, visited);
-            }
-        }
     }
 
     /// <summary>

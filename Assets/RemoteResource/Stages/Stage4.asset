@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ef6c8b64f543249a7d45a2148ddbf4, type: 3}
+  m_Name: Stage4
+  m_EditorClassIdentifier: 
+  levelId: 4
+  objects:
+  - instanceId: 1000
+    prefabKey: Mouse eyes
+    transform:
+      position: {x: 9.33, y: 2.27, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 7068040745039691779
+  prefabs:
+  - Mouse eyes
+  - Bullet-Arrow
+  audios: []
+  textures: []
+  animationClips: []
+  animatorControllers: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7068040745039691779
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 1500
+        defense: 0
+        magicDefense: 0
+        atk: 170
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 14, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3.5
+        repel: 0.7
+        side: 0
+        atkObj: Bullet-Arrow
+        buildAnime: 
