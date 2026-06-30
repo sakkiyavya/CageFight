@@ -1,0 +1,319 @@
+fileFormatVersion: 2
+guid: 2f71ae2bc818deb4ba411334adaf5d20
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Bullet2 AP_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1032
+        width: 401
+        height: 868
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e31f9ae9cd7d7574db560a36abce3fcd
+      internalID: 804641785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bullet2 AP_1
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 1496
+        width: 314
+        height: 344
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fde98df36303e4d4e905aef75ec9fb77
+      internalID: 108501718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bullet2 AP_2
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 1760
+        width: 224
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b96eac14cae866b44a6c4969f995784c
+      internalID: -1842040376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bullet2 AP_5
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 671
+        width: 1139
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a28fc0ece153224a86331540ba3858c
+      internalID: 1511941742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bullet2 AP_6
+      rect:
+        serializedVersion: 2
+        x: 1366
+        y: 775
+        width: 734
+        height: 978
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dea650a839ef334e8b2b2b61d1cf967
+      internalID: 1457491000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bullet2 AP_12
+      rect:
+        serializedVersion: 2
+        x: 740
+        y: 0
+        width: 738
+        height: 614
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 854472856d8002f4eaaa4f962ce5caff
+      internalID: 1226770394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bullet2 AP_34
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 156
+        width: 651
+        height: 381
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b25d7a6bd7decb948a83c83ac86bdf02
+      internalID: 125389974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Bullet2 AP_0: 804641785
+      Bullet2 AP_1: 108501718
+      Bullet2 AP_10: -7776707
+      Bullet2 AP_11: -936524139
+      Bullet2 AP_12: 1226770394
+      Bullet2 AP_13: -2019493575
+      Bullet2 AP_14: -959043964
+      Bullet2 AP_15: -1436061737
+      Bullet2 AP_16: -537137946
+      Bullet2 AP_17: 1999149872
+      Bullet2 AP_18: -997007757
+      Bullet2 AP_19: -252622827
+      Bullet2 AP_2: -1842040376
+      Bullet2 AP_20: -1275149169
+      Bullet2 AP_21: 270324524
+      Bullet2 AP_22: -1142953257
+      Bullet2 AP_23: 82674032
+      Bullet2 AP_24: -826418570
+      Bullet2 AP_25: -1448173970
+      Bullet2 AP_26: 1811681948
+      Bullet2 AP_27: -1207877884
+      Bullet2 AP_28: -551653304
+      Bullet2 AP_29: 301994962
+      Bullet2 AP_3: -538923279
+      Bullet2 AP_30: 657595242
+      Bullet2 AP_31: 1561805332
+      Bullet2 AP_32: -1614162701
+      Bullet2 AP_33: 1875824714
+      Bullet2 AP_34: 125389974
+      Bullet2 AP_35: 794938749
+      Bullet2 AP_36: 1454876327
+      Bullet2 AP_37: 999419088
+      Bullet2 AP_38: 425192437
+      Bullet2 AP_39: 2119683536
+      Bullet2 AP_4: 407121151
+      Bullet2 AP_40: -309091365
+      Bullet2 AP_41: -1513870387
+      Bullet2 AP_42: -1598459915
+      Bullet2 AP_43: 1886039468
+      Bullet2 AP_44: -968071901
+      Bullet2 AP_45: 1463316097
+      Bullet2 AP_46: 590300010
+      Bullet2 AP_47: 2024466830
+      Bullet2 AP_48: -888397208
+      Bullet2 AP_49: 267953246
+      Bullet2 AP_5: 1511941742
+      Bullet2 AP_50: -2081667315
+      Bullet2 AP_51: 1270950708
+      Bullet2 AP_52: 1408553879
+      Bullet2 AP_53: 2044269239
+      Bullet2 AP_54: 572570237
+      Bullet2 AP_55: -1335223252
+      Bullet2 AP_56: 293394283
+      Bullet2 AP_57: -681846271
+      Bullet2 AP_6: 1457491000
+      Bullet2 AP_7: 519954300
+      Bullet2 AP_8: -1105213208
+      Bullet2 AP_9: 2015866172
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
