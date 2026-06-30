@@ -15,13 +15,13 @@ MonoBehaviour:
   levelId: 3
   objects:
   - instanceId: 1000
-    prefabKey: Miner rat
+    prefabKey: Mouse eyes
     transform:
-      position: {x: 4.36, y: 0.43, z: 0}
+      position: {x: 23.1, y: 3.97, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 7068040745039691776
+    - rid: 7068040762662584320
   - instanceId: 1001
     prefabKey: Damb ass
     transform:
@@ -29,19 +29,20 @@ MonoBehaviour:
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 7068040745039691777
+    - rid: 7068040762662584321
   - instanceId: 1002
-    prefabKey: Mouse eyes
+    prefabKey: Miner rat
     transform:
-      position: {x: 23.1, y: 3.97, z: 0}
+      position: {x: 4.36, y: 0.43, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 7068040745039691778
+    - rid: 7068040762662584322
   prefabs:
-  - Mouse eyes
-  - Damb ass
   - Miner rat
+  - Damb ass
+  - Mouse eyes
+  - Bullet-Arrow
   audios: []
   textures: []
   animationClips: []
@@ -49,28 +50,28 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7068040745039691776
+    - rid: 7068040762662584320
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
         objectType: 2
-        maxHp: 800
+        maxHp: 1500
         defense: 0
         magicDefense: 0
-        atk: 150
+        atk: 170
         atkRate: 1
         magicAtk: 0
-        atkRange: {x: 1, y: 2}
+        atkRange: {x: 14, y: 4}
         isRemoteAtk: 0
-        isFacingLeft: 1
+        isFacingLeft: 0
         occupySpace: {x: 1, y: 1}
         barSustainTime: 2
         buildTime: 3
-        moveSpeed: 3
-        repel: 1
+        moveSpeed: 3.5
+        repel: 0.7
         side: 1
-        atkObj: 
+        atkObj: Bullet-Arrow
         buildAnime: 
-    - rid: 7068040745039691777
+    - rid: 7068040762662584321
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
         objectType: 2
@@ -91,24 +92,24 @@ MonoBehaviour:
         side: 0
         atkObj: 
         buildAnime: 
-    - rid: 7068040745039691778
+    - rid: 7068040762662584322
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
         objectType: 2
-        maxHp: 1500
+        maxHp: 800
         defense: 0
         magicDefense: 0
-        atk: 170
+        atk: 150
         atkRate: 1
         magicAtk: 0
-        atkRange: {x: 14, y: 4}
+        atkRange: {x: 1, y: 2}
         isRemoteAtk: 0
-        isFacingLeft: 0
+        isFacingLeft: 1
         occupySpace: {x: 1, y: 1}
         barSustainTime: 2
         buildTime: 3
-        moveSpeed: 3.5
-        repel: 0.7
+        moveSpeed: 3
+        repel: 1
         side: 1
         atkObj: 
         buildAnime: 

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 9189228003688087594}
   - component: {fileID: 9127430711219457202}
   - component: {fileID: 3199760917125654511}
+  - component: {fileID: 2110080292766132078}
   m_Layer: 0
   m_Name: BabaDoctorC1
   m_TagString: Untagged
@@ -181,8 +182,10 @@ MonoBehaviour:
   atk: 10
   atkRate: 1
   magicAtk: 0
+  repel: 1
+  antiRepel: 1
   atkRange: {x: 11, y: 4}
-  atkObj: {fileID: 0}
+  atkObj: 
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2.7
@@ -190,10 +193,11 @@ MonoBehaviour:
   path: []
   isFacingLeft: 0
   isAttack: 0
-  atkRangeMin: {x: 15, y: -21}
-  atkRangeMax: {x: 25, y: -18}
+  repelDistance: 0
+  atkRangeMin: {x: 0, y: -1}
+  atkRangeMax: {x: 10, y: 2}
   occupySpace: {x: 1, y: 1}
-  buildAnime: {fileID: 0}
+  buildAnime: 
 --- !u!114 &9189228003688087594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +215,7 @@ MonoBehaviour:
   - {fileID: 6272559087528982100}
   - {fileID: 5733075442649764640}
   - {fileID: 9216069151262993611}
+  shootPoint: {fileID: 0}
 --- !u!114 &9127430711219457202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +242,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
+--- !u!114 &2110080292766132078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910795234881758600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85e26b6eccfef2b47bfef18d243e9abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextureId: DabaDoctor_6
 --- !u!1001 &3937490823401154106
 PrefabInstance:
   m_ObjectHideFlags: 0
