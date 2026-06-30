@@ -42,5 +42,8 @@ public class LevelConfig : ScriptableObject
 
     [Tooltip("动画控制器资源 Key 清单")]
     public List<string> animatorControllers = new List<string>();
+
+    [Tooltip("Sprite 资源 Key 清单")]
+    public List<string> sprites = new List<string>();
 }
 

@@ -38,6 +38,9 @@ public class ResourceManager : MonoBehaviour
     [Tooltip("AnimatorController 映射表")]
     public AnimatorControllerRegistry animatorControllerRegistry;
 
+    [Tooltip("Sprite 映射表（支持多图切片子图）")]
+    public SpriteRegistry spriteRegistry;
+
     public ResourceState CurrentState { get; private set; } = ResourceState.None;
 
     public event Action OnLoadComplete;
@@ -49,6 +52,7 @@ public class ResourceManager : MonoBehaviour
     private Dictionary<string, Texture2D> _textureDict = new Dictionary<string, Texture2D>();
     private Dictionary<string, AnimationClip> _animationDict = new Dictionary<string, AnimationClip>();
     private Dictionary<string, RuntimeAnimatorController> _animatorControllerDict = new Dictionary<string, RuntimeAnimatorController>();
+    private Dictionary<string, Sprite> _spriteDict = new Dictionary<string, Sprite>();
 
     // 统一管理所有加载成功后的句柄，以便统一释放
     private List<AsyncOperationHandle> _handlesToRelease = new List<AsyncOperationHandle>();
@@ -89,6 +93,11 @@ public class ResourceManager : MonoBehaviour
     public RuntimeAnimatorController GetAnimatorController(string key)
     {
         return _animatorControllerDict.TryGetValue(key, out var res) ? res : null;
+    }
+
+    public Sprite GetSprite(string key)
+    {
+        return _spriteDict.TryGetValue(key, out var res) ? res : null;
     }
 
     // --- 生命周期管理 ---
@@ -146,6 +155,7 @@ public class ResourceManager : MonoBehaviour
         if (audioRegistry != null) audioRegistry.Initialize();
         if (animationClipRegistry != null) animationClipRegistry.Initialize();
         if (animatorControllerRegistry != null) animatorControllerRegistry.Initialize();
+        if (spriteRegistry != null) spriteRegistry.Initialize();
 
         // 1. 根据 LevelConfig 的 5 个分类列表，收集所有资源 Key 并通过对应的 Registry 解析真实句柄
         Dictionary<string, Type> keysWithTypes = new Dictionary<string, Type>();
@@ -231,6 +241,23 @@ public class ResourceManager : MonoBehaviour
                 if (animatorControllerRegistry != null && animatorControllerRegistry.GetReference(key) is { } animCtrlRef && animCtrlRef.RuntimeKeyIsValid())
                 {
                     addressableKey = animCtrlRef;
+                }
+                keysWithAddressableKeys[key] = addressableKey;
+            }
+        }
+
+        // 处理 Sprites (Sprite)
+        if (level.sprites != null)
+        {
+            foreach (string key in level.sprites)
+            {
+                if (string.IsNullOrEmpty(key)) continue;
+                keysWithTypes[key] = typeof(Sprite);
+
+                object addressableKey = key;
+                if (spriteRegistry != null && spriteRegistry.GetReference(key) is { } spriteRef && spriteRef.RuntimeKeyIsValid())
+                {
+                    addressableKey = spriteRef;
                 }
                 keysWithAddressableKeys[key] = addressableKey;
             }
@@ -326,6 +353,17 @@ public class ResourceManager : MonoBehaviour
                     }
                     else Debug.LogError($"[ResourceManager] 加载 RuntimeAnimatorController 失败！Key: {key}");
                 }
+                else if (resType == typeof(Sprite))
+                {
+                    var handle = Addressables.LoadAssetAsync<Sprite>(addressableKey);
+                    yield return handle;
+                    if (handle.Status == AsyncOperationStatus.Succeeded)
+                    {
+                        _spriteDict[key] = handle.Result;
+                        _handlesToRelease.Add(handle);
+                    }
+                    else Debug.LogError($"[ResourceManager] 加载 Sprite 失败！Key: {key}");
+                }
             }
         }
 
@@ -386,6 +424,7 @@ public class ResourceManager : MonoBehaviour
         _textureDict.Clear();
         _animationDict.Clear();
         _animatorControllerDict.Clear();
+        _spriteDict.Clear();
 
         // 批量释放 Addressables 句柄，促使内部引用计数衰减，最终卸载内存
         foreach (var handle in _handlesToRelease)

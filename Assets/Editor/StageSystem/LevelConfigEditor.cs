@@ -15,22 +15,24 @@ public class LevelConfigEditor : Editor
     private bool _texturesFoldout = false;
     private bool _animationClipsFoldout = false;
     private bool _animatorControllersFoldout = false;
+    private bool _spritesFoldout = false;
 
     public override void OnInspectorGUI()
     {
         LevelConfig config = (LevelConfig)target;
 
         // --- 绘制标准字段（levelId、settings、objects），但跳过分类列表 ---
-        DrawPropertiesExcluding(serializedObject, "prefabs", "audios", "textures", "animationClips", "animatorControllers");
+        DrawPropertiesExcluding(serializedObject, "prefabs", "audios", "textures", "animationClips", "animatorControllers", "sprites");
 
         EditorGUILayout.Space(12);
 
-        // 绘制五个分类的资源 Key 列表
+        // 绘制六个分类的资源 Key 列表
         DrawListSection("预制体资源 Key (GameObject)", ref _prefabsFoldout, config.prefabs);
         DrawListSection("音频资源 Key (AudioClip)", ref _audiosFoldout, config.audios);
         DrawListSection("纹理资源 Key (Texture2D)", ref _texturesFoldout, config.textures);
         DrawListSection("动画片段资源 Key (AnimationClip)", ref _animationClipsFoldout, config.animationClips);
         DrawListSection("动画控制器资源 Key (AnimatorController)", ref _animatorControllersFoldout, config.animatorControllers);
+        DrawListSection("Sprite 资源 Key (Sprite)", ref _spritesFoldout, config.sprites);
 
         EditorGUILayout.Space(12);
 
@@ -54,6 +56,7 @@ public class LevelConfigEditor : Editor
                 config.textures.Clear();
                 config.animationClips.Clear();
                 config.animatorControllers.Clear();
+                config.sprites.Clear();
                 EditorUtility.SetDirty(config);
             }
         }
@@ -118,6 +121,7 @@ public class LevelConfigEditor : Editor
         config.textures.Clear();
         config.animationClips.Clear();
         config.animatorControllers.Clear();
+        config.sprites.Clear();
 
         foreach (var marker in markers)
         {
@@ -136,14 +140,15 @@ public class LevelConfigEditor : Editor
 
         EditorUtility.SetDirty(config);
 
-        int totalKeys = config.prefabs.Count + config.audios.Count + config.textures.Count + config.animationClips.Count + config.animatorControllers.Count;
+        int totalKeys = config.prefabs.Count + config.audios.Count + config.textures.Count + config.animationClips.Count + config.animatorControllers.Count + config.sprites.Count;
         EditorUtility.DisplayDialog("扫描完成",
             $"共扫描到 {totalKeys} 个资源 Key。\n" +
             $"Prefab: {config.prefabs.Count}\n" +
             $"Audio: {config.audios.Count}\n" +
             $"Texture: {config.textures.Count}\n" +
             $"AnimationClip: {config.animationClips.Count}\n" +
-            $"AnimatorController: {config.animatorControllers.Count}\n\n" +
+            $"AnimatorController: {config.animatorControllers.Count}\n" +
+            $"Sprite: {config.sprites.Count}\n\n" +
             $"请在 Inspector 中展开各列表审查清单内容是否正确。", "确定");
     }
 
@@ -168,6 +173,10 @@ public class LevelConfigEditor : Editor
         else if (type == typeof(RuntimeAnimatorController))
         {
             if (!config.animatorControllers.Contains(key)) config.animatorControllers.Add(key);
+        }
+        else if (type == typeof(Sprite))
+        {
+            if (!config.sprites.Contains(key)) config.sprites.Add(key);
         }
     }
 

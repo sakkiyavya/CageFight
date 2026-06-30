@@ -27,6 +27,7 @@ public static class LevelExporter
         config.textures.Clear();
         config.animationClips.Clear();
         config.animatorControllers.Clear();
+        config.sprites.Clear();
 
         int autoInstanceId = 1000; // 实例 ID 自增起点
 
@@ -126,6 +127,10 @@ public static class LevelExporter
         else if (type == typeof(RuntimeAnimatorController))
         {
             if (!config.animatorControllers.Contains(key)) config.animatorControllers.Add(key);
+        }
+        else if (type == typeof(Sprite))
+        {
+            if (!config.sprites.Contains(key)) config.sprites.Add(key);
         }
     }
 
