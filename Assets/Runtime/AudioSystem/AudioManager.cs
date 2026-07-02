@@ -5,6 +5,8 @@ using UnityEngine;
 /// <summary>
 /// 音频管理器 — 全局单例
 /// 管理音乐通道（1个，渐变切换）和音效通道对象池（默认8个，上限16个）
+/// 音效通道每帧根据声源 X 轴距离实时更新音量（二次衰减）：
+///   距中心 0 → volume = 1；距中心 cullRadius（视野半宽 + 半屏宽）→ volume = 0 并立即回收。
 /// </summary>
 public class AudioManager : MonoBehaviour
 {
@@ -24,8 +26,9 @@ public class AudioManager : MonoBehaviour
     private readonly List<AudioSource> _pool = new List<AudioSource>();
     // 活跃通道
     private readonly List<AudioSource> _activeChannels = new List<AudioSource>();
-    // 每个活跃通道播放时对应的请求距离（用于满通道时的距离比较）
-    private readonly Dictionary<AudioSource, float> _channelDistances = new Dictionary<AudioSource, float>();
+    // 每个活跃通道的声源 Transform 与原始 volume（用于实时音量衰减与距离比较）
+    private readonly Dictionary<AudioSource, (Transform origin, float baseVolume)> _channelData
+        = new Dictionary<AudioSource, (Transform, float)>();
 
     // ─────────────────────────────────────────────────────────
 
@@ -42,14 +45,39 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
-        // 回收播放结束的通道
+        Camera cam = Camera.main;
+        if (cam == null) return;
+
+        float halfWidth  = cam.orthographicSize * cam.aspect;
+        // 剔除边界 = 视野半宽 + 半屏宽（即 halfWidth 的 1.5 倍）
+        float cullRadius = halfWidth * 1.5f;
+        float camX = cam.transform.position.x;
+
         for (int i = _activeChannels.Count - 1; i >= 0; i--)
         {
-            if (!_activeChannels[i].isPlaying)
+            var ch = _activeChannels[i];
+            var (origin, baseVolume) = _channelData[ch];
+
+            // 声源已销毁 或 播放结束 → 回收
+            if (origin == null || !ch.isPlaying)
             {
-                _channelDistances.Remove(_activeChannels[i]);
-                _activeChannels.RemoveAt(i);
+                Recycle(ch, i);
+                continue;
             }
+
+            float dx = Mathf.Abs(origin.position.x - camX);
+
+            // 超出剔除边界 → 立即停止并回收
+            if (dx >= cullRadius)
+            {
+                ch.Stop();
+                Recycle(ch, i);
+                continue;
+            }
+
+            // 二次衰减：t = 1 - dx/cullRadius，volume = baseVolume * t²
+            float t = 1f - dx / cullRadius;
+            ch.volume = baseVolume * t * t;
         }
     }
 
@@ -62,7 +90,13 @@ public class AudioManager : MonoBehaviour
         return go.AddComponent<AudioSource>();
     }
 
-    /// <summary>从池中取一个空闲通道；池未满时自动扩容，否则返回 null</summary>
+    private void Recycle(AudioSource ch, int index)
+    {
+        _channelData.Remove(ch);
+        _activeChannels.RemoveAt(index);
+    }
+
+    /// <summary>从池中取空闲通道；池未满时自动扩容，否则返回 null</summary>
     private AudioSource GetIdleChannel()
     {
         foreach (var src in _pool)
@@ -77,7 +111,7 @@ public class AudioManager : MonoBehaviour
         return null;
     }
 
-    private void AssignAndPlay(AudioSource channel, AudioSource request, float distance)
+    private void AssignAndPlay(AudioSource channel, AudioSource request, Transform origin)
     {
         channel.clip = request.clip;
         channel.volume = request.volume;
@@ -86,22 +120,20 @@ public class AudioManager : MonoBehaviour
         channel.loop = false;
         channel.Play();
         _activeChannels.Add(channel);
-        _channelDistances[channel] = distance;
+        _channelData[channel] = (origin, request.volume);
     }
 
-    /// <summary>返回当前活跃通道中 priority 值最大（优先级最低）的通道</summary>
+    /// <summary>活跃通道中 priority 最大（优先级最低）的通道</summary>
     private AudioSource GetLowestPriorityChannel()
     {
         AudioSource worst = null;
         int worstVal = -1;
         foreach (var ch in _activeChannels)
-        {
             if (ch.priority > worstVal) { worstVal = ch.priority; worst = ch; }
-        }
         return worst;
     }
 
-    /// <summary>当前活跃通道中 priority 值最小（优先级最高）的数值</summary>
+    /// <summary>活跃通道中 priority 最小（优先级最高）的数值</summary>
     private int GetBestPriorityValue()
     {
         int best = int.MaxValue;
@@ -110,12 +142,19 @@ public class AudioManager : MonoBehaviour
         return best;
     }
 
-    /// <summary>当前活跃通道中记录的最大请求距离</summary>
+    /// <summary>活跃通道中距摄像机 X 轴的最大距离</summary>
     private float GetMaxActiveDistance()
     {
+        Camera cam = Camera.main;
+        if (cam == null) return 0f;
+        float camX = cam.transform.position.x;
         float max = 0f;
-        foreach (var d in _channelDistances.Values)
-            if (d > max) max = d;
+        foreach (var (origin, _) in _channelData.Values)
+        {
+            if (origin == null) continue;
+            float dx = Mathf.Abs(origin.position.x - camX);
+            if (dx > max) max = dx;
+        }
         return max;
     }
 
@@ -157,8 +196,9 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     /// <param name="source">携带 clip 与参数的 AudioSource</param>
     /// <param name="priority">优先级（uint，0 最高）</param>
-    /// <param name="distance">请求者距主摄像机的距离</param>
-    public bool PlayEffect(AudioSource source, uint priority, float distance)
+    /// <param name="distance">请求者距摄像机的 X 轴距离（由 AudioPlayer 传入）</param>
+    /// <param name="origin">声源的 Transform，用于实时追踪位置</param>
+    public bool PlayEffect(AudioSource source, uint priority, float distance, Transform origin)
     {
         if (source == null || source.clip == null) return false;
 
@@ -167,22 +207,22 @@ public class AudioManager : MonoBehaviour
         {
             AudioSource target = GetLowestPriorityChannel();
             target.Stop();
-            _channelDistances.Remove(target);
-            _activeChannels.Remove(target);
-            AssignAndPlay(target, source, distance);
+            int idx = _activeChannels.IndexOf(target);
+            Recycle(target, idx);
+            AssignAndPlay(target, source, origin);
             return true;
         }
 
-        // 分支 2：通道未满，直接分配
+        // 分支 2：通道未满
         if (_activeChannels.Count < CHANNEL_DEFAULT)
         {
             AudioSource channel = GetIdleChannel();
             if (channel == null) return false;
-            AssignAndPlay(channel, source, distance);
+            AssignAndPlay(channel, source, origin);
             return true;
         }
 
-        // 分支 3+：通道已满，先检查池是否耗尽
+        // 分支 3+：通道已满
         if (_activeChannels.Count >= POOL_MAX) return false;
 
         int bestPriorityVal  = GetBestPriorityValue();
@@ -193,17 +233,17 @@ public class AudioManager : MonoBehaviour
         {
             AudioSource channel = GetIdleChannel();
             if (channel == null) return false;
-            AssignAndPlay(channel, source, distance);
+            AssignAndPlay(channel, source, origin);
             return true;
         }
 
-        // 分支 3b：优先级介于最高与最低之间 且 距离比当前最远的近
+        // 分支 3b：优先级介于最高与最低之间 且 距离比最远的近
         if ((int)priority > bestPriorityVal && (int)priority < worstPriorityVal
             && distance < GetMaxActiveDistance())
         {
             AudioSource channel = GetIdleChannel();
             if (channel == null) return false;
-            AssignAndPlay(channel, source, distance);
+            AssignAndPlay(channel, source, origin);
             return true;
         }
 

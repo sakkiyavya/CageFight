@@ -27,13 +27,15 @@ public class AudioPlayer : MonoBehaviour
         Camera cam = Camera.main;
         if (cam == null) return false;
 
-        // 摄像机剔除：超出正交摄像机横向视野则跳过
-        float halfWidth = cam.orthographicSize * cam.aspect;
-        if (Mathf.Abs(transform.position.x - cam.transform.position.x) > halfWidth)
-            return false;
+        // 摄像机剔除：超出正交摄像机视野 + 额外半屏宽（cullRadius = 1.5 × halfWidth）才跳过
+        float halfWidth  = cam.orthographicSize * cam.aspect;
+        float cullRadius = halfWidth * 1.5f;
+        float dx = Mathf.Abs(transform.position.x - cam.transform.position.x);
+        if (dx >= cullRadius) return false;
 
-        // 动态计算距离，转发给 AudioManager
+        // 动态计算距离，连同 Transform 一起传给 AudioManager（用于实时追踪位置）
         float distance = Vector3.Distance(transform.position, cam.transform.position);
-        return AudioManager.Instance.PlayEffect(_audioSource, (uint)_audioSource.priority, distance);
+        return AudioManager.Instance.PlayEffect(_audioSource, (uint)_audioSource.priority, distance, transform);
     }
+
 }
