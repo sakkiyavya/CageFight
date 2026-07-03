@@ -8845,6 +8845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mouse eyes
       objectReference: {fileID: 0}
+    - target: {fileID: 1978068134018352278, guid: 5aca7eb3b1f68474e9239eadf1b6457d, type: 3}
+      propertyPath: animatorControllerKey
+      value: Mouse eyes AC
+      objectReference: {fileID: 0}
     - target: {fileID: 5960690197982886965, guid: 5aca7eb3b1f68474e9239eadf1b6457d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 26.28
@@ -8884,6 +8888,34 @@ PrefabInstance:
     - target: {fileID: 5960690197982886965, guid: 5aca7eb3b1f68474e9239eadf1b6457d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6529330602313476261, guid: 5aca7eb3b1f68474e9239eadf1b6457d, type: 3}
+      propertyPath: audioKey
+      value: Arrow-Shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321945011867503493, guid: 5aca7eb3b1f68474e9239eadf1b6457d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321945011867503493, guid: 5aca7eb3b1f68474e9239eadf1b6457d, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8440562798205023367, guid: 5aca7eb3b1f68474e9239eadf1b6457d, type: 3}
+      propertyPath: atkRangeMax.x
+      value: -2147483635
+      objectReference: {fileID: 0}
+    - target: {fileID: 8440562798205023367, guid: 5aca7eb3b1f68474e9239eadf1b6457d, type: 3}
+      propertyPath: atkRangeMax.y
+      value: -2147483646
+      objectReference: {fileID: 0}
+    - target: {fileID: 8440562798205023367, guid: 5aca7eb3b1f68474e9239eadf1b6457d, type: 3}
+      propertyPath: atkRangeMin.x
+      value: -2147483648
+      objectReference: {fileID: 0}
+    - target: {fileID: 8440562798205023367, guid: 5aca7eb3b1f68474e9239eadf1b6457d, type: 3}
+      propertyPath: atkRangeMin.y
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
