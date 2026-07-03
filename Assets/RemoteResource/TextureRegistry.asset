@@ -1,0 +1,393 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1938ba3b1f9534047b5e75973818cb8e, type: 3}
+  m_Name: TextureRegistry
+  m_EditorClassIdentifier: 
+  mappings:
+  - key: Miner head animation picture
+    textureReference:
+      m_AssetGUID: 0a165a93a750aec4da845f4d72692252
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 0a165a93a750aec4da845f4d72692252, type: 3}
+  - key: Huge monster-move animation picture
+    textureReference:
+      m_AssetGUID: 1328618cdcc9a0a4084c6b77f404fe36
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 1328618cdcc9a0a4084c6b77f404fe36, type: 3}
+  - key: Audience-Rat animation picture
+    textureReference:
+      m_AssetGUID: 1854ff260ab4ce440aec32fd92e652d1
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 1854ff260ab4ce440aec32fd92e652d1, type: 3}
+  - key: Damb ass-attack animation picture
+    textureReference:
+      m_AssetGUID: 1dccae7e0afef374792303079f83dcc5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 1dccae7e0afef374792303079f83dcc5, type: 3}
+  - key: Scavenger animation picture
+    textureReference:
+      m_AssetGUID: 2837e346021c6954f84d0f7f333cba31
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 2837e346021c6954f84d0f7f333cba31, type: 3}
+  - key: Audience-Chicken animation picture
+    textureReference:
+      m_AssetGUID: 31d8635c52fda4d4bb4cc3e278001180
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 31d8635c52fda4d4bb4cc3e278001180, type: 3}
+  - key: Boulder-move animation picture
+    textureReference:
+      m_AssetGUID: 4ecb479e474493f4c8d60d2be79c4deb
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 4ecb479e474493f4c8d60d2be79c4deb, type: 3}
+  - key: Mouse eyes-move animation picture
+    textureReference:
+      m_AssetGUID: 60edbabb908d0794db6ff15e4107d25e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 60edbabb908d0794db6ff15e4107d25e, type: 3}
+  - key: Harm eyebrow animation picture
+    textureReference:
+      m_AssetGUID: 67c0250342befef4d884a41570f45086
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 67c0250342befef4d884a41570f45086, type: 3}
+  - key: Mouse eyes-attack animation picture
+    textureReference:
+      m_AssetGUID: 7ee9794dc3fb1644d84ae1cdce673e7c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 7ee9794dc3fb1644d84ae1cdce673e7c, type: 3}
+  - key: Skunk animation picture
+    textureReference:
+      m_AssetGUID: 80f524201e3d49e4281061753df886d9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 80f524201e3d49e4281061753df886d9, type: 3}
+  - key: Boulder-attack animation picture
+    textureReference:
+      m_AssetGUID: 993996531ef25d548840e4db039b08c8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 993996531ef25d548840e4db039b08c8, type: 3}
+  - key: BabaDoctor animation picture
+    textureReference:
+      m_AssetGUID: a1b0692d9b3f0464f97e720b366e50a7
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: a1b0692d9b3f0464f97e720b366e50a7, type: 3}
+  - key: Audience-Cat animation picture
+    textureReference:
+      m_AssetGUID: aea77ed20d6d5a94990c6a881b37974a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: aea77ed20d6d5a94990c6a881b37974a, type: 3}
+  - key: Transparent animation picture
+    textureReference:
+      m_AssetGUID: b17894072dd5d5a4491a4e7ab4abe92a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: b17894072dd5d5a4491a4e7ab4abe92a, type: 3}
+  - key: Miner rat-attack animation picture
+    textureReference:
+      m_AssetGUID: b4b481ad188b19e4e87cf5d57a3c8025
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: b4b481ad188b19e4e87cf5d57a3c8025, type: 3}
+  - key: jierui animation picture
+    textureReference:
+      m_AssetGUID: b5b2696ecaf2bd145afd41370690ee2b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: b5b2696ecaf2bd145afd41370690ee2b, type: 3}
+  - key: Huge monster-attack animation picture
+    textureReference:
+      m_AssetGUID: c5fbb11ac275ea0468c266a11e5d8a38
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: c5fbb11ac275ea0468c266a11e5d8a38, type: 3}
+  - key: Crystallized giant beast animation picture
+    textureReference:
+      m_AssetGUID: ce36dd197fcc34e479ba7b9c890c532c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: ce36dd197fcc34e479ba7b9c890c532c, type: 3}
+  - key: Damb ass-move animation picture
+    textureReference:
+      m_AssetGUID: e8ea5be49f2bea94bbdbc867fbca2f2a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: e8ea5be49f2bea94bbdbc867fbca2f2a, type: 3}
+  - key: BOOM bro animation picture
+    textureReference:
+      m_AssetGUID: ef4a80d6a5f96134ca454dfffeb206f9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: ef4a80d6a5f96134ca454dfffeb206f9, type: 3}
+  - key: Miner rat-move animation picture
+    textureReference:
+      m_AssetGUID: f33ac325b78db414ca0ce2b02141a9cc
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: f33ac325b78db414ca0ce2b02141a9cc, type: 3}
+  - key: Water breath cat-attack AP
+    textureReference:
+      m_AssetGUID: 11a2402fadb33c04987be06ed91b2bc9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 11a2402fadb33c04987be06ed91b2bc9, type: 3}
+  - key: Banana cat AP
+    textureReference:
+      m_AssetGUID: 2627690aa35e6874c810062bf307600f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 2627690aa35e6874c810062bf307600f, type: 3}
+  - key: Happy Cat AP
+    textureReference:
+      m_AssetGUID: 26eb36c431675db4e932cb7259a5198d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 26eb36c431675db4e932cb7259a5198d, type: 3}
+  - key: Great Master mirror AP
+    textureReference:
+      m_AssetGUID: 34df7d95311a2bb44a68f5275cf68960
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 34df7d95311a2bb44a68f5275cf68960, type: 3}
+  - key: Cat Bonze AP
+    textureReference:
+      m_AssetGUID: 3be203ba2364f974a834ffb7c8f3d5bf
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 3be203ba2364f974a834ffb7c8f3d5bf, type: 3}
+  - key: Water breath cat-move AP
+    textureReference:
+      m_AssetGUID: 4402d179f0c8d1c47a17019be3720f6a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 4402d179f0c8d1c47a17019be3720f6a, type: 3}
+  - key: Cat soldier AP
+    textureReference:
+      m_AssetGUID: 4a6c0dbb2e6c7cd49a4c77bf2711d97d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 4a6c0dbb2e6c7cd49a4c77bf2711d97d, type: 3}
+  - key: Alien Cat AP
+    textureReference:
+      m_AssetGUID: 52c6ec038070c124abd4d39e0d91a154
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 52c6ec038070c124abd4d39e0d91a154, type: 3}
+  - key: Flame cat-attack AP
+    textureReference:
+      m_AssetGUID: 5d8dac31c3416f749916c156d1ff77aa
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 5d8dac31c3416f749916c156d1ff77aa, type: 3}
+  - key: Cat apprentice-attack AP
+    textureReference:
+      m_AssetGUID: 606dab9fa6dacda4ea7f0a445d8ddc87
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 606dab9fa6dacda4ea7f0a445d8ddc87, type: 3}
+  - key: Flame cat-move AP
+    textureReference:
+      m_AssetGUID: 70520ee357bcdce4784cb4420d42ea41
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 70520ee357bcdce4784cb4420d42ea41, type: 3}
+  - key: Thunderstorm cat AP
+    textureReference:
+      m_AssetGUID: 79b659427d6bdc2409f0bf06ed99483d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 79b659427d6bdc2409f0bf06ed99483d, type: 3}
+  - key: Cat apprentice-move AP
+    textureReference:
+      m_AssetGUID: 886568e13b4be1c4192fda17ee8abfb1
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 886568e13b4be1c4192fda17ee8abfb1, type: 3}
+  - key: Lightning Cat AP
+    textureReference:
+      m_AssetGUID: ab20ccd34bb3d5949ab4aeb345ce6f52
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: ab20ccd34bb3d5949ab4aeb345ce6f52, type: 3}
+  - key: Dark cat-move AP
+    textureReference:
+      m_AssetGUID: ca23f064da8dd1b4b83641756fc4377f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: ca23f064da8dd1b4b83641756fc4377f, type: 3}
+  - key: Fat Cat AP
+    textureReference:
+      m_AssetGUID: cd33b92585b7b5a479b305d3c556124e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: cd33b92585b7b5a479b305d3c556124e, type: 3}
+  - key: General Cat AP
+    textureReference:
+      m_AssetGUID: e9b249edb15398843b4080b6cdd46fb7
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: e9b249edb15398843b4080b6cdd46fb7, type: 3}
+  - key: Dark cat-attack AP
+    textureReference:
+      m_AssetGUID: ea18e5db06deb6e4dafaf2d45c9c7bab
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: ea18e5db06deb6e4dafaf2d45c9c7bab, type: 3}
+  - key: Cat addict AP
+    textureReference:
+      m_AssetGUID: fad17e9de3431a44fb7f8c1236328836
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: fad17e9de3431a44fb7f8c1236328836, type: 3}
+  - key: Dancing statue AP
+    textureReference:
+      m_AssetGUID: 0d6327765eda6ce48a013b199aa90483
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 0d6327765eda6ce48a013b199aa90483, type: 3}
+  - key: Strange mine AP
+    textureReference:
+      m_AssetGUID: 16c2a22ab6161514198ee2510b494548
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 16c2a22ab6161514198ee2510b494548, type: 3}
+  - key: Build Animation AP
+    textureReference:
+      m_AssetGUID: 251311155e17dee42aa28df4cffdf245
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 251311155e17dee42aa28df4cffdf245, type: 3}
+  - key: Game victory AP
+    textureReference:
+      m_AssetGUID: 2c2a93374cf4ccc45a3959d333d45030
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 2c2a93374cf4ccc45a3959d333d45030, type: 3}
+  - key: Huge cheese AP
+    textureReference:
+      m_AssetGUID: 477e3945c1ba4ad44972ec0585f73fe3
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 477e3945c1ba4ad44972ec0585f73fe3, type: 3}
+  - key: Magic energy sing AP
+    textureReference:
+      m_AssetGUID: 7304b0a58ba77ed47b7521242d1ece87
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 7304b0a58ba77ed47b7521242d1ece87, type: 3}
+  - key: Mini Sandwich AP
+    textureReference:
+      m_AssetGUID: 747bc50044d476e4a81183af0dfd72f5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 747bc50044d476e4a81183af0dfd72f5, type: 3}
+  - key: Game over AP
+    textureReference:
+      m_AssetGUID: 7bbbce9a219ac8b4193fd0baac98c5bc
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 7bbbce9a219ac8b4193fd0baac98c5bc, type: 3}
+  - key: Green fog AP
+    textureReference:
+      m_AssetGUID: 7eb8427d319f4cb4fbc16ae53162bb7f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 7eb8427d319f4cb4fbc16ae53162bb7f, type: 3}
+  - key: Mechanical reinforcement ore AP
+    textureReference:
+      m_AssetGUID: 7fcc3298da9a9ff4685b97437476000e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: 7fcc3298da9a9ff4685b97437476000e, type: 3}
+  - key: Car magic AP
+    textureReference:
+      m_AssetGUID: ad21f2614a9ae0f4b87a96284bddfa23
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: ad21f2614a9ae0f4b87a96284bddfa23, type: 3}
+  - key: Bullet1 AP
+    textureReference:
+      m_AssetGUID: b4b1e41545e8c7b47b71474693fa1c0a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: b4b1e41545e8c7b47b71474693fa1c0a, type: 3}
+  - key: Unstable ore AP
+    textureReference:
+      m_AssetGUID: d1eb172cf6f3dad41adcc8c0ffe5f760
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    texture: {fileID: 2800000, guid: d1eb172cf6f3dad41adcc8c0ffe5f760, type: 3}

@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Linq;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 
 public enum ResourceState
@@ -24,22 +29,22 @@ public class ResourceManager : MonoBehaviour
     public static ResourceManager Instance { get; private set; }
 
     [Tooltip("Prefab 映射表，负责将纯文本的 prefabKey 映射到实际的 AssetReference")]
-    public PrefabRegistry prefabRegistry;
+    [SerializeField] private PrefabRegistry prefabRegistry;
 
     [Tooltip("Texture 映射表")]
-    public TextureRegistry textureRegistry;
+    [SerializeField] private TextureRegistry textureRegistry;
 
     [Tooltip("Audio 映射表")]
-    public AudioRegistry audioRegistry;
+    [SerializeField] private AudioRegistry audioRegistry;
 
     [Tooltip("AnimationClip 映射表")]
-    public AnimationClipRegistry animationClipRegistry;
+    [SerializeField] private AnimationClipRegistry animationClipRegistry;
 
     [Tooltip("AnimatorController 映射表")]
-    public AnimatorControllerRegistry animatorControllerRegistry;
+    [SerializeField] private AnimatorControllerRegistry animatorControllerRegistry;
 
     [Tooltip("Sprite 映射表（支持多图切片子图）")]
-    public SpriteRegistry spriteRegistry;
+    [SerializeField] private SpriteRegistry spriteRegistry;
 
     public ResourceState CurrentState { get; private set; } = ResourceState.None;
 
@@ -53,6 +58,7 @@ public class ResourceManager : MonoBehaviour
     private Dictionary<string, AnimationClip> _animationDict = new Dictionary<string, AnimationClip>();
     private Dictionary<string, RuntimeAnimatorController> _animatorControllerDict = new Dictionary<string, RuntimeAnimatorController>();
     private Dictionary<string, Sprite> _spriteDict = new Dictionary<string, Sprite>();
+    public List<string> _spriteKeys = new List<string>();
 
     // 统一管理所有加载成功后的句柄，以便统一释放
     private List<AsyncOperationHandle> _handlesToRelease = new List<AsyncOperationHandle>();
@@ -66,9 +72,89 @@ public class ResourceManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // 加载所有 Registry：Editor 下直接从文件系统加载，Runtime 通过 Addressables 加载
+#if UNITY_EDITOR
+        prefabRegistry           = LoadRegistryEditor<PrefabRegistry>();
+        textureRegistry          = LoadRegistryEditor<TextureRegistry>();
+        audioRegistry            = LoadRegistryEditor<AudioRegistry>();
+        animationClipRegistry    = LoadRegistryEditor<AnimationClipRegistry>();
+        animatorControllerRegistry = LoadRegistryEditor<AnimatorControllerRegistry>();
+        spriteRegistry           = LoadRegistryEditor<SpriteRegistry>();
+#else
+        StartCoroutine(LoadAllRegistriesRuntime());
+#endif
     }
 
-    // --- 获取接口 (O(1)) ---
+#if UNITY_EDITOR
+    /// <summary>
+    /// 编辑器下：从 AssetDatabase 搜索并加载指定类型的 Registry SO。
+    /// 文件名和类名相同（如 PrefabRegistry.asset）。
+    /// </summary>
+    private static T LoadRegistryEditor<T>() where T : ScriptableObject
+    {
+        string typeName = typeof(T).Name;
+        string[] guids = AssetDatabase.FindAssets($"{typeName} t:{typeName}");
+        if (guids.Length == 0)
+        {
+            Debug.LogWarning($"[ResourceManager] Editor: 未找到 {typeName}！请确认资产已存在且文件名与类名一致。");
+            return null;
+        }
+        string path = AssetDatabase.GUIDToAssetPath(guids[0]);
+        T asset = AssetDatabase.LoadAssetAtPath<T>(path);
+        if (asset == null)
+            Debug.LogWarning($"[ResourceManager] Editor: 加载 {typeName} 失败，路径：{path}");
+        return asset;
+    }
+#else
+    /// <summary>
+    /// 运行时：通过 Addressables 异步加载所有 Registry。
+    /// Key = 类名（如 "PrefabRegistry"）。
+    /// </summary>
+    /// <summary>
+    /// 运行时：通过 Addressables 异步加载所有 Registry。
+    /// Key = 类名（如 "PrefabRegistry"）。
+    /// </summary>
+    private IEnumerator LoadAllRegistriesRuntime()
+    {
+        yield return LoadRegistryRuntime<PrefabRegistry>(r           => prefabRegistry = r);
+        yield return LoadRegistryRuntime<TextureRegistry>(r          => textureRegistry = r);
+        yield return LoadRegistryRuntime<AudioRegistry>(r            => audioRegistry = r);
+        yield return LoadRegistryRuntime<AnimationClipRegistry>(r    => animationClipRegistry = r);
+        yield return LoadRegistryRuntime<AnimatorControllerRegistry>(r => animatorControllerRegistry = r);
+        yield return LoadRegistryRuntime<SpriteRegistry>(r           => spriteRegistry = r);
+
+        // 初始化已加载的 Registry
+        prefabRegistry?.Initialize();
+        textureRegistry?.Initialize();
+        audioRegistry?.Initialize();
+        animationClipRegistry?.Initialize();
+        animatorControllerRegistry?.Initialize();
+        spriteRegistry?.Initialize();
+
+        Debug.Log("[ResourceManager] 所有 Registry 加载完成。");
+    }
+
+    private IEnumerator LoadRegistryRuntime<T>(Action<T> onDone) where T : ScriptableObject
+    {
+        string key = typeof(T).Name;
+        var handle = Addressables.LoadAssetAsync<T>(key);
+        yield return handle;
+        if (handle.Status == AsyncOperationStatus.Succeeded)
+        {
+            _handlesToRelease.Add(handle);
+            onDone?.Invoke(handle.Result);
+        }
+        else
+        {
+            Debug.LogError($"[ResourceManager] Runtime: 加载 {key} 失败！请确认 Addressables 中已配置该 Key。");
+            onDone?.Invoke(null);
+        }
+
+    }
+#endif
+
+
     
     public GameObject GetGameObject(string key)
     {
@@ -97,6 +183,7 @@ public class ResourceManager : MonoBehaviour
 
     public Sprite GetSprite(string key)
     {
+        // Debug.Log("ResourceManager.GetSprit:" + key + "  " + _spriteDict.ContainsKey(key));
         return _spriteDict.TryGetValue(key, out var res) ? res : null;
     }
 
@@ -107,6 +194,7 @@ public class ResourceManager : MonoBehaviour
     /// </summary>
     public void LoadStageResources(LevelConfig level)
     {
+
         if (CurrentState == ResourceState.Loading)
         {
             Debug.LogWarning("[ResourceManager] 当前正在加载中，请勿重复调用！");
@@ -120,6 +208,7 @@ public class ResourceManager : MonoBehaviour
             return;
         }
 
+        UnloadStageResource();
         CurrentState = ResourceState.Loading;
         StartCoroutine(CoLoadStageResources(level));
     }
@@ -360,6 +449,7 @@ public class ResourceManager : MonoBehaviour
                     if (handle.Status == AsyncOperationStatus.Succeeded)
                     {
                         _spriteDict[key] = handle.Result;
+                        _spriteKeys.Add(key);
                         _handlesToRelease.Add(handle);
                     }
                     else Debug.LogError($"[ResourceManager] 加载 Sprite 失败！Key: {key}");

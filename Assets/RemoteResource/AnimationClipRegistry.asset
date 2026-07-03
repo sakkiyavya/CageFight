@@ -1,0 +1,589 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0020f672647553445b681153816f499f, type: 3}
+  m_Name: AnimationClipRegistry
+  m_EditorClassIdentifier: 
+  mappings:
+  - key: Damb ass-move
+    animationClipReference:
+      m_AssetGUID: 1a341b3bd607c3343ba406335ed3ea9f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 1a341b3bd607c3343ba406335ed3ea9f, type: 2}
+  - key: Audience-Rat-attack
+    animationClipReference:
+      m_AssetGUID: 1edc58cb8108c094a911c01dba44ca89
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 1edc58cb8108c094a911c01dba44ca89, type: 2}
+  - key: Miner rat-move
+    animationClipReference:
+      m_AssetGUID: 21640cfe124ff3641a341d1a4364dd6b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 21640cfe124ff3641a341d1a4364dd6b, type: 2}
+  - key: Huge monster-attack
+    animationClipReference:
+      m_AssetGUID: 2574c323b0be6824b923f7feacd310d5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 2574c323b0be6824b923f7feacd310d5, type: 2}
+  - key: Audience-Cat-attack
+    animationClipReference:
+      m_AssetGUID: 2913b44a34f0acd4785b3e924416a1c6
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 2913b44a34f0acd4785b3e924416a1c6, type: 2}
+  - key: Skunk-attack
+    animationClipReference:
+      m_AssetGUID: 3a9bf03687e92aa4e9e9ee17ff4450e5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 3a9bf03687e92aa4e9e9ee17ff4450e5, type: 2}
+  - key: Harm eyebrow-move
+    animationClipReference:
+      m_AssetGUID: 446179a23c8ac204db420492aa952c29
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 446179a23c8ac204db420492aa952c29, type: 2}
+  - key: Transparent-attack
+    animationClipReference:
+      m_AssetGUID: 4ea5b8e95d61f214fab0e784ad22148b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 4ea5b8e95d61f214fab0e784ad22148b, type: 2}
+  - key: Boulder-attack
+    animationClipReference:
+      m_AssetGUID: 5153e7f5bbb2d684b8d5a6643dc734b9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 5153e7f5bbb2d684b8d5a6643dc734b9, type: 2}
+  - key: jierui-attack
+    animationClipReference:
+      m_AssetGUID: 51bfd3bc48442294da9d4f6e03722bcb
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 51bfd3bc48442294da9d4f6e03722bcb, type: 2}
+  - key: Miner head-move
+    animationClipReference:
+      m_AssetGUID: 57cbe06f79e7e44449f5104aa511d9fa
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 57cbe06f79e7e44449f5104aa511d9fa, type: 2}
+  - key: BabaDoctor-move
+    animationClipReference:
+      m_AssetGUID: 5a8d46af659ed724ab2655112a7eeb61
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 5a8d46af659ed724ab2655112a7eeb61, type: 2}
+  - key: Boulder-move
+    animationClipReference:
+      m_AssetGUID: 628ee109fd76024428e8900bcb866ffa
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 628ee109fd76024428e8900bcb866ffa, type: 2}
+  - key: BabaDoctor-attack
+    animationClipReference:
+      m_AssetGUID: 6394a44b71c66bf47be7dd57d694e3d2
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 6394a44b71c66bf47be7dd57d694e3d2, type: 2}
+  - key: Damb ass-attack
+    animationClipReference:
+      m_AssetGUID: 656166b36bb28694e9398454d1283ad8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 656166b36bb28694e9398454d1283ad8, type: 2}
+  - key: Scavenger-attack
+    animationClipReference:
+      m_AssetGUID: 6974fef33ca4ea84f9477ea2af8e4041
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 6974fef33ca4ea84f9477ea2af8e4041, type: 2}
+  - key: Huge monster-move
+    animationClipReference:
+      m_AssetGUID: 6b38e2bb0591f3d4581088ae2aa63861
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 6b38e2bb0591f3d4581088ae2aa63861, type: 2}
+  - key: BOOM bro-move
+    animationClipReference:
+      m_AssetGUID: 8464aaa4106aaff4787fd85df6aaab4d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 8464aaa4106aaff4787fd85df6aaab4d, type: 2}
+  - key: Audience-Cat-Free
+    animationClipReference:
+      m_AssetGUID: 8622947fe3d56504b974c34e624b1201
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 8622947fe3d56504b974c34e624b1201, type: 2}
+  - key: Skunk-move
+    animationClipReference:
+      m_AssetGUID: 8fb66c8d90e030047899c32957ea1210
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 8fb66c8d90e030047899c32957ea1210, type: 2}
+  - key: Miner rat-attack
+    animationClipReference:
+      m_AssetGUID: 92c6802dc70e3f34980a947722885254
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 92c6802dc70e3f34980a947722885254, type: 2}
+  - key: Mouse eyes-attack
+    animationClipReference:
+      m_AssetGUID: 92e459275060145478e4330b2e3a9182
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 92e459275060145478e4330b2e3a9182, type: 2}
+  - key: Audience-Chicken-idle
+    animationClipReference:
+      m_AssetGUID: 9aec682e9760b2f4bbd342bf15f6319c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 9aec682e9760b2f4bbd342bf15f6319c, type: 2}
+  - key: Miner head-attack
+    animationClipReference:
+      m_AssetGUID: 9bf4009dec695b848b1181234bfcc9de
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 9bf4009dec695b848b1181234bfcc9de, type: 2}
+  - key: Harm eyebrow-attack
+    animationClipReference:
+      m_AssetGUID: b4b77496a81ac3c49ba0ee38216e502c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: b4b77496a81ac3c49ba0ee38216e502c, type: 2}
+  - key: Crystallized giant beast-move
+    animationClipReference:
+      m_AssetGUID: c90339aeeec576a4083c80583c0ea6ec
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: c90339aeeec576a4083c80583c0ea6ec, type: 2}
+  - key: Mouse eyes-move
+    animationClipReference:
+      m_AssetGUID: cbe0931cfb3017c4b90c5ae781ac9657
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: cbe0931cfb3017c4b90c5ae781ac9657, type: 2}
+  - key: Transparent-move
+    animationClipReference:
+      m_AssetGUID: e2fa0fcf9ea71c5499ea6bb2a9b70f27
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: e2fa0fcf9ea71c5499ea6bb2a9b70f27, type: 2}
+  - key: Crystallized giant beast-attack
+    animationClipReference:
+      m_AssetGUID: e72f1b7593fb66846a6b44348b99ba23
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: e72f1b7593fb66846a6b44348b99ba23, type: 2}
+  - key: BOOM bro-attack
+    animationClipReference:
+      m_AssetGUID: ece478f4e54a174418c3916c9a9f1d74
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: ece478f4e54a174418c3916c9a9f1d74, type: 2}
+  - key: jierui-move
+    animationClipReference:
+      m_AssetGUID: ef32a3e75bc1f7045a63eaf8d2080b8e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: ef32a3e75bc1f7045a63eaf8d2080b8e, type: 2}
+  - key: Scavenger-move
+    animationClipReference:
+      m_AssetGUID: f33b32492644104489a2e09d1e3852a9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: f33b32492644104489a2e09d1e3852a9, type: 2}
+  - key: Audience-Rat-move
+    animationClipReference:
+      m_AssetGUID: f6d8b9d6863c8534a890b0e6a100f995
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: f6d8b9d6863c8534a890b0e6a100f995, type: 2}
+  - key: Audience-Chicken-attack
+    animationClipReference:
+      m_AssetGUID: fa7f40a453c9542419747b7c4e2dc486
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: fa7f40a453c9542419747b7c4e2dc486, type: 2}
+  - key: Thunderstorm cat-move
+    animationClipReference:
+      m_AssetGUID: 178e2100b40233347ab5de64d2425acd
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 178e2100b40233347ab5de64d2425acd, type: 2}
+  - key: Fat Cat-attack
+    animationClipReference:
+      m_AssetGUID: 23dd215cbccc31e49897f62fbb7530cc
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 23dd215cbccc31e49897f62fbb7530cc, type: 2}
+  - key: General Cat-move
+    animationClipReference:
+      m_AssetGUID: 34e9919e09f34db45b8e32e613d5f6e0
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 34e9919e09f34db45b8e32e613d5f6e0, type: 2}
+  - key: Alien Cat-move
+    animationClipReference:
+      m_AssetGUID: 3bfc5a024efe8824aa13578df19e47d5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 3bfc5a024efe8824aa13578df19e47d5, type: 2}
+  - key: Dark cat-attack
+    animationClipReference:
+      m_AssetGUID: 3f09dc32cafeedc4aa83fe0f1c978857
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 3f09dc32cafeedc4aa83fe0f1c978857, type: 2}
+  - key: Cat apprentice-attack
+    animationClipReference:
+      m_AssetGUID: 459056020f1d9c0449791bf0640ddf5e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 459056020f1d9c0449791bf0640ddf5e, type: 2}
+  - key: Flame cat-move
+    animationClipReference:
+      m_AssetGUID: 483a170210a99704a99edcd7cb556144
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 483a170210a99704a99edcd7cb556144, type: 2}
+  - key: Cat apprentice-move
+    animationClipReference:
+      m_AssetGUID: 4870da82a8afc294a8cd141054f98fc1
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 4870da82a8afc294a8cd141054f98fc1, type: 2}
+  - key: Water breath cat-MOVE
+    animationClipReference:
+      m_AssetGUID: 48ec2fe00d83a9443b2bad534b409444
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 48ec2fe00d83a9443b2bad534b409444, type: 2}
+  - key: Flame cat-attck
+    animationClipReference:
+      m_AssetGUID: 498a5b5e39295ff4099a93640be2dee2
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 498a5b5e39295ff4099a93640be2dee2, type: 2}
+  - key: Alien Cat-attack
+    animationClipReference:
+      m_AssetGUID: 4bb49f5e9230ba44f80a82daa16692c2
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 4bb49f5e9230ba44f80a82daa16692c2, type: 2}
+  - key: Dark cat-move
+    animationClipReference:
+      m_AssetGUID: 5d8137df34cfb9d47a0033f993202d8c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 5d8137df34cfb9d47a0033f993202d8c, type: 2}
+  - key: General Cat-attack
+    animationClipReference:
+      m_AssetGUID: 637f3d26297ad184fb2308b88e801d0b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 637f3d26297ad184fb2308b88e801d0b, type: 2}
+  - key: Water breath cat-attack
+    animationClipReference:
+      m_AssetGUID: 6ba65887819d21a459362f3f8217bcd2
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 6ba65887819d21a459362f3f8217bcd2, type: 2}
+  - key: Cat soldier-move
+    animationClipReference:
+      m_AssetGUID: 8730e37266a605048ab4d8e1cd4d23b7
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 8730e37266a605048ab4d8e1cd4d23b7, type: 2}
+  - key: Cat Bonze-move
+    animationClipReference:
+      m_AssetGUID: 87af0f45547bf3c4791e8be55f1132a0
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 87af0f45547bf3c4791e8be55f1132a0, type: 2}
+  - key: Happy Cat
+    animationClipReference:
+      m_AssetGUID: b310c4a026e1c5a43a5768de8370eff4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: b310c4a026e1c5a43a5768de8370eff4, type: 2}
+  - key: Lightning Cat-attack
+    animationClipReference:
+      m_AssetGUID: ba050e5d06a13744f84c469209ed43fc
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: ba050e5d06a13744f84c469209ed43fc, type: 2}
+  - key: Fat Cat-move
+    animationClipReference:
+      m_AssetGUID: bc70dce5200fc0b449cba6d251e1ec2c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: bc70dce5200fc0b449cba6d251e1ec2c, type: 2}
+  - key: Lightning Cat-move
+    animationClipReference:
+      m_AssetGUID: bdad97b2c8d68ba47841090bff8ebea6
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: bdad97b2c8d68ba47841090bff8ebea6, type: 2}
+  - key: Banana cat-move
+    animationClipReference:
+      m_AssetGUID: bdadcade3a1bbfe438f688703cea70cb
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: bdadcade3a1bbfe438f688703cea70cb, type: 2}
+  - key: Great Master mirror-move
+    animationClipReference:
+      m_AssetGUID: c305e5920d815644baaada42726a6c22
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: c305e5920d815644baaada42726a6c22, type: 2}
+  - key: Cat Bonze-attack
+    animationClipReference:
+      m_AssetGUID: c7076bb9fa17a8f46b3c3273221709be
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: c7076bb9fa17a8f46b3c3273221709be, type: 2}
+  - key: Great Master mirror-attack
+    animationClipReference:
+      m_AssetGUID: ce6e92adaa126444ba6b63e401823fbf
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: ce6e92adaa126444ba6b63e401823fbf, type: 2}
+  - key: Banana cat-attack
+    animationClipReference:
+      m_AssetGUID: ce7c056671fed0049ba38b04a19f2aca
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: ce7c056671fed0049ba38b04a19f2aca, type: 2}
+  - key: Cat addict-attack
+    animationClipReference:
+      m_AssetGUID: d4c925592d0382040a84fae89a7b4449
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: d4c925592d0382040a84fae89a7b4449, type: 2}
+  - key: Thunderstorm cat-attack
+    animationClipReference:
+      m_AssetGUID: dd66b0650d78a1f41b8f1a6e0cc6efde
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: dd66b0650d78a1f41b8f1a6e0cc6efde, type: 2}
+  - key: Cat soldier-attack
+    animationClipReference:
+      m_AssetGUID: e066db6d495e02a458f3e0b6147b9778
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: e066db6d495e02a458f3e0b6147b9778, type: 2}
+  - key: Cat addict-move
+    animationClipReference:
+      m_AssetGUID: ee7b5371e05165c4b929d6ef753e0740
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: ee7b5371e05165c4b929d6ef753e0740, type: 2}
+  - key: Alien Kitten-attack
+    animationClipReference:
+      m_AssetGUID: f6a3ad1e6c26a8f4bb139ba8cd73ef62
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: f6a3ad1e6c26a8f4bb139ba8cd73ef62, type: 2}
+  - key: Alien Kitten-move
+    animationClipReference:
+      m_AssetGUID: fd2be73494775b64d83d2e956686a74d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: fd2be73494775b64d83d2e956686a74d, type: 2}
+  - key: Strange mine3
+    animationClipReference:
+      m_AssetGUID: 01c5ea6872f7fed48b4bddde3ebf543d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 01c5ea6872f7fed48b4bddde3ebf543d, type: 2}
+  - key: Build Animation2
+    animationClipReference:
+      m_AssetGUID: 10b1b9534c2f027458655f27d4f0b5e6
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 10b1b9534c2f027458655f27d4f0b5e6, type: 2}
+  - key: Dancing statue
+    animationClipReference:
+      m_AssetGUID: 24b44065cab544f4490a9483e97ff050
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 24b44065cab544f4490a9483e97ff050, type: 2}
+  - key: Mechanical reinforcement ore
+    animationClipReference:
+      m_AssetGUID: 3fc79efc22a6b3443b5207069a9b4cbb
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 3fc79efc22a6b3443b5207069a9b4cbb, type: 2}
+  - key: Car magic
+    animationClipReference:
+      m_AssetGUID: 4be21768d702ef549a135df8de0e2c52
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 4be21768d702ef549a135df8de0e2c52, type: 2}
+  - key: Unstable ore
+    animationClipReference:
+      m_AssetGUID: 4e752b4d918b11f42a0cc228e11fb111
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 4e752b4d918b11f42a0cc228e11fb111, type: 2}
+  - key: Build Animation
+    animationClipReference:
+      m_AssetGUID: 6579d155892a2004cb205b5c185cbc3c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 6579d155892a2004cb205b5c185cbc3c, type: 2}
+  - key: Magic energy sing
+    animationClipReference:
+      m_AssetGUID: 7f752d059bedad94f94e2e27fd53943a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 7f752d059bedad94f94e2e27fd53943a, type: 2}
+  - key: Strange mine
+    animationClipReference:
+      m_AssetGUID: 8ce91ec77d8334847b580089b483ebab
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 8ce91ec77d8334847b580089b483ebab, type: 2}
+  - key: Game over1
+    animationClipReference:
+      m_AssetGUID: 8db40cd5ce4fd2a459da329f460b882f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 8db40cd5ce4fd2a459da329f460b882f, type: 2}
+  - key: Huge cheese
+    animationClipReference:
+      m_AssetGUID: 90b4bda1b24d28c4197a6bb2b2520125
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 90b4bda1b24d28c4197a6bb2b2520125, type: 2}
+  - key: Mini Sandwich
+    animationClipReference:
+      m_AssetGUID: aaf8558230d8e2d44acaf85617666f5a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: aaf8558230d8e2d44acaf85617666f5a, type: 2}
+  - key: Green fog
+    animationClipReference:
+      m_AssetGUID: ad53b4a53441c7c4797bfec4ad21bfce
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: ad53b4a53441c7c4797bfec4ad21bfce, type: 2}
+  - key: Game victory1
+    animationClipReference:
+      m_AssetGUID: b386a0beaf8ca164c92d8daebc615848
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: b386a0beaf8ca164c92d8daebc615848, type: 2}
+  - key: Strange mine2
+    animationClipReference:
+      m_AssetGUID: c316c06ad7c7aef46ae3fd95b18d1ecc
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: c316c06ad7c7aef46ae3fd95b18d1ecc, type: 2}
+  - key: Game over2
+    animationClipReference:
+      m_AssetGUID: ea46f1f4bb5378e4798ed00b0dac52d7
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: ea46f1f4bb5378e4798ed00b0dac52d7, type: 2}
+  - key: Hang up rat
+    animationClipReference:
+      m_AssetGUID: 30853926845db7546a870cf92f51e035
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 30853926845db7546a870cf92f51e035, type: 2}

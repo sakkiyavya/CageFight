@@ -24,7 +24,7 @@ public class StageAnimatorController : MonoBehaviour, ILevelComponent
 
     public Type DataType => typeof(StageAnimatorControllerData);
 
-    private void Awake()
+    private void Start()
     {
         CacheComponent();
 
@@ -60,17 +60,17 @@ public class StageAnimatorController : MonoBehaviour, ILevelComponent
 #endif
     }
 
-    private void OnValidate()
-    {
-        CacheComponent();
+//     private void OnValidate()
+//     {
+//         CacheComponent();
 
-#if UNITY_EDITOR
-        if (!Application.isPlaying)
-        {
-            UpdateEditorPreview();
-        }
-#endif
-    }
+// #if UNITY_EDITOR
+//         if (!Application.isPlaying)
+//         {
+//             UpdateEditorPreview();
+//         }
+// #endif
+//     }
 
     public ComponentData ExtractData()
     {

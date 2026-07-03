@@ -1,0 +1,330 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe68187be56823c4b9bd0728eccc0f3b, type: 3}
+  m_Name: AnimatorControllerRegistry
+  m_EditorClassIdentifier: 
+  mappings:
+  - key: Audience-Chicken AC
+    animatorControllerReference:
+      m_AssetGUID: 0ba59052a1c968c4fb73920d40798f76
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 0ba59052a1c968c4fb73920d40798f76, type: 2}
+  - key: Harm eyebrow AC
+    animatorControllerReference:
+      m_AssetGUID: 0e347051f2c81f047832f5cf83ddd0b2
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 0e347051f2c81f047832f5cf83ddd0b2, type: 2}
+  - key: Miner rat AC
+    animatorControllerReference:
+      m_AssetGUID: 111ba883262f16d40bc787f20c343c21
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 111ba883262f16d40bc787f20c343c21, type: 2}
+  - key: BabaDoctor AC
+    animatorControllerReference:
+      m_AssetGUID: 2dd8111ee69fb304ca5bfb626eed6ce6
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 2dd8111ee69fb304ca5bfb626eed6ce6, type: 2}
+  - key: Crystallized giant beast AC
+    animatorControllerReference:
+      m_AssetGUID: 31c99a6704d2db34f8f762fc127ee87b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 31c99a6704d2db34f8f762fc127ee87b, type: 2}
+  - key: Scavenger AC
+    animatorControllerReference:
+      m_AssetGUID: 3bf960b4c73676443b8cbcbfae95e421
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 3bf960b4c73676443b8cbcbfae95e421, type: 2}
+  - key: Audience-Cat AC
+    animatorControllerReference:
+      m_AssetGUID: 472aa4726d11edf43a9a1f5ad881c294
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 472aa4726d11edf43a9a1f5ad881c294, type: 2}
+  - key: Skunk AC
+    animatorControllerReference:
+      m_AssetGUID: 4a3f6f51e3fba224796acb533b0a52ca
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 4a3f6f51e3fba224796acb533b0a52ca, type: 2}
+  - key: Damb ass AC
+    animatorControllerReference:
+      m_AssetGUID: 75c6ea84387fac54c9deb90d5828c552
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 75c6ea84387fac54c9deb90d5828c552, type: 2}
+  - key: Huge monster AC
+    animatorControllerReference:
+      m_AssetGUID: 8160f385c867aaf43a961d8f540f5c77
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 8160f385c867aaf43a961d8f540f5c77, type: 2}
+  - key: Miner head AC
+    animatorControllerReference:
+      m_AssetGUID: 84bd3a78f8d0cf445b528be7905c687c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 84bd3a78f8d0cf445b528be7905c687c, type: 2}
+  - key: Audience AC
+    animatorControllerReference:
+      m_AssetGUID: 90b499a7e2413da429906fea73905750
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 90b499a7e2413da429906fea73905750, type: 2}
+  - key: Transparent AC
+    animatorControllerReference:
+      m_AssetGUID: b4f83d0837df9dc44968334e20374292
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: b4f83d0837df9dc44968334e20374292, type: 2}
+  - key: Mouse eyes AC
+    animatorControllerReference:
+      m_AssetGUID: b75486ba1e63dff428a61d24b25bd1c7
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: b75486ba1e63dff428a61d24b25bd1c7, type: 2}
+  - key: BOOM bro Ac
+    animatorControllerReference:
+      m_AssetGUID: cb027baacf12952499c53b4d396218a0
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: cb027baacf12952499c53b4d396218a0, type: 2}
+  - key: Boulder AC
+    animatorControllerReference:
+      m_AssetGUID: e6fc8177670634e4b9bb3f327715ace5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: e6fc8177670634e4b9bb3f327715ace5, type: 2}
+  - key: jierui AC
+    animatorControllerReference:
+      m_AssetGUID: fc792eff007671f449feb4cd7dc919de
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: fc792eff007671f449feb4cd7dc919de, type: 2}
+  - key: Fat Cat AC
+    animatorControllerReference:
+      m_AssetGUID: 0b54bcd96eda3a746879dc5459379677
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 0b54bcd96eda3a746879dc5459379677, type: 2}
+  - key: Lightning Cat AC
+    animatorControllerReference:
+      m_AssetGUID: 10e293109a7f3d140b887d36c174fe05
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 10e293109a7f3d140b887d36c174fe05, type: 2}
+  - key: Alien Kitten AC
+    animatorControllerReference:
+      m_AssetGUID: 4e2fc3e1075fbd344823c5519a3d51d9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 4e2fc3e1075fbd344823c5519a3d51d9, type: 2}
+  - key: General Cat AC
+    animatorControllerReference:
+      m_AssetGUID: 4f8023a0789b27c4aa6ef4ee8ced3563
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 4f8023a0789b27c4aa6ef4ee8ced3563, type: 2}
+  - key: Great Master AC mirror
+    animatorControllerReference:
+      m_AssetGUID: 5720b85460791424f81a0d373b6cd881
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 5720b85460791424f81a0d373b6cd881, type: 2}
+  - key: Thunderstorm cat AC
+    animatorControllerReference:
+      m_AssetGUID: 6701b845cc9631642adb773112a62860
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 6701b845cc9631642adb773112a62860, type: 2}
+  - key: Cat Bonze AC
+    animatorControllerReference:
+      m_AssetGUID: 6c914abe598644c43892d24e8e36302e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 6c914abe598644c43892d24e8e36302e, type: 2}
+  - key: Happy Cat AC
+    animatorControllerReference:
+      m_AssetGUID: 73b18af4de600aa4baaf201f9c0115cc
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 73b18af4de600aa4baaf201f9c0115cc, type: 2}
+  - key: Flame cat AC
+    animatorControllerReference:
+      m_AssetGUID: 9ff5516d6d2ccaf42a5b4466eeb42e38
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 9ff5516d6d2ccaf42a5b4466eeb42e38, type: 2}
+  - key: Alien Cat AC
+    animatorControllerReference:
+      m_AssetGUID: a305b6c1a57255b4c9f9d7b31e60b86f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: a305b6c1a57255b4c9f9d7b31e60b86f, type: 2}
+  - key: Water breath cat AC
+    animatorControllerReference:
+      m_AssetGUID: aa2507e322d810c4a952cd88e7d080a4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: aa2507e322d810c4a952cd88e7d080a4, type: 2}
+  - key: Cat apprentice AC
+    animatorControllerReference:
+      m_AssetGUID: af1e691ce13b8e2428286bd0fb23cb07
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: af1e691ce13b8e2428286bd0fb23cb07, type: 2}
+  - key: Cat addict AC
+    animatorControllerReference:
+      m_AssetGUID: ce81b32b3cdd485488c41c2426bab6a0
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: ce81b32b3cdd485488c41c2426bab6a0, type: 2}
+  - key: Dark cat AC
+    animatorControllerReference:
+      m_AssetGUID: f049f9c3eb8434d449d9be984f683708
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: f049f9c3eb8434d449d9be984f683708, type: 2}
+  - key: Cat soldier AC
+    animatorControllerReference:
+      m_AssetGUID: f29ca6ee2da9d09409f43506801c2372
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: f29ca6ee2da9d09409f43506801c2372, type: 2}
+  - key: Banana cat AC
+    animatorControllerReference:
+      m_AssetGUID: feb2fb4825d4413478dcd8bd5f0df2f6
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: feb2fb4825d4413478dcd8bd5f0df2f6, type: 2}
+  - key: Car magic AC
+    animatorControllerReference:
+      m_AssetGUID: 04da907c7ff538d4cb3729f8677f37b4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 04da907c7ff538d4cb3729f8677f37b4, type: 2}
+  - key: Game over AC
+    animatorControllerReference:
+      m_AssetGUID: 1184d703a447d934183ef4ddb1428daf
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 1184d703a447d934183ef4ddb1428daf, type: 2}
+  - key: Unstable ore AC
+    animatorControllerReference:
+      m_AssetGUID: 268fd07286525ef47931978e0afb9d25
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 268fd07286525ef47931978e0afb9d25, type: 2}
+  - key: Game victory AC
+    animatorControllerReference:
+      m_AssetGUID: 6c1f1520d91b3224e8e503dec3f3bbd6
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 6c1f1520d91b3224e8e503dec3f3bbd6, type: 2}
+  - key: Build Animation AC
+    animatorControllerReference:
+      m_AssetGUID: 6c819677d168b8f4382e45bb859864ea
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 6c819677d168b8f4382e45bb859864ea, type: 2}
+  - key: Dancing statue AC
+    animatorControllerReference:
+      m_AssetGUID: 8f965b55e664c3848afb4f98b7769ffc
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 8f965b55e664c3848afb4f98b7769ffc, type: 2}
+  - key: Green fog AC
+    animatorControllerReference:
+      m_AssetGUID: 92c4244327764b840aabdc9841362b88
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: 92c4244327764b840aabdc9841362b88, type: 2}
+  - key: Huge cheese AC
+    animatorControllerReference:
+      m_AssetGUID: bb67748d1659fa6468a66e0bd6f738f4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: bb67748d1659fa6468a66e0bd6f738f4, type: 2}
+  - key: Mini Sandwich AC
+    animatorControllerReference:
+      m_AssetGUID: cbdade9bafa05b04b94b669795ac8352
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: cbdade9bafa05b04b94b669795ac8352, type: 2}
+  - key: Strange mine AC
+    animatorControllerReference:
+      m_AssetGUID: d1be59e0875a3a94eba7a29c4b774459
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: d1be59e0875a3a94eba7a29c4b774459, type: 2}
+  - key: Mechanical reinforcement ore AC
+    animatorControllerReference:
+      m_AssetGUID: f3c601626e475c14d93a0f63c2035268
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: f3c601626e475c14d93a0f63c2035268, type: 2}
+  - key: Magic energy  ACsing
+    animatorControllerReference:
+      m_AssetGUID: f65dd0dbccb139b4f820dc0a34fdb7c3
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animatorController: {fileID: 9100000, guid: f65dd0dbccb139b4f820dc0a34fdb7c3, type: 2}

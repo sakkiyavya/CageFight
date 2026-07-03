@@ -24,7 +24,7 @@ public class StageTexture : MonoBehaviour, ILevelComponent
 
     public Type DataType => typeof(StageTextureData);
 
-    private void Awake()
+    private void Start()
     {
         CacheComponent();
 
@@ -36,17 +36,17 @@ public class StageTexture : MonoBehaviour, ILevelComponent
 
     private void OnEnable()
     {
-        CacheComponent();
+        // CacheComponent();
 
-        if (Application.isPlaying)
-        {
-            ApplyRuntimeResource();
-        }
+        // if (Application.isPlaying)
+        // {
+        //     ApplyRuntimeResource();
+        // }
 #if UNITY_EDITOR
-        else
-        {
+        // else
+        // {
             UpdateEditorPreview();
-        }
+        // }
 #endif
     }
 
@@ -60,17 +60,17 @@ public class StageTexture : MonoBehaviour, ILevelComponent
 #endif
     }
 
-    private void OnValidate()
-    {
-        CacheComponent();
+//     private void OnValidate()
+//     {
+//         CacheComponent();
 
-#if UNITY_EDITOR
-        if (!Application.isPlaying)
-        {
-            UpdateEditorPreview();
-        }
-#endif
-    }
+// #if UNITY_EDITOR
+//         if (!Application.isPlaying)
+//         {
+//             UpdateEditorPreview();
+//         }
+// #endif
+//     }
 
     public ComponentData ExtractData()
     {
@@ -119,11 +119,13 @@ public class StageTexture : MonoBehaviour, ILevelComponent
         }
 
         Sprite sprite = ResourceManager.Instance != null ? ResourceManager.Instance.GetSprite(spriteKey) : null;
+        Debug.Log("ResourceManager实例：" + ResourceManager.Instance.name);
         if (sprite == null)
         {
             Debug.LogWarning($"[StageTexture] Missing Sprite resource: {spriteKey}", this);
         }
 
+        Debug.Log(name + " 的sprite: " + sprite.name);
         _spriteRenderer.sprite = sprite;
     }
 
