@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: -8169632702507557777}
   - component: {fileID: 1978068134018352278}
   - component: {fileID: 6529330602313476261}
-
+  - component: {fileID: 1679259302733373313}
   m_Layer: 0
   m_Name: Mouse eyes
   m_TagString: Untagged
@@ -295,8 +295,8 @@ MonoBehaviour:
   isFacingLeft: 0
   isAttack: 0
   repelDistance: 0
-  atkRangeMin: {x: 0, y: -16}
-  atkRangeMax: {x: 13, y: -13}
+  atkRangeMin: {x: 0, y: -1}
+  atkRangeMax: {x: 13, y: 2}
   occupySpace: {x: 1, y: 1}
   buildAnime: 
 --- !u!114 &8086096836530945463
@@ -357,7 +357,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteKey: Mouse eyes-attack_0
 --- !u!114 &1978068134018352278
-
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -382,8 +381,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioKey: 
-
+  audioKey: BOOM bro1
+--- !u!114 &1679259302733373313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982494216309753114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50b7439775efd343b6985bec3fbc186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1766319034619804138
 GameObject:
   m_ObjectHideFlags: 0

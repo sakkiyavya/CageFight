@@ -17,17 +17,19 @@ MonoBehaviour:
   - instanceId: 1000
     prefabKey: Mouse eyes
     transform:
-      position: {x: 10.12, y: 3.43, z: 0}
+      position: {x: 0, y: 0, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 6852613924449157120
-    - rid: 6852613924449157121
-    - rid: 6852613924449157122
+    - rid: 6852613966602698794
+    - rid: 6852613966602698795
+    - rid: 6852613966602698796
+    - rid: 6852613966602698797
   prefabs:
   - Mouse eyes
   - Bullet-Arrow
-  audios: []
+  audios:
+  - BOOM bro1
   textures: []
   animationClips: []
   animatorControllers:
@@ -37,7 +39,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 6852613924449157120
+    - rid: 6852613966602698794
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
         objectType: 2
@@ -58,11 +60,15 @@ MonoBehaviour:
         side: 0
         atkObj: Bullet-Arrow
         buildAnime: 
-    - rid: 6852613924449157121
+    - rid: 6852613966602698795
       type: {class: StageTextureData, ns: , asm: CageFightRuntime}
       data:
         spriteKey: Mouse eyes-attack_0
-    - rid: 6852613924449157122
+    - rid: 6852613966602698796
       type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
       data:
         animatorControllerKey: Mouse eyes AC
+    - rid: 6852613966602698797
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey: BOOM bro1

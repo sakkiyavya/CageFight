@@ -20,7 +20,7 @@ public class AudioPlayer : MonoBehaviour
     /// 请求播放音效，由外部脚本调用。
     /// </summary>
     /// <returns>是否成功发起播放</returns>
-    public bool Play()
+    public bool PlayEffect()
     {
         if (AudioManager.Instance == null || _audioSource.clip == null) return false;
 

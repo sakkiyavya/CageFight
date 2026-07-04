@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DamageSource : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class DamageSource : MonoBehaviour
         if(c.IsFriendly(damage))
             return;
 
+        damage.collideDir = transform.position.x < collision.transform.position.x? 1 : -1;
         damage.target = collision.gameObject;
         c.OnCollide(damage);
         DamageTextPool.Instance.ShowDamage(damage, collision.transform.position + Vector3.up);

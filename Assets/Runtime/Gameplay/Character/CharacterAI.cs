@@ -42,9 +42,9 @@ public class CharacterAI : MonoBehaviour
 
     protected virtual void Repel()
     {
-        if (_prop.repelDistance > 0.1f)
+        if (Mathf.Abs(_prop.repelDistance) > 0.1f)
         {
-            transform.position += (_prop.isFacingLeft ? Vector3.right : Vector3.left) * _prop.repelDistance * 0.02f;
+            transform.position += Vector3.right * _prop.repelDistance * 0.02f;
             _prop.repelDistance *= 0.98f;
         }
     }

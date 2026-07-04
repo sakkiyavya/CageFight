@@ -15,6 +15,7 @@ public struct Damage
     public int initialDamage;
 
     public int finalDamage;
+    public int collideDir;
 
     public float repel;
     public DamageType type;
@@ -27,6 +28,7 @@ public struct Damage
         side = 0,
         initialDamage = 10,
         finalDamage = 0,
+        collideDir = 1,
         type = DamageType.normal,
         source = null,
         target = null,
