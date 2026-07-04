@@ -26,8 +26,12 @@ public enum ResourceState
 /// </summary>
 public class ResourceManager : MonoBehaviour
 {
+    #if UNITY_EDITOR
+    public LevelConfig editorLevelConfig;
+    #endif
     public static ResourceManager Instance { get; private set; }
 
+    [Header("各类注册表")]
     [Tooltip("Prefab 映射表，负责将纯文本的 prefabKey 映射到实际的 AssetReference")]
     [SerializeField] private PrefabRegistry prefabRegistry;
 
@@ -81,6 +85,9 @@ public class ResourceManager : MonoBehaviour
         animationClipRegistry    = LoadRegistryEditor<AnimationClipRegistry>();
         animatorControllerRegistry = LoadRegistryEditor<AnimatorControllerRegistry>();
         spriteRegistry           = LoadRegistryEditor<SpriteRegistry>();
+
+        if(editorLevelConfig)
+            LoadStageResources(editorLevelConfig);
 #else
         StartCoroutine(LoadAllRegistriesRuntime());
 #endif
