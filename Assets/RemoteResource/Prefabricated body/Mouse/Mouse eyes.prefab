@@ -294,6 +294,7 @@ MonoBehaviour:
   path: []
   isFacingLeft: 0
   isAttack: 0
+  isRepel: 0
   repelDistance: 0
   atkRangeMin: {x: 0, y: -1}
   atkRangeMax: {x: 13, y: 2}
@@ -381,7 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioKey: BOOM bro1
+  audioKey: Arrow-Shoot
 --- !u!114 &1679259302733373313
 MonoBehaviour:
   m_ObjectHideFlags: 0
