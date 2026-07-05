@@ -86,11 +86,19 @@ public class ResourceManager : MonoBehaviour
         animatorControllerRegistry = LoadRegistryEditor<AnimatorControllerRegistry>();
         spriteRegistry           = LoadRegistryEditor<SpriteRegistry>();
 
-        if(editorLevelConfig)
-            LoadStageResources(editorLevelConfig);
 #else
         StartCoroutine(LoadAllRegistriesRuntime());
 #endif
+    }
+
+    void Start()
+    {
+        #if UNITY_EDITOR
+        if(StageLoader.Instance)
+            StageLoader.Instance.StartLoad(editorLevelConfig);
+        else
+            Debug.LogError("[ResourceManager] ResourceManager.Start 错误: LevelLoader 为 null！");
+        #endif
     }
 
 #if UNITY_EDITOR

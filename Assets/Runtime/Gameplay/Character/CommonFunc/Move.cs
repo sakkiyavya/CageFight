@@ -6,13 +6,16 @@ public class Move : BehaviourBase
     private Vector3 _lastPos;
     private Vector2Int _nextCell;
     private SpriteRenderer _spr;
+    private GameObjectProperty _prop;
     Transform _transform;
 
     public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
         _spr = self.GetComponentInChildren<SpriteRenderer>();
         _transform = self.transform;
+        _prop = prop;
     }
+
 
     public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
@@ -49,6 +52,8 @@ public class Move : BehaviourBase
         // {
         //     _spr.flipX = prop.isFacingLeft;
         // }
+        if(_prop.isRepel)
+            return true;
         if(_transform)
         {
             _transform.localScale = new Vector3(prop.isFacingLeft ? -1 : 1, 1, 1);

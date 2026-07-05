@@ -1062,6 +1062,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 416177598}
+  - component: {fileID: 416177599}
+  - component: {fileID: 416177600}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -1084,6 +1086,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1328006036}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &416177599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416177597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 269575645a1b54a4cb831b71897b33a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &416177600
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416177597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be093fd393322994f83442f937bc3a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &426198508
 GameObject:
   m_ObjectHideFlags: 0
@@ -4554,6 +4580,7 @@ GameObject:
   - component: {fileID: 1836100264}
   - component: {fileID: 1836100263}
   - component: {fileID: 1836100265}
+  - component: {fileID: 1836100266}
   m_Layer: 0
   m_Name: ResourceManager
   m_TagString: Untagged
@@ -4609,6 +4636,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelConfig: {fileID: 0}
+--- !u!114 &1836100266
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836100262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be093fd393322994f83442f937bc3a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1906560042
 GameObject:
   m_ObjectHideFlags: 0
@@ -5014,6 +5053,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2074361542}
   - component: {fileID: 2074361541}
+  - component: {fileID: 2074361543}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -5048,6 +5088,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1328006036}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2074361543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074361540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43e8a72077f482b459c43890bb4dee16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 1
 --- !u!1 &2105746470
 GameObject:
   m_ObjectHideFlags: 0

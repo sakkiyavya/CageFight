@@ -29,6 +29,19 @@ public class CharacterAI : MonoBehaviour
 
     public float MoveSpeed => _prop.moveSpeed;
 
+    protected virtual void Repel()
+    {
+        if (Mathf.Abs(_prop.repelDistance) > 0.1f)
+        {
+            transform.position += Vector3.right * _prop.repelDistance * 0.1f;
+            _prop.repelDistance *= 0.9f;
+        }
+        else
+        {
+            _prop.isRepel = false;
+        }
+    }
+
     protected virtual void AIBehaviour()
     {
         foreach (var behaviour in Behaviours)
@@ -40,19 +53,11 @@ public class CharacterAI : MonoBehaviour
             _animator.SetBool("IsAtt", _prop.isAttack);
     }
 
-    protected virtual void Repel()
-    {
-        if (Mathf.Abs(_prop.repelDistance) > 0.1f)
-        {
-            transform.position += Vector3.right * _prop.repelDistance * 0.02f;
-            _prop.repelDistance *= 0.98f;
-        }
-    }
-
     void Update()
     {
+        if(_prop.isRepel)
+            Repel();
         AIBehaviour();
-        Repel();
     }
 
     public void ShootProjectile()
@@ -84,6 +89,13 @@ public class CharacterAI : MonoBehaviour
                 ds.damage.type = DamageType.normal;
             }
         }
+
+
+        #region 临时测试声音
+        AudioPlayer ap = GetComponent<AudioPlayer>();
+        if(ap)
+            ap.PlayEffect();
+        #endregion
     }
 
 }
