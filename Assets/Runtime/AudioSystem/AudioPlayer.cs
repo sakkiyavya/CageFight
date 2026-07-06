@@ -38,4 +38,41 @@ public class AudioPlayer : MonoBehaviour
         return AudioManager.Instance.PlayEffect(_audioSource, (uint)_audioSource.priority, distance, transform);
     }
 
+    /// <summary>
+    /// 请求播放音效（按索引从同级 GameObjectProperty.audioClips 中取片段）。
+    /// 由外部脚本调用，index 对应 StageAudio 配置的 audioKey 顺序（从 0 开始）。
+    /// </summary>
+    /// <param name="index">audioClips 列表中的索引</param>
+    /// <returns>是否成功发起播放</returns>
+    public bool PlayEffect(int index)
+    {
+        var prop = GetComponent<GameObjectProperty>();
+        if (prop == null)
+        {
+            Debug.LogWarning("[AudioPlayer] 未找到同级 GameObjectProperty，无法按索引播放。", this);
+            return false;
+        }
+
+        if (prop.audioClips == null || prop.audioClips.Count == 0)
+        {
+            Debug.LogWarning("[AudioPlayer] GameObjectProperty.audioClips 为空，请确认 StageAudio 已完成资源注入。", this);
+            return false;
+        }
+
+        if (index < 0 || index >= prop.audioClips.Count)
+        {
+            Debug.LogWarning($"[AudioPlayer] 索引 {index} 超出 audioClips 范围（共 {prop.audioClips.Count} 个）。", this);
+            return false;
+        }
+
+        AudioClip clip = prop.audioClips[index];
+        if (clip == null)
+        {
+            Debug.LogWarning($"[AudioPlayer] audioClips[{index}] 为 null，跳过播放。", this);
+            return false;
+        }
+
+        _audioSource.clip = clip;
+        return PlayEffect();
+    }
 }

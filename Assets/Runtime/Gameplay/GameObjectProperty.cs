@@ -39,6 +39,8 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
     public bool isAttack = false;
     public bool isRepel = false;
     public float repelDistance = 0f;
+    /// <summary>由 StageAudio 在运行时注入，按 audioKey 顺序存放加载好的音频片段</summary>
+    public List<AudioClip> audioClips = new List<AudioClip>();
     // 攻击范围的世界坐标（左下角和右上角），由 CharacterBase 每帧更新
     public Vector2Int atkRangeMin;
     public Vector2Int atkRangeMax;
