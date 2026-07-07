@@ -76,8 +76,13 @@ public class StageLoader : MonoBehaviour
                 continue;
             }
 
+            if(!GameObjectPool.Instance)
+            {
+                Debug.LogError("GameObjectPool未初始化");
+                return;
+            }
             // 实例化
-            GameObject instance = Instantiate(prefab);
+            GameObject instance = GameObjectPool.Instance.Get(prefab);
 
             // 还原 Transform
             instance.transform.position    = objData.transform.position;

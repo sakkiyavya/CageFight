@@ -14,6 +14,8 @@ public class CharacterAI : MonoBehaviour
         _prop = GetComponent<GameObjectProperty>();
         _health = GetComponent<CharacterHealth>();
         _animator = GetComponent<Animator>();
+        if(!shootPoint)
+            shootPoint = transform.Find("ShootPoint");
     }
 
     void Start()
@@ -76,7 +78,7 @@ public class CharacterAI : MonoBehaviour
             else
                 projectile.transform.position = transform.position;
 
-            
+            projectile.transform.right = _prop.isFacingLeft ? Vector3.left : Vector3.right;
             DamageSource ds = projectile.GetComponent<DamageSource>();
             if (ds != null)
             {
