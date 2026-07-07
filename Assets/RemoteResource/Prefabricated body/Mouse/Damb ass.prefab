@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 3570252582533591610}
   - component: {fileID: 7914293959048568897}
   - component: {fileID: -2646620737099177538}
+  - component: {fileID: 8450055030002122168}
   m_Layer: 0
   m_Name: Damb ass
   m_TagString: Untagged
@@ -45,6 +46,7 @@ Transform:
   - {fileID: 3119252495540628721}
   - {fileID: 354562590334116480}
   - {fileID: 4139593916804799267}
+  - {fileID: 1509391921643584111}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3652649309925150775
@@ -93,7 +95,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.4740741, y: 1.8370371}
+  m_Size: {x: 1.895238, y: 2.3619049}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -141,7 +143,7 @@ MonoBehaviour:
   atk: 200
   atkRate: 1
   magicAtk: 0
-  repel: 1
+  repel: 1.5
   antiRepel: 1
   atkRange: {x: 2, y: 2}
   atkObj: 
@@ -154,8 +156,9 @@ MonoBehaviour:
   isAttack: 0
   isRepel: 0
   repelDistance: 0
-  atkRangeMin: {x: -11, y: -7}
-  atkRangeMax: {x: -10, y: -6}
+  audioClips: []
+  atkRangeMin: {x: -1, y: -7}
+  atkRangeMax: {x: 0, y: -6}
   occupySpace: {x: 1, y: 1}
   buildAnime: 
 --- !u!114 &4998131854678585493
@@ -175,7 +178,7 @@ MonoBehaviour:
   - {fileID: 1658584342881032588}
   - {fileID: 21822079031249265}
   - {fileID: 6934067324928448146}
-  shootPoint: {fileID: 0}
+  shootPoint: {fileID: 1509391921643584111}
 --- !u!114 &4908564765554966080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,7 +242,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.07}
     oldSize: {x: 1.895238, y: 2.3619049}
-    newSize: {x: 1.4740741, y: 1.8370371}
+    newSize: {x: 1.895238, y: 2.3619049}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -368,7 +371,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioKey: 
+  audioKey1: 
+  audioKey2: 
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
 --- !u!114 &7914293959048568897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,6 +404,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50b7439775efd343b6985bec3fbc186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8450055030002122168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299742171776721008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3243ed26a9517f2499ea21638c3d85c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &4826880470415616423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1509391921643584111}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1509391921643584111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4826880470415616423}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9175860945182031184}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1551021449647964757
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: -948789168461811020}
   - component: {fileID: 8266809704147894880}
   - component: {fileID: -4885455426285169115}
+  - component: {fileID: 3505915908943142408}
   m_Layer: 0
   m_Name: Horrible monster
   m_TagString: Untagged
@@ -45,6 +46,7 @@ Transform:
   - {fileID: 815426766132249978}
   - {fileID: 4275990099832616393}
   - {fileID: 22284443835979259}
+  - {fileID: 801604137147155394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &492033090063897554
@@ -93,7 +95,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5, y: 5.4}
+  m_Size: {x: 7.04, y: 4.92}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -157,7 +159,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.44, y: 0.11}
     oldSize: {x: 7.04, y: 4.92}
-    newSize: {x: 5, y: 5.4}
+    newSize: {x: 7.04, y: 4.92}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -199,8 +201,9 @@ MonoBehaviour:
   isAttack: 0
   isRepel: 0
   repelDistance: 0
-  atkRangeMin: {x: 0, y: -27}
-  atkRangeMax: {x: 3, y: -26}
+  audioClips: []
+  atkRangeMin: {x: -13, y: -8}
+  atkRangeMax: {x: -10, y: -7}
   occupySpace: {x: 1, y: 1}
   buildAnime: 
 --- !u!114 &5353065560386886563
@@ -220,7 +223,7 @@ MonoBehaviour:
   - {fileID: 3971414424122126343}
   - {fileID: 4607588738157436472}
   - {fileID: 6415131752722339914}
-  shootPoint: {fileID: 0}
+  shootPoint: {fileID: 801604137147155394}
 --- !u!114 &2486312783025443166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,7 +384,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioKey: Horrible monster1
+  audioKey1: 
+  audioKey2: 
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
 --- !u!114 &-4885455426285169115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,6 +404,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50b7439775efd343b6985bec3fbc186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3505915908943142408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016457220928666952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3243ed26a9517f2499ea21638c3d85c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6846461848895319480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 801604137147155394}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &801604137147155394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6846461848895319480}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5726911602799910803}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1172599797689930427
 PrefabInstance:
   m_ObjectHideFlags: 0

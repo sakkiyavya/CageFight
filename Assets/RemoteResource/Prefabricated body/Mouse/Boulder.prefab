@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 9119706303421013995}
   - component: {fileID: 5839183525121084549}
   - component: {fileID: 4893268244187597619}
+  - component: {fileID: 2023622982877239762}
   m_Layer: 0
   m_Name: Boulder
   m_TagString: Unit
@@ -45,6 +46,7 @@ Transform:
   - {fileID: 4314750393029830542}
   - {fileID: 6794188101554337150}
   - {fileID: 8004678015799888712}
+  - {fileID: 1482924332170036443}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &88270294773355163
@@ -199,6 +201,7 @@ MonoBehaviour:
   isAttack: 0
   isRepel: 0
   repelDistance: 0
+  audioClips: []
   atkRangeMin: {x: 15, y: -15}
   atkRangeMax: {x: 17, y: -14}
   occupySpace: {x: 1, y: 1}
@@ -220,7 +223,7 @@ MonoBehaviour:
   - {fileID: 552997919025058547}
   - {fileID: 6552704233588530831}
   - {fileID: 3917674265346164473}
-  shootPoint: {fileID: 0}
+  shootPoint: {fileID: 1482924332170036443}
 --- !u!114 &4032515299759613053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,7 +371,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioKey: 
+  audioKey1: 
+  audioKey2: 
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
 --- !u!114 &5839183525121084549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,6 +404,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50b7439775efd343b6985bec3fbc186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2023622982877239762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3062758516945766433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3243ed26a9517f2499ea21638c3d85c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8518293689823717293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1482924332170036443}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1482924332170036443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8518293689823717293}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7281629881418380218}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &373386224698738986
 PrefabInstance:
   m_ObjectHideFlags: 0

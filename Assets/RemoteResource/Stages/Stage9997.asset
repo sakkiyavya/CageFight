@@ -1,0 +1,355 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ef6c8b64f543249a7d45a2148ddbf4, type: 3}
+  m_Name: Stage9997
+  m_EditorClassIdentifier: 
+  levelId: 9997
+  objects:
+  - instanceId: 1000
+    prefabKey: Scavenger
+    transform:
+      position: {x: -3.6713085, y: -7.624546, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 6874258974139220661
+    - rid: 6874258974139220662
+    - rid: 6874258974139220663
+    - rid: 6874258974139220664
+  - instanceId: 1001
+    prefabKey: Mouse eyes
+    transform:
+      position: {x: -4.1571064, y: -12.659193, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 6874258974139220665
+    - rid: 6874258974139220666
+    - rid: 6874258974139220667
+    - rid: 6874258974139220668
+  - instanceId: 1002
+    prefabKey: Miner rat
+    transform:
+      position: {x: -4.1129417, y: -17.693842, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 6874258974139220669
+    - rid: 6874258974139220670
+    - rid: 6874258974139220671
+    - rid: 6874258974139220672
+  - instanceId: 1003
+    prefabKey: Miner head
+    transform:
+      position: {x: 15.893157, y: -7.492056, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 6874258974139220673
+    - rid: 6874258974139220674
+    - rid: 6874258974139220675
+    - rid: 6874258974139220676
+  - instanceId: 1004
+    prefabKey: Huge monster
+    transform:
+      position: {x: 15.18654, y: -18.532948, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 6874258974139220677
+    - rid: 6874258974139220678
+    - rid: 6874258974139220679
+    - rid: 6874258974139220680
+  - instanceId: 1005
+    prefabKey: Horrible monster
+    transform:
+      position: {x: 15.937321, y: -12.791684, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 6874258974139220681
+    - rid: 6874258974139220682
+    - rid: 6874258974139220683
+    - rid: 6874258974139220684
+  prefabs:
+  - Scavenger
+  - Bullet-Stone-Scavenger
+  - Mouse eyes
+  - Bullet-Arrow
+  - Miner rat
+  - Bullet-Miner rat
+  - Miner head
+  - Derivative-Miner rat
+  - Huge monster
+  - Bullet-Huge monster
+  - Horrible monster
+  - Bullet-Horrible monster
+  audios: []
+  textures: []
+  animationClips: []
+  animatorControllers:
+  - Scavenger AC
+  - Mouse eyes AC
+  - Miner rat AC
+  - Miner head AC
+  - Huge monster AC
+  - Crystallized giant beast AC
+  sprites:
+  - Scavenger_0
+  - Mouse eyes-attack_0
+  - Miner rat-move_0
+  - Miner head_8
+  - 1_0
+  - Crystallized giant beast_12
+  references:
+    version: 2
+    RefIds:
+    - rid: 6874258974139220661
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 800
+        defense: 0
+        magicDefense: 0
+        atk: 80
+        atkRate: 0
+        magicAtk: 0
+        atkRange: {x: 10, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 0.5
+        side: 1
+        atkObj: Bullet-Stone-Scavenger
+        buildAnime: 
+    - rid: 6874258974139220662
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Scavenger AC
+    - rid: 6874258974139220663
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: 
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 6874258974139220664
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Scavenger_0
+    - rid: 6874258974139220665
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 1500
+        defense: 0
+        magicDefense: 0
+        atk: 170
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 14, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3.5
+        repel: 0.7
+        side: 0
+        atkObj: Bullet-Arrow
+        buildAnime: 
+    - rid: 6874258974139220666
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Mouse eyes-attack_0
+    - rid: 6874258974139220667
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Mouse eyes AC
+    - rid: 6874258974139220668
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: 
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 6874258974139220669
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 800
+        defense: 0
+        magicDefense: 0
+        atk: 150
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 1, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 1
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 1
+        side: 1
+        atkObj: Bullet-Miner rat
+        buildAnime: 
+    - rid: 6874258974139220670
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Miner rat AC
+    - rid: 6874258974139220671
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: 
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 6874258974139220672
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Miner rat-move_0
+    - rid: 6874258974139220673
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 6000
+        defense: 0
+        magicDefense: 0
+        atk: 200
+        atkRate: 0
+        magicAtk: 400
+        atkRange: {x: 8, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.8
+        repel: 5
+        side: 1
+        atkObj: Derivative-Miner rat
+        buildAnime: 
+    - rid: 6874258974139220674
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Miner head AC
+    - rid: 6874258974139220675
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: 
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 6874258974139220676
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Miner head_8
+    - rid: 6874258974139220677
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 12000
+        defense: 0
+        magicDefense: 0
+        atk: 350
+        atkRate: 1
+        magicAtk: 350
+        atkRange: {x: 3, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.6
+        repel: 3
+        side: 0
+        atkObj: Bullet-Huge monster
+        buildAnime: 
+    - rid: 6874258974139220678
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: 1_0
+    - rid: 6874258974139220679
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Huge monster AC
+    - rid: 6874258974139220680
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: 
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 6874258974139220681
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 30000
+        defense: 0
+        magicDefense: 0
+        atk: 1000
+        atkRate: 1
+        magicAtk: 1000
+        atkRange: {x: 4, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.6
+        repel: 10
+        side: 0
+        atkObj: Bullet-Horrible monster
+        buildAnime: 
+    - rid: 6874258974139220682
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Crystallized giant beast AC
+    - rid: 6874258974139220683
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Crystallized giant beast_12
+    - rid: 6874258974139220684
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: 
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 

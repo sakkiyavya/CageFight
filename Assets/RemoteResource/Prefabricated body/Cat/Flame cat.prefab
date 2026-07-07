@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &157937063423362976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7790466147732645411}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7790466147732645411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157937063423362976}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3160567305028540609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5326090067705445012
 GameObject:
   m_ObjectHideFlags: 0
@@ -16,6 +47,7 @@ GameObject:
   - component: {fileID: 5996009296450410654}
   - component: {fileID: 4609701173971588663}
   - component: {fileID: 56184572654168636}
+  - component: {fileID: 4630198106553601179}
   m_Layer: 0
   m_Name: Flame cat
   m_TagString: Untagged
@@ -40,6 +72,7 @@ Transform:
   - {fileID: 5759152269042509653}
   - {fileID: 4700957546479260921}
   - {fileID: 8209061158223719284}
+  - {fileID: 7790466147732645411}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7608404891127642451
@@ -192,9 +225,11 @@ MonoBehaviour:
   path: []
   isFacingLeft: 0
   isAttack: 0
+  isRepel: 0
   repelDistance: 0
-  atkRangeMin: {x: 46, y: 1}
-  atkRangeMax: {x: 51, y: 2}
+  audioClips: []
+  atkRangeMin: {x: 46, y: -10}
+  atkRangeMax: {x: 51, y: -9}
   occupySpace: {x: 1, y: 1}
   buildAnime: 
 --- !u!114 &5996009296450410654
@@ -214,7 +249,7 @@ MonoBehaviour:
   - {fileID: 8331985092119892520}
   - {fileID: 5015611577856720648}
   - {fileID: 2928600224289384133}
-  shootPoint: {fileID: 0}
+  shootPoint: {fileID: 7790466147732645411}
 --- !u!114 &4609701173971588663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +276,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
+--- !u!114 &4630198106553601179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5326090067705445012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3243ed26a9517f2499ea21638c3d85c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5927452237712834711
 PrefabInstance:
   m_ObjectHideFlags: 0

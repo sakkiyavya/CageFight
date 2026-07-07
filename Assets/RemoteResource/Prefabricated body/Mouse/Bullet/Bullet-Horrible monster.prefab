@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 678309612368112905}
   - component: {fileID: 3086956205671226700}
   - component: {fileID: 802032272931526418}
+  - component: {fileID: -7470341959652166244}
   m_Layer: 6
   m_Name: Bullet-Horrible monster
   m_TagString: Untagged
@@ -130,3 +131,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.5805, y: 2.5389833}
   m_EdgeRadius: 0
+--- !u!114 &-7470341959652166244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403774059082912154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518e316481635134099e32455f6814a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.1

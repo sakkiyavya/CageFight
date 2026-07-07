@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: -4157872974848679281}
   - component: {fileID: -2509826015870733662}
   - component: {fileID: -3898246744561260826}
+  - component: {fileID: 5961133087292248474}
   m_Layer: 0
   m_Name: Harm eyebrow
   m_TagString: Untagged
@@ -45,6 +46,7 @@ Transform:
   - {fileID: 2950740370572137186}
   - {fileID: 892794592125441743}
   - {fileID: 3346554568855244145}
+  - {fileID: 4524051265976914922}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5782128274417571720
@@ -93,7 +95,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.2533333, y: 3.8666666}
+  m_Size: {x: 3.2, y: 2.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -157,7 +159,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.45, y: 0.1}
     oldSize: {x: 3.2, y: 2.64}
-    newSize: {x: 3.2533333, y: 3.8666666}
+    newSize: {x: 3.2, y: 2.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -199,6 +201,7 @@ MonoBehaviour:
   isAttack: 0
   isRepel: 0
   repelDistance: 0
+  audioClips: []
   atkRangeMin: {x: 0, y: -11}
   atkRangeMax: {x: 1, y: -11}
   occupySpace: {x: 1, y: 1}
@@ -220,7 +223,7 @@ MonoBehaviour:
   - {fileID: 1314188610489169932}
   - {fileID: 632184204040092990}
   - {fileID: 8195189549935042387}
-  shootPoint: {fileID: 0}
+  shootPoint: {fileID: 4524051265976914922}
 --- !u!114 &6047771978785944087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,7 +383,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioKey: 
+  audioKey1: 
+  audioKey2: 
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
 --- !u!114 &-3898246744561260826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,6 +404,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteKey: Harm eyebrow_12
+--- !u!114 &5961133087292248474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57720819243006128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3243ed26a9517f2499ea21638c3d85c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5713260837853337707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4524051265976914922}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4524051265976914922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713260837853337707}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2839452068448390139}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &438082802458429717
 PrefabInstance:
   m_ObjectHideFlags: 0

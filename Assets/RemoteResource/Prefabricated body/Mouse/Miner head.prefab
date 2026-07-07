@@ -221,7 +221,7 @@ MonoBehaviour:
   repel: 5
   antiRepel: 5
   atkRange: {x: 8, y: 4}
-  atkObj: 
+  atkObj: Derivative-Miner rat
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 1.8
@@ -231,6 +231,7 @@ MonoBehaviour:
   isAttack: 0
   isRepel: 0
   repelDistance: 0
+  audioClips: []
   atkRangeMin: {x: 0, y: -1}
   atkRangeMax: {x: 7, y: 2}
   occupySpace: {x: 1, y: 1}
@@ -412,7 +413,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioKey: 
+  audioKey1: 
+  audioKey2: 
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
 --- !u!114 &1474174724283610574
 MonoBehaviour:
   m_ObjectHideFlags: 0
