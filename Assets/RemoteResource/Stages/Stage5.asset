@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ef6c8b64f543249a7d45a2148ddbf4, type: 3}
-  m_Name: Stage2
+  m_Name: Stage5
   m_EditorClassIdentifier: 
-  levelId: 2
+  levelId: 5
   objects:
   - instanceId: 1000
     prefabKey: Mouse eyes
@@ -21,10 +21,10 @@ MonoBehaviour:
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 6852614055959724048
-    - rid: 6852614055959724049
-    - rid: 6852614055959724050
-    - rid: 6852614055959724051
+    - rid: 6852614055959724072
+    - rid: 6852614055959724073
+    - rid: 6852614055959724074
+    - rid: 6852614055959724075
   - instanceId: 1001
     prefabKey: Mouse eyes
     transform:
@@ -32,10 +32,10 @@ MonoBehaviour:
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 6852614055959724052
-    - rid: 6852614055959724053
-    - rid: 6852614055959724054
-    - rid: 6852614055959724055
+    - rid: 6852614055959724076
+    - rid: 6852614055959724077
+    - rid: 6852614055959724078
+    - rid: 6852614055959724079
   prefabs:
   - Mouse eyes
   - Bullet-Arrow
@@ -52,7 +52,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 6852614055959724048
+    - rid: 6852614055959724072
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
         objectType: 2
@@ -73,15 +73,15 @@ MonoBehaviour:
         side: 1
         atkObj: Bullet-Arrow
         buildAnime: 
-    - rid: 6852614055959724049
+    - rid: 6852614055959724073
       type: {class: StageTextureData, ns: , asm: CageFightRuntime}
       data:
         spriteKey: Mouse eyes-attack_0
-    - rid: 6852614055959724050
+    - rid: 6852614055959724074
       type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
       data:
         animatorControllerKey: Mouse eyes AC
-    - rid: 6852614055959724051
+    - rid: 6852614055959724075
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
         audioKey1: Alien Cat1 A
@@ -92,7 +92,7 @@ MonoBehaviour:
         audioKey6: 
         audioKey7: 
         audioKey8: 
-    - rid: 6852614055959724052
+    - rid: 6852614055959724076
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
         objectType: 2
@@ -113,15 +113,15 @@ MonoBehaviour:
         side: 0
         atkObj: Bullet-Arrow
         buildAnime: 
-    - rid: 6852614055959724053
+    - rid: 6852614055959724077
       type: {class: StageTextureData, ns: , asm: CageFightRuntime}
       data:
         spriteKey: Mouse eyes-attack_0
-    - rid: 6852614055959724054
+    - rid: 6852614055959724078
       type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
       data:
         animatorControllerKey: Mouse eyes AC
-    - rid: 6852614055959724055
+    - rid: 6852614055959724079
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
         audioKey1: Alien Cat1 A

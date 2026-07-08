@@ -2,13 +2,14 @@
 
 ## 一、系统概述
 
-本模块负责游戏启动界面的关卡选择功能，由三个脚本协作完成：
+本模块负责游戏启动界面的关卡选择功能，由四个脚本协作完成：
 
 | 脚本 | 职责 |
 | :--- | :--- |
 | **`LevelConfigLoader`** | 通过 Addressables 按命名规则逐个异步加载关卡配置（`LevelConfig`），加载完后将结果列表交给布局脚本 |
-| **`LevelButtonLayout`** | 接收关卡配置列表，按 x×y 分页规则将关卡按钮排列到正确的局部坐标位置，并为每个按钮绑定配置 |
+| **`LevelButtonLayout`** | 接收关卡配置列表，按 x×y 分页规则将当前页的关卡按钮排列到正确的局部坐标位置，并为每个按钮绑定配置；暴露翻页方法供 `LevelPageButton` 调用 |
 | **`LevelButton`** | 挂载在单个关卡按钮预制体上，持有 `LevelConfig`，按下时调用 `StageLoader.Instance.StartLoad()` |
+| **`LevelPageButton`** | 挂载在翻页按钮上，通过 `public bool isNext` 控制前翻/后翻，点击后调用 `LevelButtonLayout` 对应的翻页方法 |
 
 ---
 
@@ -21,7 +22,6 @@
 **字段**：
 
 ```csharp
-// 布局脚本引用，加载完成后将数据交给它
 [SerializeField] private LevelButtonLayout _layout;
 ```
 
@@ -32,64 +32,84 @@
 从 stage1 开始，逐个尝试加载：
   Addressables.LoadAssetAsync<LevelConfig>("stage{i}")
   若加载成功 → 加入 results 列表，i++，继续
-  若加载失败（KeyNotFoundException 或 Status != Succeeded）→ 停止，认为读取完成
+  若加载失败（Status != Succeeded）→ 释放句柄，停止循环
 
 加载结束后：
-  将 results 传给 _layout.configs
-  调用 _layout.LayoutButtons()
+  _layout.configs = results
+  _layout.LayoutButtons()
 ```
 
 **注意事项**：
-- Addressables 加载失败时 `AsyncOperationHandle.Status == Failed`，需要正确释放句柄后再停止循环（`Addressables.Release(handle)`）。
-- 若 `stage1` 即不存在，则 `results` 为空列表，布局脚本应对空列表做容错处理。
-- 成功加载的句柄需要统一管理，以便后续场景切换时可释放（可交由 `ResourceManager` 管理，或本脚本自行维护列表）。
+- 加载失败的句柄须调用 `Addressables.Release(handle)` 释放，成功的句柄自行维护列表以便后续释放。
+- 若 `stage1` 即不存在，`results` 为空列表，布局脚本须对空列表做容错。
 
 ---
 
 ### 2.2 LevelButtonLayout
 
-**挂载位置**：关卡列表面板的根节点（`RectTransform`，锚点为 `TopCenter` 或 `TopLeft`）。
+**挂载位置**：关卡列表面板的根节点（`RectTransform`，锚点为 `Top`）。
 
 **字段**：
 
 ```csharp
-// 每页显示列数(x) × 行数(y)，Inspector 中限制 x,y > 0
+// 每页显示 列数(x) × 行数(y)，OnValidate 钳位 x,y ≥ 1
 [SerializeField] private Vector2Int pageSize = new Vector2Int(3, 3);
 
-// 按钮之间的间距（x = 横向间距，y = 纵向间距）
+// 按钮之间的间距
 [SerializeField] private Vector2 spacing = new Vector2(200f, 200f);
 
-// 关卡按钮预制体（需挂载 LevelButton 组件和 RectTransform）
+// 关卡按钮预制体（需挂载 LevelButton 与 RectTransform）
 [SerializeField] private GameObject buttonPrefab;
 
-// 从 LevelConfigLoader 填入的关卡配置列表（公开，方便外部写入）
+// 由 LevelConfigLoader 写入
 public List<LevelConfig> configs = new List<LevelConfig>();
 
-// 缓存已生成的按钮，方便重新布局时清理
+// 当前显示页（从 0 开始）
+private int _currentPage = 0;
+
+// 缓存本页已生成的按钮
 private List<GameObject> _spawnedButtons = new List<GameObject>();
+```
+
+**计算属性**：
+
+```csharp
+private int PageCapacity => pageSize.x * pageSize.y;  // 每页最多显示数量
+private int TotalPages   => Mathf.Max(1, Mathf.CeilToInt((float)configs.Count / PageCapacity));
 ```
 
 **`LayoutButtons()` 方法逻辑**：
 
 ```
-1. 清理已有按钮（_spawnedButtons 遍历 Destroy，Clear 列表）
-
-2. 遍历 configs（索引 i = 0, 1, 2, ...）：
-   a. 实例化 buttonPrefab，设置父级为自身 RectTransform
-   b. 计算局部坐标（锚点为 Top，Y 轴向下为负）：
-      col = i % pageSize.x          // 当前列
-      row = i / pageSize.x          // 当前行
+1. 清理已有按钮（遍历 _spawnedButtons → Destroy，Clear）
+2. 计算本页起始索引：startIndex = _currentPage * PageCapacity
+3. 遍历本页的配置（startIndex 到 Min(startIndex + PageCapacity, configs.Count)）：
+   a. 实例化 buttonPrefab，父级设为自身
+   b. 计算局部坐标（锚点 Top，Y 向下为负）：
+      pageLocalIndex = i - startIndex
+      col    = pageLocalIndex % pageSize.x
+      row    = pageLocalIndex / pageSize.x
       localX = col * spacing.x
-      localY = -row * spacing.y     // 负号确保向下排列
+      localY = -row * spacing.y
       rectTransform.anchoredPosition = new Vector2(localX, localY)
-   c. 获取按钮上的 LevelButton 组件，调用 Init(configs[i])
-
-3. 将所有实例化的按钮加入 _spawnedButtons 缓存
+   c. button.Init(configs[i])
+4. 加入 _spawnedButtons 缓存
 ```
 
-**Inspector 限制 pageSize.x, pageSize.y > 0**：
+**翻页方法**（供 `LevelPageButton` 调用）：
 
-通过自定义 `OnValidate` 钳位：
+```csharp
+/// <summary>翻页：isNext=true 下一页，false 上一页；边界时不响应</summary>
+public void TurnPage(bool isNext)
+{
+    int target = _currentPage + (isNext ? 1 : -1);
+    if (target < 0 || target >= TotalPages) return;
+    _currentPage = target;
+    LayoutButtons();
+}
+```
+
+**`OnValidate`**：
 
 ```csharp
 private void OnValidate()
@@ -108,33 +128,61 @@ private void OnValidate()
 **字段**：
 
 ```csharp
-// 由 LevelButtonLayout.LayoutButtons() 注入
 private LevelConfig _config;
-
-// 缓存自身 RectTransform（供布局脚本操作）
 private RectTransform _rectTransform;
 ```
 
-**初始化方法**：
+**接口**：实现 `IPointerDownHandler` + `IPointerUpHandler`（与全局按钮系统保持一致）。
 
 ```csharp
 public void Init(LevelConfig config)
 {
     _config = config;
-    // 可在此更新按钮上的关卡名文本、图标、星级等显示
+    // 可在此刷新关卡名文本、图标等显示
 }
-```
 
-**点击事件**（通过 `IPointerDownHandler` 或 Unity Button 组件均可，建议用 `IPointerUpHandler` 与其他按钮系统保持一致）：
+public void OnPointerDown(PointerEventData eventData) { }  // 预留视觉反馈
 
-```csharp
 public void OnPointerUp(PointerEventData eventData)
 {
-    if (_config == null) return;
-    if (StageLoader.Instance == null) return;
+    if (_config == null || StageLoader.Instance == null) return;
     StageLoader.Instance.StartLoad(_config);
 }
 ```
+
+---
+
+### 2.4 LevelPageButton（新增）
+
+**挂载位置**：前翻/后翻按钮 GameObject。场景中放置两个，分别配置 `isNext`。
+
+**字段**：
+
+```csharp
+// true = 下一页；false = 上一页
+public bool isNext;
+
+// 目标布局脚本
+[SerializeField] private LevelButtonLayout _layout;
+```
+
+**接口**：实现 `IPointerDownHandler` + `IPointerUpHandler`。
+
+```csharp
+public void OnPointerDown(PointerEventData eventData) { }  // 预留视觉反馈
+
+public void OnPointerUp(PointerEventData eventData)
+{
+    if (_layout == null)
+    {
+        Debug.LogWarning("[LevelPageButton] _layout 未配置！", this);
+        return;
+    }
+    _layout.TurnPage(isNext);
+}
+```
+
+**边界处理**：翻页的边界判断在 `LevelButtonLayout.TurnPage()` 内部完成，`LevelPageButton` 无需额外判断。如有需要，可在 `TurnPage` 返回值（`bool`）成功与否后，在 `LevelPageButton` 侧控制按钮灰化状态。
 
 ---
 
@@ -148,17 +196,17 @@ LevelConfigLoader.Start()
     │ Coroutine：逐个加载 stage1, stage2, ...
     │ 遇到缺失即停止
     ▼
-List<LevelConfig> results 传入 LevelButtonLayout.configs
-    │
-    ▼
-LevelButtonLayout.LayoutButtons()
-    │ 按 pageSize × spacing 计算锚点坐标（Y≤0）
+LevelButtonLayout.configs = results
+LevelButtonLayout.LayoutButtons()   ← 显示第 0 页
+    │ 按 pageSize × spacing 计算 anchoredPosition（Y≤0）
     │ 实例化 buttonPrefab → LevelButton.Init(config)
     ▼
-玩家点击关卡按钮
-    │
+玩家点击翻页按钮 (LevelPageButton)
+    │ OnPointerUp → LevelButtonLayout.TurnPage(isNext)
+    │   → _currentPage ±1（边界校验）→ LayoutButtons()
     ▼
-LevelButton.OnPointerUp()
+玩家点击关卡按钮 (LevelButton)
+    │ OnPointerUp
     └─ StageLoader.Instance.StartLoad(_config)
 ```
 
@@ -171,21 +219,13 @@ LevelButton.OnPointerUp()
 | `Runtime/UISystem/GameStart/LevelConfigLoader.cs` | `LevelConfigLoader` |
 | `Runtime/UISystem/GameStart/LevelButtonLayout.cs` | `LevelButtonLayout` |
 | `Runtime/UISystem/GameStart/LevelButton.cs` | `LevelButton` |
+| `Runtime/UISystem/GameStart/LevelPageButton.cs` | `LevelPageButton` |
 
 ---
 
 ## 五、实施顺序
 
 1. **`LevelButton.cs`**：最无依赖，先实现 `Init` 与点击回调
-2. **`LevelButtonLayout.cs`**：依赖 `LevelButton`，实现布局逻辑与 `OnValidate`
-3. **`LevelConfigLoader.cs`**：依赖 `LevelButtonLayout`，实现 Addressables 逐个加载协程
-
----
-
-## 六、待确认事项
-
-> [!NOTE]
-> 以下几点在实现前建议确认：
-> 1. **分页翻页**：当关卡数量超过 `pageSize.x × pageSize.y` 时，是否需要支持翻页（本期暂不考虑翻页，超出部分直接向下延伸）？
-> 2. **按钮 UI 内容**：`LevelButton.Init()` 中是否需要同步更新关卡名文本（`TMP_Text` / `Text`）或解锁状态图标？
-> 3. **Addressables 句柄释放**：成功加载的 `LevelConfig` 句柄是否需要随场景切换一并释放？建议注册到 `ResourceManager._handlesToRelease` 统一管理。
+2. **`LevelButtonLayout.cs`**：实现分页布局、`TurnPage(bool)` 与 `OnValidate`
+3. **`LevelPageButton.cs`**：依赖 `LevelButtonLayout`，极简
+4. **`LevelConfigLoader.cs`**：最后实现，依赖布局脚本，串联整个流程
