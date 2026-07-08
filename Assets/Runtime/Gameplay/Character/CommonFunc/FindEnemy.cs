@@ -63,7 +63,7 @@ public class FindEnemy : BehaviourBase
             GameObjectProperty targetProp = _enemiesCache[Random.Range(0, count)];
             prop.target = targetProp.gameObject;
             
-            Debug.Log($"[FindEnemy] 索敌成功，锁定目标: {prop.target.name}");
+            // Debug.Log($"[FindEnemy] 索敌成功，锁定目标: {prop.target.name}");
         }
     }
 

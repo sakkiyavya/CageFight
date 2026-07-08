@@ -119,13 +119,13 @@ public class StageTexture : MonoBehaviour, ILevelComponent
         }
 
         Sprite sprite = ResourceManager.Instance != null ? ResourceManager.Instance.GetSprite(spriteKey) : null;
-        Debug.Log("ResourceManager实例：" + ResourceManager.Instance.name);
+        // Debug.Log("ResourceManager实例：" + ResourceManager.Instance.name);
         if (sprite == null)
         {
             Debug.LogWarning($"[StageTexture] Missing Sprite resource: {spriteKey}", this);
         }
 
-        Debug.Log(name + " 的sprite: " + sprite.name);
+        // Debug.Log(name + " 的sprite: " + sprite.name);
         _spriteRenderer.sprite = sprite;
     }
 

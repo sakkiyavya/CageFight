@@ -18,8 +18,8 @@ public class CharacterHealth : MonoBehaviour, ICollide
     }
     public Damage OnCollide(Damage damage)
     {   
-        if(damage.source)
-            print(damage.source.name);
+        // if(damage.source)
+        //     print(damage.source.name);
         
         return TakeDamage(damage);
     }

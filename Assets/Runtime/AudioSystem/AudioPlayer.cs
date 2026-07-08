@@ -20,7 +20,7 @@ public class AudioPlayer : MonoBehaviour
     /// 请求播放音效，由外部脚本调用。
     /// </summary>
     /// <returns>是否成功发起播放</returns>
-    public bool PlayEffect()
+    private bool Play()
     {
         if (AudioManager.Instance == null || _audioSource.clip == null) return false;
 
@@ -44,35 +44,37 @@ public class AudioPlayer : MonoBehaviour
     /// </summary>
     /// <param name="index">audioClips 列表中的索引</param>
     /// <returns>是否成功发起播放</returns>
-    public bool PlayEffect(int index)
+    public void PlayEffect(int index)
     {
+        int i = index - 1;
         var prop = GetComponent<GameObjectProperty>();
         if (prop == null)
         {
             Debug.LogWarning("[AudioPlayer] 未找到同级 GameObjectProperty，无法按索引播放。", this);
-            return false;
+            return;
         }
 
         if (prop.audioClips == null || prop.audioClips.Count == 0)
         {
             Debug.LogWarning("[AudioPlayer] GameObjectProperty.audioClips 为空，请确认 StageAudio 已完成资源注入。", this);
-            return false;
+            return;
         }
 
-        if (index < 0 || index >= prop.audioClips.Count)
+        if (i < 0 || i >= prop.audioClips.Count)
         {
-            Debug.LogWarning($"[AudioPlayer] 索引 {index} 超出 audioClips 范围（共 {prop.audioClips.Count} 个）。", this);
-            return false;
+            Debug.LogWarning($"[AudioPlayer] 索引 {i} 超出 audioClips 范围（共 {prop.audioClips.Count} 个）。", this);
+            return;
         }
 
-        AudioClip clip = prop.audioClips[index];
+        AudioClip clip = prop.audioClips[i];
         if (clip == null)
         {
-            Debug.LogWarning($"[AudioPlayer] audioClips[{index}] 为 null，跳过播放。", this);
-            return false;
+            Debug.LogWarning($"[AudioPlayer] audioClips[{i}] 为 null，跳过播放。", this);
+            return;
         }
 
+        // Debug.Log("播放音效：" + clip.name);
         _audioSource.clip = clip;
-        return PlayEffect();
+        Play();
     }
 }

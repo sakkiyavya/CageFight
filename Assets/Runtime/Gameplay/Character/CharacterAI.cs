@@ -93,11 +93,11 @@ public class CharacterAI : MonoBehaviour
         }
 
 
-        #region 临时测试声音
-        AudioPlayer ap = GetComponent<AudioPlayer>();
-        if(ap)
-            ap.PlayEffect();
-        #endregion
+        // #region 临时测试声音
+        // AudioPlayer ap = GetComponent<AudioPlayer>();
+        // if(ap)
+        //     ap.PlayEffect(Random.Range(0, 2));
+        // #endregion
     }
 
 }
