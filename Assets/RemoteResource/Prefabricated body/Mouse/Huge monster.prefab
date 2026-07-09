@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 3100530166507557303}
   - component: {fileID: -2994262382919003637}
   - component: {fileID: -5389130983668258678}
+  - component: {fileID: -4279122019263322637}
   m_Layer: 0
   m_Name: Huge monster
   m_TagString: Untagged
@@ -230,7 +231,9 @@ MonoBehaviour:
   path: []
   isFacingLeft: 0
   isAttack: 0
+  isRepel: 0
   repelDistance: 0
+  audioClips: []
   atkRangeMin: {x: 5, y: 0}
   atkRangeMax: {x: 7, y: 1}
   occupySpace: {x: 1, y: 1}
@@ -413,7 +416,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioKey: 
+  audioKey1: Huge monster1
+  audioKey2: 
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
+--- !u!114 &-4279122019263322637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7374091422099466681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50b7439775efd343b6985bec3fbc186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &682348167916834891
 PrefabInstance:
   m_ObjectHideFlags: 0

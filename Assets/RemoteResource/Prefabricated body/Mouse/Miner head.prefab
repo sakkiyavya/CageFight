@@ -52,6 +52,7 @@ GameObject:
   - component: {fileID: -5746255667372424857}
   - component: {fileID: -2729810932952656593}
   - component: {fileID: 1474174724283610574}
+  - component: {fileID: -688020551494164088}
   m_Layer: 0
   m_Name: Miner head
   m_TagString: Untagged
@@ -413,9 +414,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioKey1: 
-  audioKey2: 
-  audioKey3: 
+  audioKey1: Miner head1
+  audioKey2: Miner head2
+  audioKey3: Miner head
   audioKey4: 
   audioKey5: 
   audioKey6: 
@@ -434,6 +435,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteKey: Miner head_8
+--- !u!114 &-688020551494164088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3511997814397319732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50b7439775efd343b6985bec3fbc186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1865462753356844588
 PrefabInstance:
   m_ObjectHideFlags: 0

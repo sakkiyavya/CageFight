@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 7473004102124285358}
   - component: {fileID: 5356360107904790274}
   - component: {fileID: -3579844680366096395}
+  - component: {fileID: 7100727611136529300}
   m_Layer: 0
   m_Name: Scavenger
   m_TagString: Untagged
@@ -197,7 +198,9 @@ MonoBehaviour:
   path: []
   isFacingLeft: 0
   isAttack: 0
+  isRepel: 0
   repelDistance: 0
+  audioClips: []
   atkRangeMin: {x: 11, y: 1}
   atkRangeMax: {x: 20, y: 4}
   occupySpace: {x: 1, y: 1}
@@ -367,7 +370,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioKey: 
+  audioKey1: Scavenger1
+  audioKey2: 
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
 --- !u!114 &-3579844680366096395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,6 +391,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteKey: Scavenger_0
+--- !u!114 &7100727611136529300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2591021704081421468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50b7439775efd343b6985bec3fbc186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3723591682544987608
 GameObject:
   m_ObjectHideFlags: 0
