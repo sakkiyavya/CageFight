@@ -94,10 +94,8 @@ public class ResourceManager : MonoBehaviour
     void Start()
     {
         #if UNITY_EDITOR
-        if(StageLoader.Instance)
+        if(StageLoader.Instance && editorLevelConfig)
             StageLoader.Instance.StartLoad(editorLevelConfig);
-        else
-            Debug.LogError("[ResourceManager] ResourceManager.Start 错误: LevelLoader 为 null！");
         #endif
     }
 
