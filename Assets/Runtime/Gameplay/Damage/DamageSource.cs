@@ -9,16 +9,20 @@ public class DamageSource : MonoBehaviour
     public GameObject target;
     public float sustainTime = 0.2f;
     public int collideTimes = 5;
+    public bool hasSubProjectile = false;
     float _remainTime = 0f;
     int _remainCollideTime = 0;
-    void Start()
+    protected virtual void Start()
     {
         if(damage.source == null)
             damage.source = gameObject;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
+        if(hasSubProjectile)
+            return;
+            
         ICollide c = collision.GetComponent<ICollide>();
         if(c == null)
             return;
@@ -41,12 +45,12 @@ public class DamageSource : MonoBehaviour
         _remainCollideTime = collideTimes;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         TimeUpdate();
     }
 
-    void TimeUpdate()
+    protected virtual void TimeUpdate()
     {
         _remainTime -= Time.deltaTime;
         if(_remainTime <= 0)
@@ -55,7 +59,7 @@ public class DamageSource : MonoBehaviour
         }
     }
 
-    void OnEnable()
+    protected virtual void OnEnable()
     {
         Init();
     }
