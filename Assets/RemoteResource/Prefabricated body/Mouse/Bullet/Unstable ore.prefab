@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2469229245269743147}
   - component: {fileID: 1607596832600736073}
   - component: {fileID: 4919932055602640078}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Unstable ore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +197,11 @@ MonoBehaviour:
     side: 0
     initialDamage: 10
     finalDamage: 0
+    collideDir: 1
+    repel: 0
     type: 0
     source: {fileID: 0}
     target: {fileID: 0}
+  target: {fileID: 0}
   sustainTime: 0.2
+  collideTimes: 5
