@@ -18,11 +18,27 @@ public class LevelButtonLayout : MonoBehaviour
     private int _currentPage;
     private readonly List<GameObject> _buttons = new List<GameObject>();
 
+#if UNITY_EDITOR
+    private Vector2Int _cachedPageSize;
+    private Vector2    _cachedSpacing;
+
+    private void Update()
+    {
+        if (pageSize != _cachedPageSize || spacing != _cachedSpacing)
+        {
+            _cachedPageSize = pageSize;
+            _cachedSpacing  = spacing;
+            LayoutButtons();
+        }
+    }
+#endif
+
     private int PageCapacity => pageSize.x * pageSize.y;
     private int TotalPages   => Mathf.Max(1, Mathf.CeilToInt((float)configs.Count / PageCapacity));
 
     public void LayoutButtons()
     {
+        Debug.Log("关卡按钮重新布局");
         // 清理旧按钮
         foreach (var btn in _buttons) Destroy(btn);
         _buttons.Clear();
@@ -38,7 +54,9 @@ public class LevelButtonLayout : MonoBehaviour
 
             var go  = Instantiate(buttonPrefab, transform);
             var rt  = go.GetComponent<RectTransform>();
-            rt.anchoredPosition = new Vector2(col * spacing.x, -row * spacing.y);
+            float centerOffsetX = (pageSize.x - 1) * spacing.x * 0.5f;
+            float localX = col * spacing.x - centerOffsetX;
+            rt.anchoredPosition = new Vector2(localX, -row * spacing.y);
 
             go.GetComponent<LevelButton>().Init(configs[i]);
             go.SetActive(true);
