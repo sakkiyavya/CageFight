@@ -90,6 +90,34 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 403774059082912154, guid: fbd74515f1d8bf34680b185c3cf50bde, type: 3}
+  - key: Mechanical reinforcement ore
+    prefabReference:
+      m_AssetGUID: 134b60b9549223d4cb96cce59e4b8eee
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 897672784182510725, guid: 134b60b9549223d4cb96cce59e4b8eee, type: 3}
+  - key: Unstable ore
+    prefabReference:
+      m_AssetGUID: 51e0d525f04095e448e77d41a0adede7
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 6085967849312817081, guid: 51e0d525f04095e448e77d41a0adede7, type: 3}
+  - key: Derivative-Miner rat
+    prefabReference:
+      m_AssetGUID: ebcfd675968c9394fb76f21fb986e609
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 5223682783677796760, guid: ebcfd675968c9394fb76f21fb986e609, type: 3}
+  - key: Bullet-Transparent
+    prefabReference:
+      m_AssetGUID: cc47e6ac2535155459fc64aa0dd4abd3
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 403774059082912154, guid: cc47e6ac2535155459fc64aa0dd4abd3, type: 3}
   - key: Skunk
     prefabReference:
       m_AssetGUID: 0cd7d657c9af42f488e760d1edc2929c
@@ -209,13 +237,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 5326090067705445012, guid: 13c0bed7ab32ea84caaeae79cd8942a9, type: 3}
-  - key: Alien Cat
-    prefabReference:
-      m_AssetGUID: 26fa03bedebe83d4595718a804e1e1a5
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 4055718387445174935, guid: 26fa03bedebe83d4595718a804e1e1a5, type: 3}
   - key: Thunderstorm cat
     prefabReference:
       m_AssetGUID: 2745f11a3a097af4fb074112b49e5558
@@ -244,13 +265,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 7297016226651582241, guid: 699319f54a40e3d42b37f2f2c8c90c26, type: 3}
-  - key: Banana cat
-    prefabReference:
-      m_AssetGUID: 7a512656d48b8ae48a80bcabfc93dc99
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 8868011222252299079, guid: 7a512656d48b8ae48a80bcabfc93dc99, type: 3}
   - key: Cat apprentice
     prefabReference:
       m_AssetGUID: 91260029bb7dade4091a2e212b18c426
@@ -258,20 +272,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 2558788921708283762, guid: 91260029bb7dade4091a2e212b18c426, type: 3}
-  - key: Alien Kitten
-    prefabReference:
-      m_AssetGUID: 95a5936214473174ca54179de9598ee5
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 8785997141668166373, guid: 95a5936214473174ca54179de9598ee5, type: 3}
-  - key: Happy Cat
-    prefabReference:
-      m_AssetGUID: 989c9b982e56db745825888a7fcc511f
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 5311703752802057571, guid: 989c9b982e56db745825888a7fcc511f, type: 3}
   - key: General Cat
     prefabReference:
       m_AssetGUID: ad4887ea915ef464395520d5723d4e7f
@@ -370,27 +370,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 1460251372945402035, guid: f1dfe0092e4f02740afc8f1414718f40, type: 3}
-  - key: Mechanical reinforcement ore
-    prefabReference:
-      m_AssetGUID: 134b60b9549223d4cb96cce59e4b8eee
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 897672784182510725, guid: 134b60b9549223d4cb96cce59e4b8eee, type: 3}
-  - key: Unstable ore
-    prefabReference:
-      m_AssetGUID: 51e0d525f04095e448e77d41a0adede7
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 6085967849312817081, guid: 51e0d525f04095e448e77d41a0adede7, type: 3}
-  - key: Bullet-Transparent
-    prefabReference:
-      m_AssetGUID: cc47e6ac2535155459fc64aa0dd4abd3
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 403774059082912154, guid: cc47e6ac2535155459fc64aa0dd4abd3, type: 3}
   - key: Derivative-Two fool
     prefabReference:
       m_AssetGUID: ebc2188ddc3759044874305d54000233
@@ -398,10 +377,3 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 7636805322303876655, guid: ebc2188ddc3759044874305d54000233, type: 3}
-  - key: Derivative-Miner rat
-    prefabReference:
-      m_AssetGUID: ebcfd675968c9394fb76f21fb986e609
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 5223682783677796760, guid: ebcfd675968c9394fb76f21fb986e609, type: 3}

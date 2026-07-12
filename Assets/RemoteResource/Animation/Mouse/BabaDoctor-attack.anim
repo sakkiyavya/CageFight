@@ -116,21 +116,28 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: TestSound1
+    functionName: PlayEffect
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0
-  - time: 1
-    functionName: TestSound2
+  - time: 0.96666664
+    functionName: PlayEffect
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 2
     messageOptions: 0
-  - time: 1.9166666
-    functionName: TestSound3
+  - time: 2.0666666
+    functionName: PlayEffect
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 3
+    messageOptions: 0
+  - time: 2.1666667
+    functionName: ShootProjectile
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
