@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4624589128400160802}
   - component: {fileID: 1487616003840614098}
+  - component: {fileID: -482174367759890824}
   m_Layer: 0
   m_Name: SubProjectile
   m_TagString: Untagged
@@ -44,4 +45,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30ddbe3f30879b42a6d37dcd917e006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subProjectilePrefab: 
+  subProjectilePrefab: Bullet-Arrow
+--- !u!114 &-482174367759890824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9120217356891167634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b35876dcd906f84da90aa0bb3aa423f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage:
+    side: 0
+    initialDamage: 10
+    finalDamage: 0
+    collideDir: 1
+    repel: 0
+    type: 0
+    source: {fileID: 0}
+    target: {fileID: 0}
+  target: {fileID: 0}
+  sustainTime: 0.2
+  collideTimes: 5
+  hasSubProjectile: 1
