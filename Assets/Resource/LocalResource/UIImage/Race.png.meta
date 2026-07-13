@@ -101,9 +101,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 805.3334
-        width: 400
-        height: 402.66666
+        y: 469
+        width: 271
+        height: 293
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,8 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18592c448449fad48b11a731278644e1
-      internalID: -1007028329
+      spriteID: 3fd39c22636b791468d12d2864b2a9c5
+      internalID: 567626921
       vertices: []
       indices: 
       edges: []
@@ -121,10 +121,10 @@ TextureImporter:
       name: Race_1
       rect:
         serializedVersion: 2
-        x: 400
-        y: 805.3334
-        width: 400
-        height: 402.66666
+        x: 288
+        y: 466
+        width: 268
+        height: 293
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 234d4dabcdeee284da8fedc4dc0158e7
-      internalID: 51931162
+      spriteID: bc5ce6c924b1e7843af773665e2e6968
+      internalID: 1825419879
       vertices: []
       indices: 
       edges: []
@@ -142,10 +142,10 @@ TextureImporter:
       name: Race_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 403.33334
-        width: 400
-        height: 402.66666
+        x: 574
+        y: 467
+        width: 266
+        height: 285
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d0120a6ca2dbbc458d68293e289b9b6
-      internalID: 1614474183
+      spriteID: e159c71b3ad08bc44a14eb0dc9326f42
+      internalID: -248322019
       vertices: []
       indices: 
       edges: []
@@ -163,10 +163,10 @@ TextureImporter:
       name: Race_3
       rect:
         serializedVersion: 2
-        x: 400
-        y: 403.33334
-        width: 400
-        height: 402.66666
+        x: 851
+        y: 463
+        width: 273
+        height: 293
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,8 +174,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4af609b7d3d34ab43aad97a2d235e5bd
-      internalID: -156292653
+      spriteID: e9904ddc6dbaef24ea3709dde1f1a546
+      internalID: -1206865096
       vertices: []
       indices: 
       edges: []
@@ -184,10 +184,10 @@ TextureImporter:
       name: Race_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1.3333435
-        width: 400
-        height: 402.66666
+        x: 123
+        y: 120
+        width: 274
+        height: 292
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,8 +195,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c473d6cdffb47c42856fc009e879654
-      internalID: -786013537
+      spriteID: 66dbd4c129549c64fa9a000a9758a38f
+      internalID: 572370750
       vertices: []
       indices: 
       edges: []
@@ -205,10 +205,31 @@ TextureImporter:
       name: Race_5
       rect:
         serializedVersion: 2
-        x: 400
-        y: 1.3333435
-        width: 400
-        height: 402.66666
+        x: 438
+        y: 54
+        width: 269
+        height: 354
+      alignment: 9
+      pivot: {x: 0.49468926, y: 0.4394674}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9452f7ebb84cd0e4fa6fddb3404a02b4
+      internalID: 1973269489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Race_6
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 114
+        width: 258
+        height: 294
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,8 +237,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 59c89e16e9cff09428974cf933ca5553
-      internalID: -481143298
+      spriteID: 30639c36c22db7640b5263f605b498c7
+      internalID: -1176588061
       vertices: []
       indices: 
       edges: []
@@ -233,12 +254,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Race_0: -1007028329
-      Race_1: 51931162
-      Race_2: 1614474183
-      Race_3: -156292653
-      Race_4: -786013537
-      Race_5: -481143298
+      Race_0: 567626921
+      Race_1: 1825419879
+      Race_2: -248322019
+      Race_3: -1206865096
+      Race_4: 572370750
+      Race_5: 1973269489
+      Race_6: -1176588061
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

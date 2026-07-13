@@ -12,6 +12,10 @@ GameObject:
   - component: {fileID: 5242327144725338202}
   - component: {fileID: 6348386649722691560}
   - component: {fileID: 5963255298124029129}
+  - component: {fileID: -5353695066962552965}
+  - component: {fileID: 3778636200801009444}
+  - component: {fileID: -7277101641588454679}
+  - component: {fileID: 6223836606815153620}
   m_Layer: 0
   m_Name: Build Animation
   m_TagString: Untagged
@@ -75,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 445006061, guid: 251311155e17dee42aa28df4cffdf245, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,7 +87,7 @@ SpriteRenderer:
   m_Size: {x: 2.4, y: 1.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &6348386649722691560
@@ -96,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 5926670886179881280}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6c819677d168b8f4382e45bb859864ea, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -117,7 +121,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 668b6ae39f903aa4b8eb1af0b930fd2f, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.524
   m_Pitch: 1
@@ -203,3 +207,61 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-5353695066962552965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926670886179881280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50b7439775efd343b6985bec3fbc186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3778636200801009444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926670886179881280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b93689d485955d4c869baf947ad02b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorControllerKey: Build Animation AC
+--- !u!114 &-7277101641588454679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926670886179881280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioKey1: Build
+  audioKey2: 
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
+--- !u!114 &6223836606815153620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926670886179881280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d455e6caa99ec4195d997c095070de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteKey: Build Animation_6

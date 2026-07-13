@@ -13,6 +13,13 @@ MonoBehaviour:
   m_Name: PrefabRegistry
   m_EditorClassIdentifier: 
   mappings:
+  - key: Mechanical reinforcement ore
+    prefabReference:
+      m_AssetGUID: 134b60b9549223d4cb96cce59e4b8eee
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 897672784182510725, guid: 134b60b9549223d4cb96cce59e4b8eee, type: 3}
   - key: Bullet-Arrow
     prefabReference:
       m_AssetGUID: 25536b5c2ec7d884ea89c64eecb389ad
@@ -27,6 +34,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 403774059082912154, guid: 4ea9d8c70c8303546920f88a86a2a116, type: 3}
+  - key: Unstable ore
+    prefabReference:
+      m_AssetGUID: 51e0d525f04095e448e77d41a0adede7
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 6085967849312817081, guid: 51e0d525f04095e448e77d41a0adede7, type: 3}
   - key: Bullet-Harm eyebrow
     prefabReference:
       m_AssetGUID: 6c278891725f0b24bb565e9474f8add4
@@ -62,6 +76,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 5163532789582871555, guid: ca1f8462bff752d45bff40ba0d6ab3f9, type: 3}
+  - key: Bullet-Transparent
+    prefabReference:
+      m_AssetGUID: cc47e6ac2535155459fc64aa0dd4abd3
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 403774059082912154, guid: cc47e6ac2535155459fc64aa0dd4abd3, type: 3}
   - key: Bullet-Damb ass
     prefabReference:
       m_AssetGUID: d4ba92d8a2e06be4498f2e9b9952dfaa
@@ -69,6 +90,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 403774059082912154, guid: d4ba92d8a2e06be4498f2e9b9952dfaa, type: 3}
+  - key: Derivative-Miner rat
+    prefabReference:
+      m_AssetGUID: ebcfd675968c9394fb76f21fb986e609
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 5223682783677796760, guid: ebcfd675968c9394fb76f21fb986e609, type: 3}
   - key: Bullet-Huge monster
     prefabReference:
       m_AssetGUID: ef07cf065c63d864abe4f9c92813b08f
@@ -90,34 +118,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 403774059082912154, guid: fbd74515f1d8bf34680b185c3cf50bde, type: 3}
-  - key: Mechanical reinforcement ore
-    prefabReference:
-      m_AssetGUID: 134b60b9549223d4cb96cce59e4b8eee
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 897672784182510725, guid: 134b60b9549223d4cb96cce59e4b8eee, type: 3}
-  - key: Unstable ore
-    prefabReference:
-      m_AssetGUID: 51e0d525f04095e448e77d41a0adede7
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 6085967849312817081, guid: 51e0d525f04095e448e77d41a0adede7, type: 3}
-  - key: Derivative-Miner rat
-    prefabReference:
-      m_AssetGUID: ebcfd675968c9394fb76f21fb986e609
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 5223682783677796760, guid: ebcfd675968c9394fb76f21fb986e609, type: 3}
-  - key: Bullet-Transparent
-    prefabReference:
-      m_AssetGUID: cc47e6ac2535155459fc64aa0dd4abd3
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 403774059082912154, guid: cc47e6ac2535155459fc64aa0dd4abd3, type: 3}
   - key: Skunk
     prefabReference:
       m_AssetGUID: 0cd7d657c9af42f488e760d1edc2929c
@@ -153,6 +153,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 6016457220928666952, guid: 25fed55ed2d4a604b96d35975e1aaa81, type: 3}
+  - key: Miaosuan
+    prefabReference:
+      m_AssetGUID: 2cfeed87b559e154a86bc950b758abbb
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 2483622934239467955, guid: 2cfeed87b559e154a86bc950b758abbb, type: 3}
   - key: BOOM bro
     prefabReference:
       m_AssetGUID: 2e9de8b1868bf324c9038a78ad8db0ad
@@ -181,6 +188,20 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 57720819243006128, guid: 81bdf19e5b1b9164ba11a6ffd3d50a94, type: 3}
+  - key: Loser cannon
+    prefabReference:
+      m_AssetGUID: 960960b670f10c44eabde4d075d07908
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 4176116877968137028, guid: 960960b670f10c44eabde4d075d07908, type: 3}
+  - key: Invincible
+    prefabReference:
+      m_AssetGUID: 9a6dac29750016049acfc71314c3b8c1
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 8447043211205525605, guid: 9a6dac29750016049acfc71314c3b8c1, type: 3}
   - key: Scavenger
     prefabReference:
       m_AssetGUID: 9fa379f4013be0744827776a979b1953
@@ -188,6 +209,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 2591021704081421468, guid: 9fa379f4013be0744827776a979b1953, type: 3}
+  - key: Shenji
+    prefabReference:
+      m_AssetGUID: a545b8373557c8842b911fc3d0221ada
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 7266906212118702642, guid: a545b8373557c8842b911fc3d0221ada, type: 3}
   - key: jierui
     prefabReference:
       m_AssetGUID: ad9ff266bdcc3be438877815831cca36
@@ -202,6 +230,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 3511997814397319732, guid: b9b25a2ab6f688f4ab1a10cbf83e167d, type: 3}
+  - key: Board friend
+    prefabReference:
+      m_AssetGUID: ba86cbd8608ca544f8814d9a3ec40294
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 1017785240681223894, guid: ba86cbd8608ca544f8814d9a3ec40294, type: 3}
   - key: Damb ass
     prefabReference:
       m_AssetGUID: c422b498c00e6bb4da9897579762c068
@@ -216,6 +251,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 3062758516945766433, guid: d66d72b76dfd553449292bbc2694209e, type: 3}
+  - key: Dice hand
+    prefabReference:
+      m_AssetGUID: e0e4c43c925fe454291f6c8e7654ecca
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 7767575016205141002, guid: e0e4c43c925fe454291f6c8e7654ecca, type: 3}
   - key: Huge monster
     prefabReference:
       m_AssetGUID: e8e3ce429376a5d4ab44cf047497eb40
@@ -230,6 +272,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 4910795234881758600, guid: ed092a6df613cd64692fef2d8e4ff85a, type: 3}
+  - key: Three hand
+    prefabReference:
+      m_AssetGUID: ff5cbd22eb42f5245b20b70f98e254f3
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 8850474179155679477, guid: ff5cbd22eb42f5245b20b70f98e254f3, type: 3}
   - key: Flame cat
     prefabReference:
       m_AssetGUID: 13c0bed7ab32ea84caaeae79cd8942a9
