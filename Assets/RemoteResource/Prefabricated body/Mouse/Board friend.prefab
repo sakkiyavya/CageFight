@@ -18,6 +18,9 @@ GameObject:
   - component: {fileID: 7253516033230444233}
   - component: {fileID: 4245107400627940103}
   - component: {fileID: 6781300649142954838}
+  - component: {fileID: 4498349384821552682}
+  - component: {fileID: 3636240291873964020}
+  - component: {fileID: 8602624406935638641}
   m_Layer: 0
   m_Name: Board friend
   m_TagString: Untagged
@@ -83,10 +86,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 495858691
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -253338709, guid: b1c26308e164a70429ebe3fd12940e03, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,7 +97,7 @@ SpriteRenderer:
   m_Size: {x: 5.06, y: 4.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &6539448450555070459
@@ -107,7 +110,7 @@ Animator:
   m_GameObject: {fileID: 1017785240681223894}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 591b285bf6f36144480c69b4d536f215, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -250,7 +253,7 @@ MonoBehaviour:
   repel: 1
   antiRepel: 1
   atkRange: {x: 1, y: 1}
-  atkObj: 
+  atkObj: Bullet-Board friend
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
@@ -354,6 +357,52 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1713867, y: 2.0775852}
   m_EdgeRadius: 0
+--- !u!114 &4498349384821552682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017785240681223894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioKey1: Board friend1
+  audioKey2: Board friend2
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
+--- !u!114 &3636240291873964020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017785240681223894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b93689d485955d4c869baf947ad02b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorControllerKey: Board friend AC
+--- !u!114 &8602624406935638641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017785240681223894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d455e6caa99ec4195d997c095070de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteKey: Board friend AP_0
 --- !u!1 &8496837284978724337
 GameObject:
   m_ObjectHideFlags: 0

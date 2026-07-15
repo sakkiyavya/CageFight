@@ -18,6 +18,9 @@ GameObject:
   - component: {fileID: 2338193992802216716}
   - component: {fileID: 4662894350427737930}
   - component: {fileID: 5860966544155751145}
+  - component: {fileID: 1871356486543969832}
+  - component: {fileID: -7069225265891351901}
+  - component: {fileID: 3069262822167798110}
   m_Layer: 0
   m_Name: Shenji
   m_TagString: Untagged
@@ -83,10 +86,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 495858691
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -171397681, guid: ccc4ad0e54085504da04c2a22e8459cb, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,7 +97,7 @@ SpriteRenderer:
   m_Size: {x: 5.152, y: 5.06}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &552405439127684740
@@ -107,7 +110,7 @@ Animator:
   m_GameObject: {fileID: 7266906212118702642}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a75df4b2129092f468a9d7e00de793e3, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -241,19 +244,19 @@ MonoBehaviour:
   objectType: 0
   side: 0
   maxHp: 100
-  defense: 10
-  magicDefense: 5
+  defense: 0
+  magicDefense: 0
   isRemoteAtk: 0
   atk: 10
   atkRate: 1
   magicAtk: 5
   repel: 1
   antiRepel: 1
-  atkRange: {x: 1, y: 1}
-  atkObj: 
+  atkRange: {x: 3, y: 2}
+  atkObj: Bullet-shenji
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 3
+  moveSpeed: 2.5
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -277,8 +280,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c522b3620648e4898c371f869d6b30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Behaviours: []
-  shootPoint: {fileID: 0}
+  Behaviours:
+  - {fileID: 7718539138141434247}
+  - {fileID: 6672941458317364894}
+  - {fileID: 7541468687426747498}
+  - {fileID: 1048825546913689471}
+  shootPoint: {fileID: 989790338605183060}
 --- !u!114 &2338193992802216716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +357,52 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1806297, y: 2.0759907}
   m_EdgeRadius: 0
+--- !u!114 &1871356486543969832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7266906212118702642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioKey1: shenji1
+  audioKey2: 
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
+--- !u!114 &-7069225265891351901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7266906212118702642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b93689d485955d4c869baf947ad02b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorControllerKey: Shenji AC
+--- !u!114 &3069262822167798110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7266906212118702642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d455e6caa99ec4195d997c095070de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteKey: Shenji AP_14
 --- !u!1 &8299024849191135013
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,6 +496,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1266970144911561522, guid: befdb84e27fced9488bc5fdf6a2acbd2, type: 3}
   m_PrefabInstance: {fileID: 966780401651805024}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7718539138141434247 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7383497471313140455, guid: befdb84e27fced9488bc5fdf6a2acbd2, type: 3}
+  m_PrefabInstance: {fileID: 966780401651805024}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c74285b1e1d324f8ba1ecd924b703f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5173761162482673038
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -500,6 +564,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1dfe0092e4f02740afc8f1414718f40, type: 3}
+--- !u!114 &1048825546913689471 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5279002829847579377, guid: f1dfe0092e4f02740afc8f1414718f40, type: 3}
+  m_PrefabInstance: {fileID: 5173761162482673038}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b34fa91481be63489f312f69235d1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6324785080730477262 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1155950490628687680, guid: f1dfe0092e4f02740afc8f1414718f40, type: 3}
@@ -562,6 +637,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6339cd6af44f614682661b30ac09366, type: 3}
+--- !u!114 &6672941458317364894 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 180755753428425689, guid: c6339cd6af44f614682661b30ac09366, type: 3}
+  m_PrefabInstance: {fileID: 6780486450926212423}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053655311d3387b478055ac653158d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6977970094902754275 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4526005836907310756, guid: c6339cd6af44f614682661b30ac09366, type: 3}
@@ -624,6 +710,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05d8b304555cd294abe3379eb112d58e, type: 3}
+--- !u!114 &7541468687426747498 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1718547945391636383, guid: 05d8b304555cd294abe3379eb112d58e, type: 3}
+  m_PrefabInstance: {fileID: 9183173414201246709}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7304d5254282ca44c92652f1070295cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7786303794855778203 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1405032498280354926, guid: 05d8b304555cd294abe3379eb112d58e, type: 3}

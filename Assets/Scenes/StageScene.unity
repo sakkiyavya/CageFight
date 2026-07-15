@@ -10913,7 +10913,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1906560043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11399,7 +11399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e41a4d333774a48afef0663eee3267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelConfig: {fileID: 0}
+  levelConfig: {fileID: 11400000, guid: 90b90d2131b823c4dae87832ec775a7d, type: 2}
 --- !u!114 &2015370150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11412,7 +11412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2971216ef8c7247498de1d139dce3e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editorLevelConfig: {fileID: 11400000, guid: 90b90d2131b823c4dae87832ec775a7d, type: 2}
+  editorLevelConfig: {fileID: 0}
   prefabRegistry: {fileID: 0}
   textureRegistry: {fileID: 0}
   audioRegistry: {fileID: 0}

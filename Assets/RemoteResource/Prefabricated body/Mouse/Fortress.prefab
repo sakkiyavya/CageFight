@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1421487697307447002}
   - component: {fileID: 8301878665289031763}
+  - component: {fileID: 2822819712198241008}
   - component: {fileID: 7968794435854193831}
   - component: {fileID: 7481351797212974467}
   - component: {fileID: 40535219298925000}
@@ -17,7 +18,9 @@ GameObject:
   - component: {fileID: 8366025035725462019}
   - component: {fileID: 2270531347643097453}
   - component: {fileID: 4585470327745718722}
-  - component: {fileID: 2822819712198241008}
+  - component: {fileID: 7517079889928892558}
+  - component: {fileID: 8164663624667017873}
+  - component: {fileID: 7276804660276578775}
   m_Layer: 0
   m_Name: Fortress
   m_TagString: Untagged
@@ -83,10 +86,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 495858691
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 460813192, guid: 06cf4c1c12e727a46b948886198b97dd, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,9 +97,30 @@ SpriteRenderer:
   m_Size: {x: 3.92, y: 3.95}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2822819712198241008
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4308048129856704459}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &7968794435854193831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +145,7 @@ MonoBehaviour:
   repel: 1
   antiRepel: 1
   atkRange: {x: 1, y: 1}
-  atkObj: 
+  atkObj: Bullet-Loser cannon
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
@@ -309,27 +333,52 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.282814, y: 3.1767344, z: 0.2}
   m_Center: {x: 0, y: 1.5225346, z: 0}
---- !u!95 &2822819712198241008
-Animator:
-  serializedVersion: 5
+--- !u!114 &7517079889928892558
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4308048129856704459}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 83a0730bd79da034bb64b7b930cfdc60, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d455e6caa99ec4195d997c095070de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteKey: Fortress AP_0
+--- !u!114 &8164663624667017873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4308048129856704459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioKey1: Fortress1
+  audioKey2: Fortress2
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
+--- !u!114 &7276804660276578775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4308048129856704459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b93689d485955d4c869baf947ad02b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorControllerKey: Fortress AC
 --- !u!1 &5433203752273418549
 GameObject:
   m_ObjectHideFlags: 0

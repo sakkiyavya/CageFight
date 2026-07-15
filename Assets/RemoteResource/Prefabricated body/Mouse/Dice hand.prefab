@@ -49,6 +49,9 @@ GameObject:
   - component: {fileID: 7910508441649666915}
   - component: {fileID: 999283443258009171}
   - component: {fileID: 1903510919349529589}
+  - component: {fileID: 4278114769555057225}
+  - component: {fileID: 373077684216124839}
+  - component: {fileID: 1518987855310904225}
   m_Layer: 0
   m_Name: Dice hand
   m_TagString: Untagged
@@ -114,10 +117,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 495858691
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1704878418, guid: 16339fd1a72e3b9479745bdb9485212f, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -125,7 +128,7 @@ SpriteRenderer:
   m_Size: {x: 4.7066665, y: 3.471111}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &2935176763625830371
@@ -138,7 +141,7 @@ Animator:
   m_GameObject: {fileID: 7767575016205141002}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c61acc2029e9f524aa6594fad288306a, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -281,7 +284,7 @@ MonoBehaviour:
   repel: 1
   antiRepel: 1
   atkRange: {x: 1, y: 1}
-  atkObj: 
+  atkObj: Bullet-Dice hand
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
@@ -385,6 +388,52 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4140778, y: 2.0292006}
   m_EdgeRadius: 0
+--- !u!114 &4278114769555057225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7767575016205141002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioKey1: Dice hand1
+  audioKey2: 
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
+--- !u!114 &373077684216124839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7767575016205141002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b93689d485955d4c869baf947ad02b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorControllerKey: Dice hand AC
+--- !u!114 &1518987855310904225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7767575016205141002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d455e6caa99ec4195d997c095070de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteKey: Dice hand AP_3
 --- !u!1001 &327007030917231322
 PrefabInstance:
   m_ObjectHideFlags: 0
