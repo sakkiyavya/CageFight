@@ -147,11 +147,13 @@ MonoBehaviour:
   path: []
   isFacingLeft: 0
   isAttack: 0
+  isRepel: 0
   repelDistance: 0
+  audioClips: []
   atkRangeMin: {x: 0, y: 0}
   atkRangeMax: {x: 0, y: 0}
   occupySpace: {x: 2, y: 1}
-  buildAnime: 
+  buildAnime: Build Animation
 --- !u!1001 &6408588632135414235
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -100,4 +100,6 @@ public class CharacterAI : MonoBehaviour
         // #endregion
     }
 
+    public void StopShoot() => _prop.isAttack = false;
+    
 }

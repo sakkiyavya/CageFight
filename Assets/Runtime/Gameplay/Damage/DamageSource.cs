@@ -23,6 +23,9 @@ public class DamageSource : MonoBehaviour
         if(hasSubProjectile)
             return;
             
+        if(_remainCollideTime <= 0)
+            return;
+
         ICollide c = collision.GetComponent<ICollide>();
         if(c == null)
             return;
