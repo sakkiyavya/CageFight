@@ -7,6 +7,11 @@ using UnityEngine;
 /// </summary>
 public class GameObjectProperty : MonoBehaviour, ILevelComponent
 {
+    #region 代理事件
+    public Action OnAtt;        //攻击时事件，在BuildAI/CharacterAI.ShootProjectile中调用，注意避免循环调用
+    public Action OnHitted;     //被击时事件，在BuildHealth/CharacterHealth.OnCollide中调用
+    public Action OnMove;       //移动时触发，在Move.AIBehaviour中调用
+    #endregion
     [Header("对象种类")]
     public GameObjectType objectType;
     public int side = 0;
@@ -31,7 +36,7 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
     public float barSustainTime = 2f;
     public float buildTime = 3f;
     public float moveSpeed = 3f;
-
+    public float suckBlood = 0f;
     [Header("实时信息")]
     public GameObject target;
     public List<Vector2Int> path = new List<Vector2Int>();
@@ -44,6 +49,8 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
     // 攻击范围的世界坐标（左下角和右上角），由 CharacterBase 每帧更新
     public Vector2Int atkRangeMin;
     public Vector2Int atkRangeMax;
+    public List<BuffBase> currentBuff = new List<BuffBase>();
+    public List<BuffBase> currentDebuff = new List<BuffBase>();
 
     // AI 增量搜索会话
     public AStarUtility.PathSearchSession currentPathSession;

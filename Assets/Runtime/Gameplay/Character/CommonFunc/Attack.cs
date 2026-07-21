@@ -14,16 +14,17 @@ public class Attack : BehaviourBase
 
     public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
+        if(prop.isAttack)
+            return true;
+
         if (prop.target == null)
         {
-            prop.isAttack = false;
             return false;
         }
 
         GameObjectProperty targetProp = prop.target.GetComponent<GameObjectProperty>();
         if (targetProp == null)
         {
-            prop.isAttack = false;
             return false;
         }
 
@@ -52,7 +53,6 @@ public class Attack : BehaviourBase
             return true;
         }
 
-        prop.isAttack = false;
         return false;
     }
 

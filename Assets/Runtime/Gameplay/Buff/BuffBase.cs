@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class BuffBase : MonoBehaviour
 {
+    public float buffApplyTime = 0;
+    public abstract float buffSustainTime{get;}
+    public abstract bool isDeBuff{get;}
     /// <summary>
     /// 上buff的函数
     /// </summary>

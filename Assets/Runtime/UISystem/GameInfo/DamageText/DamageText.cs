@@ -23,22 +23,14 @@ public class DamageText : MonoBehaviour
     /// <summary>
     /// 初始化并播放跳字动效。
     /// </summary>
-    public void Init(Damage damage, DamageTextPool pool)
+    public void Init(int value, Color color, DamageTextPool pool)
     {
         _pool = pool;
-        _tmpText.text = damage.initialDamage.ToString();
+        _tmpText.text = value.ToString();
 
-        // 极简样式区分：物理伤害为黄色，魔法伤害为紫色
-        if (damage.type == DamageType.magic)
-        {
-            _tmpText.color = new Color(0.68f, 0.35f, 1f); // 亮紫色
-            // _tmpText.fontSize = 36f;
-        }
-        else
-        {
-            _tmpText.color = new Color(1f, 0.82f, 0f); // 亮黄色
-            // _tmpText.fontSize = 36f;
-        }
+
+        _tmpText.color = color; // 亮紫色
+
 
         // 初始化动画状态
         _startPos = transform.position;
@@ -46,6 +38,7 @@ public class DamageText : MonoBehaviour
         _randomX = Random.Range(-0.5f, 0.5f);
         _isPlaying = true;
     }
+    
 
     private void Update()
     {

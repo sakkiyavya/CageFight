@@ -47,11 +47,6 @@ public class Move : BehaviourBase
             prop.isFacingLeft = false;
         }
 
-        // 应用视觉翻转
-        // if (_spr != null)
-        // {
-        //     _spr.flipX = prop.isFacingLeft;
-        // }
         if(_prop.isRepel)
             return true;
         if(_transform)
@@ -65,6 +60,7 @@ public class Move : BehaviourBase
             prop.path.RemoveAt(0);
         }
 
+        _prop.OnMove?.Invoke();
         return true;
     }
 }

@@ -1,10 +1,15 @@
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 public class CharacterHealth : MonoBehaviour, ICollide
 {
+    private int hp; public int HP => hp;
     // ILevelComponent removed; data handled by GameObjectProperty
+    public GameObject HpBarUp;
+    public GameObject HpBarBottom;
     private GameObjectProperty _prop;
+    private float hideTime = -1f;
     private void Awake()
     {
         _prop = GetComponent<GameObjectProperty>();
@@ -18,16 +23,23 @@ public class CharacterHealth : MonoBehaviour, ICollide
     }
     public Damage OnCollide(Damage damage)
     {   
-        // if(damage.source)
-        //     print(damage.source.name);
+        if(damage.buffs != null && damage.buffs.Count() > 0)
+            foreach(var buff in damage.buffs)
+            {
+                if(!buff.ApplyBuff(_prop))
+                    continue;
+                buff.buffApplyTime = Time.time;
+                if(buff.isDeBuff)
+                    _prop.currentDebuff.Add(buff);
+                else 
+                    _prop.currentBuff.Add(buff);
+            }
+
         
+        _prop.OnHitted?.Invoke();
         return TakeDamage(damage);
     }
     #endregion
-    public GameObject HpBarUp;
-    public GameObject HpBarBottom;
-    private int hp; public int HP => hp;
-    private float hideTime = -1f;
 
     private void Start()
     {
@@ -68,7 +80,14 @@ public class CharacterHealth : MonoBehaviour, ICollide
         return DamageComputor.DamageCompute(damage);
     }
 
-    public void Heal(int amount) { throw new System.NotImplementedException(); }
+    public void Heal(int value) 
+    { 
+        hp += value;
+        hp = Mathf.Min(hp, _prop.maxHp);
+        ShowBarTemporarily();
+
+        DamageTextPool.Instance.ShowHeal(value, transform.position + Vector3.up * 1.5f);
+    }
     public void RestoreFullHp() { throw new System.NotImplementedException(); }
     public void ReduceToZero() { throw new System.NotImplementedException(); }
     public void Die() { print(name + " Die!"); }

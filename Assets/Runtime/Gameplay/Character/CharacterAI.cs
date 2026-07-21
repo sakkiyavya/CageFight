@@ -92,12 +92,8 @@ public class CharacterAI : MonoBehaviour
             }
         }
 
+        _prop.OnAtt?.Invoke();
 
-        // #region 临时测试声音
-        // AudioPlayer ap = GetComponent<AudioPlayer>();
-        // if(ap)
-        //     ap.PlayEffect(Random.Range(0, 2));
-        // #endregion
     }
 
     public void StopShoot() => _prop.isAttack = false;

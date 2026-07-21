@@ -22,6 +22,8 @@ public struct Damage
 
     public GameObject source;
     public GameObject target;
+    public BuffBase[] buffs;
+
     
     public static Damage DefaultDamage => new Damage
     {
@@ -33,6 +35,7 @@ public struct Damage
         source = null,
         target = null,
         repel = 0,
+        buffs = null,
     };
 }
 

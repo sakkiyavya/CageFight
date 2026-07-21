@@ -9,6 +9,10 @@ public class DamageTextPool : MonoBehaviour
     [Header("对象池预制体")]
     [SerializeField] private GameObject damageTextPrefab;
     [SerializeField] private int initialSize = 50;
+    [SerializeField] Color damageColor = Color.red;
+    [SerializeField] Color healColor = Color.green;
+
+
 
     private readonly Queue<GameObject> _pool = new Queue<GameObject>();
 
@@ -45,19 +49,35 @@ public class DamageTextPool : MonoBehaviour
     /// <summary>
     /// 全局调用展示伤害数值。
     /// </summary>
-    public void ShowDamage(Damage damage, Vector3 position)
+    public void ShowDamage(Damage damage, Vector3 pos)
     {
         if (damageTextPrefab == null) return;
 
         GameObject obj = _pool.Count > 0 ? _pool.Dequeue() : Instantiate(damageTextPrefab, transform);
 
-        obj.transform.position = position;
+        obj.transform.position = pos;
         obj.SetActive(true);
 
         DamageText textComp = obj.GetComponent<DamageText>();
         if (textComp != null)
         {
-            textComp.Init(damage, this);
+            textComp.Init(damage.finalDamage, damageColor, this);
+        }
+    }
+
+    public void ShowHeal(int value, Vector3 pos)
+    {
+        if (damageTextPrefab == null) return;
+
+        GameObject obj = _pool.Count > 0 ? _pool.Dequeue() : Instantiate(damageTextPrefab, transform);
+
+        obj.transform.position = pos;
+        obj.SetActive(true);
+
+        DamageText textComp = obj.GetComponent<DamageText>();
+        if (textComp != null)
+        {
+            textComp.Init(value, healColor, this);
         }
     }
 

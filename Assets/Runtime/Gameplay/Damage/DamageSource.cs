@@ -12,6 +12,7 @@ public class DamageSource : MonoBehaviour
     public bool hasSubProjectile = false;
     float _remainTime = 0f;
     int _remainCollideTime = 0;
+
     protected virtual void Start()
     {
         if(damage.source == null)
@@ -38,6 +39,7 @@ public class DamageSource : MonoBehaviour
         c.OnCollide(damage);
         DamageTextPool.Instance.ShowDamage(damage, collision.transform.position + Vector3.up);
         _remainCollideTime--;
+        
         if(_remainCollideTime <= 0)
             GameObjectPool.Instance.Release(gameObject);
     }
