@@ -251,6 +251,27 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     animationClip: {fileID: 7400000, guid: 9bf4009dec695b848b1181234bfcc9de, type: 2}
+  - key: B-39-attack
+    animationClipReference:
+      m_AssetGUID: a2f1a07c3edaa714fa8f020a1d2a9bbd
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: a2f1a07c3edaa714fa8f020a1d2a9bbd, type: 2}
+  - key: Fortress-move
+    animationClipReference:
+      m_AssetGUID: a377458d1867cd4408ba09cb2147a290
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: a377458d1867cd4408ba09cb2147a290, type: 2}
+  - key: B-39-move
+    animationClipReference:
+      m_AssetGUID: a643ae9630879124d8c921e327c384b3
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: a643ae9630879124d8c921e327c384b3, type: 2}
   - key: Harm eyebrow-attack
     animationClipReference:
       m_AssetGUID: b4b77496a81ac3c49ba0ee38216e502c
@@ -272,6 +293,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     animationClip: {fileID: 7400000, guid: b72a10da5c7a5b74b801b2470727a47d, type: 2}
+  - key: Fortress-attack
+    animationClipReference:
+      m_AssetGUID: bdcdaf9a241faba40be4447efbf936d1
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: bdcdaf9a241faba40be4447efbf936d1, type: 2}
   - key: Crystallized giant beast-move
     animationClipReference:
       m_AssetGUID: c90339aeeec576a4083c80583c0ea6ec
@@ -349,34 +377,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     animationClip: {fileID: 7400000, guid: fa7f40a453c9542419747b7c4e2dc486, type: 2}
-  - key: B-39-attack
-    animationClipReference:
-      m_AssetGUID: a2f1a07c3edaa714fa8f020a1d2a9bbd
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    animationClip: {fileID: 7400000, guid: a2f1a07c3edaa714fa8f020a1d2a9bbd, type: 2}
-  - key: Fortress-move
-    animationClipReference:
-      m_AssetGUID: a377458d1867cd4408ba09cb2147a290
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    animationClip: {fileID: 7400000, guid: a377458d1867cd4408ba09cb2147a290, type: 2}
-  - key: B-39-move
-    animationClipReference:
-      m_AssetGUID: a643ae9630879124d8c921e327c384b3
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    animationClip: {fileID: 7400000, guid: a643ae9630879124d8c921e327c384b3, type: 2}
-  - key: Fortress-attack
-    animationClipReference:
-      m_AssetGUID: bdcdaf9a241faba40be4447efbf936d1
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    animationClip: {fileID: 7400000, guid: bdcdaf9a241faba40be4447efbf936d1, type: 2}
   - key: Thunderstorm cat-move
     animationClipReference:
       m_AssetGUID: 178e2100b40233347ab5de64d2425acd
@@ -594,6 +594,20 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     animationClip: {fileID: 7400000, guid: fd2be73494775b64d83d2e956686a74d, type: 2}
+  - key: Fork apprentice-move
+    animationClipReference:
+      m_AssetGUID: 0d428394d64ef7f45b10124a74c3feb0
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 0d428394d64ef7f45b10124a74c3feb0, type: 2}
+  - key: Fork apprentice-attack
+    animationClipReference:
+      m_AssetGUID: 07462b908f01a2b43bf68476cee84edf
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 07462b908f01a2b43bf68476cee84edf, type: 2}
   - key: Strange mine3
     animationClipReference:
       m_AssetGUID: 01c5ea6872f7fed48b4bddde3ebf543d

@@ -18,6 +18,9 @@ GameObject:
   - component: {fileID: 671760936083100413}
   - component: {fileID: 4348399593050705794}
   - component: {fileID: 165757943420287427}
+  - component: {fileID: 1969613310881048085}
+  - component: {fileID: 7362597489236836222}
+  - component: {fileID: 5642544529191003397}
   m_Layer: 0
   m_Name: Cat Bonze
   m_TagString: Untagged
@@ -86,7 +89,7 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 451130320, guid: 3be203ba2364f974a834ffb7c8f3d5bf, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,7 +97,7 @@ SpriteRenderer:
   m_Size: {x: 2.6533334, y: 2.36}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &6250083518975579496
@@ -107,7 +110,7 @@ Animator:
   m_GameObject: {fileID: 3463295176372043571}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6c914abe598644c43892d24e8e36302e, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -184,8 +187,8 @@ MonoBehaviour:
   atk: 10
   atkRate: 1
   magicAtk: 5
-  repel: 1
-  antiRepel: 1
+  repel: 2
+  antiRepel: 3
   atkRange: {x: 1, y: 1}
   atkObj: 
   barSustainTime: 2
@@ -200,7 +203,7 @@ MonoBehaviour:
   audioClips: []
   atkRangeMin: {x: -2147483648, y: -2147483648}
   atkRangeMax: {x: -2147483648, y: -2147483648}
-  occupySpace: {x: 1, y: 1}
+  occupySpace: {x: 3, y: 2}
   buildAnime: 
 --- !u!114 &7246673797051684105
 MonoBehaviour:
@@ -354,6 +357,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50b7439775efd343b6985bec3fbc186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1969613310881048085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3463295176372043571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioKey1: Cat Bonze A
+  audioKey2: 
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
+--- !u!114 &7362597489236836222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3463295176372043571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d455e6caa99ec4195d997c095070de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteKey: Cat Bonze_16
+--- !u!114 &5642544529191003397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3463295176372043571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b93689d485955d4c869baf947ad02b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorControllerKey: Cat Bonze AC
 --- !u!1 &4790079443884991035
 GameObject:
   m_ObjectHideFlags: 0
