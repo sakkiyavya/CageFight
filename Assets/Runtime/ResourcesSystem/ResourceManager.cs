@@ -75,7 +75,6 @@ public class ResourceManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         // 加载所有 Registry：Editor 下直接从文件系统加载，Runtime 通过 Addressables 加载
 #if UNITY_EDITOR
@@ -91,12 +90,10 @@ public class ResourceManager : MonoBehaviour
 #endif
     }
 
-    void Start()
+    private void OnDestroy()
     {
-        #if UNITY_EDITOR
-        if(StageLoader.Instance && editorLevelConfig)
-            StageLoader.Instance.StartLoad(editorLevelConfig);
-        #endif
+        if (Instance == this)
+            Instance = null;
     }
 
 #if UNITY_EDITOR
@@ -205,25 +202,26 @@ public class ResourceManager : MonoBehaviour
     /// <summary>
     /// 提前加载场景中的所有资源
     /// </summary>
-    public void LoadStageResources(LevelConfig level)
+    public bool LoadStageResources(LevelConfig level)
     {
 
         if (CurrentState == ResourceState.Loading)
         {
             Debug.LogWarning("[ResourceManager] 当前正在加载中，请勿重复调用！");
-            return;
+            return false;
         }
 
         if (prefabRegistry == null && textureRegistry == null && audioRegistry == null && 
             animationClipRegistry == null && animatorControllerRegistry == null)
         {
             Debug.LogError("[ResourceManager] 所有 Registry 均未配置！无法预加载任何资源。");
-            return;
+            return false;
         }
 
         UnloadStageResource();
         CurrentState = ResourceState.Loading;
         StartCoroutine(CoLoadStageResources(level));
+        return true;
     }
 
     private IEnumerator CoLoadStageResources(LevelConfig level)

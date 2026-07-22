@@ -1,105 +1,124 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// 全局宏观流程状态机（协程驱动）
-/// 各状态为场景中的真实 GameObject，在 Inspector 中直接引用，
-/// 不再使用工厂方法 new 实例。
-/// </summary>
 public class SceneFSM : MonoBehaviour
 {
-    static SceneFSM _instance;
+    private static SceneFSM _instance;
     public static SceneFSM Instance => _instance;
 
-    [Header("状态对象引用（对应场景中各状态 GameObject）")]
-    [SerializeField] SceneStateBase menuState;
-    [SerializeField] SceneStateBase loadingState;
-    [SerializeField] SceneStateBase gameplayState;
-    [SerializeField] SceneStateBase gameOverState;
+    [SerializeField] private SceneStateBase menuState;
+    [SerializeField] private SceneStateBase loadingState;
+    [SerializeField] private SceneStateBase gameplayState;
+    [SerializeField] private SceneStateBase gameOverState;
 
-    Dictionary<GameState, SceneStateBase> _stateMap;
-    SceneStateBase _currentState;
-    GameState _currentStateEnum;
-    bool _isTransitioning;
+    private Dictionary<GameState, SceneStateBase> _stateMap;
+    private SceneStateBase _currentState;
+    private GameState _currentStateEnum;
+    private bool _isTransitioning;
+    private bool _hasCurrentState;
+    private GameState? _queuedState;
 
     public GameState CurrentStateEnum => _currentStateEnum;
     public bool IsTransitioning => _isTransitioning;
+    public LevelConfig CurrentLevelConfig { get; private set; }
 
-    void Awake()
+    private void Awake()
     {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        // 构建状态映射表
+        _instance = this;
         _stateMap = new Dictionary<GameState, SceneStateBase>
         {
-            { GameState.Menu,     menuState     },
-            { GameState.Loading,  loadingState  },
+            { GameState.Menu, menuState },
+            { GameState.Loading, loadingState },
             { GameState.Gameplay, gameplayState },
-            { GameState.GameOver, gameOverState },
+            { GameState.GameOver, gameOverState }
         };
     }
 
-    void Start()
+    private void OnDestroy()
     {
-        // 游戏启动，默认加载进入 Menu 状态
+        if (_instance == this)
+            _instance = null;
+    }
+
+    private void Start()
+    {
         LoadState(GameState.Menu);
     }
 
-    /// <summary>
-    /// 对外唯一暴露的加载状态入口，隐藏一切切换与加载内部实现细节。
-    /// </summary>
-    /// <param name="targetState">目标状态枚举</param>
-    public void LoadState(GameState targetState)
+    public void BeginLevelLoad(LevelConfig levelConfig)
     {
-        if (_isTransitioning)
+        if (levelConfig == null)
         {
-            Debug.LogWarning($"[SceneFSM] 正在进行状态转换，请勿重复调用 LoadState！当前目标: {targetState}");
+            Debug.LogError("[SceneFSM] 无法开始关卡：LevelConfig 为空！");
             return;
         }
+
+        if (_isTransitioning || (_hasCurrentState && _currentStateEnum != GameState.Menu))
+        {
+            Debug.LogWarning("[SceneFSM] 当前不在可开始关卡的菜单状态，忽略本次点击。");
+            return;
+        }
+
+        CurrentLevelConfig = levelConfig;
+        LoadState(GameState.Loading);
+    }
+
+    public void LoadState(GameState targetState)
+    {
+        if (_stateMap == null || !_stateMap.TryGetValue(targetState, out var targetStateObject) || targetStateObject == null)
+        {
+            Debug.LogError($"[SceneFSM] 状态 {targetState} 未配置，请检查 Inspector 引用！");
+            return;
+        }
+
+        if (_isTransitioning)
+        {
+            _queuedState = targetState;
+            return;
+        }
+
+        if (_hasCurrentState && _currentStateEnum == targetState)
+            return;
 
         StartCoroutine(TransitionToStateRoutine(targetState));
     }
 
-    /// <summary>
-    /// 状态切换协程核心管线：
-    /// 1. 等待当前状态 Exit() 完成
-    /// 2. 从场景引用中找到目标状态对象
-    /// 3. 等待新状态 Enter() 完成
-    /// </summary>
-    IEnumerator TransitionToStateRoutine(GameState targetState)
+    private IEnumerator TransitionToStateRoutine(GameState targetState)
     {
         _isTransitioning = true;
 
-        // 1. 调用当前状态的退出协程并等待完成
-        if (_currentState != null)
+        while (true)
         {
-            yield return StartCoroutine(_currentState.Exit());
+            _queuedState = null;
+
+            if (_currentState != null)
+                yield return StartCoroutine(_currentState.Exit());
+
+            if (!_stateMap.TryGetValue(targetState, out var nextState) || nextState == null)
+            {
+                Debug.LogError($"[SceneFSM] 状态 {targetState} 未配置，请检查 Inspector 引用！");
+                break;
+            }
+
+            _currentStateEnum = targetState;
+            _currentState = nextState;
+            _hasCurrentState = true;
+            _currentState.SetLevelConfig(CurrentLevelConfig);
+
+            yield return StartCoroutine(_currentState.Enter());
+
+            if (!_queuedState.HasValue)
+                break;
+
+            targetState = _queuedState.Value;
         }
-
-        // 2. 从场景引用映射表中查找目标状态
-        if (!_stateMap.TryGetValue(targetState, out SceneStateBase nextState))
-        {
-            Debug.LogError($"[SceneFSM] 找不到状态对象：{targetState}，请检查 Inspector 中的引用是否已赋值！");
-            _isTransitioning = false;
-            yield break;
-        }
-
-        _currentStateEnum = targetState;
-        _currentState = nextState;
-
-        // 3. 调用新状态的进入协程并等待完成
-        yield return StartCoroutine(_currentState.Enter());
 
         _isTransitioning = false;
     }

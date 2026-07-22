@@ -1,22 +1,50 @@
 using System.Collections;
 using UnityEngine;
 
-/// <summary>
-/// 场景过渡与加载状态
-/// </summary>
 public class LoadingState : SceneStateBase
 {
-    public override IEnumerator Enter()
+    protected override IEnumerator OnEnter()
     {
-        Debug.Log("[LoadingState] Enter - 正在打开加载黑屏遮罩，加载基础数据...");
-        // TODO: 加载资源、黑屏遮罩渐入
-        yield return new WaitForSeconds(0.5f);
+        if (CurrentLevelConfig == null)
+        {
+            Debug.LogError("[LoadingState] LevelConfig is missing.");
+            yield break;
+        }
+
+        if (ResourceManager.Instance == null)
+        {
+            Debug.LogError("[LoadingState] ResourceManager is not initialized.");
+            yield break;
+        }
+
+        Debug.Log($"[LoadingState] Loading resources for level: {CurrentLevelConfig.levelId}");
+        if (!ResourceManager.Instance.LoadStageResources(CurrentLevelConfig))
+        {
+            Debug.LogError("[LoadingState] Failed to start resource loading.");
+            yield break;
+        }
+
+        while (ResourceManager.Instance.CurrentState == ResourceState.Loading)
+            yield return null;
+
+        if (ResourceManager.Instance.CurrentState != ResourceState.LoadComplete)
+        {
+            Debug.LogError($"[LoadingState] Resource loading did not complete. Current state: {ResourceManager.Instance.CurrentState}");
+            yield break;
+        }
+
+        Debug.Log($"[LoadingState] Resources loaded. Instantiating level: {CurrentLevelConfig.levelId}");
+        if (!StageObjectInstantiator.InstantiateLevel(CurrentLevelConfig))
+        {
+            Debug.LogError("[LoadingState] Failed to instantiate level objects.");
+            yield break;
+        }
+
+        SceneFSM.Instance.LoadState(GameState.Gameplay);
     }
 
-    public override IEnumerator Exit()
+    protected override IEnumerator OnExit()
     {
-        Debug.Log("[LoadingState] Exit - 加载完毕，黑屏遮罩渐出消失...");
-        // TODO: 加载UI隐去
-        yield return new WaitForSeconds(0.3f);
+        yield return null;
     }
 }

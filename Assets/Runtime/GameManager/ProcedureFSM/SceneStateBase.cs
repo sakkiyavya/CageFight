@@ -1,20 +1,69 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// 状态基类：继承 MonoBehaviour，对应场景中的实体对象。
-/// 通过 SceneFSM.Instance 访问状态机，不再持有 fsm 字段。
-/// 仅暴露可由协程驱动的 Enter 和 Exit。
-/// </summary>
 public abstract class SceneStateBase : MonoBehaviour
 {
-    /// <summary>
-    /// 进入状态的协程，可在此实现渐入、加载初始化等
-    /// </summary>
-    public abstract IEnumerator Enter();
+    [Header("该状态激活时打开的 UI 模块")]
+    [SerializeField] List<UISystemBase> stateModules = new List<UISystemBase>();
 
-    /// <summary>
-    /// 退出状态的协程，可在此实现渐出、资源回收等
-    /// </summary>
-    public abstract IEnumerator Exit();
+    private LevelConfig _levelConfig;
+
+    protected LevelConfig CurrentLevelConfig => _levelConfig;
+
+    internal void SetLevelConfig(LevelConfig levelConfig)
+    {
+        _levelConfig = levelConfig;
+    }
+
+    public virtual IEnumerator Enter()
+    {
+        yield return OpenModules();
+        yield return OnEnter();
+    }
+
+    public virtual IEnumerator Exit()
+    {
+        yield return CloseModules();
+        yield return OnExit();
+    }
+
+    private IEnumerator OpenModules()
+    {
+        var coroutines = new List<Coroutine>();
+        foreach (var module in stateModules)
+        {
+            if (module != null)
+            {
+                module.gameObject.SetActive(true);
+                coroutines.Add(StartCoroutine(module.UIMotionEffectRoutine(true)));
+            }
+        }
+        foreach (var coroutine in coroutines)
+            yield return coroutine;
+    }
+
+    private IEnumerator CloseModules()
+    {
+        var coroutines = new List<Coroutine>();
+        foreach (var module in stateModules)
+        {
+            if (module != null)
+            {
+                if (module.gameObject.activeInHierarchy)
+                    coroutines.Add(StartCoroutine(module.UIMotionEffectRoutine(false)));
+            }
+        }
+        foreach (var coroutine in coroutines)
+            yield return coroutine;
+
+        foreach (var module in stateModules)
+        {
+            if (module != null)
+                module.gameObject.SetActive(false);
+        }
+    }
+
+    protected virtual IEnumerator OnEnter() { yield return null; }
+    protected virtual IEnumerator OnExit() { yield return null; }
 }
