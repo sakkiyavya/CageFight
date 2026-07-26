@@ -37,7 +37,7 @@ public class DamageSource : MonoBehaviour
         damage.collideDir = transform.position.x < collision.transform.position.x? 1 : -1;
         damage.target = collision.gameObject;
         c.OnCollide(damage);
-        DamageTextPool.Instance.ShowDamage(damage, collision.transform.position + Vector3.up);
+        // DamageTextPool.Instance.ShowDamage(damage, collision.transform.position + Vector3.up);
         _remainCollideTime--;
         
         if(_remainCollideTime <= 0)

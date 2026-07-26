@@ -1,19 +1,29 @@
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 public class CharacterHealth : MonoBehaviour, ICollide
 {
-    private int hp; public int HP => hp;
+    public int HP => _prop != null ? _prop.currentHp : 0;
     // ILevelComponent removed; data handled by GameObjectProperty
     public GameObject HpBarUp;
     public GameObject HpBarBottom;
     private GameObjectProperty _prop;
     private float hideTime = -1f;
+    private Coroutine _deathCoroutine;
+
+    private void OnEnable()
+    {
+        _deathCoroutine = null;
+        hideTime = -1f;
+        ApplyBarVisual();
+        SetBarActive(false);
+    }
+
     private void Awake()
     {
         _prop = GetComponent<GameObjectProperty>();
-        hp = _prop.maxHp;
     }
     #region ICollide实现
     public bool IsFriendly(Damage damage)
@@ -23,6 +33,9 @@ public class CharacterHealth : MonoBehaviour, ICollide
     }
     public Damage OnCollide(Damage damage)
     {   
+        if (_prop.isDead)
+            return damage;
+
         if(damage.buffs != null && damage.buffs.Count() > 0)
             foreach(var buff in damage.buffs)
             {
@@ -58,7 +71,8 @@ public class CharacterHealth : MonoBehaviour, ICollide
 
     public void SetPercentHp(float percent)
     {
-        hp = Mathf.RoundToInt(_prop.maxHp * Mathf.Clamp01(percent));
+        _prop.currentHp = Mathf.RoundToInt(_prop.maxHp * Mathf.Clamp01(percent));
+        _prop.isDead = _prop.currentHp <= 0;
         ApplyBarVisual();
         ShowBarTemporarily();
     }
@@ -71,36 +85,114 @@ public class CharacterHealth : MonoBehaviour, ICollide
 
     public Damage TakeDamage(Damage damage)
     {
-        hp -= damage.initialDamage;
-        hp = Mathf.Max(hp, 0);
+        Damage d = DamageComputor.DamageCompute(damage);
+        if (_prop.isDead)
+            return d;
+
+        _prop.currentHp = Mathf.Max(_prop.currentHp - d.finalDamage, 0);
         ShowBarTemporarily();
-        _prop.repelDistance = damage.repel / _prop.antiRepel * damage.collideDir;
+        _prop.repelDistance = d.repel / _prop.antiRepel * d.collideDir;
         _prop.isRepel = true;
-        if(hp <= 0) Die();
-        return DamageComputor.DamageCompute(damage);
+        if(_prop.currentHp <= 0) Die();
+        DamageTextPool.Instance.ShowDamage(d, transform.position + Vector3.up);
+        return d;
     }
 
     public void Heal(int value) 
     { 
-        hp += value;
-        hp = Mathf.Min(hp, _prop.maxHp);
+        if (_prop.isDead)
+            return;
+
+        _prop.currentHp = Mathf.Min(_prop.currentHp + value, _prop.maxHp);
         ShowBarTemporarily();
 
         DamageTextPool.Instance.ShowHeal(value, transform.position + Vector3.up * 1.5f);
     }
-    public void RestoreFullHp() { throw new System.NotImplementedException(); }
-    public void ReduceToZero() { throw new System.NotImplementedException(); }
-    public void Die() { print(name + " Die!"); }
-    public void Revive() { throw new System.NotImplementedException(); }
-    public bool IsDead() { throw new System.NotImplementedException(); }
-    public float GetHpPercent() { throw new System.NotImplementedException(); }
-    public void SetHp(int value) { throw new System.NotImplementedException(); }
+    public void RestoreFullHp()
+    {
+        _prop.currentHp = _prop.maxHp;
+        _prop.isDead = false;
+        ApplyBarVisual();
+    }
+
+    public void ReduceToZero()
+    {
+        _prop.currentHp = 0;
+        Die();
+    }
+
+    public void Die()
+    {
+        if (_prop.isDead && _deathCoroutine != null)
+            return;
+
+        _prop.currentHp = 0;
+        _prop.isDead = true;
+        _prop.isAttack = false;
+        _prop.target = null;
+        if (_deathCoroutine == null)
+            _deathCoroutine = StartCoroutine(DeathBounceAndRelease());
+    }
+
+    public void Revive()
+    {
+        if (_deathCoroutine != null)
+        {
+            StopCoroutine(_deathCoroutine);
+            _deathCoroutine = null;
+        }
+        _prop.currentHp = _prop.maxHp;
+        _prop.isDead = false;
+        ApplyBarVisual();
+    }
+
+    public bool IsDead() => _prop == null || _prop.isDead;
+    public float GetHpPercent() => _prop.maxHp > 0 ? (float)_prop.currentHp / _prop.maxHp : 0f;
+    public void SetHp(int value)
+    {
+        _prop.currentHp = Mathf.Clamp(value, 0, _prop.maxHp);
+        _prop.isDead = _prop.currentHp <= 0;
+        ApplyBarVisual();
+    }
+
+    private IEnumerator DeathBounceAndRelease()
+    {
+        Vector3 originalPosition = transform.position;
+        Vector3 originalScale = transform.localScale;
+        const int bounceCount = 3;
+        const float bounceDuration = 0.24f;
+        const float firstHeight = 0.45f;
+
+        for (int bounce = 0; bounce < bounceCount; bounce++)
+        {
+            float elapsed = 0f;
+            float height = firstHeight * (1f - bounce * 0.25f);
+            while (elapsed < bounceDuration)
+            {
+                float t = elapsed / bounceDuration;
+                float pulse = Mathf.Sin(Mathf.PI * t);
+                float jelly = Mathf.Sin(Mathf.PI * 2f * t);
+                transform.position = originalPosition + Vector3.up * (pulse * height);
+                transform.localScale = new Vector3(
+                    originalScale.x * (1f - jelly * 0.14f),
+                    originalScale.y * (1f + jelly * 0.22f),
+                    originalScale.z);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        transform.position = originalPosition;
+        transform.localScale = originalScale;
+        _deathCoroutine = null;
+        GameObjectPool.Instance.Release(gameObject);
+    }
 
     private void ApplyBarVisual()
     {
         if (HpBarUp != null)
         {
-            float scaleX = _prop.maxHp > 0 ? (float)hp / _prop.maxHp : 0f;
+            float scaleX = _prop.maxHp > 0 ? (float)_prop.currentHp / _prop.maxHp : 0f;
             HpBarUp.transform.localScale = new Vector3(scaleX, 1f, 1f);
         }
     }

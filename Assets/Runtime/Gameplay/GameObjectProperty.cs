@@ -38,6 +38,8 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
     public float moveSpeed = 3f;
     public float suckBlood = 0f;
     [Header("实时信息")]
+    public int currentHp;
+    public bool isDead;
     public GameObject target;
     public List<Vector2Int> path = new List<Vector2Int>();
     public bool isFacingLeft = false;
@@ -61,6 +63,28 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
     [ResourceKey(typeof(GameObject))]
     public string buildAnime;
 
+    GameObjectPropertyData recordGOPD;
+
+    private void OnEnable()
+    {
+        ResetRuntimeState();
+    }
+
+    public void ResetRuntimeState()
+    {
+        currentHp = Mathf.Max(0, maxHp);
+        isDead = false;
+        target = null;
+        path.Clear();
+        isFacingLeft = false;
+        isAttack = false;
+        isRepel = false;
+        repelDistance = 0f;
+        currentBuff.Clear();
+        currentDebuff.Clear();
+        currentPathSession = null;
+        currentScanSession = null;
+    }
     #region ILevelComponent 实现
 
     public Type DataType => typeof(GameObjectPropertyData);
@@ -112,7 +136,40 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
             this.atkObj = pData.atkObj;
             this.buildAnime = pData.buildAnime;
             this.repel = pData.repel;
+
+            RecordData(pData);
+            ResetRuntimeState();
         }
+    }
+
+    void RecordData(GameObjectPropertyData d)
+    {
+        recordGOPD = new GameObjectPropertyData
+        {
+            objectType = d.objectType,
+            side = d.side,
+            maxHp = d.maxHp,
+            defense = d.defense,
+            magicDefense = d.magicDefense,
+            atk = d.atk,
+            atkRate = d.atkRate,
+            magicAtk = d.magicAtk,
+            atkRange = d.atkRange,
+            isRemoteAtk = d.isRemoteAtk,
+            isFacingLeft = d.isFacingLeft,
+            occupySpace = d.occupySpace,
+            barSustainTime = d.barSustainTime,
+            buildTime = d.buildTime,
+            moveSpeed = d.moveSpeed,
+            atkObj = d.atkObj,
+            buildAnime = d.buildAnime,
+            repel = d.repel
+        };
+    }
+
+    public void ApplyDefaultData()
+    {
+        ApplyData(recordGOPD);
     }
 
     #endregion

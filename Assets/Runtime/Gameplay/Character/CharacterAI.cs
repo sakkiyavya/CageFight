@@ -57,6 +57,9 @@ public class CharacterAI : MonoBehaviour
 
     void Update()
     {
+        if (_prop.isDead)
+            return;
+
         if(_prop.isRepel)
             Repel();
         AIBehaviour();

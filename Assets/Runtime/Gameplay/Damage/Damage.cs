@@ -45,6 +45,7 @@ public static class DamageComputor
     public static Damage DamageCompute(Damage sourceDamage)
     {
         f = sourceDamage;
+        f.finalDamage = f.initialDamage;
         return f;
     }
 }
