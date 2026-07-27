@@ -5,17 +5,30 @@ using UnityEngine;
 [RequireComponent(typeof(GameObjectProperty))]
 public class CharacterHealth : MonoBehaviour, ICollide
 {
+    private struct HitColorTarget
+    {
+        public Renderer renderer;
+        public int colorProperty;
+        public Color originalColor;
+    }
+
     public int HP => _prop != null ? _prop.currentHp : 0;
     // IStageComponent removed; data handled by GameObjectProperty
     public GameObject HpBarUp;
     public GameObject HpBarBottom;
+    [SerializeField, Min(0f)] private float hitFlashDuration = 0.3f;
     private GameObjectProperty _prop;
     private float hideTime = -1f;
     private Coroutine _deathCoroutine;
+    private Coroutine _hitFlashCoroutine;
+    private readonly System.Collections.Generic.List<HitColorTarget> _hitColorTargets =
+        new System.Collections.Generic.List<HitColorTarget>();
+    private MaterialPropertyBlock _hitPropertyBlock;
 
     private void OnEnable()
     {
         _deathCoroutine = null;
+        _hitFlashCoroutine = null;
         hideTime = -1f;
         ApplyBarVisual();
         SetBarActive(false);
@@ -24,7 +37,20 @@ public class CharacterHealth : MonoBehaviour, ICollide
     private void Awake()
     {
         _prop = GetComponent<GameObjectProperty>();
+        _hitPropertyBlock = new MaterialPropertyBlock();
+        CacheHitColorTargets();
     }
+
+    private void OnDisable()
+    {
+        if (_hitFlashCoroutine != null)
+        {
+            StopCoroutine(_hitFlashCoroutine);
+            _hitFlashCoroutine = null;
+        }
+        RestoreOriginalColors();
+    }
+
     #region ICollide实现
     public bool IsFriendly(Damage damage)
     {
@@ -90,6 +116,7 @@ public class CharacterHealth : MonoBehaviour, ICollide
             return d;
 
         _prop.currentHp = Mathf.Max(_prop.currentHp - d.finalDamage, 0);
+        RestartHitFlash();
         ShowBarTemporarily();
         _prop.repelDistance = d.repel / _prop.antiRepel * d.collideDir;
         _prop.isRepel = true;
@@ -153,6 +180,77 @@ public class CharacterHealth : MonoBehaviour, ICollide
         _prop.currentHp = Mathf.Clamp(value, 0, _prop.maxHp);
         _prop.isDead = _prop.currentHp <= 0;
         ApplyBarVisual();
+    }
+
+    private void CacheHitColorTargets()
+    {
+        _hitColorTargets.Clear();
+        var renderers = GetComponentsInChildren<Renderer>(true);
+        foreach (var renderer in renderers)
+        {
+            if (renderer.sharedMaterial == null)
+                continue;
+
+            int colorProperty = renderer.sharedMaterial.HasProperty("_BaseColor")
+                ? Shader.PropertyToID("_BaseColor")
+                : renderer.sharedMaterial.HasProperty("_Color")
+                    ? Shader.PropertyToID("_Color")
+                    : -1;
+            if (colorProperty == -1)
+                continue;
+
+            _hitColorTargets.Add(new HitColorTarget
+            {
+                renderer = renderer,
+                colorProperty = colorProperty,
+                originalColor = renderer.sharedMaterial.GetColor(colorProperty)
+            });
+        }
+    }
+
+    private void RestartHitFlash()
+    {
+        if (hitFlashDuration <= 0f || _hitColorTargets.Count == 0)
+            return;
+
+        if (_hitFlashCoroutine != null)
+            StopCoroutine(_hitFlashCoroutine);
+        _hitFlashCoroutine = StartCoroutine(HitFlashCoroutine());
+    }
+
+    private IEnumerator HitFlashCoroutine()
+    {
+        SetHitColor(Color.red);
+        yield return new WaitForSeconds(hitFlashDuration);
+        RestoreOriginalColors();
+        _hitFlashCoroutine = null;
+    }
+
+    private void SetHitColor(Color color)
+    {
+        foreach (var target in _hitColorTargets)
+        {
+            if (target.renderer == null)
+                continue;
+            target.renderer.GetPropertyBlock(_hitPropertyBlock);
+            _hitPropertyBlock.SetColor(target.colorProperty, color);
+            target.renderer.SetPropertyBlock(_hitPropertyBlock);
+        }
+    }
+
+    private void RestoreOriginalColors()
+    {
+        if (_hitPropertyBlock == null)
+            return;
+
+        foreach (var target in _hitColorTargets)
+        {
+            if (target.renderer == null)
+                continue;
+            target.renderer.GetPropertyBlock(_hitPropertyBlock);
+            _hitPropertyBlock.SetColor(target.colorProperty, target.originalColor);
+            target.renderer.SetPropertyBlock(_hitPropertyBlock);
+        }
     }
 
     private IEnumerator DeathBounceAndRelease()

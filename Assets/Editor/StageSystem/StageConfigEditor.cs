@@ -19,10 +19,12 @@ public class StageConfigEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        serializedObject.Update();
         StageConfig config = (StageConfig)target;
 
         // --- 绘制标准字段（stageId、settings、objects），但跳过分类列表 ---
-        DrawPropertiesExcluding(serializedObject, "prefabs", "audios", "textures", "animationClips", "animatorControllers", "sprites");
+        DrawPropertiesExcluding(serializedObject, "icon", "prefabs", "audios", "textures", "animationClips", "animatorControllers", "sprites");
+        DrawStageIconField(serializedObject.FindProperty("icon"));
 
         EditorGUILayout.Space(12);
 
@@ -65,6 +67,40 @@ public class StageConfigEditor : Editor
 
         EditorGUILayout.Space(20);
         DrawStageLoadButton(config);
+
+        serializedObject.ApplyModifiedProperties();
+    }
+
+    private void DrawStageIconField(SerializedProperty iconProperty)
+    {
+        EditorGUILayout.BeginHorizontal();
+
+        Rect previewRect = GUILayoutUtility.GetRect(64f, 64f, GUILayout.Width(64f), GUILayout.Height(64f));
+        DrawSpritePreview(previewRect, iconProperty.objectReferenceValue as Sprite);
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.PropertyField(iconProperty, new GUIContent("Stage Icon"));
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private static void DrawSpritePreview(Rect rect, Sprite sprite)
+    {
+        EditorGUI.DrawRect(rect, new Color(0.18f, 0.18f, 0.18f, 1f));
+        if (sprite == null || sprite.texture == null) return;
+
+        Texture texture = sprite.texture;
+        Rect textureRect = sprite.textureRect;
+        Rect uv = new Rect(
+            textureRect.x / texture.width,
+            textureRect.y / texture.height,
+            textureRect.width / texture.width,
+            textureRect.height / texture.height);
+
+        GUI.color = Color.white;
+        GUI.DrawTextureWithTexCoords(rect, texture, uv, true);
+        GUI.color = Color.white;
     }
 
     private void DrawListSection(string label, ref bool foldout, List<string> list)

@@ -24,6 +24,9 @@ public class StageConfig : ScriptableObject
     [FormerlySerializedAs("levelId")]
     public int stageId;
 
+    [Tooltip("Stage icon.")]
+    public Sprite icon;
+
     [Tooltip("关卡的全局设置")]
     public StageSettings settings;
 
