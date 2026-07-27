@@ -5,9 +5,9 @@ public class LoadingState : SceneStateBase
 {
     protected override IEnumerator OnEnter()
     {
-        if (CurrentLevelConfig == null)
+        if (CurrentStageConfig == null)
         {
-            Debug.LogError("[LoadingState] LevelConfig is missing.");
+            Debug.LogError("[LoadingState] StageConfig is missing.");
             yield break;
         }
 
@@ -17,8 +17,8 @@ public class LoadingState : SceneStateBase
             yield break;
         }
 
-        Debug.Log($"[LoadingState] Loading resources for level: {CurrentLevelConfig.levelId}");
-        if (!ResourceManager.Instance.LoadStageResources(CurrentLevelConfig))
+        Debug.Log($"[LoadingState] Loading resources for stage: {CurrentStageConfig.stageId}");
+        if (!ResourceManager.Instance.LoadStageResources(CurrentStageConfig))
         {
             Debug.LogError("[LoadingState] Failed to start resource loading.");
             yield break;
@@ -33,10 +33,10 @@ public class LoadingState : SceneStateBase
             yield break;
         }
 
-        Debug.Log($"[LoadingState] Resources loaded. Instantiating level: {CurrentLevelConfig.levelId}");
-        if (!StageObjectInstantiator.InstantiateLevel(CurrentLevelConfig))
+        Debug.Log($"[LoadingState] Resources loaded. Instantiating stage: {CurrentStageConfig.stageId}");
+        if (!StageObjectInstantiator.InstantiateStage(CurrentStageConfig))
         {
-            Debug.LogError("[LoadingState] Failed to instantiate level objects.");
+            Debug.LogError("[LoadingState] Failed to instantiate stage objects.");
             yield break;
         }
 

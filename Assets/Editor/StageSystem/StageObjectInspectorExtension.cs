@@ -2,9 +2,9 @@ using UnityEditor;
 using UnityEngine;
 
 [InitializeOnLoad]
-public static class LevelObjectInspectorExtension
+public static class StageObjectInspectorExtension
 {
-    static LevelObjectInspectorExtension()
+    static StageObjectInspectorExtension()
     {
         Editor.finishedDefaultHeaderGUI += OnPostHeaderGUI;
     }
@@ -19,8 +19,8 @@ public static class LevelObjectInspectorExtension
         bool hasPerm = false;
         bool missingPerm = false;
         
-        bool hasLevel = false;
-        bool missingLevel = false;
+        bool hasStage = false;
+        bool missingStage = false;
         bool allPrefabs = true;
 
         // 遍历所有选中的对象，统计状态
@@ -34,8 +34,8 @@ public static class LevelObjectInspectorExtension
 
             if (PrefabUtility.IsPartOfPrefabInstance(go))
             {
-                if (go.GetComponent<LevelObjectMarker>() != null) hasLevel = true;
-                else missingLevel = true;
+                if (go.GetComponent<StageObjectMarker>() != null) hasStage = true;
+                else missingStage = true;
             }
             else
             {
@@ -77,9 +77,9 @@ public static class LevelObjectInspectorExtension
         // 2. 关卡物品开关 (强制要求全选的都是预制体)
         if (allPrefabs)
         {
-            EditorGUI.showMixedValue = hasLevel && missingLevel;
+            EditorGUI.showMixedValue = hasStage && missingStage;
             EditorGUI.BeginChangeCheck();
-            bool levelToggle = EditorGUILayout.ToggleLeft(" 设为关卡物品", hasLevel, EditorStyles.boldLabel);
+            bool stageToggle = EditorGUILayout.ToggleLeft(" 设为关卡物品", hasStage, EditorStyles.boldLabel);
             
             if (EditorGUI.EndChangeCheck())
             {
@@ -88,17 +88,17 @@ public static class LevelObjectInspectorExtension
                     var go = t as GameObject;
                     if (go == null) continue;
                     
-                    if (levelToggle)
+                    if (stageToggle)
                     {
-                        if (go.GetComponent<LevelObjectMarker>() == null)
+                        if (go.GetComponent<StageObjectMarker>() == null)
                         {
-                            var marker = go.AddComponent<LevelObjectMarker>();
+                            var marker = go.AddComponent<StageObjectMarker>();
                             marker.hideFlags = HideFlags.HideInInspector;
                         }
                     }
                     else
                     {
-                        var marker = go.GetComponent<LevelObjectMarker>();
+                        var marker = go.GetComponent<StageObjectMarker>();
                         if (marker != null) Undo.DestroyObjectImmediate(marker);
                     }
                     EditorUtility.SetDirty(go);

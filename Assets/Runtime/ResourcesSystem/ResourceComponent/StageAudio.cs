@@ -20,7 +20,7 @@ public class StageAudioData : ComponentData
 }
 
 [ExecuteAlways]
-public class StageAudio : MonoBehaviour, ILevelComponent
+public class StageAudio : MonoBehaviour, IStageComponent
 {
     [Header("音频资源 Key（留空则忽略）")]
     [ResourceKey(typeof(AudioClip))] public string audioKey1;
@@ -40,7 +40,7 @@ public class StageAudio : MonoBehaviour, ILevelComponent
             ApplyRuntimeResource();
     }
 
-    // ─── ILevelComponent ─────────────────────────────────────
+    // ─── IStageComponent ─────────────────────────────────────
 
     public ComponentData ExtractData() => new StageAudioData
     {

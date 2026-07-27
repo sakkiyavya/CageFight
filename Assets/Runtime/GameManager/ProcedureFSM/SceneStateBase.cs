@@ -7,13 +7,13 @@ public abstract class SceneStateBase : MonoBehaviour
     [Header("该状态激活时打开的 UI 模块")]
     [SerializeField] List<UISystemBase> stateModules = new List<UISystemBase>();
 
-    private LevelConfig _levelConfig;
+    private StageConfig _stageConfig;
 
-    protected LevelConfig CurrentLevelConfig => _levelConfig;
+    protected StageConfig CurrentStageConfig => _stageConfig;
 
-    internal void SetLevelConfig(LevelConfig levelConfig)
+    internal void SetStageConfig(StageConfig stageConfig)
     {
-        _levelConfig = levelConfig;
+        _stageConfig = stageConfig;
     }
 
     public virtual IEnumerator Enter()

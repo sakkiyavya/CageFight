@@ -22,7 +22,7 @@ public class SceneFSM : MonoBehaviour
 
     public GameState CurrentStateEnum => _currentStateEnum;
     public bool IsTransitioning => _isTransitioning;
-    public LevelConfig CurrentLevelConfig { get; private set; }
+    public StageConfig CurrentStageConfig { get; private set; }
 
     private void Awake()
     {
@@ -54,11 +54,11 @@ public class SceneFSM : MonoBehaviour
         LoadState(GameState.Menu);
     }
 
-    public void BeginLevelLoad(LevelConfig levelConfig)
+    public void BeginStageLoad(StageConfig stageConfig)
     {
-        if (levelConfig == null)
+        if (stageConfig == null)
         {
-            Debug.LogError("[SceneFSM] 无法开始关卡：LevelConfig 为空！");
+            Debug.LogError("[SceneFSM] 无法开始关卡：StageConfig 为空！");
             return;
         }
 
@@ -70,7 +70,7 @@ public class SceneFSM : MonoBehaviour
             return;
         }
 
-        CurrentLevelConfig = levelConfig;
+        CurrentStageConfig = stageConfig;
         LoadState(GameState.Loading);
     }
 
@@ -128,7 +128,7 @@ public class SceneFSM : MonoBehaviour
             _currentStateEnum = targetState;
             _currentState = nextState;
             _hasCurrentState = true;
-            _currentState.SetLevelConfig(CurrentLevelConfig);
+            _currentState.SetStageConfig(CurrentStageConfig);
 
             yield return StartCoroutine(_currentState.Enter());
 

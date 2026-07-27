@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class LevelButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class StageButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    private LevelConfig _config;
+    private StageConfig _config;
 
-    public void Init(LevelConfig config)
+    public void Init(StageConfig config)
     {
         _config = config;
     }
@@ -15,6 +15,6 @@ public class LevelButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         if (_config == null || SceneFSM.Instance == null) return;
-        SceneFSM.Instance.BeginLevelLoad(_config);
+        SceneFSM.Instance.BeginStageLoad(_config);
     }
 }

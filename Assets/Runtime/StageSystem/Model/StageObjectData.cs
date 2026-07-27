@@ -7,7 +7,7 @@ using UnityEngine;
 /// 关卡内单个物体的数据定义
 /// </summary>
 [Serializable]
-public class LevelObjectData
+public class StageObjectData
 {
     [Tooltip("物体实例唯一 ID，用于运行时寻址与互相引用")]
     public int instanceId;

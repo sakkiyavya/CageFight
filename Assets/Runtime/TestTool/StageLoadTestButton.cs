@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -9,14 +10,15 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 /// <summary>
 /// 关卡加载测试交互按钮脚本 (Addressable 临时自包含加载器版)
 /// 挂载在 UGUI 的 Button 对象上。点击后，自己内部使用 Addressables 异步流下载并解析资源，
-/// 还原关卡，不依赖尚未重构好的 LevelLoader。
+/// 还原关卡，不依赖尚未重构好的 StageLoader。
 /// </summary>
 [RequireComponent(typeof(Button))]
 public class StageLoadTestButton : MonoBehaviour
 {
     [Header("核心配置")]
-    [Tooltip("目标关卡配置，请拖入您需要测试的 LevelConfig 资产")]
-    [SerializeField] private LevelConfig targetLevelConfig;
+    [Tooltip("目标关卡配置，请拖入您需要测试的 StageConfig 资产")]
+    [FormerlySerializedAs("targetLevelConfig")]
+    [SerializeField] private StageConfig targetStageConfig;
 
     [Tooltip("预制体注册表，用于获取 AssetReferenceGameObject 弱引用")]
     [SerializeField] private PrefabRegistry prefabRegistry;
@@ -82,9 +84,9 @@ public class StageLoadTestButton : MonoBehaviour
     /// </summary>
     private void OnLoadButtonClick()
     {
-        if (targetLevelConfig == null)
+        if (targetStageConfig == null)
         {
-            Debug.LogError("[StageLoadTestButton] 无法执行加载：目标关卡配置 (LevelConfig) 为空，请先在 Inspector 中分配测试关卡！");
+            Debug.LogError("[StageLoadTestButton] 无法执行加载：目标关卡配置 (StageConfig) 为空，请先在 Inspector 中分配测试关卡！");
             return;
         }
 
@@ -120,7 +122,7 @@ public class StageLoadTestButton : MonoBehaviour
 
         // 3. 扫描关卡配置，提取所有不重复的 prefabKey
         HashSet<string> uniqueKeys = new HashSet<string>();
-        foreach (var obj in targetLevelConfig.objects)
+        foreach (var obj in targetStageConfig.objects)
         {
             if (obj != null && !string.IsNullOrEmpty(obj.prefabKey))
             {
@@ -130,7 +132,7 @@ public class StageLoadTestButton : MonoBehaviour
 
         if (uniqueKeys.Count == 0)
         {
-            Debug.LogWarning($"[StageLoadTestButton] 关卡 {targetLevelConfig.levelId} 中不包含任何关卡物品，加载完成。");
+            Debug.LogWarning($"[StageLoadTestButton] 关卡 {targetStageConfig.stageId} 中不包含任何关卡物品，加载完成。");
             ResetButtonState();
             yield break;
         }
@@ -139,7 +141,7 @@ public class StageLoadTestButton : MonoBehaviour
         var loadTasks = new List<LoadTask>();
 
         UpdateText("开始网络预下载...");
-        Debug.Log($"[StageLoadTestButton] 开始使用 Addressables 异步预热关卡 {targetLevelConfig.levelId} 的 {totalCount} 个资源...");
+        Debug.Log($"[StageLoadTestButton] 开始使用 Addressables 异步预热关卡 {targetStageConfig.stageId} 的 {totalCount} 个资源...");
 
         // 4. 发起全并发 Addressables 异步下载与加载
         foreach (string key in uniqueKeys)
@@ -213,7 +215,7 @@ public class StageLoadTestButton : MonoBehaviour
 
         // 7. 实体生成与多态参数数据注入覆盖
         int spawnedCount = 0;
-        foreach (var objData in targetLevelConfig.objects)
+        foreach (var objData in targetStageConfig.objects)
         {
             if (objData == null) continue;
 
@@ -228,11 +230,11 @@ public class StageLoadTestButton : MonoBehaviour
                 instance.transform.eulerAngles = objData.transform.rotation;
                 instance.transform.localScale = objData.transform.scale;
 
-                // 多态组件数据还原（对 ILevelComponent 接口成员注入 ApplyData）
-                var levelComponents = instance.GetComponentsInChildren<ILevelComponent>(true);
+                // 多态组件数据还原（对 IStageComponent 接口成员注入 ApplyData）
+                var stageComponents = instance.GetComponentsInChildren<IStageComponent>(true);
                 foreach (var savedData in objData.components)
                 {
-                    foreach (var comp in levelComponents)
+                    foreach (var comp in stageComponents)
                     {
                         if (comp.DataType == savedData.GetType())
                         {
@@ -246,7 +248,7 @@ public class StageLoadTestButton : MonoBehaviour
             }
         }
 
-        Debug.Log($"<color=lime><b>[StageLoadTestButton] 关卡 {targetLevelConfig.levelId} 完美加载完毕！成功生成了 {spawnedCount} 个实体。</b></color>");
+        Debug.Log($"<color=lime><b>[StageLoadTestButton] 关卡 {targetStageConfig.stageId} 完美加载完毕！成功生成了 {spawnedCount} 个实体。</b></color>");
         
         UpdateText("加载成功！");
         yield return new WaitForSeconds(1.0f);
@@ -270,8 +272,8 @@ public class StageLoadTestButton : MonoBehaviour
         }
         _spawnedEntities.Clear();
 
-        // 2. 主动在场景中搜寻并清除所有挂载了 LevelObjectMarker 的非常驻关卡物品 (无论是否由本脚本生成)
-        var sceneMarkers = FindObjectsOfType<LevelObjectMarker>(true);
+        // 2. 主动在场景中搜寻并清除所有挂载了 StageObjectMarker 的非常驻关卡物品 (无论是否由本脚本生成)
+        var sceneMarkers = FindObjectsOfType<StageObjectMarker>(true);
         int destroyedMarkerCount = 0;
         foreach (var marker in sceneMarkers)
         {
@@ -283,7 +285,7 @@ public class StageLoadTestButton : MonoBehaviour
         }
         if (destroyedMarkerCount > 0)
         {
-            Debug.Log($"[StageLoadTestButton] 主动检测并清除了场景中 {destroyedMarkerCount} 个包含 LevelObjectMarker 的非常驻旧关卡物体。");
+            Debug.Log($"[StageLoadTestButton] 主动检测并清除了场景中 {destroyedMarkerCount} 个包含 StageObjectMarker 的非常驻旧关卡物体。");
         }
 
         // 3. 遍历句柄，释放所有正在占用显存/内存的资源引用

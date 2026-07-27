@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.Serialization;
 
 /// <summary>
-/// Loads level configurations in order through Addressables and assigns the
+/// Loads stage configurations in order through Addressables and assigns the
 /// configurations for the current page to the seven pre-positioned buttons.
 /// </summary>
-public class LevelConfigLoader : MonoBehaviour
+public class StageConfigLoader : MonoBehaviour
 {
     private const int ButtonsPerPage = 7;
 
-    [Tooltip("The seven level buttons, in display order.")]
-    [SerializeField] private LevelButton[] levelButtons = new LevelButton[ButtonsPerPage];
+    [Tooltip("The seven stage buttons, in display order.")]
+    [FormerlySerializedAs("levelButtons")]
+    [SerializeField] private StageButton[] stageButtons = new StageButton[ButtonsPerPage];
 
     private readonly List<AsyncOperationHandle> _handles = new List<AsyncOperationHandle>();
-    private readonly List<LevelConfig> _configs = new List<LevelConfig>();
+    private readonly List<StageConfig> _configs = new List<StageConfig>();
     private int _currentPage;
 
     private int TotalPages => Mathf.Max(1, Mathf.CeilToInt((float)_configs.Count / ButtonsPerPage));
@@ -29,7 +31,7 @@ public class LevelConfigLoader : MonoBehaviour
     {
         for (int i = 1; ; i++)
         {
-            var handle = Addressables.LoadAssetAsync<LevelConfig>($"Stage{i}");
+            var handle = Addressables.LoadAssetAsync<StageConfig>($"Stage{i}");
             yield return handle;
 
             if (handle.Status != AsyncOperationStatus.Succeeded)
@@ -61,14 +63,14 @@ public class LevelConfigLoader : MonoBehaviour
 
     private void RefreshButtons()
     {
-        if (levelButtons == null) return;
+        if (stageButtons == null) return;
 
         int startIndex = _currentPage * ButtonsPerPage;
-        int buttonCount = Mathf.Min(ButtonsPerPage, levelButtons.Length);
+        int buttonCount = Mathf.Min(ButtonsPerPage, stageButtons.Length);
 
         for (int i = 0; i < buttonCount; i++)
         {
-            LevelButton button = levelButtons[i];
+            StageButton button = stageButtons[i];
             if (button == null) continue;
 
             int configIndex = startIndex + i;
@@ -86,9 +88,9 @@ public class LevelConfigLoader : MonoBehaviour
 
     private void OnValidate()
     {
-        if (levelButtons == null || levelButtons.Length != ButtonsPerPage)
+        if (stageButtons == null || stageButtons.Length != ButtonsPerPage)
         {
-            System.Array.Resize(ref levelButtons, ButtonsPerPage);
+            System.Array.Resize(ref stageButtons, ButtonsPerPage);
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 统一管理游戏对象（建筑、角色）的核心属性组件。
 /// </summary>
-public class GameObjectProperty : MonoBehaviour, ILevelComponent
+public class GameObjectProperty : MonoBehaviour, IStageComponent
 {
     #region 代理事件
     public Action OnAtt;        //攻击时事件，在BuildAI/CharacterAI.ShootProjectile中调用，注意避免循环调用
@@ -85,7 +85,7 @@ public class GameObjectProperty : MonoBehaviour, ILevelComponent
         currentPathSession = null;
         currentScanSession = null;
     }
-    #region ILevelComponent 实现
+    #region IStageComponent 实现
 
     public Type DataType => typeof(GameObjectPropertyData);
 

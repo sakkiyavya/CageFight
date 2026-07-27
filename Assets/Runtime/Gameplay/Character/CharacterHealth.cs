@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterHealth : MonoBehaviour, ICollide
 {
     public int HP => _prop != null ? _prop.currentHp : 0;
-    // ILevelComponent removed; data handled by GameObjectProperty
+    // IStageComponent removed; data handled by GameObjectProperty
     public GameObject HpBarUp;
     public GameObject HpBarBottom;
     private GameObjectProperty _prop;

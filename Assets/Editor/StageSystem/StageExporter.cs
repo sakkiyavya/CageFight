@@ -7,16 +7,16 @@ using UnityEditor.AddressableAssets;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public static class LevelExporter
+public static class StageExporter
 {
-    public static void ExportLevel(uint levelId, string savePath)
+    public static void ExportStage(uint stageId, string savePath)
     {
         // 1. 获取场景中所有打上隐式标记的物体
-        var markers = Object.FindObjectsOfType<LevelObjectMarker>(true);
+        var markers = Object.FindObjectsOfType<StageObjectMarker>(true);
         
-        LevelConfig config = ScriptableObject.CreateInstance<LevelConfig>();
-        config.levelId = (int)levelId;
-        config.objects = new List<LevelObjectData>();
+        StageConfig config = ScriptableObject.CreateInstance<StageConfig>();
+        config.stageId = (int)stageId;
+        config.objects = new List<StageObjectData>();
 
         // 资源 Key 收集容器（全局去重与防循环引用）
         HashSet<string> visitedKeys = new HashSet<string>();
@@ -46,7 +46,7 @@ public static class LevelExporter
             GameObject prefabAsset = PrefabUtility.GetCorrespondingObjectFromOriginalSource(go);
             string key = prefabAsset != null ? prefabAsset.name : go.name;
 
-            var objData = new LevelObjectData
+            var objData = new StageObjectData
             {
                 instanceId = autoInstanceId++,
                 prefabKey = key,
@@ -60,8 +60,8 @@ public static class LevelExporter
             };
 
             // 提取组件数据
-            var levelComponents = go.GetComponentsInChildren<ILevelComponent>(true);
-            foreach (var comp in levelComponents)
+            var stageComponents = go.GetComponentsInChildren<IStageComponent>(true);
+            foreach (var comp in stageComponents)
             {
                 ComponentData extracted = comp.ExtractData();
                 if (extracted != null)
@@ -90,7 +90,7 @@ public static class LevelExporter
         }
 
         // 3. 写入 SO 资产
-        string fullPath = $"{savePath}/Stage{levelId}.asset";
+        string fullPath = $"{savePath}/Stage{stageId}.asset";
         
         AssetDatabase.CreateAsset(config, fullPath);
         AssetDatabase.SaveAssets();
@@ -98,15 +98,15 @@ public static class LevelExporter
 
         int totalKeys = config.prefabs.Count + config.audios.Count + config.textures.Count + config.animationClips.Count + config.animatorControllers.Count;
         EditorUtility.DisplayDialog("导出成功",
-            $"关卡 {levelId} 已成功导出到：\n{fullPath}\n" +
+            $"关卡 {stageId} 已成功导出到：\n{fullPath}\n" +
             $"共收集了 {config.objects.Count} 个关卡物品。\n" +
             $"共扫描到 {totalKeys} 个资源 Key (Prefab:{config.prefabs.Count}, Audio:{config.audios.Count}, Texture:{config.textures.Count}, AnimClip:{config.animationClips.Count}, AnimCtrl:{config.animatorControllers.Count})。", "确定");
     }
 
     /// <summary>
-    /// 将资源 Key 按照其资源类型存入 LevelConfig 对应的列表中
+    /// 将资源 Key 按照其资源类型存入 StageConfig 对应的列表中
     /// </summary>
-    private static void AddKeyToConfig(string key, Type type, LevelConfig config)
+    private static void AddKeyToConfig(string key, Type type, StageConfig config)
     {
         if (type == typeof(GameObject))
         {
@@ -142,7 +142,7 @@ public static class LevelExporter
         GameObject go,
         HashSet<string> visitedKeys,
         HashSet<string> visitedPrefabs,
-        LevelConfig config)
+        StageConfig config)
     {
         var components = go.GetComponents<Component>();
         foreach (var comp in components)
@@ -186,7 +186,7 @@ public static class LevelExporter
         string prefabKey,
         HashSet<string> visitedKeys,
         HashSet<string> visitedPrefabs,
-        LevelConfig config)
+        StageConfig config)
     {
         if (!visitedPrefabs.Add(prefabKey)) return; // 防循环引用
 
@@ -212,14 +212,14 @@ public static class LevelExporter
 
         if (assetPath == null)
         {
-            Debug.LogWarning($"[LevelExporter] RecursiveCollect: 在 Addressables 中未找到 address 为 '{prefabKey}' 的 Prefab，已跳过递归扫描。");
+            Debug.LogWarning($"[StageExporter] RecursiveCollect: 在 Addressables 中未找到 address 为 '{prefabKey}' 的 Prefab，已跳过递归扫描。");
             return;
         }
 
         GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
         if (prefab == null)
         {
-            Debug.LogWarning($"[LevelExporter] RecursiveCollect: 加载 Prefab 失败，路径：{assetPath}");
+            Debug.LogWarning($"[StageExporter] RecursiveCollect: 加载 Prefab 失败，路径：{assetPath}");
             return;
         }
 

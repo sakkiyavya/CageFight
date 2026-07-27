@@ -10,7 +10,7 @@ public class MenuState : SceneStateBase
 {
     protected override IEnumerator OnEnter()
     {
-        // TODO: 触发关卡列表异步加载（LevelConfigLoader）
+        // TODO: 触发关卡列表异步加载（StageConfigLoader）
         // TODO: 重置翻页状态、关卡选择滚动位置
         yield return null;
     }

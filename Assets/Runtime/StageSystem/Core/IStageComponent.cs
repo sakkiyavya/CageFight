@@ -3,7 +3,7 @@ using System;
 /// <summary>
 /// 所有挂载在 Prefab 上，且需要接收关卡配置参数覆盖的运行时组件，都需要实现此接口。
 /// </summary>
-public interface ILevelComponent
+public interface IStageComponent
 {
     /// <summary>
     /// 声明当前组件需要接收哪种类型的 ComponentData

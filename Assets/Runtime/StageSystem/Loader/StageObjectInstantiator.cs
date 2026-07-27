@@ -1,15 +1,15 @@
 using UnityEngine;
 
 /// <summary>
-/// 关卡对象实例化工具：资源加载完成后，根据 LevelConfig 还原关卡实体。
+/// 关卡对象实例化工具：资源加载完成后，根据 StageConfig 还原关卡实体。
 /// </summary>
 public static class StageObjectInstantiator
 {
-    public static bool InstantiateLevel(LevelConfig config)
+    public static bool InstantiateStage(StageConfig config)
     {
         if (config == null)
         {
-            Debug.LogError("[StageObjectInstantiator] LevelConfig 为空，无法实例化关卡！");
+            Debug.LogError("[StageObjectInstantiator] StageConfig 为空，无法实例化关卡！");
             return false;
         }
 
@@ -27,7 +27,7 @@ public static class StageObjectInstantiator
 
         if (config.objects == null)
         {
-            Debug.LogWarning($"[StageObjectInstantiator] 关卡 {config.levelId} 没有可实例化的对象。");
+            Debug.LogWarning($"[StageObjectInstantiator] 关卡 {config.stageId} 没有可实例化的对象。");
             return true;
         }
 
@@ -55,7 +55,7 @@ public static class StageObjectInstantiator
             instance.transform.eulerAngles = objData.transform.rotation;
             instance.transform.localScale = objData.transform.scale;
 
-            var levelComponents = instance.GetComponentsInChildren<ILevelComponent>(true);
+            var stageComponents = instance.GetComponentsInChildren<IStageComponent>(true);
             if (objData.components != null)
             {
                 foreach (var savedData in objData.components)
@@ -63,7 +63,7 @@ public static class StageObjectInstantiator
                     if (savedData == null)
                         continue;
 
-                    foreach (var component in levelComponents)
+                    foreach (var component in stageComponents)
                     {
                         if (component.DataType == savedData.GetType())
                         {
@@ -77,7 +77,7 @@ public static class StageObjectInstantiator
             spawnedCount++;
         }
 
-        Debug.Log($"[StageObjectInstantiator] 关卡 {config.levelId} 实例化完成，共生成 {spawnedCount} 个对象。");
+        Debug.Log($"[StageObjectInstantiator] 关卡 {config.stageId} 实例化完成，共生成 {spawnedCount} 个对象。");
         return true;
     }
 }

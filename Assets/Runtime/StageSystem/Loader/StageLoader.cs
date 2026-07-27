@@ -10,7 +10,7 @@ public class StageLoader : MonoBehaviour
     public static StageLoader Instance { get; private set; }
 
     // 等待实例化的关卡配置，在 StartLoad 时暂存
-    private LevelConfig _pendingConfig;
+    private StageConfig _pendingConfig;
 
     private void Awake()
     {
@@ -23,17 +23,17 @@ public class StageLoader : MonoBehaviour
     /// 开始加载关卡：先触发 ResourceManager 预加载资源，
     /// 待加载完成后自动实例化所有关卡物体。
     /// </summary>
-    public void StartLoad(LevelConfig config)
+    public void StartLoad(StageConfig config)
     {
         if (config == null)
         {
-            Debug.LogError("[LevelLoader] LevelConfig 为 null，无法加载！");
+            Debug.LogError("[StageLoader] StageConfig 为 null，无法加载！");
             return;
         }
 
         if (ResourceManager.Instance == null)
         {
-            Debug.LogError("[LevelLoader] ResourceManager 未就绪，无法加载关卡！");
+            Debug.LogError("[StageLoader] ResourceManager 未就绪，无法加载关卡！");
             return;
         }
 
@@ -42,7 +42,7 @@ public class StageLoader : MonoBehaviour
         // 注册回调，待资源加载完成后实例化
         ResourceManager.Instance.OnLoadComplete += OnResourcesLoaded;
 
-        Debug.Log($"[LevelLoader] 开始预加载关卡 {config.levelId} 的资源...");
+        Debug.Log($"[StageLoader] 开始预加载关卡 {config.stageId} 的资源...");
         ResourceManager.Instance.LoadStageResources(config);
     }
 
@@ -57,14 +57,14 @@ public class StageLoader : MonoBehaviour
 
         if (_pendingConfig == null)
         {
-            Debug.LogError("[LevelLoader] OnResourcesLoaded 触发时 _pendingConfig 为 null！");
+            Debug.LogError("[StageLoader] OnResourcesLoaded 触发时 _pendingConfig 为 null！");
             return;
         }
 
-        LevelConfig config = _pendingConfig;
+        StageConfig config = _pendingConfig;
         _pendingConfig = null;
 
-        Debug.Log($"[LevelLoader] 资源加载完成，开始实例化关卡 {config.levelId} 的物体...");
+        Debug.Log($"[StageLoader] 资源加载完成，开始实例化关卡 {config.stageId} 的物体...");
 
         foreach (var objData in config.objects)
         {
@@ -72,7 +72,7 @@ public class StageLoader : MonoBehaviour
             GameObject prefab = ResourceManager.Instance.GetGameObject(objData.prefabKey);
             if (prefab == null)
             {
-                Debug.LogWarning($"[LevelLoader] 未找到 Key 为 '{objData.prefabKey}' 的预制体，已跳过。");
+                Debug.LogWarning($"[StageLoader] 未找到 Key 为 '{objData.prefabKey}' 的预制体，已跳过。");
                 continue;
             }
 
@@ -89,11 +89,11 @@ public class StageLoader : MonoBehaviour
             instance.transform.eulerAngles = objData.transform.rotation;
             instance.transform.localScale  = objData.transform.scale;
 
-            // 将数据重新注入给 ILevelComponent
-            var levelComponents = instance.GetComponentsInChildren<ILevelComponent>(true);
+            // 将数据重新注入给 IStageComponent
+            var stageComponents = instance.GetComponentsInChildren<IStageComponent>(true);
             foreach (var savedData in objData.components)
             {
-                foreach (var comp in levelComponents)
+                foreach (var comp in stageComponents)
                 {
                     if (comp.DataType == savedData.GetType())
                     {
@@ -104,6 +104,6 @@ public class StageLoader : MonoBehaviour
             }
         }
 
-        Debug.Log($"<color=cyan>[LevelLoader] 关卡 {config.levelId} 实机加载完成！</color>");
+        Debug.Log($"<color=cyan>[StageLoader] 关卡 {config.stageId} 实机加载完成！</color>");
     }
 }

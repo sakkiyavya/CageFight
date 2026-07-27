@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 182136397}
   - component: {fileID: 182136396}
   m_Layer: 5
-  m_Name: LoadLevel1
+  m_Name: LoadStage1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -641,7 +641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f10fc0592cc7e745af1d29cc980e1ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetLevelConfig: {fileID: 0}
+  targetStageConfig: {fileID: 0}
   prefabRegistry: {fileID: 11400000, guid: 3d17e31343f8d3643bf07f3bc875a1f9, type: 2}
   entitiesParent: {fileID: 0}
 --- !u!114 &182136397
@@ -2314,7 +2314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d74c5fea5295a4cabf5839cdca9f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelButtons:
+  stageButtons:
   - {fileID: 648800501}
   - {fileID: 1677510049}
   - {fileID: 1377245126}
@@ -7480,7 +7480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2971216ef8c7247498de1d139dce3e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editorLevelConfig: {fileID: 11400000, guid: 12a1a38f340dfde4d881618fea2858d8, type: 2}
+  editorStageConfig: {fileID: 11400000, guid: 12a1a38f340dfde4d881618fea2858d8, type: 2}
   prefabRegistry: {fileID: 0}
   textureRegistry: {fileID: 0}
   audioRegistry: {fileID: 0}

@@ -14,7 +14,7 @@ public class StageAnimatorControllerData : ComponentData
 
 [ExecuteAlways]
 [RequireComponent(typeof(Animator))]
-public class StageAnimatorController : MonoBehaviour, ILevelComponent
+public class StageAnimatorController : MonoBehaviour, IStageComponent
 {
     [ResourceKey(typeof(RuntimeAnimatorController))]
     [Tooltip("Animator controller resource key.")]

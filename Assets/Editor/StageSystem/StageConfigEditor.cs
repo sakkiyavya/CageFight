@@ -7,8 +7,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
-[CustomEditor(typeof(LevelConfig))]
-public class LevelConfigEditor : Editor
+[CustomEditor(typeof(StageConfig))]
+public class StageConfigEditor : Editor
 {
     private bool _prefabsFoldout = false;
     private bool _audiosFoldout = false;
@@ -19,9 +19,9 @@ public class LevelConfigEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        LevelConfig config = (LevelConfig)target;
+        StageConfig config = (StageConfig)target;
 
-        // --- 绘制标准字段（levelId、settings、objects），但跳过分类列表 ---
+        // --- 绘制标准字段（stageId、settings、objects），但跳过分类列表 ---
         DrawPropertiesExcluding(serializedObject, "prefabs", "audios", "textures", "animationClips", "animatorControllers", "sprites");
 
         EditorGUILayout.Space(12);
@@ -64,7 +64,7 @@ public class LevelConfigEditor : Editor
         EditorGUILayout.EndVertical();
 
         EditorGUILayout.Space(20);
-        DrawLevelLoadButton(config);
+        DrawStageLoadButton(config);
     }
 
     private void DrawListSection(string label, ref bool foldout, List<string> list)
@@ -99,15 +99,15 @@ public class LevelConfigEditor : Editor
     }
 
     // -----------------------------------------------------------------------
-    // 场景扫描逻辑（与 LevelExporter 共享相同策略）
+    // 场景扫描逻辑（与 StageExporter 共享相同策略）
     // -----------------------------------------------------------------------
 
-    private void ScanResourceKeysFromScene(LevelConfig config)
+    private void ScanResourceKeysFromScene(StageConfig config)
     {
-        var markers = Object.FindObjectsOfType<LevelObjectMarker>(true);
+        var markers = Object.FindObjectsOfType<StageObjectMarker>(true);
         if (markers.Length == 0)
         {
-            EditorUtility.DisplayDialog("扫描提示", "当前场景中没有找到任何 LevelObjectMarker，请先布置关卡物品。", "确定");
+            EditorUtility.DisplayDialog("扫描提示", "当前场景中没有找到任何 StageObjectMarker，请先布置关卡物品。", "确定");
             return;
         }
 
@@ -152,7 +152,7 @@ public class LevelConfigEditor : Editor
             $"请在 Inspector 中展开各列表审查清单内容是否正确。", "确定");
     }
 
-    private static void AddKeyToConfig(string key, Type type, LevelConfig config)
+    private static void AddKeyToConfig(string key, Type type, StageConfig config)
     {
         if (type == typeof(GameObject))
         {
@@ -184,7 +184,7 @@ public class LevelConfigEditor : Editor
         GameObject go,
         HashSet<string> visitedKeys,
         HashSet<string> visitedPrefabs,
-        LevelConfig config)
+        StageConfig config)
     {
         var components = go.GetComponents<Component>();
         foreach (var comp in components)
@@ -221,7 +221,7 @@ public class LevelConfigEditor : Editor
         string prefabKey,
         HashSet<string> visitedKeys,
         HashSet<string> visitedPrefabs,
-        LevelConfig config)
+        StageConfig config)
     {
         if (!visitedPrefabs.Add(prefabKey)) return;
 
@@ -286,19 +286,19 @@ public class LevelConfigEditor : Editor
     // 关卡加载按钮（保留原有功能）
     // -----------------------------------------------------------------------
 
-    private void DrawLevelLoadButton(LevelConfig config)
+    private void DrawStageLoadButton(StageConfig config)
     {
         if (GUILayout.Button("加载关卡", GUILayout.Height(40)))
         {
             if (EditorUtility.DisplayDialog("加载关卡预览",
                 "这将会清除当前场景中所有未标记为\"常驻物品\"的对象，确定要继续吗？\n(如果有未保存的内容请先保存)", "确定", "取消"))
             {
-                LoadLevelToScene(config);
+                LoadStageToScene(config);
             }
         }
     }
 
-    private void LoadLevelToScene(LevelConfig config)
+    private void LoadStageToScene(StageConfig config)
     {
         var rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
         int destroyedCount = 0;
@@ -336,16 +336,16 @@ public class LevelConfigEditor : Editor
             }
 
             GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefabAsset);
-            Undo.RegisterCreatedObjectUndo(instance, "Load Level Object");
+            Undo.RegisterCreatedObjectUndo(instance, "Load Stage Object");
 
             instance.transform.position = objData.transform.position;
             instance.transform.eulerAngles = objData.transform.rotation;
             instance.transform.localScale = objData.transform.scale;
 
-            var levelComponents = instance.GetComponentsInChildren<ILevelComponent>(true);
+            var stageComponents = instance.GetComponentsInChildren<IStageComponent>(true);
             foreach (var savedComponentData in objData.components)
             {
-                foreach (var comp in levelComponents)
+                foreach (var comp in stageComponents)
                 {
                     if (comp.DataType == savedComponentData.GetType())
                     {
@@ -355,9 +355,9 @@ public class LevelConfigEditor : Editor
                 }
             }
 
-            if (instance.GetComponent<LevelObjectMarker>() == null)
+            if (instance.GetComponent<StageObjectMarker>() == null)
             {
-                var marker = instance.AddComponent<LevelObjectMarker>();
+                var marker = instance.AddComponent<StageObjectMarker>();
                 marker.hideFlags = HideFlags.HideInInspector;
             }
 

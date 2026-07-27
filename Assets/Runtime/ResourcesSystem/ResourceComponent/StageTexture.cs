@@ -14,7 +14,7 @@ public class StageTextureData : ComponentData
 
 [ExecuteAlways]
 [RequireComponent(typeof(SpriteRenderer))]
-public class StageTexture : MonoBehaviour, ILevelComponent
+public class StageTexture : MonoBehaviour, IStageComponent
 {
     [ResourceKey(typeof(Sprite))]
     [Tooltip("Sprite resource key.")]

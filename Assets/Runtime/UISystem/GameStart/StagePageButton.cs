@@ -4,10 +4,10 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// Page button. isNext=true turns to the next page; false turns to the previous page.
 /// </summary>
-public class LevelPageButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class StagePageButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public bool isNext;
-    [SerializeField] private LevelConfigLoader loader;
+    [SerializeField] private StageConfigLoader loader;
 
     public void OnPointerDown(PointerEventData eventData) { }
 
@@ -15,7 +15,7 @@ public class LevelPageButton : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     {
         if (loader == null)
         {
-            Debug.LogWarning("[LevelPageButton] LevelConfigLoader 未配置！", this);
+            Debug.LogWarning("[StagePageButton] StageConfigLoader 未配置！", this);
             return;
         }
 

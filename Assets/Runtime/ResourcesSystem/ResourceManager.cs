@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Linq;
@@ -27,7 +28,8 @@ public enum ResourceState
 public class ResourceManager : MonoBehaviour
 {
     #if UNITY_EDITOR
-    public LevelConfig editorLevelConfig;
+    [FormerlySerializedAs("editorLevelConfig")]
+    public StageConfig editorStageConfig;
     #endif
     public static ResourceManager Instance { get; private set; }
 
@@ -202,7 +204,7 @@ public class ResourceManager : MonoBehaviour
     /// <summary>
     /// 提前加载场景中的所有资源
     /// </summary>
-    public bool LoadStageResources(LevelConfig level)
+    public bool LoadStageResources(StageConfig stage)
     {
 
         if (CurrentState == ResourceState.Loading)
@@ -220,11 +222,11 @@ public class ResourceManager : MonoBehaviour
 
         UnloadStageResource();
         CurrentState = ResourceState.Loading;
-        StartCoroutine(CoLoadStageResources(level));
+        StartCoroutine(CoLoadStageResources(stage));
         return true;
     }
 
-    private IEnumerator CoLoadStageResources(LevelConfig level)
+    private IEnumerator CoLoadStageResources(StageConfig stage)
     {
         // 0. Catalog 热更新检查
         Debug.Log("[ResourceManager] 开始检查 Catalog 更新...");
@@ -257,14 +259,14 @@ public class ResourceManager : MonoBehaviour
         if (animatorControllerRegistry != null) animatorControllerRegistry.Initialize();
         if (spriteRegistry != null) spriteRegistry.Initialize();
 
-        // 1. 根据 LevelConfig 的 5 个分类列表，收集所有资源 Key 并通过对应的 Registry 解析真实句柄
+        // 1. 根据 StageConfig 的 5 个分类列表，收集所有资源 Key 并通过对应的 Registry 解析真实句柄
         Dictionary<string, Type> keysWithTypes = new Dictionary<string, Type>();
         Dictionary<string, object> keysWithAddressableKeys = new Dictionary<string, object>();
 
         // 处理 Prefabs (GameObject)
-        if (level.prefabs != null)
+        if (stage.prefabs != null)
         {
-            foreach (string key in level.prefabs)
+            foreach (string key in stage.prefabs)
             {
                 if (string.IsNullOrEmpty(key)) continue;
                 keysWithTypes[key] = typeof(GameObject);
@@ -279,9 +281,9 @@ public class ResourceManager : MonoBehaviour
         }
 
         // 处理 Audios (AudioClip)
-        if (level.audios != null)
+        if (stage.audios != null)
         {
-            foreach (string key in level.audios)
+            foreach (string key in stage.audios)
             {
                 if (string.IsNullOrEmpty(key)) continue;
                 keysWithTypes[key] = typeof(AudioClip);
@@ -296,9 +298,9 @@ public class ResourceManager : MonoBehaviour
         }
 
         // 处理 Textures (Texture2D)
-        if (level.textures != null)
+        if (stage.textures != null)
         {
-            foreach (string key in level.textures)
+            foreach (string key in stage.textures)
             {
                 if (string.IsNullOrEmpty(key)) continue;
                 keysWithTypes[key] = typeof(Texture2D);
@@ -313,9 +315,9 @@ public class ResourceManager : MonoBehaviour
         }
 
         // 处理 AnimationClips (AnimationClip)
-        if (level.animationClips != null)
+        if (stage.animationClips != null)
         {
-            foreach (string key in level.animationClips)
+            foreach (string key in stage.animationClips)
             {
                 if (string.IsNullOrEmpty(key)) continue;
                 keysWithTypes[key] = typeof(AnimationClip);
@@ -330,9 +332,9 @@ public class ResourceManager : MonoBehaviour
         }
 
         // 处理 AnimatorControllers (RuntimeAnimatorController)
-        if (level.animatorControllers != null)
+        if (stage.animatorControllers != null)
         {
-            foreach (string key in level.animatorControllers)
+            foreach (string key in stage.animatorControllers)
             {
                 if (string.IsNullOrEmpty(key)) continue;
                 keysWithTypes[key] = typeof(RuntimeAnimatorController);
@@ -347,9 +349,9 @@ public class ResourceManager : MonoBehaviour
         }
 
         // 处理 Sprites (Sprite)
-        if (level.sprites != null)
+        if (stage.sprites != null)
         {
-            foreach (string key in level.sprites)
+            foreach (string key in stage.sprites)
             {
                 if (string.IsNullOrEmpty(key)) continue;
                 keysWithTypes[key] = typeof(Sprite);
