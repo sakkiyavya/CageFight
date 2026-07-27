@@ -8,6 +8,7 @@ public class SceneFSM : MonoBehaviour
     public static SceneFSM Instance => _instance;
 
     [SerializeField] private SceneStateBase menuState;
+    [SerializeField] private SceneStateBase stageSelectState;
     [SerializeField] private SceneStateBase loadingState;
     [SerializeField] private SceneStateBase gameplayState;
     [SerializeField] private SceneStateBase gameOverState;
@@ -35,6 +36,7 @@ public class SceneFSM : MonoBehaviour
         _stateMap = new Dictionary<GameState, SceneStateBase>
         {
             { GameState.Menu, menuState },
+            { GameState.StageSelect, stageSelectState },
             { GameState.Loading, loadingState },
             { GameState.Gameplay, gameplayState },
             { GameState.GameOver, gameOverState }
@@ -60,7 +62,9 @@ public class SceneFSM : MonoBehaviour
             return;
         }
 
-        if (_isTransitioning || (_hasCurrentState && _currentStateEnum != GameState.Menu))
+        if (_isTransitioning || (_hasCurrentState &&
+            _currentStateEnum != GameState.Menu &&
+            _currentStateEnum != GameState.StageSelect))
         {
             Debug.LogWarning("[SceneFSM] 当前不在可开始关卡的菜单状态，忽略本次点击。");
             return;
@@ -68,6 +72,20 @@ public class SceneFSM : MonoBehaviour
 
         CurrentLevelConfig = levelConfig;
         LoadState(GameState.Loading);
+    }
+
+    public void OpenStageSelect()
+    {
+        if (_isTransitioning)
+            return;
+
+        if (_hasCurrentState && _currentStateEnum != GameState.Menu)
+        {
+            Debug.LogWarning("[SceneFSM] 只有在 MenuState 中才能打开关卡选择界面。");
+            return;
+        }
+
+        LoadState(GameState.StageSelect);
     }
 
     public void LoadState(GameState targetState)

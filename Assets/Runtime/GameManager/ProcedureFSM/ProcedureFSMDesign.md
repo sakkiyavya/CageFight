@@ -6,7 +6,8 @@
 
 | 状态 | 职责 | 对应场景 |
 | :--- | :--- | :--- |
-| `MenuState` | 主菜单流程 | 游戏启动后的主界面，含关卡选择等 |
+| `MenuState` | 主菜单流程 | 游戏启动后的主界面 |
+| `StageSelectState` | 关卡选择流程 | 展示关卡列表，并将选中的 LevelConfig 交给 FSM |
 | `LoadingState` | 资源加载过渡 | 玩家确认进入关卡 → 关卡资源下载/加载完毕 |
 | `GameplayState` | 局内战斗 | 正式游戏对局进行中 |
 | `GameOverState` | 结束结算 | 战斗结束后的胜利/失败结算界面 |

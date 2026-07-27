@@ -5,21 +5,28 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 /// <summary>
-/// 从 Addressables 顺序加载关卡配置（stage1, stage2...），
-/// 遇到第一个缺失即停止，将结果交给 LevelButtonLayout。
+/// Loads level configurations in order through Addressables and assigns the
+/// configurations for the current page to the seven pre-positioned buttons.
 /// </summary>
 public class LevelConfigLoader : MonoBehaviour
 {
-    [SerializeField] private LevelButtonLayout layout;
+    private const int ButtonsPerPage = 7;
+
+    [Tooltip("The seven level buttons, in display order.")]
+    [SerializeField] private LevelButton[] levelButtons = new LevelButton[ButtonsPerPage];
 
     private readonly List<AsyncOperationHandle> _handles = new List<AsyncOperationHandle>();
+    private readonly List<LevelConfig> _configs = new List<LevelConfig>();
+    private int _currentPage;
+
+    private int TotalPages => Mathf.Max(1, Mathf.CeilToInt((float)_configs.Count / ButtonsPerPage));
+
+    private void Awake() => RefreshButtons();
 
     private void Start() => StartCoroutine(LoadConfigs());
 
     private IEnumerator LoadConfigs()
     {
-        var configs = new List<LevelConfig>();
-
         for (int i = 1; ; i++)
         {
             var handle = Addressables.LoadAssetAsync<LevelConfig>($"Stage{i}");
@@ -32,13 +39,42 @@ public class LevelConfigLoader : MonoBehaviour
             }
 
             _handles.Add(handle);
-            configs.Add(handle.Result);
+            _configs.Add(handle.Result);
         }
 
-        if(layout)
+        _currentPage = Mathf.Clamp(_currentPage, 0, TotalPages - 1);
+        RefreshButtons();
+    }
+
+    /// <summary>
+    /// Turns one page. Button positions remain authored in the scene; only
+    /// each button's configuration and active state are updated.
+    /// </summary>
+    public void TurnPage(bool isNext)
+    {
+        int targetPage = _currentPage + (isNext ? 1 : -1);
+        if (targetPage < 0 || targetPage >= TotalPages) return;
+
+        _currentPage = targetPage;
+        RefreshButtons();
+    }
+
+    private void RefreshButtons()
+    {
+        if (levelButtons == null) return;
+
+        int startIndex = _currentPage * ButtonsPerPage;
+        int buttonCount = Mathf.Min(ButtonsPerPage, levelButtons.Length);
+
+        for (int i = 0; i < buttonCount; i++)
         {
-            layout.configs = configs;
-            layout.LayoutButtons();
+            LevelButton button = levelButtons[i];
+            if (button == null) continue;
+
+            int configIndex = startIndex + i;
+            bool hasConfig = configIndex < _configs.Count;
+            button.Init(hasConfig ? _configs[configIndex] : null);
+            button.gameObject.SetActive(hasConfig);
         }
     }
 
@@ -46,5 +82,13 @@ public class LevelConfigLoader : MonoBehaviour
     {
         foreach (var h in _handles)
             if (h.IsValid()) Addressables.Release(h);
+    }
+
+    private void OnValidate()
+    {
+        if (levelButtons == null || levelButtons.Length != ButtonsPerPage)
+        {
+            System.Array.Resize(ref levelButtons, ButtonsPerPage);
+        }
     }
 }

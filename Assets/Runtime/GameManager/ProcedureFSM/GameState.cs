@@ -4,6 +4,7 @@
 public enum GameState
 {
     Menu,       // 主菜单流程
+    StageSelect,// 关卡选择流程
     Loading,    // 加载过渡流程
     Gameplay,   // 局内关卡战斗
     GameOver    // 游戏结束结算
