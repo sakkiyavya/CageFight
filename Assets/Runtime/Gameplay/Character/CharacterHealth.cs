@@ -16,19 +16,31 @@ public class CharacterHealth : MonoBehaviour, ICollide
     // IStageComponent removed; data handled by GameObjectProperty
     public GameObject HpBarUp;
     public GameObject HpBarBottom;
-    [SerializeField, Min(0f)] private float hitFlashDuration = 0.3f;
+    private float hitFlashDuration = 0.3f;
+    private float jellyDuration = 0.6f;
+    private float jellyFrequency = 2f;
+    private float jellyAmplitude = 0.1f;
+    
+    private float deathAngularSpeed = 1440f;
+    private float deathParabolaAcceleration = -50f;
+    private Vector2 deathInitialVelocity = new Vector2(4f, 20f);
+    private float deathEffectDuration = 1f;
     private GameObjectProperty _prop;
     private float hideTime = -1f;
-    private Coroutine _deathCoroutine;
-    private Coroutine _hitFlashCoroutine;
+    private Coroutine _hitEffectCoroutine;
+    private Coroutine _deathEffectCoroutine;
+    private Vector3 _hitEffectBasePosition;
+    private Vector3 _hitEffectBaseScale;
+    private bool _hasHitEffectState;
     private readonly System.Collections.Generic.List<HitColorTarget> _hitColorTargets =
         new System.Collections.Generic.List<HitColorTarget>();
     private MaterialPropertyBlock _hitPropertyBlock;
 
     private void OnEnable()
     {
-        _deathCoroutine = null;
-        _hitFlashCoroutine = null;
+        _hitEffectCoroutine = null;
+        _deathEffectCoroutine = null;
+        _hasHitEffectState = false;
         hideTime = -1f;
         ApplyBarVisual();
         SetBarActive(false);
@@ -43,12 +55,18 @@ public class CharacterHealth : MonoBehaviour, ICollide
 
     private void OnDisable()
     {
-        if (_hitFlashCoroutine != null)
+        if (_hitEffectCoroutine != null)
         {
-            StopCoroutine(_hitFlashCoroutine);
-            _hitFlashCoroutine = null;
+            StopCoroutine(_hitEffectCoroutine);
+            _hitEffectCoroutine = null;
+        }
+        if (_deathEffectCoroutine != null)
+        {
+            StopCoroutine(_deathEffectCoroutine);
+            _deathEffectCoroutine = null;
         }
         RestoreOriginalColors();
+        RestoreHitTransform();
     }
 
     #region ICollide实现
@@ -116,11 +134,11 @@ public class CharacterHealth : MonoBehaviour, ICollide
             return d;
 
         _prop.currentHp = Mathf.Max(_prop.currentHp - d.finalDamage, 0);
-        RestartHitFlash();
+        RestartHitEffect();
         ShowBarTemporarily();
         _prop.repelDistance = d.repel / _prop.antiRepel * d.collideDir;
         _prop.isRepel = true;
-        if(_prop.currentHp <= 0) Die();
+        if(_prop.currentHp <= 0) Die(d);
         DamageTextPool.Instance.ShowDamage(d, transform.position + Vector3.up);
         return d;
     }
@@ -150,24 +168,30 @@ public class CharacterHealth : MonoBehaviour, ICollide
 
     public void Die()
     {
-        if (_prop.isDead && _deathCoroutine != null)
+        Die(Damage.DefaultDamage);
+    }
+
+    private void Die(Damage damage)
+    {
+        if (_prop.isDead && _deathEffectCoroutine != null)
             return;
 
         _prop.currentHp = 0;
         _prop.isDead = true;
         _prop.isAttack = false;
         _prop.target = null;
-        if (_deathCoroutine == null)
-            _deathCoroutine = StartCoroutine(DeathBounceAndRelease());
+        if (_hitEffectCoroutine != null)
+        {
+            StopCoroutine(_hitEffectCoroutine);
+            _hitEffectCoroutine = null;
+            RestoreOriginalColors();
+            RestoreHitTransform();
+        }
+        _deathEffectCoroutine = StartCoroutine(DeathEffectCoroutine(damage));
     }
 
     public void Revive()
     {
-        if (_deathCoroutine != null)
-        {
-            StopCoroutine(_deathCoroutine);
-            _deathCoroutine = null;
-        }
         _prop.currentHp = _prop.maxHp;
         _prop.isDead = false;
         ApplyBarVisual();
@@ -208,22 +232,115 @@ public class CharacterHealth : MonoBehaviour, ICollide
         }
     }
 
-    private void RestartHitFlash()
+    private void RestartHitEffect()
     {
-        if (hitFlashDuration <= 0f || _hitColorTargets.Count == 0)
-            return;
+        if (_hitEffectCoroutine != null)
+        {
+            StopCoroutine(_hitEffectCoroutine);
+            RestoreOriginalColors();
+            RestoreHitTransform();
+        }
 
-        if (_hitFlashCoroutine != null)
-            StopCoroutine(_hitFlashCoroutine);
-        _hitFlashCoroutine = StartCoroutine(HitFlashCoroutine());
+        _hitEffectBasePosition = transform.position;
+        _hitEffectBaseScale = transform.localScale;
+        _hasHitEffectState = true;
+        _hitEffectCoroutine = StartCoroutine(HitEffectCoroutine());
     }
 
-    private IEnumerator HitFlashCoroutine()
+    private IEnumerator HitEffectCoroutine()
     {
+        float elapsed = 0f;
+        bool colorRestored = false;
+        float effectDuration = Mathf.Max(hitFlashDuration, jellyDuration);
+
         SetHitColor(Color.red);
-        yield return new WaitForSeconds(hitFlashDuration);
+        while (elapsed < effectDuration)
+        {
+            if (elapsed < jellyDuration)
+            {
+                float jellyTime = elapsed / jellyDuration;
+                float damping = 1f - jellyTime;
+                float pulse = Mathf.Abs(Mathf.Sin(Mathf.PI * jellyFrequency * jellyTime)) * damping;
+                float jelly = Mathf.Sin(Mathf.PI * 2f * jellyFrequency * jellyTime) * damping;
+                transform.position = _hitEffectBasePosition + Vector3.up * (pulse * jellyAmplitude);
+                transform.localScale = new Vector3(
+                    _hitEffectBaseScale.x * (1f - jelly * 0.14f),
+                    _hitEffectBaseScale.y * (1f + jelly * 0.22f),
+                    _hitEffectBaseScale.z);
+            }
+            if (!colorRestored && elapsed >= hitFlashDuration)
+            {
+                RestoreOriginalColors();
+                colorRestored = true;
+            }
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
         RestoreOriginalColors();
-        _hitFlashCoroutine = null;
+        RestoreHitTransform();
+        _hitEffectCoroutine = null;
+    }
+
+    private IEnumerator DeathEffectCoroutine(Damage damage)
+    {
+        Vector3 startPosition = transform.position;
+        Quaternion startRotation = transform.rotation;
+        Vector3 startScale = transform.localScale;
+        int direction = GetDeathDirection(damage);
+        float horizontalSpeed = Mathf.Abs(deathInitialVelocity.x) * direction;
+        float elapsed = 0f;
+
+        while (elapsed < deathEffectDuration)
+        {
+            float time = elapsed;
+            transform.position = startPosition + new Vector3(
+                horizontalSpeed * time,
+                deathInitialVelocity.y * time + 0.5f * deathParabolaAcceleration * time * time,
+                0f);
+            transform.Rotate(Vector3.forward, deathAngularSpeed * Time.deltaTime);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = startPosition;
+        transform.rotation = startRotation;
+        transform.localScale = startScale;
+        _deathEffectCoroutine = null;
+        RespawnAfterDeath(startPosition, startRotation, startScale);
+    }
+
+    private int GetDeathDirection(Damage damage)
+    {
+        if (damage.source != null)
+        {
+            float sourceToCharacter = transform.position.x - damage.source.transform.position.x;
+            if (Mathf.Abs(sourceToCharacter) > 0.001f)
+                return sourceToCharacter > 0f ? 1 : -1;
+        }
+
+        return damage.collideDir == 0 ? 1 : (damage.collideDir > 0 ? 1 : -1);
+    }
+
+    private void RespawnAfterDeath(Vector3 position, Quaternion rotation, Vector3 scale)
+    {
+        GameObjectPool pool = GameObjectPool.Instance;
+        if (pool == null)
+            return;
+
+        GameObject prefab = pool.GetPrefab(gameObject);
+        if (prefab == null)
+            return;
+
+        GameObject respawned = pool.Get(prefab);
+        if (respawned != null)
+        {
+            respawned.transform.position = position;
+            respawned.transform.rotation = rotation;
+            respawned.transform.localScale = scale;
+        }
+
+        pool.Release(gameObject);
     }
 
     private void SetHitColor(Color color)
@@ -253,37 +370,13 @@ public class CharacterHealth : MonoBehaviour, ICollide
         }
     }
 
-    private IEnumerator DeathBounceAndRelease()
+    private void RestoreHitTransform()
     {
-        Vector3 originalPosition = transform.position;
-        Vector3 originalScale = transform.localScale;
-        const int bounceCount = 3;
-        const float bounceDuration = 0.24f;
-        const float firstHeight = 0.45f;
-
-        for (int bounce = 0; bounce < bounceCount; bounce++)
-        {
-            float elapsed = 0f;
-            float height = firstHeight * (1f - bounce * 0.25f);
-            while (elapsed < bounceDuration)
-            {
-                float t = elapsed / bounceDuration;
-                float pulse = Mathf.Sin(Mathf.PI * t);
-                float jelly = Mathf.Sin(Mathf.PI * 2f * t);
-                transform.position = originalPosition + Vector3.up * (pulse * height);
-                transform.localScale = new Vector3(
-                    originalScale.x * (1f - jelly * 0.14f),
-                    originalScale.y * (1f + jelly * 0.22f),
-                    originalScale.z);
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
-        }
-
-        transform.position = originalPosition;
-        transform.localScale = originalScale;
-        _deathCoroutine = null;
-        GameObjectPool.Instance.Release(gameObject);
+        if (!_hasHitEffectState)
+            return;
+        transform.position = _hitEffectBasePosition;
+        transform.localScale = _hitEffectBaseScale;
+        _hasHitEffectState = false;
     }
 
     private void ApplyBarVisual()

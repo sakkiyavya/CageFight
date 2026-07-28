@@ -96,6 +96,14 @@ public class GameObjectPool : MonoBehaviour
         }
     }
 
+    public GameObject GetPrefab(GameObject instance)
+    {
+        if (instance == null)
+            return null;
+        _instanceToPrefab.TryGetValue(instance, out GameObject prefab);
+        return prefab;
+    }
+
     /// <summary>
     /// 清空指定预制体的对象池。
     /// </summary>
