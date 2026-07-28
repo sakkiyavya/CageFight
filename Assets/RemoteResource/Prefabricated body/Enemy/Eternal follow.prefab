@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 874940254387361828}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -49,6 +49,9 @@ GameObject:
   - component: {fileID: 135965717094190170}
   - component: {fileID: 5574072033675805392}
   - component: {fileID: 9148321452171927905}
+  - component: {fileID: 6466173682434201566}
+  - component: {fileID: -4488410660853896067}
+  - component: {fileID: 7492261131741627200}
   m_Layer: 0
   m_Name: Eternal follow
   m_TagString: Untagged
@@ -117,15 +120,15 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1098830404, guid: f99e9a6a31e9c75409fdfe042c8dcd4c, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.44, y: 2.0133333}
+  m_Size: {x: 3.05, y: 2.5166667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &2519355089700290896
@@ -165,7 +168,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.47, y: 0.07}
     oldSize: {x: 3.05, y: 2.5166667}
-    newSize: {x: 2.44, y: 2.0133333}
+    newSize: {x: 3.05, y: 2.5166667}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -183,7 +186,7 @@ Animator:
   m_GameObject: {fileID: 7141039889819595872}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5f878a66bbaf4f042ac400b306670613, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -222,6 +225,9 @@ MonoBehaviour:
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
+  suckBlood: 0
+  currentHp: 0
+  isDead: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -231,6 +237,8 @@ MonoBehaviour:
   audioClips: []
   atkRangeMin: {x: -2147483648, y: -2147483648}
   atkRangeMax: {x: -2147483648, y: -2147483648}
+  currentBuff: []
+  currentDebuff: []
   occupySpace: {x: 1, y: 1}
   buildAnime: 
 --- !u!114 &6653609575721857079
@@ -277,6 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
+  hitFlashDuration: 0.3
 --- !u!82 &5574072033675805392
 AudioSource:
   m_ObjectHideFlags: 0
@@ -385,6 +394,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50b7439775efd343b6985bec3fbc186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6466173682434201566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7141039889819595872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b93689d485955d4c869baf947ad02b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorControllerKey: Eternal follow AC
+--- !u!114 &-4488410660853896067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7141039889819595872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioKey1: 
+  audioKey2: 
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
+--- !u!114 &7492261131741627200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7141039889819595872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d455e6caa99ec4195d997c095070de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteKey: Eternal follow AP_0
 --- !u!1001 &2152629118366762483
 PrefabInstance:
   m_ObjectHideFlags: 0

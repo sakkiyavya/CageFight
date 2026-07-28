@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 157937063423362976}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.9, y: 0.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50,6 +50,9 @@ GameObject:
   - component: {fileID: 4630198106553601179}
   - component: {fileID: 1360672411241154181}
   - component: {fileID: 3633221606005843145}
+  - component: {fileID: 1356076550757944832}
+  - component: {fileID: 865229640714317862}
+  - component: {fileID: -6020147985018128703}
   m_Layer: 0
   m_Name: Flame cat
   m_TagString: Untagged
@@ -118,15 +121,15 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -321257329, guid: 70520ee357bcdce4784cb4420d42ea41, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.5, y: 3.2}
+  m_Size: {x: 9.92, y: 3.44}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &3759287617882496255
@@ -139,7 +142,7 @@ Animator:
   m_GameObject: {fileID: 5326090067705445012}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9ff5516d6d2ccaf42a5b4466eeb42e38, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -185,9 +188,9 @@ BoxCollider2D:
   m_Offset: {x: -0.04816246, y: 0.92662907}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.08}
-    oldSize: {x: 1.9230769, y: 2.4615386}
-    newSize: {x: 2.5, y: 3.2}
+    pivot: {x: 0.17, y: 0.06}
+    oldSize: {x: 9.92, y: 3.44}
+    newSize: {x: 9.92, y: 3.44}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -223,6 +226,9 @@ MonoBehaviour:
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
+  suckBlood: 0
+  currentHp: 0
+  isDead: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -232,6 +238,8 @@ MonoBehaviour:
   audioClips: []
   atkRangeMin: {x: -2147483648, y: -2147483648}
   atkRangeMax: {x: -2147483643, y: -2147483647}
+  currentBuff: []
+  currentDebuff: []
   occupySpace: {x: 1, y: 1}
   buildAnime: 
 --- !u!114 &5996009296450410654
@@ -278,6 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
+  hitFlashDuration: 0.3
 --- !u!114 &4630198106553601179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +407,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50b7439775efd343b6985bec3fbc186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1356076550757944832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5326090067705445012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d455e6caa99ec4195d997c095070de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteKey: Flame cat-attack_2
+--- !u!114 &865229640714317862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5326090067705445012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioKey1: 
+  audioKey2: 
+  audioKey3: 
+  audioKey4: 
+  audioKey5: 
+  audioKey6: 
+  audioKey7: 
+  audioKey8: 
+--- !u!114 &-6020147985018128703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5326090067705445012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b93689d485955d4c869baf947ad02b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorControllerKey: Flame cat AC
 --- !u!1001 &5927452237712834711
 PrefabInstance:
   m_ObjectHideFlags: 0

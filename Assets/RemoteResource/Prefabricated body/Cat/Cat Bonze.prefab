@@ -194,6 +194,9 @@ MonoBehaviour:
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
+  suckBlood: 0
+  currentHp: 0
+  isDead: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -201,8 +204,10 @@ MonoBehaviour:
   isRepel: 0
   repelDistance: 0
   audioClips: []
-  atkRangeMin: {x: -2147483648, y: -2147483648}
-  atkRangeMax: {x: -2147483648, y: -2147483648}
+  atkRangeMin: {x: -2147483648, y: -2147483647}
+  atkRangeMax: {x: -2147483648, y: -2147483647}
+  currentBuff: []
+  currentDebuff: []
   occupySpace: {x: 3, y: 2}
   buildAnime: 
 --- !u!114 &7246673797051684105
@@ -249,6 +254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
+  hitFlashDuration: 0.3
 --- !u!82 &4348399593050705794
 AudioSource:
   m_ObjectHideFlags: 0
@@ -428,7 +434,7 @@ Transform:
   m_GameObject: {fileID: 4790079443884991035}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
