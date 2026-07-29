@@ -3,18 +3,22 @@ using UnityEngine.EventSystems;
 
 public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandler
 {
-    public GameObject targetBuilding;
+    public GameObject targetBuilding;                                        // 按下按钮时创建并进入放置模式的建筑预制体。
     
     
-    // 开始拖出建筑。
+    #region 生命周期与回调
+    /// <summary>
+    /// 将按下位置转换到按钮局部坐标；转换成功后实例化目标建筑，并用当前指针进入建筑放置模式。
+    /// </summary>
+    /// <param name="eventData">包含按下位置、指针编号和事件摄像机的数据。</param>
     public void OnPointerDown(PointerEventData eventData)
     {
         if (targetBuilding == null || BuildingPlace.Instance == null) return;
 
         Debug.Log("BuildingButton OnPointerDown");
 
-        RectTransform rectTransform = transform as RectTransform;
-        Vector2 localPosition;
+        RectTransform rectTransform = transform as RectTransform;            // 当前建筑按钮的矩形变换。
+        Vector2 localPosition;                                               // 指针相对按钮的局部坐标。
 
         // 参考 JoyStick 的做法，使用 ScreenPointToLocalPointInRectangle 将屏幕点转换为 UI 局部坐标
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.position, eventData.pressEventCamera, out localPosition))
@@ -23,8 +27,8 @@ public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandl
             // if (localPosition.magnitude <= buttonRadius)
             // {
                 // 实例化建筑并进入放置模式
-                GameObject obj = Instantiate(targetBuilding);
-                BuildingBase building = obj.GetComponent<BuildingBase>();
+                GameObject obj = Instantiate(targetBuilding);                // 新创建的待放置建筑。
+                BuildingBase building = obj.GetComponent<BuildingBase>();    // 建筑的放置与建造逻辑组件。
 
                 if (building != null)
                 {
@@ -34,7 +38,10 @@ public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandl
         }
     }
 
-    // 结束建筑放置。
+    /// <summary>
+    /// 指针抬起时请求放置系统结束当前放置模式，并根据当前位置决定建造或取消。
+    /// </summary>
+    /// <param name="eventData">本次抬起事件的指针数据；放置系统使用此前绑定的指针状态。</param>
     public void OnPointerUp(PointerEventData eventData)
     {
         // 手指抬起，尝试在当前位置放下建筑
@@ -43,4 +50,5 @@ public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandl
             BuildingPlace.Instance.ExitPlaceMode();
         }
     }
+    #endregion
 }

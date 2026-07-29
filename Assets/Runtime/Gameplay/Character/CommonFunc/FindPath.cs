@@ -3,11 +3,20 @@ using UnityEngine;
 
 public class FindPath : BehaviourBase
 {
-    private Vector2Int _currentTargetPos;
-    private Vector2Int _myPos;
-    private Vector2Int _targetPos;
-    private Vector2Int _lastPoint;
+    private Vector2Int _currentTargetPos;    // 目标当前所在的网格坐标。
+    private Vector2Int _myPos;               // 执行者当前所在的网格坐标。
+    private Vector2Int _targetPos;           // 本轮寻路使用的终点坐标。
+    private Vector2Int _lastPoint;           // 现有路径记录的最后一个坐标。
 
+    #region 公开接口
+    /// <summary>
+    /// 检查目标移动是否使旧路径失效，并通过可跨帧的 A* 会话计算到目标的路径。
+    /// 每帧最多扩展 30 个节点，成功后把结果写入角色属性。
+    /// </summary>
+    /// <param name="self">需要寻路的角色对象。</param>
+    /// <param name="prop">保存目标、路径和增量 A* 会话的角色属性。</param>
+    /// <param name="health">角色生命组件；当前寻路逻辑不使用。</param>
+    /// <returns>本帧是否正在处理寻路或刚完成寻路。</returns>
     public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
         // 如果有目标且有路径，检查目标是否移动了位置
@@ -63,4 +72,5 @@ public class FindPath : BehaviourBase
 
         return true; // 只要寻路在进行中，就返回 true
     }
+    #endregion
 }

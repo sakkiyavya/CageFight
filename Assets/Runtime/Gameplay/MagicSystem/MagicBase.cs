@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class MagicBase : MonoBehaviour
 {
-    // Start is called before the first frame update
+    #region 生命周期与回调
+    /// <summary>
+    /// Unity 初始化回调；魔法基类当前不执行启动逻辑。
+    /// </summary>
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Unity 每帧回调；魔法基类当前不执行持续更新逻辑。
+    /// </summary>
     void Update()
     {
         
     }
+    #endregion
 }

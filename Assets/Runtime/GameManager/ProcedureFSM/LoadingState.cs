@@ -3,6 +3,12 @@ using UnityEngine;
 
 public class LoadingState : SceneStateBase
 {
+    #region 生命周期与回调
+    /// <summary>
+    /// 加载当前关卡所需资源，等待资源系统完成后实例化关卡对象，并切换到游戏状态。
+    /// 任一前置条件或加载步骤失败时会记录错误并终止进入流程。
+    /// </summary>
+    /// <returns>等待资源加载和关卡实例化完成的协程。</returns>
     protected override IEnumerator OnEnter()
     {
         if (CurrentStageConfig == null)
@@ -43,8 +49,13 @@ public class LoadingState : SceneStateBase
         SceneFSM.Instance.LoadState(GameState.Gameplay);
     }
 
+    /// <summary>
+    /// 完成加载状态的退出流程；当前无需额外清理，仅等待一帧。
+    /// </summary>
+    /// <returns>加载状态的退出协程。</returns>
     protected override IEnumerator OnExit()
     {
         yield return null;
     }
+    #endregion
 }

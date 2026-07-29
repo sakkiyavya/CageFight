@@ -11,8 +11,14 @@ public class ResourceKeyAttribute : PropertyAttribute
 {
     public Type ResourceType { get; private set; }
 
+    #region 公开接口
+    /// <summary>
+    /// 创建资源键标记，并记录该字段期望引用的资源类型。
+    /// </summary>
+    /// <param name="resourceType">资源键对应的资源类型，例如 <see cref="GameObject"/> 或 <see cref="AudioClip"/>。</param>
     public ResourceKeyAttribute(Type resourceType)
     {
         ResourceType = resourceType;
     }
+    #endregion
 }

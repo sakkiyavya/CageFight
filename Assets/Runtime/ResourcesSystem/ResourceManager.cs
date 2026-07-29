@@ -29,46 +29,50 @@ public class ResourceManager : MonoBehaviour
 {
     #if UNITY_EDITOR
     [FormerlySerializedAs("editorLevelConfig")]
-    public StageConfig editorStageConfig;
+    public StageConfig editorStageConfig;                                                                                                   // 编辑器中用于直接预览和加载的关卡配置。
     #endif
     public static ResourceManager Instance { get; private set; }
 
     [Header("各类注册表")]
     [Tooltip("Prefab 映射表，负责将纯文本的 prefabKey 映射到实际的 AssetReference")]
-    [SerializeField] private PrefabRegistry prefabRegistry;
+    [SerializeField] private PrefabRegistry prefabRegistry;                                                                                 // 预制体资源键到 Addressables 引用的注册表。
 
     [Tooltip("Texture 映射表")]
-    [SerializeField] private TextureRegistry textureRegistry;
+    [SerializeField] private TextureRegistry textureRegistry;                                                                               // 纹理资源键到 Addressables 引用的注册表。
 
     [Tooltip("Audio 映射表")]
-    [SerializeField] private AudioRegistry audioRegistry;
+    [SerializeField] private AudioRegistry audioRegistry;                                                                                   // 音频资源键到 Addressables 引用的注册表。
 
     [Tooltip("AnimationClip 映射表")]
-    [SerializeField] private AnimationClipRegistry animationClipRegistry;
+    [SerializeField] private AnimationClipRegistry animationClipRegistry;                                                                   // 动画片段资源键到 Addressables 引用的注册表。
 
     [Tooltip("AnimatorController 映射表")]
-    [SerializeField] private AnimatorControllerRegistry animatorControllerRegistry;
+    [SerializeField] private AnimatorControllerRegistry animatorControllerRegistry;                                                         // 动画控制器资源键到 Addressables 引用的注册表。
 
     [Tooltip("Sprite 映射表（支持多图切片子图）")]
-    [SerializeField] private SpriteRegistry spriteRegistry;
+    [SerializeField] private SpriteRegistry spriteRegistry;                                                                                 // 精灵资源键到 Addressables 引用的注册表。
 
-    public ResourceState CurrentState { get; private set; } = ResourceState.None;
+    public ResourceState CurrentState { get; private set; } = ResourceState.None;                                                           // 当前关卡资源加载或卸载所处的阶段。
 
-    public event Action OnLoadComplete;
-    public event Action OnUnloadComplete;
+    public event Action OnLoadComplete;                                                                                                     // 当前关卡所需资源全部进入缓存后触发。
+    public event Action OnUnloadComplete;                                                                                                   // 已持有资源全部释放并清空缓存后触发。
 
     // --- 私有缓存字典 ---
-    private Dictionary<string, GameObject> _gameObjectDict = new Dictionary<string, GameObject>();
-    private Dictionary<string, AudioClip> _audioDict = new Dictionary<string, AudioClip>();
-    private Dictionary<string, Texture2D> _textureDict = new Dictionary<string, Texture2D>();
-    private Dictionary<string, AnimationClip> _animationDict = new Dictionary<string, AnimationClip>();
-    private Dictionary<string, RuntimeAnimatorController> _animatorControllerDict = new Dictionary<string, RuntimeAnimatorController>();
-    private Dictionary<string, Sprite> _spriteDict = new Dictionary<string, Sprite>();
-    public List<string> _spriteKeys = new List<string>();
+    private Dictionary<string, GameObject> _gameObjectDict = new Dictionary<string, GameObject>();                                          // 已加载预制体按资源键建立的缓存。
+    private Dictionary<string, AudioClip> _audioDict = new Dictionary<string, AudioClip>();                                                 // 已加载音频片段按资源键建立的缓存。
+    private Dictionary<string, Texture2D> _textureDict = new Dictionary<string, Texture2D>();                                               // 已加载纹理按资源键建立的缓存。
+    private Dictionary<string, AnimationClip> _animationDict = new Dictionary<string, AnimationClip>();                                     // 已加载动画片段按资源键建立的缓存。
+    private Dictionary<string, RuntimeAnimatorController> _animatorControllerDict = new Dictionary<string, RuntimeAnimatorController>();    // 已加载动画控制器按资源键建立的缓存。
+    private Dictionary<string, Sprite> _spriteDict = new Dictionary<string, Sprite>();                                                      // 已加载精灵按资源键建立的缓存。
+    public List<string> _spriteKeys = new List<string>();                                                                                   // 当前缓存中可供调试或界面查询的精灵资源键。
 
     // 统一管理所有加载成功后的句柄，以便统一释放
-    private List<AsyncOperationHandle> _handlesToRelease = new List<AsyncOperationHandle>();
+    private List<AsyncOperationHandle> _handlesToRelease = new List<AsyncOperationHandle>();                                                // 由本管理器持有、卸载关卡时必须释放的 Addressables 句柄。
 
+    #region 生命周期与回调
+    /// <summary>
+    /// 建立资源管理器单例，并在编辑器中同步查找注册表，或在玩家构建中启动注册表异步加载。
+    /// </summary>
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -92,17 +96,24 @@ public class ResourceManager : MonoBehaviour
 #endif
     }
 
+    /// <summary>
+    /// 当前资源管理器销毁时清除静态单例引用。
+    /// </summary>
     private void OnDestroy()
     {
         if (Instance == this)
             Instance = null;
     }
+    #endregion
 
+    #region 注册表加载与初始化
 #if UNITY_EDITOR
     /// <summary>
     /// 编辑器下：从 AssetDatabase 搜索并加载指定类型的 Registry SO。
     /// 文件名和类名相同（如 PrefabRegistry.asset）。
     /// </summary>
+    /// <typeparam name="T">需要查找的注册表 ScriptableObject 类型。</typeparam>
+    /// <returns>找到的第一个注册表资产；没有匹配资产或加载失败时返回 <see langword="null"/>。</returns>
     private static T LoadRegistryEditor<T>() where T : ScriptableObject
     {
         string typeName = typeof(T).Name;
@@ -120,13 +131,9 @@ public class ResourceManager : MonoBehaviour
     }
 #else
     /// <summary>
-    /// 运行时：通过 Addressables 异步加载所有 Registry。
-    /// Key = 类名（如 "PrefabRegistry"）。
+    /// 在玩家构建中按类型名依次加载全部资源注册表，并在全部加载完成后初始化各注册表的键索引。
     /// </summary>
-    /// <summary>
-    /// 运行时：通过 Addressables 异步加载所有 Registry。
-    /// Key = 类名（如 "PrefabRegistry"）。
-    /// </summary>
+    /// <returns>等待所有注册表 Addressables 请求依次完成的协程。</returns>
     private IEnumerator LoadAllRegistriesRuntime()
     {
         yield return LoadRegistryRuntime<PrefabRegistry>(r           => prefabRegistry = r);
@@ -147,9 +154,15 @@ public class ResourceManager : MonoBehaviour
         Debug.Log("[ResourceManager] 所有 Registry 加载完成。");
     }
 
+    /// <summary>
+    /// 使用注册表类型名作为 Addressables 键加载单个注册表，保存成功句柄并通过回调返回结果。
+    /// </summary>
+    /// <typeparam name="T">需要加载的注册表 ScriptableObject 类型。</typeparam>
+    /// <param name="onDone">加载完成后接收注册表实例或空值的回调。</param>
+    /// <returns>等待单个注册表加载完成的协程。</returns>
     private IEnumerator LoadRegistryRuntime<T>(Action<T> onDone) where T : ScriptableObject
     {
-        string key = typeof(T).Name;
+        string key = typeof(T).Name;                                                                                                        // 注册表使用的 Addressables 键。
         var handle = Addressables.LoadAssetAsync<T>(key);
         yield return handle;
         if (handle.Status == AsyncOperationStatus.Succeeded)
@@ -165,45 +178,82 @@ public class ResourceManager : MonoBehaviour
 
     }
 #endif
+    #endregion
 
 
     
+    #region 缓存资源查询
+    /// <summary>
+    /// 从当前关卡的预制体缓存中按资源键查询对象。
+    /// </summary>
+    /// <param name="key">预制体资源键。</param>
+    /// <returns>已加载的预制体；缓存中不存在时返回 <see langword="null"/>。</returns>
     public GameObject GetGameObject(string key)
     {
         return _gameObjectDict.TryGetValue(key, out var res) ? res : null;
     }
 
+    /// <summary>
+    /// 从当前关卡的音频缓存中按资源键查询片段。
+    /// </summary>
+    /// <param name="key">音频资源键。</param>
+    /// <returns>已加载的音频片段；缓存中不存在时返回 <see langword="null"/>。</returns>
     public AudioClip GetAudio(string key)
     {
         return _audioDict.TryGetValue(key, out var res) ? res : null;
     }
 
+    /// <summary>
+    /// 从当前关卡的纹理缓存中按资源键查询纹理。
+    /// </summary>
+    /// <param name="key">纹理资源键。</param>
+    /// <returns>已加载的纹理；缓存中不存在时返回 <see langword="null"/>。</returns>
     public Texture2D GetTexture(string key)
     {
         return _textureDict.TryGetValue(key, out var res) ? res : null;
     }
 
+    /// <summary>
+    /// 从当前关卡的动画缓存中按资源键查询动画片段。
+    /// </summary>
+    /// <param name="key">动画片段资源键。</param>
+    /// <returns>已加载的动画片段；缓存中不存在时返回 <see langword="null"/>。</returns>
     public AnimationClip GetAnimation(string key)
     {
         return _animationDict.TryGetValue(key, out var res) ? res : null;
     }
 
+    /// <summary>
+    /// 从当前关卡的动画控制器缓存中按资源键查询控制器。
+    /// </summary>
+    /// <param name="key">动画控制器资源键。</param>
+    /// <returns>已加载的动画控制器；缓存中不存在时返回 <see langword="null"/>。</returns>
     public RuntimeAnimatorController GetAnimatorController(string key)
     {
         return _animatorControllerDict.TryGetValue(key, out var res) ? res : null;
     }
 
+    /// <summary>
+    /// 从当前关卡的精灵缓存中按资源键查询精灵。
+    /// </summary>
+    /// <param name="key">精灵资源键。</param>
+    /// <returns>已加载的精灵；缓存中不存在时返回 <see langword="null"/>。</returns>
     public Sprite GetSprite(string key)
     {
         // Debug.Log("ResourceManager.GetSprit:" + key + "  " + _spriteDict.ContainsKey(key));
         return _spriteDict.TryGetValue(key, out var res) ? res : null;
     }
+    #endregion
 
     // --- 生命周期管理 ---
 
+    #region 关卡资源加载
     /// <summary>
-    /// 提前加载场景中的所有资源
+    /// 清理上一关资源后启动当前关卡所需资源的异步预加载。
+    /// 已处于加载状态或全部注册表均不可用时拒绝重复请求。
     /// </summary>
+    /// <param name="stage">需要扫描并加载资源的关卡配置。</param>
+    /// <returns>是否成功启动加载协程。</returns>
     public bool LoadStageResources(StageConfig stage)
     {
 
@@ -226,6 +276,12 @@ public class ResourceManager : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// 检查并更新 Addressables Catalog，扫描关卡配置中的资源键和目标类型，
+    /// 按对应注册表解析并加载资源，写入类型缓存后发布加载完成事件。
+    /// </summary>
+    /// <param name="stage">提供全部关卡对象及资源键的关卡配置。</param>
+    /// <returns>等待 Catalog 更新和所有资源加载完成的协程。</returns>
     private IEnumerator CoLoadStageResources(StageConfig stage)
     {
         // 0. Catalog 热更新检查
@@ -260,8 +316,8 @@ public class ResourceManager : MonoBehaviour
         if (spriteRegistry != null) spriteRegistry.Initialize();
 
         // 1. 根据 StageConfig 的 5 个分类列表，收集所有资源 Key 并通过对应的 Registry 解析真实句柄
-        Dictionary<string, Type> keysWithTypes = new Dictionary<string, Type>();
-        Dictionary<string, object> keysWithAddressableKeys = new Dictionary<string, object>();
+        Dictionary<string, Type> keysWithTypes = new Dictionary<string, Type>();                                                            // 每个逻辑资源键期望加载成的 Unity 资源类型。
+        Dictionary<string, object> keysWithAddressableKeys = new Dictionary<string, object>();                                              // 逻辑资源键对应的 Addressables 运行时键或安全引用。
 
         // 处理 Prefabs (GameObject)
         if (stage.prefabs != null)
@@ -365,7 +421,7 @@ public class ResourceManager : MonoBehaviour
             }
         }
 
-        List<object> keysToDownload = new List<object>();
+        List<object> keysToDownload = new List<object>();                                                                                   // 合并下载依赖时提交给 Addressables 的运行时键集合。
         foreach (var kvp in keysWithTypes)
         {
             string key = kvp.Key;
@@ -474,15 +530,27 @@ public class ResourceManager : MonoBehaviour
         Debug.Log("[ResourceManager] 关卡预加载完成！");
         OnLoadComplete?.Invoke();
     }
+    #endregion
 
+    #region 额外资源加载
     /// <summary>
-    /// 提供一个按名称 (Key) 加载其它资源的基础方法，方便外部主动请求缓存
+    /// 启动按 Addressables 键加载额外资源的协程，并在成功后写入相应类型缓存。
     /// </summary>
+    /// <typeparam name="T">需要加载的 Unity 资源类型。</typeparam>
+    /// <param name="key">资源的 Addressables 键及缓存键。</param>
+    /// <param name="onComplete">加载结束后接收资源实例或空值的可选回调。</param>
     public void LoadExtraResourceAsync<T>(string key, Action<T> onComplete = null) where T : UnityEngine.Object
     {
         StartCoroutine(CoLoadExtraResource(key, onComplete));
     }
 
+    /// <summary>
+    /// 异步加载单个额外资源，保存有效句柄，并根据泛型类型写入对应缓存后调用完成回调。
+    /// </summary>
+    /// <typeparam name="T">需要加载的 Unity 资源类型。</typeparam>
+    /// <param name="key">资源的 Addressables 键及缓存键。</param>
+    /// <param name="onComplete">加载结束后接收资源实例或空值的回调。</param>
+    /// <returns>等待 Addressables 加载完成的协程。</returns>
     private IEnumerator CoLoadExtraResource<T>(string key, Action<T> onComplete) where T : UnityEngine.Object
     {
         var handle = Addressables.LoadAssetAsync<T>(key);
@@ -491,7 +559,7 @@ public class ResourceManager : MonoBehaviour
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
             _handlesToRelease.Add(handle);
-            T result = handle.Result;
+            T result = handle.Result;                                                                                                       // 加载成功的资源实例。
 
             // 根据类型存入对应的字典
             if (typeof(T) == typeof(AudioClip)) _audioDict[key] = result as AudioClip;
@@ -507,9 +575,11 @@ public class ResourceManager : MonoBehaviour
             onComplete?.Invoke(null);
         }
     }
+    #endregion
 
+    #region 资源卸载
     /// <summary>
-    /// 卸载当前资源管理器中已经加载的资源
+    /// 清空当前关卡的全部类型缓存，释放资源和注册表句柄，并发布卸载完成事件。
     /// </summary>
     public void UnloadStageResource()
     {
@@ -543,5 +613,6 @@ public class ResourceManager : MonoBehaviour
         Debug.Log("[ResourceManager] 资源卸载完成！");
         OnUnloadComplete?.Invoke();
     }
+    #endregion
 }
 

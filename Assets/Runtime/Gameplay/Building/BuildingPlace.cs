@@ -5,24 +5,29 @@ using UnityEngine;
 public class BuildingPlace : MonoBehaviour
 {
     public static BuildingPlace Instance { get; private set; }
-    // 初始化放置管理器。
+    #region 生命周期与回调
+    /// <summary>
+    /// 建立建筑放置管理器单例；场景中存在重复实例时销毁后创建的对象。
+    /// </summary>
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
+    #endregion
 
-    private BuildingBase currentBuilding;
-    private bool isInPlaceMode = false;
+    private BuildingBase currentBuilding;                                                        // 当前正在拖动预览的建筑。
+    private bool isInPlaceMode = false;                                                          // 是否正在处理建筑放置输入。
 
     // 手指处理器
-    private FingerIDHander fingerHandler = new FingerIDHander();
+    private FingerIDHander fingerHandler = new FingerIDHander();                                 // 放置流程独占触摸输入的手指绑定器。
 
+    #region 公开接口
     /// <summary>
-    /// 进入放置模式
+    /// 设置待放置建筑，重置旧触摸绑定，并按需立即占用创建建筑的指针。
     /// </summary>
-    /// <param name="building">要放置的建筑</param>
-    /// <param name="initialFingerId">初始绑定的手指 ID（可选）</param>
+    /// <param name="building">需要进入拖动预览的建筑实例。</param>
+    /// <param name="initialFingerId">创建建筑时已经按下的指针编号；-1 表示等待新的有效触摸。</param>
     public void EnterPlaceMode(BuildingBase building, int initialFingerId = -1)
     {
         currentBuilding = building;
@@ -38,9 +43,10 @@ public class BuildingPlace : MonoBehaviour
     }
 
     /// <summary>
-    /// 退出放置模式并尝试放置
+    /// 检查建筑当前位置是否合法；合法时启动施工，非法时销毁预览对象，
+    /// 最后退出放置模式并释放触摸绑定。
     /// </summary>
-    /// <returns>放置成功返回 true，否则返回 false</returns>
+    /// <returns>建筑通过合法性检查并成功开始施工时返回 <see langword="true"/>。</returns>
     public bool ExitPlaceMode()
     {
         if (!isInPlaceMode || currentBuilding == null) return false;
@@ -65,10 +71,15 @@ public class BuildingPlace : MonoBehaviour
         fingerHandler.Unbind();
         return false;
     }
+    #endregion
 
-    private Vector2Int lastBasePos = new Vector2Int(-999, -999); // 记录上次检测时的网格起始坐标
+    private Vector2Int lastBasePos = new Vector2Int(-999, -999);                                 // 记录上次检测时的网格起始坐标
 
-    // 持续更新建筑预览位置。
+    #region 生命周期与回调
+    /// <summary>
+    /// 放置模式下绑定第一个未被 UI 占用的触摸，并持续将建筑中心吸附到对应地图网格。
+    /// 仅在基准网格变化时重新检查合法性，触摸结束后释放绑定。
+    /// </summary>
     private void Update()
     {
         if (!isInPlaceMode || currentBuilding == null) return;
@@ -78,7 +89,7 @@ public class BuildingPlace : MonoBehaviour
         {
             for (int i = 0; i < Input.touchCount; i++)
             {
-                Touch t = Input.GetTouch(i);
+                Touch t = Input.GetTouch(i);                                                     // 当前检查的触摸。
                 if (t.phase == TouchPhase.Began)
                 {
                     // 过滤 UI 点击
@@ -96,17 +107,17 @@ public class BuildingPlace : MonoBehaviour
         }
 
         // 2. 如果已经绑定，则追踪该手指
-        Touch? activeTouch = fingerHandler.GetActiveTouch();
+        Touch? activeTouch = fingerHandler.GetActiveTouch();                                     // 当前放置流程绑定的活动触摸。
         if (activeTouch.HasValue)
         {
-            Touch touch = activeTouch.Value;
+            Touch touch = activeTouch.Value;                                                     // 当前帧的触摸数据。
             if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary)
             {
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(touch.position);
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(touch.position);               // 触摸位置转换得到的世界坐标。
                 worldPos.z = 0;
 
-                GameObjectProperty prop = currentBuilding.GetComponent<GameObjectProperty>();
-                Vector2Int occupySpace = prop != null ? prop.occupySpace : Vector2Int.one;
+                GameObjectProperty prop = currentBuilding.GetComponent<GameObjectProperty>();    // 当前建筑的占地属性。
+                Vector2Int occupySpace = prop != null ? prop.occupySpace : Vector2Int.one;       // 建筑占用的网格尺寸。
 
                 // 计算对齐后的网格左下角起始坐标
                 Vector2Int currentBasePos = new Vector2Int(
@@ -137,4 +148,5 @@ public class BuildingPlace : MonoBehaviour
             }
         }
     }
+    #endregion
 }

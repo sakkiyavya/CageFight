@@ -6,15 +6,23 @@ using UnityEngine.EventSystems;
 public class TriangleButton : UISystemBase, IPointerDownHandler, IPointerUpHandler
 {
 
-    // 处理按下事件。
+    #region 生命周期与回调
+    /// <summary>
+    /// 按下按钮时按当前开关状态播放界面展开或收起动画，并翻转下一次切换方向。
+    /// </summary>
+    /// <param name="eventData">本次按下事件的指针数据；当前实现不读取其中的具体值。</param>
     public void OnPointerDown(PointerEventData eventData)
     {
         UIMotionEffect(isOpen);
         isOpen = !isOpen;
     }
-    // 处理抬起事件。
+    /// <summary>
+    /// 接收指针抬起回调；当前按钮的状态切换已在按下时完成，因此此处不执行额外逻辑。
+    /// </summary>
+    /// <param name="eventData">本次抬起事件的指针数据。</param>
     public void OnPointerUp(PointerEventData eventData)
     {
         
     }
+    #endregion
 }

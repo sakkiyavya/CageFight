@@ -9,39 +9,49 @@ using UnityEditor;
 [Serializable]
 public class StageAudioData : ComponentData
 {
-    [ResourceKey(typeof(AudioClip))] public string audioKey1;
-    [ResourceKey(typeof(AudioClip))] public string audioKey2;
-    [ResourceKey(typeof(AudioClip))] public string audioKey3;
-    [ResourceKey(typeof(AudioClip))] public string audioKey4;
-    [ResourceKey(typeof(AudioClip))] public string audioKey5;
-    [ResourceKey(typeof(AudioClip))] public string audioKey6;
-    [ResourceKey(typeof(AudioClip))] public string audioKey7;
-    [ResourceKey(typeof(AudioClip))] public string audioKey8;
+    [ResourceKey(typeof(AudioClip))] public string audioKey1;                // 按播放顺序保存的第 1 个音频资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey2;                // 按播放顺序保存的第 2 个音频资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey3;                // 按播放顺序保存的第 3 个音频资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey4;                // 按播放顺序保存的第 4 个音频资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey5;                // 按播放顺序保存的第 5 个音频资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey6;                // 按播放顺序保存的第 6 个音频资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey7;                // 按播放顺序保存的第 7 个音频资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey8;                // 按播放顺序保存的第 8 个音频资源键。
 }
 
 [ExecuteAlways]
 public class StageAudio : MonoBehaviour, IStageComponent
 {
     [Header("音频资源 Key（留空则忽略）")]
-    [ResourceKey(typeof(AudioClip))] public string audioKey1;
-    [ResourceKey(typeof(AudioClip))] public string audioKey2;
-    [ResourceKey(typeof(AudioClip))] public string audioKey3;
-    [ResourceKey(typeof(AudioClip))] public string audioKey4;
-    [ResourceKey(typeof(AudioClip))] public string audioKey5;
-    [ResourceKey(typeof(AudioClip))] public string audioKey6;
-    [ResourceKey(typeof(AudioClip))] public string audioKey7;
-    [ResourceKey(typeof(AudioClip))] public string audioKey8;
+    [ResourceKey(typeof(AudioClip))] public string audioKey1;                // 注入属性组件音频列表的第 1 个资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey2;                // 注入属性组件音频列表的第 2 个资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey3;                // 注入属性组件音频列表的第 3 个资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey4;                // 注入属性组件音频列表的第 4 个资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey5;                // 注入属性组件音频列表的第 5 个资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey6;                // 注入属性组件音频列表的第 6 个资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey7;                // 注入属性组件音频列表的第 7 个资源键。
+    [ResourceKey(typeof(AudioClip))] public string audioKey8;                // 注入属性组件音频列表的第 8 个资源键。
 
-    public Type DataType => typeof(StageAudioData);
+    public Type DataType => typeof(StageAudioData);                          // 该组件在关卡配置中对应的数据类型。
 
+    #region 生命周期与回调
+    /// <summary>
+    /// 组件在运行时启用后，从资源管理器重新注入当前配置的全部音频片段。
+    /// </summary>
     private void OnEnable()
     {
         if (Application.isPlaying)
             ApplyRuntimeResource();
     }
+    #endregion
 
     // ─── IStageComponent ─────────────────────────────────────
 
+    #region 关卡数据转换
+    /// <summary>
+    /// 将八个音频资源键导出为可写入关卡配置的组件数据。
+    /// </summary>
+    /// <returns>包含当前音频键顺序的 <see cref="StageAudioData"/>。</returns>
     public ComponentData ExtractData() => new StageAudioData
     {
         audioKey1 = audioKey1,
@@ -54,6 +64,10 @@ public class StageAudio : MonoBehaviour, IStageComponent
         audioKey8 = audioKey8,
     };
 
+    /// <summary>
+    /// 从音频组件数据恢复八个资源键，并在运行时立即刷新对象上的音频片段列表。
+    /// </summary>
+    /// <param name="data">期望为 <see cref="StageAudioData"/> 的关卡组件数据；类型不匹配时忽略。</param>
     public void ApplyData(ComponentData data)
     {
         if (data is not StageAudioData d) return;
@@ -70,9 +84,11 @@ public class StageAudio : MonoBehaviour, IStageComponent
         if (Application.isPlaying)
             ApplyRuntimeResource();
     }
+    #endregion
 
     // ─── 运行时资源注入 ───────────────────────────────────────
 
+    #region 运行时资源注入
     /// <summary>
     /// 从 ResourceManager 获取所有非空 Key 对应的 AudioClip，
     /// 写入同级 GameObjectProperty.audioClips 列表。
@@ -98,7 +114,7 @@ public class StageAudio : MonoBehaviour, IStageComponent
         {
             if (string.IsNullOrEmpty(key)) continue;
 
-            AudioClip clip = ResourceManager.Instance.GetAudio(key);
+            AudioClip clip = ResourceManager.Instance.GetAudio(key);         // 当前资源键对应的已加载音频片段。
             if (clip != null)
                 prop.audioClips.Add(clip);
             else
@@ -106,6 +122,10 @@ public class StageAudio : MonoBehaviour, IStageComponent
         }
     }
 
+    /// <summary>
+    /// 按 Inspector 字段顺序枚举八个音频资源键，包含空键以保持固定顺序定义。
+    /// </summary>
+    /// <returns>依次产生 audioKey1 到 audioKey8 的可枚举序列。</returns>
     private IEnumerable<string> AllKeys()
     {
         yield return audioKey1;
@@ -117,13 +137,21 @@ public class StageAudio : MonoBehaviour, IStageComponent
         yield return audioKey7;
         yield return audioKey8;
     }
+    #endregion
 
 #if UNITY_EDITOR
+    #region 编辑器资源查询
+    /// <summary>
+    /// 在编辑器资产数据库中查找指定类型的第一个资源注册表。
+    /// </summary>
+    /// <typeparam name="T">需要查找的注册表 ScriptableObject 类型。</typeparam>
+    /// <returns>找到的第一个注册表资产；没有匹配资产时返回 <see langword="null"/>。</returns>
     private static T FindRegistry<T>() where T : ScriptableObject
     {
-        string[] guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
+        string[] guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");    // 匹配指定类型的资产 GUID。
         if (guids.Length == 0) return null;
         return AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guids[0]));
     }
+    #endregion
 #endif
 }

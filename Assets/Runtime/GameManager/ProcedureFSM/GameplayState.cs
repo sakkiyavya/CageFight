@@ -8,6 +8,11 @@ using UnityEngine;
 /// </summary>
 public class GameplayState : SceneStateBase
 {
+    #region 生命周期与回调
+    /// <summary>
+    /// 在关卡对象构造完成后进入局内流程，并预留计时器与地图单位启动逻辑。
+    /// </summary>
+    /// <returns>局内状态的进入协程。</returns>
     protected override IEnumerator OnEnter()
     {
         Debug.Log("[GameplayState] OnEnter - 场景关卡构造完毕，游戏正式开始！");
@@ -16,6 +21,10 @@ public class GameplayState : SceneStateBase
         yield return null;
     }
 
+    /// <summary>
+    /// 退出局内流程，并预留停止计时器、清理实体及地图占用数据的逻辑。
+    /// </summary>
+    /// <returns>局内状态的退出协程。</returns>
     protected override IEnumerator OnExit()
     {
         Debug.Log("[GameplayState] OnExit - 退出战斗，清理场上残留实体...");
@@ -23,4 +32,5 @@ public class GameplayState : SceneStateBase
         // TODO: 清理场上所有怪物、子弹与网格占用数据
         yield return null;
     }
+    #endregion
 }

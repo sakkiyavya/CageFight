@@ -8,6 +8,11 @@ using UnityEngine;
 /// </summary>
 public class GameOverState : SceneStateBase
 {
+    #region 生命周期与回调
+    /// <summary>
+    /// 进入结算流程，并预留获取战斗结果及刷新奖励、星级和得分界面的逻辑。
+    /// </summary>
+    /// <returns>结算状态的进入协程。</returns>
     protected override IEnumerator OnEnter()
     {
         Debug.Log("[GameOverState] OnEnter - 战斗结束，展现胜利/失败结算 UI！");
@@ -16,10 +21,15 @@ public class GameOverState : SceneStateBase
         yield return null;
     }
 
+    /// <summary>
+    /// 退出结算流程，并预留释放本局资源的逻辑。
+    /// </summary>
+    /// <returns>结算状态的退出协程。</returns>
     protected override IEnumerator OnExit()
     {
         Debug.Log("[GameOverState] OnExit - 关闭结算界面，释放本局关卡资源...");
         // TODO: 调用 ResourceManager.Instance.ReleaseLevelResources() 释放本局资源句柄
         yield return null;
     }
+    #endregion
 }

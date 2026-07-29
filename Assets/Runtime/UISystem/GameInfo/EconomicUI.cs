@@ -3,10 +3,13 @@ using UnityEngine.UI;
 
 public class EconomicUI : MonoBehaviour
 {
-    public Text coins;
-    public Text coinPerSec;
+    public Text coins;                                       // 显示当前金币总量的文本。
+    public Text coinPerSec;                                  // 显示每秒金币产量的文本。
 
-    // 启用时绑定金币事件。
+    #region 生命周期与回调
+    /// <summary>
+    /// 校验文本和金币系统引用，订阅金币增减事件，并立即刷新当前经济数据。
+    /// </summary>
     private void OnEnable()
     {
         if (coins == null)
@@ -30,7 +33,9 @@ public class EconomicUI : MonoBehaviour
         RefreshText(0);
     }
 
-    // 禁用时解绑金币事件。
+    /// <summary>
+    /// 组件停用时解除金币事件订阅，避免重复回调或引用已停用界面。
+    /// </summary>
     private void OnDisable()
     {
         if (Coins.Instance != null)
@@ -39,8 +44,13 @@ public class EconomicUI : MonoBehaviour
             Coins.Instance.OnConsumeCoins -= RefreshText;
         }
     }
+    #endregion
 
-    // 刷新经济文本。
+    #region 内部辅助
+    /// <summary>
+    /// 从金币系统读取最新总量和每秒产量，并同步到两个文本控件。
+    /// </summary>
+    /// <param name="_">金币事件携带的变化量；界面直接读取最新状态，因此不使用该值。</param>
     private void RefreshText(int _)
     {
         if (coins == null || coinPerSec == null || Coins.Instance == null)
@@ -51,4 +61,5 @@ public class EconomicUI : MonoBehaviour
         coins.text = Coins.Instance.CurrentCoins.ToString();
         coinPerSec.text = Coins.Instance.CurrentCoinPerSec.ToString();
     }
+    #endregion
 }

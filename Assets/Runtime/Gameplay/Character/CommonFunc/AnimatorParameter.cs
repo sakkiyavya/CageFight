@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class AnimatorParameter : MonoBehaviour
 {
-    // Start is called before the first frame update
+    #region 生命周期与回调
+    /// <summary>
+    /// Unity 初始化回调；动画参数组件当前没有启动时逻辑。
+    /// </summary>
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Unity 每帧回调；动画参数组件当前没有持续同步逻辑。
+    /// </summary>
     void Update()
     {
         
     }
+    #endregion
 }

@@ -10,19 +10,26 @@ public class StageLoader : MonoBehaviour
     public static StageLoader Instance { get; private set; }
 
     // 等待实例化的关卡配置，在 StartLoad 时暂存
-    private StageConfig _pendingConfig;
+    private StageConfig _pendingConfig;                                                       // 等待资源加载完成后实例化的关卡配置。
 
+    #region 生命周期与回调
+    /// <summary>
+    /// 建立跨场景保留的关卡加载器单例；重复实例会被销毁。
+    /// </summary>
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+    #endregion
 
+    #region 游戏逻辑
     /// <summary>
-    /// 开始加载关卡：先触发 ResourceManager 预加载资源，
-    /// 待加载完成后自动实例化所有关卡物体。
+    /// 保存待加载配置、订阅资源完成事件，并请求资源管理器预加载关卡所需资源。
+    /// 资源加载完成后会自动调用 <see cref="OnResourcesLoaded"/> 还原关卡对象。
     /// </summary>
+    /// <param name="config">需要预加载并实例化的关卡配置。</param>
     public void StartLoad(StageConfig config)
     {
         if (config == null)
@@ -45,10 +52,12 @@ public class StageLoader : MonoBehaviour
         Debug.Log($"[StageLoader] 开始预加载关卡 {config.stageId} 的资源...");
         ResourceManager.Instance.LoadStageResources(config);
     }
+    #endregion
 
+    #region 生命周期与回调
     /// <summary>
-    /// ResourceManager.OnLoadComplete 触发时调用。
-    /// 通过 ResourceManager 获取预制体实体，还原关卡所有物体。
+    /// 响应资源加载完成事件，取消一次性订阅，并使用已缓存的预制体还原关卡对象、
+    /// Transform 和所有类型匹配的组件数据。
     /// </summary>
     private void OnResourcesLoaded()
     {
@@ -61,7 +70,7 @@ public class StageLoader : MonoBehaviour
             return;
         }
 
-        StageConfig config = _pendingConfig;
+        StageConfig config = _pendingConfig;                                                  // 本次准备实例化的关卡配置。
         _pendingConfig = null;
 
         Debug.Log($"[StageLoader] 资源加载完成，开始实例化关卡 {config.stageId} 的物体...");
@@ -69,7 +78,7 @@ public class StageLoader : MonoBehaviour
         foreach (var objData in config.objects)
         {
             // 通过 ResourceManager 获取已缓存的预制体
-            GameObject prefab = ResourceManager.Instance.GetGameObject(objData.prefabKey);
+            GameObject prefab = ResourceManager.Instance.GetGameObject(objData.prefabKey);    // 当前关卡对象对应的已加载预制体。
             if (prefab == null)
             {
                 Debug.LogWarning($"[StageLoader] 未找到 Key 为 '{objData.prefabKey}' 的预制体，已跳过。");
@@ -82,7 +91,7 @@ public class StageLoader : MonoBehaviour
                 return;
             }
             // 实例化
-            GameObject instance = GameObjectPool.Instance.Get(prefab);
+            GameObject instance = GameObjectPool.Instance.Get(prefab);                        // 从对象池取得的关卡实例。
 
             // 还原 Transform
             instance.transform.position    = objData.transform.position;
@@ -106,4 +115,5 @@ public class StageLoader : MonoBehaviour
 
         Debug.Log($"<color=cyan>[StageLoader] 关卡 {config.stageId} 实机加载完成！</color>");
     }
+    #endregion
 }

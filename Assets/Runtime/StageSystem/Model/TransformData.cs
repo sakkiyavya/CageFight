@@ -8,15 +8,15 @@ using UnityEngine;
 [Serializable]
 public struct TransformData
 {
-    public Vector3 position;
-    public Vector3 rotation;
-    public Vector3 scale;
+    public Vector3 position;    // 世界坐标。
+    public Vector3 rotation;    // 欧拉角表示的世界旋转。
+    public Vector3 scale;       // 局部缩放。
 
     public static TransformData Default => new TransformData
     {
         position = Vector3.zero,
         rotation = Vector3.zero,
         scale = Vector3.one
-    };
+    };    // 原点、零旋转和单位缩放组成的默认变换数据。
 }
 

@@ -5,15 +5,21 @@ using UnityEngine;
 
 public class TinyMoveScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+    #region 生命周期与回调
+    /// <summary>
+    /// Unity 初始化回调；当前测试脚本不需要启动时设置。
+    /// </summary>
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// 每帧根据时间计算正弦和余弦坐标，使测试对象沿半径为 3 的圆周运动。
+    /// </summary>
     void Update()
     {
         transform.position = new Vector3(3 * (float)Mathf.Cos(Time.time * 3.1415f), 3 * (float)Mathf.Sin(Time.time * 3.1415f), 0);
     }
+    #endregion
 }
