@@ -37,25 +37,47 @@ public class StageConfigLoader : MonoBehaviour
 
     #region 特效与协程
     /// <summary>
-    /// 按 Stage1、Stage2 等连续地址逐个加载关卡配置，遇到第一个不存在的地址后停止，
-    /// 保存成功句柄并刷新当前页按钮。
+    /// 按 Stage1、Stage2 等连续地址逐个加载关卡配置，先查询地址是否存在，
+    /// 遇到第一个不存在的地址后停止，避免 Addressables 输出 InvalidKeyException。
     /// </summary>
     /// <returns>逐个等待 Addressables 加载操作完成的协程。</returns>
     private IEnumerator LoadConfigs()
     {
         for (int i = 1; ; i++)
         {
-            var handle = Addressables.LoadAssetAsync<StageConfig>($"Stage{i}");
-            yield return handle;
+            string key = $"Stage{i}";
 
-            if (handle.Status != AsyncOperationStatus.Succeeded)
+            // 先查询资源位置。Key 不存在时返回空列表，不会触发 InvalidKeyException。
+            var locationsHandle = Addressables.LoadResourceLocationsAsync(
+                key,
+                typeof(StageConfig));
+
+            yield return locationsHandle;
+
+            bool exists = locationsHandle.Status == AsyncOperationStatus.Succeeded &&
+                          locationsHandle.Result != null &&
+                          locationsHandle.Result.Count > 0;
+
+            Addressables.Release(locationsHandle);
+
+            // 遇到第一个断续关卡，认为前面的配置就是全部关卡。
+            if (!exists)
+                break;
+
+            var assetHandle = Addressables.LoadAssetAsync<StageConfig>(key);
+            yield return assetHandle;
+
+            if (assetHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Addressables.Release(handle);
+                Debug.LogError(
+                    $"关卡配置加载失败：{key}\n{assetHandle.OperationException}");
+
+                Addressables.Release(assetHandle);
                 break;
             }
 
-            _handles.Add(handle);
-            _configs.Add(handle.Result);
+            _handles.Add(assetHandle);
+            _configs.Add(assetHandle.Result);
         }
 
         _currentPage = Mathf.Clamp(_currentPage, 0, TotalPages - 1);
