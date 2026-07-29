@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class StageButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public Image icon;
     private StageConfig _config;    // 当前按钮对应的关卡配置。
 
     #region 公开接口
@@ -13,6 +15,12 @@ public class StageButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void Init(StageConfig config)
     {
         _config = config;
+        if(icon && _config != null && _config.icon != null)
+        {
+            icon.sprite = config.icon;
+            icon.color = Color.white;
+        }else
+            icon.color = new Color(0,0,0,0);
     }
     #endregion
 
