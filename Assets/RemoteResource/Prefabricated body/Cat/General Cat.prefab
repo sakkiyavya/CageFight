@@ -221,7 +221,7 @@ MonoBehaviour:
   repel: 5
   antiRepel: 3
   atkRange: {x: 3, y: 2}
-  atkObj: 
+  atkObj: Bullet-General Cat
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2.1
@@ -285,7 +285,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
-  hitFlashDuration: 0.3
 --- !u!82 &4111616376021164117
 AudioSource:
   m_ObjectHideFlags: 0

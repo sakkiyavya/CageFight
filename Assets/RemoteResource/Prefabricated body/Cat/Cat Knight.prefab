@@ -221,7 +221,7 @@ MonoBehaviour:
   repel: 2
   antiRepel: 2
   atkRange: {x: 2, y: 2}
-  atkObj: 
+  atkObj: Bullet-Cat Knight
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2.2
@@ -285,7 +285,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
-  hitFlashDuration: 0.3
 --- !u!82 &4475767228543003022
 AudioSource:
   m_ObjectHideFlags: 0

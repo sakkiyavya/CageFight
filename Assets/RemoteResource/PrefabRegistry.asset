@@ -13,6 +13,90 @@ MonoBehaviour:
   m_Name: PrefabRegistry
   m_EditorClassIdentifier: 
   mappings:
+  - key: Bullet-Cat Mix
+    prefabReference:
+      m_AssetGUID: 01389e9f1f2e97147a6040b06f08b756
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 4622105501799245814, guid: 01389e9f1f2e97147a6040b06f08b756, type: 3}
+  - key: Bullet-Cat Knight
+    prefabReference:
+      m_AssetGUID: 15fa346af3713d64d9c7f75ae0709408
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 7119486189054483284, guid: 15fa346af3713d64d9c7f75ae0709408, type: 3}
+  - key: Bullet-Cat son
+    prefabReference:
+      m_AssetGUID: 1ee2591ecfab053469679f1fc590f670
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 3049795740238452453, guid: 1ee2591ecfab053469679f1fc590f670, type: 3}
+  - key: Bullet-Water breath cat
+    prefabReference:
+      m_AssetGUID: 2beffce3d7c1df74d81d8079e6ec9c6e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 5969490648852124059, guid: 2beffce3d7c1df74d81d8079e6ec9c6e, type: 3}
+  - key: Bullet-Cat apprentice
+    prefabReference:
+      m_AssetGUID: 54d3d155fa266cc46817051e2a76e249
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 6275326678513639511, guid: 54d3d155fa266cc46817051e2a76e249, type: 3}
+  - key: Bullet-General Cat
+    prefabReference:
+      m_AssetGUID: 5a404d311912e744d84a2f229b3106f9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 2704503972681040971, guid: 5a404d311912e744d84a2f229b3106f9, type: 3}
+  - key: Bullet-Flame cat
+    prefabReference:
+      m_AssetGUID: 9aa9c05c9d2dac140b6f9e4817a8e1d5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 332669181178343732, guid: 9aa9c05c9d2dac140b6f9e4817a8e1d5, type: 3}
+  - key: Bullet-Cat Bonze
+    prefabReference:
+      m_AssetGUID: a218eb7a9ade0e44ebc429bd2e756762
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 2315180994061047400, guid: a218eb7a9ade0e44ebc429bd2e756762, type: 3}
+  - key: Bullet-Championship
+    prefabReference:
+      m_AssetGUID: a295ad867e0a5564199ff352d7d37eed
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 334728432028503611, guid: a295ad867e0a5564199ff352d7d37eed, type: 3}
+  - key: Bullet-Iron Wall Guard
+    prefabReference:
+      m_AssetGUID: b9f7e2aea2b3bb64bab1c8473b051157
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 363697476190405065, guid: b9f7e2aea2b3bb64bab1c8473b051157, type: 3}
+  - key: Bullet-Fat Cat
+    prefabReference:
+      m_AssetGUID: ce2762938dfb78146bd1133821f3e81e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 4580163897237065221, guid: ce2762938dfb78146bd1133821f3e81e, type: 3}
+  - key: Bullet-Cat dad
+    prefabReference:
+      m_AssetGUID: f171edc52f75ccc4eb9741dc685f6eb5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 1198905982289975803, guid: f171edc52f75ccc4eb9741dc685f6eb5, type: 3}
   - key: Bullet-Board friend
     prefabReference:
       m_AssetGUID: 09f69b13df25d3444ab396f6342f3e4b
@@ -174,13 +258,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 403774059082912154, guid: ef07cf065c63d864abe4f9c92813b08f, type: 3}
-  - key: Bullet-Mass-produce mouse
-    prefabReference:
-      m_AssetGUID: f29c61e4329bbdc4bbbb99eef3e6797b
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 1909531030874728491, guid: f29c61e4329bbdc4bbbb99eef3e6797b, type: 3}
   - key: Bullet-Horrible monster
     prefabReference:
       m_AssetGUID: fbd74515f1d8bf34680b185c3cf50bde
@@ -363,6 +440,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 8850474179155679477, guid: ff5cbd22eb42f5245b20b70f98e254f3, type: 3}
+  - key: Cat dad
+    prefabReference:
+      m_AssetGUID: 0389764fbe01b3c4a9b70574cc3a7d9f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 4350524647282924559, guid: 0389764fbe01b3c4a9b70574cc3a7d9f, type: 3}
   - key: Flame cat
     prefabReference:
       m_AssetGUID: 13c0bed7ab32ea84caaeae79cd8942a9
@@ -377,6 +461,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 3034734228715996879, guid: 2745f11a3a097af4fb074112b49e5558, type: 3}
+  - key: Cat Mix
+    prefabReference:
+      m_AssetGUID: 29dc39617d0af38409f7afb916c846b8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 6376543512903373417, guid: 29dc39617d0af38409f7afb916c846b8, type: 3}
   - key: Water breath cat
     prefabReference:
       m_AssetGUID: 3ae95917f508df04f9c3492413076ab5
@@ -384,6 +475,27 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 6483634962653513381, guid: 3ae95917f508df04f9c3492413076ab5, type: 3}
+  - key: Messenger of order
+    prefabReference:
+      m_AssetGUID: 422a436ef0e0cfa4593d55f57e2a67ac
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 5359600317456503246, guid: 422a436ef0e0cfa4593d55f57e2a67ac, type: 3}
+  - key: Hungry
+    prefabReference:
+      m_AssetGUID: 43e34fcb2fcc8ad4d9bdcffac3ce9ba6
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 7747250688561685616, guid: 43e34fcb2fcc8ad4d9bdcffac3ce9ba6, type: 3}
+  - key: Cat Mom
+    prefabReference:
+      m_AssetGUID: 509dc83d8274a724eb60d505b6261550
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 4034282982542117128, guid: 509dc83d8274a724eb60d505b6261550, type: 3}
   - key: Fat Cat
     prefabReference:
       m_AssetGUID: 5444ed1b6d4e15946836e489fb05edb6
@@ -405,6 +517,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 2558788921708283762, guid: 91260029bb7dade4091a2e212b18c426, type: 3}
+  - key: Ruifa
+    prefabReference:
+      m_AssetGUID: a53547a755362f7459a5aed11868282c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 2556181319771633042, guid: a53547a755362f7459a5aed11868282c, type: 3}
   - key: General Cat
     prefabReference:
       m_AssetGUID: ad4887ea915ef464395520d5723d4e7f
@@ -426,6 +545,20 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 3463295176372043571, guid: bc6a51b6ec7de694bb10059889d0ae75, type: 3}
+  - key: Iron Wall Guard
+    prefabReference:
+      m_AssetGUID: c48c3afffcfb253408cec5f84f378e77
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 9006477454360014554, guid: c48c3afffcfb253408cec5f84f378e77, type: 3}
+  - key: Championship
+    prefabReference:
+      m_AssetGUID: c5e8ca3df680321479b56e608c29dd56
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 8995352725975620414, guid: c5e8ca3df680321479b56e608c29dd56, type: 3}
   - key: Cat Knight
     prefabReference:
       m_AssetGUID: c9d30378caba035428842316554fc5b7
@@ -440,20 +573,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 1434642676332209825, guid: cac08b9e4eae982428dc8ff11bc0c01a, type: 3}
-  - key: Great Master mirror
-    prefabReference:
-      m_AssetGUID: f9531f59b52735b4386e8ffcbb9c49b0
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 7074768688712827047, guid: f9531f59b52735b4386e8ffcbb9c49b0, type: 3}
-  - key: Family follow
-    prefabReference:
-      m_AssetGUID: fd73b5cbdb4fda84eb89539a7c16dbd7
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 569217668182195859, guid: fd73b5cbdb4fda84eb89539a7c16dbd7, type: 3}
   - key: Connect Master
     prefabReference:
       m_AssetGUID: d43a0f783586ba749a4c721be8004122
@@ -461,48 +580,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 9045631852045052957, guid: d43a0f783586ba749a4c721be8004122, type: 3}
-  - key: Championship
-    prefabReference:
-      m_AssetGUID: c5e8ca3df680321479b56e608c29dd56
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 8995352725975620414, guid: c5e8ca3df680321479b56e608c29dd56, type: 3}
-  - key: Messenger of order
-    prefabReference:
-      m_AssetGUID: 422a436ef0e0cfa4593d55f57e2a67ac
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 5359600317456503246, guid: 422a436ef0e0cfa4593d55f57e2a67ac, type: 3}
-  - key: Iron Wall Guard
-    prefabReference:
-      m_AssetGUID: c48c3afffcfb253408cec5f84f378e77
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 9006477454360014554, guid: c48c3afffcfb253408cec5f84f378e77, type: 3}
-  - key: Ruifa
-    prefabReference:
-      m_AssetGUID: a53547a755362f7459a5aed11868282c
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 2556181319771633042, guid: a53547a755362f7459a5aed11868282c, type: 3}
-  - key: Hungry
-    prefabReference:
-      m_AssetGUID: 43e34fcb2fcc8ad4d9bdcffac3ce9ba6
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 7747250688561685616, guid: 43e34fcb2fcc8ad4d9bdcffac3ce9ba6, type: 3}
-  - key: Cat Mix
-    prefabReference:
-      m_AssetGUID: 29dc39617d0af38409f7afb916c846b8
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 6376543512903373417, guid: 29dc39617d0af38409f7afb916c846b8, type: 3}
   - key: Cat son
     prefabReference:
       m_AssetGUID: f6a5199c08418444d9f1d603f7937cd2
@@ -510,27 +587,48 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 4833764086662534789, guid: f6a5199c08418444d9f1d603f7937cd2, type: 3}
-  - key: Cat dad
+  - key: Great Master mirror
     prefabReference:
-      m_AssetGUID: 0389764fbe01b3c4a9b70574cc3a7d9f
+      m_AssetGUID: f9531f59b52735b4386e8ffcbb9c49b0
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    prefab: {fileID: 4350524647282924559, guid: 0389764fbe01b3c4a9b70574cc3a7d9f, type: 3}
-  - key: Cat Mom
+    prefab: {fileID: 7074768688712827047, guid: f9531f59b52735b4386e8ffcbb9c49b0, type: 3}
+  - key: BabaDoctor Believer
     prefabReference:
-      m_AssetGUID: 509dc83d8274a724eb60d505b6261550
+      m_AssetGUID: 07e0ecaac8918604cb97e6013c5fe160
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    prefab: {fileID: 4034282982542117128, guid: 509dc83d8274a724eb60d505b6261550, type: 3}
-  - key: Fork apprentice
+    prefab: {fileID: 3179310577836475495, guid: 07e0ecaac8918604cb97e6013c5fe160, type: 3}
+  - key: Eternal follow
     prefabReference:
-      m_AssetGUID: a2aebd64d8bc5d240acc3754602feefe
+      m_AssetGUID: 2903519e43bd64e43997c5555322130c
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    prefab: {fileID: 3688091482424633499, guid: a2aebd64d8bc5d240acc3754602feefe, type: 3}
+    prefab: {fileID: 7141039889819595872, guid: 2903519e43bd64e43997c5555322130c, type: 3}
+  - key: Mass-produce mouse
+    prefabReference:
+      m_AssetGUID: 5019a2f0c23307c4c8670f71cd128cc5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 4813096328165453486, guid: 5019a2f0c23307c4c8670f71cd128cc5, type: 3}
+  - key: Bullet-Mass-produce mouse
+    prefabReference:
+      m_AssetGUID: f29c61e4329bbdc4bbbb99eef3e6797b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 1909531030874728491, guid: f29c61e4329bbdc4bbbb99eef3e6797b, type: 3}
+  - key: Family follow
+    prefabReference:
+      m_AssetGUID: fd73b5cbdb4fda84eb89539a7c16dbd7
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 569217668182195859, guid: fd73b5cbdb4fda84eb89539a7c16dbd7, type: 3}
   - key: FindPath
     prefabReference:
       m_AssetGUID: 05d8b304555cd294abe3379eb112d58e

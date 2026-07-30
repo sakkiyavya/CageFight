@@ -211,21 +211,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 0
-  side: 0
-  maxHp: 100
+  side: 1
+  maxHp: 3500
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 10
+  atk: 50
   atkRate: 1
   magicAtk: 0
   repel: 1
-  antiRepel: 1
+  antiRepel: 2
   atkRange: {x: 6, y: 2}
-  atkObj: 
+  atkObj: Bullet-Flame cat
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 3
+  moveSpeed: 2.1
   suckBlood: 0
   currentHp: 0
   isDead: 0
@@ -286,7 +286,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
-  hitFlashDuration: 0.3
 --- !u!114 &4630198106553601179
 MonoBehaviour:
   m_ObjectHideFlags: 0

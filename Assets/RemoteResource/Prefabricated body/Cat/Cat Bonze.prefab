@@ -181,8 +181,8 @@ MonoBehaviour:
   objectType: 0
   side: 0
   maxHp: 100
-  defense: 10
-  magicDefense: 5
+  defense: 0
+  magicDefense: 0
   isRemoteAtk: 0
   atk: 10
   atkRate: 1
@@ -190,7 +190,7 @@ MonoBehaviour:
   repel: 2
   antiRepel: 3
   atkRange: {x: 1, y: 1}
-  atkObj: 
+  atkObj: Bullet-Cat Bonze
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
@@ -208,7 +208,7 @@ MonoBehaviour:
   atkRangeMax: {x: -2147483648, y: -2147483647}
   currentBuff: []
   currentDebuff: []
-  occupySpace: {x: 3, y: 2}
+  occupySpace: {x: 1, y: 1}
   buildAnime: 
 --- !u!114 &7246673797051684105
 MonoBehaviour:
@@ -254,7 +254,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
-  hitFlashDuration: 0.3
 --- !u!82 &4348399593050705794
 AudioSource:
   m_ObjectHideFlags: 0

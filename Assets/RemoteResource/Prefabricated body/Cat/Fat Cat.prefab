@@ -220,8 +220,8 @@ MonoBehaviour:
   magicAtk: 5
   repel: 1
   antiRepel: 1
-  atkRange: {x: 1, y: 1}
-  atkObj: 
+  atkRange: {x: 2, y: 1}
+  atkObj: Bullet-Fat Cat
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
@@ -285,7 +285,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
-  hitFlashDuration: 0.3
 --- !u!82 &5103105852571443277
 AudioSource:
   m_ObjectHideFlags: 0
