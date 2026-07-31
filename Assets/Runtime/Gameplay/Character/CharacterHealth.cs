@@ -351,7 +351,11 @@ public class CharacterHealth : MonoBehaviour, ICollide
                 float damping = 1f - jellyTime;
                 float pulse = Mathf.Abs(Mathf.Sin(Mathf.PI * jellyFrequency * jellyTime)) * damping;
                 float jelly = Mathf.Sin(Mathf.PI * 2f * jellyFrequency * jellyTime) * damping;
-                transform.position = _hitEffectBasePosition + Vector3.up * (pulse * jellyAmplitude);
+                // 果冻只改变纵向视觉偏移，保留当前 X 坐标，让 CharacterAI.Repel 的位移生效。
+                transform.position = new Vector3(
+                    transform.position.x,
+                    _hitEffectBasePosition.y + pulse * jellyAmplitude,
+                    transform.position.z);
                 transform.localScale = new Vector3(
                     _hitEffectBaseScale.x * (1f - jelly * 0.14f),
                     _hitEffectBaseScale.y * (1f + jelly * 0.22f),
@@ -492,7 +496,11 @@ public class CharacterHealth : MonoBehaviour, ICollide
     {
         if (!_hasHitEffectState)
             return;
-        transform.position = _hitEffectBasePosition;
+        // 不回滚 X 坐标，避免覆盖受击期间 CharacterAI.Repel 已产生的位移。
+        transform.position = new Vector3(
+            transform.position.x,
+            _hitEffectBasePosition.y,
+            transform.position.z);
         transform.localScale = _hitEffectBaseScale;
         _hasHitEffectState = false;
     }

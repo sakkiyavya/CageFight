@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class TriangleButton : UISystemBase, IPointerDownHandler, IPointerUpHandler
 {
-
+    new bool isOpen = false;  
     #region 生命周期与回调
     /// <summary>
     /// 按下按钮时按当前开关状态播放界面展开或收起动画，并翻转下一次切换方向。

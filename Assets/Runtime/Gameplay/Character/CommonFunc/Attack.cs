@@ -32,7 +32,7 @@ public class Attack : BehaviourBase
         if(prop.isAttack)
             return true;
 
-        if (prop.target == null)
+        if (!prop.target || prop.target.GetComponent<CharacterHealth>().IsDead())
         {
             return false;
         }
