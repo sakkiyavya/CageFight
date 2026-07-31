@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4042049506696226098}
   - component: {fileID: 2742145984959651736}
   - component: {fileID: 70895667664326935}
+  - component: {fileID: 3297804659895430814}
   m_Layer: 6
   m_Name: Bullet-Loser cannon
   m_TagString: Untagged
@@ -57,6 +58,7 @@ MonoBehaviour:
     type: 0
     source: {fileID: 0}
     target: {fileID: 0}
+    buffs: []
   target: {fileID: 0}
   sustainTime: 2
   collideTimes: 1
@@ -198,3 +200,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3297804659895430814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5776716328276947799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30ddbe3f30879b42a6d37dcd917e006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subProjectilePrefab: Dice hand
