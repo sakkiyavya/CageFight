@@ -68,7 +68,7 @@ Transform:
   m_GameObject: {fileID: 4350524647282924559}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.47, y: -10.41, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -363,22 +363,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d49988eb09b0124bae402f398f1ba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 0
+  objectType: 2
   side: 0
-  maxHp: 100
+  maxHp: 6000
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 10
+  atk: 300
   atkRate: 1
-  magicAtk: 0
+  magicAtk: 100
   repel: 1
   antiRepel: 1
   atkRange: {x: 2, y: 2}
   atkObj: Bullet-Cat dad
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 3
+  moveSpeed: 1.8
   suckBlood: 0
   currentHp: 0
   isDead: 0

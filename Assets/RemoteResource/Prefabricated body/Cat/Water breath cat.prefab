@@ -209,22 +209,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d49988eb09b0124bae402f398f1ba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 0
+  objectType: 2
   side: 0
-  maxHp: 4000
+  maxHp: 4500
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 700
+  atk: 600
   atkRate: 1
   magicAtk: 0
-  repel: 1
-  antiRepel: 1
+  repel: 4
+  antiRepel: 3
   atkRange: {x: 3, y: 2}
   atkObj: 
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 3
+  moveSpeed: 2.2
   suckBlood: 0
   currentHp: 0
   isDead: 0

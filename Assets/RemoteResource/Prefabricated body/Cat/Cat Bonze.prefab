@@ -178,22 +178,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d49988eb09b0124bae402f398f1ba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 0
+  objectType: 2
   side: 0
-  maxHp: 100
+  maxHp: 5000
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 10
+  atk: 200
   atkRate: 1
-  magicAtk: 5
+  magicAtk: 0
   repel: 2
-  antiRepel: 3
+  antiRepel: 2
   atkRange: {x: 1, y: 1}
   atkObj: Bullet-Cat Bonze
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 3
+  moveSpeed: 2
   suckBlood: 0
   currentHp: 0
   isDead: 0
