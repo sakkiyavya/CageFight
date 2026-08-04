@@ -226,6 +226,9 @@ MonoBehaviour:
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2.6
+  suckBlood: 0
+  currentHp: 0
+  isDead: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -235,6 +238,8 @@ MonoBehaviour:
   audioClips: []
   atkRangeMin: {x: 0, y: -19}
   atkRangeMax: {x: 7, y: -16}
+  currentBuff: []
+  currentDebuff: []
   occupySpace: {x: 1, y: 1}
   buildAnime: 
 --- !u!114 &3956743667061629288

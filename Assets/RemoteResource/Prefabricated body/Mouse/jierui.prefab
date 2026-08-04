@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 2
-  side: 1
+  side: 0
   maxHp: 3000
   defense: 0
   magicDefense: 0
@@ -195,6 +195,9 @@ MonoBehaviour:
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 4
+  suckBlood: 0
+  currentHp: 0
+  isDead: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -204,6 +207,8 @@ MonoBehaviour:
   audioClips: []
   atkRangeMin: {x: 15, y: -17}
   atkRangeMax: {x: 15, y: -17}
+  currentBuff: []
+  currentDebuff: []
   occupySpace: {x: 1, y: 1}
   buildAnime: 
 --- !u!114 &4249137523294848147

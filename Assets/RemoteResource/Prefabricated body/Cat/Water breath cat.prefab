@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 2
-  side: 0
+  side: 1
   maxHp: 4500
   defense: 0
   magicDefense: 0
@@ -221,7 +221,7 @@ MonoBehaviour:
   repel: 4
   antiRepel: 3
   atkRange: {x: 3, y: 2}
-  atkObj: 
+  atkObj: Bullet-Water breath cat
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2.2
@@ -418,8 +418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972515694213711429aaf209215c4968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioKey1: 
-  audioKey2: 
+  audioKey1: Water breath cat1 A
+  audioKey2: Water breath cat2 A
   audioKey3: 
   audioKey4: 
   audioKey5: 
