@@ -16,2507 +16,805 @@ MonoBehaviour:
   icon: {fileID: 0}
   objects:
   - instanceId: 1000
-    prefabKey: Fortress
+    prefabKey: Hungry
     transform:
-      position: {x: 27.74456, y: -13.319681, z: 0}
+      position: {x: 30.584938, y: -40.92222, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 9182622037134541668
-    - rid: 9182622037134541669
-    - rid: 9182622037134541670
-    - rid: 9182622037134541671
+    - rid: 9182622062736310456
+    - rid: 9182622062736310457
+    - rid: 9182622062736310458
+    - rid: 9182622062736310459
   - instanceId: 1001
-    prefabKey: General Cat
-    transform:
-      position: {x: 30.89, y: -29.25, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541672
-    - rid: 9182622037134541673
-    - rid: 9182622037134541674
-    - rid: 9182622037134541675
-  - instanceId: 1002
-    prefabKey: Invincible
-    transform:
-      position: {x: 5.85, y: 1.65, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541676
-    - rid: 9182622037134541677
-    - rid: 9182622037134541678
-    - rid: 9182622037134541679
-  - instanceId: 1003
-    prefabKey: Skunk
-    transform:
-      position: {x: 7.05, y: -16.05, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541680
-    - rid: 9182622037134541681
-    - rid: 9182622037134541682
-    - rid: 9182622037134541683
-  - instanceId: 1004
-    prefabKey: Transparent
-    transform:
-      position: {x: 3.53, y: -10.55, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541684
-    - rid: 9182622037134541685
-    - rid: 9182622037134541686
-    - rid: 9182622037134541687
-  - instanceId: 1005
-    prefabKey: Cat dad
-    transform:
-      position: {x: 15.1, y: 2.47, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541688
-    - rid: 9182622037134541689
-    - rid: 9182622037134541690
-    - rid: 9182622037134541691
-  - instanceId: 1006
-    prefabKey: Flame cat
-    transform:
-      position: {x: 30.53985, y: -37.38597, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541692
-    - rid: 9182622037134541693
-    - rid: 9182622037134541694
-    - rid: 9182622037134541695
-  - instanceId: 1007
-    prefabKey: Horrible monster
-    transform:
-      position: {x: 1.72, y: 1.33, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541696
-    - rid: 9182622037134541697
-    - rid: 9182622037134541698
-    - rid: 9182622037134541699
-  - instanceId: 1008
-    prefabKey: Dark cat
-    transform:
-      position: {x: 18.48306, y: -32.437546, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541700
-    - rid: 9182622037134541701
-    - rid: 9182622037134541702
-    - rid: 9182622037134541703
-  - instanceId: 1009
-    prefabKey: BOOM bro
-    transform:
-      position: {x: -15.13, y: -12.073496, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541704
-    - rid: 9182622037134541705
-    - rid: 9182622037134541706
-    - rid: 9182622037134541707
-  - instanceId: 1010
-    prefabKey: Harm eyebrow
-    transform:
-      position: {x: -1.49, y: -10.73, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541708
-    - rid: 9182622037134541709
-    - rid: 9182622037134541710
-    - rid: 9182622037134541711
-  - instanceId: 1011
-    prefabKey: jierui
-    transform:
-      position: {x: -4, y: -16, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541712
-    - rid: 9182622037134541713
-    - rid: 9182622037134541714
-    - rid: 9182622037134541715
-  - instanceId: 1012
-    prefabKey: BabaDoctorC1
-    transform:
-      position: {x: -11.424198, y: -16.125053, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541716
-    - rid: 9182622037134541717
-    - rid: 9182622037134541718
-    - rid: 9182622037134541719
-  - instanceId: 1013
-    prefabKey: Damb ass
-    transform:
-      position: {x: 10.01, y: -5.06, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541720
-    - rid: 9182622037134541721
-    - rid: 9182622037134541722
-    - rid: 9182622037134541723
-  - instanceId: 1014
-    prefabKey: Fork apprentice
-    transform:
-      position: {x: 30.260523, y: -33.89531, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541724
-    - rid: 9182622037134541725
-    - rid: 9182622037134541726
-    - rid: 9182622037134541727
-  - instanceId: 1015
-    prefabKey: Thunderstorm cat
-    transform:
-      position: {x: 23.28639, y: -43.86124, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541728
-    - rid: 9182622037134541729
-    - rid: 9182622037134541730
-    - rid: 9182622037134541731
-  - instanceId: 1016
-    prefabKey: Boulder
-    transform:
-      position: {x: -1, y: -16, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 0.9972, z: 1}
-    components:
-    - rid: 9182622037134541732
-    - rid: 9182622037134541733
-    - rid: 9182622037134541734
-    - rid: 9182622037134541735
-  - instanceId: 1017
-    prefabKey: Championship
-    transform:
-      position: {x: 18.455336, y: -24.706493, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541736
-    - rid: 9182622037134541737
-    - rid: 9182622037134541738
-    - rid: 9182622037134541739
-  - instanceId: 1018
-    prefabKey: Miner rat
-    transform:
-      position: {x: -6.41, y: -4.42, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541740
-    - rid: 9182622037134541741
-    - rid: 9182622037134541742
-    - rid: 9182622037134541743
-  - instanceId: 1019
-    prefabKey: Water breath cat
-    transform:
-      position: {x: 29.252003, y: -44.120613, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541744
-    - rid: 9182622037134541745
-    - rid: 9182622037134541746
-    - rid: 9182622037134541747
-  - instanceId: 1020
-    prefabKey: Ruifa
-    transform:
-      position: {x: 10.99226, y: -44.846836, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541748
-    - rid: 9182622037134541749
-    - rid: 9182622037134541750
-    - rid: 9182622037134541751
-  - instanceId: 1021
-    prefabKey: Board friend
-    transform:
-      position: {x: 38.09, y: -13.47, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541752
-    - rid: 9182622037134541753
-    - rid: 9182622037134541754
-    - rid: 9182622037134541755
-  - instanceId: 1022
-    prefabKey: Dice hand
-    transform:
-      position: {x: 24.94, y: -20.3, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541756
-    - rid: 9182622037134541757
-    - rid: 9182622037134541758
-    - rid: 9182622037134541759
-  - instanceId: 1023
-    prefabKey: Miner head
-    transform:
-      position: {x: -1.69, y: -7.41, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541760
-    - rid: 9182622037134541761
-    - rid: 9182622037134541762
-    - rid: 9182622037134541763
-  - instanceId: 1024
-    prefabKey: Cat addict
-    transform:
-      position: {x: 8.51, y: -37.27, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541764
-    - rid: 9182622037134541765
-    - rid: 9182622037134541766
-    - rid: 9182622037134541767
-  - instanceId: 1025
-    prefabKey: Loser cannon
-    transform:
-      position: {x: 29.14, y: -7.63, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541768
-    - rid: 9182622037134541769
-    - rid: 9182622037134541770
-    - rid: 9182622037134541771
-  - instanceId: 1026
-    prefabKey: Lightning Cat
-    transform:
-      position: {x: -0.31627655, y: -35.405617, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541772
-    - rid: 9182622037134541773
-    - rid: 9182622037134541774
-    - rid: 9182622037134541775
-  - instanceId: 1027
-    prefabKey: Cat Mix
-    transform:
-      position: {x: 8.45582, y: -24.426397, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541776
-    - rid: 9182622037134541777
-    - rid: 9182622037134541778
-    - rid: 9182622037134541779
-  - instanceId: 1028
-    prefabKey: Cat Mom
-    transform:
-      position: {x: 8.679874, y: -20.981014, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541780
-    - rid: 9182622037134541781
-    - rid: 9182622037134541782
-    - rid: 9182622037134541783
-  - instanceId: 1029
-    prefabKey: Cat apprentice
-    transform:
-      position: {x: 8.316053, y: -33.03885, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 0.76, y: 0.76, z: 0.76}
-    components:
-    - rid: 9182622037134541784
-    - rid: 9182622037134541785
-    - rid: 9182622037134541786
-    - rid: 9182622037134541787
-  - instanceId: 1030
-    prefabKey: Great Master mirror
-    transform:
-      position: {x: 30.783667, y: -25.866772, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541788
-    - rid: 9182622037134541789
-    - rid: 9182622037134541790
-    - rid: 9182622037134541791
-  - instanceId: 1031
-    prefabKey: Shenji
-    transform:
-      position: {x: 19.834822, y: -16.054585, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541792
-    - rid: 9182622037134541793
-    - rid: 9182622037134541794
-    - rid: 9182622037134541795
-  - instanceId: 1032
-    prefabKey: Huge monster
-    transform:
-      position: {x: 3.28, y: -16.55, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541796
-    - rid: 9182622037134541797
-    - rid: 9182622037134541798
-    - rid: 9182622037134541799
-  - instanceId: 1033
-    prefabKey: Iron Wall Guard
-    transform:
-      position: {x: -0.7831497, y: -31.048126, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541800
-    - rid: 9182622037134541801
-    - rid: 9182622037134541802
-    - rid: 9182622037134541803
-  - instanceId: 1034
-    prefabKey: Scavenger
-    transform:
-      position: {x: 7.63, y: -10.54, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541804
-    - rid: 9182622037134541805
-    - rid: 9182622037134541806
-    - rid: 9182622037134541807
-  - instanceId: 1035
-    prefabKey: Fat Cat
-    transform:
-      position: {x: 20.905563, y: -36.86237, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541808
-    - rid: 9182622037134541809
-    - rid: 9182622037134541810
-    - rid: 9182622037134541811
-  - instanceId: 1036
-    prefabKey: Mouse eyes
-    transform:
-      position: {x: 7.7, y: -5.82, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541812
-    - rid: 9182622037134541813
-    - rid: 9182622037134541814
-    - rid: 9182622037134541815
-  - instanceId: 1037
-    prefabKey: Cat Knight
-    transform:
-      position: {x: 8.287754, y: -27.031422, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541816
-    - rid: 9182622037134541817
-    - rid: 9182622037134541818
-    - rid: 9182622037134541819
-  - instanceId: 1038
-    prefabKey: Connect Master
-    transform:
-      position: {x: 18.231247, y: -28.40395, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622037134541820
-    - rid: 9182622037134541821
-    - rid: 9182622037134541822
-    - rid: 9182622037134541823
-  - instanceId: 1039
-    prefabKey: Cat son
-    transform:
-      position: {x: 18.623402, y: -21.793346, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622040759730176
-    - rid: 9182622040759730177
-    - rid: 9182622040759730178
-    - rid: 9182622040759730179
-  - instanceId: 1040
-    prefabKey: Messenger of order
-    transform:
-      position: {x: -7.22, y: -44.9, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622040759730180
-    - rid: 9182622040759730181
-    - rid: 9182622040759730182
-    - rid: 9182622040759730183
-  - instanceId: 1041
-    prefabKey: Miaosuan
-    transform:
-      position: {x: 19.66141, y: -10.818059, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622040759730184
-    - rid: 9182622040759730185
-    - rid: 9182622040759730186
-    - rid: 9182622040759730187
-  - instanceId: 1042
-    prefabKey: Three hand
-    transform:
-      position: {x: 24.101273, y: -16.446436, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622040759730188
-    - rid: 9182622040759730189
-    - rid: 9182622040759730190
-    - rid: 9182622040759730191
-  - instanceId: 1043
-    prefabKey: Cat Bonze
-    transform:
-      position: {x: -0.14, y: -26.49, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622040759730192
-    - rid: 9182622040759730193
-    - rid: 9182622040759730194
-    - rid: 9182622040759730195
-  - instanceId: 1044
     prefabKey: B-39
     transform:
       position: {x: 19.99, y: -6.19, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 9182622040759730196
-    - rid: 9182622040759730197
-    - rid: 9182622040759730198
-    - rid: 9182622040759730199
+    - rid: 9182622062736310460
+    - rid: 9182622062736310461
+    - rid: 9182622062736310462
+    - rid: 9182622062736310463
+  - instanceId: 1002
+    prefabKey: Cat Bonze
+    transform:
+      position: {x: -0.14, y: -26.49, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310464
+    - rid: 9182622062736310465
+    - rid: 9182622062736310466
+    - rid: 9182622062736310467
+  - instanceId: 1003
+    prefabKey: Three hand
+    transform:
+      position: {x: 24.101273, y: -16.446436, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310468
+    - rid: 9182622062736310469
+    - rid: 9182622062736310470
+    - rid: 9182622062736310471
+  - instanceId: 1004
+    prefabKey: Miaosuan
+    transform:
+      position: {x: 19.66141, y: -10.818059, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310472
+    - rid: 9182622062736310473
+    - rid: 9182622062736310474
+    - rid: 9182622062736310475
+  - instanceId: 1005
+    prefabKey: Messenger of order
+    transform:
+      position: {x: -7.22, y: -44.9, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310476
+    - rid: 9182622062736310477
+    - rid: 9182622062736310478
+    - rid: 9182622062736310479
+  - instanceId: 1006
+    prefabKey: Cat son
+    transform:
+      position: {x: 18.623402, y: -21.793346, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310480
+    - rid: 9182622062736310481
+    - rid: 9182622062736310482
+    - rid: 9182622062736310483
+  - instanceId: 1007
+    prefabKey: Connect Master
+    transform:
+      position: {x: 18.231247, y: -28.40395, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310484
+    - rid: 9182622062736310485
+    - rid: 9182622062736310486
+    - rid: 9182622062736310487
+  - instanceId: 1008
+    prefabKey: Cat Knight
+    transform:
+      position: {x: 8.287754, y: -27.031422, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310488
+    - rid: 9182622062736310489
+    - rid: 9182622062736310490
+    - rid: 9182622062736310491
+  - instanceId: 1009
+    prefabKey: Mouse eyes
+    transform:
+      position: {x: 7.7, y: -5.82, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310492
+    - rid: 9182622062736310493
+    - rid: 9182622062736310494
+    - rid: 9182622062736310495
+  - instanceId: 1010
+    prefabKey: Fat Cat
+    transform:
+      position: {x: 20.905563, y: -36.86237, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310496
+    - rid: 9182622062736310497
+    - rid: 9182622062736310498
+    - rid: 9182622062736310499
+  - instanceId: 1011
+    prefabKey: Scavenger
+    transform:
+      position: {x: 7.63, y: -10.54, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310500
+    - rid: 9182622062736310501
+    - rid: 9182622062736310502
+    - rid: 9182622062736310503
+  - instanceId: 1012
+    prefabKey: Iron Wall Guard
+    transform:
+      position: {x: -0.7831497, y: -31.048126, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310504
+    - rid: 9182622062736310505
+    - rid: 9182622062736310506
+    - rid: 9182622062736310507
+  - instanceId: 1013
+    prefabKey: Huge monster
+    transform:
+      position: {x: 3.28, y: -16.55, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310508
+    - rid: 9182622062736310509
+    - rid: 9182622062736310510
+    - rid: 9182622062736310511
+  - instanceId: 1014
+    prefabKey: Shenji
+    transform:
+      position: {x: 19.834822, y: -16.054585, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310512
+    - rid: 9182622062736310513
+    - rid: 9182622062736310514
+    - rid: 9182622062736310515
+  - instanceId: 1015
+    prefabKey: Great Master mirror
+    transform:
+      position: {x: 30.783667, y: -25.866772, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310516
+    - rid: 9182622062736310517
+    - rid: 9182622062736310518
+    - rid: 9182622062736310519
+  - instanceId: 1016
+    prefabKey: Cat apprentice
+    transform:
+      position: {x: 8.316053, y: -33.03885, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 0.76, y: 0.76, z: 0.76}
+    components:
+    - rid: 9182622062736310520
+    - rid: 9182622062736310521
+    - rid: 9182622062736310522
+    - rid: 9182622062736310523
+  - instanceId: 1017
+    prefabKey: Cat Mom
+    transform:
+      position: {x: 8.679874, y: -20.981014, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310524
+    - rid: 9182622062736310525
+    - rid: 9182622062736310526
+    - rid: 9182622062736310527
+  - instanceId: 1018
+    prefabKey: Cat Mix
+    transform:
+      position: {x: 8.45582, y: -24.426397, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310528
+    - rid: 9182622062736310529
+    - rid: 9182622062736310530
+    - rid: 9182622062736310531
+  - instanceId: 1019
+    prefabKey: Lightning Cat
+    transform:
+      position: {x: -0.31627655, y: -35.405617, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310532
+    - rid: 9182622062736310533
+    - rid: 9182622062736310534
+    - rid: 9182622062736310535
+  - instanceId: 1020
+    prefabKey: Loser cannon
+    transform:
+      position: {x: 29.14, y: -7.63, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310536
+    - rid: 9182622062736310537
+    - rid: 9182622062736310538
+    - rid: 9182622062736310539
+  - instanceId: 1021
+    prefabKey: Cat addict
+    transform:
+      position: {x: 8.51, y: -37.27, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310540
+    - rid: 9182622062736310541
+    - rid: 9182622062736310542
+    - rid: 9182622062736310543
+  - instanceId: 1022
+    prefabKey: Miner head
+    transform:
+      position: {x: -1.69, y: -7.41, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310544
+    - rid: 9182622062736310545
+    - rid: 9182622062736310546
+    - rid: 9182622062736310547
+  - instanceId: 1023
+    prefabKey: Dice hand
+    transform:
+      position: {x: 24.94, y: -20.3, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310548
+    - rid: 9182622062736310549
+    - rid: 9182622062736310550
+    - rid: 9182622062736310551
+  - instanceId: 1024
+    prefabKey: Board friend
+    transform:
+      position: {x: 38.09, y: -13.47, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310552
+    - rid: 9182622062736310553
+    - rid: 9182622062736310554
+    - rid: 9182622062736310555
+  - instanceId: 1025
+    prefabKey: Ruifa
+    transform:
+      position: {x: 10.99226, y: -44.846836, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310556
+    - rid: 9182622062736310557
+    - rid: 9182622062736310558
+    - rid: 9182622062736310559
+  - instanceId: 1026
+    prefabKey: Water breath cat
+    transform:
+      position: {x: 29.252003, y: -44.120613, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310560
+    - rid: 9182622062736310561
+    - rid: 9182622062736310562
+    - rid: 9182622062736310563
+  - instanceId: 1027
+    prefabKey: Miner rat
+    transform:
+      position: {x: -6.41, y: -4.42, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310564
+    - rid: 9182622062736310565
+    - rid: 9182622062736310566
+    - rid: 9182622062736310567
+  - instanceId: 1028
+    prefabKey: Championship
+    transform:
+      position: {x: 18.455336, y: -24.706493, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310568
+    - rid: 9182622062736310569
+    - rid: 9182622062736310570
+    - rid: 9182622062736310571
+  - instanceId: 1029
+    prefabKey: Boulder
+    transform:
+      position: {x: -1, y: -16, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 0.9972, z: 1}
+    components:
+    - rid: 9182622062736310572
+    - rid: 9182622062736310573
+    - rid: 9182622062736310574
+    - rid: 9182622062736310575
+  - instanceId: 1030
+    prefabKey: Thunderstorm cat
+    transform:
+      position: {x: 23.28639, y: -43.86124, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310576
+    - rid: 9182622062736310577
+    - rid: 9182622062736310578
+    - rid: 9182622062736310579
+  - instanceId: 1031
+    prefabKey: Fork apprentice
+    transform:
+      position: {x: 30.260523, y: -33.89531, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310580
+    - rid: 9182622062736310581
+    - rid: 9182622062736310582
+    - rid: 9182622062736310583
+  - instanceId: 1032
+    prefabKey: Damb ass
+    transform:
+      position: {x: 10.01, y: -5.06, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310584
+    - rid: 9182622062736310585
+    - rid: 9182622062736310586
+    - rid: 9182622062736310587
+  - instanceId: 1033
+    prefabKey: BabaDoctorC1
+    transform:
+      position: {x: -11.424198, y: -16.125053, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310588
+    - rid: 9182622062736310589
+    - rid: 9182622062736310590
+    - rid: 9182622062736310591
+  - instanceId: 1034
+    prefabKey: jierui
+    transform:
+      position: {x: -4, y: -16, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310592
+    - rid: 9182622062736310593
+    - rid: 9182622062736310594
+    - rid: 9182622062736310595
+  - instanceId: 1035
+    prefabKey: Harm eyebrow
+    transform:
+      position: {x: -1.49, y: -10.73, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310596
+    - rid: 9182622062736310597
+    - rid: 9182622062736310598
+    - rid: 9182622062736310599
+  - instanceId: 1036
+    prefabKey: BOOM bro
+    transform:
+      position: {x: -15.13, y: -12.073496, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310600
+    - rid: 9182622062736310601
+    - rid: 9182622062736310602
+    - rid: 9182622062736310603
+  - instanceId: 1037
+    prefabKey: Dark cat
+    transform:
+      position: {x: 18.48306, y: -32.437546, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310604
+    - rid: 9182622062736310605
+    - rid: 9182622062736310606
+    - rid: 9182622062736310607
+  - instanceId: 1038
+    prefabKey: Horrible monster
+    transform:
+      position: {x: 1.72, y: 1.33, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310608
+    - rid: 9182622062736310609
+    - rid: 9182622062736310610
+    - rid: 9182622062736310611
+  - instanceId: 1039
+    prefabKey: Flame cat
+    transform:
+      position: {x: 30.53985, y: -37.38597, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310612
+    - rid: 9182622062736310613
+    - rid: 9182622062736310614
+    - rid: 9182622062736310615
+  - instanceId: 1040
+    prefabKey: Cat dad
+    transform:
+      position: {x: 15.1, y: 2.47, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310616
+    - rid: 9182622062736310617
+    - rid: 9182622062736310618
+    - rid: 9182622062736310619
+  - instanceId: 1041
+    prefabKey: Transparent
+    transform:
+      position: {x: 3.53, y: -10.55, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310620
+    - rid: 9182622062736310621
+    - rid: 9182622062736310622
+    - rid: 9182622062736310623
+  - instanceId: 1042
+    prefabKey: Skunk
+    transform:
+      position: {x: 7.05, y: -16.05, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310624
+    - rid: 9182622062736310625
+    - rid: 9182622062736310626
+    - rid: 9182622062736310627
+  - instanceId: 1043
+    prefabKey: Invincible
+    transform:
+      position: {x: 5.85, y: 1.65, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310628
+    - rid: 9182622062736310629
+    - rid: 9182622062736310630
+    - rid: 9182622062736310631
+  - instanceId: 1044
+    prefabKey: General Cat
+    transform:
+      position: {x: 30.89, y: -29.25, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310632
+    - rid: 9182622062736310633
+    - rid: 9182622062736310634
+    - rid: 9182622062736310635
+  - instanceId: 1045
+    prefabKey: Fortress
+    transform:
+      position: {x: 27.74456, y: -13.319681, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622062736310636
+    - rid: 9182622062736310637
+    - rid: 9182622062736310638
+    - rid: 9182622062736310639
   prefabs:
-  - Fortress
-  - Bullet-fortress
-  - General Cat
-  - Bullet-General Cat
-  - Invincible
-  - Bullet-Invincible
-  - Skunk
-  - Bullet-Green fog
-  - Transparent
-  - Bullet-Transparent
-  - Cat dad
-  - Bullet-Cat dad
-  - Flame cat
-  - Bullet-Flame cat
-  - Horrible monster
-  - Bullet-Horrible monster
-  - Dark cat
-  - BOOM bro
-  - Unstable ore
-  - Harm eyebrow
-  - Bullet-Harm eyebrow
-  - jierui
-  - Bullet-jierui
-  - BabaDoctorC1
-  - Mechanical reinforcement ore
-  - Damb ass
-  - Bullet-Damb ass
-  - Fork apprentice
-  - Bullet-Fork apprentice
-  - Thunderstorm cat
-  - Boulder
-  - Bullet-Boulder
-  - Championship
-  - Bullet-Championship
-  - Miner rat
-  - Bullet-Miner rat
-  - Water breath cat
-  - Bullet-Water breath cat
-  - Ruifa
-  - Board friend
-  - Bullet-Board friend
-  - Dice hand
-  - Bullet-Dice hand
-  - Miner head
-  - Derivative-Miner rat
-  - Cat addict
-  - Loser cannon
-  - Bullet-Loser cannon
-  - Lightning Cat
-  - Cat Mix
-  - Bullet-Cat Mix
-  - Cat Mom
-  - Cat apprentice
-  - Bullet-Cat apprentice
-  - Great Master mirror
-  - Shenji
-  - Bullet-shenji
-  - Huge monster
-  - Bullet-Huge monster
-  - Iron Wall Guard
-  - Bullet-Iron Wall Guard
-  - Scavenger
-  - Bullet-Stone-Scavenger
-  - Fat Cat
-  - Bullet-Fat Cat
-  - Mouse eyes
-  - Bullet-Arrow
-  - Cat Knight
-  - Bullet-Cat Knight
-  - Connect Master
-  - Cat son
-  - Bullet-Cat son
-  - Messenger of order
-  - Miaosuan
-  - Bullet-Miaosuan
-  - Three hand
-  - Bullet-Three hand
-  - Cat Bonze
+  - Hungry
+  - Bullet-Hungry
   - B-39
   - Bullet-B-39
+  - Cat Bonze
+  - Three hand
+  - Bullet-Three hand
+  - Miaosuan
+  - Bullet-Miaosuan
+  - Messenger of order
+  - Cat son
+  - Bullet-Cat son
+  - Connect Master
+  - Cat Knight
+  - Bullet-Cat Knight
+  - Mouse eyes
+  - Bullet-Arrow
+  - Fat Cat
+  - Bullet-Fat Cat
+  - Scavenger
+  - Bullet-Stone-Scavenger
+  - Iron Wall Guard
+  - Bullet-Iron Wall Guard
+  - Huge monster
+  - Bullet-Huge monster
+  - Shenji
+  - Bullet-shenji
+  - Great Master mirror
+  - Cat apprentice
+  - Bullet-Cat apprentice
+  - Cat Mom
+  - Cat Mix
+  - Bullet-Cat Mix
+  - Lightning Cat
+  - Loser cannon
+  - Bullet-Loser cannon
+  - Dice hand
+  - Bullet-Dice hand
+  - Cat addict
+  - Miner head
+  - Derivative-Miner rat
+  - Board friend
+  - Bullet-Board friend
+  - Ruifa
+  - Water breath cat
+  - Bullet-Water breath cat
+  - Miner rat
+  - Bullet-Miner rat
+  - Championship
+  - Bullet-Championship
+  - Boulder
+  - Bullet-Boulder
+  - Thunderstorm cat
+  - Fork apprentice
+  - Bullet-Fork apprentice
+  - Damb ass
+  - Bullet-Damb ass
+  - BabaDoctorC1
+  - Mechanical reinforcement ore
+  - jierui
+  - Bullet-jierui
+  - Harm eyebrow
+  - Bullet-Harm eyebrow
+  - BOOM bro
+  - Unstable ore
+  - Dark cat
+  - Horrible monster
+  - Bullet-Horrible monster
+  - Flame cat
+  - Bullet-Flame cat
+  - Cat dad
+  - Bullet-Cat dad
+  - Transparent
+  - Bullet-Transparent
+  - Skunk
+  - Bullet-Green fog
+  - Invincible
+  - Bullet-Invincible
+  - General Cat
+  - Bullet-General Cat
+  - Fortress
+  - Bullet-fortress
   audios:
-  - Fortress1
-  - Fortress2
-  - General Cat A
-  - Invincible1
-  - Invincible2
-  - Skunk1
-  - Skunk2
-  - Transparent1
-  - Transparent2
-  - Cat dad1
-  - Flame cat1 A
-  - Horrible monster1
-  - Horrible monster2
-  - Horrible monster3
-  - Dark cat A
-  - BOOM bro1
-  - BOOM bro2
-  - BOOM bro3
-  - Harm eyebrow1
-  - Harm eyebrow2
+  - Hungry0
+  - Hungry1
+  - Hungry2
+  - B-391
+  - Cat Bonze A
+  - Three hand1
+  - Three hand2
+  - miaosuan1
+  - miaosuan2
+  - Messenger of order1
+  - Messenger of order2
+  - Cat son1
+  - Cat son2
+  - Cat soldier A
+  - Arrow-Shoot
+  - Fat Cat A
+  - Scavenger1
+  - Iron Wall Guard1
+  - Huge monster1
+  - shenji1
+  - Great Master mirror1 A
+  - Great Master mirror2 A
+  - Cat apprentice A
+  - Cat mom1
+  - Cat Mix1
+  - Dice hand1
+  - Loser cannon1
+  - Cat addict1 A
+  - Cat addict2 A
+  - Miner head1
+  - Miner head2
+  - Board friend1
+  - Board friend2
+  - Ruifa1
+  - Water breath cat1 A
+  - Water breath cat2 A
   - Miner rat1
-  - BabaDoctorC11
-  - BabaDoctorC12
-  - BabaDoctorC13
-  - Damb ass1
+  - Championship1
+  - Championship2
+  - Boulder1
+  - Boulder2
+  - Thunderstorm cat1 A
+  - Thunderstorm cat2 A
   - Fork apprentice1
   - Fork apprentice2
   - Fork apprentice3
-  - Thunderstorm cat1 A
-  - Thunderstorm cat2 A
-  - Boulder1
-  - Boulder2
-  - Championship1
-  - Championship2
-  - Water breath cat1 A
-  - Water breath cat2 A
-  - Ruifa1
-  - Board friend1
-  - Board friend2
-  - Dice hand1
-  - Miner head1
-  - Miner head2
-  - Cat addict1 A
-  - Cat addict2 A
-  - Loser cannon1
-  - Cat Mix1
-  - Cat mom1
-  - Cat apprentice A
-  - Great Master mirror1 A
-  - Great Master mirror2 A
-  - shenji1
-  - Huge monster1
-  - Iron Wall Guard1
-  - Scavenger1
-  - Fat Cat A
-  - Arrow-Shoot
-  - Cat soldier A
-  - Cat son1
-  - Cat son2
-  - Messenger of order1
-  - Messenger of order2
-  - miaosuan1
-  - miaosuan2
-  - Three hand1
-  - Three hand2
-  - Cat Bonze A
-  - B-391
+  - Damb ass1
+  - BabaDoctorC11
+  - BabaDoctorC12
+  - BabaDoctorC13
+  - Harm eyebrow1
+  - Harm eyebrow2
+  - BOOM bro1
+  - BOOM bro2
+  - BOOM bro3
+  - Dark cat A
+  - Horrible monster1
+  - Horrible monster2
+  - Horrible monster3
+  - Flame cat1 A
+  - Cat dad1
+  - Transparent1
+  - Transparent2
+  - Skunk1
+  - Skunk2
+  - Invincible1
+  - Invincible2
+  - General Cat A
+  - Fortress1
+  - Fortress2
   textures: []
   animationClips: []
   animatorControllers:
-  - Fortress AC
-  - General Cat AC
-  - Invincible AC
-  - Skunk AC
-  - Transparent AC
-  - Cat dad AC
-  - Flame cat AC
-  - Crystallized giant beast AC
-  - Dark cat AC
-  - BOOM bro Ac
-  - Harm eyebrow AC
-  - jierui AC
-  - BabaDoctor AC
-  - Damb ass AC
-  - Fork apprentice AC
-  - Thunderstorm cat AC
-  - Boulder AC
-  - Championship AC
-  - Miner rat AC
-  - Water breath cat AC
-  - Ruifa AC
-  - Board friend AC
-  - Dice hand AC
-  - Miner head AC
-  - Cat addict AC
-  - Loser cannon AC
-  - Lightning Cat AC
-  - Cat Mix AC
-  - Cat Mom AC
-  - Cat apprentice AC
-  - Great Master AC mirror
-  - Shenji AC
-  - Huge monster AC
-  - Iron Wall Guard AC
-  - Scavenger AC
-  - Fat Cat AC
-  - Mouse eyes AC
-  - Cat soldier AC
-  - Connect Master AC
-  - Cat son AC
-  - Messenger of order AC
-  - Miaosuan AC
-  - Three hand AC
-  - Cat Bonze AC
+  - Hungry AC
   - B-39 AC
+  - Cat Bonze AC
+  - Three hand AC
+  - Miaosuan AC
+  - Messenger of order AC
+  - Cat son AC
+  - Connect Master AC
+  - Cat soldier AC
+  - Mouse eyes AC
+  - Fat Cat AC
+  - Scavenger AC
+  - Iron Wall Guard AC
+  - Huge monster AC
+  - Shenji AC
+  - Great Master AC mirror
+  - Cat apprentice AC
+  - Cat Mom AC
+  - Cat Mix AC
+  - Lightning Cat AC
+  - Dice hand AC
+  - Loser cannon AC
+  - Cat addict AC
+  - Miner head AC
+  - Board friend AC
+  - Ruifa AC
+  - Water breath cat AC
+  - Miner rat AC
+  - Championship AC
+  - Boulder AC
+  - Thunderstorm cat AC
+  - Fork apprentice AC
+  - Damb ass AC
+  - BabaDoctor AC
+  - jierui AC
+  - Harm eyebrow AC
+  - BOOM bro Ac
+  - Dark cat AC
+  - Crystallized giant beast AC
+  - Flame cat AC
+  - Cat dad AC
+  - Transparent AC
+  - Skunk AC
+  - Invincible AC
+  - General Cat AC
+  - Fortress AC
   sprites:
-  - Fortress AP_0
-  - General Cat_0
-  - Invincible AP_1
-  - Skunk_8
-  - Transparent 1_0
-  - Cat dad AP_9
-  - Flame cat-attack_2
-  - Crystallized giant beast_12
-  - Dark cat-attack_0
-  - BOOM bro_0
-  - Harm eyebrow_12
-  - jierui_9
-  - DabaDoctor_6
-  - Damb ass-move_0
-  - Fork apprentice AP_11
-  - Thunderstorm cat_0
-  - Boulder-attack 1_0
-  - Championship AP_0
-  - Miner rat-move_0
-  - Water breath cat-attack_0
-  - Ruifa AP_0
-  - Board friend AP_0
-  - Dice hand AP_3
-  - Miner head_8
-  - Cat addict_9
-  - Loser cannon AP_0
-  - Lightning Cat_0
-  - Cat Mix AP _10
-  - Cat Mom_0
-  - Cat apprentice-attack_0
-  - Great Master mirror AP_0
-  - Shenji AP_14
-  - 1_0
-  - Iron Wall Guard AP_0
-  - Scavenger_0
-  - Fat Cat_0
-  - Mouse eyes-attack_0
-  - Cat soldier_0
-  - Connect Master AP_15
-  - Cat son AP_2
-  - Messenger of order AP_0
-  - Miaosuan AP_0
-  - Three hand AP_0
-  - Cat Bonze_16
+  - Hungry AP_0
   - B-39 AP_5
+  - Cat Bonze_16
+  - Three hand AP_0
+  - Miaosuan AP_0
+  - Messenger of order AP_0
+  - Cat son AP_2
+  - Connect Master AP_15
+  - Cat soldier_0
+  - Mouse eyes-attack_0
+  - Fat Cat_0
+  - Scavenger_0
+  - Iron Wall Guard AP_0
+  - 1_0
+  - Shenji AP_14
+  - Great Master mirror AP_0
+  - Cat apprentice-attack_0
+  - Cat Mom_0
+  - Cat Mix AP _10
+  - Lightning Cat_0
+  - Dice hand AP_3
+  - Loser cannon AP_0
+  - Cat addict_9
+  - Miner head_8
+  - Board friend AP_0
+  - Ruifa AP_0
+  - Water breath cat-attack_0
+  - Miner rat-move_0
+  - Championship AP_0
+  - Boulder-attack 1_0
+  - Thunderstorm cat_0
+  - Fork apprentice AP_11
+  - Damb ass-move_0
+  - DabaDoctor_6
+  - jierui_9
+  - Harm eyebrow_12
+  - BOOM bro_0
+  - Dark cat-attack_0
+  - Crystallized giant beast_12
+  - Flame cat-attack_2
+  - Cat dad AP_9
+  - Transparent 1_0
+  - Skunk_8
+  - Invincible AP_1
+  - General Cat_0
+  - Fortress AP_0
   references:
     version: 2
     RefIds:
-    - rid: 9182622037134541668
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+    - rid: 9182622062736310456
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
       data:
-        objectType: -1
-        maxHp: 20000
-        defense: 0
-        magicDefense: 0
-        atk: 500
-        atkRate: 1
-        magicAtk: 500
-        atkRange: {x: 11, y: 6}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 1
-        repel: 8
-        side: 0
-        atkObj: Bullet-fortress
-        buildAnime: 
-    - rid: 9182622037134541669
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Fortress AP_0
-    - rid: 9182622037134541670
+        animatorControllerKey: Hungry AC
+    - rid: 9182622062736310457
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
-        audioKey1: Fortress1
-        audioKey2: Fortress2
-        audioKey3: 
+        audioKey1: Hungry0
+        audioKey2: Hungry1
+        audioKey3: Hungry2
         audioKey4: 
         audioKey5: 
         audioKey6: 
         audioKey7: 
         audioKey8: 
-    - rid: 9182622037134541671
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+    - rid: 9182622062736310458
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
       data:
-        animatorControllerKey: Fortress AC
-    - rid: 9182622037134541672
+        spriteKey: Hungry AP_0
+    - rid: 9182622062736310459
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
         objectType: 2
-        maxHp: 8000
+        maxHp: 9000
         defense: 0
         magicDefense: 0
-        atk: 1500
+        atk: 350
         atkRate: 1
         magicAtk: 0
-        atkRange: {x: 3, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.1
-        repel: 5
-        side: 1
-        atkObj: Bullet-General Cat
-        buildAnime: 
-    - rid: 9182622037134541673
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: General Cat AC
-    - rid: 9182622037134541674
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: General Cat A
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541675
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: General Cat_0
-    - rid: 9182622037134541676
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 0
-        maxHp: 20000
-        defense: 0
-        magicDefense: 0
-        atk: 400
-        atkRate: 0
-        magicAtk: 0
-        atkRange: {x: 3, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2
-        repel: 4
-        side: 0
-        atkObj: Bullet-Invincible
-        buildAnime: 
-    - rid: 9182622037134541677
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Invincible1
-        audioKey2: Invincible2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541678
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Invincible AP_1
-    - rid: 9182622037134541679
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Invincible AC
-    - rid: 9182622037134541680
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 8000
-        defense: 0
-        magicDefense: 0
-        atk: 0
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 10, y: 4}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 1.8
-        repel: 0.5
-        side: 0
-        atkObj: Bullet-Green fog
-        buildAnime: 
-    - rid: 9182622037134541681
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Skunk1
-        audioKey2: Skunk2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541682
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Skunk AC
-    - rid: 9182622037134541683
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Skunk_8
-    - rid: 9182622037134541684
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 2000
-        defense: 0
-        magicDefense: 0
-        atk: 1000
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 1, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2
-        repel: 1
-        side: 0
-        atkObj: Bullet-Transparent
-        buildAnime: 
-    - rid: 9182622037134541685
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Transparent AC
-    - rid: 9182622037134541686
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Transparent1
-        audioKey2: Transparent2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541687
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Transparent 1_0
-    - rid: 9182622037134541688
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Cat dad AC
-    - rid: 9182622037134541689
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Cat dad1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541690
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Cat dad AP_9
-    - rid: 9182622037134541691
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 6000
-        defense: 0
-        magicDefense: 0
-        atk: 300
-        atkRate: 1
-        magicAtk: 100
-        atkRange: {x: 2, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 1.8
-        repel: 1
-        side: 1
-        atkObj: Bullet-Cat dad
-        buildAnime: 
-    - rid: 9182622037134541692
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 3500
-        defense: 0
-        magicDefense: 0
-        atk: 50
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 6, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.1
-        repel: 1
-        side: 1
-        atkObj: Bullet-Flame cat
-        buildAnime: 
-    - rid: 9182622037134541693
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Flame cat-attack_2
-    - rid: 9182622037134541694
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Flame cat1 A
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541695
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Flame cat AC
-    - rid: 9182622037134541696
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 30000
-        defense: 0
-        magicDefense: 0
-        atk: 1000
-        atkRate: 1
-        magicAtk: 1000
         atkRange: {x: 4, y: 2}
         isRemoteAtk: 0
         isFacingLeft: 0
         occupySpace: {x: 1, y: 1}
         barSustainTime: 2
         buildTime: 3
-        moveSpeed: 1.6
-        repel: 10
-        side: 0
-        atkObj: Bullet-Horrible monster
-        buildAnime: 
-    - rid: 9182622037134541697
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Crystallized giant beast AC
-    - rid: 9182622037134541698
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Crystallized giant beast_12
-    - rid: 9182622037134541699
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Horrible monster1
-        audioKey2: Horrible monster2
-        audioKey3: Horrible monster3
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541700
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 7000
-        defense: 0
-        magicDefense: 0
-        atk: 300
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 6, y: 4}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.3
-        repel: 1
-        side: 1
-        atkObj: 
-        buildAnime: 
-    - rid: 9182622037134541701
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Dark cat AC
-    - rid: 9182622037134541702
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Dark cat A
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541703
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Dark cat-attack_0
-    - rid: 9182622037134541704
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 2000
-        defense: 0
-        magicDefense: 0
-        atk: 500
-        atkRate: 0
-        magicAtk: 0
-        atkRange: {x: 8, y: 4}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.6
-        repel: 1
-        side: 0
-        atkObj: Unstable ore
-        buildAnime: 
-    - rid: 9182622037134541705
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: BOOM bro1
-        audioKey2: BOOM bro2
-        audioKey3: BOOM bro3
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541706
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: BOOM bro Ac
-    - rid: 9182622037134541707
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: BOOM bro_0
-    - rid: 9182622037134541708
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 1100
-        defense: 0
-        magicDefense: 0
-        atk: 400
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 2, y: 1}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 2
-        moveSpeed: 3
-        repel: 1
-        side: 0
-        atkObj: Bullet-Harm eyebrow
-        buildAnime: 
-    - rid: 9182622037134541709
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Harm eyebrow AC
-    - rid: 9182622037134541710
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Harm eyebrow1
-        audioKey2: Harm eyebrow2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541711
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Harm eyebrow_12
-    - rid: 9182622037134541712
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 3000
-        defense: 0
-        magicDefense: 0
-        atk: 300
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 1, y: 1}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 4
-        repel: 1
-        side: 0
-        atkObj: Bullet-jierui
-        buildAnime: 
-    - rid: 9182622037134541713
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: jierui_9
-    - rid: 9182622037134541714
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Miner rat1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541715
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: jierui AC
-    - rid: 9182622037134541716
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 5000
-        defense: 0
-        magicDefense: 0
-        atk: 10
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 11, y: 4}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.7
-        repel: 1
-        side: 0
-        atkObj: Mechanical reinforcement ore
-        buildAnime: 
-    - rid: 9182622037134541717
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: BabaDoctor AC
-    - rid: 9182622037134541718
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: BabaDoctorC11
-        audioKey2: BabaDoctorC12
-        audioKey3: BabaDoctorC13
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541719
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: DabaDoctor_6
-    - rid: 9182622037134541720
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 3000
-        defense: 0
-        magicDefense: 0
-        atk: 200
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 2, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3
-        repel: 1.5
-        side: 0
-        atkObj: Bullet-Damb ass
-        buildAnime: 
-    - rid: 9182622037134541721
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Damb ass-move_0
-    - rid: 9182622037134541722
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Damb ass1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541723
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Damb ass AC
-    - rid: 9182622037134541724
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Fork apprentice AC
-    - rid: 9182622037134541725
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Fork apprentice1
-        audioKey2: Fork apprentice2
-        audioKey3: Fork apprentice3
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541726
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Fork apprentice AP_11
-    - rid: 9182622037134541727
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 4000
-        defense: 0
-        magicDefense: 0
-        atk: 200
-        atkRate: 1
-        magicAtk: 200
-        atkRange: {x: 6, y: 4}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.3
-        repel: 3
-        side: 1
-        atkObj: Bullet-Fork apprentice
-        buildAnime: 
-    - rid: 9182622037134541728
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 3000
-        defense: 0
-        magicDefense: 0
-        atk: 0
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 2, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.2
-        repel: 3
-        side: 1
-        atkObj: 
-        buildAnime: 
-    - rid: 9182622037134541729
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Thunderstorm cat AC
-    - rid: 9182622037134541730
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Thunderstorm cat1 A
-        audioKey2: Thunderstorm cat2 A
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541731
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Thunderstorm cat_0
-    - rid: 9182622037134541732
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 15000
-        defense: 0
-        magicDefense: 0
-        atk: 1500
-        atkRate: 1
-        magicAtk: 1500
-        atkRange: {x: 3, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 1.7
-        repel: 1
-        side: 0
-        atkObj: Bullet-Boulder
-        buildAnime: 
-    - rid: 9182622037134541733
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Boulder-attack 1_0
-    - rid: 9182622037134541734
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Boulder1
-        audioKey2: Boulder2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541735
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Boulder AC
-    - rid: 9182622037134541736
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Championship AC
-    - rid: 9182622037134541737
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Championship1
-        audioKey2: Championship2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541738
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Championship AP_0
-    - rid: 9182622037134541739
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 5000
-        defense: 0
-        magicDefense: 0
-        atk: 100
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 2, y: 1}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.4
-        repel: 1
-        side: 1
-        atkObj: Bullet-Championship
-        buildAnime: 
-    - rid: 9182622037134541740
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 800
-        defense: 0
-        magicDefense: 0
-        atk: 150
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 1, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3
-        repel: 1
-        side: 0
-        atkObj: Bullet-Miner rat
-        buildAnime: 
-    - rid: 9182622037134541741
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Miner rat AC
-    - rid: 9182622037134541742
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Miner rat1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541743
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Miner rat-move_0
-    - rid: 9182622037134541744
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 4500
-        defense: 0
-        magicDefense: 0
-        atk: 600
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 3, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.2
-        repel: 4
-        side: 1
-        atkObj: Bullet-Water breath cat
-        buildAnime: 
-    - rid: 9182622037134541745
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Water breath cat AC
-    - rid: 9182622037134541746
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Water breath cat1 A
-        audioKey2: Water breath cat2 A
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541747
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Water breath cat-attack_0
-    - rid: 9182622037134541748
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Ruifa AC
-    - rid: 9182622037134541749
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Ruifa1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541750
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Ruifa AP_0
-    - rid: 9182622037134541751
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 6000
-        defense: 0
-        magicDefense: 0
-        atk: 0
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 10, y: 6}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2
-        repel: 1
-        side: 1
-        atkObj: 
-        buildAnime: 
-    - rid: 9182622037134541752
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 0
-        maxHp: 100
-        defense: 10
-        magicDefense: 5
-        atk: 10
-        atkRate: 1
-        magicAtk: 5
-        atkRange: {x: 11, y: 6}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3
-        repel: 1
-        side: 0
-        atkObj: Bullet-Board friend
-        buildAnime: 
-    - rid: 9182622037134541753
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Board friend1
-        audioKey2: Board friend2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541754
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Board friend AC
-    - rid: 9182622037134541755
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Board friend AP_0
-    - rid: 9182622037134541756
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 0
-        maxHp: 100
-        defense: 10
-        magicDefense: 5
-        atk: 10
-        atkRate: 1
-        magicAtk: 5
-        atkRange: {x: 8, y: 6}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3
-        repel: 1
-        side: 0
-        atkObj: Bullet-Dice hand
-        buildAnime: 
-    - rid: 9182622037134541757
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Dice hand1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541758
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Dice hand AC
-    - rid: 9182622037134541759
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Dice hand AP_3
-    - rid: 9182622037134541760
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 6000
-        defense: 0
-        magicDefense: 0
-        atk: 200
-        atkRate: 0
-        magicAtk: 400
-        atkRange: {x: 8, y: 4}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
         moveSpeed: 1.8
-        repel: 5
-        side: 0
-        atkObj: Derivative-Miner rat
-        buildAnime: 
-    - rid: 9182622037134541761
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Miner head AC
-    - rid: 9182622037134541762
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Miner head1
-        audioKey2: Miner head2
-        audioKey3: Miner head
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541763
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Miner head_8
-    - rid: 9182622037134541764
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 3500
-        defense: 0
-        magicDefense: 0
-        atk: 0
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 11, y: 6}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 1.9
         repel: 1
         side: 1
-        atkObj: 
+        atkObj: Bullet-Hungry
         buildAnime: 
-    - rid: 9182622037134541765
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Cat addict AC
-    - rid: 9182622037134541766
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Cat addict1 A
-        audioKey2: Cat addict2 A
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541767
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Cat addict_9
-    - rid: 9182622037134541768
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 0
-        maxHp: 100
-        defense: 0
-        magicDefense: 0
-        atk: 200
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 14, y: 6}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3
-        repel: 4
-        side: 0
-        atkObj: Bullet-Loser cannon
-        buildAnime: 
-    - rid: 9182622037134541769
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Loser cannon1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541770
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Loser cannon AP_0
-    - rid: 9182622037134541771
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Loser cannon AC
-    - rid: 9182622037134541772
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 4000
-        defense: 0
-        magicDefense: 0
-        atk: 10
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 7, y: 4}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.3
-        repel: 2
-        side: 1
-        atkObj: 
-        buildAnime: 
-    - rid: 9182622037134541773
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: 
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541774
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Lightning Cat_0
-    - rid: 9182622037134541775
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Lightning Cat AC
-    - rid: 9182622037134541776
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Cat Mix AC
-    - rid: 9182622037134541777
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Cat Mix1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541778
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Cat Mix AP _10
-    - rid: 9182622037134541779
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 2000
-        defense: 0
-        magicDefense: 0
-        atk: 150
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 2, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2
-        repel: 2
-        side: 1
-        atkObj: Bullet-Cat Mix
-        buildAnime: 
-    - rid: 9182622037134541780
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Cat Mom AC
-    - rid: 9182622037134541781
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Cat mom1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541782
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Cat Mom_0
-    - rid: 9182622037134541783
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 4000
-        defense: 0
-        magicDefense: 0
-        atk: 50
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 9, y: 6}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 1.9
-        repel: 0.5
-        side: 1
-        atkObj: 
-        buildAnime: 
-    - rid: 9182622037134541784
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 1800
-        defense: 0
-        magicDefense: 0
-        atk: 300
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 2, y: 1}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.4
-        repel: 0.5
-        side: 1
-        atkObj: Bullet-Cat apprentice
-        buildAnime: 
-    - rid: 9182622037134541785
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Cat apprentice AC
-    - rid: 9182622037134541786
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Cat apprentice A
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541787
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Cat apprentice-attack_0
-    - rid: 9182622037134541788
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 8500
-        defense: 0
-        magicDefense: 0
-        atk: 0
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 8, y: 6}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.4
-        repel: 0
-        side: 1
-        atkObj: 
-        buildAnime: 
-    - rid: 9182622037134541789
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Great Master AC mirror
-    - rid: 9182622037134541790
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Great Master mirror1 A
-        audioKey2: Great Master mirror2 A
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541791
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Great Master mirror AP_0
-    - rid: 9182622037134541792
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 0
-        maxHp: 100
-        defense: 0
-        magicDefense: 0
-        atk: 10
-        atkRate: 1
-        magicAtk: 5
-        atkRange: {x: 3, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.5
-        repel: 1
-        side: 0
-        atkObj: Bullet-shenji
-        buildAnime: 
-    - rid: 9182622037134541793
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: shenji1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541794
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Shenji AC
-    - rid: 9182622037134541795
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Shenji AP_14
-    - rid: 9182622037134541796
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 12000
-        defense: 0
-        magicDefense: 0
-        atk: 350
-        atkRate: 1
-        magicAtk: 350
-        atkRange: {x: 3, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 1.6
-        repel: 3
-        side: 0
-        atkObj: Bullet-Huge monster
-        buildAnime: 
-    - rid: 9182622037134541797
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: 1_0
-    - rid: 9182622037134541798
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Huge monster AC
-    - rid: 9182622037134541799
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Huge monster1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541800
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Iron Wall Guard AC
-    - rid: 9182622037134541801
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Iron Wall Guard1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541802
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Iron Wall Guard AP_0
-    - rid: 9182622037134541803
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 4000
-        defense: 0
-        magicDefense: 0
-        atk: 300
-        atkRate: 1
-        magicAtk: 150
-        atkRange: {x: 2, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.1
-        repel: 4
-        side: 1
-        atkObj: Bullet-Iron Wall Guard
-        buildAnime: 
-    - rid: 9182622037134541804
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 800
-        defense: 0
-        magicDefense: 0
-        atk: 80
-        atkRate: 0
-        magicAtk: 0
-        atkRange: {x: 10, y: 4}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3
-        repel: 0.5
-        side: 0
-        atkObj: Bullet-Stone-Scavenger
-        buildAnime: 
-    - rid: 9182622037134541805
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Scavenger AC
-    - rid: 9182622037134541806
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Scavenger1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541807
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Scavenger_0
-    - rid: 9182622037134541808
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 8000
-        defense: 0
-        magicDefense: 0
-        atk: 500
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 2, y: 1}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 1.9
-        repel: 0
-        side: 1
-        atkObj: Bullet-Fat Cat
-        buildAnime: 
-    - rid: 9182622037134541809
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Fat Cat AC
-    - rid: 9182622037134541810
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Fat Cat A
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541811
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Fat Cat_0
-    - rid: 9182622037134541812
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 1500
-        defense: 0
-        magicDefense: 0
-        atk: 170
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 14, y: 6}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3.5
-        repel: 0.7
-        side: 0
-        atkObj: Bullet-Arrow
-        buildAnime: 
-    - rid: 9182622037134541813
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Mouse eyes-attack_0
-    - rid: 9182622037134541814
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Mouse eyes AC
-    - rid: 9182622037134541815
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Arrow-Shoot
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541816
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 4000
-        defense: 0
-        magicDefense: 0
-        atk: 400
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 2, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.2
-        repel: 2
-        side: 1
-        atkObj: Bullet-Cat Knight
-        buildAnime: 
-    - rid: 9182622037134541817
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Cat soldier_0
-    - rid: 9182622037134541818
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Cat soldier A
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541819
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Cat soldier AC
-    - rid: 9182622037134541820
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Connect Master AC
-    - rid: 9182622037134541821
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: 
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622037134541822
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Connect Master AP_15
-    - rid: 9182622037134541823
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 3000
-        defense: 0
-        magicDefense: 0
-        atk: 50
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 10, y: 6}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2
-        repel: 1
-        side: 1
-        atkObj: 
-        buildAnime: 
-    - rid: 9182622040759730176
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Cat son AC
-    - rid: 9182622040759730177
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Cat son1
-        audioKey2: Cat son2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622040759730178
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Cat son AP_2
-    - rid: 9182622040759730179
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 1000
-        defense: 0
-        magicDefense: 0
-        atk: 200
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 1, y: 1}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.2
-        repel: 1
-        side: 1
-        atkObj: Bullet-Cat son
-        buildAnime: 
-    - rid: 9182622040759730180
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Messenger of order AC
-    - rid: 9182622040759730181
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Messenger of order1
-        audioKey2: Messenger of order2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622040759730182
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Messenger of order AP_0
-    - rid: 9182622040759730183
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 14000
-        defense: 0
-        magicDefense: 0
-        atk: 400
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 14, y: 6}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.4
-        repel: 1
-        side: 1
-        atkObj: 
-        buildAnime: 
-    - rid: 9182622040759730184
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 0
-        maxHp: 100
-        defense: 10
-        magicDefense: 5
-        atk: 10
-        atkRate: 1
-        magicAtk: 5
-        atkRange: {x: 6, y: 4}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3
-        repel: 1
-        side: 0
-        atkObj: Bullet-Miaosuan
-        buildAnime: 
-    - rid: 9182622040759730185
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: miaosuan1
-        audioKey2: miaosuan2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622040759730186
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Miaosuan AC
-    - rid: 9182622040759730187
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Miaosuan AP_0
-    - rid: 9182622040759730188
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 0
-        maxHp: 100
-        defense: 10
-        magicDefense: 5
-        atk: 10
-        atkRate: 1
-        magicAtk: 5
-        atkRange: {x: 3, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3
-        repel: 1
-        side: 0
-        atkObj: Bullet-Three hand
-        buildAnime: 
-    - rid: 9182622040759730189
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Three hand1
-        audioKey2: Three hand2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622040759730190
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Three hand AC
-    - rid: 9182622040759730191
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Three hand AP_0
-    - rid: 9182622040759730192
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 0
-        maxHp: 100
-        defense: 10
-        magicDefense: 5
-        atk: 10
-        atkRate: 1
-        magicAtk: 5
-        atkRange: {x: 3, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3
-        repel: 2
-        side: 1
-        atkObj: 
-        buildAnime: 
-    - rid: 9182622040759730193
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Cat Bonze A
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622040759730194
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Cat Bonze_16
-    - rid: 9182622040759730195
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Cat Bonze AC
-    - rid: 9182622040759730196
+    - rid: 9182622062736310460
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
         objectType: 0
@@ -2537,7 +835,7 @@ MonoBehaviour:
         side: 0
         atkObj: Bullet-B-39
         buildAnime: 
-    - rid: 9182622040759730197
+    - rid: 9182622062736310461
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
         audioKey1: B-391
@@ -2548,11 +846,1771 @@ MonoBehaviour:
         audioKey6: 
         audioKey7: 
         audioKey8: 
-    - rid: 9182622040759730198
+    - rid: 9182622062736310462
       type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
       data:
         animatorControllerKey: B-39 AC
-    - rid: 9182622040759730199
+    - rid: 9182622062736310463
       type: {class: StageTextureData, ns: , asm: CageFightRuntime}
       data:
         spriteKey: B-39 AP_5
+    - rid: 9182622062736310464
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 0
+        maxHp: 100
+        defense: 10
+        magicDefense: 5
+        atk: 10
+        atkRate: 1
+        magicAtk: 5
+        atkRange: {x: 3, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 2
+        side: 1
+        atkObj: 
+        buildAnime: 
+    - rid: 9182622062736310465
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Cat Bonze A
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310466
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Cat Bonze_16
+    - rid: 9182622062736310467
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Cat Bonze AC
+    - rid: 9182622062736310468
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 0
+        maxHp: 100
+        defense: 10
+        magicDefense: 5
+        atk: 10
+        atkRate: 1
+        magicAtk: 5
+        atkRange: {x: 3, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 1
+        side: 0
+        atkObj: Bullet-Three hand
+        buildAnime: 
+    - rid: 9182622062736310469
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Three hand1
+        audioKey2: Three hand2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310470
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Three hand AC
+    - rid: 9182622062736310471
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Three hand AP_0
+    - rid: 9182622062736310472
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 0
+        maxHp: 100
+        defense: 10
+        magicDefense: 5
+        atk: 10
+        atkRate: 1
+        magicAtk: 5
+        atkRange: {x: 6, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 1
+        side: 0
+        atkObj: Bullet-Miaosuan
+        buildAnime: 
+    - rid: 9182622062736310473
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: miaosuan1
+        audioKey2: miaosuan2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310474
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Miaosuan AC
+    - rid: 9182622062736310475
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Miaosuan AP_0
+    - rid: 9182622062736310476
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Messenger of order AC
+    - rid: 9182622062736310477
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Messenger of order1
+        audioKey2: Messenger of order2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310478
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Messenger of order AP_0
+    - rid: 9182622062736310479
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 14000
+        defense: 0
+        magicDefense: 0
+        atk: 400
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 14, y: 6}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.4
+        repel: 1
+        side: 1
+        atkObj: 
+        buildAnime: 
+    - rid: 9182622062736310480
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Cat son AC
+    - rid: 9182622062736310481
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Cat son1
+        audioKey2: Cat son2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310482
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Cat son AP_2
+    - rid: 9182622062736310483
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 1000
+        defense: 0
+        magicDefense: 0
+        atk: 200
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 1, y: 1}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.2
+        repel: 1
+        side: 1
+        atkObj: Bullet-Cat son
+        buildAnime: 
+    - rid: 9182622062736310484
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Connect Master AC
+    - rid: 9182622062736310485
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: 
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310486
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Connect Master AP_15
+    - rid: 9182622062736310487
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 3000
+        defense: 0
+        magicDefense: 0
+        atk: 50
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 10, y: 6}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2
+        repel: 1
+        side: 1
+        atkObj: 
+        buildAnime: 
+    - rid: 9182622062736310488
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 4000
+        defense: 0
+        magicDefense: 0
+        atk: 400
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 2, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.2
+        repel: 2
+        side: 1
+        atkObj: Bullet-Cat Knight
+        buildAnime: 
+    - rid: 9182622062736310489
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Cat soldier_0
+    - rid: 9182622062736310490
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Cat soldier A
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310491
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Cat soldier AC
+    - rid: 9182622062736310492
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 1500
+        defense: 0
+        magicDefense: 0
+        atk: 170
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 14, y: 6}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3.5
+        repel: 0.7
+        side: 0
+        atkObj: Bullet-Arrow
+        buildAnime: 
+    - rid: 9182622062736310493
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Mouse eyes-attack_0
+    - rid: 9182622062736310494
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Mouse eyes AC
+    - rid: 9182622062736310495
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Arrow-Shoot
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310496
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 8000
+        defense: 0
+        magicDefense: 0
+        atk: 500
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 2, y: 1}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.9
+        repel: 0
+        side: 1
+        atkObj: Bullet-Fat Cat
+        buildAnime: 
+    - rid: 9182622062736310497
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Fat Cat AC
+    - rid: 9182622062736310498
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Fat Cat A
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310499
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Fat Cat_0
+    - rid: 9182622062736310500
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 800
+        defense: 0
+        magicDefense: 0
+        atk: 80
+        atkRate: 0
+        magicAtk: 0
+        atkRange: {x: 10, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 0.5
+        side: 0
+        atkObj: Bullet-Stone-Scavenger
+        buildAnime: 
+    - rid: 9182622062736310501
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Scavenger AC
+    - rid: 9182622062736310502
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Scavenger1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310503
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Scavenger_0
+    - rid: 9182622062736310504
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Iron Wall Guard AC
+    - rid: 9182622062736310505
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Iron Wall Guard1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310506
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Iron Wall Guard AP_0
+    - rid: 9182622062736310507
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 4000
+        defense: 0
+        magicDefense: 0
+        atk: 300
+        atkRate: 1
+        magicAtk: 150
+        atkRange: {x: 2, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.1
+        repel: 4
+        side: 1
+        atkObj: Bullet-Iron Wall Guard
+        buildAnime: 
+    - rid: 9182622062736310508
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 12000
+        defense: 0
+        magicDefense: 0
+        atk: 350
+        atkRate: 1
+        magicAtk: 350
+        atkRange: {x: 3, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.6
+        repel: 3
+        side: 0
+        atkObj: Bullet-Huge monster
+        buildAnime: 
+    - rid: 9182622062736310509
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: 1_0
+    - rid: 9182622062736310510
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Huge monster AC
+    - rid: 9182622062736310511
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Huge monster1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310512
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 0
+        maxHp: 100
+        defense: 0
+        magicDefense: 0
+        atk: 10
+        atkRate: 1
+        magicAtk: 5
+        atkRange: {x: 3, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.5
+        repel: 1
+        side: 0
+        atkObj: Bullet-shenji
+        buildAnime: 
+    - rid: 9182622062736310513
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: shenji1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310514
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Shenji AC
+    - rid: 9182622062736310515
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Shenji AP_14
+    - rid: 9182622062736310516
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 8500
+        defense: 0
+        magicDefense: 0
+        atk: 0
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 8, y: 6}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.4
+        repel: 0
+        side: 1
+        atkObj: 
+        buildAnime: 
+    - rid: 9182622062736310517
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Great Master AC mirror
+    - rid: 9182622062736310518
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Great Master mirror1 A
+        audioKey2: Great Master mirror2 A
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310519
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Great Master mirror AP_0
+    - rid: 9182622062736310520
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 1800
+        defense: 0
+        magicDefense: 0
+        atk: 300
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 2, y: 1}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.4
+        repel: 0.5
+        side: 1
+        atkObj: Bullet-Cat apprentice
+        buildAnime: 
+    - rid: 9182622062736310521
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Cat apprentice AC
+    - rid: 9182622062736310522
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Cat apprentice A
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310523
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Cat apprentice-attack_0
+    - rid: 9182622062736310524
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Cat Mom AC
+    - rid: 9182622062736310525
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Cat mom1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310526
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Cat Mom_0
+    - rid: 9182622062736310527
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 4000
+        defense: 0
+        magicDefense: 0
+        atk: 50
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 9, y: 6}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.9
+        repel: 0.5
+        side: 1
+        atkObj: 
+        buildAnime: 
+    - rid: 9182622062736310528
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Cat Mix AC
+    - rid: 9182622062736310529
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Cat Mix1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310530
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Cat Mix AP _10
+    - rid: 9182622062736310531
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 2000
+        defense: 0
+        magicDefense: 0
+        atk: 150
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 2, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2
+        repel: 2
+        side: 1
+        atkObj: Bullet-Cat Mix
+        buildAnime: 
+    - rid: 9182622062736310532
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 4000
+        defense: 0
+        magicDefense: 0
+        atk: 10
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 7, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.3
+        repel: 2
+        side: 1
+        atkObj: 
+        buildAnime: 
+    - rid: 9182622062736310533
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: 
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310534
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Lightning Cat_0
+    - rid: 9182622062736310535
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Lightning Cat AC
+    - rid: 9182622062736310536
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 0
+        maxHp: 100
+        defense: 0
+        magicDefense: 0
+        atk: 200
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 14, y: 6}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 4
+        side: 0
+        atkObj: Bullet-Loser cannon
+        buildAnime: 
+    - rid: 9182622062736310537
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Loser cannon1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310538
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Loser cannon AP_0
+    - rid: 9182622062736310539
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Loser cannon AC
+    - rid: 9182622062736310540
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 3500
+        defense: 0
+        magicDefense: 0
+        atk: 0
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 11, y: 6}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.9
+        repel: 1
+        side: 1
+        atkObj: 
+        buildAnime: 
+    - rid: 9182622062736310541
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Cat addict AC
+    - rid: 9182622062736310542
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Cat addict1 A
+        audioKey2: Cat addict2 A
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310543
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Cat addict_9
+    - rid: 9182622062736310544
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 6000
+        defense: 0
+        magicDefense: 0
+        atk: 200
+        atkRate: 0
+        magicAtk: 400
+        atkRange: {x: 8, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.8
+        repel: 5
+        side: 0
+        atkObj: Derivative-Miner rat
+        buildAnime: 
+    - rid: 9182622062736310545
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Miner head AC
+    - rid: 9182622062736310546
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Miner head1
+        audioKey2: Miner head2
+        audioKey3: Miner head
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310547
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Miner head_8
+    - rid: 9182622062736310548
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 0
+        maxHp: 100
+        defense: 10
+        magicDefense: 5
+        atk: 10
+        atkRate: 1
+        magicAtk: 5
+        atkRange: {x: 8, y: 6}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 1
+        side: 0
+        atkObj: Bullet-Dice hand
+        buildAnime: 
+    - rid: 9182622062736310549
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Dice hand1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310550
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Dice hand AC
+    - rid: 9182622062736310551
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Dice hand AP_3
+    - rid: 9182622062736310552
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 0
+        maxHp: 100
+        defense: 10
+        magicDefense: 5
+        atk: 10
+        atkRate: 1
+        magicAtk: 5
+        atkRange: {x: 11, y: 6}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 1
+        side: 0
+        atkObj: Bullet-Board friend
+        buildAnime: 
+    - rid: 9182622062736310553
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Board friend1
+        audioKey2: Board friend2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310554
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Board friend AC
+    - rid: 9182622062736310555
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Board friend AP_0
+    - rid: 9182622062736310556
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Ruifa AC
+    - rid: 9182622062736310557
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Ruifa1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310558
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Ruifa AP_0
+    - rid: 9182622062736310559
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 6000
+        defense: 0
+        magicDefense: 0
+        atk: 0
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 10, y: 6}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2
+        repel: 1
+        side: 1
+        atkObj: 
+        buildAnime: 
+    - rid: 9182622062736310560
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 4500
+        defense: 0
+        magicDefense: 0
+        atk: 600
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 3, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.2
+        repel: 4
+        side: 1
+        atkObj: Bullet-Water breath cat
+        buildAnime: 
+    - rid: 9182622062736310561
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Water breath cat AC
+    - rid: 9182622062736310562
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Water breath cat1 A
+        audioKey2: Water breath cat2 A
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310563
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Water breath cat-attack_0
+    - rid: 9182622062736310564
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 800
+        defense: 0
+        magicDefense: 0
+        atk: 150
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 1, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 1
+        side: 0
+        atkObj: Bullet-Miner rat
+        buildAnime: 
+    - rid: 9182622062736310565
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Miner rat AC
+    - rid: 9182622062736310566
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Miner rat1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310567
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Miner rat-move_0
+    - rid: 9182622062736310568
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Championship AC
+    - rid: 9182622062736310569
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Championship1
+        audioKey2: Championship2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310570
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Championship AP_0
+    - rid: 9182622062736310571
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 5000
+        defense: 0
+        magicDefense: 0
+        atk: 100
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 2, y: 1}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.4
+        repel: 1
+        side: 1
+        atkObj: Bullet-Championship
+        buildAnime: 
+    - rid: 9182622062736310572
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 15000
+        defense: 0
+        magicDefense: 0
+        atk: 1500
+        atkRate: 1
+        magicAtk: 1500
+        atkRange: {x: 3, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.7
+        repel: 1
+        side: 0
+        atkObj: Bullet-Boulder
+        buildAnime: 
+    - rid: 9182622062736310573
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Boulder-attack 1_0
+    - rid: 9182622062736310574
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Boulder1
+        audioKey2: Boulder2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310575
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Boulder AC
+    - rid: 9182622062736310576
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 3000
+        defense: 0
+        magicDefense: 0
+        atk: 0
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 2, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.2
+        repel: 3
+        side: 1
+        atkObj: 
+        buildAnime: 
+    - rid: 9182622062736310577
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Thunderstorm cat AC
+    - rid: 9182622062736310578
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Thunderstorm cat1 A
+        audioKey2: Thunderstorm cat2 A
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310579
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Thunderstorm cat_0
+    - rid: 9182622062736310580
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Fork apprentice AC
+    - rid: 9182622062736310581
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Fork apprentice1
+        audioKey2: Fork apprentice2
+        audioKey3: Fork apprentice3
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310582
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Fork apprentice AP_11
+    - rid: 9182622062736310583
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 4000
+        defense: 0
+        magicDefense: 0
+        atk: 200
+        atkRate: 1
+        magicAtk: 200
+        atkRange: {x: 6, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.3
+        repel: 3
+        side: 1
+        atkObj: Bullet-Fork apprentice
+        buildAnime: 
+    - rid: 9182622062736310584
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 3000
+        defense: 0
+        magicDefense: 0
+        atk: 200
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 2, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 1.5
+        side: 0
+        atkObj: Bullet-Damb ass
+        buildAnime: 
+    - rid: 9182622062736310585
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Damb ass-move_0
+    - rid: 9182622062736310586
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Damb ass1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310587
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Damb ass AC
+    - rid: 9182622062736310588
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 5000
+        defense: 0
+        magicDefense: 0
+        atk: 10
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 11, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.7
+        repel: 1
+        side: 0
+        atkObj: Mechanical reinforcement ore
+        buildAnime: 
+    - rid: 9182622062736310589
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: BabaDoctor AC
+    - rid: 9182622062736310590
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: BabaDoctorC11
+        audioKey2: BabaDoctorC12
+        audioKey3: BabaDoctorC13
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310591
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: DabaDoctor_6
+    - rid: 9182622062736310592
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 3000
+        defense: 0
+        magicDefense: 0
+        atk: 300
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 1, y: 1}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 4
+        repel: 1
+        side: 0
+        atkObj: Bullet-jierui
+        buildAnime: 
+    - rid: 9182622062736310593
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: jierui_9
+    - rid: 9182622062736310594
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Miner rat1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310595
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: jierui AC
+    - rid: 9182622062736310596
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 1100
+        defense: 0
+        magicDefense: 0
+        atk: 400
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 2, y: 1}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 2
+        moveSpeed: 3
+        repel: 1
+        side: 0
+        atkObj: Bullet-Harm eyebrow
+        buildAnime: 
+    - rid: 9182622062736310597
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Harm eyebrow AC
+    - rid: 9182622062736310598
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Harm eyebrow1
+        audioKey2: Harm eyebrow2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310599
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Harm eyebrow_12
+    - rid: 9182622062736310600
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 2000
+        defense: 0
+        magicDefense: 0
+        atk: 500
+        atkRate: 0
+        magicAtk: 0
+        atkRange: {x: 8, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.6
+        repel: 1
+        side: 0
+        atkObj: Unstable ore
+        buildAnime: 
+    - rid: 9182622062736310601
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: BOOM bro1
+        audioKey2: BOOM bro2
+        audioKey3: BOOM bro3
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310602
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: BOOM bro Ac
+    - rid: 9182622062736310603
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: BOOM bro_0
+    - rid: 9182622062736310604
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 7000
+        defense: 0
+        magicDefense: 0
+        atk: 300
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 6, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.3
+        repel: 1
+        side: 1
+        atkObj: 
+        buildAnime: 
+    - rid: 9182622062736310605
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Dark cat AC
+    - rid: 9182622062736310606
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Dark cat A
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310607
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Dark cat-attack_0
+    - rid: 9182622062736310608
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 30000
+        defense: 0
+        magicDefense: 0
+        atk: 1000
+        atkRate: 1
+        magicAtk: 1000
+        atkRange: {x: 4, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.6
+        repel: 10
+        side: 0
+        atkObj: Bullet-Horrible monster
+        buildAnime: 
+    - rid: 9182622062736310609
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Crystallized giant beast AC
+    - rid: 9182622062736310610
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Crystallized giant beast_12
+    - rid: 9182622062736310611
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Horrible monster1
+        audioKey2: Horrible monster2
+        audioKey3: Horrible monster3
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310612
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 3500
+        defense: 0
+        magicDefense: 0
+        atk: 50
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 6, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.1
+        repel: 1
+        side: 1
+        atkObj: Bullet-Flame cat
+        buildAnime: 
+    - rid: 9182622062736310613
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Flame cat-attack_2
+    - rid: 9182622062736310614
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Flame cat1 A
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310615
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Flame cat AC
+    - rid: 9182622062736310616
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Cat dad AC
+    - rid: 9182622062736310617
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Cat dad1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310618
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Cat dad AP_9
+    - rid: 9182622062736310619
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 6000
+        defense: 0
+        magicDefense: 0
+        atk: 300
+        atkRate: 1
+        magicAtk: 100
+        atkRange: {x: 2, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.8
+        repel: 1
+        side: 1
+        atkObj: Bullet-Cat dad
+        buildAnime: 
+    - rid: 9182622062736310620
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 2000
+        defense: 0
+        magicDefense: 0
+        atk: 1000
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 1, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2
+        repel: 1
+        side: 0
+        atkObj: Bullet-Transparent
+        buildAnime: 
+    - rid: 9182622062736310621
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Transparent AC
+    - rid: 9182622062736310622
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Transparent1
+        audioKey2: Transparent2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310623
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Transparent 1_0
+    - rid: 9182622062736310624
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 8000
+        defense: 0
+        magicDefense: 0
+        atk: 0
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 10, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.8
+        repel: 0.5
+        side: 0
+        atkObj: Bullet-Green fog
+        buildAnime: 
+    - rid: 9182622062736310625
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Skunk1
+        audioKey2: Skunk2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310626
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Skunk AC
+    - rid: 9182622062736310627
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Skunk_8
+    - rid: 9182622062736310628
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 0
+        maxHp: 20000
+        defense: 0
+        magicDefense: 0
+        atk: 400
+        atkRate: 0
+        magicAtk: 0
+        atkRange: {x: 3, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2
+        repel: 4
+        side: 0
+        atkObj: Bullet-Invincible
+        buildAnime: 
+    - rid: 9182622062736310629
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Invincible1
+        audioKey2: Invincible2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310630
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Invincible AP_1
+    - rid: 9182622062736310631
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Invincible AC
+    - rid: 9182622062736310632
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 8000
+        defense: 0
+        magicDefense: 0
+        atk: 1500
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 3, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.1
+        repel: 5
+        side: 1
+        atkObj: Bullet-General Cat
+        buildAnime: 
+    - rid: 9182622062736310633
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: General Cat AC
+    - rid: 9182622062736310634
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: General Cat A
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310635
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: General Cat_0
+    - rid: 9182622062736310636
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: -1
+        maxHp: 20000
+        defense: 0
+        magicDefense: 0
+        atk: 500
+        atkRate: 1
+        magicAtk: 500
+        atkRange: {x: 11, y: 6}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1
+        repel: 8
+        side: 0
+        atkObj: Bullet-fortress
+        buildAnime: 
+    - rid: 9182622062736310637
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Fortress AP_0
+    - rid: 9182622062736310638
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Fortress1
+        audioKey2: Fortress2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622062736310639
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Fortress AC
