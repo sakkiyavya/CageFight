@@ -83,7 +83,8 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
         isDead = false;
         target = null;
         path.Clear();
-        isFacingLeft = false;
+        if (recordGOPD != null)
+            isFacingLeft = recordGOPD.isFacingLeft;
         isAttack = false;
         isRepel = false;
         repelDistance = 0f;
@@ -99,6 +100,37 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     /// 将可持久化的对象类型、阵营、战斗、移动、占地和资源键配置导出为组件数据。
     /// </summary>
     /// <returns>包含当前静态配置的 <see cref="GameObjectPropertyData"/>。</returns>
+    public void CopyPersistentDataTo(GameObjectProperty target)
+    {
+        if (target == null)
+            return;
+
+        target.objectType = objectType;
+        target.side = side;
+        target.maxHp = maxHp;
+        target.defense = defense;
+        target.magicDefense = magicDefense;
+        target.isRemoteAtk = isRemoteAtk;
+        target.atk = atk;
+        target.atkRate = atkRate;
+        target.magicAtk = magicAtk;
+        target.repel = repel;
+        target.antiRepel = antiRepel;
+        target.atkRange = atkRange;
+        target.atkObj = atkObj;
+        target.barSustainTime = barSustainTime;
+        target.buildTime = buildTime;
+        target.moveSpeed = moveSpeed;
+        target.suckBlood = suckBlood;
+        target.occupySpace = occupySpace;
+        target.buildAnime = buildAnime;
+        target.isFacingLeft = isFacingLeft;
+        target.audioClips.Clear();
+        target.audioClips.AddRange(audioClips);
+        target.RecordData(target.ExtractData() as GameObjectPropertyData);
+        target.ResetRuntimeState();
+    }
+
     public ComponentData ExtractData()
     {
         return new GameObjectPropertyData
