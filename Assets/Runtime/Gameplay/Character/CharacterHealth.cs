@@ -114,7 +114,7 @@ public class CharacterHealth : MonoBehaviour, ICollide
             }
 
         
-        _prop.OnHitted?.Invoke();
+        _prop.OnHitted?.Invoke(damage);
         return TakeDamage(damage);
     }
 
