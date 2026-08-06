@@ -8,7 +8,7 @@ using UnityEngine;
 public class GameObjectProperty : MonoBehaviour, IStageComponent
 {
     public Action OnAtt;                                           // 攻击时事件，在BuildAI/CharacterAI.ShootProjectile中调用，注意避免循环调用
-    public Action OnHitted;                                        // 被击时事件，在BuildHealth/CharacterHealth.OnCollide中调用
+    public Action<Damage> OnHitted;                                        // 被击时事件，在BuildHealth/CharacterHealth.OnCollide中调用
     public Action OnMove;                                          // 移动时触发，在Move.AIBehaviour中调用
     [Header("对象种类")]
     public GameObjectType objectType;                              // 当前对象是角色还是建筑。
