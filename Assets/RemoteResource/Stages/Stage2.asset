@@ -13,121 +13,183 @@ MonoBehaviour:
   m_Name: Stage2
   m_EditorClassIdentifier: 
   stageId: 2
-  icon: {fileID: -70291357, guid: b4b1e41545e8c7b47b71474693fa1c0a, type: 3}
+  icon: {fileID: 0}
   objects:
   - instanceId: 1000
-    prefabKey: Mouse eyes
+    prefabKey: Cat dad
     transform:
-      position: {x: 21.03, y: 1.39, z: 0}
+      position: {x: 17.833055, y: 1.9016012, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 6852614055959724048
-    - rid: 6852614055959724049
-    - rid: 6852614055959724050
-    - rid: 6852614055959724051
+    - rid: 9182622087332757504
+    - rid: 9182622087332757505
+    - rid: 9182622087332757506
+    - rid: 9182622087332757507
   - instanceId: 1001
-    prefabKey: Mouse eyes
+    prefabKey: Invincible
     transform:
-      position: {x: 0, y: 0, z: 0}
+      position: {x: 6.852524, y: 2.3567529, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 6852614055959724052
-    - rid: 6852614055959724053
-    - rid: 6852614055959724054
-    - rid: 6852614055959724055
+    - rid: 9182622087332757508
+    - rid: 9182622087332757509
+    - rid: 9182622087332757510
+    - rid: 9182622087332757511
+  - instanceId: 1002
+    prefabKey: Horrible monster
+    transform:
+      position: {x: 4.3207436, y: 1.2473207, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622087332757512
+    - rid: 9182622087332757513
+    - rid: 9182622087332757514
+    - rid: 9182622087332757515
   prefabs:
-  - Mouse eyes
-  - Bullet-Arrow
+  - Cat dad
+  - Bullet-Cat dad
+  - Invincible
+  - Bullet-Invincible
+  - Horrible monster
+  - Bullet-Horrible monster
   audios:
-  - Alien Cat1 A
-  - Alien Cat2 A
-  - Arrow-Shoot
+  - Cat dad1
+  - Invincible1
+  - Invincible2
+  - Horrible monster1
+  - Horrible monster2
+  - Horrible monster3
   textures: []
   animationClips: []
   animatorControllers:
-  - Mouse eyes AC
+  - Cat dad AC
+  - Invincible AC
+  - Crystallized giant beast AC
   sprites:
-  - Mouse eyes-attack_0
+  - Cat dad AP_9
+  - Invincible AP_1
+  - Crystallized giant beast_12
   references:
     version: 2
     RefIds:
-    - rid: 6852614055959724048
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 1500
-        defense: 0
-        magicDefense: 0
-        atk: 170
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 14, y: 4}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3.5
-        repel: 0.7
-        side: 1
-        atkObj: Bullet-Arrow
-        buildAnime: 
-    - rid: 6852614055959724049
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Mouse eyes-attack_0
-    - rid: 6852614055959724050
+    - rid: 9182622087332757504
       type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
       data:
-        animatorControllerKey: Mouse eyes AC
-    - rid: 6852614055959724051
+        animatorControllerKey: Cat dad AC
+    - rid: 9182622087332757505
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
-        audioKey1: Alien Cat1 A
-        audioKey2: Alien Cat2 A
-        audioKey3: Arrow-Shoot
+        audioKey1: Cat dad1
+        audioKey2: 
+        audioKey3: 
         audioKey4: 
         audioKey5: 
         audioKey6: 
         audioKey7: 
         audioKey8: 
-    - rid: 6852614055959724052
+    - rid: 9182622087332757506
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Cat dad AP_9
+    - rid: 9182622087332757507
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
         objectType: 2
-        maxHp: 1500
+        maxHp: 6000
         defense: 0
         magicDefense: 0
-        atk: 170
+        atk: 300
         atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 14, y: 4}
+        magicAtk: 100
+        atkRange: {x: 2, y: 2}
         isRemoteAtk: 0
         isFacingLeft: 0
         occupySpace: {x: 1, y: 1}
         barSustainTime: 2
         buildTime: 3
-        moveSpeed: 3.5
-        repel: 0.7
-        side: 0
-        atkObj: Bullet-Arrow
+        moveSpeed: 1.8
+        repel: 1
+        side: 1
+        atkObj: Bullet-Cat dad
         buildAnime: 
-    - rid: 6852614055959724053
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+    - rid: 9182622087332757508
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
-        spriteKey: Mouse eyes-attack_0
-    - rid: 6852614055959724054
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Mouse eyes AC
-    - rid: 6852614055959724055
+        objectType: 0
+        maxHp: 20000
+        defense: 0
+        magicDefense: 0
+        atk: 400
+        atkRate: 0
+        magicAtk: 0
+        atkRange: {x: 3, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2
+        repel: 4
+        side: 0
+        atkObj: Bullet-Invincible
+        buildAnime: 
+    - rid: 9182622087332757509
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
-        audioKey1: Alien Cat1 A
-        audioKey2: Alien Cat2 A
-        audioKey3: Arrow-Shoot
+        audioKey1: Invincible1
+        audioKey2: Invincible2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622087332757510
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Invincible AP_1
+    - rid: 9182622087332757511
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Invincible AC
+    - rid: 9182622087332757512
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 30000
+        defense: 0
+        magicDefense: 0
+        atk: 1000
+        atkRate: 1
+        magicAtk: 1000
+        atkRange: {x: 4, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.6
+        repel: 10
+        side: 0
+        atkObj: Bullet-Horrible monster
+        buildAnime: 
+    - rid: 9182622087332757513
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Crystallized giant beast AC
+    - rid: 9182622087332757514
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Crystallized giant beast_12
+    - rid: 9182622087332757515
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Horrible monster1
+        audioKey2: Horrible monster2
+        audioKey3: Horrible monster3
         audioKey4: 
         audioKey5: 
         audioKey6: 
