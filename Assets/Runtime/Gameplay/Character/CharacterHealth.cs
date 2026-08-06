@@ -444,9 +444,12 @@ public class CharacterHealth : MonoBehaviour, ICollide
         if (prefab == null)
             return;
 
+        GameObjectProperty sourceProperty = GetComponent<GameObjectProperty>();
         GameObject respawned = pool.Get(prefab);
         if (respawned != null)
         {
+            GameObjectProperty respawnedProperty = respawned.GetComponent<GameObjectProperty>();
+            sourceProperty?.CopyPersistentDataTo(respawnedProperty);
             respawned.transform.position = position;
             respawned.transform.rotation = rotation;
             respawned.transform.localScale = scale;

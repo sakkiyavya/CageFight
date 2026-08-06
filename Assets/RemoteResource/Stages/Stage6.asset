@@ -10,124 +10,125 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ef6c8b64f543249a7d45a2148ddbf4, type: 3}
-  m_Name: Stage7
+  m_Name: Stage6
   m_EditorClassIdentifier: 
-  stageId: 7
+  stageId: 6
   icon: {fileID: 0}
   objects:
   - instanceId: 1000
-    prefabKey: Miner rat
+    prefabKey: Miaosuan
     transform:
-      position: {x: 5.04, y: 2.83, z: 0}
+      position: {x: 4.785961, y: 2.7415292, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 692231757289750528
-    - rid: 692231757289750529
-    - rid: 692231757289750530
-    - rid: 692231757289750531
+    - rid: 692231757289750536
+    - rid: 692231757289750537
+    - rid: 692231757289750538
+    - rid: 692231757289750539
   - instanceId: 1001
-    prefabKey: Miner rat
+    prefabKey: Miaosuan
     transform:
-      position: {x: 13.81, y: 3.33, z: 0}
+      position: {x: 18.95, y: 2.61, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 692231757289750532
-    - rid: 692231757289750533
-    - rid: 692231757289750534
-    - rid: 692231757289750535
+    - rid: 692231757289750540
+    - rid: 692231757289750541
+    - rid: 692231757289750542
+    - rid: 692231757289750543
   prefabs:
-  - Miner rat
-  - Bullet-Miner rat
+  - Miaosuan
+  - Bullet-Miaosuan
   audios:
-  - Miner rat1
+  - miaosuan1
+  - miaosuan2
   textures: []
   animationClips: []
   animatorControllers:
-  - Miner rat AC
+  - Miaosuan AC
   sprites:
-  - Miner rat-move_0
+  - Miaosuan AP_0
   references:
     version: 2
     RefIds:
-    - rid: 692231757289750528
+    - rid: 692231757289750536
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
-        objectType: 2
-        maxHp: 800
-        defense: 0
-        magicDefense: 0
-        atk: 150
+        objectType: 0
+        maxHp: 100
+        defense: 10
+        magicDefense: 5
+        atk: 10
         atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 1, y: 2}
+        magicAtk: 5
+        atkRange: {x: 6, y: 4}
         isRemoteAtk: 0
-        isFacingLeft: 1
+        isFacingLeft: 0
         occupySpace: {x: 1, y: 1}
         barSustainTime: 2
         buildTime: 3
         moveSpeed: 3
         repel: 1
         side: 0
-        atkObj: Bullet-Miner rat
+        atkObj: Bullet-Miaosuan
         buildAnime: 
-    - rid: 692231757289750529
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Miner rat AC
-    - rid: 692231757289750530
+    - rid: 692231757289750537
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
-        audioKey1: Miner rat1
-        audioKey2: 
+        audioKey1: miaosuan1
+        audioKey2: miaosuan2
         audioKey3: 
         audioKey4: 
         audioKey5: 
         audioKey6: 
         audioKey7: 
         audioKey8: 
-    - rid: 692231757289750531
+    - rid: 692231757289750538
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Miaosuan AC
+    - rid: 692231757289750539
       type: {class: StageTextureData, ns: , asm: CageFightRuntime}
       data:
-        spriteKey: Miner rat-move_0
-    - rid: 692231757289750532
+        spriteKey: Miaosuan AP_0
+    - rid: 692231757289750540
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
-        objectType: 2
-        maxHp: 800
-        defense: 0
-        magicDefense: 0
-        atk: 150
+        objectType: 0
+        maxHp: 100
+        defense: 10
+        magicDefense: 5
+        atk: 10
         atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 1, y: 2}
+        magicAtk: 5
+        atkRange: {x: 6, y: 4}
         isRemoteAtk: 0
-        isFacingLeft: 1
+        isFacingLeft: 0
         occupySpace: {x: 1, y: 1}
         barSustainTime: 2
         buildTime: 3
         moveSpeed: 3
         repel: 1
         side: 1
-        atkObj: Bullet-Miner rat
+        atkObj: Bullet-Miaosuan
         buildAnime: 
-    - rid: 692231757289750533
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Miner rat AC
-    - rid: 692231757289750534
+    - rid: 692231757289750541
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
-        audioKey1: Miner rat1
-        audioKey2: 
+        audioKey1: miaosuan1
+        audioKey2: miaosuan2
         audioKey3: 
         audioKey4: 
         audioKey5: 
         audioKey6: 
         audioKey7: 
         audioKey8: 
-    - rid: 692231757289750535
+    - rid: 692231757289750542
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Miaosuan AC
+    - rid: 692231757289750543
       type: {class: StageTextureData, ns: , asm: CageFightRuntime}
       data:
-        spriteKey: Miner rat-move_0
+        spriteKey: Miaosuan AP_0
