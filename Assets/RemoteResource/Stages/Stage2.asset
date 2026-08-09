@@ -16,146 +16,52 @@ MonoBehaviour:
   icon: {fileID: 0}
   objects:
   - instanceId: 1000
-    prefabKey: Cat dad
-    transform:
-      position: {x: 17.833055, y: 1.9016012, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622087332757504
-    - rid: 9182622087332757505
-    - rid: 9182622087332757506
-    - rid: 9182622087332757507
-  - instanceId: 1001
-    prefabKey: Invincible
-    transform:
-      position: {x: 6.852524, y: 2.3567529, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622087332757508
-    - rid: 9182622087332757509
-    - rid: 9182622087332757510
-    - rid: 9182622087332757511
-  - instanceId: 1002
     prefabKey: Horrible monster
     transform:
-      position: {x: 4.3207436, y: 1.2473207, z: 0}
+      position: {x: 3.418684, y: 1.8304467, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 9182622087332757512
-    - rid: 9182622087332757513
-    - rid: 9182622087332757514
-    - rid: 9182622087332757515
+    - rid: 9182622148809196084
+    - rid: 9182622148809196085
+    - rid: 9182622148809196086
+    - rid: 9182622148809196087
+  - instanceId: 1001
+    prefabKey: Ruifa
+    transform:
+      position: {x: 19.90961, y: 2.1526575, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622148809196088
+    - rid: 9182622148809196089
+    - rid: 9182622148809196090
+    - rid: 9182622148809196091
   prefabs:
-  - Cat dad
-  - Bullet-Cat dad
-  - Invincible
-  - Bullet-Invincible
   - Horrible monster
   - Bullet-Horrible monster
+  - Ruifa
+  - Ruifa M
+  - Bullet-Ruifa M
   audios:
-  - Cat dad1
-  - Invincible1
-  - Invincible2
   - Horrible monster1
   - Horrible monster2
   - Horrible monster3
+  - Ruifa1
+  - Ruifa2
   textures: []
   animationClips: []
   animatorControllers:
-  - Cat dad AC
-  - Invincible AC
   - Crystallized giant beast AC
+  - Ruifa AC
+  - Ruifa M AC
   sprites:
-  - Cat dad AP_9
-  - Invincible AP_1
   - Crystallized giant beast_12
+  - Ruifa AP_0
   references:
     version: 2
     RefIds:
-    - rid: 9182622087332757504
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Cat dad AC
-    - rid: 9182622087332757505
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Cat dad1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622087332757506
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Cat dad AP_9
-    - rid: 9182622087332757507
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 6000
-        defense: 0
-        magicDefense: 0
-        atk: 300
-        atkRate: 1
-        magicAtk: 100
-        atkRange: {x: 2, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 1.8
-        repel: 1
-        side: 1
-        atkObj: Bullet-Cat dad
-        buildAnime: 
-    - rid: 9182622087332757508
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 0
-        maxHp: 20000
-        defense: 0
-        magicDefense: 0
-        atk: 400
-        atkRate: 0
-        magicAtk: 0
-        atkRange: {x: 3, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2
-        repel: 4
-        side: 0
-        atkObj: Bullet-Invincible
-        buildAnime: 
-    - rid: 9182622087332757509
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Invincible1
-        audioKey2: Invincible2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622087332757510
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Invincible AP_1
-    - rid: 9182622087332757511
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Invincible AC
-    - rid: 9182622087332757512
+    - rid: 9182622148809196084
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
         objectType: 2
@@ -176,15 +82,15 @@ MonoBehaviour:
         side: 0
         atkObj: Bullet-Horrible monster
         buildAnime: 
-    - rid: 9182622087332757513
+    - rid: 9182622148809196085
       type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
       data:
         animatorControllerKey: Crystallized giant beast AC
-    - rid: 9182622087332757514
+    - rid: 9182622148809196086
       type: {class: StageTextureData, ns: , asm: CageFightRuntime}
       data:
         spriteKey: Crystallized giant beast_12
-    - rid: 9182622087332757515
+    - rid: 9182622148809196087
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
         audioKey1: Horrible monster1
@@ -195,3 +101,43 @@ MonoBehaviour:
         audioKey6: 
         audioKey7: 
         audioKey8: 
+    - rid: 9182622148809196088
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Ruifa AC
+    - rid: 9182622148809196089
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Ruifa1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622148809196090
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Ruifa AP_0
+    - rid: 9182622148809196091
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 6000
+        defense: 0
+        magicDefense: 0
+        atk: 0
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 10, y: 6}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2
+        repel: 1
+        side: 1
+        atkObj: Ruifa M
+        buildAnime: 
