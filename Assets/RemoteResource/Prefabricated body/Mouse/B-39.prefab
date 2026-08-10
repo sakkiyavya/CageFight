@@ -97,7 +97,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.4733334, y: 3.71}
+  m_Size: {x: 3.4410257, y: 2.853846}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -117,20 +117,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 0
   side: 0
-  maxHp: 100
+  maxHp: 4000
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 10
+  atk: 350
   atkRate: 1
-  magicAtk: 5
-  repel: 1
-  antiRepel: 1
-  atkRange: {x: 3, y: 2}
+  magicAtk: 0
+  repel: 3
+  antiRepel: 4
+  atkRange: {x: 2, y: 2}
   atkObj: Bullet-B-39
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 3
+  moveSpeed: 2
   suckBlood: 0
   currentHp: 0
   isDead: 0
@@ -141,8 +141,8 @@ MonoBehaviour:
   isRepel: 0
   repelDistance: 0
   audioClips: []
-  atkRangeMin: {x: -2147483648, y: -2147483648}
-  atkRangeMax: {x: -2147483648, y: -2147483648}
+  atkRangeMin: {x: 0, y: 0}
+  atkRangeMax: {x: 1, y: 1}
   currentBuff: []
   currentDebuff: []
   occupySpace: {x: 1, y: 1}
@@ -336,7 +336,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.05}
     oldSize: {x: 3.4410257, y: 2.853846}
-    newSize: {x: 4.4733334, y: 3.71}
+    newSize: {x: 3.4410257, y: 2.853846}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

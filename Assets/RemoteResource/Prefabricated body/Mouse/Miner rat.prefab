@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 4864545550883798493}
   - component: {fileID: 4479834267287591400}
   - component: {fileID: -3446437498274610748}
+  - component: {fileID: -73596691102859084}
   m_Layer: 0
   m_Name: Miner rat
   m_TagString: Unit
@@ -486,6 +487,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &-73596691102859084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672173276656494716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45fb4b70fe7afeb4f9005e8c56c80e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1988886399137362370
 GameObject:
   m_ObjectHideFlags: 0

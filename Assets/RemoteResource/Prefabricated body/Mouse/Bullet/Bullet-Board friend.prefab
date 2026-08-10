@@ -14,6 +14,10 @@ GameObject:
   - component: {fileID: 4042049506696226098}
   - component: {fileID: 2742145984959651736}
   - component: {fileID: 70895667664326935}
+  - component: {fileID: 7506902466205756558}
+  - component: {fileID: -394441290765065339}
+  - component: {fileID: -6490194951016995808}
+  - component: {fileID: 132575955512073348}
   m_Layer: 6
   m_Name: Bullet-Board friend
   m_TagString: Untagged
@@ -57,6 +61,7 @@ MonoBehaviour:
     type: 0
     source: {fileID: 0}
     target: {fileID: 0}
+    buffs: []
   target: {fileID: 0}
   sustainTime: 2
   collideTimes: 1
@@ -198,3 +203,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7506902466205756558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5776716328276947799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a01b931b29d49e742a30156fc11f7779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffApplyTime: 0
+  duration: 3
+--- !u!114 &-394441290765065339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5776716328276947799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a878f5f6ff6d2c845b0c837631a3e47c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffApplyTime: 0
+  duration: 3
+--- !u!114 &-6490194951016995808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5776716328276947799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8f73e67a8951741bca21b3ec31b52a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffApplyTime: 0
+  duration: 3
+--- !u!114 &132575955512073348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5776716328276947799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2c2c19a24e130f4095e89465921e500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffOptions:
+  - {fileID: 7506902466205756558}
+  - {fileID: -394441290765065339}
+  - {fileID: -6490194951016995808}
+  amount: 1
+  randomBuff: 1

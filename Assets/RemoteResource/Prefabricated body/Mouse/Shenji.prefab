@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: -5854287516452823887}
   - component: {fileID: 4756322374290506947}
   - component: {fileID: -1782058552485003033}
+  - component: {fileID: 5072606882492296507}
   m_Layer: 0
   m_Name: Shenji
   m_TagString: Untagged
@@ -246,15 +247,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 0
   side: 0
-  maxHp: 100
+  maxHp: 3000
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 10
+  atk: 100
   atkRate: 1
   magicAtk: 5
-  repel: 1
-  antiRepel: 1
+  repel: 2
+  antiRepel: 2
   atkRange: {x: 3, y: 2}
   atkObj: Bullet-shenji
   barSustainTime: 2
@@ -486,6 +487,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &5072606882492296507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7266906212118702642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62298949e4a6dd54795ad7850effb3e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldHpPercent: 0.1
+  shieldDuration: 10
+  shieldSize: 3
+  shieldOffset: {x: 0, y: 1.5, z: 0}
 --- !u!1 &8299024849191135013
 GameObject:
   m_ObjectHideFlags: 0

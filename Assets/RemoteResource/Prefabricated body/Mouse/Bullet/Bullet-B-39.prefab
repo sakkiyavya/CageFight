@@ -55,6 +55,7 @@ MonoBehaviour:
     type: 0
     source: {fileID: 0}
     target: {fileID: 0}
+    buffs: []
   target: {fileID: 0}
   sustainTime: 0.2
   collideTimes: 999
@@ -118,7 +119,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.30867946, y: -0.32784116}
+  m_Offset: {x: 0.11988664, y: -0.010524511}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -129,5 +130,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2408297, y: 2.3303647}
+  m_Size: {x: 4.5398088, y: 4.32523}
   m_EdgeRadius: 0

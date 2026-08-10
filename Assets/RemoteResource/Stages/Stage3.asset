@@ -16,115 +16,76 @@ MonoBehaviour:
   icon: {fileID: 0}
   objects:
   - instanceId: 1000
-    prefabKey: Loser cannon
+    prefabKey: Flame cat
     transform:
-      position: {x: 21.610195, y: 1.7584479, z: 0}
+      position: {x: 13.6599245, y: 1.7596941, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 9182622169005293576
-    - rid: 9182622169005293577
-    - rid: 9182622169005293578
-    - rid: 9182622169005293579
+    - rid: 9182622169005293792
+    - rid: 9182622169005293793
+    - rid: 9182622169005293794
+    - rid: 9182622169005293795
   - instanceId: 1001
-    prefabKey: Cat Knight
+    prefabKey: Boulder
     transform:
-      position: {x: 2.2083378, y: 2.5503604, z: 0}
+      position: {x: 7.8441334, y: 1.5375631, z: 0}
       rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
+      scale: {x: 1, y: 0.9972, z: 1}
     components:
-    - rid: 9182622169005293580
-    - rid: 9182622169005293581
-    - rid: 9182622169005293582
-    - rid: 9182622169005293583
+    - rid: 9182622169005293796
+    - rid: 9182622169005293797
+    - rid: 9182622169005293798
+    - rid: 9182622169005293799
   prefabs:
-  - Loser cannon
-  - Bullet-Loser cannon
-  - Cat Knight
-  - Bullet-Cat Knight
+  - Boulder
+  - Bullet-Boulder
+  - Flame cat
+  - Bullet-Flame cat
   audios:
-  - Loser cannon1
-  - Cat soldier A
+  - Boulder1
+  - Boulder2
+  - Flame cat1 A
   textures: []
   animationClips: []
   animatorControllers:
-  - Loser cannon AC
-  - Cat soldier AC
+  - Boulder AC
+  - Flame cat AC
   sprites:
-  - Loser cannon AP_0
-  - Cat soldier_0
+  - Boulder-attack 1_0
+  - Flame cat-attack_2
   references:
     version: 2
     RefIds:
-    - rid: 9182622169005293576
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 0
-        maxHp: 100
-        defense: 0
-        magicDefense: 0
-        atk: 200
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 14, y: 6}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3
-        repel: 4
-        side: 0
-        atkObj: Bullet-Loser cannon
-        buildAnime: 
-    - rid: 9182622169005293577
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Loser cannon1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622169005293578
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Loser cannon AP_0
-    - rid: 9182622169005293579
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Loser cannon AC
-    - rid: 9182622169005293580
+    - rid: 9182622169005293792
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
         objectType: 2
-        maxHp: 4000
+        maxHp: 3500
         defense: 0
         magicDefense: 0
-        atk: 400
+        atk: 50
         atkRate: 1
         magicAtk: 0
-        atkRange: {x: 2, y: 2}
+        atkRange: {x: 6, y: 2}
         isRemoteAtk: 0
         isFacingLeft: 0
         occupySpace: {x: 1, y: 1}
         barSustainTime: 2
         buildTime: 3
-        moveSpeed: 2.2
-        repel: 2
+        moveSpeed: 2.1
+        repel: 1
         side: 1
-        atkObj: Bullet-Cat Knight
+        atkObj: Bullet-Flame cat
         buildAnime: 
-    - rid: 9182622169005293581
+    - rid: 9182622169005293793
       type: {class: StageTextureData, ns: , asm: CageFightRuntime}
       data:
-        spriteKey: Cat soldier_0
-    - rid: 9182622169005293582
+        spriteKey: Flame cat-attack_2
+    - rid: 9182622169005293794
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
-        audioKey1: Cat soldier A
+        audioKey1: Flame cat1 A
         audioKey2: 
         audioKey3: 
         audioKey4: 
@@ -132,7 +93,47 @@ MonoBehaviour:
         audioKey6: 
         audioKey7: 
         audioKey8: 
-    - rid: 9182622169005293583
+    - rid: 9182622169005293795
       type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
       data:
-        animatorControllerKey: Cat soldier AC
+        animatorControllerKey: Flame cat AC
+    - rid: 9182622169005293796
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 12000
+        defense: 0
+        magicDefense: 0
+        atk: 700
+        atkRate: 1
+        magicAtk: 1500
+        atkRange: {x: 3, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.7
+        repel: 5
+        side: 0
+        atkObj: Bullet-Boulder
+        buildAnime: 
+    - rid: 9182622169005293797
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Boulder-attack 1_0
+    - rid: 9182622169005293798
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Boulder1
+        audioKey2: Boulder2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622169005293799
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Boulder AC

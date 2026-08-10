@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 7188851816009655476}
   - component: {fileID: -2565879884675300157}
   - component: {fileID: -8018675625598911181}
+  - component: {fileID: -9038941436206921483}
   m_Layer: 0
   m_Name: Transparent
   m_TagString: Untagged
@@ -219,7 +220,7 @@ MonoBehaviour:
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 1000
+  atk: 400
   atkRate: 1
   magicAtk: 0
   repel: 1
@@ -530,6 +531,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &-9038941436206921483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7263268245366708561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a20b72535f7894fab2e9767e3ca16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stealthDelay: 1.5
+  stealthAlpha: 0.35
 --- !u!1001 &649104590446771048
 PrefabInstance:
   m_ObjectHideFlags: 0

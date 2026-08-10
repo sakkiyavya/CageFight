@@ -55,6 +55,8 @@ GameObject:
   - component: {fileID: -6549235748686509822}
   - component: {fileID: -5357726732592637716}
   - component: {fileID: -7492424663410104795}
+  - component: {fileID: 3080877504903632863}
+  - component: {fileID: -8355140100622594376}
   m_Layer: 0
   m_Name: Lightning Cat
   m_TagString: Untagged
@@ -238,8 +240,8 @@ MonoBehaviour:
   isRepel: 0
   repelDistance: 0
   audioClips: []
-  atkRangeMin: {x: -2147483648, y: -2147483648}
-  atkRangeMax: {x: -2147483648, y: -2147483648}
+  atkRangeMin: {x: 0, y: -1}
+  atkRangeMax: {x: 6, y: 2}
   currentBuff: []
   currentDebuff: []
   occupySpace: {x: 1, y: 1}
@@ -517,6 +519,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &3080877504903632863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8202798932107912585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbf4cb2ab70577149a3d1be420a8fa2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffApplyTime: 0
+--- !u!114 &-8355140100622594376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8202798932107912585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c061eed0c8c4a4e8f8d788ab64b87b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightningPrefab: {fileID: 3288984486275212541, guid: d5d8f07ab5cbc764d9529cf995522269, type: 3}
+  lightningDuration: 0.3
+  secondTargetRange: 10
+  shootPoint: {fileID: 6156323331844156329}
 --- !u!1001 &1000209810875653606
 PrefabInstance:
   m_ObjectHideFlags: 0
