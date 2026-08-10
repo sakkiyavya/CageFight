@@ -16,16 +16,16 @@ MonoBehaviour:
   icon: {fileID: 0}
   objects:
   - instanceId: 1000
-    prefabKey: Horrible monster
+    prefabKey: Ruifa M
     transform:
-      position: {x: 3.418684, y: 1.8304467, z: 0}
+      position: {x: 14.562601, y: 2.1344657, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 9182622148809196084
-    - rid: 9182622148809196085
-    - rid: 9182622148809196086
-    - rid: 9182622148809196087
+    - rid: 9182622155078369280
+    - rid: 9182622155078369281
+    - rid: 9182622155078369282
+    - rid: 9182622155078369283
   - instanceId: 1001
     prefabKey: Ruifa
     transform:
@@ -33,79 +33,90 @@ MonoBehaviour:
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 9182622148809196088
-    - rid: 9182622148809196089
-    - rid: 9182622148809196090
-    - rid: 9182622148809196091
+    - rid: 9182622155078369284
+    - rid: 9182622155078369285
+    - rid: 9182622155078369286
+    - rid: 9182622155078369287
+  - instanceId: 1002
+    prefabKey: Horrible monster
+    transform:
+      position: {x: 3.418684, y: 1.8304467, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622155078369288
+    - rid: 9182622155078369289
+    - rid: 9182622155078369290
+    - rid: 9182622155078369291
   prefabs:
-  - Horrible monster
-  - Bullet-Horrible monster
-  - Ruifa
   - Ruifa M
   - Bullet-Ruifa M
+  - Ruifa
+  - Horrible monster
+  - Bullet-Horrible monster
   audios:
+  - Ruifa2
+  - Ruifa1
   - Horrible monster1
   - Horrible monster2
   - Horrible monster3
-  - Ruifa1
-  - Ruifa2
   textures: []
   animationClips: []
   animatorControllers:
-  - Crystallized giant beast AC
-  - Ruifa AC
   - Ruifa M AC
+  - Ruifa AC
+  - Crystallized giant beast AC
   sprites:
-  - Crystallized giant beast_12
   - Ruifa AP_0
+  - Crystallized giant beast_12
   references:
     version: 2
     RefIds:
-    - rid: 9182622148809196084
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 30000
-        defense: 0
-        magicDefense: 0
-        atk: 1000
-        atkRate: 1
-        magicAtk: 1000
-        atkRange: {x: 4, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 1.6
-        repel: 10
-        side: 0
-        atkObj: Bullet-Horrible monster
-        buildAnime: 
-    - rid: 9182622148809196085
+    - rid: 9182622155078369280
       type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
       data:
-        animatorControllerKey: Crystallized giant beast AC
-    - rid: 9182622148809196086
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Crystallized giant beast_12
-    - rid: 9182622148809196087
+        animatorControllerKey: Ruifa M AC
+    - rid: 9182622155078369281
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
-        audioKey1: Horrible monster1
-        audioKey2: Horrible monster2
-        audioKey3: Horrible monster3
+        audioKey1: Ruifa2
+        audioKey2: 
+        audioKey3: 
         audioKey4: 
         audioKey5: 
         audioKey6: 
         audioKey7: 
         audioKey8: 
-    - rid: 9182622148809196088
+    - rid: 9182622155078369282
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Ruifa AP_0
+    - rid: 9182622155078369283
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 50
+        defense: 0
+        magicDefense: 0
+        atk: 300
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 3, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.4
+        repel: 1
+        side: 1
+        atkObj: Bullet-Ruifa M
+        buildAnime: 
+    - rid: 9182622155078369284
       type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
       data:
         animatorControllerKey: Ruifa AC
-    - rid: 9182622148809196089
+    - rid: 9182622155078369285
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
         audioKey1: Ruifa1
@@ -116,11 +127,11 @@ MonoBehaviour:
         audioKey6: 
         audioKey7: 
         audioKey8: 
-    - rid: 9182622148809196090
+    - rid: 9182622155078369286
       type: {class: StageTextureData, ns: , asm: CageFightRuntime}
       data:
         spriteKey: Ruifa AP_0
-    - rid: 9182622148809196091
+    - rid: 9182622155078369287
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
         objectType: 2
@@ -141,3 +152,43 @@ MonoBehaviour:
         side: 1
         atkObj: Ruifa M
         buildAnime: 
+    - rid: 9182622155078369288
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 30000
+        defense: 0
+        magicDefense: 0
+        atk: 1000
+        atkRate: 1
+        magicAtk: 1000
+        atkRange: {x: 4, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.6
+        repel: 10
+        side: 0
+        atkObj: Bullet-Horrible monster
+        buildAnime: 
+    - rid: 9182622155078369289
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Crystallized giant beast AC
+    - rid: 9182622155078369290
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Crystallized giant beast_12
+    - rid: 9182622155078369291
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Horrible monster1
+        audioKey2: Horrible monster2
+        audioKey3: Horrible monster3
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 

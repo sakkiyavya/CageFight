@@ -13,122 +13,126 @@ MonoBehaviour:
   m_Name: Stage3
   m_EditorClassIdentifier: 
   stageId: 3
+  icon: {fileID: 0}
   objects:
   - instanceId: 1000
-    prefabKey: Mouse eyes
+    prefabKey: Loser cannon
     transform:
-      position: {x: 21.03, y: 1.39, z: 0}
+      position: {x: 21.610195, y: 1.7584479, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 6852614055959724056
-    - rid: 6852614055959724057
-    - rid: 6852614055959724058
-    - rid: 6852614055959724059
+    - rid: 9182622169005293576
+    - rid: 9182622169005293577
+    - rid: 9182622169005293578
+    - rid: 9182622169005293579
   - instanceId: 1001
-    prefabKey: Mouse eyes
+    prefabKey: Cat Knight
     transform:
-      position: {x: 0, y: 0, z: 0}
+      position: {x: 2.2083378, y: 2.5503604, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 6852614055959724060
-    - rid: 6852614055959724061
-    - rid: 6852614055959724062
-    - rid: 6852614055959724063
+    - rid: 9182622169005293580
+    - rid: 9182622169005293581
+    - rid: 9182622169005293582
+    - rid: 9182622169005293583
   prefabs:
-  - Mouse eyes
-  - Bullet-Arrow
+  - Loser cannon
+  - Bullet-Loser cannon
+  - Cat Knight
+  - Bullet-Cat Knight
   audios:
-  - Alien Cat1 A
-  - Alien Cat2 A
-  - Arrow-Shoot
+  - Loser cannon1
+  - Cat soldier A
   textures: []
   animationClips: []
   animatorControllers:
-  - Mouse eyes AC
+  - Loser cannon AC
+  - Cat soldier AC
   sprites:
-  - Mouse eyes-attack_0
+  - Loser cannon AP_0
+  - Cat soldier_0
   references:
     version: 2
     RefIds:
-    - rid: 6852614055959724056
+    - rid: 9182622169005293576
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
-        objectType: 2
-        maxHp: 1500
+        objectType: 0
+        maxHp: 100
         defense: 0
         magicDefense: 0
-        atk: 170
+        atk: 200
         atkRate: 1
         magicAtk: 0
-        atkRange: {x: 14, y: 4}
+        atkRange: {x: 14, y: 6}
         isRemoteAtk: 0
         isFacingLeft: 0
         occupySpace: {x: 1, y: 1}
         barSustainTime: 2
         buildTime: 3
-        moveSpeed: 3.5
-        repel: 0.7
-        side: 1
-        atkObj: Bullet-Arrow
-        buildAnime: 
-    - rid: 6852614055959724057
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Mouse eyes-attack_0
-    - rid: 6852614055959724058
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Mouse eyes AC
-    - rid: 6852614055959724059
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Alien Cat1 A
-        audioKey2: Alien Cat2 A
-        audioKey3: Arrow-Shoot
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 6852614055959724060
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 1500
-        defense: 0
-        magicDefense: 0
-        atk: 170
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 14, y: 4}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3.5
-        repel: 0.7
+        moveSpeed: 3
+        repel: 4
         side: 0
-        atkObj: Bullet-Arrow
+        atkObj: Bullet-Loser cannon
         buildAnime: 
-    - rid: 6852614055959724061
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Mouse eyes-attack_0
-    - rid: 6852614055959724062
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Mouse eyes AC
-    - rid: 6852614055959724063
+    - rid: 9182622169005293577
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
-        audioKey1: Alien Cat1 A
-        audioKey2: Alien Cat2 A
-        audioKey3: Arrow-Shoot
+        audioKey1: Loser cannon1
+        audioKey2: 
+        audioKey3: 
         audioKey4: 
         audioKey5: 
         audioKey6: 
         audioKey7: 
         audioKey8: 
+    - rid: 9182622169005293578
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Loser cannon AP_0
+    - rid: 9182622169005293579
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Loser cannon AC
+    - rid: 9182622169005293580
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 4000
+        defense: 0
+        magicDefense: 0
+        atk: 400
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 2, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.2
+        repel: 2
+        side: 1
+        atkObj: Bullet-Cat Knight
+        buildAnime: 
+    - rid: 9182622169005293581
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Cat soldier_0
+    - rid: 9182622169005293582
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Cat soldier A
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622169005293583
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Cat soldier AC

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3541295312352307150}
   - component: {fileID: 5389285152999983648}
   - component: {fileID: 4690727579288760434}
+  - component: {fileID: -8399852925392240534}
   m_Layer: 6
   m_Name: Derivative-Miner rat
   m_TagString: Untagged
@@ -176,13 +177,16 @@ MonoBehaviour:
     side: 0
     initialDamage: 10
     finalDamage: 0
+    collideDir: 1
     repel: 0
     type: 0
     source: {fileID: 0}
     target: {fileID: 0}
+    buffs: []
   target: {fileID: 0}
   sustainTime: 3
   collideTimes: 1
+  hasSubProjectile: 0
 --- !u!114 &4690727579288760434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,3 +200,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+--- !u!114 &-8399852925392240534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223682783677796760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8583fd48394d9f43bece15ad899ea3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitPrefabs:
+  - {fileID: 672173276656494716, guid: 223c653ff237bd842ad5670b6bb3bdc4, type: 3}
+  randomSummon: 0
+  summonedHpPercent: 1
