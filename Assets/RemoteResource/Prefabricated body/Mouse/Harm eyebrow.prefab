@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 1052986239612560405}
   - component: {fileID: 8746323063911156332}
   - component: {fileID: 7541730735022687491}
+  - component: {fileID: -6579360516599898910}
   m_Layer: 0
   m_Name: Harm eyebrow
   m_TagString: Untagged
@@ -499,6 +500,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &-6579360516599898910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57720819243006128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9993154b6384044cbcc2a9ce9cd20d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killReward: 100
 --- !u!1 &5713260837853337707
 GameObject:
   m_ObjectHideFlags: 0

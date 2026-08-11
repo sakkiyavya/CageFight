@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9bc6223f457aa31479afb4486f83ba53
+guid: b19686a3811bb874b8d52dd1455257a3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,106 +97,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Set_0
+      name: Buff1 AP_0
       rect:
         serializedVersion: 2
-        x: 63
-        y: 0
-        width: 753
-        height: 1000
+        x: 42
+        y: 358
+        width: 206
+        height: 219
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee1c1fadccdf6a24a8f506fb5e3e32fd
-      internalID: 1603861085
+      spriteID: e2715d895f791a449b1a887365eb756b
+      internalID: -136548048
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: help
+      name: Buff1 AP_1
       rect:
         serializedVersion: 2
-        x: 888
-        y: 0
-        width: 760
-        height: 1000
+        x: 304
+        y: 352
+        width: 263
+        height: 240
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b0efd5dccf1c4b44a9eac7b14e297f98
-      internalID: -566706803
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Set_2
-      rect:
-        serializedVersion: 2
-        x: 1722
-        y: 581
-        width: 248
-        height: 100
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: abfd90190ebb4024daf9a6cd39c795c7
-      internalID: -1809073912
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Set_6
-      rect:
-        serializedVersion: 2
-        x: 1726
-        y: 472
-        width: 245
-        height: 72
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 469054bd401fa6246a7b4aae098e3713
-      internalID: 1983293550
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: helphelp
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 320
-        width: 98
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9a2fbc33cae1ccf40a288b8ac5120f4c
-      internalID: -879351715
+      spriteID: 781bc0570f350ef4fa67b81cdfbe0a8d
+      internalID: -1710866051
       vertices: []
       indices: 
       edges: []
@@ -212,15 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Set_0: 1603861085
-      Set_2: -1809073912
-      Set_3: 779817694
-      Set_4: 901580397
-      Set_5: 467146406
-      Set_6: 1983293550
-      Set_7: 1101141707
-      help: -566706803
-      helphelp: -879351715
+      Buff1 AP_0: -136548048
+      Buff1 AP_1: -1710866051
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

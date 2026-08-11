@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 8411403841463551216}
   - component: {fileID: -3118008547649943291}
   - component: {fileID: -655209646234710054}
+  - component: {fileID: 913889752992669166}
   m_Layer: 0
   m_Name: BabaDoctorC1
   m_TagString: Untagged
@@ -218,13 +219,13 @@ MonoBehaviour:
   maxHp: 5000
   defense: 0
   magicDefense: 0
-  isRemoteAtk: 0
-  atk: 10
+  isRemoteAtk: 1
+  atk: 100
   atkRate: 1
-  magicAtk: 0
+  magicAtk: 300
   repel: 1
   antiRepel: 1
-  atkRange: {x: 11, y: 4}
+  atkRange: {x: 11, y: 6}
   atkObj: Mechanical reinforcement ore
   barSustainTime: 2
   buildTime: 3
@@ -239,8 +240,8 @@ MonoBehaviour:
   isRepel: 0
   repelDistance: 0
   audioClips: []
-  atkRangeMin: {x: -11, y: -17}
-  atkRangeMax: {x: -1, y: -14}
+  atkRangeMin: {x: 0, y: -2}
+  atkRangeMax: {x: 10, y: 3}
   currentBuff: []
   currentDebuff: []
   occupySpace: {x: 1, y: 1}
@@ -530,6 +531,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &913889752992669166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910795234881758600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7538624316b1e2441a2864e059af3ae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootPoint: {fileID: 6955000582746718073}
+  crystallization: {fileID: 500628203120426218, guid: 27c1a2c719019fb479f66b2508c430b3, type: 3}
+  crystallizationRadius: 3
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1001 &3937490823401154106
 PrefabInstance:
   m_ObjectHideFlags: 0

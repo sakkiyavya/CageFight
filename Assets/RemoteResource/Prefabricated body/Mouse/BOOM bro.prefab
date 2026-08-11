@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: -716925790014887363}
   - component: {fileID: -260031565042498613}
   - component: {fileID: -6984883576306407470}
+  - component: {fileID: 488982630161775894}
   m_Layer: 0
   m_Name: BOOM bro
   m_TagString: Untagged
@@ -222,7 +223,7 @@ MonoBehaviour:
   atk: 500
   atkRate: 0
   magicAtk: 0
-  repel: 1
+  repel: 3
   antiRepel: 1
   atkRange: {x: 8, y: 4}
   atkObj: Unstable ore
@@ -239,8 +240,8 @@ MonoBehaviour:
   isRepel: 0
   repelDistance: 0
   audioClips: []
-  atkRangeMin: {x: 0, y: -19}
-  atkRangeMax: {x: 7, y: -16}
+  atkRangeMin: {x: 0, y: -1}
+  atkRangeMax: {x: 7, y: 2}
   currentBuff: []
   currentDebuff: []
   occupySpace: {x: 1, y: 1}
@@ -530,6 +531,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &488982630161775894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7386541229179265649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdc48379e3def9e4d8232a66ee3009e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spreadAngle: 15
+  shootPoint: {fileID: 1845508452190629973}
 --- !u!1001 &4512146165778687536
 PrefabInstance:
   m_ObjectHideFlags: 0
