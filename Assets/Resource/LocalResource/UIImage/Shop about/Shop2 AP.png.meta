@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7109808eb4531e242b3da71ba911aa7e
+guid: 6e444bdb949be4044a04a65b7068be4e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -95,7 +95,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Shop2 AP_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 8
+        width: 416
+        height: 384
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c81d1058a8b7a94d91b7ab76721701a
+      internalID: 146845583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop2 AP_1
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 8
+        width: 424
+        height: 384
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0941d2d3a4a3f2c4b821475697df1ec1
+      internalID: -1252163844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop2 AP_2
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 200
+        width: 88
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a36f19b9db482de47bc3e4d6c1d803f8
+      internalID: 1958737080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop2 AP_3
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 22
+        width: 82
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17966a9f2bc3f574d88fdc5a18689a4f
+      internalID: 812312439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -106,7 +190,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Shop2 AP_0: 146845583
+      Shop2 AP_1: -1252163844
+      Shop2 AP_2: 1958737080
+      Shop2 AP_3: 812312439
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
