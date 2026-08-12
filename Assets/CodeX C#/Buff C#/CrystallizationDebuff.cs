@@ -106,18 +106,7 @@ class CrystallizationState : MonoBehaviour
         if (body == null)
             return;
 
-        // 本体变为70%蓝紫色
-        body.color =
-            Color.Lerp(
-                originalColor,
-                new Color(
-                    0.35f,
-                    0.2f,
-                    1f,
-                    originalColor.a
-                ),
-                0.7f
-            );
+        
 
         if (texture != null)
         {

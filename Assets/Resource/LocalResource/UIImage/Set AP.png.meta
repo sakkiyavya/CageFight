@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a00a87f7d7e8451498269523cacbfbf6
+guid: 9bb549efbb0c09a42bebf6f3c3b1339f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Race_0
+      name: Set AP_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 469
-        width: 271
-        height: 293
+        y: 794
+        width: 824
+        height: 806
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3fd39c22636b791468d12d2864b2a9c5
-      internalID: 567626921
+      spriteID: 27b1e00a563475442a2516f5d6e4bf27
+      internalID: 383114784
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Race_1
+      name: Set AP_1
       rect:
         serializedVersion: 2
-        x: 288
-        y: 466
-        width: 268
-        height: 293
+        x: 1180
+        y: 1320
+        width: 220
+        height: 104
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc5ce6c924b1e7843af773665e2e6968
-      internalID: 1825419879
+      spriteID: c564123db441ced41920b1e4482b03a5
+      internalID: 1010684198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Race_2
+      name: Set AP_2
       rect:
         serializedVersion: 2
-        x: 574
-        y: 467
-        width: 266
-        height: 285
+        x: 1175
+        y: 1200
+        width: 221
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e159c71b3ad08bc44a14eb0dc9326f42
-      internalID: -248322019
+      spriteID: 4141b1d54a683304fbc46bf73b73b9c7
+      internalID: -1818218464
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Race_3
+      name: Set AP_3
       rect:
         serializedVersion: 2
-        x: 851
-        y: 463
-        width: 273
-        height: 293
+        x: 880
+        y: 1054
+        width: 497
+        height: 119
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9904ddc6dbaef24ea3709dde1f1a546
-      internalID: -1206865096
+      spriteID: ad16d0a302c24e141a046168ea4ea9f7
+      internalID: 558273025
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Race_4
+      name: Set AP_4
       rect:
         serializedVersion: 2
-        x: 123
-        y: 120
-        width: 274
-        height: 292
+        x: 0
+        y: 0
+        width: 1072
+        height: 797
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,41 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66dbd4c129549c64fa9a000a9758a38f
-      internalID: 572370750
+      spriteID: ebdc120785cc279478efcac3162b192f
+      internalID: 1749745164
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Race_5
+      name: Set AP_5
       rect:
         serializedVersion: 2
-        x: 438
-        y: 54
-        width: 269
-        height: 354
-      alignment: 9
-      pivot: {x: 0.49468926, y: 0.4394674}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9452f7ebb84cd0e4fa6fddb3404a02b4
-      internalID: 1973269489
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Race_6
-      rect:
-        serializedVersion: 2
-        x: 742
-        y: 114
-        width: 258
-        height: 294
+        x: 881
+        y: 933
+        width: 496
+        height: 117
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,8 +216,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 30639c36c22db7640b5263f605b498c7
-      internalID: -1176588061
+      spriteID: f3e1757d73367f74aa090fa76bdedcb8
+      internalID: 507646768
       vertices: []
       indices: 
       edges: []
@@ -254,13 +233,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Race_0: 567626921
-      Race_1: 1825419879
-      Race_2: -248322019
-      Race_3: -1206865096
-      Race_4: 572370750
-      Race_5: 1973269489
-      Race_6: -1176588061
+      Set AP_0: 383114784
+      Set AP_1: 1010684198
+      Set AP_2: -1818218464
+      Set AP_3: 558273025
+      Set AP_4: 1749745164
+      Set AP_5: 507646768
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
