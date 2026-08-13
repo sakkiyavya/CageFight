@@ -13,123 +13,237 @@ MonoBehaviour:
   m_Name: Stage1
   m_EditorClassIdentifier: 
   stageId: 1
-  icon: {fileID: 1338848828, guid: c5fbb11ac275ea0468c266a11e5d8a38, type: 3}
+  icon: {fileID: 0}
   objects:
   - instanceId: 1000
-    prefabKey: Mouse eyes
+    prefabKey: Dice hand
     transform:
-      position: {x: 21.03, y: 1.39, z: 0}
+      position: {x: 18.549194, y: 3.513102, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 6852614055959724040
-    - rid: 6852614055959724041
-    - rid: 6852614055959724042
-    - rid: 6852614055959724043
+    - rid: 9182622241137623048
+    - rid: 9182622241137623049
+    - rid: 9182622241137623050
+    - rid: 9182622241137623051
   - instanceId: 1001
-    prefabKey: Mouse eyes
+    prefabKey: Miaosuan
     transform:
-      position: {x: 0, y: 0, z: 0}
+      position: {x: 17.145393, y: 1.527235, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 6852614055959724044
-    - rid: 6852614055959724045
-    - rid: 6852614055959724046
-    - rid: 6852614055959724047
+    - rid: 9182622241137623052
+    - rid: 9182622241137623053
+    - rid: 9182622241137623054
+    - rid: 9182622241137623055
+  - instanceId: 1002
+    prefabKey: jierui
+    transform:
+      position: {x: 16.494848, y: 5.1223397, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622241137623056
+    - rid: 9182622241137623057
+    - rid: 9182622241137623058
+    - rid: 9182622241137623059
+  - instanceId: 1003
+    prefabKey: Dark cat
+    transform:
+      position: {x: 7.181814, y: 3.513102, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622241137623060
+    - rid: 9182622241137623061
+    - rid: 9182622241137623062
+    - rid: 9182622241137623063
   prefabs:
-  - Mouse eyes
-  - Bullet-Arrow
+  - Dice hand
+  - Bullet-Dice hand
+  - Miaosuan
+  - Bullet-Miaosuan
+  - jierui
+  - Bullet-jierui
+  - Dark cat
   audios:
-  - Alien Cat1 A
-  - Alien Cat2 A
-  - Arrow-Shoot
+  - Dice hand1
+  - miaosuan1
+  - miaosuan2
+  - Dark cat1
   textures: []
   animationClips: []
   animatorControllers:
-  - Mouse eyes AC
+  - Dice hand AC
+  - Miaosuan AC
+  - jierui AC
+  - Dark cat AC
   sprites:
-  - Mouse eyes-attack_0
+  - Dice hand AP_3
+  - Miaosuan AP_0
+  - jierui_9
+  - Dark cat-attack_0
   references:
     version: 2
     RefIds:
-    - rid: 6852614055959724040
+    - rid: 9182622241137623048
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
-        objectType: 2
-        maxHp: 1500
+        objectType: 0
+        maxHp: 180
         defense: 0
         magicDefense: 0
-        atk: 170
+        atk: 20
         atkRate: 1
         magicAtk: 0
-        atkRange: {x: 14, y: 4}
+        atkRange: {x: 8, y: 6}
         isRemoteAtk: 0
         isFacingLeft: 0
         occupySpace: {x: 1, y: 1}
         barSustainTime: 2
         buildTime: 3
-        moveSpeed: 3.5
-        repel: 0.7
-        side: 1
-        atkObj: Bullet-Arrow
-        buildAnime: 
-    - rid: 6852614055959724041
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Mouse eyes-attack_0
-    - rid: 6852614055959724042
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Mouse eyes AC
-    - rid: 6852614055959724043
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Alien Cat1 A
-        audioKey2: Alien Cat2 A
-        audioKey3: Arrow-Shoot
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 6852614055959724044
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 1500
-        defense: 0
-        magicDefense: 0
-        atk: 170
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 14, y: 4}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3.5
-        repel: 0.7
+        moveSpeed: 2
+        repel: 1
         side: 0
-        atkObj: Bullet-Arrow
+        atkObj: Bullet-Dice hand
         buildAnime: 
-    - rid: 6852614055959724045
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Mouse eyes-attack_0
-    - rid: 6852614055959724046
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Mouse eyes AC
-    - rid: 6852614055959724047
+    - rid: 9182622241137623049
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
-        audioKey1: Alien Cat1 A
-        audioKey2: Alien Cat2 A
-        audioKey3: Arrow-Shoot
+        audioKey1: Dice hand1
+        audioKey2: 
+        audioKey3: 
         audioKey4: 
         audioKey5: 
         audioKey6: 
         audioKey7: 
         audioKey8: 
+    - rid: 9182622241137623050
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Dice hand AC
+    - rid: 9182622241137623051
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Dice hand AP_3
+    - rid: 9182622241137623052
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 0
+        maxHp: 120
+        defense: 0
+        magicDefense: 0
+        atk: 10
+        atkRate: 1
+        magicAtk: 0
+        atkRange: {x: 6, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.4
+        repel: 0.5
+        side: 0
+        atkObj: Bullet-Miaosuan
+        buildAnime: 
+    - rid: 9182622241137623053
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: miaosuan1
+        audioKey2: miaosuan2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622241137623054
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Miaosuan AC
+    - rid: 9182622241137623055
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Miaosuan AP_0
+    - rid: 9182622241137623056
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 500
+        defense: 0
+        magicDefense: 0
+        atk: 30
+        atkRate: 1
+        magicAtk: 10
+        atkRange: {x: 1, y: 1}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 4
+        repel: 0
+        side: 0
+        atkObj: Bullet-jierui
+        buildAnime: 
+    - rid: 9182622241137623057
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: jierui_9
+    - rid: 9182622241137623058
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: 
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622241137623059
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: jierui AC
+    - rid: 9182622241137623060
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 600
+        defense: 0
+        magicDefense: 0
+        atk: 30
+        atkRate: 1
+        magicAtk: 10
+        atkRange: {x: 6, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.3
+        repel: 1
+        side: 1
+        atkObj: 
+        buildAnime: 
+    - rid: 9182622241137623061
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Dark cat AC
+    - rid: 9182622241137623062
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Dark cat1
+        audioKey2: 
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622241137623063
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Dark cat-attack_0

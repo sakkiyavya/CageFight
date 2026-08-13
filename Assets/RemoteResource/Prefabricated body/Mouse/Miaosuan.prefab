@@ -124,7 +124,7 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1435070328, guid: 568f20952254f2341bf09c72a2ed3637, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -132,7 +132,7 @@ SpriteRenderer:
   m_Size: {x: 3.1384616, y: 2.9230769}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &8124949440630172769
@@ -145,7 +145,7 @@ Animator:
   m_GameObject: {fileID: 2483622934239467955}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 627d53635f7d3954da757b05fcad0cf6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -278,20 +278,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 0
   side: 0
-  maxHp: 100
-  defense: 10
-  magicDefense: 5
+  maxHp: 120
+  defense: 0
+  magicDefense: 0
   isRemoteAtk: 0
   atk: 10
   atkRate: 1
-  magicAtk: 5
-  repel: 1
+  magicAtk: 0
+  repel: 0.5
   antiRepel: 1
   atkRange: {x: 6, y: 4}
   atkObj: Bullet-Miaosuan
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 3
+  moveSpeed: 2.4
   suckBlood: 0
   currentHp: 0
   isDead: 0

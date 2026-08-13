@@ -124,7 +124,7 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 309966814, guid: 5d8dac31c3416f749916c156d1ff77aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -132,7 +132,7 @@ SpriteRenderer:
   m_Size: {x: 9.92, y: 3.44}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &3759287617882496255
@@ -145,7 +145,7 @@ Animator:
   m_GameObject: {fileID: 5326090067705445012}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9ff5516d6d2ccaf42a5b4466eeb42e38, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -215,14 +215,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 3500
+  maxHp: 500
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 50
+  atk: 10
   atkRate: 1
   magicAtk: 0
-  repel: 1
+  repel: 0.3
   antiRepel: 2
   atkRange: {x: 6, y: 2}
   atkObj: Bullet-Flame cat

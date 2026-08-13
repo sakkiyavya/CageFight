@@ -179,7 +179,7 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1777263160, guid: ce36dd197fcc34e479ba7b9c890c532c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -187,7 +187,7 @@ SpriteRenderer:
   m_Size: {x: 7.04, y: 4.92}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1262404055007227752
@@ -200,7 +200,7 @@ Animator:
   m_GameObject: {fileID: 6016457220928666952}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 31c99a6704d2db34f8f762fc127ee87b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -270,13 +270,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 0
-  maxHp: 30000
+  maxHp: 6000
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 1000
+  atk: 220
   atkRate: 1
-  magicAtk: 1000
+  magicAtk: 100
   repel: 10
   antiRepel: 10
   atkRange: {x: 4, y: 2}
@@ -294,8 +294,8 @@ MonoBehaviour:
   isRepel: 0
   repelDistance: 0
   audioClips: []
-  atkRangeMin: {x: 1, y: 1}
-  atkRangeMax: {x: 4, y: 2}
+  atkRangeMin: {x: -2147483648, y: -2147483648}
+  atkRangeMax: {x: -2147483645, y: -2147483647}
   currentBuff: []
   currentDebuff: []
   occupySpace: {x: 1, y: 1}

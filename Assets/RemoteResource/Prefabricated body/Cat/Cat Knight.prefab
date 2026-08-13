@@ -123,7 +123,7 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1625309082, guid: 4a6c0dbb2e6c7cd49a4c77bf2711d97d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -131,7 +131,7 @@ SpriteRenderer:
   m_Size: {x: 3.14, y: 2.0228572}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1372709662158291721
@@ -144,7 +144,7 @@ Animator:
   m_GameObject: {fileID: 6825309908753216618}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f29ca6ee2da9d09409f43506801c2372, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -214,13 +214,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 4000
+  maxHp: 420
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 400
+  atk: 50
   atkRate: 1
-  magicAtk: 0
+  magicAtk: 20
   repel: 2
   antiRepel: 2
   atkRange: {x: 2, y: 2}

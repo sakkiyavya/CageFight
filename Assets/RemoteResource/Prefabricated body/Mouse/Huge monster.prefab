@@ -125,15 +125,15 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1338848828, guid: c5fbb11ac275ea0468c266a11e5d8a38, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.32, y: 3.3185062}
+  m_Size: {x: 5.98, y: 3.728}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &679315608193969592
@@ -146,7 +146,7 @@ Animator:
   m_GameObject: {fileID: 7374091422099466681}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8160f385c867aaf43a961d8f540f5c77, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -194,7 +194,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.05}
     oldSize: {x: 5.98, y: 3.728}
-    newSize: {x: 5.32, y: 3.3185062}
+    newSize: {x: 5.98, y: 3.728}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -216,13 +216,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 0
-  maxHp: 12000
+  maxHp: 1200
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 350
+  atk: 100
   atkRate: 1
-  magicAtk: 350
+  magicAtk: 40
   repel: 3
   antiRepel: 5
   atkRange: {x: 3, y: 2}
@@ -240,8 +240,8 @@ MonoBehaviour:
   isRepel: 0
   repelDistance: 0
   audioClips: []
-  atkRangeMin: {x: 5, y: 0}
-  atkRangeMax: {x: 7, y: 1}
+  atkRangeMin: {x: -2147483648, y: -2147483648}
+  atkRangeMax: {x: -2147483646, y: -2147483647}
   currentBuff: []
   currentDebuff: []
   occupySpace: {x: 1, y: 1}

@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 2782785100391395731}
   - component: {fileID: -5122653307165921373}
   - component: {fileID: 5447229569071285624}
+  - component: {fileID: 7577430327953333989}
   m_Layer: 0
   m_Name: Dark cat
   m_TagString: Untagged
@@ -93,7 +94,7 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1862086885, guid: ea18e5db06deb6e4dafaf2d45c9c7bab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,7 +102,7 @@ SpriteRenderer:
   m_Size: {x: 2.64, y: 3.1666667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &2817984650043791251
@@ -114,7 +115,7 @@ Animator:
   m_GameObject: {fileID: 1434642676332209825}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f049f9c3eb8434d449d9be984f683708, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -184,13 +185,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 7000
+  maxHp: 600
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 300
+  atk: 30
   atkRate: 1
-  magicAtk: 0
+  magicAtk: 10
   repel: 1
   antiRepel: 3
   atkRange: {x: 6, y: 4}
@@ -198,7 +199,7 @@ MonoBehaviour:
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2.3
-  suckBlood: 0
+  suckBlood: 100
   currentHp: 0
   isDead: 0
   target: {fileID: 0}
@@ -208,8 +209,8 @@ MonoBehaviour:
   isRepel: 0
   repelDistance: 0
   audioClips: []
-  atkRangeMin: {x: -2147483648, y: -2147483648}
-  atkRangeMax: {x: -2147483648, y: -2147483648}
+  atkRangeMin: {x: 0, y: -1}
+  atkRangeMax: {x: 5, y: 2}
   currentBuff: []
   currentDebuff: []
   occupySpace: {x: 1, y: 1}
@@ -499,6 +500,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &7577430327953333989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434642676332209825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9890f1effb6947144ba7381d23af98b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconPrefab: {fileID: 106394124439655112, guid: ad3d8ef1712638d4091c064fe317bfdd, type: 3}
+  iconTarget: {fileID: 819347441253106881}
+  range: 6
+  iconTime: 0.5
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &4528663821774986568
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,7 +544,7 @@ Transform:
   m_GameObject: {fileID: 4528663821774986568}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: 0}
+  m_LocalPosition: {x: 0.279, y: 2.153, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

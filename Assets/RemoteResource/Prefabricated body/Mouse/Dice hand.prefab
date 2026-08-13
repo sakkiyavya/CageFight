@@ -123,15 +123,15 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 364025523, guid: 16339fd1a72e3b9479745bdb9485212f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.7066665, y: 3.471111}
+  m_Size: {x: 3.3619046, y: 2.479365}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &2935176763625830371
@@ -144,7 +144,7 @@ Animator:
   m_GameObject: {fileID: 7767575016205141002}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c61acc2029e9f524aa6594fad288306a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -277,20 +277,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 0
   side: 0
-  maxHp: 100
-  defense: 10
-  magicDefense: 5
+  maxHp: 180
+  defense: 0
+  magicDefense: 0
   isRemoteAtk: 0
-  atk: 10
+  atk: 20
   atkRate: 1
-  magicAtk: 5
+  magicAtk: 0
   repel: 1
-  antiRepel: 1
+  antiRepel: 1.5
   atkRange: {x: 8, y: 6}
   atkObj: Bullet-Dice hand
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 3
+  moveSpeed: 2
   suckBlood: 0
   currentHp: 0
   isDead: 0
@@ -301,8 +301,8 @@ MonoBehaviour:
   isRepel: 0
   repelDistance: 0
   audioClips: []
-  atkRangeMin: {x: -2147483648, y: -2147483648}
-  atkRangeMax: {x: -2147483648, y: -2147483648}
+  atkRangeMin: {x: -2147483648, y: 2147483646}
+  atkRangeMax: {x: -2147483641, y: -2147483645}
   currentBuff: []
   currentDebuff: []
   occupySpace: {x: 1, y: 1}
@@ -388,7 +388,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.52, y: 0.07}
     oldSize: {x: 3.3619046, y: 2.479365}
-    newSize: {x: 4.7066665, y: 3.471111}
+    newSize: {x: 3.3619046, y: 2.479365}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

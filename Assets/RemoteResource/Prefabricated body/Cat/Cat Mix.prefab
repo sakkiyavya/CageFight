@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 8479678983096704285}
   - component: {fileID: -128132595956450941}
   - component: {fileID: -269731354631785896}
+  - component: {fileID: -5160836749662004891}
   m_Layer: 0
   m_Name: Cat Mix
   m_TagString: Untagged
@@ -92,7 +93,7 @@ Animator:
   m_GameObject: {fileID: 6376543512903373417}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 130be4c3a2fbb0147b367a4784ab5f03, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -177,7 +178,7 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1637403199, guid: eedf4a46157c6e8468837aa5cf4611bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -185,7 +186,7 @@ SpriteRenderer:
   m_Size: {x: 3.9, y: 2.6944444}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &41494451458499346
@@ -368,13 +369,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 2000
+  maxHp: 500
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 150
+  atk: 60
   atkRate: 1
-  magicAtk: 0
+  magicAtk: 20
   repel: 2
   antiRepel: 2
   atkRange: {x: 2, y: 2}
@@ -393,7 +394,7 @@ MonoBehaviour:
   repelDistance: 0
   audioClips: []
   atkRangeMin: {x: -2147483648, y: -2147483648}
-  atkRangeMax: {x: -2147483648, y: -2147483648}
+  atkRangeMax: {x: -2147483647, y: -2147483647}
   currentBuff: []
   currentDebuff: []
   occupySpace: {x: 1, y: 1}
@@ -517,6 +518,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &-5160836749662004891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6376543512903373417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac444b9b1ab8d824b86dea7cd5113847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 2
+  hpLoss: 0.2
 --- !u!1001 &1114121127191278457
 PrefabInstance:
   m_ObjectHideFlags: 0

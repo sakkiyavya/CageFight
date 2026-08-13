@@ -3,17 +3,23 @@ using UnityEngine;
 [RequireComponent(typeof(GameObjectProperty))]
 public class BOOMBro : MonoBehaviour
 {
-    [Header("散射设置")]
+    [Header("攻击设置")]
     [Range(0f, 90f)]
     [SerializeField] private float spreadAngle = 30f;
 
     [SerializeField] private Transform shootPoint;
 
+    [Header("自身击退")]
+    [Min(0.1f)]
+    [SerializeField] private float selfRepelRadius = 2f;
+
     private GameObjectProperty prop;
+    private Collider2D ownCollider;
 
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
+        ownCollider = GetComponent<Collider2D>();
 
         if (shootPoint == null)
             shootPoint = transform.Find("ShootPoint");
@@ -22,7 +28,7 @@ public class BOOMBro : MonoBehaviour
     // 攻击动画调用
     public void BOOMShoot()
     {
-        if (prop == null ||
+        if (prop.target == null ||
             string.IsNullOrEmpty(prop.atkObj))
         {
             return;
@@ -42,54 +48,35 @@ public class BOOMBro : MonoBehaviour
         if (projectile == null)
             return;
 
-        Vector3 firePosition =
+        Vector3 start =
             shootPoint != null
                 ? shootPoint.position
                 : transform.position;
 
-        projectile.transform.position = firePosition;
+        projectile.transform.position = start;
 
-        Vector2 direction;
+        Vector2 direction =
+            (prop.target.transform.position - start)
+            .normalized;
 
-        if (prop.target != null)
-        {
-            direction =
-                (prop.target.transform.position -
-                 firePosition).normalized;
-        }
-        else
-        {
-            direction =
-                prop.isFacingLeft
-                    ? Vector2.left
-                    : Vector2.right;
-        }
-
-        float randomAngle =
+        float angle =
             Random.Range(
                 -spreadAngle,
                 spreadAngle
             );
 
         direction =
-            Quaternion.Euler(
-                0f,
-                0f,
-                randomAngle
-            ) * direction;
+            Quaternion.Euler(0f, 0f, angle) *
+            direction;
 
         projectile.transform.right = direction;
 
-        DamageSource damageSource =
+        DamageSource source =
             projectile.GetComponent<DamageSource>();
 
-        if (damageSource != null)
+        if (source != null)
         {
-            /*
-             * 复制原Damage，保留ProjectileBuffCarrier
-             * 已经添加的Buff。
-             */
-            Damage damage = damageSource.damage;
+            Damage damage = source.damage;
 
             damage.initialDamage = prop.atk;
             damage.source = gameObject;
@@ -97,27 +84,42 @@ public class BOOMBro : MonoBehaviour
             damage.repel = prop.repel;
             damage.type = DamageType.normal;
 
-            damageSource.damage = damage;
-            damageSource.target = prop.target;
+            source.damage = damage;
+            source.target = prop.target;
         }
 
         prop.OnAtt?.Invoke();
     }
 
-    /*
-     * 通用爆炸弹幕在伤害帧通知攻击来源。
-     * 这是BOOM Bro自己的专属后坐力。
-     */
+    // 弹幕爆炸伤害帧自动调用
     public void OnProjectileDamageTriggered(
         Vector3 explosionPosition)
     {
+        Vector2 nearestPoint =
+            ownCollider != null
+                ? ownCollider.ClosestPoint(
+                    explosionPosition
+                )
+                : (Vector2)transform.position;
+
+        // 不在爆炸范围内，不触发自身击退
+        if (Vector2.Distance(
+                nearestPoint,
+                explosionPosition
+            ) > selfRepelRadius)
+        {
+            return;
+        }
+
         float direction =
-            transform.position.x < explosionPosition.x
+            transform.position.x <
+            explosionPosition.x
                 ? -1f
                 : 1f;
 
         prop.repelDistance =
-            direction * Mathf.Abs(prop.repel);
+            direction *
+            Mathf.Abs(prop.repel);
 
         prop.isRepel = true;
     }
