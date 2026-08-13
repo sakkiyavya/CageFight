@@ -3,38 +3,54 @@ using UnityEngine;
 
 public class BuildingUpgradeButton : MonoBehaviour
 {
-    static readonly List<SentryTower> towers =
-        new List<SentryTower>();
+    static readonly List<BuildUP> buildings =
+        new List<BuildUP>();
 
     public static bool Active { get; private set; }
 
-    // 升级按钮的 OnClick 调用
+    // 升级按钮调用：开启或关闭升级模式
     public void ToggleUpgrade()
     {
         Active = !Active;
         RefreshAll();
     }
 
+    // 强制关闭升级模式
     public void CloseUpgrade()
     {
         Active = false;
         RefreshAll();
     }
 
-    public static void Register(SentryTower tower)
+    public static void Register(BuildUP building)
     {
-        if (tower && !towers.Contains(tower))
-            towers.Add(tower);
+        if (building && !buildings.Contains(building))
+            buildings.Add(building);
     }
 
-    public static void Unregister(SentryTower tower)
+    public static void Unregister(BuildUP building)
     {
-        towers.Remove(tower);
+        buildings.Remove(building);
+    }
+
+    static void RefreshAll()
+    {
+        for (int i = buildings.Count - 1; i >= 0; i--)
+        {
+            if (!buildings[i])
+            {
+                buildings.RemoveAt(i);
+                continue;
+            }
+
+            buildings[i].ShowUpgrade(Active);
+        }
     }
 
     void OnEnable()
     {
-        if (!Coins.Instance) return;
+        if (!Coins.Instance)
+            return;
 
         Coins.Instance.OnGainCoins += OnCoinsChanged;
         Coins.Instance.OnConsumeCoins += OnCoinsChanged;
@@ -42,7 +58,8 @@ public class BuildingUpgradeButton : MonoBehaviour
 
     void OnDisable()
     {
-        if (!Coins.Instance) return;
+        if (!Coins.Instance)
+            return;
 
         Coins.Instance.OnGainCoins -= OnCoinsChanged;
         Coins.Instance.OnConsumeCoins -= OnCoinsChanged;
@@ -52,19 +69,5 @@ public class BuildingUpgradeButton : MonoBehaviour
     {
         if (Active)
             RefreshAll();
-    }
-
-    static void RefreshAll()
-    {
-        for (int i = towers.Count - 1; i >= 0; i--)
-        {
-            if (!towers[i])
-            {
-                towers.RemoveAt(i);
-                continue;
-            }
-
-            towers[i].ShowUpgrade(Active);
-        }
     }
 }

@@ -217,8 +217,8 @@ GameObject:
   - component: {fileID: 9060542681263225376}
   - component: {fileID: 4801787463097312364}
   - component: {fileID: 3019190647681436227}
-  - component: {fileID: 8034473857107082388}
   - component: {fileID: 2991682355288395854}
+  - component: {fileID: -337167485877599616}
   m_Layer: 0
   m_Name: Mouse Sentry tower1
   m_TagString: Untagged
@@ -367,45 +367,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 6172699342417359387}
   HpBarBottom: {fileID: 2607561720658937858}
---- !u!114 &8034473857107082388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4528404349138767949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd5b4aae9944b58449ba09f4f016e776, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levels:
-  - sprite: {fileID: -471742703, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
-    maxHp: 1400
-    attack: 40
-    range: 9
-    attacksPerSecond: 1
-    upgradeCost: 0
-  - sprite: {fileID: -1148193463, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
-    maxHp: 1900
-    attack: 50
-    range: 10
-    attacksPerSecond: 1
-    upgradeCost: 0
-  - sprite: {fileID: -1651579008, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
-    maxHp: 2600
-    attack: 70
-    range: 11
-    attacksPerSecond: 1
-    upgradeCost: 0
-  projectileKey: Bullet-Arrow
-  shootPoint: {fileID: 1684777745508249931}
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  upgradeMark: {fileID: 1137238724567431102}
-  coinIcon: {fileID: 7352397644895291499}
-  costText: {fileID: 0}
 --- !u!61 &2991682355288395854
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -451,6 +412,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3356656, y: 2.3831682}
   m_EdgeRadius: 0
+--- !u!114 &-337167485877599616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4528404349138767949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe1f53d5be529e643832a52426ee6115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - sprite: {fileID: -471742703, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
+    maxHp: 1400
+    attack: 40
+    attackRange: {x: 0, y: 0}
+    cost: 1200
+  - sprite: {fileID: -1148193463, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
+    maxHp: 1900
+    attack: 50
+    attackRange: {x: 0, y: 0}
+    cost: 500
+  - sprite: {fileID: -1651579008, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
+    maxHp: 2600
+    attack: 70
+    attackRange: {x: 0, y: 0}
+    cost: 800
+  upgradeMark: {fileID: 1137238724567431102}
+  coinIcon: {fileID: 7352397644895291499}
+  costText: {fileID: 2829609321855383}
 --- !u!1 &8092722474699817005
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +468,7 @@ Transform:
   m_GameObject: {fileID: 8092722474699817005}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
