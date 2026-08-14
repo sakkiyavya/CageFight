@@ -38,6 +38,7 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     [Header("实时信息")]
     public int currentHp;                                          // 当前生命值。
     public bool isDead;                                            // 当前是否处于死亡状态。
+    public bool isUntargetable;                                    // 当前是否不可被索敌和攻击。
     public GameObject target;                                      // AI 当前锁定的目标对象。
     public List<Vector2Int> path = new List<Vector2Int>();         // AI 当前尚未走完的网格路径。
     public bool isFacingLeft = false;                              // 角色当前是否面向左侧。
@@ -81,6 +82,7 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     {
         currentHp = Mathf.Max(0, maxHp);
         isDead = false;
+        isUntargetable = false;
         target = null;
         path.Clear();
         if (recordGOPD != null)

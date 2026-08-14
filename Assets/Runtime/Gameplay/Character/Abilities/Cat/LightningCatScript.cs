@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
@@ -18,6 +19,8 @@ public class LightningCatScript : MonoBehaviour
 
     private GameObjectProperty prop;
     private ParalysisDebuff paralysisBuff;
+    private readonly HashSet<GameObject> nearbyUnits =
+        new HashSet<GameObject>();
 
     private void Awake()
     {
@@ -96,11 +99,29 @@ public class LightningCatScript : MonoBehaviour
         float closestDistance =
             secondTargetRange * secondTargetRange;
 
-        GameObjectProperty[] units =
-            FindObjectsOfType<GameObjectProperty>();
+        MapCells map = MapCells.Instance;
+        if (map == null)
+            return null;
 
-        foreach (GameObjectProperty candidate in units)
+        int minX = Mathf.FloorToInt(
+            transform.position.x - secondTargetRange);
+        int minY = Mathf.FloorToInt(
+            transform.position.y - secondTargetRange);
+        int maxX = Mathf.CeilToInt(
+            transform.position.x + secondTargetRange);
+        int maxY = Mathf.CeilToInt(
+            transform.position.y + secondTargetRange);
+
+        nearbyUnits.Clear();
+        map.CollectOccupiersInBounds(
+            new Vector2Int(minX, minY),
+            new Vector2Int(maxX, maxY),
+            nearbyUnits);
+
+        foreach (GameObject unit in nearbyUnits)
         {
+            GameObjectProperty candidate =
+                unit.GetComponent<GameObjectProperty>();
             if (candidate == null ||
                 candidate == prop ||
                 candidate == firstTarget)

@@ -37,14 +37,17 @@ public class Attack : BehaviourBase
             return false;
         }
 
-        if(prop.target.GetComponent<CharacterHealth>().IsDead())
+        GameObjectProperty targetProp = prop.target.GetComponent<GameObjectProperty>();    // 目标的占地信息。
+        if (targetProp == null || targetProp.isUntargetable)
         {
             prop.target = null;
             return false;
         }
 
-        GameObjectProperty targetProp = prop.target.GetComponent<GameObjectProperty>();    // 目标的占地信息。
-        if (targetProp == null)
+        CharacterHealth targetHealth =
+            prop.target.GetComponent<CharacterHealth>();
+
+        if (targetHealth == null || targetHealth.IsDead())
         {
             prop.target = null;
             return false;

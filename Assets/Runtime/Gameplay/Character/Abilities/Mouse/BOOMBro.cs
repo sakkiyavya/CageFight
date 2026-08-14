@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
-public class BOOMBro : MonoBehaviour
+public class BOOMBro : MonoBehaviour, IProjectileImpactHandler
 {
     [Header("π•ª˜…Ë÷√")]
     [Range(0f, 90f)]

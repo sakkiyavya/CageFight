@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+public interface IProjectileImpactHandler
+{
+    void OnProjectileDamageTriggered(Vector3 impactPosition);
+}
+
 public class DamageSource : MonoBehaviour
 {
     public Damage damage = Damage.DefaultDamage;            // 碰撞时发送给目标的伤害数据。

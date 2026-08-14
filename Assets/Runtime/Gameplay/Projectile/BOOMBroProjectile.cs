@@ -17,6 +17,8 @@ public class BOOMBroProjectile : MonoBehaviour
     [SerializeField] private LayerMask targetLayers = ~0;
     [SerializeField] private Animator animator;
     [SerializeField] private string explosionStateName;
+    [SerializeField, Min(0.01f)]
+    private float fallbackExplosionDuration = 2f;
 
     [Header("音效")]
     [SerializeField] private AudioSource audioSource;
@@ -37,6 +39,7 @@ public class BOOMBroProjectile : MonoBehaviour
     private bool initialized;
     private bool exploding;
     private bool damageDealt;
+    private Coroutine fallbackReleaseRoutine;
 
     private void Awake()
     {
@@ -59,6 +62,7 @@ public class BOOMBroProjectile : MonoBehaviour
 
     private void OnEnable()
     {
+        CancelFallbackRelease();
         initialized = false;
         exploding = false;
         damageDealt = false;
@@ -174,7 +178,12 @@ public class BOOMBroProjectile : MonoBehaviour
             col.enabled = false;
 
         if (animator == null)
+        {
+            DealExplosionDamage();
+            PlayExplosionAudio();
+            StartFallbackRelease(0.01f);
             return;
+        }
 
         animator.enabled = true;
 
@@ -187,6 +196,8 @@ public class BOOMBroProjectile : MonoBehaviour
                 0f
             );
         }
+
+        StartFallbackRelease(fallbackExplosionDuration);
     }
 
     // 爆炸动画伤害帧调用
@@ -263,11 +274,10 @@ public class BOOMBroProjectile : MonoBehaviour
         if (source == null)
             return;
 
-        source.SendMessage(
-            "OnProjectileDamageTriggered",
-            transform.position,
-            SendMessageOptions.DontRequireReceiver
-        );
+        IProjectileImpactHandler handler =
+            source.GetComponent<IProjectileImpactHandler>();
+
+        handler?.OnProjectileDamageTriggered(transform.position);
     }
 
     // 爆炸动画音效帧调用
@@ -281,13 +291,15 @@ public class BOOMBroProjectile : MonoBehaviour
 
         audioSource.clip = explosionAudio;
 
+        Camera currentCamera = Camera.main;
+
         if (AudioManager.Instance != null &&
-            Camera.main != null)
+            currentCamera != null)
         {
             float distance =
                 Vector3.Distance(
                     transform.position,
-                    Camera.main.transform.position
+                    currentCamera.transform.position
                 );
 
             AudioManager.Instance.PlayEffect(
@@ -308,8 +320,33 @@ public class BOOMBroProjectile : MonoBehaviour
     // 爆炸动画最后一帧调用
     public void FinishExplosion()
     {
-        GameObjectPool.Instance.Release(
-            gameObject
-        );
+        CancelFallbackRelease();
+        GameObjectPool.Instance.Release(gameObject);
+    }
+
+    private void StartFallbackRelease(float duration)
+    {
+        CancelFallbackRelease();
+        fallbackReleaseRoutine =
+            StartCoroutine(ReleaseAfterDelay(duration));
+    }
+
+    private void CancelFallbackRelease()
+    {
+        if (fallbackReleaseRoutine == null)
+            return;
+
+        StopCoroutine(fallbackReleaseRoutine);
+        fallbackReleaseRoutine = null;
+    }
+
+    private System.Collections.IEnumerator ReleaseAfterDelay(
+        float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        fallbackReleaseRoutine = null;
+
+        if (exploding)
+            FinishExplosion();
     }
 }

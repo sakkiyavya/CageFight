@@ -5,34 +5,43 @@ using UnityEngine;
 public class SummonedUnitFacingFix : MonoBehaviour
 {
     private GameObjectProperty prop;
+    private bool lastFacingLeft;
 
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        // 单位不应像弹幕一样通过旋转控制方向。
-        transform.rotation = Quaternion.identity;
-
-        if (prop.target != null)
-        {
-            prop.isFacingLeft =
-                prop.target.transform.position.x
-                < transform.position.x;
-        }
+        lastFacingLeft = !prop.isFacingLeft;
+        RefreshFacing();
     }
 
     private void LateUpdate()
     {
-        // 修正召唤瞬间被ShootProjectile设置的旋转。
-        transform.rotation = Quaternion.identity;
+        if (prop.target != null)
+        {
+            prop.isFacingLeft =
+                prop.target.transform.position.x < transform.position.x;
+        }
+
+        RefreshFacing();
+    }
+
+    private void RefreshFacing()
+    {
+        if (transform.rotation != Quaternion.identity)
+            transform.rotation = Quaternion.identity;
+
+        if (lastFacingLeft == prop.isFacingLeft)
+            return;
+
+        lastFacingLeft = prop.isFacingLeft;
 
         Vector3 scale = transform.localScale;
         scale.x = Mathf.Abs(scale.x) *
                   (prop.isFacingLeft ? -1f : 1f);
-
         transform.localScale = scale;
     }
 }

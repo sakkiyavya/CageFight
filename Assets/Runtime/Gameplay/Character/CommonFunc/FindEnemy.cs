@@ -19,7 +19,17 @@ public class FindEnemy : BehaviourBase
         // 否定条件：如果已经有目标，则不需要重新寻敌
         if (prop.target != null)
         {
-            return false;
+            GameObjectProperty currentTarget =
+                prop.target.GetComponent<GameObjectProperty>();
+
+            if (currentTarget != null &&
+                !currentTarget.isDead &&
+                !currentTarget.isUntargetable)
+            {
+                return false;
+            }
+
+            prop.target = null;
         }
 
         // 如果没有正在进行的索敌，则开启新的索敌会话
@@ -62,7 +72,9 @@ public class FindEnemy : BehaviourBase
         {
             if (otherProp == null || otherProp.gameObject == self) continue;
 
-            if (otherProp.side != prop.side)
+            if (otherProp.side != prop.side &&
+                !otherProp.isDead &&
+                !otherProp.isUntargetable)
             {
                 _enemiesCache.Add(otherProp);
             }

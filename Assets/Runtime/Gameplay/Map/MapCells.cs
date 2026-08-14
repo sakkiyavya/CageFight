@@ -182,6 +182,35 @@ public class MapCells : MonoBehaviour
     /// <param name="x">待检查的横坐标。</param>
     /// <param name="y">待检查的纵坐标。</param>
     /// <returns>坐标同时位于横向和纵向边界内时返回 <see langword="true"/>。</returns>
+    public void CollectOccupiersInBounds(
+        Vector2Int min,
+        Vector2Int max,
+        HashSet<GameObject> results)
+    {
+        if (cellData == null || results == null)
+            return;
+
+        int minX = Mathf.Max(0, min.x);
+        int minY = Mathf.Max(0, min.y);
+        int maxX = Mathf.Min(width - 1, max.x);
+        int maxY = Mathf.Min(height - 1, max.y);
+
+        if (minX > maxX || minY > maxY)
+            return;
+
+        for (int x = minX; x <= maxX; x++)
+        {
+            for (int y = minY; y <= maxY; y++)
+            {
+                foreach (GameObject occupier in cellData[x, y])
+                {
+                    if (occupier != null)
+                        results.Add(occupier);
+                }
+            }
+        }
+    }
+
     public bool IsInRange(int x, int y)
     {
         return x >= 0 && x < width && y >= 0 && y < height;

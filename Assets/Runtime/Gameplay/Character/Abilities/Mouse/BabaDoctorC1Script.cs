@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
-public class BabaDoctorC1Script : MonoBehaviour
+public class BabaDoctorC1Script : MonoBehaviour, IProjectileImpactHandler
 {
     [SerializeField] private Transform shootPoint;
     [SerializeField] private CrystallizationDebuff crystallization;
