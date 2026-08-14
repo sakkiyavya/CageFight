@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+锘縰sing System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingUpgradeButton : MonoBehaviour
@@ -8,15 +8,20 @@ public class BuildingUpgradeButton : MonoBehaviour
 
     public static bool Active { get; private set; }
 
-    // 升级按钮调用：开启或关闭升级模式
+    // 鍗囩骇鎸夐挳璋冪敤锛氬紑鍚垨鍏抽棴鍗囩骇妯″紡
     public void ToggleUpgrade()
     {
         Active = !Active;
         RefreshAll();
     }
 
-    // 强制关闭升级模式
+    // 寮哄埗鍏抽棴鍗囩骇妯″紡
     public void CloseUpgrade()
+    {
+        CloseAll();
+    }
+
+    public static void CloseAll()
     {
         Active = false;
         RefreshAll();

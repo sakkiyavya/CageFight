@@ -1,4 +1,4 @@
-using TMPro;
+锘縰sing TMPro;
 using UnityEngine;
 
 public class BuildUP : MonoBehaviour
@@ -13,16 +13,18 @@ public class BuildUP : MonoBehaviour
         public int cost;
     }
 
-    [Header("三个等级")]
+    [Header("涓変釜绛夌骇")]
     public LevelData[] levels = new LevelData[3];
 
-    [Header("升级提示")]
+    [Header("鍗囩骇鎻愮ず")]
     public GameObject upgradeMark;
     public SpriteRenderer coinIcon;
     public TMP_Text costText;
 
     GameObjectProperty prop;
+    BuildingHealth health;
     SpriteRenderer body;
+    Color bodyColor;
     int level;
 
     public bool CanUpgrade =>
@@ -34,7 +36,21 @@ public class BuildUP : MonoBehaviour
     void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
+        health = GetComponent<BuildingHealth>();
         body = GetComponent<SpriteRenderer>();
+        if (body) bodyColor = body.color;
+        if (coinIcon)
+        {
+            BuildingUpgradeCoinClick click = coinIcon.GetComponent<BuildingUpgradeCoinClick>();
+            if (!click) click = coinIcon.gameObject.AddComponent<BuildingUpgradeCoinClick>();
+            click.owner = this;
+            if (!coinIcon.GetComponent<Collider2D>())
+            {
+                BoxCollider2D box = coinIcon.gameObject.AddComponent<BoxCollider2D>();
+                box.isTrigger = true;
+                if (coinIcon.sprite) box.size = coinIcon.sprite.bounds.size * 1.25f;
+            }
+        }
 
         ApplyLevel();
         ShowUpgrade(false);
@@ -56,9 +72,16 @@ public class BuildUP : MonoBehaviour
             !Coins.Instance.ConsumeCoins(Cost))
             return false;
 
+        int oldMaxHp = prop ? prop.maxHp : 0;
+        int oldHp = health ? health.HP : oldMaxHp;
         level++;
         ApplyLevel();
-        ShowUpgrade(BuildingUpgradeButton.Active);
+        if (health && prop && prop.maxHp > 0)
+        {
+            int newHp = Mathf.Clamp(oldHp + prop.maxHp - oldMaxHp, 0, prop.maxHp);
+            health.SetPercentHp((float)newHp / prop.maxHp);
+        }
+        BuildingUpgradeButton.CloseAll();
         return true;
     }
 
@@ -73,7 +96,7 @@ public class BuildUP : MonoBehaviour
         {
             body.color = show
                 ? new Color(.35f, .65f, 1f)
-                : Color.white;
+                : bodyColor;
         }
 
         if (show)
@@ -117,9 +140,15 @@ public class BuildUP : MonoBehaviour
             body.sprite = data.sprite;
     }
 
+}
+
+class BuildingUpgradeCoinClick : MonoBehaviour
+{
+    public BuildUP owner;
+
     void OnMouseDown()
     {
-        if (BuildingUpgradeButton.Active)
-            TryUpgrade();
+        if (BuildingUpgradeButton.Active && owner)
+            owner.TryUpgrade();
     }
 }

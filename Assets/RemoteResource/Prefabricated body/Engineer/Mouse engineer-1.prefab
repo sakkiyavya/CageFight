@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3260972753428373199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4790160850718402389}
+  m_Layer: 0
+  m_Name: Shoot point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4790160850718402389
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3260972753428373199}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.012, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8197048817857513028}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5228173253744323498
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +44,8 @@ GameObject:
   - component: {fileID: 6840314889325879129}
   - component: {fileID: 7094455210455416646}
   - component: {fileID: -6409451254191432421}
-  - component: {fileID: 904393718260352537}
+  - component: {fileID: -3799310227497929769}
+  - component: {fileID: 2061633714677551222}
   m_Layer: 0
   m_Name: Mouse engineer-1
   m_TagString: Untagged
@@ -33,7 +65,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4790160850718402389}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7766201429742607460
@@ -74,8 +107,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1552972343
-  m_SortingLayer: 4
+  m_SortingLayerID: 495858691
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -2102368743, guid: 538599a2a69a2cf4685e82e376c3bfbb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -181,7 +214,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4844445, y: 2.0000937}
   m_EdgeRadius: 0
---- !u!114 &904393718260352537
+--- !u!114 &-3799310227497929769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,7 +223,74 @@ MonoBehaviour:
   m_GameObject: {fileID: 5228173253744323498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d78c7ee2759f70a479e3a6fb38cc6387, type: 3}
+  m_Script: {fileID: 11500000, guid: 090cf18db13074e4c85806ec24eb75a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3.1
+  moveSpeed: 3
+  maxHp: 200
+  antiRepel: 3
+  cameraViewSize: 5
+  defeatFlyDistance: 5
+  defeatFlyTime: 0.35
+  defeatStunTime: 3
+  buildingHealRadius: 2
+  buildingHealPercentPerSecond: 0.02
+  buildingHealTick: 0.25
+  buildingLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  buildingHealColor: {r: 0, g: 1, b: 0, a: 1}
+  buildingHealGlow: 0.5
+  buildingHealGlowSpeed: 4
+  buildingHealParticles: 1
+  healParticleSize: 0.12
+  healParticleRiseSpeed: 0.6
+  moveParameter: IsMoving
+  spellAnchor: {fileID: 4790160850718402389}
+  hitFlashColor: {r: 1, g: 1, b: 1, a: 1}
+  hitEffectTime: 0.2
+  hitBounce: 0.15
+--- !u!114 &2061633714677551222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5228173253744323498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d49988eb09b0124bae402f398f1ba43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 0
+  side: 0
+  maxHp: 100
+  defense: 10
+  magicDefense: 5
+  isRemoteAtk: 0
+  atk: 10
+  atkRate: 1
+  magicAtk: 5
+  repel: 1
+  antiRepel: 1
+  atkRange: {x: 1, y: 1}
+  atkObj: 
+  barSustainTime: 2
+  buildTime: 3
+  moveSpeed: 3
+  suckBlood: 0
+  currentHp: 0
+  isDead: 0
+  target: {fileID: 0}
+  path: []
+  isFacingLeft: 0
+  isAttack: 0
+  isRepel: 0
+  repelDistance: 0
+  audioClips: []
+  atkRangeMin: {x: 0, y: 0}
+  atkRangeMax: {x: 0, y: 0}
+  currentBuff: []
+  currentDebuff: []
+  occupySpace: {x: 1, y: 1}
+  buildAnime: 

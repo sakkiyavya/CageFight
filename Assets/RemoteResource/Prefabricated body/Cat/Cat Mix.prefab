@@ -222,7 +222,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.6150973
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -393,8 +393,8 @@ MonoBehaviour:
   isRepel: 0
   repelDistance: 0
   audioClips: []
-  atkRangeMin: {x: -2147483648, y: -2147483648}
-  atkRangeMax: {x: -2147483647, y: -2147483647}
+  atkRangeMin: {x: 0, y: 0}
+  atkRangeMax: {x: 1, y: 1}
   currentBuff: []
   currentDebuff: []
   occupySpace: {x: 1, y: 1}
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 2
-  hpLoss: 0.2
+  hpLoss: 0
 --- !u!1001 &1114121127191278457
 PrefabInstance:
   m_ObjectHideFlags: 0
