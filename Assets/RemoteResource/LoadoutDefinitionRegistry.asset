@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e35df14a4c410a9d8813b9bc0dc0a0, type: 3}
+  m_Name: LoadoutDefinitionRegistry
+  m_EditorClassIdentifier: 
+  engineerDefinitions:
+  - {fileID: 11400000, guid: 21fa41c755eeaed4c96aeec22f423f85, type: 2}
+  raceDefinitions:
+  - {fileID: 11400000, guid: 26c36b4ccb508c6428eefb06a055739c, type: 2}
+  spellDefinitions:
+  - {fileID: 11400000, guid: 688ac8994f258f349936cf3ec3c6e5bd, type: 2}
+  - {fileID: 11400000, guid: 8708394128fe4dd8a31ba3942bde67a1, type: 2}
+  defaultEngineerId: mouse_engineer_1
+  defaultRaceId: mouse_race_1
+  defaultSpellSlot1Id: 
+  defaultSpellSlot2Id: 

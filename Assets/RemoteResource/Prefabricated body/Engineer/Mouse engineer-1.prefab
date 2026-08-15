@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3260972753428373199}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.012, z: 0}
+  m_LocalPosition: {x: 0.666, y: 1.138, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -247,7 +247,7 @@ MonoBehaviour:
   healParticleRiseSpeed: 0.6
   moveParameter: IsMoving
   spellAnchor: {fileID: 4790160850718402389}
-  hitFlashColor: {r: 1, g: 1, b: 1, a: 1}
+  hitFlashColor: {r: 1, g: 0, b: 0, a: 1}
   hitEffectTime: 0.2
   hitBounce: 0.15
 --- !u!114 &2061633714677551222
@@ -281,6 +281,7 @@ MonoBehaviour:
   suckBlood: 0
   currentHp: 0
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0

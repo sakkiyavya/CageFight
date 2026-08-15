@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98659304213c8dc4d8cc24a2779e7a17, type: 3}
+  m_Name: Hundred years ice
+  m_EditorClassIdentifier: 
+  id: hundred_years_ice
+  displayName: Hundred years ice
+  iconKey: Magic UI_5
+  cooldown: 8
+  castPrefabKey: Hundred years ice
+  deliveryType: 1
+  releaseMode: 1
+  spawnOffset: {x: 0, y: 0, z: 0}
+  faceEngineerDirection: 0
+  dragAim: 1
+  maxDistance: 9
+  arcHeight: 0
+  flightTime: 0.1
+  showWarningCircle: 1
+  warningCircleKey: Bullet3 AP_0
+  warningCircleScale: 1.275
+  editorIcon: {fileID: 461979592, guid: 3064cad545c1a4f44b274c4be84e62d2, type: 3}
+  editorCastPrefab: {fileID: 9176165685828410304, guid: 0a2d6c67cb3d73c4e8fefab67b624e10, type: 3}
+  editorWarningCircle: {fileID: -2115857798, guid: 93d9e498acde7284088fdab505a71dad, type: 3}

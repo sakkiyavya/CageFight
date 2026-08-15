@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 [Serializable]
 public sealed class UserGlobalInfoData
 {
-    public const int CurrentSchemaVersion = 3;
+    public const int CurrentSchemaVersion = 4;
 
     [HideInInspector]
     public int schemaVersion = CurrentSchemaVersion;
@@ -29,4 +29,10 @@ public sealed class UserGlobalInfoData
     [Header("玩家设置")]
     [Range(0f, 1f)] public float volume = 1f;
     public bool showDamage = true;
+
+    [Header("出战选择（稳定 ID）")]
+    public string selectedEngineerId = string.Empty;
+    public string selectedRaceId = string.Empty;
+    public string selectedSpellSlot1Id = string.Empty;
+    public string selectedSpellSlot2Id = string.Empty;
 }

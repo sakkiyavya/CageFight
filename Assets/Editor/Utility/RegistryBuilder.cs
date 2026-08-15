@@ -20,23 +20,35 @@ public static class RegistryBuilder
     private const string AudioRegistryPath = RegistryDirectory + "/AudioRegistry.asset";
     private const string AnimationClipRegistryPath = RegistryDirectory + "/AnimationClipRegistry.asset";
     private const string AnimatorControllerRegistryPath = RegistryDirectory + "/AnimatorControllerRegistry.asset";
+    private const string LoadoutDefinitionRegistryPath = RegistryDirectory + "/LoadoutDefinitionRegistry.asset";
 
     [MenuItem("关卡构建/资源构建/一键生成全部资源注册表")]
-    public static void BuildAll()
+    public static void BuildAll() => BuildAllInternal(true);
+
+    /// <summary>供批处理和项目安装器调用的无弹窗资源注册表重建入口。</summary>
+    public static void BuildAllForAutomation() => BuildAllInternal(false);
+
+    private static void BuildAllInternal(bool showDialog)
     {
         var settings = AddressableAssetSettingsDefaultObject.Settings;
         if (settings == null)
         {
             Debug.LogError("[RegistryBuilder] 未找到 Addressables Settings，请先初始化 Addressables。");
-            EditorUtility.DisplayDialog(
-                "生成失败",
-                "未检测到 Addressables Settings，请先在 Addressables Groups 面板创建配置。",
-                "确定");
+            if (showDialog)
+            {
+                EditorUtility.DisplayDialog(
+                    "生成失败",
+                    "未检测到 Addressables Settings，请先在 Addressables Groups 面板创建配置。",
+                    "确定");
+            }
             return;
         }
 
         Directory.CreateDirectory(RegistryDirectory);
 
+        // 先把选装定义依赖的图标与预制体纳入 Addressables，随后构建的通用注册表
+        // 才能在同一次操作中收录它们。
+        int loadoutDefinitionCount = BuildLoadoutDefinitions(settings);
         int prefabCount = BuildPrefabs(settings);
         int textureCount = BuildTextures(settings);
         int spriteCount = BuildSprites(settings);
@@ -53,10 +65,12 @@ public static class RegistryBuilder
             $"Sprite: {spriteCount}\n" +
             $"AudioClip: {audioCount}\n" +
             $"AnimationClip: {animationClipCount}\n" +
-            $"AnimatorController: {animatorControllerCount}";
+            $"AnimatorController: {animatorControllerCount}\n" +
+            $"LoadoutDefinition: {loadoutDefinitionCount}";
 
         Debug.Log($"[RegistryBuilder] 全部资源注册表生成完成！\n{summary}");
-        EditorUtility.DisplayDialog("生成完成", $"全部资源注册表已更新。\n\n{summary}", "确定");
+        if (showDialog)
+            EditorUtility.DisplayDialog("生成完成", $"全部资源注册表已更新。\n\n{summary}", "确定");
     }
 
     private static IEnumerable<UnityEditor.AddressableAssets.Settings.AddressableAssetEntry> GetEntries(AddressableAssetSettings settings)
@@ -297,6 +311,113 @@ public static class RegistryBuilder
 
         MarkDirty(registry);
         return count;
+    }
+
+    private static int BuildLoadoutDefinitions(AddressableAssetSettings settings)
+    {
+        LoadoutDefinitionRegistry registry =
+            GetOrCreateRegistry<LoadoutDefinitionRegistry>(LoadoutDefinitionRegistryPath);
+        List<EngineerDefinition> engineers = FindDefinitions<EngineerDefinition>();
+        List<RaceDefinition> races = FindDefinitions<RaceDefinition>();
+        List<SpellDefinition> spells = FindDefinitions<SpellDefinition>();
+
+        foreach (EngineerDefinition engineer in engineers)
+        {
+            EnsureDefinitionAssetAddressable(settings, engineer.EditorIcon);
+            EnsureDefinitionAssetAddressable(settings, engineer.EditorPortraitFrame);
+            EnsureDefinitionAssetAddressable(settings, engineer.EditorPrefab);
+        }
+        foreach (RaceDefinition race in races)
+        {
+            EnsureDefinitionAssetAddressable(settings, race.EditorIcon);
+            EnsureDefinitionAssetAddressable(settings, race.EditorRuntimeEffectPrefab);
+        }
+        foreach (SpellDefinition spell in spells)
+        {
+            EnsureDefinitionAssetAddressable(settings, spell.EditorIcon);
+            EnsureDefinitionAssetAddressable(settings, spell.EditorCastPrefab);
+            EnsureDefinitionAssetAddressable(settings, spell.EditorWarningCircle);
+        }
+
+        registry.ReplaceDefinitions(engineers, races, spells);
+        MarkDirty(registry);
+        EnsureAddressable(settings, LoadoutDefinitionRegistryPath, nameof(LoadoutDefinitionRegistry));
+        return engineers.Count + races.Count + spells.Count;
+    }
+
+    private static List<T> FindDefinitions<T>() where T : ScriptableObject
+    {
+        string[] guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
+        List<T> definitions = new List<T>(guids.Length);
+        for (int i = 0; i < guids.Length; i++)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+            T definition = AssetDatabase.LoadAssetAtPath<T>(path);
+            if (!definition) continue;
+
+            if (definition is EngineerDefinition engineer)
+                engineer.MigrateEditorReferences();
+            else if (definition is RaceDefinition race)
+                race.MigrateEditorReferences();
+            else if (definition is SpellDefinition spell)
+                spell.MigrateEditorReferences();
+
+            EditorUtility.SetDirty(definition);
+            definitions.Add(definition);
+        }
+
+        definitions.Sort((left, right) => string.CompareOrdinal(left.name, right.name));
+        return definitions;
+    }
+
+    private static void EnsureAddressable(
+        AddressableAssetSettings settings,
+        string assetPath,
+        string address)
+    {
+        string guid = AssetDatabase.AssetPathToGUID(assetPath);
+        if (string.IsNullOrWhiteSpace(guid)) return;
+
+        AddressableAssetEntry entry = settings.FindAssetEntry(guid);
+        if (entry == null)
+        {
+            AddressableAssetGroup group = settings.FindGroup("LocalGroup") ?? settings.DefaultGroup;
+            if (group == null)
+            {
+                Debug.LogError("[RegistryBuilder] 缺少 Addressables LocalGroup，无法注册选装定义表。");
+                return;
+            }
+
+            entry = settings.CreateOrMoveEntry(guid, group);
+        }
+
+        entry.address = address;
+        EditorUtility.SetDirty(settings);
+    }
+
+    /// <summary>
+    /// 为定义引用的资源补充 Addressables 条目，但不会改写已有资源的地址，
+    /// 以免影响其他系统按既有地址加载资源。
+    /// </summary>
+    private static void EnsureDefinitionAssetAddressable(
+        AddressableAssetSettings settings,
+        UnityEngine.Object asset)
+    {
+        if (!asset) return;
+
+        string path = AssetDatabase.GetAssetPath(asset);
+        string guid = AssetDatabase.AssetPathToGUID(path);
+        if (string.IsNullOrWhiteSpace(guid) || settings.FindAssetEntry(guid) != null) return;
+
+        AddressableAssetGroup group = settings.FindGroup("LocalGroup") ?? settings.DefaultGroup;
+        if (group == null)
+        {
+            Debug.LogError("[RegistryBuilder] 缺少 Addressables LocalGroup，无法注册选装资源。");
+            return;
+        }
+
+        settings.CreateOrMoveEntry(guid, group);
+        EditorUtility.SetDirty(settings);
     }
 
     private static bool HasExtension(string path, params string[] extensions)

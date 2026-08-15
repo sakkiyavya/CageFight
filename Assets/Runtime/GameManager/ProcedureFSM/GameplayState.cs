@@ -8,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public class GameplayState : SceneStateBase
 {
+    [SerializeField] private PlayerLoadoutSpawner playerLoadoutSpawner;
+
     #region 生命周期与回调
     /// <summary>
     /// 在关卡对象构造完成后进入局内流程，并预留计时器与地图单位启动逻辑。
@@ -16,6 +18,9 @@ public class GameplayState : SceneStateBase
     protected override IEnumerator OnEnter()
     {
         Debug.Log("[GameplayState] OnEnter - 场景关卡构造完毕，游戏正式开始！");
+        if (playerLoadoutSpawner)
+            yield return playerLoadoutSpawner.SpawnSelectedEngineerRoutine();
+
         // TODO: 启动局内计时器
         // TODO: 通知 StageSystem 实例化地图网格与单位
         yield return null;
@@ -28,6 +33,9 @@ public class GameplayState : SceneStateBase
     protected override IEnumerator OnExit()
     {
         Debug.Log("[GameplayState] OnExit - 退出战斗，清理场上残留实体...");
+        if (playerLoadoutSpawner)
+            playerLoadoutSpawner.ReleaseSpawnedEngineer();
+
         // TODO: 停止局内计时器
         // TODO: 清理场上所有怪物、子弹与网格占用数据
         yield return null;

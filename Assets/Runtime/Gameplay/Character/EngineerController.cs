@@ -47,7 +47,17 @@ public class EngineerController : MonoBehaviour, ICollide
     public int Side => property ? property.side : 0;
     public Vector2 FacingDirection { get; private set; } = Vector2.right;
     public Vector3 SpawnPoint { get; private set; }
-    public Vector3 SpellPosition => spellAnchor ? spellAnchor.position : transform.position;
+    public Vector3 SpellPosition
+    {
+        get
+        {
+            if (!spellAnchor) return transform.position;
+            if (!sprite || !sprite.flipX) return spellAnchor.position;
+            Vector3 offset = spellAnchor.position - transform.position;
+            offset.x = -offset.x;
+            return transform.position + offset;
+        }
+    }
     public bool IsStunned => Time.time < stunnedUntil;
 
     public event Action<int, int> OnHealthChanged;

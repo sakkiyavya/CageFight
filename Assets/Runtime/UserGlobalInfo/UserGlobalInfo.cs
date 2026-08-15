@@ -10,6 +10,8 @@ using UnityEngine;
 [DefaultExecutionOrder(-1000)]
 public sealed class UserGlobalInfo : MonoBehaviour
 {
+    private const int MaxLoadoutIdLength = 128;
+
     public static UserGlobalInfo Instance { get; private set; }
 
     [Header("玩家全局信息")]
@@ -35,6 +37,10 @@ public sealed class UserGlobalInfo : MonoBehaviour
 
     public float Volume => Data.volume;
     public bool ShowDamage => Data.showDamage;
+    public string SelectedEngineerId => Data.selectedEngineerId;
+    public string SelectedRaceId => Data.selectedRaceId;
+    public string SelectedSpellSlot1Id => Data.selectedSpellSlot1Id;
+    public string SelectedSpellSlot2Id => Data.selectedSpellSlot2Id;
 
     /// <summary>
     /// 任意一项信息被修改、成功导入 JSON 或重置后触发。
@@ -165,6 +171,47 @@ public sealed class UserGlobalInfo : MonoBehaviour
         }
 
         data.showDamage = value;
+        Changed?.Invoke();
+        return true;
+    }
+
+    /// <summary>
+    /// 原子地写入工程师、种族和两个自选法术的稳定 ID。
+    /// 空字符串表示尚未选择；资源对象本身不得写入全局存档。
+    /// </summary>
+    public bool SetLoadoutSelection(
+        string engineerId,
+        string raceId,
+        string spellSlot1Id,
+        string spellSlot2Id)
+    {
+        EnsureDataExists();
+
+        engineerId = NormalizeLoadoutId(engineerId);
+        raceId = NormalizeLoadoutId(raceId);
+        spellSlot1Id = NormalizeLoadoutId(spellSlot1Id);
+        spellSlot2Id = NormalizeLoadoutId(spellSlot2Id);
+        if (!AreLoadoutIdsValid(
+                engineerId,
+                raceId,
+                spellSlot1Id,
+                spellSlot2Id,
+                out string error))
+        {
+            Debug.LogWarning($"[UserGlobalInfo] {error}", this);
+            return false;
+        }
+
+        if (data.selectedEngineerId == engineerId &&
+            data.selectedRaceId == raceId &&
+            data.selectedSpellSlot1Id == spellSlot1Id &&
+            data.selectedSpellSlot2Id == spellSlot2Id)
+            return false;
+
+        data.selectedEngineerId = engineerId;
+        data.selectedRaceId = raceId;
+        data.selectedSpellSlot1Id = spellSlot1Id;
+        data.selectedSpellSlot2Id = spellSlot2Id;
         Changed?.Invoke();
         return true;
     }
@@ -307,6 +354,16 @@ public sealed class UserGlobalInfo : MonoBehaviour
                     candidate.schemaVersion = 3;
                     break;
 
+                // 版本 4 新增工程师、种族和两个可选法术的稳定 ID。
+                // 旧存档缺少这些字段时，候选对象保留空字符串默认值。
+                case 3:
+                    candidate.selectedEngineerId = NormalizeLoadoutId(candidate.selectedEngineerId);
+                    candidate.selectedRaceId = NormalizeLoadoutId(candidate.selectedRaceId);
+                    candidate.selectedSpellSlot1Id = NormalizeLoadoutId(candidate.selectedSpellSlot1Id);
+                    candidate.selectedSpellSlot2Id = NormalizeLoadoutId(candidate.selectedSpellSlot2Id);
+                    candidate.schemaVersion = 4;
+                    break;
+
                 // 后续提升 CurrentSchemaVersion 时，必须在这里补充逐版本迁移分支。
                 default:
                     error = $"缺少从存档版本 {candidate.schemaVersion} 开始的迁移逻辑。";
@@ -319,6 +376,11 @@ public sealed class UserGlobalInfo : MonoBehaviour
 
     private static bool TryValidate(UserGlobalInfoData candidate, out string error)
     {
+        candidate.selectedEngineerId = NormalizeLoadoutId(candidate.selectedEngineerId);
+        candidate.selectedRaceId = NormalizeLoadoutId(candidate.selectedRaceId);
+        candidate.selectedSpellSlot1Id = NormalizeLoadoutId(candidate.selectedSpellSlot1Id);
+        candidate.selectedSpellSlot2Id = NormalizeLoadoutId(candidate.selectedSpellSlot2Id);
+
         if (candidate.defenseMagicLevel < 0)
         {
             error = "defenseMagicLevel 不能小于 0。";
@@ -376,6 +438,14 @@ public sealed class UserGlobalInfo : MonoBehaviour
             return false;
         }
 
+        if (!AreLoadoutIdsValid(
+                candidate.selectedEngineerId,
+                candidate.selectedRaceId,
+                candidate.selectedSpellSlot1Id,
+                candidate.selectedSpellSlot2Id,
+                out error))
+            return false;
+
         error = null;
         return true;
     }
@@ -414,6 +484,38 @@ public sealed class UserGlobalInfo : MonoBehaviour
         data.volume = float.IsNaN(data.volume) || float.IsInfinity(data.volume)
             ? 1f
             : Mathf.Clamp01(data.volume);
+
+        data.selectedEngineerId = NormalizeLoadoutId(data.selectedEngineerId);
+        data.selectedRaceId = NormalizeLoadoutId(data.selectedRaceId);
+        data.selectedSpellSlot1Id = NormalizeLoadoutId(data.selectedSpellSlot1Id);
+        data.selectedSpellSlot2Id = NormalizeLoadoutId(data.selectedSpellSlot2Id);
+    }
+
+    private static string NormalizeLoadoutId(string value) => (value ?? string.Empty).Trim();
+
+    private static bool AreLoadoutIdsValid(
+        string engineerId,
+        string raceId,
+        string spellSlot1Id,
+        string spellSlot2Id,
+        out string error)
+    {
+        if (!IsLoadoutIdValid(engineerId) ||
+            !IsLoadoutIdValid(raceId) ||
+            !IsLoadoutIdValid(spellSlot1Id) ||
+            !IsLoadoutIdValid(spellSlot2Id))
+        {
+            error = $"出战选择 ID 可以为空，但不得超过 {MaxLoadoutIdLength} 个字符。";
+            return false;
+        }
+
+        error = null;
+        return true;
+    }
+
+    private static bool IsLoadoutIdValid(string value)
+    {
+        return value != null && value.Length <= MaxLoadoutIdLength;
     }
 
     /// <summary>

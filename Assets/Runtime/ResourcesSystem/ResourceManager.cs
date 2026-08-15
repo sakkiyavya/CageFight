@@ -52,7 +52,11 @@ public class ResourceManager : MonoBehaviour
     [Tooltip("Sprite 映射表（支持多图切片子图）")]
     [SerializeField] private SpriteRegistry spriteRegistry;                                                                                 // 精灵资源键到 Addressables 引用的注册表。
 
+    [Tooltip("工程师、种族与法术的稳定 ID 注册表")]
+    [SerializeField] private LoadoutDefinitionRegistry loadoutDefinitionRegistry;
+
     public ResourceState CurrentState { get; private set; } = ResourceState.None;                                                           // 当前关卡资源加载或卸载所处的阶段。
+    public bool IsLoadoutRegistryReady => loadoutDefinitionRegistry != null;
 
     public event Action OnLoadComplete;                                                                                                     // 当前关卡所需资源全部进入缓存后触发。
     public event Action OnUnloadComplete;                                                                                                   // 已持有资源全部释放并清空缓存后触发。
@@ -90,6 +94,7 @@ public class ResourceManager : MonoBehaviour
         animationClipRegistry    = LoadRegistryEditor<AnimationClipRegistry>();
         animatorControllerRegistry = LoadRegistryEditor<AnimatorControllerRegistry>();
         spriteRegistry           = LoadRegistryEditor<SpriteRegistry>();
+        loadoutDefinitionRegistry = LoadRegistryEditor<LoadoutDefinitionRegistry>();
 
 #else
         StartCoroutine(LoadAllRegistriesRuntime());
@@ -142,6 +147,7 @@ public class ResourceManager : MonoBehaviour
         yield return LoadRegistryRuntime<AnimationClipRegistry>(r    => animationClipRegistry = r);
         yield return LoadRegistryRuntime<AnimatorControllerRegistry>(r => animatorControllerRegistry = r);
         yield return LoadRegistryRuntime<SpriteRegistry>(r           => spriteRegistry = r);
+        yield return LoadRegistryRuntime<LoadoutDefinitionRegistry>(r => loadoutDefinitionRegistry = r);
 
         // 初始化已加载的 Registry
         prefabRegistry?.Initialize();
@@ -150,6 +156,7 @@ public class ResourceManager : MonoBehaviour
         animationClipRegistry?.Initialize();
         animatorControllerRegistry?.Initialize();
         spriteRegistry?.Initialize();
+        loadoutDefinitionRegistry?.Initialize();
 
         Debug.Log("[ResourceManager] 所有 Registry 加载完成。");
     }
@@ -242,6 +249,142 @@ public class ResourceManager : MonoBehaviour
     {
         // Debug.Log("ResourceManager.GetSprit:" + key + "  " + _spriteDict.ContainsKey(key));
         return _spriteDict.TryGetValue(key, out var res) ? res : null;
+    }
+
+    /// <summary>按稳定 ID 解析工程师定义；定义资源只从 LoadoutDefinitionRegistry 取得。</summary>
+    public bool TryGetEngineer(string id, out EngineerDefinition definition)
+    {
+        definition = null;
+        return loadoutDefinitionRegistry &&
+            loadoutDefinitionRegistry.TryGetEngineer(id, out definition);
+    }
+
+    /// <summary>按稳定 ID 解析种族定义；定义资源只从 LoadoutDefinitionRegistry 取得。</summary>
+    public bool TryGetRace(string id, out RaceDefinition definition)
+    {
+        definition = null;
+        return loadoutDefinitionRegistry &&
+            loadoutDefinitionRegistry.TryGetRace(id, out definition);
+    }
+
+    /// <summary>按稳定 ID 解析法术定义；定义资源只从 LoadoutDefinitionRegistry 取得。</summary>
+    public bool TryGetSpell(string id, out SpellDefinition definition)
+    {
+        definition = null;
+        return loadoutDefinitionRegistry &&
+            loadoutDefinitionRegistry.TryGetSpell(id, out definition);
+    }
+
+    /// <summary>取得注册表定义的初始出战配置；缺少注册表时返回 false。</summary>
+    public bool TryGetDefaultLoadout(
+        out string engineerId,
+        out string raceId,
+        out string spellSlot1Id,
+        out string spellSlot2Id)
+    {
+        engineerId = raceId = spellSlot1Id = spellSlot2Id = string.Empty;
+        return loadoutDefinitionRegistry && loadoutDefinitionRegistry.TryGetDefaultLoadout(
+            out engineerId,
+            out raceId,
+            out spellSlot1Id,
+            out spellSlot2Id);
+    }
+
+    public IReadOnlyList<EngineerDefinition> EngineerDefinitions =>
+        loadoutDefinitionRegistry ? loadoutDefinitionRegistry.EngineerDefinitions :
+        Array.Empty<EngineerDefinition>();
+
+    public IReadOnlyList<RaceDefinition> RaceDefinitions =>
+        loadoutDefinitionRegistry ? loadoutDefinitionRegistry.RaceDefinitions :
+        Array.Empty<RaceDefinition>();
+
+    public IReadOnlyList<SpellDefinition> SpellDefinitions =>
+        loadoutDefinitionRegistry ? loadoutDefinitionRegistry.SpellDefinitions :
+        Array.Empty<SpellDefinition>();
+
+    /// <summary>
+    /// 通过 PrefabRegistry 预载一个预制体到当前缓存。该协程仅用于菜单和关卡加载期，
+    /// 不应从攻击或逐帧逻辑调用。
+    /// </summary>
+    public IEnumerator LoadRegisteredGameObject(string key)
+    {
+        if (string.IsNullOrWhiteSpace(key) || _gameObjectDict.ContainsKey(key)) yield break;
+        if (!prefabRegistry)
+        {
+            Debug.LogError("[ResourceManager] PrefabRegistry 未就绪，无法预载选装资源。", this);
+            yield break;
+        }
+
+#if UNITY_EDITOR
+        GameObject editorPrefab = prefabRegistry.GetPrefab(key);
+        if (editorPrefab)
+        {
+            _gameObjectDict[key] = editorPrefab;
+            yield break;
+        }
+#endif
+
+        AssetReferenceGameObject reference = prefabRegistry.GetReference(key);
+        if (reference == null || !reference.RuntimeKeyIsValid())
+        {
+            Debug.LogError($"[ResourceManager] 未注册预制体 Key：{key}", this);
+            yield break;
+        }
+
+        var handle = Addressables.LoadAssetAsync<GameObject>(reference);
+        yield return handle;
+        if (handle.Status == AsyncOperationStatus.Succeeded)
+        {
+            _gameObjectDict[key] = handle.Result;
+            _handlesToRelease.Add(handle);
+        }
+        else
+        {
+            Debug.LogError($"[ResourceManager] 预载预制体失败：{key}", this);
+        }
+    }
+
+    /// <summary>
+    /// 通过 SpriteRegistry 预载一个图标到当前缓存。该协程仅用于菜单和关卡加载期。
+    /// </summary>
+    public IEnumerator LoadRegisteredSprite(string key)
+    {
+        if (string.IsNullOrWhiteSpace(key) || _spriteDict.ContainsKey(key)) yield break;
+        if (!spriteRegistry)
+        {
+            Debug.LogError("[ResourceManager] SpriteRegistry 未就绪，无法预载选装图标。", this);
+            yield break;
+        }
+
+#if UNITY_EDITOR
+        Sprite editorSprite = spriteRegistry.GetAsset(key);
+        if (editorSprite)
+        {
+            _spriteDict[key] = editorSprite;
+            if (!_spriteKeys.Contains(key)) _spriteKeys.Add(key);
+            yield break;
+        }
+#endif
+
+        AssetReferenceT<Sprite> reference = spriteRegistry.GetReference(key);
+        if (reference == null || !reference.RuntimeKeyIsValid())
+        {
+            Debug.LogError($"[ResourceManager] 未注册 Sprite Key：{key}", this);
+            yield break;
+        }
+
+        var handle = Addressables.LoadAssetAsync<Sprite>(reference);
+        yield return handle;
+        if (handle.Status == AsyncOperationStatus.Succeeded)
+        {
+            _spriteDict[key] = handle.Result;
+            if (!_spriteKeys.Contains(key)) _spriteKeys.Add(key);
+            _handlesToRelease.Add(handle);
+        }
+        else
+        {
+            Debug.LogError($"[ResourceManager] 预载图标失败：{key}", this);
+        }
     }
     #endregion
 

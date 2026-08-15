@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class LoadingState : SceneStateBase
 {
+    [SerializeField] private PlayerLoadoutManager playerLoadout;
+
     #region 生命周期与回调
     /// <summary>
     /// 加载当前关卡所需资源，等待资源系统完成后实例化关卡对象，并切换到游戏状态。
@@ -37,6 +39,12 @@ public class LoadingState : SceneStateBase
         {
             Debug.LogError($"[LoadingState] Resource loading did not complete. Current state: {ResourceManager.Instance.CurrentState}");
             yield break;
+        }
+
+        if (playerLoadout)
+        {
+            while (!playerLoadout.IsReady) yield return null;
+            yield return playerLoadout.PreloadGameplayResources();
         }
 
         Debug.Log($"[LoadingState] Resources loaded. Instantiating stage: {CurrentStageConfig.stageId}");

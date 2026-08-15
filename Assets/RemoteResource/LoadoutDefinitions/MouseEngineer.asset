@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2918c879bf20bd04881f0b602e5c4838, type: 3}
+  m_Name: MouseEngineer
+  m_EditorClassIdentifier: 
+  id: mouse_engineer_1
+  displayName: Mouse Engineer
+  iconKey: Mouse engineer-free_0
+  prefabKey: Mouse engineer-1
+  innateSpellId: crowbar
+  portraitFrameKey: Engineer Troop UI_0
+  idlePortraitFrameKeys:
+  - Mouse engineer-free_0
+  - Mouse engineer-free_1
+  - Mouse engineer-free_2
+  - Mouse engineer-free_3
+  - Mouse engineer-free_4
+  - Mouse engineer-free_5
+  - Mouse engineer-free_6
+  - Mouse engineer-free_7
+  - Mouse engineer-free_8
+  - Mouse engineer-free_9
+  - Mouse engineer-free_10
+  - Mouse engineer-free_11
+  idlePortraitFrameRate: 6
+  editorIcon: {fileID: -2102368743, guid: 538599a2a69a2cf4685e82e376c3bfbb, type: 3}
+  editorPrefab: {fileID: 5228173253744323498, guid: 2ee45f836ef7c7241970d1ba3b252a20, type: 3}
+  editorInnateSpell: {fileID: 11400000, guid: 688ac8994f258f349936cf3ec3c6e5bd, type: 2}
+  editorIdlePortraitFrames: []
+  editorPortraitFrame: {fileID: -671429887, guid: 08abb64235a072245b74fcb82e61b27e, type: 3}
