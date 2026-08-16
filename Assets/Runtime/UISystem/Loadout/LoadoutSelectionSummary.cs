@@ -81,6 +81,7 @@ public sealed class LoadoutSelectionSummary : MonoBehaviour
     private static void SetIcon(Image image, Sprite sprite)
     {
         if (!image) return;
+        image.preserveAspect = true;
         image.sprite = sprite;
         image.color = sprite ? Color.white : Color.clear;
     }

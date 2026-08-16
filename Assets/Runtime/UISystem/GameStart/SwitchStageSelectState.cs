@@ -29,6 +29,7 @@ public class SwitchStageSelectState : MonoBehaviour, IPointerDownHandler, IPoint
             return;
         }
 
+        MenuAmbientAudio.NotifyMenuBegin();
         SceneFSM.Instance.OpenStageSelect();
     }
     #endregion

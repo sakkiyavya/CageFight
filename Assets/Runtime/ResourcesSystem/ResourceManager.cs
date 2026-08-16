@@ -55,6 +55,13 @@ public class ResourceManager : MonoBehaviour
     [Tooltip("工程师、种族与法术的稳定 ID 注册表")]
     [SerializeField] private LoadoutDefinitionRegistry loadoutDefinitionRegistry;
 
+    [Header("局内公共资源（所有关卡自动预载）")]
+    [SerializeField] private List<string> commonPrefabs = new List<string> { "Build Animation", "Cast spell" };
+    [SerializeField] private List<string> commonAudios = new List<string> { "Build", "UP", "UI Click" };
+    [SerializeField] private List<string> persistentAudios = new List<string> { "UI Click", "Cage door", "Begin" };
+    [SerializeField] private List<string> commonAnimatorControllers = new List<string> { "Build Animation AC" };
+    [SerializeField] private List<string> commonSprites = new List<string> { "Build Animation_6" };
+
     public ResourceState CurrentState { get; private set; } = ResourceState.None;                                                           // 当前关卡资源加载或卸载所处的阶段。
     public bool IsLoadoutRegistryReady => loadoutDefinitionRegistry != null;
 
@@ -64,6 +71,7 @@ public class ResourceManager : MonoBehaviour
     // --- 私有缓存字典 ---
     private Dictionary<string, GameObject> _gameObjectDict = new Dictionary<string, GameObject>();                                          // 已加载预制体按资源键建立的缓存。
     private Dictionary<string, AudioClip> _audioDict = new Dictionary<string, AudioClip>();                                                 // 已加载音频片段按资源键建立的缓存。
+    private readonly Dictionary<string, AudioClip> _persistentAudioDict = new Dictionary<string, AudioClip>();
     private Dictionary<string, Texture2D> _textureDict = new Dictionary<string, Texture2D>();                                               // 已加载纹理按资源键建立的缓存。
     private Dictionary<string, AnimationClip> _animationDict = new Dictionary<string, AnimationClip>();                                     // 已加载动画片段按资源键建立的缓存。
     private Dictionary<string, RuntimeAnimatorController> _animatorControllerDict = new Dictionary<string, RuntimeAnimatorController>();    // 已加载动画控制器按资源键建立的缓存。
@@ -72,6 +80,15 @@ public class ResourceManager : MonoBehaviour
 
     // 统一管理所有加载成功后的句柄，以便统一释放
     private List<AsyncOperationHandle> _handlesToRelease = new List<AsyncOperationHandle>();                                                // 由本管理器持有、卸载关卡时必须释放的 Addressables 句柄。
+    private readonly List<AsyncOperationHandle> _persistentAudioHandles = new List<AsyncOperationHandle>();
+
+    private static IEnumerable<string> MergeKeys(List<string> stageKeys, List<string> commonKeys)
+    {
+        if (stageKeys != null)
+            foreach (string key in stageKeys) yield return key;
+        if (commonKeys != null)
+            foreach (string key in commonKeys) yield return key;
+    }
 
     #region 生命周期与回调
     /// <summary>
@@ -85,6 +102,7 @@ public class ResourceManager : MonoBehaviour
             return;
         }
         Instance = this;
+        EnsureCommonResources();
 
         // 加载所有 Registry：Editor 下直接从文件系统加载，Runtime 通过 Addressables 加载
 #if UNITY_EDITOR
@@ -95,10 +113,32 @@ public class ResourceManager : MonoBehaviour
         animatorControllerRegistry = LoadRegistryEditor<AnimatorControllerRegistry>();
         spriteRegistry           = LoadRegistryEditor<SpriteRegistry>();
         loadoutDefinitionRegistry = LoadRegistryEditor<LoadoutDefinitionRegistry>();
+        audioRegistry?.Initialize();
+        StartCoroutine(PreloadPersistentAudios());
 
 #else
         StartCoroutine(LoadAllRegistriesRuntime());
 #endif
+    }
+
+    private void EnsureCommonResources()
+    {
+        if (commonPrefabs == null) commonPrefabs = new List<string>();
+        if (commonAudios == null) commonAudios = new List<string>();
+        if (commonAnimatorControllers == null) commonAnimatorControllers = new List<string>();
+        if (commonSprites == null) commonSprites = new List<string>();
+
+        if (!commonPrefabs.Contains("Build Animation")) commonPrefabs.Add("Build Animation");
+        if (!commonPrefabs.Contains("Cast spell")) commonPrefabs.Add("Cast spell");
+        if (!commonAudios.Contains("Build")) commonAudios.Add("Build");
+        if (!commonAudios.Contains("UP")) commonAudios.Add("UP");
+        if (!commonAudios.Contains("UI Click")) commonAudios.Add("UI Click");
+        if (persistentAudios == null) persistentAudios = new List<string>();
+        if (!persistentAudios.Contains("UI Click")) persistentAudios.Add("UI Click");
+        if (!persistentAudios.Contains("Cage door")) persistentAudios.Add("Cage door");
+        if (!persistentAudios.Contains("Begin")) persistentAudios.Add("Begin");
+        if (!commonAnimatorControllers.Contains("Build Animation AC")) commonAnimatorControllers.Add("Build Animation AC");
+        if (!commonSprites.Contains("Build Animation_6")) commonSprites.Add("Build Animation_6");
     }
 
     /// <summary>
@@ -158,6 +198,8 @@ public class ResourceManager : MonoBehaviour
         spriteRegistry?.Initialize();
         loadoutDefinitionRegistry?.Initialize();
 
+        yield return PreloadPersistentAudios();
+
         Debug.Log("[ResourceManager] 所有 Registry 加载完成。");
     }
 
@@ -207,7 +249,30 @@ public class ResourceManager : MonoBehaviour
     /// <returns>已加载的音频片段；缓存中不存在时返回 <see langword="null"/>。</returns>
     public AudioClip GetAudio(string key)
     {
-        return _audioDict.TryGetValue(key, out var res) ? res : null;
+        if (_audioDict.TryGetValue(key, out var res)) return res;
+        return _persistentAudioDict.TryGetValue(key, out res) ? res : null;
+    }
+
+    private IEnumerator PreloadPersistentAudios()
+    {
+        if (persistentAudios == null) yield break;
+        while (audioRegistry == null) yield return null;
+        audioRegistry.Initialize();
+
+        foreach (string key in persistentAudios)
+        {
+            if (string.IsNullOrEmpty(key) || _persistentAudioDict.ContainsKey(key)) continue;
+            object address = audioRegistry.GetReference(key);
+            if (address == null) continue;
+            var handle = Addressables.LoadAssetAsync<AudioClip>(address);
+            yield return handle;
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                _persistentAudioDict[key] = handle.Result;
+                _persistentAudioHandles.Add(handle);
+            }
+            else Debug.LogError($"[ResourceManager] 持久音频加载失败：{key}");
+        }
     }
 
     /// <summary>
@@ -463,105 +528,87 @@ public class ResourceManager : MonoBehaviour
         Dictionary<string, object> keysWithAddressableKeys = new Dictionary<string, object>();                                              // 逻辑资源键对应的 Addressables 运行时键或安全引用。
 
         // 处理 Prefabs (GameObject)
-        if (stage.prefabs != null)
+        foreach (string key in MergeKeys(stage.prefabs, commonPrefabs))
         {
-            foreach (string key in stage.prefabs)
-            {
-                if (string.IsNullOrEmpty(key)) continue;
-                keysWithTypes[key] = typeof(GameObject);
+            if (string.IsNullOrEmpty(key)) continue;
+            keysWithTypes[key] = typeof(GameObject);
 
-                object addressableKey = key;
-                if (prefabRegistry != null && prefabRegistry.GetReference(key) is { } prefabRef && prefabRef.RuntimeKeyIsValid())
-                {
-                    addressableKey = prefabRef;
-                }
-                keysWithAddressableKeys[key] = addressableKey;
+            object addressableKey = key;
+            if (prefabRegistry != null && prefabRegistry.GetReference(key) is { } prefabRef && prefabRef.RuntimeKeyIsValid())
+            {
+                addressableKey = prefabRef;
             }
+            keysWithAddressableKeys[key] = addressableKey;
         }
 
         // 处理 Audios (AudioClip)
-        if (stage.audios != null)
+        foreach (string key in MergeKeys(stage.audios, commonAudios))
         {
-            foreach (string key in stage.audios)
-            {
-                if (string.IsNullOrEmpty(key)) continue;
-                keysWithTypes[key] = typeof(AudioClip);
+            if (string.IsNullOrEmpty(key)) continue;
+            keysWithTypes[key] = typeof(AudioClip);
 
-                object addressableKey = key;
-                if (audioRegistry != null && audioRegistry.GetReference(key) is { } audioRef && audioRef.RuntimeKeyIsValid())
-                {
-                    addressableKey = audioRef;
-                }
-                keysWithAddressableKeys[key] = addressableKey;
+            object addressableKey = key;
+            if (audioRegistry != null && audioRegistry.GetReference(key) is { } audioRef && audioRef.RuntimeKeyIsValid())
+            {
+                addressableKey = audioRef;
             }
+            keysWithAddressableKeys[key] = addressableKey;
         }
 
         // 处理 Textures (Texture2D)
-        if (stage.textures != null)
+        foreach (string key in MergeKeys(stage.textures, null))
         {
-            foreach (string key in stage.textures)
-            {
-                if (string.IsNullOrEmpty(key)) continue;
-                keysWithTypes[key] = typeof(Texture2D);
+            if (string.IsNullOrEmpty(key)) continue;
+            keysWithTypes[key] = typeof(Texture2D);
 
-                object addressableKey = key;
-                if (textureRegistry != null && textureRegistry.GetReference(key) is { } textureRef && textureRef.RuntimeKeyIsValid())
-                {
-                    addressableKey = textureRef;
-                }
-                keysWithAddressableKeys[key] = addressableKey;
+            object addressableKey = key;
+            if (textureRegistry != null && textureRegistry.GetReference(key) is { } textureRef && textureRef.RuntimeKeyIsValid())
+            {
+                addressableKey = textureRef;
             }
+            keysWithAddressableKeys[key] = addressableKey;
         }
 
         // 处理 AnimationClips (AnimationClip)
-        if (stage.animationClips != null)
+        foreach (string key in MergeKeys(stage.animationClips, null))
         {
-            foreach (string key in stage.animationClips)
-            {
-                if (string.IsNullOrEmpty(key)) continue;
-                keysWithTypes[key] = typeof(AnimationClip);
+            if (string.IsNullOrEmpty(key)) continue;
+            keysWithTypes[key] = typeof(AnimationClip);
 
-                object addressableKey = key;
-                if (animationClipRegistry != null && animationClipRegistry.GetReference(key) is { } animClipRef && animClipRef.RuntimeKeyIsValid())
-                {
-                    addressableKey = animClipRef;
-                }
-                keysWithAddressableKeys[key] = addressableKey;
+            object addressableKey = key;
+            if (animationClipRegistry != null && animationClipRegistry.GetReference(key) is { } animClipRef && animClipRef.RuntimeKeyIsValid())
+            {
+                addressableKey = animClipRef;
             }
+            keysWithAddressableKeys[key] = addressableKey;
         }
 
         // 处理 AnimatorControllers (RuntimeAnimatorController)
-        if (stage.animatorControllers != null)
+        foreach (string key in MergeKeys(stage.animatorControllers, commonAnimatorControllers))
         {
-            foreach (string key in stage.animatorControllers)
-            {
-                if (string.IsNullOrEmpty(key)) continue;
-                keysWithTypes[key] = typeof(RuntimeAnimatorController);
+            if (string.IsNullOrEmpty(key)) continue;
+            keysWithTypes[key] = typeof(RuntimeAnimatorController);
 
-                object addressableKey = key;
-                if (animatorControllerRegistry != null && animatorControllerRegistry.GetReference(key) is { } animCtrlRef && animCtrlRef.RuntimeKeyIsValid())
-                {
-                    addressableKey = animCtrlRef;
-                }
-                keysWithAddressableKeys[key] = addressableKey;
+            object addressableKey = key;
+            if (animatorControllerRegistry != null && animatorControllerRegistry.GetReference(key) is { } animCtrlRef && animCtrlRef.RuntimeKeyIsValid())
+            {
+                addressableKey = animCtrlRef;
             }
+            keysWithAddressableKeys[key] = addressableKey;
         }
 
         // 处理 Sprites (Sprite)
-        if (stage.sprites != null)
+        foreach (string key in MergeKeys(stage.sprites, commonSprites))
         {
-            foreach (string key in stage.sprites)
-            {
-                if (string.IsNullOrEmpty(key)) continue;
-                keysWithTypes[key] = typeof(Sprite);
+            if (string.IsNullOrEmpty(key)) continue;
+            keysWithTypes[key] = typeof(Sprite);
 
-                object addressableKey = key;
-                if (spriteRegistry != null && spriteRegistry.GetReference(key) is { } spriteRef && spriteRef.RuntimeKeyIsValid())
-                {
-                    addressableKey = spriteRef;
-                }
-                keysWithAddressableKeys[key] = addressableKey;
+            object addressableKey = key;
+            if (spriteRegistry != null && spriteRegistry.GetReference(key) is { } spriteRef && spriteRef.RuntimeKeyIsValid())
+            {
+                addressableKey = spriteRef;
             }
+            keysWithAddressableKeys[key] = addressableKey;
         }
 
         List<object> keysToDownload = new List<object>();                                                                                   // 合并下载依赖时提交给 Addressables 的运行时键集合。

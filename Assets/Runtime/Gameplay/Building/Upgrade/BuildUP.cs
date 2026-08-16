@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using System.Collections;
 
 public class BuildUP : MonoBehaviour
 {
@@ -21,14 +22,27 @@ public class BuildUP : MonoBehaviour
     public SpriteRenderer coinIcon;
     public TMP_Text costText;
 
+    [Header("升级表现")]
+    [SerializeField] GameObject upgradeEffectPrefab;
+    [SerializeField, Min(.05f)] float effectTime = .7f;
+    [SerializeField, Min(.05f)] float jellyTime = .22f;
+    [SerializeField, Range(0f, .5f)] float jellyAmount = .16f;
+
+    [Header("升级音效")]
+    [ResourceKey(typeof(AudioClip))]
+    [SerializeField] string upgradeSoundKey = "UP";
+
     GameObjectProperty prop;
     BuildingHealth health;
     SpriteRenderer body;
     Color bodyColor;
+    Vector3 baseScale;
     int level;
+    bool upgrading;
+    AudioSource upgradeAudio;
 
     public bool CanUpgrade =>
-        levels != null && level < levels.Length - 1;
+        !upgrading && levels != null && level < levels.Length - 1;
 
     public int Cost =>
         CanUpgrade ? levels[level + 1].cost : 0;
@@ -38,7 +52,15 @@ public class BuildUP : MonoBehaviour
         prop = GetComponent<GameObjectProperty>();
         health = GetComponent<BuildingHealth>();
         body = GetComponent<SpriteRenderer>();
+        upgradeAudio = GetComponent<AudioSource>();
+        if (!upgradeAudio)
+        {
+            upgradeAudio = gameObject.AddComponent<AudioSource>();
+            upgradeAudio.playOnAwake = false;
+            upgradeAudio.spatialBlend = 0f;
+        }
         if (body) bodyColor = body.color;
+        baseScale = transform.localScale;
         if (coinIcon)
         {
             BuildingUpgradeCoinClick click = coinIcon.GetComponent<BuildingUpgradeCoinClick>();
@@ -72,6 +94,37 @@ public class BuildUP : MonoBehaviour
             !Coins.Instance.ConsumeCoins(Cost))
             return false;
 
+        upgrading = true;
+        PlayUpgradeSound();
+        StartCoroutine(UpgradeRoutine());
+        BuildingUpgradeButton.CloseAll();
+        return true;
+    }
+
+    IEnumerator UpgradeRoutine()
+    {
+        GameObject upgradeEffect = null;
+        if (upgradeEffectPrefab && GameObjectPool.Instance)
+        {
+            upgradeEffect = GameObjectPool.Instance.Get(upgradeEffectPrefab);
+            upgradeEffect.transform.position = transform.position;
+            upgradeEffect.transform.rotation = Quaternion.identity;
+            Animator animator = upgradeEffect.GetComponent<Animator>();
+            SpriteRenderer effectBody = upgradeEffect.GetComponent<SpriteRenderer>();
+            if (effectBody && body)
+            {
+                effectBody.sortingLayerID = body.sortingLayerID;
+                effectBody.sortingOrder = body.sortingOrder + 1;
+            }
+            if (animator)
+            {
+                animator.Rebind();
+                animator.Play(0, 0, 0f);
+            }
+        }
+
+        yield return new WaitForSeconds(effectTime);
+
         int oldMaxHp = prop ? prop.maxHp : 0;
         int oldHp = health ? health.HP : oldMaxHp;
         level++;
@@ -81,8 +134,23 @@ public class BuildUP : MonoBehaviour
             int newHp = Mathf.Clamp(oldHp + prop.maxHp - oldMaxHp, 0, prop.maxHp);
             health.SetPercentHp((float)newHp / prop.maxHp);
         }
-        BuildingUpgradeButton.CloseAll();
-        return true;
+
+        float elapsed = 0f;
+        while (elapsed < jellyTime)
+        {
+            elapsed += Time.deltaTime;
+            float wave = Mathf.Sin(elapsed / jellyTime * Mathf.PI * 2.5f) *
+                         (1f - elapsed / jellyTime);
+            transform.localScale = new Vector3(
+                baseScale.x * (1f + wave * jellyAmount),
+                baseScale.y * (1f - wave * jellyAmount * .7f),
+                baseScale.z);
+            yield return null;
+        }
+
+        transform.localScale = baseScale;
+        if (upgradeEffect) GameObjectPool.Instance.Release(upgradeEffect);
+        upgrading = false;
     }
 
     public void ShowUpgrade(bool show)
@@ -138,6 +206,22 @@ public class BuildUP : MonoBehaviour
 
         if (body && data.sprite)
             body.sprite = data.sprite;
+    }
+
+    void PlayUpgradeSound()
+    {
+        if (string.IsNullOrEmpty(upgradeSoundKey) || !ResourceManager.Instance ||
+            !AudioManager.Instance || !upgradeAudio) return;
+
+        AudioClip clip = ResourceManager.Instance.GetAudio(upgradeSoundKey);
+        if (!clip) return;
+
+        upgradeAudio.clip = clip;
+        upgradeAudio.volume = 1f;
+        upgradeAudio.priority = 32;
+        Camera cam = Camera.main;
+        AudioManager.Instance.PlayEffect(upgradeAudio, (uint)upgradeAudio.priority,
+            cam ? Vector3.Distance(transform.position, cam.transform.position) : 0f, transform);
     }
 
 }

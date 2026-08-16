@@ -41,6 +41,7 @@ public class AudioManager : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        if (!GetComponent<MenuAmbientAudio>()) gameObject.AddComponent<MenuAmbientAudio>();
 
         _musicSource = CreateSource("MusicChannel");
         for (int i = 0; i < CHANNEL_DEFAULT; i++)
@@ -209,8 +210,16 @@ public class AudioManager : MonoBehaviour
     {
         if (source == null || source.clip == null) return false;
         if (_fadeCo != null) StopCoroutine(_fadeCo);
-        _fadeCo = StartCoroutine(FadeMusicTo(source.clip, source.volume));
+        _fadeCo = StartCoroutine(FadeMusicTo(source.clip, source.volume, source.loop));
         return true;
+    }
+
+    /// <summary>平滑停止当前背景音乐。</summary>
+    public void StopMusic()
+    {
+        if (_musicSource == null || !_musicSource.isPlaying) return;
+        if (_fadeCo != null) StopCoroutine(_fadeCo);
+        _fadeCo = StartCoroutine(FadeMusicOut());
     }
     #endregion
 
@@ -221,7 +230,7 @@ public class AudioManager : MonoBehaviour
     /// <param name="newClip">淡出完成后开始播放的新音乐片段。</param>
     /// <param name="targetVolume">新音乐淡入完成后的最终音量。</param>
     /// <returns>等待旧音乐淡出并将新音乐淡入至目标音量的协程。</returns>
-    private IEnumerator FadeMusicTo(AudioClip newClip, float targetVolume)
+    private IEnumerator FadeMusicTo(AudioClip newClip, float targetVolume, bool loop)
     {
         // FadeOut
         float startVol = _musicSource.volume;                                        // 当前音乐淡出前的音量。
@@ -234,6 +243,7 @@ public class AudioManager : MonoBehaviour
 
         // FadeIn
         _musicSource.clip = newClip;
+        _musicSource.loop = loop;
         _musicSource.Play();
         for (float t = 0; t < fadeDuration; t += Time.deltaTime)
         {
@@ -241,6 +251,18 @@ public class AudioManager : MonoBehaviour
             yield return null;
         }
         _musicSource.volume = targetVolume;
+    }
+
+    private IEnumerator FadeMusicOut()
+    {
+        float startVol = _musicSource.volume;
+        for (float t = 0f; t < fadeDuration; t += Time.deltaTime)
+        {
+            _musicSource.volume = Mathf.Lerp(startVol, 0f, t / fadeDuration);
+            yield return null;
+        }
+        _musicSource.Stop();
+        _musicSource.volume = 0f;
     }
     #endregion
 

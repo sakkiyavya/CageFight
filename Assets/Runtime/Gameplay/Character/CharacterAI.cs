@@ -41,18 +41,23 @@ public class CharacterAI : MonoBehaviour
 
     #region 受击与 AI 行为
     /// <summary>
-    /// 按剩余击退距离的固定比例逐帧移动角色并衰减距离，接近零时结束击退状态。
+    /// 沿二次贝塞尔曲线完成击退，落点仍使用原有击退距离。
     /// </summary>
     protected virtual void Repel()
     {
-        if (Mathf.Abs(_prop.repelDistance) > 0.1f)
-        {
-            transform.position += Vector3.right * _prop.repelDistance * 0.1f;
-            _prop.repelDistance *= 0.9f;
-        }
-        else
+        if (!_prop.repelInitialized)
+            _prop.StartRepel(transform.position, _prop.repelDistance);
+
+        _prop.repelElapsed += Time.deltaTime;
+        float t = Mathf.Clamp01(_prop.repelElapsed / _prop.repelDuration);
+        float inv = 1f - t;
+        transform.position = inv * inv * _prop.repelStart +
+            2f * inv * t * _prop.repelControl + t * t * _prop.repelEnd;
+        _prop.repelDistance = (_prop.repelEnd.x - _prop.repelStart.x) * (1f - t);
+        if (t >= 1f)
         {
             _prop.isRepel = false;
+            _prop.repelInitialized = false;
         }
     }
 

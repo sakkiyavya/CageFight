@@ -262,13 +262,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d49988eb09b0124bae402f398f1ba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 0
+  objectType: 2
   side: 0
-  maxHp: 100
-  defense: 10
-  magicDefense: 5
+  maxHp: 200
+  defense: 0
+  magicDefense: 0
   isRemoteAtk: 0
-  atk: 10
+  atk: 0
   atkRate: 1
   magicAtk: 5
   repel: 1

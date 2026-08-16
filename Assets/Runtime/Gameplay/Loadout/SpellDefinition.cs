@@ -25,6 +25,7 @@ public sealed class SpellDefinition : ScriptableObject
     [SerializeField] private string castPrefabKey;
     [Header("投递")]
     [SerializeField] private SpellDeliveryType deliveryType;
+    [SerializeField, Min(.01f)] private float directCastTime = .68f;
     [SerializeField] private SpellReleaseMode releaseMode;
     [SerializeField] private Vector3 spawnOffset;
     [SerializeField] private bool faceEngineerDirection = true;
@@ -53,6 +54,7 @@ public sealed class SpellDefinition : ScriptableObject
     public float Cooldown => cooldown;
     public string CastPrefabKey => castPrefabKey;
     public SpellDeliveryType DeliveryType => deliveryType;
+    public float DirectCastTime => directCastTime;
     public SpellReleaseMode ReleaseMode => releaseMode;
     public Vector3 SpawnOffset => spawnOffset;
     public bool FaceEngineerDirection => faceEngineerDirection;

@@ -23,6 +23,12 @@ public sealed class LoadoutSelectionOption : MonoBehaviour, IPointerClickHandler
     private bool pressing;
     private bool suppressClick;
 
+    private void Awake()
+    {
+        if (icon) icon.preserveAspect = true;
+        if (portraitFrame) portraitFrame.preserveAspect = true;
+    }
+
     /// <summary>此按钮对应的定义稳定 ID。</summary>
     public string DefinitionId => definitionId;
 
@@ -33,11 +39,13 @@ public sealed class LoadoutSelectionOption : MonoBehaviour, IPointerClickHandler
     {
         if (icon)
         {
+            icon.preserveAspect = true;
             icon.sprite = sprite;
             icon.color = sprite ? Color.white : Color.clear;
         }
         if (portraitFrame)
         {
+            portraitFrame.preserveAspect = true;
             portraitFrame.sprite = frame;
             portraitFrame.color = frame ? Color.white : Color.clear;
         }

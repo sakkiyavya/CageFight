@@ -12,6 +12,7 @@ public sealed class GameplaySpellBar : MonoBehaviour
     [SerializeField] private Image[] icons = new Image[3];
     [SerializeField] private Image[] cooldownMasks = new Image[3];
     [SerializeField] private LineRenderer aimPreview;
+    [SerializeField] private SpriteRenderer aimStripPreview;
     [SerializeField] private Sprite aimPreviewSprite;
     [SerializeField] private Texture2D aimPreviewTexture;
     [SerializeField] private Material aimPreviewMaterial;
@@ -30,6 +31,7 @@ public sealed class GameplaySpellBar : MonoBehaviour
     private Vector2 aimTextureOffset;
     private RenderTexture aimTextureCrop;
     private float aimBaseWidth;
+    private float aimStripHeight;
     private Vector3 aimTargetBaseScale;
     private Sprite aimTargetDefaultSprite;
 
@@ -56,6 +58,14 @@ public sealed class GameplaySpellBar : MonoBehaviour
             aimTargetBaseScale = aimTargetPreview.transform.localScale;
             aimTargetDefaultSprite = aimTargetPreview.sprite;
             aimTargetPreview.enabled = false;
+        }
+        if (aimStripPreview)
+        {
+            aimStripPreview.sprite = aimPreviewSprite;
+            aimStripPreview.drawMode = SpriteDrawMode.Tiled;
+            aimStripPreview.enabled = false;
+            aimStripHeight = aimPreviewSprite ?
+                aimPreviewSprite.rect.height / aimPreviewSprite.pixelsPerUnit * aimVisualScale : .2f;
         }
     }
 
@@ -126,6 +136,7 @@ public sealed class GameplaySpellBar : MonoBehaviour
             ApplyAimSorting(engineer);
             aimPreview.enabled = true;
         }
+        if (aimStripPreview) aimStripPreview.enabled = true;
 
         UpdateAim(slot, screenPoint);
         return true;
@@ -218,23 +229,36 @@ public sealed class GameplaySpellBar : MonoBehaviour
 
     private void DrawArc(Vector3 start, Vector3 end, float height)
     {
-        if (!aimPreview) return;
-        int pointCount = Mathf.Max(2, arcPointCount);
-        if (aimPreview.positionCount != pointCount) aimPreview.positionCount = pointCount;
-
-        for (int i = 0; i < pointCount; i++)
+        if (aimPreview)
         {
-            float t = i / (pointCount - 1f);
-            Vector3 point = Vector3.Lerp(start, end, t) +
-                Vector3.up * (4f * height * t * (1f - t));
-            point.z = -2f;
-            aimPreview.SetPosition(i, point);
+            int pointCount = Mathf.Max(2, arcPointCount);
+            if (aimPreview.positionCount != pointCount) aimPreview.positionCount = pointCount;
+
+            for (int i = 0; i < pointCount; i++)
+            {
+                float t = i / (pointCount - 1f);
+                Vector3 point = Vector3.Lerp(start, end, t) +
+                    Vector3.up * (4f * height * t * (1f - t));
+                point.z = -2f;
+                aimPreview.SetPosition(i, point);
+            }
         }
+
+        if (!aimStripPreview) return;
+        Vector2 delta = end - start;
+        float length = delta.magnitude;
+        if (length < .01f) return;
+        Vector2 normal = new Vector2(-delta.y, delta.x).normalized;
+        aimStripPreview.transform.SetPositionAndRotation(
+            start + (Vector3)(normal * (aimStripHeight * .5f)) + Vector3.forward * -2f,
+            Quaternion.Euler(0f, 0f, Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg));
+        aimStripPreview.size = new Vector2(length, aimStripHeight);
     }
 
     private void HideAimPreview()
     {
         if (aimPreview) aimPreview.enabled = false;
+        if (aimStripPreview) aimStripPreview.enabled = false;
         if (aimTargetPreview) aimTargetPreview.enabled = false;
     }
 
@@ -246,6 +270,7 @@ public sealed class GameplaySpellBar : MonoBehaviour
         aimPreviewInstance.mainTexture = texture;
         if (aimPreviewSprite)
         {
+            // 多 Sprite 图中只取“虚线”所在的 UV 区域，保证流动时不会滑进旁边的准星图。
             Rect rect = aimPreviewSprite.rect;
             aimTextureCrop = new RenderTexture((int)rect.width, (int)rect.height, 0)
             {
@@ -269,11 +294,16 @@ public sealed class GameplaySpellBar : MonoBehaviour
         SpriteRenderer renderer = engineer.GetComponentInChildren<SpriteRenderer>();
         if (renderer)
         {
-            aimPreview.sortingLayerID = renderer.sortingLayerID;
+            if (aimPreview) aimPreview.sortingLayerID = renderer.sortingLayerID;
+            if (aimStripPreview) aimStripPreview.sortingLayerID = renderer.sortingLayerID;
             if (aimTargetPreview) aimTargetPreview.sortingLayerID = renderer.sortingLayerID;
         }
 
-        aimPreview.sortingOrder = aimSortingOrder;
+        if (aimPreview) aimPreview.sortingOrder = aimSortingOrder;
+        if (aimStripPreview)
+        {
+            aimStripPreview.sortingOrder = aimSortingOrder + 1;
+        }
         if (aimTargetPreview) aimTargetPreview.sortingOrder = aimSortingOrder + 1;
     }
 }

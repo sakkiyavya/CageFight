@@ -45,6 +45,12 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     public bool isAttack = false;                                  // 角色当前是否处于攻击状态。
     public bool isRepel = false;                                   // 角色当前是否正在处理击退。
     public float repelDistance = 0f;                               // 尚未消耗完的带方向击退距离。
+    [NonSerialized] public Vector3 repelStart;
+    [NonSerialized] public Vector3 repelControl;
+    [NonSerialized] public Vector3 repelEnd;
+    [NonSerialized] public float repelElapsed;
+    [NonSerialized] public float repelDuration;
+    [NonSerialized] public bool repelInitialized;
     /// <summary>由 StageAudio 在运行时注入，按 audioKey 顺序存放加载好的音频片段</summary>
     public List<AudioClip> audioClips = new List<AudioClip>();     // StageAudio 按资源键顺序注入的运行时音频片段。
     // 攻击范围的世界坐标（左下角和右上角），由 CharacterBase 每帧更新
@@ -75,6 +81,20 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     #endregion
 
     #region 公开接口
+    /// <summary>开始一次带轻微上抛弧线的击退。</summary>
+    public void StartRepel(Vector3 start, float signedDistance)
+    {
+        repelDistance = signedDistance;
+        repelStart = start;
+        repelEnd = start + Vector3.right * signedDistance;
+        repelControl = (repelStart + repelEnd) * .5f + Vector3.up *
+            Mathf.Clamp(Mathf.Abs(signedDistance) * .35f, .12f, .8f);
+        repelElapsed = 0f;
+        repelDuration = Mathf.Clamp(.1f + Mathf.Abs(signedDistance) * .045f, .12f, .32f);
+        repelInitialized = true;
+        isRepel = Mathf.Abs(signedDistance) > .001f;
+    }
+
     /// <summary>
     /// 按静态配置恢复生命值，并清空只应在单次启用周期内存在的运行时状态。
     /// </summary>
@@ -90,6 +110,9 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
         isAttack = false;
         isRepel = false;
         repelDistance = 0f;
+        repelElapsed = 0f;
+        repelDuration = 0f;
+        repelInitialized = false;
         currentBuff.Clear();
         currentDebuff.Clear();
         currentPathSession = null;

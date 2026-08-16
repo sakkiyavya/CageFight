@@ -13,6 +13,27 @@ MonoBehaviour:
   m_Name: AudioRegistry
   m_EditorClassIdentifier: 
   mappings:
+  - key: Cage door
+    audioReference:
+      m_AssetGUID: deafa56553ca81a4baea5d3ecc62359e
+      m_SubObjectName:
+      m_SubObjectType:
+      m_EditorAssetChanged: 0
+    audioClip: {fileID: 8300000, guid: deafa56553ca81a4baea5d3ecc62359e, type: 3}
+  - key: Begin
+    audioReference:
+      m_AssetGUID: d127d901fb5e69948adbd9cf40b5cb42
+      m_SubObjectName:
+      m_SubObjectType:
+      m_EditorAssetChanged: 0
+    audioClip: {fileID: 8300000, guid: d127d901fb5e69948adbd9cf40b5cb42, type: 3}
+  - key: UI Click
+    audioReference:
+      m_AssetGUID: 07fde34046142e943ac50bdd5441f8c2
+      m_SubObjectName:
+      m_SubObjectType:
+      m_EditorAssetChanged: 0
+    audioClip: {fileID: 8300000, guid: 07fde34046142e943ac50bdd5441f8c2, type: 3}
   - key: Loser cannon1
     audioReference:
       m_AssetGUID: 000035bde1a5e8d45bb3b17b525ae8ab

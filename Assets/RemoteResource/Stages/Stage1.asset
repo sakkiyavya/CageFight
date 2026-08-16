@@ -16,189 +16,74 @@ MonoBehaviour:
   icon: {fileID: 0}
   objects:
   - instanceId: 1000
-    prefabKey: Mouse engineer-1
-    transform:
-      position: {x: 5.8492393, y: 3.6675763, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622263065706496
-  - instanceId: 1001
-    prefabKey: Lightning Cat
-    transform:
-      position: {x: 29.2102, y: 2.5629423, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622263065706497
-    - rid: 9182622263065706498
-    - rid: 9182622263065706499
-    - rid: 9182622263065706500
-  - instanceId: 1002
-    prefabKey: Cat dad
-    transform:
-      position: {x: 21.845974, y: 2.972066, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622263065706501
-    - rid: 9182622263065706502
-    - rid: 9182622263065706503
-    - rid: 9182622263065706504
-  - instanceId: 1003
     prefabKey: Horrible monster
     transform:
       position: {x: 11.658796, y: 3.872138, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 9182622263065706505
-    - rid: 9182622263065706506
-    - rid: 9182622263065706507
-    - rid: 9182622263065706508
-  - instanceId: 1004
-    prefabKey: Build Animation
+    - rid: 9182622310336036864
+    - rid: 9182622310336036865
+    - rid: 9182622310336036866
+    - rid: 9182622310336036867
+  - instanceId: 1001
+    prefabKey: Cat dad
     transform:
-      position: {x: 2.5, y: -15.7, z: 0}
+      position: {x: 21.845974, y: 2.972066, z: 0}
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components:
-    - rid: 9182622263065706509
-    - rid: 9182622263065706510
-    - rid: 9182622263065706511
+    - rid: 9182622310336036868
+    - rid: 9182622310336036869
+    - rid: 9182622310336036870
+    - rid: 9182622310336036871
+  - instanceId: 1002
+    prefabKey: Lightning Cat
+    transform:
+      position: {x: 29.2102, y: 2.5629423, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622310336036872
+    - rid: 9182622310336036873
+    - rid: 9182622310336036874
+    - rid: 9182622310336036875
+  - instanceId: 1003
+    prefabKey: Mouse engineer-1
+    transform:
+      position: {x: 5.8492393, y: 3.6675763, z: 0}
+      rotation: {x: -0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    components:
+    - rid: 9182622310336036876
   prefabs:
-  - Mouse engineer-1
-  - Lightning Cat
-  - Cat dad
-  - Bullet-Cat dad
   - Horrible monster
   - Bullet-Horrible monster
-  - Build Animation
+  - Cat dad
+  - Bullet-Cat dad
+  - Lightning Cat
+  - Mouse engineer-1
   audios:
-  - Lightning Cat1
-  - Lightning Cat2
-  - Cat dad1
   - Horrible monster1
   - Horrible monster2
   - Horrible monster3
-  - Build
+  - Cat dad1
+  - Lightning Cat1
+  - Lightning Cat2
   textures: []
   animationClips: []
   animatorControllers:
-  - Lightning Cat AC
-  - Cat dad AC
   - Crystallized giant beast AC
-  - Build Animation AC
+  - Cat dad AC
+  - Lightning Cat AC
   sprites:
-  - Lightning Cat_0
-  - Cat dad AP_9
   - Crystallized giant beast_12
-  - Build Animation_6
+  - Cat dad AP_9
+  - Lightning Cat_0
   references:
     version: 2
     RefIds:
-    - rid: 9182622263065706496
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 0
-        maxHp: 100
-        defense: 10
-        magicDefense: 5
-        atk: 10
-        atkRate: 1
-        magicAtk: 5
-        atkRange: {x: 1, y: 1}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3
-        repel: 1
-        side: 0
-        atkObj: 
-        buildAnime: 
-    - rid: 9182622263065706497
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 500
-        defense: 0
-        magicDefense: 0
-        atk: 20
-        atkRate: 1
-        magicAtk: 10
-        atkRange: {x: 7, y: 4}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.3
-        repel: 2
-        side: 1
-        atkObj: 
-        buildAnime: 
-    - rid: 9182622263065706498
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Lightning Cat1
-        audioKey2: Lightning Cat2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622263065706499
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Lightning Cat_0
-    - rid: 9182622263065706500
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Lightning Cat AC
-    - rid: 9182622263065706501
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Cat dad AC
-    - rid: 9182622263065706502
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Cat dad1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622263065706503
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Cat dad AP_9
-    - rid: 9182622263065706504
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 700
-        defense: 0
-        magicDefense: 0
-        atk: 100
-        atkRate: 1
-        magicAtk: 30
-        atkRange: {x: 2, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 1.8
-        repel: 3
-        side: 1
-        atkObj: Bullet-Cat dad
-        buildAnime: 
-    - rid: 9182622263065706505
+    - rid: 9182622310336036864
       type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
       data:
         objectType: 2
@@ -219,15 +104,15 @@ MonoBehaviour:
         side: 0
         atkObj: Bullet-Horrible monster
         buildAnime: 
-    - rid: 9182622263065706506
+    - rid: 9182622310336036865
       type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
       data:
         animatorControllerKey: Crystallized giant beast AC
-    - rid: 9182622263065706507
+    - rid: 9182622310336036866
       type: {class: StageTextureData, ns: , asm: CageFightRuntime}
       data:
         spriteKey: Crystallized giant beast_12
-    - rid: 9182622263065706508
+    - rid: 9182622310336036867
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
         audioKey1: Horrible monster1
@@ -238,14 +123,14 @@ MonoBehaviour:
         audioKey6: 
         audioKey7: 
         audioKey8: 
-    - rid: 9182622263065706509
+    - rid: 9182622310336036868
       type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
       data:
-        animatorControllerKey: Build Animation AC
-    - rid: 9182622263065706510
+        animatorControllerKey: Cat dad AC
+    - rid: 9182622310336036869
       type: {class: StageAudioData, ns: , asm: CageFightRuntime}
       data:
-        audioKey1: Build
+        audioKey1: Cat dad1
         audioKey2: 
         audioKey3: 
         audioKey4: 
@@ -253,7 +138,89 @@ MonoBehaviour:
         audioKey6: 
         audioKey7: 
         audioKey8: 
-    - rid: 9182622263065706511
+    - rid: 9182622310336036870
       type: {class: StageTextureData, ns: , asm: CageFightRuntime}
       data:
-        spriteKey: Build Animation_6
+        spriteKey: Cat dad AP_9
+    - rid: 9182622310336036871
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 700
+        defense: 0
+        magicDefense: 0
+        atk: 100
+        atkRate: 1
+        magicAtk: 30
+        atkRange: {x: 2, y: 2}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 1.8
+        repel: 3
+        side: 1
+        atkObj: Bullet-Cat dad
+        buildAnime: 
+    - rid: 9182622310336036872
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 2
+        maxHp: 500
+        defense: 0
+        magicDefense: 0
+        atk: 20
+        atkRate: 1
+        magicAtk: 10
+        atkRange: {x: 7, y: 4}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 2.3
+        repel: 2
+        side: 1
+        atkObj: 
+        buildAnime: 
+    - rid: 9182622310336036873
+      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
+      data:
+        audioKey1: Lightning Cat1
+        audioKey2: Lightning Cat2
+        audioKey3: 
+        audioKey4: 
+        audioKey5: 
+        audioKey6: 
+        audioKey7: 
+        audioKey8: 
+    - rid: 9182622310336036874
+      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
+      data:
+        spriteKey: Lightning Cat_0
+    - rid: 9182622310336036875
+      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
+      data:
+        animatorControllerKey: Lightning Cat AC
+    - rid: 9182622310336036876
+      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
+      data:
+        objectType: 0
+        maxHp: 100
+        defense: 10
+        magicDefense: 5
+        atk: 10
+        atkRate: 1
+        magicAtk: 5
+        atkRange: {x: 1, y: 1}
+        isRemoteAtk: 0
+        isFacingLeft: 0
+        occupySpace: {x: 1, y: 1}
+        barSustainTime: 2
+        buildTime: 3
+        moveSpeed: 3
+        repel: 1
+        side: 0
+        atkObj: 
+        buildAnime: 

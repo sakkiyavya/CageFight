@@ -17,6 +17,7 @@ public sealed class EngineerMenuPortrait : MonoBehaviour
 
     private void OnEnable()
     {
+        if (portrait) portrait.preserveAspect = true;
         if (loadout) loadout.Changed += Refresh;
         setupRoutine = StartCoroutine(SetupRoutine());
     }

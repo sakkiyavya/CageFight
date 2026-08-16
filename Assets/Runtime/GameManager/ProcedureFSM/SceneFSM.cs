@@ -87,6 +87,7 @@ public class SceneFSM : MonoBehaviour
         }
 
         CurrentStageConfig = stageConfig;
+        MenuAmbientAudio.NotifyBeginStage();
         LoadState(GameState.Loading);
     }
     #endregion

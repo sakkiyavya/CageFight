@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -51,6 +52,67 @@ public static class EngineerSpellCaster
             ? Mathf.Atan2(facing.y, facing.x) * Mathf.Rad2Deg
             : 0f;
 
+        if (definition.DeliveryType == SpellDeliveryType.DirectSpawn)
+        {
+            GameObject castAnimation = resourceManager.GetGameObject("Cast spell");
+            if (!castAnimation)
+            {
+                Debug.LogError("[EngineerSpellCaster] Cast spell 前摇预制体未预加载。", caster);
+                return false;
+            }
+
+            caster.StartCoroutine(CastDirectAfterAnimation(
+                castAnimation, castPrefab, caster, definition, target, angle));
+            return true;
+        }
+
+        return SpawnInstance(pool, castPrefab, caster, definition, target, fromEngineer, angle);
+    }
+
+    private static IEnumerator CastDirectAfterAnimation(
+        GameObject animationPrefab,
+        GameObject spellPrefab,
+        EngineerController caster,
+        SpellDefinition definition,
+        Vector3 target,
+        float angle)
+    {
+        GameObjectPool pool = GameObjectPool.Instance;
+        if (!pool) yield break;
+
+        GameObject animation = pool.Get(animationPrefab);
+        if (!animation) yield break;
+        animation.transform.SetPositionAndRotation(target, Quaternion.Euler(0f, 0f, angle));
+        SpriteRenderer castRenderer = animation.GetComponent<SpriteRenderer>();
+        SpriteRenderer casterRenderer = caster.GetComponentInChildren<SpriteRenderer>();
+        if (castRenderer && casterRenderer)
+        {
+            castRenderer.sortingLayerID = casterRenderer.sortingLayerID;
+            castRenderer.sortingOrder = casterRenderer.sortingOrder + 1;
+        }
+        Animator animator = animation.GetComponent<Animator>();
+        if (animator)
+        {
+            animator.Rebind();
+            animator.Play(0, 0, 0f);
+        }
+
+        yield return new WaitForSeconds(definition.DirectCastTime);
+        pool.Release(animation);
+
+        if (caster && GameObjectPool.Instance)
+            SpawnInstance(GameObjectPool.Instance, spellPrefab, caster, definition, target, true, angle);
+    }
+
+    private static bool SpawnInstance(
+        GameObjectPool pool,
+        GameObject castPrefab,
+        EngineerController caster,
+        SpellDefinition definition,
+        Vector3 target,
+        bool fromEngineer,
+        float angle)
+    {
         GameObject instance = pool.Get(castPrefab);
         if (!instance) return false;
 

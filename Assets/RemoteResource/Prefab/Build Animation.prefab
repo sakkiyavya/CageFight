@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6348386649722691560}
   - component: {fileID: 5963255298124029129}
   - component: {fileID: -5353695066962552965}
+  - component: {fileID: 7562419036178429501}
   - component: {fileID: 3778636200801009444}
   - component: {fileID: -7277101641588454679}
   - component: {fileID: 6223836606815153620}
@@ -219,6 +220,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50b7439775efd343b6985bec3fbc186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7562419036178429501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926670886179881280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d49988eb09b0124bae402f398f1ba43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 0
+  side: 0
+  maxHp: 100
+  defense: 10
+  magicDefense: 5
+  isRemoteAtk: 0
+  atk: 10
+  atkRate: 1
+  magicAtk: 5
+  repel: 1
+  antiRepel: 1
+  atkRange: {x: 1, y: 1}
+  atkObj: 
+  barSustainTime: 2
+  buildTime: 3
+  moveSpeed: 3
+  target: {fileID: 0}
+  path: []
+  isFacingLeft: 0
+  isAttack: 0
+  isRepel: 0
+  repelDistance: 0
+  audioClips: []
+  atkRangeMin: {x: 0, y: 0}
+  atkRangeMax: {x: 0, y: 0}
+  occupySpace: {x: 1, y: 1}
+  buildAnime: 
 --- !u!114 &3778636200801009444
 MonoBehaviour:
   m_ObjectHideFlags: 0
