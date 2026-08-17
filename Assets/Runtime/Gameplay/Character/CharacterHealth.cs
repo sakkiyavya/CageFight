@@ -406,7 +406,7 @@ public class CharacterHealth : MonoBehaviour, ICollide
         transform.rotation = startRotation;
         transform.localScale = startScale;
         _deathEffectCoroutine = null;
-        RespawnAfterDeath(startPosition, startRotation, startScale);
+        // RespawnAfterDeath(startPosition, startRotation, startScale);
     }
 
     /// <summary>
