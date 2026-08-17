@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &984110085825572842
 GameObject:
@@ -184,7 +184,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.29971695, y: 1.1355338}
@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d49988eb09b0124bae402f398f1ba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 0
+  objectType: 2
   side: 0
   maxHp: 180
   defense: 0
@@ -333,12 +333,16 @@ MonoBehaviour:
   antiRepel: 1
   atkRange: {x: 3, y: 2}
   atkObj: Bullet-Three hand
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
   suckBlood: 0
   currentHp: 0
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -471,7 +475,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -825,3 +829,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1405032498280354926, guid: 05d8b304555cd294abe3379eb112d58e, type: 3}
   m_PrefabInstance: {fileID: 9042063599828768778}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-910000000000000005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8850474179155679477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee490820527261144b98c41153ab9c70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

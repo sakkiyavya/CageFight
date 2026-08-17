@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
 OcclusionCullingSettings:
@@ -1448,7 +1448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &73139056
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2981,7 +2981,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &173494129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5638,7 +5638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coins: 0
-  coinPerSec: 10
+  coinPerSec: 500
 --- !u!1 &363050020
 GameObject:
   m_ObjectHideFlags: 0
@@ -26447,7 +26447,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1605951559
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31516,6 +31516,23 @@ MonoBehaviour:
   animatorControllerRegistry: {fileID: 0}
   spriteRegistry: {fileID: 0}
   loadoutDefinitionRegistry: {fileID: 0}
+  commonPrefabs:
+  - Build Animation
+  - Cast spell
+  - Bullet-Arrow
+  commonAudios:
+  - Build
+  - UP
+  - UI Click
+  - Arrow-Shoot
+  persistentAudios:
+  - UI Click
+  - Cage door
+  - Begin
+  commonAnimatorControllers:
+  - Build Animation AC
+  commonSprites:
+  - Build Animation_6
   _spriteKeys: []
 --- !u!1 &2021071324
 GameObject:
@@ -31820,7 +31837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2050327715
 MonoBehaviour:
   m_ObjectHideFlags: 0

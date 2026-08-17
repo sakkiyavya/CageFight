@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class DecadentDebuff : BuffBase
@@ -146,8 +146,8 @@ class DecadentState : MonoBehaviour
             );
 
         /*
-         * ÏÈ»¹Ô­ÉÏÒ»´ÎÓÉ±¾Debuff¿Û³ıµÄ¹¥»÷Á¦£¬
-         * ÔÙÓ¦ÓÃµ±Ç°²ãÊı¶ÔÓ¦µÄÏ÷Èõ¡£
+         * å…ˆè¿˜åŸä¸Šä¸€æ¬¡ç”±æœ¬Debuffæ‰£é™¤çš„æ”»å‡»åŠ›ï¼Œ
+         * å†åº”ç”¨å½“å‰å±‚æ•°å¯¹åº”çš„å‰Šå¼±ã€‚
          */
         prop.atk += appliedAttackReduction;
         prop.atk -= newReduction;
@@ -165,8 +165,8 @@ class DecadentState : MonoBehaviour
             );
 
         /*
-         * 8% + 7% + 6%¡­¡­
-         * 8²ãÊ±×Ü¼Æ36%¡£
+         * 8% + 7% + 6%â€¦â€¦
+         * 8å±‚æ—¶æ€»è®¡36%ã€‚
          */
         return
             0.08f * effectiveLayers

@@ -1,18 +1,18 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 public class AttackShieldUnit : MonoBehaviour
 {
-    [Header("»¤¶ÜÊôĞÔ")]
+    [Header("æŠ¤ç›¾å±æ€§")]
     [Range(0.01f, 1f)]
     public float shieldHpPercent = 0.1f;
 
     [Min(0.1f)]
     public float shieldDuration = 10f;
 
-    [Header("»¤¶ÜÍâ¹Û")]
+    [Header("æŠ¤ç›¾å¤–è§‚")]
     [Min(0.1f)]
     public float shieldSize = 1.5f;
 
@@ -67,7 +67,7 @@ public class AttackShieldUnit : MonoBehaviour
 
     private void Update()
     {
-        // ¼´Ê¹¹¥»÷¶¯»­Ã»ÓĞµ÷ÓÃOnAtt£¬Ò²ÄÜ¼ì²â¹¥»÷×´Ì¬¡£
+        // å³ä½¿æ”»å‡»åŠ¨ç”»æ²¡æœ‰è°ƒç”¨OnAttï¼Œä¹Ÿèƒ½æ£€æµ‹æ”»å‡»çŠ¶æ€ã€‚
         if (prop.isAttack && !wasAttacking)
             OnAttack();
 
@@ -88,7 +88,7 @@ public class AttackShieldUnit : MonoBehaviour
             return;
         }
 
-        // ÇáÎ¢ºôÎüĞ§¹û¡£
+        // è½»å¾®å‘¼å¸æ•ˆæœã€‚
         float pulse =
             1f + Mathf.Sin(Time.time * 4f) * 0.05f;
 
@@ -143,9 +143,9 @@ public class AttackShieldUnit : MonoBehaviour
         shieldHp -= absorbedDamage;
 
         /*
-         * OnHittedÔÚÕıÊ½¿ÛÑªÖ®Ç°Ö´ĞĞ¡£
-         * ÌáÇ°Ôö¼Ó¼´½«±»»¤¶ÜÎüÊÕµÄÉúÃüÖµ£¬
-         * ËæºóµÄTakeDamage»á½«Æä¿Û³ı¡£
+         * OnHittedåœ¨æ­£å¼æ‰£è¡€ä¹‹å‰æ‰§è¡Œã€‚
+         * æå‰å¢åŠ å³å°†è¢«æŠ¤ç›¾å¸æ”¶çš„ç”Ÿå‘½å€¼ï¼Œ
+         * éšåçš„TakeDamageä¼šå°†å…¶æ‰£é™¤ã€‚
          */
         prop.currentHp += absorbedDamage;
 
@@ -181,7 +181,7 @@ public class AttackShieldUnit : MonoBehaviour
             if (damage.source != gameObject)
                 return;
 
-            // È·ÈÏ¹¥»÷ÃüÖĞºó£¬ÈÃµĞÈËËø¶¨±¾µ¥Î»¡£
+            // ç¡®è®¤æ”»å‡»å‘½ä¸­åï¼Œè®©æ•Œäººé”å®šæœ¬å•ä½ã€‚
             if (!targetProp.isDead)
                 targetProp.target = gameObject;
 
@@ -305,7 +305,7 @@ public class AttackShieldUnit : MonoBehaviour
 
                 if (distance <= 1f)
                 {
-                    // ÄÚ²¿Í¸Ã÷£¬±ßÔµÃ÷ÁÁ¡£
+                    // å†…éƒ¨é€æ˜ï¼Œè¾¹ç¼˜æ˜äº®ã€‚
                     alpha = distance >= 0.82f
                         ? 0.65f
                         : 0.13f;

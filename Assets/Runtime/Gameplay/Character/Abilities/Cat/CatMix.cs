@@ -1,4 +1,4 @@
-using UnityEngine;
+锘縰sing UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 [RequireComponent(typeof(CharacterHealth))]
@@ -53,7 +53,7 @@ public class CatMix : MonoBehaviour
                 continue;
             }
 
-            // 防止同一单位的多个碰撞体重复扣血
+            // 闃叉鍚屼竴鍗曚綅鐨勫涓鎾炰綋閲嶅鎵ｈ
             bool repeated = false;
 
             for (int j = 0; j < i; j++)

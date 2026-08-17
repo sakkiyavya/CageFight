@@ -57,10 +57,15 @@ MonoBehaviour:
     type: 0
     source: {fileID: 0}
     target: {fileID: 0}
+    buffs: []
   target: {fileID: 0}
   sustainTime: 2
   collideTimes: 1
-  hasSubProjectile: 0
+  hasSubProjectile: 1
+  hitSoundKey: Hit
+  hitAudio: {fileID: 0}
+  hitVolume: 1
+  hitPriority: 32
 --- !u!61 &4836311623640409577
 BoxCollider2D:
   m_ObjectHideFlags: 0

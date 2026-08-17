@@ -1,14 +1,14 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class MinerRatScript : MonoBehaviour
 {
-    // ¹©¶¯»­ÊÂ¼þµ÷ÓÃ¡£
+    // ä¾›åŠ¨ç”»äº‹ä»¶è°ƒç”¨ã€‚
     public void GainCoin()
     {
         if (Coins.Instance == null)
         {
             Debug.LogWarning(
-                "³¡¾°ÖÐÃ»ÓÐÕÒµ½ Coins ×é¼þ¡£",
+                "åœºæ™¯ä¸­æ²¡æœ‰æ‰¾åˆ° Coins ç»„ä»¶ã€‚",
                 this
             );
 

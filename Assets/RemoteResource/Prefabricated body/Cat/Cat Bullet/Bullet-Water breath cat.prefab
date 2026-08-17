@@ -62,6 +62,10 @@ MonoBehaviour:
   sustainTime: 0.2
   collideTimes: 3
   hasSubProjectile: 0
+  hitSoundKey: Hit
+  hitAudio: {fileID: 0}
+  hitVolume: 1
+  hitPriority: 32
 --- !u!61 &725445610784549122
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -147,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buffApplyTime: 0
-  duration: 2
+  duration: 5
 --- !u!114 &587390564511513520
 MonoBehaviour:
   m_ObjectHideFlags: 0

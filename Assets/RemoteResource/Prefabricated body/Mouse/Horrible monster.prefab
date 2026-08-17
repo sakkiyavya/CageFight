@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: -5036390420243304802}
   - component: {fileID: -5995585687975063877}
   - component: {fileID: -4124089214405386860}
+  - component: {fileID: -6190366511275424016}
   m_Layer: 0
   m_Name: Horrible monster
   m_TagString: Untagged
@@ -281,12 +282,16 @@ MonoBehaviour:
   antiRepel: 10
   atkRange: {x: 4, y: 2}
   atkObj: Bullet-Horrible monster
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 1.6
   suckBlood: 0
   currentHp: 30000
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -585,6 +590,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.5
+--- !u!114 &-6190366511275424016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016457220928666952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42bb9ea1dd14ae84e861046924cb3f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killMaxHpPercent: 0.01
+  deathDeductPercent: 0.2
+  crystalDuration: 4
+  healDuration: 3
+  crystalSprite: {fileID: -136548048, guid: b19686a3811bb874b8d52dd1455257a3, type: 3}
+  crystalScale: 1
+  crystalOffset: {x: 0, y: 0}
+  preciseDuration: 10
+  traumaDuration: 5
+  immuneBuff: {fileID: 0}
 --- !u!1 &6846461848895319480
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 public class BabaDoctorC1Script : MonoBehaviour, IProjectileImpactHandler
@@ -10,7 +10,7 @@ public class BabaDoctorC1Script : MonoBehaviour, IProjectileImpactHandler
 
     private GameObjectProperty prop;
 
-    // ¹Ì¶¨»º´æ£¬±ÜÃâ±¬Õ¨Ê±´´½¨ĞÂÊı×é
+    // å›ºå®šç¼“å­˜ï¼Œé¿å…çˆ†ç‚¸æ—¶åˆ›å»ºæ–°æ•°ç»„
     private readonly Collider2D[] hitBuffer =
         new Collider2D[32];
 
@@ -22,7 +22,7 @@ public class BabaDoctorC1Script : MonoBehaviour, IProjectileImpactHandler
             shootPoint = transform.Find("ShootPoint");
     }
 
-    // ¹¥»÷¶¯»­µ÷ÓÃ
+    // æ”»å‡»åŠ¨ç”»è°ƒç”¨
     public void BabaShoot()
     {
         if (prop.target == null ||
@@ -76,7 +76,7 @@ public class BabaDoctorC1Script : MonoBehaviour, IProjectileImpactHandler
         prop.OnAtt?.Invoke();
     }
 
-    // µ¯Ä»±¬Õ¨ÉËº¦Ö¡×Ô¶¯µ÷ÓÃ
+    // å¼¹å¹•çˆ†ç‚¸ä¼¤å®³å¸§è‡ªåŠ¨è°ƒç”¨
     public void OnProjectileDamageTriggered(
         Vector3 explosionPosition)
     {
@@ -101,7 +101,7 @@ public class BabaDoctorC1Script : MonoBehaviour, IProjectileImpactHandler
             if (target == null)
                 continue;
 
-            // ÒÑ¾§»¯µÄµ¥Î»Ö»Ë¢ĞÂÊ±¼ä
+            // å·²æ™¶åŒ–çš„å•ä½åªåˆ·æ–°æ—¶é—´
             if (!crystallization.ApplyBuff(target))
                 continue;
 

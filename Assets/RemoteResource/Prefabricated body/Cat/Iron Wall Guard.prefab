@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: -5824415767754880854}
   - component: {fileID: 5229510731798114537}
   - component: {fileID: 659846522363999158}
+  - component: {fileID: 3174869502388151195}
   m_Layer: 0
   m_Name: Iron Wall Guard
   m_TagString: Untagged
@@ -380,12 +381,23 @@ MonoBehaviour:
   antiRepel: 2.5
   atkRange: {x: 2, y: 2}
   atkObj: Bullet-Iron Wall Guard
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
+  armor: 0
+  damageReduction: 0
+  blockHits: 0
+  repelTakenMultiplier: 1
+  healTakenMultiplier: 1
+  missChance: 0
+  baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2.1
   suckBlood: 0
   currentHp: 4000
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -393,8 +405,8 @@ MonoBehaviour:
   isRepel: 0
   repelDistance: 0
   audioClips: []
-  atkRangeMin: {x: -2147483648, y: -2147483648}
-  atkRangeMax: {x: -2147483647, y: -2147483647}
+  atkRangeMin: {x: 0, y: 0}
+  atkRangeMax: {x: 1, y: 1}
   currentBuff: []
   currentDebuff: []
   occupySpace: {x: 1, y: 1}
@@ -530,6 +542,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &3174869502388151195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9006477454360014554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbeab8de3d0203c449101f64b8cce2dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  applyInterval: 1.5
+  layersPerApply: 1
+  layerDuration: 3
+  shieldSprite: {fileID: 1851721610, guid: 07b80be6bcb8981448788eea289870be, type: 3}
+  shieldSpriteKey: State1 AP_32
 --- !u!1001 &1149594688318085660
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class CrystallizationDebuff : BuffBase
 {
     [SerializeField] private float duration = 5f;
 
-    [Header("Ë®¾§Í¼Æ¬")]
+    [Header("æ°´æ™¶å›¾ç‰‡")]
     [SerializeField] private Sprite crystalTexture;
 
     [SerializeField, Min(0.01f)]
@@ -92,7 +92,7 @@ class CrystallizationState : MonoBehaviour
         source = buff;
         expireTime = Time.time + duration;
 
-        // ÖØ¸´Ê©¼ÓÖ»Ë¢ĞÂÊ±¼ä
+        // é‡å¤æ–½åŠ åªåˆ·æ–°æ—¶é—´
         if (active)
             return;
 
@@ -131,11 +131,11 @@ class CrystallizationState : MonoBehaviour
             false
         );
 
-        // ±£³ÖÔ­±ÈÀı£¬²»ÔÙ×Ô¶¯À­Éì
+        // ä¿æŒåŸæ¯”ä¾‹ï¼Œä¸å†è‡ªåŠ¨æ‹‰ä¼¸
         child.transform.localScale =
             Vector3.one * scale;
 
-        // µ÷ÕûÉÏÏÂ×óÓÒÎ»ÖÃ
+        // è°ƒæ•´ä¸Šä¸‹å·¦å³ä½ç½®
         child.transform.localPosition =
             new Vector3(
                 offset.x,
@@ -165,7 +165,7 @@ class CrystallizationState : MonoBehaviour
         if (crystal == null)
             return;
 
-        // Ë®¾§Í¼Æ¬ºôÎü
+        // æ°´æ™¶å›¾ç‰‡å‘¼å¸
         Color color =
             new Color(
                 0.6f,
@@ -184,7 +184,7 @@ class CrystallizationState : MonoBehaviour
 
     private void ReduceDamage(Damage damage)
     {
-        // Ä§·¨ÉËº¦²»ÏíÊÜ¼õÉË
+        // é­”æ³•ä¼¤å®³ä¸äº«å—å‡ä¼¤
         if (damage.type == DamageType.magic)
             return;
 

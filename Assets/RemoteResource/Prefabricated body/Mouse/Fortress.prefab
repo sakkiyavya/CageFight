@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d49988eb09b0124bae402f398f1ba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: -1
+  objectType: 2
   side: 0
   maxHp: 2800
   defense: 0
@@ -152,12 +152,16 @@ MonoBehaviour:
   antiRepel: 9
   atkRange: {x: 11, y: 6}
   atkObj: Bullet-fortress
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 1
   suckBlood: 0
   currentHp: 100
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -986,3 +990,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1266970144911561522, guid: befdb84e27fced9488bc5fdf6a2acbd2, type: 3}
   m_PrefabInstance: {fileID: 7944510064352093955}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-910000000000000007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4308048129856704459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b42d9a79be276444af1b4307acdd2d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

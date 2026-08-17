@@ -30,6 +30,18 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     [ResourceKey(typeof(GameObject))]
     public string atkObj;                                          // 攻击投射物预制体的资源键。
 
+    [Header("战斗修正（由 Buff 管理，默认无修正）")]
+    public float damageMultiplier = 1f;                            // 造成的伤害倍率（如愤怒增伤）。
+    public float damageTakenMultiplier = 1f;                       // 受到的伤害倍率（如愤怒受伤增加）。
+    public float critChance = 0f;                                  // 造成 200% 伤害的概率（如愤怒暴击）。
+    public int armor = 0;                                          // 免伤值（护甲 Buff 管理，伤害结算时直接扣除）。
+    public float damageReduction = 0f;                             // 最终伤害减免比例 0~1（勇气 Buff 管理，结算最后乘算）。
+    public int blockHits = 0;                                      // 剩余格挡次数（坚毅 Buff 管理，受伤时伤害变 1 且免疫击退并消耗一层）。
+    public float repelTakenMultiplier = 1f;                        // 受到击退的倍率（重伤 Buff 管理，默认 1，受伤结算时乘算）。
+    public float healTakenMultiplier = 1f;                        // 受到治疗的倍率（重伤 Buff 管理，默认 1，治疗结算时乘算）。
+    public float missChance = 0f;                                 // 未命中率 0~1（当前值，含基础值与目盲 Buff 叠加，攻击结算时掷骰落空）。
+    public float baseMissChance = 0f;                             // 基础未命中率（静态配置，如 Cat dad 50%；运行时重置回此值，目盲 Buff 叠加时保底）。
+
     [Header("额外属性")]
     public float barSustainTime = 2f;                              // 受伤或治疗后血条保持显示的时间。
     public float buildTime = 3f;                                   // 建筑从开工到完成的时间。
@@ -115,6 +127,15 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
         repelInitialized = false;
         currentBuff.Clear();
         currentDebuff.Clear();
+        damageMultiplier = 1f;
+        damageTakenMultiplier = 1f;
+        critChance = 0f;
+        armor = 0;
+        damageReduction = 0f;
+        blockHits = 0;
+        repelTakenMultiplier = 1f;
+        healTakenMultiplier = 1f;
+        missChance = baseMissChance;
         currentPathSession = null;
         currentScanSession = null;
     }

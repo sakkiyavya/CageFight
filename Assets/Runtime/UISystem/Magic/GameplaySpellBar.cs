@@ -24,9 +24,12 @@ public sealed class GameplaySpellBar : MonoBehaviour
     [SerializeField] private int aimSortingOrder = 32760;
     [SerializeField] private Camera worldCamera;
     [SerializeField, Range(8, 48)] private int arcPointCount = 24;
+    [SerializeField, Tooltip("拖拽瞄准取消区（右上角 Set UI-3）；拖入该矩形区域后抬起即取消施法。仅拖拽瞄准期间显示，其余时间隐藏")]
+    private RectTransform cancelZone;
 
     private readonly float[] readyTimes = new float[3];
     private Vector3 aimPoint;
+    private bool cancelRequested;                                           // 当前指针是否位于取消区内。
     private Material aimPreviewInstance;
     private Vector2 aimTextureOffset;
     private RenderTexture aimTextureCrop;
@@ -124,12 +127,15 @@ public sealed class GameplaySpellBar : MonoBehaviour
         readyTimes[slot] = Time.time + spell.Cooldown;
     }
 
-    /// <summary>开始拖拽瞄准；调用方应在指针按下时调用。</summary>
+    /// <summary>开始拖拽瞄准；调用方应在指针按下时调用。进入瞄准即显示取消区。</summary>
     public bool BeginAim(int slot, Vector2 screenPoint)
     {
         if (!CanCast(slot, out EngineerController engineer, out SpellDefinition spell) ||
             !spell.DragAim || !worldCamera)
             return false;
+
+        cancelRequested = false;
+        SetCancelZoneVisible(true);
 
         if (aimPreview)
         {
@@ -142,9 +148,23 @@ public sealed class GameplaySpellBar : MonoBehaviour
         return true;
     }
 
-    /// <summary>更新拖拽落点和预先配置的抛物线预览。</summary>
+    /// <summary>
+    /// 更新拖拽落点和预先配置的抛物线预览。
+    /// 指针进入取消区时隐藏瞄准表现并进入取消状态；移出取消区时恢复瞄准。
+    /// </summary>
     public void UpdateAim(int slot, Vector2 screenPoint)
     {
+        cancelRequested = IsInCancelZone(screenPoint);
+        if (cancelRequested)
+        {
+            HideAimPreview();
+            return;
+        }
+
+        // 从取消区拖出时恢复瞄准表现。
+        if (aimPreview) aimPreview.enabled = true;
+        if (aimStripPreview) aimStripPreview.enabled = true;
+
         if (!TryGetSpell(slot, out SpellDefinition spell) || !worldCamera ||
             !EngineerController.Active)
             return;
@@ -173,17 +193,51 @@ public sealed class GameplaySpellBar : MonoBehaviour
         }
     }
 
-    /// <summary>结束拖拽并向当前落点施法；调用方应在指针抬起时调用。</summary>
+    /// <summary>
+    /// 结束拖拽：指针在取消区内抬起则取消施法（不进入冷却）；
+    /// 否则向当前落点施法。结束后隐藏取消区。调用方应在指针抬起时调用。
+    /// </summary>
     public void ReleaseAim(int slot)
     {
         HideAimPreview();
+        SetCancelZoneVisible(false);
+        if (cancelRequested)
+        {
+            cancelRequested = false;
+            return;
+        }
         if (!CanCast(slot, out EngineerController engineer, out SpellDefinition spell)) return;
         if (!EngineerSpellCaster.Cast(spell, engineer, aimPoint)) return;
         readyTimes[slot] = Time.time + spell.Cooldown;
     }
 
-    /// <summary>中断当前瞄准表现，不触发施法。</summary>
-    public void CancelAim() => HideAimPreview();
+    /// <summary>中断当前瞄准表现并隐藏取消区，不触发施法。</summary>
+    public void CancelAim()
+    {
+        cancelRequested = false;
+        SetCancelZoneVisible(false);
+        HideAimPreview();
+    }
+
+    /// <summary>
+    /// 切换取消区的显示状态；仅在拖拽瞄准期间可见，其余时间隐藏。
+    /// </summary>
+    private void SetCancelZoneVisible(bool visible)
+    {
+        if (cancelZone != null && cancelZone.gameObject != null)
+            cancelZone.gameObject.SetActive(visible);
+    }
+
+    /// <summary>
+    /// 判断屏幕坐标是否位于取消区内；未配置取消区时始终返回 false。
+    /// </summary>
+    private bool IsInCancelZone(Vector2 screenPoint)
+    {
+        if (cancelZone == null)
+            return false;
+
+        return RectTransformUtility.RectangleContainsScreenPoint(cancelZone, screenPoint);
+    }
 
     /// <summary>根据当前选择和资源缓存刷新三格图标。</summary>
     public void RefreshIcons()

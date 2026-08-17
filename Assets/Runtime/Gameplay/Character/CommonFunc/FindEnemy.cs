@@ -3,10 +3,18 @@ using UnityEngine;
 
 public class FindEnemy : BehaviourBase
 {
+    [SerializeField] private bool excludeBuildings;                                                                                                               // 索敌时排除建筑（如 Cat addict 不可攻击建筑）。
     private List<GameObjectProperty> _enemiesCache = new List<GameObjectProperty>();                                                                          // 本轮扫描筛选出的敌方目标。
     private Vector2Int _myPos;                                                                                                                                // 执行者用于距离排序的网格坐标。
 
     #region 公开接口
+    /// <summary>
+    /// 设置索敌是否排除建筑（供运行时的单位机制按需配置）。
+    /// </summary>
+    public void SetExcludeBuildings(bool value)
+    {
+        excludeBuildings = value;
+    }
     /// <summary>
     /// 在角色没有目标时创建或继续分帧全图扫描；扫描完成后筛选敌方对象并选择近距离目标。
     /// </summary>
@@ -74,7 +82,8 @@ public class FindEnemy : BehaviourBase
 
             if (otherProp.side != prop.side &&
                 !otherProp.isDead &&
-                !otherProp.isUntargetable)
+                !otherProp.isUntargetable &&
+                (!excludeBuildings || (otherProp.objectType & GameObjectType.Building) == 0))
             {
                 _enemiesCache.Add(otherProp);
             }

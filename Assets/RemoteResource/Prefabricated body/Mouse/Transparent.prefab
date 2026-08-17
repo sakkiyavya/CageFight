@@ -227,12 +227,16 @@ MonoBehaviour:
   antiRepel: 1
   atkRange: {x: 1, y: 2}
   atkObj: Bullet-Transparent
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2
   suckBlood: 0
   currentHp: 0
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0

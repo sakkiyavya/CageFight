@@ -63,14 +63,24 @@ public class CharacterAI : MonoBehaviour
 
     /// <summary>
     /// 按顺序执行 AI 行为，首个返回成功的行为会阻止后续行为；
+    /// 畏惧（FearState 激活）时跳过全部索敌/寻路/攻击行为，改为随机乱跑；
     /// 完成后将攻击状态同步到 Animator。
     /// </summary>
     protected virtual void AIBehaviour()
     {
-        foreach (var behaviour in Behaviours)
+        FearState fear = GetComponent<FearState>();
+        if (fear != null && fear.IsActive)
         {
-            if(behaviour.AIBehaviour(gameObject, _prop, _health))
-                break;
+            // 畏惧：停止索敌与攻击，随机乱跑直到状态结束。
+            fear.DoFearMove(gameObject, _prop, _health);
+        }
+        else
+        {
+            foreach (var behaviour in Behaviours)
+            {
+                if(behaviour.AIBehaviour(gameObject, _prop, _health))
+                    break;
+            }
         }
         if(_animator)
             _animator.SetBool("IsAtt", _prop.isAttack);
@@ -125,6 +135,11 @@ public class CharacterAI : MonoBehaviour
                 ds.target = _prop.target;
                 ds.damage.type = DamageType.normal;
             }
+
+            // 若生成的对象是召唤单位（实现 ISummonedUnit），把攻击者注入为创造者。
+            ISummonedUnit summoned = projectile.GetComponent<ISummonedUnit>();
+            if (summoned != null)
+                summoned.SetCreator(gameObject);
         }
 
         _prop.OnAtt?.Invoke();

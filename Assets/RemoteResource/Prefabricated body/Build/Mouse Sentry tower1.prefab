@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 3019190647681436227}
   - component: {fileID: 2991682355288395854}
   - component: {fileID: -337167485877599616}
+  - component: {fileID: 5781234501234567890}
   m_Layer: 0
   m_Name: Mouse Sentry tower1
   m_TagString: Untagged
@@ -320,8 +321,8 @@ MonoBehaviour:
   magicAtk: 0
   repel: 1
   antiRepel: 1
-  atkRange: {x: 1, y: 1}
-  atkObj: 
+  atkRange: {x: 20, y: 10}
+  atkObj: Bullet-Arrow
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
@@ -428,17 +429,17 @@ MonoBehaviour:
   - sprite: {fileID: -471742703, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
     maxHp: 1400
     attack: 40
-    attackRange: {x: 0, y: 0}
+    attackRange: {x: 20, y: 10}
     cost: 1200
   - sprite: {fileID: -1148193463, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
     maxHp: 1900
     attack: 50
-    attackRange: {x: 0, y: 0}
+    attackRange: {x: 20, y: 10}
     cost: 500
   - sprite: {fileID: -1651579008, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
     maxHp: 2600
     attack: 70
-    attackRange: {x: 0, y: 0}
+    attackRange: {x: 20, y: 10}
     cost: 800
   upgradeMark: {fileID: 1137238724567431102}
   coinIcon: {fileID: 7352397644895291499}
@@ -679,3 +680,19 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2150188761146788317, guid: 24696c1a62c1c7c40959b83f66361f09, type: 3}
   m_PrefabInstance: {fileID: 8926125653331673526}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5781234501234567890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4528404349138767949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 600d530661d24d90990a93427bc88d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootPoint: {fileID: 1684777745508249931}
+  shakeAngle: 4
+  shakeDuration: 0.25
+  shakeWaves: 2.5

@@ -1,18 +1,18 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 [RequireComponent(typeof(CharacterHealth))]
 public class DaiDaiScript : MonoBehaviour
 {
-    [Header("ÃâËÀºóÍ¼Æ¬")]
+    [Header("å…æ­»åå›¾ç‰‡")]
     [SerializeField] private Sprite replacementSprite;
     [SerializeField] private SpriteRenderer targetRenderer;
 
-    [Tooltip("(1,1)Æ¥ÅäÔ­Í¼Æ¬´óĞ¡£¬(0.5,0.5)ËõĞ¡Ò»°ë")]
+    [Tooltip("(1,1)åŒ¹é…åŸå›¾ç‰‡å¤§å°ï¼Œ(0.5,0.5)ç¼©å°ä¸€åŠ")]
     [SerializeField] private Vector2 replacementSize = Vector2.one;
 
-    [Header("ÉèÖÃ")]
+    [Header("è®¾ç½®")]
     [SerializeField, Min(0.1f)] private float deathDelay = 10f;
 
     [SerializeField, Range(0f, 1f)]
@@ -100,8 +100,8 @@ public class DaiDaiScript : MonoBehaviour
             );
 
         /*
-         * OnHittedÔÚÕıÊ½¿ÛÑªÇ°´¥·¢£¬
-         * ËùÒÔÌáÇ°²¹ÉÏ¼´½«ÊÜµ½µÄÉËº¦¡£
+         * OnHittedåœ¨æ­£å¼æ‰£è¡€å‰è§¦å‘ï¼Œ
+         * æ‰€ä»¥æå‰è¡¥ä¸Šå³å°†å—åˆ°çš„ä¼¤å®³ã€‚
          */
         prop.currentHp =
             restoredHp + incomingDamage;
@@ -137,8 +137,8 @@ public class DaiDaiScript : MonoBehaviour
         targetRenderer.sprite = replacementSprite;
 
         /*
-         * ¸ù¾İÔ­Í¼Æ¬ºÍÌæ»»Í¼Æ¬µÄÊµ¼Ê³ß´ç£¬
-         * ×Ô¶¯¼ÆËã½Ó½üÔ­½ÇÉ«µÄÏÔÊ¾´óĞ¡¡£
+         * æ ¹æ®åŸå›¾ç‰‡å’Œæ›¿æ¢å›¾ç‰‡çš„å®é™…å°ºå¯¸ï¼Œ
+         * è‡ªåŠ¨è®¡ç®—æ¥è¿‘åŸè§’è‰²çš„æ˜¾ç¤ºå¤§å°ã€‚
          */
         if (originalSprite != null)
         {

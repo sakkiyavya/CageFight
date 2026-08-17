@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class CharacterHealth : MonoBehaviour, ICollide
 
     public int HP => _prop != null ? _prop.currentHp : 0;                                               // 当前生命值的安全只读访问器。
     // IStageComponent removed; data handled by GameObjectProperty
+    /// <summary>单位死亡时触发，参数为死亡单位；供死亡表现、掉落等扩展订阅。</summary>
+    public event Action<GameObject> Died;
     public GameObject HpBarUp;                                                                          // 通过横向缩放显示剩余生命的前景条。
     public GameObject HpBarBottom;                                                                      // 血条背景对象。
     private float hitFlashDuration = 0.3f;                                                              // 受击红色闪烁持续时间。
@@ -102,9 +105,20 @@ public class CharacterHealth : MonoBehaviour, ICollide
             return damage;
 
         if(damage.buffs != null && damage.buffs.Count() > 0)
+        {
+            IDebuffConverter converter = GetComponent<IDebuffConverter>();
+            IBuffImmunity immunity = GetComponent<IBuffImmunity>();
             foreach(var buff in damage.buffs)
             {
-                if(!buff.ApplyBuff(_prop))
+                // 目标免疫该 Buff 时直接忽略。
+                if (immunity != null && immunity.IsImmuneTo(buff))
+                    continue;
+
+                // 目标实现了减益转化器时，减益交由转化器处理（如转化为自身增益），原减益不再施加。
+                if (buff.isDeBuff && converter != null && converter.ConvertDebuff(buff))
+                    continue;
+
+                if(!buff.ApplyBuff(_prop, damage))
                     continue;
                 buff.buffApplyTime = Time.time;
                 if(buff.isDeBuff)
@@ -112,6 +126,7 @@ public class CharacterHealth : MonoBehaviour, ICollide
                 else 
                     _prop.currentBuff.Add(buff);
             }
+        }
 
         
         _prop.OnHitted?.Invoke(damage);
@@ -128,7 +143,9 @@ public class CharacterHealth : MonoBehaviour, ICollide
     }
 
     /// <summary>
-    /// 到达预定隐藏时间时关闭血条并清除计时状态。
+    /// 到达预定隐藏时间时关闭血条并清除计时状态；
+    /// 生物单位血量降到 30% 以下时自动获得“重伤”状态（状态组件不存在时创建，
+    /// 效果与解除由重伤状态自身管理；阈值与 HeavyWoundState 的 lowHpPercent 默认一致）。
     /// </summary>
     private void Update()
     {
@@ -136,6 +153,13 @@ public class CharacterHealth : MonoBehaviour, ICollide
         {
             SetBarActive(false);
             hideTime = -1f;
+        }
+
+        if (_prop != null && _prop.maxHp > 0 &&
+            _prop.currentHp <= _prop.maxHp * 0.3f &&
+            GetComponent<HeavyWoundState>() == null)
+        {
+            gameObject.AddComponent<HeavyWoundState>();
         }
     }
     #endregion
@@ -177,14 +201,34 @@ public class CharacterHealth : MonoBehaviour, ICollide
         _prop.currentHp = Mathf.Max(_prop.currentHp - d.finalDamage, 0);
         RestartHitEffect();
         ShowBarTemporarily();
-        _prop.StartRepel(transform.position, d.repel / _prop.antiRepel * d.collideDir);
-        if(_prop.currentHp <= 0) Die(d);
-        DamageTextPool.Instance.ShowDamage(d, transform.position + Vector3.up);
+        if (_prop.blockHits > 0)
+        {
+            // 坚毅格挡：本次伤害已被降为 1 点，免疫击退，并消耗一层格挡。
+            _prop.blockHits--;
+        }
+        else
+        {
+            // 重伤等倍率修正：受击退倍率（默认 1，重伤时 1.3）在最终击退位移上乘算。
+            _prop.StartRepel(transform.position,
+                d.repel / _prop.antiRepel * d.collideDir * _prop.repelTakenMultiplier);
+        }
+        if(_prop.currentHp <= 0)
+        {
+            // 死亡前询问死亡复活器：接管则跳过常规死亡流程（如晶化复活）。
+            IDeathReviver reviver = GetComponent<IDeathReviver>();
+            if (reviver == null || !reviver.TryRevive(gameObject, d))
+                Die(d);
+        }
+        if (d.missed)
+            DamageTextPool.Instance.ShowMiss(transform.position + Vector3.up);
+        else
+            DamageTextPool.Instance.ShowDamage(d, transform.position + Vector3.up);
         return d;
     }
 
     /// <summary>
     /// 为存活角色恢复生命，限制为最大生命值，并显示血条和治疗跳字。
+    /// 受到治疗倍率（重伤时 0.5）作用于本次治疗量。
     /// </summary>
     /// <param name="value">计划恢复的生命值。</param>
     public void Heal(int value) 
@@ -192,10 +236,11 @@ public class CharacterHealth : MonoBehaviour, ICollide
         if (_prop.isDead)
             return;
 
-        _prop.currentHp = Mathf.Min(_prop.currentHp + value, _prop.maxHp);
+        int healValue = Mathf.Max(0, Mathf.RoundToInt(value * _prop.healTakenMultiplier));
+        _prop.currentHp = Mathf.Min(_prop.currentHp + healValue, _prop.maxHp);
         ShowBarTemporarily();
 
-        DamageTextPool.Instance.ShowHeal(value, transform.position + Vector3.up * 1.5f);
+        DamageTextPool.Instance.ShowHeal(healValue, transform.position + Vector3.up * 1.5f);
     }
 
     /// <summary>
@@ -234,6 +279,8 @@ public class CharacterHealth : MonoBehaviour, ICollide
     {
         if (_prop.isDead && _deathEffectCoroutine != null)
             return;
+
+        Died?.Invoke(gameObject);
 
         _prop.currentHp = 0;
         _prop.isDead = true;
@@ -377,7 +424,7 @@ public class CharacterHealth : MonoBehaviour, ICollide
 
     /// <summary>
     /// 按致死方向驱动角色做带旋转的抛物线飞出效果；
-    /// 结束后恢复初始变换，并尝试通过对象池在原位重生替换实例。
+    /// 结束后恢复初始变换，并将死亡实例回收进对象池（不再自动重生）。
     /// </summary>
     /// <param name="damage">用于决定水平抛飞方向的致死伤害。</param>
     /// <returns>逐帧更新死亡抛飞效果直到结束的协程。</returns>
@@ -406,7 +453,7 @@ public class CharacterHealth : MonoBehaviour, ICollide
         transform.rotation = startRotation;
         transform.localScale = startScale;
         _deathEffectCoroutine = null;
-        // RespawnAfterDeath(startPosition, startRotation, startScale);
+        ReleaseAfterDeath();
     }
 
     /// <summary>
@@ -428,32 +475,14 @@ public class CharacterHealth : MonoBehaviour, ICollide
     }
 
     /// <summary>
-    /// 查询当前实例的来源预制体，从对象池取得一个新实例并恢复死亡前变换，
-    /// 然后回收当前死亡实例。
+    /// 死亡后不再自动重生：仅将当前死亡实例回收进对象池
+    /// （池化实例停用回收；非池化实例由对象池销毁）。
     /// </summary>
-    /// <param name="position">新实例需要恢复的世界坐标。</param>
-    /// <param name="rotation">新实例需要恢复的旋转。</param>
-    /// <param name="scale">新实例需要恢复的局部缩放。</param>
-    private void RespawnAfterDeath(Vector3 position, Quaternion rotation, Vector3 scale)
+    private void ReleaseAfterDeath()
     {
         GameObjectPool pool = GameObjectPool.Instance;
         if (pool == null)
             return;
-
-        GameObject prefab = pool.GetPrefab(gameObject);
-        if (prefab == null)
-            return;
-
-        GameObjectProperty sourceProperty = GetComponent<GameObjectProperty>();
-        GameObject respawned = pool.Get(prefab);
-        if (respawned != null)
-        {
-            GameObjectProperty respawnedProperty = respawned.GetComponent<GameObjectProperty>();
-            sourceProperty?.CopyPersistentDataTo(respawnedProperty);
-            respawned.transform.position = position;
-            respawned.transform.rotation = rotation;
-            respawned.transform.localScale = scale;
-        }
 
         pool.Release(gameObject);
     }

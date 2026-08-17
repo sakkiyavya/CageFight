@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class StickyDebuff : BuffBase
@@ -146,8 +146,8 @@ class StickyState : MonoBehaviour
             Mathf.Min(count, MaximumEffectiveLayers);
 
         /*
-         * ¼õËÙ×ÜÖµ£º
-         * 10% + 9% + 8%¡­¡­
+         * å‡é€Ÿæ€»å€¼ï¼š
+         * 10% + 9% + 8%â€¦â€¦
          */
         float totalSlow =
             0.1f * effectiveLayers

@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d49988eb09b0124bae402f398f1ba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 0
+  objectType: 2
   side: 0
   maxHp: 120
   defense: 0
@@ -289,12 +289,16 @@ MonoBehaviour:
   antiRepel: 1
   atkRange: {x: 6, y: 4}
   atkObj: Bullet-Miaosuan
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2.4
   suckBlood: 0
   currentHp: 0
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0

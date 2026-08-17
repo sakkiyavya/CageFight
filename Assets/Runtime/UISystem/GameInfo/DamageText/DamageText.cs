@@ -34,8 +34,19 @@ public class DamageText : MonoBehaviour
     /// <param name="pool">动画结束后负责回收当前对象的跳字池。</param>
     public void Init(int value, Color color, DamageTextPool pool)
     {
+        Init(value.ToString(), color, pool);
+    }
+
+    /// <summary>
+    /// 设置显示文本和颜色，记录回收对象池，并重置跳字动画的起点、时间和随机水平偏移。
+    /// </summary>
+    /// <param name="text">需要显示的文本（如未命中 “miss”）。</param>
+    /// <param name="color">本次跳字使用的文本颜色。</param>
+    /// <param name="pool">动画结束后负责回收当前对象的跳字池。</param>
+    public void Init(string text, Color color, DamageTextPool pool)
+    {
         _pool = pool;
-        _tmpText.text = value.ToString();
+        _tmpText.text = text;
 
 
         _tmpText.color = color; // 亮紫色

@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d49988eb09b0124bae402f398f1ba43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 0
+  objectType: 2
   side: 0
   maxHp: 180
   defense: 0
@@ -288,12 +288,16 @@ MonoBehaviour:
   antiRepel: 1.5
   atkRange: {x: 8, y: 6}
   atkObj: Bullet-Dice hand
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2
   suckBlood: 0
   currentHp: 0
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -823,5 +827,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 053655311d3387b478055ac653158d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-910000000000000002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7767575016205141002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d784cfcaf980cfa4f959fc0336ffb63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

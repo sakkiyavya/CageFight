@@ -11,6 +11,7 @@ public class DamageTextPool : MonoBehaviour
     [SerializeField] private int initialSize = 50;                                                        // 启动时预热的跳字实例数量。
     [SerializeField] Color damageColor = Color.red;                                                       // 伤害数值使用的文本颜色。
     [SerializeField] Color healColor = Color.green;                                                       // 治疗数值使用的文本颜色。
+    [SerializeField] Color missColor = Color.white;                                                       // 未命中（miss）跳字使用的文本颜色。
 
 
 
@@ -97,6 +98,26 @@ public class DamageTextPool : MonoBehaviour
         if (textComp != null)
         {
             textComp.Init(value, healColor, this);
+        }
+    }
+
+    /// <summary>
+    /// 从池中取得跳字对象，在指定世界坐标以未命中颜色显示 “miss” 字样。
+    /// </summary>
+    /// <param name="pos">跳字出现的世界坐标。</param>
+    public void ShowMiss(Vector3 pos)
+    {
+        if (damageTextPrefab == null) return;
+
+        GameObject obj = _pool.Count > 0 ? _pool.Dequeue() : Instantiate(damageTextPrefab, transform);    // 本次使用的跳字对象。
+
+        obj.transform.position = pos;
+        obj.SetActive(true);
+
+        DamageText textComp = obj.GetComponent<DamageText>();                                             // 控制文本内容和动画的组件。
+        if (textComp != null)
+        {
+            textComp.Init("miss", missColor, this);
         }
     }
     #endregion

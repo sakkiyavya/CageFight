@@ -24,6 +24,17 @@ public class BuildingPlace : MonoBehaviour
 
     #region 公开接口
     /// <summary>
+    /// 判断指定建筑是否正处于拖拽放置预览阶段。
+    /// 预览中的建筑只应展示放置合法性，不应执行战斗或生产行为。
+    /// </summary>
+    /// <param name="building">需要判断的建筑实例。</param>
+    /// <returns>该建筑正在被拖拽预览时返回 <see langword="true"/>。</returns>
+    public bool IsBuildingInPreview(BuildingBase building)
+    {
+        return isInPlaceMode && currentBuilding != null && currentBuilding == building;
+    }
+
+    /// <summary>
     /// 设置待放置建筑，重置旧触摸绑定，并按需立即占用创建建筑的指针。
     /// </summary>
     /// <param name="building">需要进入拖动预览的建筑实例。</param>

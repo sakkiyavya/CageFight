@@ -90,14 +90,20 @@ public class BuildingHealth : MonoBehaviour, ICollide
 
     #region 伤害与治疗
     /// <summary>
-    /// 调用全局伤害计算器生成伤害结果。
-    /// 当前实现尚未把最终伤害扣除到建筑生命值。
+    /// 调用全局伤害计算器生成伤害结果，并把最终伤害扣除到建筑生命值，
+    /// 刷新血条并在生命归零时标记建筑死亡。
     /// </summary>
     /// <param name="damage">需要计算的原始伤害数据。</param>
     /// <returns>写入最终伤害值后的伤害结果。</returns>
     public Damage TakeDamage(Damage damage)
     {
-        return DamageComputor.DamageCompute(damage);
+        Damage d = DamageComputor.DamageCompute(damage);
+        hp = Mathf.Max(0, hp - d.finalDamage);
+        ApplyBarVisual();
+        ShowBarTemporarily();
+        if (_prop != null)
+            _prop.isDead = hp <= 0;
+        return d;
     }
 
     /// <summary>
@@ -153,13 +159,12 @@ public class BuildingHealth : MonoBehaviour, ICollide
 
     #region 生命状态查询与设置
     /// <summary>
-    /// 查询建筑死亡状态；当前尚未实现，调用时会抛出 <see cref="System.NotImplementedException"/>。
+    /// 查询建筑是否死亡（生命值归零）。
     /// </summary>
-    /// <returns>实现后应返回建筑是否死亡。</returns>
+    /// <returns>生命值小于等于 0 时返回 <see langword="true"/>。</returns>
     public bool IsDead()
     {
-        // TODO: Implement death state check.
-        throw new System.NotImplementedException();
+        return hp <= 0;
     }
 
     /// <summary>

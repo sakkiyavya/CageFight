@@ -41,6 +41,12 @@ public class ProjectileDirector : MonoBehaviour
                 if (direction.sqrMagnitude > 0.001f)
                     moveDirection = direction.normalized;
             }
+            else
+            {
+                // 无追踪目标（如散弹）时，使用发射方在对象池 Get 之后设置的当前朝向，
+                // 而不是 OnEnable 捕获的陈旧方向（避免覆盖射手设置的弹道方向）。
+                moveDirection = transform.right;
+            }
 
             hasSetDirection = true;
             transform.right = moveDirection;

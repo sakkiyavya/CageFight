@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: -7252011488186203989}
   - component: {fileID: -6738059154805358623}
   - component: {fileID: -4456032309614892319}
+  - component: {fileID: -3348403557235464735}
   m_Layer: 0
   m_Name: jierui
   m_TagString: Untagged
@@ -195,12 +196,16 @@ MonoBehaviour:
   antiRepel: 2
   atkRange: {x: 1, y: 1}
   atkObj: Bullet-jierui
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 4
   suckBlood: 0
   currentHp: 0
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -499,6 +504,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &-3348403557235464735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806428073784452881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35347b893907aba4c8ddac050ef369a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHpPercent: 0.1
+  layerDuration: 10
+  cheesePrefab: {fileID: 4982157690039313999, guid: 4655a11859c1a0542b9d25b7da6fa706, type: 3}
 --- !u!1 &6748602846840938275
 GameObject:
   m_ObjectHideFlags: 0

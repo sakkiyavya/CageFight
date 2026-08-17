@@ -1,15 +1,15 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 public class BOOMBro : MonoBehaviour, IProjectileImpactHandler
 {
-    [Header("¹¥»÷ÉèÖÃ")]
+    [Header("æ”»å‡»è®¾ç½®")]
     [Range(0f, 90f)]
     [SerializeField] private float spreadAngle = 30f;
 
     [SerializeField] private Transform shootPoint;
 
-    [Header("×ÔÉí»÷ÍË")]
+    [Header("è‡ªèº«å‡»é€€")]
     [Min(0.1f)]
     [SerializeField] private float selfRepelRadius = 2f;
 
@@ -25,7 +25,7 @@ public class BOOMBro : MonoBehaviour, IProjectileImpactHandler
             shootPoint = transform.Find("ShootPoint");
     }
 
-    // ¹¥»÷¶¯»­µ÷ÓÃ
+    // æ”»å‡»åŠ¨ç”»è°ƒç”¨
     public void BOOMShoot()
     {
         if (prop.target == null ||
@@ -91,7 +91,7 @@ public class BOOMBro : MonoBehaviour, IProjectileImpactHandler
         prop.OnAtt?.Invoke();
     }
 
-    // µ¯Ä»±¬Õ¨ÉËº¦Ö¡×Ô¶¯µ÷ÓÃ
+    // å¼¹å¹•çˆ†ç‚¸ä¼¤å®³å¸§è‡ªåŠ¨è°ƒç”¨
     public void OnProjectileDamageTriggered(
         Vector3 explosionPosition)
     {
@@ -102,7 +102,7 @@ public class BOOMBro : MonoBehaviour, IProjectileImpactHandler
                 )
                 : (Vector2)transform.position;
 
-        // ²»ÔÚ±¬Õ¨·¶Î§ÄÚ£¬²»´¥·¢×ÔÉí»÷ÍË
+        // ä¸åœ¨çˆ†ç‚¸èŒƒå›´å†…ï¼Œä¸è§¦å‘è‡ªèº«å‡»é€€
         if (Vector2.Distance(
                 nearestPoint,
                 explosionPosition

@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [RequireComponent(typeof(DamageSource))]
 public class SummonUnitOnHit : MonoBehaviour
 {
     public GameObject[] unitPrefabs;
 
-    [Tooltip("¹´Ñ¡ºó£¬´ÓÁĞ±íÖĞËæ»úÕÙ»½Ò»¸ö±øÖÖ")]
+    [Tooltip("å‹¾é€‰åï¼Œä»åˆ—è¡¨ä¸­éšæœºå¬å”¤ä¸€ä¸ªå…µç§")]
     public bool randomSummon;
 
     [Range(0.01f, 1f)]

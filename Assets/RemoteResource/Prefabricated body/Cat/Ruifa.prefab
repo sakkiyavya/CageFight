@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: -7984036439594820948}
   - component: {fileID: 3913402450040676767}
   - component: {fileID: -6612815423651050292}
+  - component: {fileID: 6791234501234567890}
   m_Layer: 0
   m_Name: Ruifa
   m_TagString: Untagged
@@ -838,3 +839,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1155950490628687680, guid: f1dfe0092e4f02740afc8f1414718f40, type: 3}
   m_PrefabInstance: {fileID: 8882593632213866045}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6791234501234567890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2556181319771633042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9426ae39dbfd4178a607c0cb9a718769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  summonHpPercent: 0.01

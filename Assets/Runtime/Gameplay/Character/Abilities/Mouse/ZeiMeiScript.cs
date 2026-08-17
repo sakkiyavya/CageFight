@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,12 +43,12 @@ public class ZeiMeiScript : MonoBehaviour
 
     private void Update()
     {
-        // ÌáÇ°¼àÌıµ±Ç°Ëø¶¨Ä¿±ê¡£
+        // æå‰ç›‘å¬å½“å‰é”å®šç›®æ ‡ã€‚
         WatchCurrentTarget();
 
         /*
-         * ¶ÔÏó³ØÖĞµÄµĞÈË¸´»îºó£¬
-         * ÔÊĞíÔÙ´ÎÌá¹©»÷É±½±Àø¡£
+         * å¯¹è±¡æ± ä¸­çš„æ•Œäººå¤æ´»åï¼Œ
+         * å…è®¸å†æ¬¡æä¾›å‡»æ€å¥–åŠ±ã€‚
          */
         foreach (GameObjectProperty target in watchedTargets.Keys)
         {
@@ -95,7 +95,7 @@ public class ZeiMeiScript : MonoBehaviour
         if (target == null || target.isDead)
             return;
 
-        // ±ØĞëÊÇÔôÃ¼±¾ÈËÔì³ÉµÄÉËº¦¡£
+        // å¿…é¡»æ˜¯è´¼çœ‰æœ¬äººé€ æˆçš„ä¼¤å®³ã€‚
         if (damage.source != gameObject)
             return;
 
@@ -105,18 +105,18 @@ public class ZeiMeiScript : MonoBehaviour
         int finalDamage =
             Mathf.Max(0, calculated.finalDamage);
 
-        // ±¾´ÎÉËº¦²»×ãÒÔ»÷É±¡£
+        // æœ¬æ¬¡ä¼¤å®³ä¸è¶³ä»¥å‡»æ€ã€‚
         if (target.currentHp - finalDamage > 0)
             return;
 
-        // ·ÀÖ¹Í¬Ò»¸öËÀÍöÊÂ¼şÖØ¸´»ñµÃ½ğ±Ò¡£
+        // é˜²æ­¢åŒä¸€ä¸ªæ­»äº¡äº‹ä»¶é‡å¤è·å¾—é‡‘å¸ã€‚
         if (!rewardedTargets.Add(target))
             return;
 
         if (Coins.Instance == null)
         {
             Debug.LogWarning(
-                "³¡¾°ÖĞÃ»ÓĞÕÒµ½ Coins ×é¼ş£¬ÎŞ·¨·¢·Å»÷É±½ğ±Ò¡£",
+                "åœºæ™¯ä¸­æ²¡æœ‰æ‰¾åˆ° Coins ç»„ä»¶ï¼Œæ— æ³•å‘æ”¾å‡»æ€é‡‘å¸ã€‚",
                 this
             );
 

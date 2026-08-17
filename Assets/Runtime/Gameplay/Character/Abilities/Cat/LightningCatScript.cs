@@ -1,17 +1,17 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 [RequireComponent(typeof(ParalysisDebuff))]
 public class LightningCatScript : MonoBehaviour
 {
-    [Header("µçÖùËØ²Ä")]
+    [Header("ç”µæŸ±ç´ æ")]
     public GameObject lightningPrefab;
 
     [Min(0.01f)]
     public float lightningDuration = 0.2f;
 
-    [Header("µÚ¶şÄ¿±ê")]
+    [Header("ç¬¬äºŒç›®æ ‡")]
     [Min(0f)]
     public float secondTargetRange = 10f;
 
@@ -31,7 +31,7 @@ public class LightningCatScript : MonoBehaviour
             shootPoint = transform.Find("ShootPoint");
     }
 
-    // ¹©¹¥»÷¶¯»­ÊÂ¼şµ÷ÓÃ¡£
+    // ä¾›æ”»å‡»åŠ¨ç”»äº‹ä»¶è°ƒç”¨ã€‚
     public void CastLightning()
     {
         if (prop.target == null || prop.isDead)
@@ -132,7 +132,7 @@ public class LightningCatScript : MonoBehaviour
             if (!IsValidEnemy(candidate))
                 continue;
 
-            // Ö»Ñ¡Ôñ¾ßÓĞ½ÇÉ«ÉúÃü×é¼şµÄµ¥Î»¡£
+            // åªé€‰æ‹©å…·æœ‰è§’è‰²ç”Ÿå‘½ç»„ä»¶çš„å•ä½ã€‚
             if (candidate.GetComponent<CharacterHealth>() == null)
                 continue;
 

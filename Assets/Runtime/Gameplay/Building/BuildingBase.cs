@@ -10,6 +10,9 @@ public class BuildingBase : MonoBehaviour
     protected bool isCompleted = false;                                                           // 当前建筑是否已完成施工。
     protected SpriteRenderer spr;                                                                 // 建筑主体的精灵渲染器。
 
+    /// <summary>建筑是否已完成施工，供战斗类扩展（如哨塔 AI）在完工前停火。</summary>
+    public bool IsCompleted => isCompleted;
+
     private List<Vector2Int> occupiedCells = new List<Vector2Int>();                              // 当前建筑登记占用的全部网格。
     private Vector2Int lastOccupyBasePos = new Vector2Int(int.MinValue, int.MinValue);            // 最近同步占用时的左下网格坐标。
     private Vector2Int lastOccupySpace = new Vector2Int(int.MinValue, int.MinValue);              // 最近同步占用时的网格尺寸。

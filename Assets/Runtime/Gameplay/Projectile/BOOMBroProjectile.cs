@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(DamageSource))]
@@ -6,12 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class BOOMBroProjectile : MonoBehaviour
 {
-    [Header("·ÉĞĞ")]
+    [Header("é£è¡Œ")]
     [SerializeField] private Sprite flightSprite;
     [SerializeField] private float moveSpeed = 8f;
     [SerializeField] private float arriveDistance = 0.1f;
 
-    [Header("±¬Õ¨")]
+    [Header("çˆ†ç‚¸")]
     [SerializeField] private bool canBeIntercepted = true;
     [SerializeField] private float explosionRadius = 2f;
     [SerializeField] private LayerMask targetLayers = ~0;
@@ -20,7 +20,7 @@ public class BOOMBroProjectile : MonoBehaviour
     [SerializeField, Min(0.01f)]
     private float fallbackExplosionDuration = 2f;
 
-    [Header("ÒôĞ§")]
+    [Header("éŸ³æ•ˆ")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip explosionAudio;
 
@@ -200,7 +200,7 @@ public class BOOMBroProjectile : MonoBehaviour
         StartFallbackRelease(fallbackExplosionDuration);
     }
 
-    // ±¬Õ¨¶¯»­ÉËº¦Ö¡µ÷ÓÃ
+    // çˆ†ç‚¸åŠ¨ç”»ä¼¤å®³å¸§è°ƒç”¨
     public void DealExplosionDamage()
     {
         if (!exploding || damageDealt)
@@ -209,9 +209,9 @@ public class BOOMBroProjectile : MonoBehaviour
         damageDealt = true;
 
         /*
-         * ÏÈÍ¨Öª¹¥»÷À´Ô´Ê©¼Ó×¨ÊôĞ§¹û¡£
-         * BabaDoctorC1»áÏÈÈÃµĞÎÒÈ«²¿¾§»¯£¬
-         * È»ºó²Å½áËãµĞ·½ÉËº¦¡£
+         * å…ˆé€šçŸ¥æ”»å‡»æ¥æºæ–½åŠ ä¸“å±æ•ˆæœã€‚
+         * BabaDoctorC1ä¼šå…ˆè®©æ•Œæˆ‘å…¨éƒ¨æ™¶åŒ–ï¼Œ
+         * ç„¶åæ‰ç»“ç®—æ•Œæ–¹ä¼¤å®³ã€‚
          */
         NotifyAttackSource();
 
@@ -244,7 +244,7 @@ public class BOOMBroProjectile : MonoBehaviour
             if (!damagedTargets.Add(component))
                 continue;
 
-            // ÓÑ·½Ö»»ñµÃ¾§»¯£¬²»ÊÜµ½ÉËº¦
+            // å‹æ–¹åªè·å¾—æ™¶åŒ–ï¼Œä¸å—åˆ°ä¼¤å®³
             if (target.IsFriendly(
                     damageSource.damage))
             {
@@ -263,6 +263,14 @@ public class BOOMBroProjectile : MonoBehaviour
                     : -1;
 
             target.OnCollide(damage);
+
+            // å¼¹å¹•å‘½ä¸­é€šçŸ¥ï¼šè¢«å‘½ä¸­çš„ç›®æ ‡å®ç° IProjectileImpactHandler æ—¶å›è°ƒ
+            // ï¼ˆå¦‚ General Cat æ¯æ¬¡å—åˆ°å¼¹å¹•æ”»å‡»è·å¾—ä¸€å±‚æŠ¤ç”²ï¼‰ã€‚
+            IProjectileImpactHandler impact =
+                hit.GetComponent<IProjectileImpactHandler>();
+
+            impact?.OnProjectileDamageTriggered(
+                hit.transform.position);
         }
     }
 
@@ -280,7 +288,7 @@ public class BOOMBroProjectile : MonoBehaviour
         handler?.OnProjectileDamageTriggered(transform.position);
     }
 
-    // ±¬Õ¨¶¯»­ÒôĞ§Ö¡µ÷ÓÃ
+    // çˆ†ç‚¸åŠ¨ç”»éŸ³æ•ˆå¸§è°ƒç”¨
     public void PlayExplosionAudio()
     {
         if (audioSource == null ||
@@ -317,7 +325,7 @@ public class BOOMBroProjectile : MonoBehaviour
         }
     }
 
-    // ±¬Õ¨¶¯»­×îºóÒ»Ö¡µ÷ÓÃ
+    // çˆ†ç‚¸åŠ¨ç”»æœ€åä¸€å¸§è°ƒç”¨
     public void FinishExplosion()
     {
         CancelFallbackRelease();

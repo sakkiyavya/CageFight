@@ -1,4 +1,4 @@
-using UnityEngine;
+锘縰sing UnityEngine;
 
 public class DarkCat : MonoBehaviour
 {
@@ -19,7 +19,7 @@ public class DarkCat : MonoBehaviour
         if (!iconTarget) iconTarget = transform;
     }
 
-    // 攻击动画事件调用
+    // 鏀诲嚮鍔ㄧ敾浜嬩欢璋冪敤
     public void DarkCatAttack()
     {
         if (prop.isDead) return;

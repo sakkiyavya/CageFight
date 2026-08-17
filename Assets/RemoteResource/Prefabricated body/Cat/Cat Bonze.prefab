@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 2387882665689512461}
   - component: {fileID: -670155876140460215}
   - component: {fileID: 5177632200608564157}
+  - component: {fileID: -4668982270948680375}
   m_Layer: 0
   m_Name: Cat Bonze
   m_TagString: Untagged
@@ -194,12 +195,22 @@ MonoBehaviour:
   antiRepel: 2
   atkRange: {x: 1, y: 1}
   atkObj: Bullet-Cat Bonze
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
+  armor: 0
+  damageReduction: 0
+  blockHits: 0
+  repelTakenMultiplier: 1
+  healTakenMultiplier: 1
+  missChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2
   suckBlood: 0
   currentHp: 0
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -486,6 +497,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &-4668982270948680375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3463295176372043571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b00c45d6b50ed9b4da8b4f70f04f091c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layersPerAttack: 3
+  losePerHit: 1
+  layerDuration: 5
 --- !u!1 &4790079443884991035
 GameObject:
   m_ObjectHideFlags: 0

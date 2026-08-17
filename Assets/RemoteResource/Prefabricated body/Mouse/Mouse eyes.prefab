@@ -290,12 +290,16 @@ MonoBehaviour:
   antiRepel: 1
   atkRange: {x: 14, y: 6}
   atkObj: Bullet-Arrow
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3.5
   suckBlood: 0
   currentHp: 0
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -825,3 +829,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1266970144911561522, guid: befdb84e27fced9488bc5fdf6a2acbd2, type: 3}
   m_PrefabInstance: {fileID: 6537326906665147596}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-910000000000000003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982494216309753114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dadf3afa4dd4214c88714fb009a8c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

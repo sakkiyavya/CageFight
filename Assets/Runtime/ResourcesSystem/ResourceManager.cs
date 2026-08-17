@@ -56,11 +56,11 @@ public class ResourceManager : MonoBehaviour
     [SerializeField] private LoadoutDefinitionRegistry loadoutDefinitionRegistry;
 
     [Header("局内公共资源（所有关卡自动预载）")]
-    [SerializeField] private List<string> commonPrefabs = new List<string> { "Build Animation", "Cast spell" };
-    [SerializeField] private List<string> commonAudios = new List<string> { "Build", "UP", "UI Click" };
-    [SerializeField] private List<string> persistentAudios = new List<string> { "UI Click", "Cage door", "Begin" };
+    [SerializeField] private List<string> commonPrefabs = new List<string> { "Build Animation", "Cast spell", "Bullet-Arrow" };
+    [SerializeField] private List<string> commonAudios = new List<string> { "Build", "UP", "UI Click", "Arrow-Shoot", "Hit" };
+    [SerializeField] private List<string> persistentAudios = new List<string> { "UI Click", "Cage door", "Begin", "Hit", "Huge buff", "Violent", "Zip buff", "False life" };
     [SerializeField] private List<string> commonAnimatorControllers = new List<string> { "Build Animation AC" };
-    [SerializeField] private List<string> commonSprites = new List<string> { "Build Animation_6" };
+    [SerializeField] private List<string> commonSprites = new List<string> { "Build Animation_6", "State1 AP", "State1 AP_32" };
 
     public ResourceState CurrentState { get; private set; } = ResourceState.None;                                                           // 当前关卡资源加载或卸载所处的阶段。
     public bool IsLoadoutRegistryReady => loadoutDefinitionRegistry != null;
@@ -130,15 +130,25 @@ public class ResourceManager : MonoBehaviour
 
         if (!commonPrefabs.Contains("Build Animation")) commonPrefabs.Add("Build Animation");
         if (!commonPrefabs.Contains("Cast spell")) commonPrefabs.Add("Cast spell");
+        if (!commonPrefabs.Contains("Bullet-Arrow")) commonPrefabs.Add("Bullet-Arrow");
         if (!commonAudios.Contains("Build")) commonAudios.Add("Build");
         if (!commonAudios.Contains("UP")) commonAudios.Add("UP");
         if (!commonAudios.Contains("UI Click")) commonAudios.Add("UI Click");
+        if (!commonAudios.Contains("Arrow-Shoot")) commonAudios.Add("Arrow-Shoot");
+        if (!commonAudios.Contains("Hit")) commonAudios.Add("Hit");
         if (persistentAudios == null) persistentAudios = new List<string>();
         if (!persistentAudios.Contains("UI Click")) persistentAudios.Add("UI Click");
         if (!persistentAudios.Contains("Cage door")) persistentAudios.Add("Cage door");
         if (!persistentAudios.Contains("Begin")) persistentAudios.Add("Begin");
+        if (!persistentAudios.Contains("Hit")) persistentAudios.Add("Hit");
+        if (!persistentAudios.Contains("Huge buff")) persistentAudios.Add("Huge buff");
+        if (!persistentAudios.Contains("Violent")) persistentAudios.Add("Violent");
+        if (!persistentAudios.Contains("Zip buff")) persistentAudios.Add("Zip buff");
+        if (!persistentAudios.Contains("False life")) persistentAudios.Add("False life");
         if (!commonAnimatorControllers.Contains("Build Animation AC")) commonAnimatorControllers.Add("Build Animation AC");
         if (!commonSprites.Contains("Build Animation_6")) commonSprites.Add("Build Animation_6");
+        if (!commonSprites.Contains("State1 AP")) commonSprites.Add("State1 AP");
+        if (!commonSprites.Contains("State1 AP_32")) commonSprites.Add("State1 AP_32");
     }
 
     /// <summary>

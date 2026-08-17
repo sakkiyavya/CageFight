@@ -1,17 +1,17 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(DamageSource))]
 public class SquashOnHitProjectile : MonoBehaviour
 {
-    [Header("´¥·¢Ìõ¼ş")]
+    [Header("è§¦å‘æ¡ä»¶")]
     [Min(0f)]
     public float repelLimit = 4f;
 
     [Range(0f, 1f)]
     public float triggerChance = 0.5f;
 
-    [Header("Ñ¹±âĞ§¹û")]
+    [Header("å‹æ‰æ•ˆæœ")]
     [Range(0f, 0.9f)]
     public float squashPercent = 0.2f;
 
@@ -53,11 +53,11 @@ public class SquashOnHitProjectile : MonoBehaviour
         if (target.side == damageSource.damage.side)
             return;
 
-        // Í¬Ò»¿Åµ¯Ä»¶ÔÍ¬Ò»Ä¿±êÖ»ÅĞ¶¨Ò»´Î¡£
+        // åŒä¸€é¢—å¼¹å¹•å¯¹åŒä¸€ç›®æ ‡åªåˆ¤å®šä¸€æ¬¡ã€‚
         if (!hitTargets.Add(target))
             return;
 
-        // ±ØĞëÑÏ¸ñµÍÓÚÏŞÖÆÖµ¡£
+        // å¿…é¡»ä¸¥æ ¼ä½äºé™åˆ¶å€¼ã€‚
         if (target.repel >= repelLimit)
             return;
 
