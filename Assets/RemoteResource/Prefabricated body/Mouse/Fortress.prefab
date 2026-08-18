@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 7413504242589827140}
   - component: {fileID: 4744687207505013822}
   - component: {fileID: 7673133148427679829}
+  - component: {fileID: -910000000000000007}
   m_Layer: 0
   m_Name: Fortress
   m_TagString: Untagged
@@ -155,6 +156,13 @@ MonoBehaviour:
   damageMultiplier: 1
   damageTakenMultiplier: 1
   critChance: 0
+  armor: 0
+  damageReduction: 0
+  blockHits: 0
+  repelTakenMultiplier: 1
+  healTakenMultiplier: 1
+  missChance: 0
+  baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 1
@@ -505,6 +513,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.5
+--- !u!114 &-910000000000000007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4308048129856704459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b42d9a79be276444af1b4307acdd2d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionDamagePercent: 0.01
+  collisionInterval: 1
 --- !u!1 &5433203752273418549
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,15 +1012,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1266970144911561522, guid: befdb84e27fced9488bc5fdf6a2acbd2, type: 3}
   m_PrefabInstance: {fileID: 7944510064352093955}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-910000000000000007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4308048129856704459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b42d9a79be276444af1b4307acdd2d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

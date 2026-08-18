@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: -1894840588716860174}
   - component: {fileID: -306475536045062548}
   - component: {fileID: -5471661539227956369}
+  - component: {fileID: -910000000000000402}
   m_Layer: 0
   m_Name: Fork apprentice
   m_TagString: Untagged
@@ -380,12 +381,23 @@ MonoBehaviour:
   antiRepel: 1
   atkRange: {x: 6, y: 4}
   atkObj: Bullet-Fork apprentice
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
+  armor: 0
+  damageReduction: 0
+  blockHits: 0
+  repelTakenMultiplier: 1
+  healTakenMultiplier: 1
+  missChance: 0
+  baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2.3
   suckBlood: 0
   currentHp: 4000
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -530,6 +542,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &-910000000000000402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6843808784318265901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52890115c1dc443e9c7563f5f59d74e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfApplyInterval: 1
+  traumaDuration: 5
+  maxTraumaLayers: 5
+  damagePerLayer: 0.35
 --- !u!1001 &4481158841398645630
 PrefabInstance:
   m_ObjectHideFlags: 0

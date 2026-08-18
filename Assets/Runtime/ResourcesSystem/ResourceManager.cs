@@ -58,7 +58,7 @@ public class ResourceManager : MonoBehaviour
     [Header("局内公共资源（所有关卡自动预载）")]
     [SerializeField] private List<string> commonPrefabs = new List<string> { "Build Animation", "Cast spell", "Bullet-Arrow" };
     [SerializeField] private List<string> commonAudios = new List<string> { "Build", "UP", "UI Click", "Arrow-Shoot", "Hit" };
-    [SerializeField] private List<string> persistentAudios = new List<string> { "UI Click", "Cage door", "Begin", "Hit", "Huge buff", "Violent", "Zip buff", "False life" };
+    [SerializeField] private List<string> persistentAudios = new List<string> { "UI Click", "Cage door", "Begin", "Hit", "Huge buff", "Violent", "Zip buff", "False life", "Cold dbuff", "paralysed dbuff" };
     [SerializeField] private List<string> commonAnimatorControllers = new List<string> { "Build Animation AC" };
     [SerializeField] private List<string> commonSprites = new List<string> { "Build Animation_6", "State1 AP", "State1 AP_32" };
 
@@ -145,6 +145,8 @@ public class ResourceManager : MonoBehaviour
         if (!persistentAudios.Contains("Violent")) persistentAudios.Add("Violent");
         if (!persistentAudios.Contains("Zip buff")) persistentAudios.Add("Zip buff");
         if (!persistentAudios.Contains("False life")) persistentAudios.Add("False life");
+        if (!persistentAudios.Contains("Cold dbuff")) persistentAudios.Add("Cold dbuff");
+        if (!persistentAudios.Contains("paralysed dbuff")) persistentAudios.Add("paralysed dbuff");
         if (!commonAnimatorControllers.Contains("Build Animation AC")) commonAnimatorControllers.Add("Build Animation AC");
         if (!commonSprites.Contains("Build Animation_6")) commonSprites.Add("Build Animation_6");
         if (!commonSprites.Contains("State1 AP")) commonSprites.Add("State1 AP");

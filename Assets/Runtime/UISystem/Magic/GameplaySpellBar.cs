@@ -254,10 +254,13 @@ public sealed class GameplaySpellBar : MonoBehaviour
             // 图标资源尚未进入缓存时保留预置图片，避免 HUD 短暂变空。
             if (icon) icons[i].sprite = icon;
             icons[i].color = hasSpell ? Color.black : Color.clear;
+            // 保持图标纵横比，避免非正方形图标在法术栏被拉伸。
+            icons[i].preserveAspect = true;
             if (i < cooldownMasks.Length && cooldownMasks[i])
             {
                 cooldownMasks[i].sprite = icons[i].sprite;
                 cooldownMasks[i].enabled = hasSpell && icons[i].sprite;
+                cooldownMasks[i].preserveAspect = true;
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using TMPro;
+using TMPro;
 using UnityEngine;
 using System.Collections;
 
@@ -43,6 +43,9 @@ public class BuildUP : MonoBehaviour
 
     public bool CanUpgrade =>
         !upgrading && levels != null && level < levels.Length - 1;
+
+    /// <summary>当前等级（0 起），供维护费、UI 等外部逻辑读取。</summary>
+    public int CurrentLevel => level;
 
     public int Cost =>
         CanUpgrade ? levels[level + 1].cost : 0;

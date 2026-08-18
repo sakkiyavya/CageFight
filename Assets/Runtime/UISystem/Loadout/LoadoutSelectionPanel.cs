@@ -118,7 +118,7 @@ public sealed class LoadoutSelectionPanel : UISystemBase
             LoadoutSelectionKind.Spell =>
                 ResourceManager.Instance &&
                 ResourceManager.Instance.TryGetSpell(definitionId, out SpellDefinition spell) &&
-                loadout.SelectSpell(spellSlot, spell),
+                loadout.SelectSpellSmart(spell),
             _ => false
         };
 
@@ -154,9 +154,32 @@ public sealed class LoadoutSelectionPanel : UISystemBase
             bool available = TryGetIconKey(option.DefinitionId, out string iconKey);
             Sprite icon = available ? ResourceManager.Instance.GetSprite(iconKey) : null;
             Sprite frame = TryGetPortraitFrame(option.DefinitionId);
-            option.SetPresentation(icon, frame, available && option.DefinitionId == selectedId, available,
+            // 法术类别：两个槽位各自的已选法术都显示勾选（两个“被选择项”）。
+            bool isSelected = kind == LoadoutSelectionKind.Spell
+                ? IsSpellSelected(option.DefinitionId)
+                : option.DefinitionId == selectedId;
+            option.SetPresentation(icon, frame, available && isSelected, available,
                 checkSprite, unselectedAlpha);
         }
+    }
+
+    /// <summary>
+    /// 法术是否已被任一可选槽位选中（局内第二/第三格都算）。
+    /// </summary>
+    private bool IsSpellSelected(string definitionId)
+    {
+        if (string.IsNullOrWhiteSpace(definitionId) || !loadout || !loadout.IsReady)
+            return false;
+
+        if (loadout.TryGetGameplaySpell(1, out SpellDefinition slot1) &&
+            slot1.Id == definitionId)
+            return true;
+
+        if (loadout.TryGetGameplaySpell(2, out SpellDefinition slot2) &&
+            slot2.Id == definitionId)
+            return true;
+
+        return false;
     }
 
     private void AssignCurrentPageIds()

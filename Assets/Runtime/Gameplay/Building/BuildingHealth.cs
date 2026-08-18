@@ -103,6 +103,11 @@ public class BuildingHealth : MonoBehaviour, ICollide
         ShowBarTemporarily();
         if (_prop != null)
             _prop.isDead = hp <= 0;
+
+        // 未命中（目盲等）同样弹出 miss 跳字。
+        if (d.missed)
+            DamageTextPool.Instance.ShowMiss(transform.position + Vector3.up);
+
         return d;
     }
 

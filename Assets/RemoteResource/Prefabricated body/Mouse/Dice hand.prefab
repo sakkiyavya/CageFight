@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 6585629730858678799}
   - component: {fileID: 6629570144480664162}
   - component: {fileID: 4977245312520188996}
+  - component: {fileID: -910000000000000002}
   m_Layer: 0
   m_Name: Dice hand
   m_TagString: Untagged
@@ -291,6 +292,13 @@ MonoBehaviour:
   damageMultiplier: 1
   damageTakenMultiplier: 1
   critChance: 0
+  armor: 0
+  damageReduction: 0
+  blockHits: 0
+  repelTakenMultiplier: 1
+  healTakenMultiplier: 1
+  missChance: 0
+  baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2
@@ -521,6 +529,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &-910000000000000002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7767575016205141002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d784cfcaf980cfa4f959fc0336ffb63c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minRoll: 1
+  maxRoll: 6
+  decadentDuration: 5
+  rageDuration: 4
 --- !u!1001 &327007030917231322
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -827,17 +851,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 053655311d3387b478055ac653158d44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-910000000000000002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7767575016205141002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d784cfcaf980cfa4f959fc0336ffb63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

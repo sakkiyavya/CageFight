@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98659304213c8dc4d8cc24a2779e7a17, type: 3}
+  m_Name: Unstable ore Magic 1
+  m_EditorClassIdentifier: 
+  id: Unstable ore Magic
+  displayName: Unstable ore Magic
+  iconKey: Magic UI_2
+  cooldown: 5
+  castPrefabKey: Unstable ore Magic
+  deliveryType: 0
+  directCastTime: 0.68
+  releaseMode: 1
+  spawnOffset: {x: 0, y: 0, z: 0}
+  faceEngineerDirection: 1
+  dragAim: 1
+  maxDistance: 9
+  arcHeight: 2
+  flightTime: 0.6
+  showWarningCircle: 0
+  warningCircleKey: Bullet3 AP_0
+  warningCircleScale: 1
+  editorIcon: {fileID: 0}
+  editorCastPrefab: {fileID: 0}
+  editorWarningCircle: {fileID: -2115857798, guid: 93d9e498acde7284088fdab505a71dad, type: 3}

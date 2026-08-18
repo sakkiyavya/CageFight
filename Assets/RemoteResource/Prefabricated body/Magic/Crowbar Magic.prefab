@@ -131,6 +131,7 @@ MonoBehaviour:
     side: 0
     initialDamage: 10
     finalDamage: 0
+    missed: 0
     collideDir: 1
     repel: 0
     type: 0
@@ -141,6 +142,10 @@ MonoBehaviour:
   sustainTime: 3
   collideTimes: 2
   hasSubProjectile: 0
+  hitSoundKey: Hit
+  hitAudio: {fileID: 0}
+  hitVolume: 1
+  hitPriority: 32
 --- !u!114 &1079243917287651337
 MonoBehaviour:
   m_ObjectHideFlags: 0

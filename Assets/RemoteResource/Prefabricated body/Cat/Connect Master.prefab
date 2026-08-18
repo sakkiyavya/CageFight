@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: -3174640986818139618}
   - component: {fileID: -3815312399560072661}
   - component: {fileID: 5279441378834594900}
+  - component: {fileID: 7479034059607029760}
   m_Layer: 0
   m_Name: Connect Master
   m_TagString: Untagged
@@ -373,19 +374,30 @@ MonoBehaviour:
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 30
+  atk: 50
   atkRate: 1
   magicAtk: 0
   repel: 0
   antiRepel: 2
   atkRange: {x: 10, y: 6}
   atkObj: 
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
+  armor: 0
+  damageReduction: 0
+  blockHits: 0
+  repelTakenMultiplier: 1
+  healTakenMultiplier: 1
+  missChance: 0
+  baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2
   suckBlood: 0
   currentHp: 3000
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -530,6 +542,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &7479034059607029760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9045631852045052957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 626e308c3dd04c9daded8f06f3db351b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magicCircleSprite: {fileID: -430968738, guid: 93d9e498acde7284088fdab505a71dad, type: 3}
+  circlePrefab: {fileID: 3487563477950919168, guid: 67901c17b682487ebec6e163d3057bb6, type: 3}
+  circleScale: {x: 0.8, y: 0.55}
+  idleAlpha: 0.45
+  staySeconds: 10
+  fadeSeconds: 0.5
+  connectCount: 6
+  burstDamageMultiplier: 2
+  burstRadius: 1.6
+  riseHeight: 1.68
+  riseSeconds: 0.5
 --- !u!1001 &1906436259176804063
 PrefabInstance:
   m_ObjectHideFlags: 0

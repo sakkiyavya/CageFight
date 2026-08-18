@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 6600766824216211784}
   - component: {fileID: 7787378997395446032}
   - component: {fileID: -6435474997300363326}
+  - component: {fileID: -910000000000000403}
   m_Layer: 0
   m_Name: Water breath cat
   m_TagString: Untagged
@@ -225,12 +226,23 @@ MonoBehaviour:
   antiRepel: 3
   atkRange: {x: 3, y: 2}
   atkObj: Bullet-Water breath cat
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
+  armor: 0
+  damageReduction: 0
+  blockHits: 0
+  repelTakenMultiplier: 1
+  healTakenMultiplier: 1
+  missChance: 0
+  baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2.2
   suckBlood: 0
   currentHp: 0
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -517,6 +529,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &-910000000000000403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6483634962653513381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75633e23c4c54356baa31555992e611e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerDuration: 5
 --- !u!1001 &2941162095156644387
 PrefabInstance:
   m_ObjectHideFlags: 0

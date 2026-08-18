@@ -118,7 +118,7 @@ public static class EngineerSpellCaster
 
         Vector3 position = definition.DeliveryType == SpellDeliveryType.DirectSpawn
             ? target
-            : fromEngineer ? caster.SpellPosition + definition.SpawnOffset : Vector3.zero;
+            : fromEngineer ? caster.ShootPoint + definition.SpawnOffset : Vector3.zero;
         instance.transform.SetPositionAndRotation(position, Quaternion.Euler(0f, 0f, angle));
 
         if (definition.DeliveryType == SpellDeliveryType.DirectSpawn)

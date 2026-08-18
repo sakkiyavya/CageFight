@@ -41,8 +41,9 @@ public sealed class LoadoutConfigurationCanvas : MonoBehaviour
 
     public void OpenSpell()
     {
+        // 默认打开第 2 格（spellSlot 0）的法术位；第 3 格由第二个法术入口按钮进入。
         if (spellPanel && loadout)
-            spellPanel.SetSpellSlot(loadout.TryGetGameplaySpell(1, out _) ? 1 : 0);
+            spellPanel.SetSpellSlot(0);
         Open(spellPage);
     }
 

@@ -77,6 +77,18 @@ public class TraumaDebuff : BuffBase
         TraumaState state = prop.GetComponent<TraumaState>();
         return state != null && state.RemoveLayer(this);
     }
+
+    /// <summary>
+    /// 查询目标身上当前的创伤层数（供外部机制如 Fork apprentice 使用）。
+    /// </summary>
+    public int GetLayerCount(GameObjectProperty prop)
+    {
+        if (prop == null)
+            return 0;
+
+        TraumaState state = prop.GetComponent<TraumaState>();
+        return state != null ? state.LayerCount : 0;
+    }
     #endregion
 
     #region 内部辅助
@@ -110,6 +122,9 @@ internal class TraumaState : MonoBehaviour
     }
 
     private readonly List<Layer> layers = new List<Layer>();
+
+    /// <summary>当前创伤层数（供外部机制读取）。</summary>
+    public int LayerCount => layers.Count;
 
     private GameObjectProperty prop;
     private ICollide collide;

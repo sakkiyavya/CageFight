@@ -196,12 +196,23 @@ MonoBehaviour:
   antiRepel: 3
   atkRange: {x: 6, y: 4}
   atkObj: 
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
+  armor: 0
+  damageReduction: 0
+  blockHits: 0
+  repelTakenMultiplier: 1
+  healTakenMultiplier: 1
+  missChance: 0
+  baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2.3
   suckBlood: 100
   currentHp: 0
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -519,6 +530,7 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 1
+  falseLifeLayersPerKill: 1
 --- !u!1 &4528663821774986568
 GameObject:
   m_ObjectHideFlags: 0

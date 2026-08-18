@@ -382,12 +382,23 @@ MonoBehaviour:
   antiRepel: 5
   atkRange: {x: 2, y: 2}
   atkObj: Bullet-Cat dad
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
+  armor: 0
+  damageReduction: 0
+  blockHits: 0
+  repelTakenMultiplier: 1
+  healTakenMultiplier: 1
+  missChance: 0
+  baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 1.8
   suckBlood: 0
   currentHp: 6000
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0

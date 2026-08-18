@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: -8596087233641565570}
   - component: {fileID: -5055844864209941658}
   - component: {fileID: -6361806987472988546}
+  - component: {fileID: 6561888548225367040}
   m_Layer: 0
   m_Name: Thunderstorm cat
   m_TagString: Untagged
@@ -150,12 +151,23 @@ MonoBehaviour:
   antiRepel: 3
   atkRange: {x: 2, y: 2}
   atkObj: 
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
+  armor: 0
+  damageReduction: 0
+  blockHits: 0
+  repelTakenMultiplier: 1
+  healTakenMultiplier: 1
+  missChance: 0
+  baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2.2
   suckBlood: 0
   currentHp: 0
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -499,6 +511,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &6561888548225367040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3034734228715996879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24d4e983172a498fbaf1c867cf2e5a31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thunderDuration: 7
+  shieldHpPercent: 1
+  counterDamageMultiplier: 1
+  selfParalysisSeconds: 3
+  ballPrefab: {fileID: 1783597190871435264, guid: a727abd9df1143ed895b7420964c74a5, type: 3}
+  ballSpeed: 10
+  ballHitDistance: 0.3
+  shieldVisualHeight: 1
+  shieldVisualScale: 1.6
+  breathSpeed: 2.5
+  breathMinAlpha: 0.25
+  breathMaxAlpha: 0.85
 --- !u!1 &3461955611672526710
 GameObject:
   m_ObjectHideFlags: 0

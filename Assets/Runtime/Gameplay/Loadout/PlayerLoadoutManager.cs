@@ -82,6 +82,42 @@ public sealed class PlayerLoadoutManager : MonoBehaviour
             slot == 1 ? definition.Id : userGlobalInfo.SelectedSpellSlot2Id);
     }
 
+    /// <summary>
+    /// 法术双槽选择（选择界面用）：点击未选法术时填入第一个空槽
+    /// （局内第二格优先，其次第三格；两格都满则替换第三格，保留第二格）；
+    /// 点击已选法术时取消对应槽位（清空）。
+    /// </summary>
+    public bool SelectSpellSmart(SpellDefinition definition)
+    {
+        if (!definition || string.IsNullOrWhiteSpace(definition.Id) || !IsReady)
+            return false;
+
+        string id = definition.Id;
+        string slot1 = userGlobalInfo.SelectedSpellSlot1Id;
+        string slot2 = userGlobalInfo.SelectedSpellSlot2Id;
+
+        // 点击已选法术：取消对应槽位。
+        if (id == slot1)
+            return userGlobalInfo.SetLoadoutSelection(
+                userGlobalInfo.SelectedEngineerId, userGlobalInfo.SelectedRaceId, string.Empty, slot2);
+        if (id == slot2)
+            return userGlobalInfo.SetLoadoutSelection(
+                userGlobalInfo.SelectedEngineerId, userGlobalInfo.SelectedRaceId, slot1, string.Empty);
+
+        // 未选：填入第一个空槽；都满则替换第三格（保留第二格，符合“加装第二个”的习惯）。
+        string newSlot1 = slot1;
+        string newSlot2 = slot2;
+        if (string.IsNullOrWhiteSpace(slot1))
+            newSlot1 = id;
+        else if (string.IsNullOrWhiteSpace(slot2))
+            newSlot2 = id;
+        else
+            newSlot2 = id;
+
+        return userGlobalInfo.SetLoadoutSelection(
+            userGlobalInfo.SelectedEngineerId, userGlobalInfo.SelectedRaceId, newSlot1, newSlot2);
+    }
+
     /// <summary>解析当前工程师；注册表或 ID 无效时返回 false。</summary>
     public bool TryGetSelectedEngineer(out EngineerDefinition definition)
     {

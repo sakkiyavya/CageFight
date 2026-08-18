@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 6254413069729613032}
   - component: {fileID: -2598389894530586122}
   - component: {fileID: 4177708933832742051}
+  - component: {fileID: 1787150517840242688}
   m_Layer: 0
   m_Name: B-39
   m_TagString: Untagged
@@ -131,6 +132,13 @@ MonoBehaviour:
   damageMultiplier: 1
   damageTakenMultiplier: 1
   critChance: 0
+  armor: 0
+  damageReduction: 0
+  blockHits: 0
+  repelTakenMultiplier: 1
+  healTakenMultiplier: 1
+  missChance: 0
+  baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2
@@ -490,6 +498,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &1787150517840242688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2429511124314238195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f94ea92ee33422dbf1192dca9b63df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  convertChance: 0.5
+  armorDuration: 3
 --- !u!1 &6842303838310639136
 GameObject:
   m_ObjectHideFlags: 0

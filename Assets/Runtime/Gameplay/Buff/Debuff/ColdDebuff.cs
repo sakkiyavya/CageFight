@@ -6,8 +6,23 @@ public class ColdDebuff : BuffBase
     [Min(0.1f)]
     public float duration = 5f;
 
+    [Header("获得音效（仅首次施加触发，叠加不触发）")]
+    [SerializeField, ResourceKey(typeof(AudioClip))]
+    private string buffSoundKey = "Cold dbuff"; // 首次获得寒冷时播放的音频资源键。
+    [SerializeField, Range(0f, 1f)]
+    private float buffSoundVolume = 1f;         // 获得音效音量。
+    [SerializeField, Range(0, 256)]
+    private int buffSoundPriority = 32;         // 获得音效优先级（越小越高）。
+
     public override float buffSustainTime => duration;
     public override bool isDeBuff => true;
+
+    /// <summary>获得音效资源键，供层管理器读取。</summary>
+    public string BuffSoundKey => buffSoundKey;
+    /// <summary>获得音效音量，供层管理器读取。</summary>
+    public float BuffSoundVolume => buffSoundVolume;
+    /// <summary>获得音效优先级，供层管理器读取。</summary>
+    public int BuffSoundPriority => buffSoundPriority;
 
     public override bool ApplyBuff(GameObjectProperty prop)
     {
@@ -64,6 +79,11 @@ class ColdState : MonoBehaviour
     private bool frozen;
     private bool aiWasEnabled;
     private float originalAnimatorSpeed = 1f;
+    private AudioSource soundAudio;            // 获得音效音频源（首层施加时解析）。
+    private string soundKey = "Cold dbuff";
+    private float soundVolume = 1f;
+    private int soundPriority = 32;
+    private bool warnedMissingSound;           // 是否已输出过获得音效缺失警告（一次性）。
 
     private void Awake()
     {
@@ -84,11 +104,37 @@ class ColdState : MonoBehaviour
             originalAnimatorSpeed = animator.speed;
     }
 
+    /// <summary>
+    /// 解析获得音效音频源：优先复用对象上的 AudioSource，没有则新建一个。
+    /// </summary>
+    private void ResolveSoundAudio()
+    {
+        if (soundAudio != null)
+            return;
+
+        soundAudio = GetComponent<AudioSource>();
+        if (soundAudio == null)
+        {
+            soundAudio = gameObject.AddComponent<AudioSource>();
+            soundAudio.playOnAwake = false;
+            soundAudio.spatialBlend = 0f;
+        }
+    }
+
     public void AddLayer(
         ColdDebuff source,
         float duration)
     {
         int oldCount = layers.Count;
+
+        bool isFirstLayer = oldCount == 0;
+        if (isFirstLayer)
+        {
+            soundKey = source.BuffSoundKey;
+            soundVolume = source.BuffSoundVolume;
+            soundPriority = source.BuffSoundPriority;
+            ResolveSoundAudio();
+        }
 
         layers.Add(new ColdLayer
         {
@@ -97,6 +143,43 @@ class ColdState : MonoBehaviour
         });
 
         UpdateState(oldCount);
+
+        if (isFirstLayer)
+            PlayBuffSound();
+    }
+
+    /// <summary>
+    /// 播放首次获得寒冷音效；资源键或片段缺失时输出一次性警告，避免静默失败。
+    /// </summary>
+    private void PlayBuffSound()
+    {
+        if (soundAudio == null || prop == null ||
+            AudioManager.Instance == null || ResourceManager.Instance == null ||
+            string.IsNullOrEmpty(soundKey))
+            return;
+
+        AudioClip clip = ResourceManager.Instance.GetAudio(soundKey);
+        if (clip == null)
+        {
+            if (!warnedMissingSound)
+            {
+                warnedMissingSound = true;
+                Debug.LogWarning($"[ColdDebuff] 音频资源 {soundKey} 未加载，获得音效无法播放。", this);
+            }
+            return;
+        }
+
+        soundAudio.clip = clip;
+        soundAudio.volume = soundVolume;
+        soundAudio.priority = soundPriority;
+        Camera cam = Camera.main;
+        AudioManager.Instance.PlayEffect(
+            soundAudio,
+            (uint)soundPriority,
+            cam != null
+                ? Vector3.Distance(prop.transform.position, cam.transform.position)
+                : 0f,
+            prop.transform);
     }
 
     public bool RemoveLayer(ColdDebuff source)

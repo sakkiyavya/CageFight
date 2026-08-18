@@ -58,6 +58,28 @@ public class EngineerController : MonoBehaviour, ICollide
             return transform.position + offset;
         }
     }
+
+    private Transform shootPointCache;
+    /// <summary>
+    /// 工程师的射击点（"Shoot point" 子节点）；缺失时回退到施法锚点。
+    /// 用于抛射法术的发射起点。
+    /// </summary>
+    public Vector3 ShootPoint
+    {
+        get
+        {
+            if (shootPointCache == null)
+                shootPointCache = transform.Find("Shoot point");
+            if (shootPointCache != null)
+            {
+                if (!sprite || !sprite.flipX) return shootPointCache.position;
+                Vector3 offset = shootPointCache.position - transform.position;
+                offset.x = -offset.x;
+                return transform.position + offset;
+            }
+            return SpellPosition;
+        }
+    }
     public bool IsStunned => Time.time < stunnedUntil;
 
     public event Action<int, int> OnHealthChanged;

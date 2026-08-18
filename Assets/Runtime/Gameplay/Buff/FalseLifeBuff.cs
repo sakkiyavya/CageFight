@@ -91,6 +91,13 @@ internal class FalseLifeState : MonoBehaviour, IDeathReviver
 
     private readonly List<Layer> layers = new List<Layer>();
 
+    /// <summary>
+    /// 该单位是否已触发过一次妄业之力复活；触发后恒为 true，
+    /// 直至单位死亡重生（池化对象重新启用）时重置。
+    /// 供光环类能力（如 Hungry）判断是否还能继续施加妄业之力。
+    /// </summary>
+    public bool HasRevivedOnce { get; private set; }
+
     private GameObjectProperty prop;
     private CharacterHealth health;
     private SpriteRenderer[] renderers;
@@ -109,6 +116,14 @@ internal class FalseLifeState : MonoBehaviour, IDeathReviver
         originalColors = new Color[renderers.Length];
         for (int i = 0; i < renderers.Length; i++)
             originalColors[i] = renderers[i].color;
+    }
+
+    /// <summary>
+    /// 单位重生（池化对象重新启用）时视为新个体：清除复活记录。
+    /// </summary>
+    private void OnEnable()
+    {
+        HasRevivedOnce = false;
     }
 
     /// <summary>
@@ -163,6 +178,21 @@ internal class FalseLifeState : MonoBehaviour, IDeathReviver
         return false;
     }
 
+    /// <summary>
+    /// 统计由指定 Buff 实例施加且当前仍在生效的层数，供光环类能力补层/撤层。
+    /// </summary>
+    public int CountLayers(FalseLifeBuff source)
+    {
+        int count = 0;
+        for (int i = 0; i < layers.Count; i++)
+        {
+            if (layers[i].source == source)
+                count++;
+        }
+
+        return count;
+    }
+
     private void Update()
     {
         // 倒序清理到期层；全部到期后本管理器会销毁自身。
@@ -189,6 +219,9 @@ internal class FalseLifeState : MonoBehaviour, IDeathReviver
         FalseLifeBuff source = layers[0].source;
         if (source == null)
             return false;
+
+        // 记录本次复活已触发：光环类能力此后在本轮生命周期内不再施加妄业之力。
+        HasRevivedOnce = true;
 
         // 恢复比例 = 基础 80% + 防御魔法等级 × 每级 8%（等级取全局玩家防御魔法等级）。
         int level = UserGlobalInfo.Instance != null

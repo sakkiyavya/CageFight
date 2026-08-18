@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: -5661796856603178239}
   - component: {fileID: 6708064238973360371}
   - component: {fileID: 1818915867635375730}
+  - component: {fileID: -910000000000000400}
   m_Layer: 0
   m_Name: Championship
   m_TagString: Untagged
@@ -379,12 +380,23 @@ MonoBehaviour:
   antiRepel: 4
   atkRange: {x: 2, y: 1}
   atkObj: Bullet-Championship
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
+  armor: 0
+  damageReduction: 0
+  blockHits: 0
+  repelTakenMultiplier: 1
+  healTakenMultiplier: 1
+  missChance: 0
+  baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 2.4
   suckBlood: 0
   currentHp: 0
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -517,6 +529,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &-910000000000000400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995352725975620414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a80fa69aea64b2ea82ac9db472f34fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  massThreshold: 4
+  hpPercentThreshold: 0.15
+  falseLifeLayers: 2
+  executeDamageMultiplier: 10
 --- !u!1001 &464204777084932481
 PrefabInstance:
   m_ObjectHideFlags: 0
