@@ -47,6 +47,11 @@ public class WaterBreathCat : MonoBehaviour
         if (_prop == null || _prop.isDead)
             return;
 
-        _armor.ApplyBuff(_prop, _selfDamage);
+        if (!_armor.ApplyBuff(_prop, _selfDamage))
+            return;
+
+        // 登记 currentBuff（单条登记，避免重复条目累积）。
+        if (!_prop.currentBuff.Contains(_armor))
+            _prop.currentBuff.Add(_armor);
     }
 }

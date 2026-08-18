@@ -43,6 +43,8 @@ public class ThunderstormCat : MonoBehaviour
     /// <summary>雷霆模式阶段：空闲 → 雷霆 → 结束麻痹 → 空闲。</summary>
     private enum Phase { Idle, Thunder, SelfParalyzed }
 
+    private const float ImmobilizedAntiRepel = 1000000f;  // 定身期间的击退抗性（击退位移 = repel / antiRepel ≈ 0）。
+
     private GameObjectProperty _prop;
     private ParalysisDebuff _paralysis;                 // 电球命中的标准麻痹。
     private ThunderstormParalysisDebuff _selfParalysis; // 模式结束后的自身长时麻痹。
@@ -162,7 +164,7 @@ public class ThunderstormCat : MonoBehaviour
             }
 
             _prop.moveSpeed = 0f;
-            _prop.antiRepel = 1000000f;
+            _prop.antiRepel = ImmobilizedAntiRepel;
         }
         else if (_immobilized)
         {
@@ -337,16 +339,18 @@ public class ThunderstormCat : MonoBehaviour
 /// </summary>
 internal class ThunderBoltRuntime : MonoBehaviour
 {
-    private GameObject _target;      // 反击目标（伤害来源）。
-    private Damage _damage;          // 命中时结算的伤害（含麻痹 Buff）。
-    private float _speed;            // 飞行速度。
-    private float _hitDistance;      // 命中接近距离。
-    private Vector3 _aimPosition;    // 当前瞄准位置。
-    private bool _flying;            // 是否在飞行中。
+    private GameObject _target;              // 反击目标（伤害来源）。
+    private GameObjectProperty _targetProp;  // 反击目标属性（发射时缓存，避免每帧 GetComponent）。
+    private Damage _damage;                  // 命中时结算的伤害（含麻痹 Buff）。
+    private float _speed;                    // 飞行速度。
+    private float _hitDistance;              // 命中接近距离。
+    private Vector3 _aimPosition;            // 当前瞄准位置。
+    private bool _flying;                    // 是否在飞行中。
 
     public void Launch(Vector3 start, GameObject target, Damage damage, float speed, float hitDistance)
     {
         _target = target;
+        _targetProp = target != null ? target.GetComponent<GameObjectProperty>() : null;
         _damage = damage;
         _speed = Mathf.Max(0.1f, speed);
         _hitDistance = Mathf.Max(0.05f, hitDistance);
@@ -388,8 +392,7 @@ internal class ThunderBoltRuntime : MonoBehaviour
         if (_target == null || !_target.activeInHierarchy)
             return false;
 
-        GameObjectProperty prop = _target.GetComponent<GameObjectProperty>();
-        return prop == null || !prop.isDead;
+        return _targetProp == null || !_targetProp.isDead;
     }
 
     private void Impact()

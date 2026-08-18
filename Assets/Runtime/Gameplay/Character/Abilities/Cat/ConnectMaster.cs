@@ -201,6 +201,15 @@ internal class ConnectCircleRuntime : MonoBehaviour
         _renderer = GetComponent<SpriteRenderer>();
     }
 
+    /// <summary>池化对象重新启用时重置本轮状态（放置前不残留上一轮法阵状态）。</summary>
+    private void OnEnable()
+    {
+        _waiting = false;
+        _bursting = false;
+        _burstDamaged = false;
+        ConnectMaster.ActiveCircles.Remove(this);
+    }
+
     /// <summary>初始化法阵：快照配置与外观（半透明），开始留场计时并登记全局列表。</summary>
     public void Place(Vector3 position, ConnectMaster owner, int attackDamage)
     {

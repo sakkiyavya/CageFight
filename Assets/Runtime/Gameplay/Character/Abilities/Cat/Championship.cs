@@ -74,7 +74,10 @@ public class Championship : MonoBehaviour
 
         // 先赋予妄业之力（死亡后假死接管），再造成致命伤害斩杀。
         for (int i = 0; i < falseLifeLayers; i++)
-            _falseLife.ApplyBuff(targetProp);
+        {
+            if (_falseLife.ApplyBuff(targetProp))
+                targetProp.currentBuff.Add(_falseLife);
+        }
 
         _execDamage.side = _prop.side;
         _execDamage.source = gameObject;

@@ -43,6 +43,11 @@ public class FatCat : MonoBehaviour
         if (_prop == null || _prop.isDead)
             return;
 
-        _falsePower.ApplyBuff(_prop);
+        if (!_falsePower.ApplyBuff(_prop))
+            return;
+
+        // 登记 currentBuff（单条登记，避免重复条目累积）。
+        if (!_prop.currentBuff.Contains(_falsePower))
+            _prop.currentBuff.Add(_falsePower);
     }
 }

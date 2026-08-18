@@ -89,7 +89,10 @@ public class DarkCat : MonoBehaviour
         if (target.isDead)
         {
             for (int i = 0; i < falseLifeLayersPerKill; i++)
-                falseLife.ApplyBuff(prop);
+            {
+                if (falseLife.ApplyBuff(prop))
+                    prop.currentBuff.Add(falseLife);
+            }
         }
 
         if (!iconPrefab) return result.missed ? 0 : result.finalDamage;

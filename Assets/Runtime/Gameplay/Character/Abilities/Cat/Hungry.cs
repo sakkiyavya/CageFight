@@ -133,14 +133,17 @@ public class Hungry : MonoBehaviour
             }
         }
 
-        // 为范围内友方补满层数。
+        // 为范围内友方补满层数（登记 currentBuff，随层到期/触发由层管理器移除）。
         for (int i = 0; i < _inRange.Count; i++)
         {
             GameObjectProperty target = _inRange[i];
             FalseLifeState state = target.GetComponent<FalseLifeState>();
             int layers = state != null ? state.CountLayers(_falseLife) : 0;
             for (int add = layers; add < auraLayers; add++)
-                _falseLife.ApplyBuff(target);
+            {
+                if (_falseLife.ApplyBuff(target))
+                    target.currentBuff.Add(_falseLife);
+            }
         }
 
         // 本轮范围内友方成为下一轮对比基准。
