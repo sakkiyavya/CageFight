@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class DarkCat : MonoBehaviour
 {
-    public GameObject iconPrefab;
-    public Transform iconTarget;
-    public float range = 6f;
-    public float iconTime = .5f;
-    public LayerMask targetLayer = ~0;
+    [SerializeField] private GameObject iconPrefab;
+    [SerializeField] private Transform iconTarget;
+    [SerializeField] private float range = 6f;
+    [SerializeField] private float iconTime = .5f;
+    [SerializeField] private LayerMask targetLayer = ~0;
 
     [SerializeField, Min(1)]
     private int falseLifeLayersPerKill = 1;    // 击杀敌人获得的妄业之力层数（默认 1）。
@@ -89,10 +89,7 @@ public class DarkCat : MonoBehaviour
         if (target.isDead)
         {
             for (int i = 0; i < falseLifeLayersPerKill; i++)
-            {
-                if (falseLife.ApplyBuff(prop))
-                    prop.currentBuff.Add(falseLife);
-            }
+                prop.ApplyStatus(falseLife);
         }
 
         if (!iconPrefab) return result.missed ? 0 : result.finalDamage;
@@ -121,41 +118,5 @@ public class DarkCat : MonoBehaviour
         int heal = Mathf.RoundToInt(dealtDamage * prop.suckBlood / 100f);
         if (heal > 0)
             health.Heal(heal);
-    }
-}
-
-public class DarkCatIcon : MonoBehaviour
-{
-    Transform target;
-    Vector3 startPosition, startScale;
-    float duration, timer;
-
-    public void Play(Transform destination, float time)
-    {
-        target = destination;
-        startPosition = transform.position;
-        startScale = transform.localScale;
-        duration = Mathf.Max(.01f, time);
-        timer = 0;
-    }
-
-    void Update()
-    {
-        if (!target) return;
-
-        timer += Time.deltaTime;
-        float t = Mathf.Clamp01(timer / duration);
-
-        transform.position =
-            Vector3.Lerp(startPosition, target.position, t);
-
-        transform.localScale =
-            Vector3.Lerp(startScale, Vector3.zero, t);
-
-        if (t >= 1)
-        {
-            transform.localScale = startScale;
-            GameObjectPool.Instance.Release(gameObject);
-        }
     }
 }

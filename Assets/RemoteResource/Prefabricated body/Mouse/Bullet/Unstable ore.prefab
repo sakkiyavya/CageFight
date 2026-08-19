@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &6085967849312817081
 GameObject:
@@ -232,7 +232,7 @@ MonoBehaviour:
   animator: {fileID: 4614113220768179848}
   explosionStateName: Unstable ore
   audioSource: {fileID: 0}
-  explosionAudio: {fileID: 8300000, guid: 33de4fa54e059ba49a0ca1ae9b032504, type: 3}
+  explosionAudioKey: BOOM.LV.1
 --- !u!82 &-5260880140083618214
 AudioSource:
   m_ObjectHideFlags: 0

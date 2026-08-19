@@ -5,8 +5,8 @@ public class Coins : MonoBehaviour
 {
     public static Coins Instance { get; private set; }
 
-    [SerializeField]int coins = 0;                 // 当前持有的金币数量。
-    [SerializeField]int coinPerSec = 500;          // 自动结算时每秒增加的金币数量。
+    [SerializeField] int coins = 0;                 // 当前持有的金币数量。
+    [SerializeField] int coinPerSec = 500;          // 自动结算时每秒增加的金币数量。
 
     public int CurrentCoins => coins;              // 对外只读的当前金币总量。
     public int CurrentCoinPerSec => coinPerSec;    // 对外只读的每秒金币产量。

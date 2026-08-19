@@ -33,8 +33,8 @@ public sealed class MagicEnergySing : MonoBehaviour, IEngineerDirectSpellInstanc
     [Header("音效")]
     [SerializeField]
     private AudioSource audioSource;        // 伤害帧音效源（未配置时自动获取/创建）。
-    [SerializeField]
-    private AudioClip damageAudio;          // 伤害帧音效片段（BOOM.LV.3，直接引用）。
+    [SerializeField, ResourceKey(typeof(AudioClip))]
+    private string damageAudioKey = "BOOM.LV.3"; // 伤害帧音效资源键。
 
     [Header("警示圈")]
     [SerializeField]
@@ -179,25 +179,22 @@ public sealed class MagicEnergySing : MonoBehaviour, IEngineerDirectSpellInstanc
     }
 
     /// <summary>
-    /// 伤害帧音效（BOOM.LV.3），在单位位置经 AudioManager 播放。
+    /// 伤害帧音效（BOOM.LV.3）：按资源键经 ResourceManager 取得，在单位位置经 AudioManager 播放。
     /// </summary>
     private void PlayDamageAudio()
     {
-        if (audioSource == null || damageAudio == null ||
-            AudioManager.Instance == null)
+        if (audioSource == null || AudioManager.Instance == null ||
+            ResourceManager.Instance == null || string.IsNullOrEmpty(damageAudioKey))
             return;
 
-        audioSource.clip = damageAudio;
+        AudioClip clip = ResourceManager.Instance.GetAudio(damageAudioKey);
+        if (clip == null)
+            return;
+
+        audioSource.clip = clip;
         audioSource.volume = 1f;
         audioSource.priority = 32;
-        Camera cam = Camera.main;
-        AudioManager.Instance.PlayEffect(
-            audioSource,
-            32,
-            cam != null
-                ? Vector3.Distance(transform.position, cam.transform.position)
-                : 0f,
-            transform);
+        AudioManager.Instance.PlayEffectAt(audioSource, 32, transform);
     }
 
     /// <summary>

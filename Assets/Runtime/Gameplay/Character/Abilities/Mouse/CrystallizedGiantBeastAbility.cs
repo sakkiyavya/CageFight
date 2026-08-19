@@ -8,7 +8,8 @@ using UnityEngine;
 ///    最多累计 +13% 基础上限，复活不清零。
 /// 2. 每次生命归零：扣除 20% 基础上限（100-20-20-20-20-20=0），
 ///    随后“晶化”自身 4 秒（无敌且不能动），前 3 秒回血到满（血条逐帧增长），
-///    第 4 秒恢复行动；上限被扣到 0 时播放死亡特效后彻底离场（销毁，不再复活）。
+///    第 4 秒恢复行动；上限被扣到 0 时不再晶化复活，走框架常规死亡流程
+///    （死亡抛飞 → 对象池回收，技能脚本不直接销毁宿主）。
 /// 3. 每次攻击：自身获得 1 层精准 + 1 层创伤（自我创伤推动下一次晶化）。
 /// 4. 免疫配置的指定 Buff（如未来的“妄业之力”，把其实例拖入 immuneBuff 即可）。
 /// 晶化期间显示水晶覆盖层视觉（呼吸效果，需配置 crystalSprite）。
@@ -33,8 +34,10 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
     private float healDuration = 3f;            // 前几秒回血到满。
 
     [Header("晶化视觉")]
-    [SerializeField, Tooltip("水晶覆盖层贴图（可复用 CrystallizationDebuff 的 crystalTexture）")]
-    private Sprite crystalSprite;
+    [SerializeField, ResourceKey(typeof(Sprite)), Tooltip("水晶覆盖层贴图资源键（Buff1 AP_0）")]
+    private string crystalSpriteKey = "Buff1 AP_0";
+    [SerializeField, ResourceKey(typeof(GameObject)), Tooltip("水晶覆盖层视觉预制体资源键（UnitVisualFollower，池化生成）")]
+    private string crystalVisualPrefabKey = "UnitVisualFollower";
     [SerializeField, Min(0.01f)]
     private float crystalScale = 1f;            // 覆盖层缩放。
     [SerializeField]
@@ -51,11 +54,6 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
     private BuffBase immuneBuff;
 
     private static readonly Color CrystalColor = new Color(0.65f, 0.85f, 1f, 1f);
-    private const float FinalDeathDuration = 1f;          // 彻底离场时的死亡特效秒。
-    private const float FinalDeathFlySpeed = 4f;          // 死亡抛飞水平速度。
-    private const float FinalDeathFlyUp = 20f;            // 死亡抛飞纵向初速。
-    private const float FinalDeathGravity = -50f;         // 死亡抛飞纵向加速度。
-    private const float FinalDeathSpin = 1440f;           // 死亡旋转角速度（度/秒）。
 
     private GameObjectProperty _prop;
     private CharacterHealth _health;
@@ -63,7 +61,8 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
     private TraumaDebuff _trauma;
     private SpriteRenderer[] renderers;
     private Color[] originalColors;
-    private SpriteRenderer crystalOverlay;      // 晶化覆盖层。
+    private UnitVisualFollower crystalFollower; // 晶化覆盖层视觉（池化跟随对象）。
+    private Sprite _crystalSprite;              // 经 ResourceManager 解析的水晶贴图缓存。
     private Coroutine crystalRoutine;
 
     private int baseMaxHp;                      // 基础上限（击杀加成与死亡扣减的基准）。
@@ -173,9 +172,9 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
 
         if (_prop.maxHp <= 0)
         {
-            // 上限归零：播放死亡特效后彻底离场（不进入晶化复活）。
-            StartFinalDeath(lethalDamage);
-            return true;
+            // 上限归零：不再晶化复活。返回 false 交由 CharacterHealth 走常规死亡流程
+            //（死亡抛飞 → 对象池回收，不再复活），技能脚本不直接销毁宿主对象。
+            return false;
         }
 
         StartCrystalRevive();
@@ -218,7 +217,6 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
                     _health.SetHpbar();
             }
 
-            UpdateCrystalBreathing();
             yield return null;
         }
 
@@ -234,65 +232,22 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
     }
 
     /// <summary>
-    /// 播放死亡抛飞特效（与常规死亡一致的抛物线 + 旋转），结束后彻底销毁离场。
+    /// 上限归零的彻底离场走框架死亡流程（见 TryRevive 返回 false 的分支），
+    /// 本类不再自定义死亡特效与销毁逻辑。
     /// </summary>
-    private void StartFinalDeath(Damage lethalDamage)
-    {
-        _prop.isDead = true;
-        _prop.isAttack = false;
-        _prop.target = null;
-
-        int direction = 1;
-        if (lethalDamage.source != null)
-        {
-            float delta = transform.position.x - lethalDamage.source.transform.position.x;
-            if (Mathf.Abs(delta) > 0.001f)
-                direction = delta > 0f ? 1 : -1;
-        }
-        else if (lethalDamage.collideDir != 0)
-        {
-            direction = lethalDamage.collideDir > 0 ? 1 : -1;
-        }
-
-        StartCoroutine(FinalDeathRoutine(direction));
-    }
-
-    private IEnumerator FinalDeathRoutine(int direction)
-    {
-        Vector3 start = transform.position;
-        Quaternion startRotation = transform.rotation;
-        float elapsed = 0f;
-
-        while (elapsed < FinalDeathDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed;
-
-            transform.position = start + new Vector3(
-                direction * FinalDeathFlySpeed * t,
-                FinalDeathFlyUp * t + 0.5f * FinalDeathGravity * t * t,
-                0f);
-            transform.Rotate(Vector3.forward, FinalDeathSpin * Time.deltaTime);
-            yield return null;
-        }
-
-        transform.position = start;
-        transform.rotation = startRotation;
-        Destroy(gameObject);
-    }
     #endregion
 
     #region 攻击自我增益
     /// <summary>
-    /// 每次攻击对自身施加一层精准与一层创伤。
+    /// 攻击自我增益：每次攻击对自身施加一层精准与一层创伤（统一状态入口登记）。
     /// </summary>
     private void HandleAttacked()
     {
         if (_prop == null || _prop.isDead || crystallizing)
             return;
 
-        _precise.ApplyBuff(_prop);
-        _trauma.ApplyBuff(_prop);
+        _prop.ApplyStatus(_precise);
+        _prop.ApplyStatus(_trauma);
     }
     #endregion
 
@@ -321,45 +276,57 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
     }
 
     /// <summary>
-    /// 创建水晶覆盖层（子级 SpriteRenderer），配置贴图、缩放、偏移与排序。
+    /// 创建水晶覆盖层：按资源键经对象池生成 UnitVisualFollower 绑定自身，
+    /// 跟随、呼吸与回收由该组件统一管理（贴图键 Buff1 AP_0）。
     /// </summary>
     private void CreateCrystalOverlay()
     {
         RemoveCrystalOverlay();
 
-        if (crystalSprite == null || renderers == null || renderers.Length == 0)
+        if (renderers == null || renderers.Length == 0)
             return;
 
-        GameObject child = new GameObject("Crystal");
-        child.transform.SetParent(transform, false);
-        child.transform.localScale = Vector3.one * crystalScale;
-        child.transform.localPosition = new Vector3(crystalOffset.x, crystalOffset.y, 0f);
+        // 延迟补齐：资源未就绪时本次不显示覆盖层（键已进公共预载列表）。
+        if (_crystalSprite == null && ResourceManager.Instance != null &&
+            !string.IsNullOrEmpty(crystalSpriteKey))
+            _crystalSprite = ResourceManager.Instance.GetSprite(crystalSpriteKey);
 
-        crystalOverlay = child.AddComponent<SpriteRenderer>();
-        crystalOverlay.sprite = crystalSprite;
-        crystalOverlay.sortingLayerID = renderers[0].sortingLayerID;
-        crystalOverlay.sortingOrder = renderers[0].sortingOrder + 1;
-    }
-
-    /// <summary>
-    /// 驱动水晶覆盖层的呼吸透明度。
-    /// </summary>
-    private void UpdateCrystalBreathing()
-    {
-        if (crystalOverlay == null)
+        if (_crystalSprite == null)
             return;
 
-        Color color = new Color(0.6f, 0.85f, 1f, 1f);
-        color.a = 0.4f + Mathf.Sin(Time.time * 3f) * 0.15f;
-        crystalOverlay.color = color;
+        GameObject prefab = ResourceManager.Instance.GetGameObject(crystalVisualPrefabKey);
+        if (prefab == null)
+            return;
+
+        GameObject go = GameObjectPool.Instance.Get(prefab);
+        if (go == null)
+            return;
+
+        UnitVisualFollower follower = go.GetComponent<UnitVisualFollower>();
+        if (follower == null)
+            follower = go.AddComponent<UnitVisualFollower>();
+
+        SpriteRenderer renderer = go.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            renderer.sprite = _crystalSprite;
+            renderer.sortingLayerID = renderers[0].sortingLayerID;
+            renderer.sortingOrder = renderers[0].sortingOrder + 1;
+            renderer.color = new Color(0.6f, 0.85f, 1f, 1f);
+        }
+
+        go.transform.localScale = Vector3.one * crystalScale;
+        follower.Init(gameObject, new Vector3(crystalOffset.x, crystalOffset.y, 0f),
+            0.48f, 0.25f, 0.55f);
+        crystalFollower = follower;
     }
 
     private void RemoveCrystalOverlay()
     {
-        if (crystalOverlay != null)
+        if (crystalFollower != null)
         {
-            Destroy(crystalOverlay.gameObject);
-            crystalOverlay = null;
+            crystalFollower.Finish();
+            crystalFollower = null;
         }
     }
 

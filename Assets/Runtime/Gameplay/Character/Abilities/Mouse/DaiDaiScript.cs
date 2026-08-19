@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
@@ -6,7 +6,8 @@ using UnityEngine;
 public class DaiDaiScript : MonoBehaviour
 {
     [Header("免死后图片")]
-    [SerializeField] private Sprite replacementSprite;
+    [SerializeField, ResourceKey(typeof(Sprite))]
+    private string replacementSpriteKey = "Derivative-Two fool";
     [SerializeField] private SpriteRenderer targetRenderer;
 
     [Tooltip("(1,1)匹配原图片大小，(0.5,0.5)缩小一半")]
@@ -25,6 +26,7 @@ public class DaiDaiScript : MonoBehaviour
     private Rigidbody2D body;
 
     private Sprite originalSprite;
+    private Sprite _replacementSprite;      // 经 ResourceManager 解析的替换贴图缓存。
     private Vector3 originalScale;
 
     private bool triggered;
@@ -128,13 +130,18 @@ public class DaiDaiScript : MonoBehaviour
 
     private void ApplyReplacementAppearance()
     {
-        if (targetRenderer == null ||
-            replacementSprite == null)
-        {
+        if (targetRenderer == null)
             return;
-        }
 
-        targetRenderer.sprite = replacementSprite;
+        // 替换贴图按资源键经 ResourceManager 解析（延迟补齐）。
+        if (_replacementSprite == null && ResourceManager.Instance != null &&
+            !string.IsNullOrEmpty(replacementSpriteKey))
+            _replacementSprite = ResourceManager.Instance.GetSprite(replacementSpriteKey);
+
+        if (_replacementSprite == null)
+            return;
+
+        targetRenderer.sprite = _replacementSprite;
 
         /*
          * 根据原图片和替换图片的实际尺寸，
@@ -146,7 +153,7 @@ public class DaiDaiScript : MonoBehaviour
                 originalSprite.bounds.size;
 
             Vector2 replacementBounds =
-                replacementSprite.bounds.size;
+                _replacementSprite.bounds.size;
 
             float scaleX =
                 replacementBounds.x > 0f

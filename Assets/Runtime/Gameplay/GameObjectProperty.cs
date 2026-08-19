@@ -25,7 +25,7 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     public float atkRate = 1f;                                     // 攻击频率或攻击速度系数。
     public int magicAtk = 5;                                       // 魔法攻击力。
     public float repel = 1;                                        // 攻击命中时施加的击退强度。
-    [Min(0.1f)]public float antiRepel = 1;                         // 抵抗击退的除数，数值越大实际位移越小。
+    [Min(0.1f)] public float antiRepel = 1;                         // 抵抗击退的除数，数值越大实际位移越小。
     public Vector2Int atkRange = Vector2Int.one;                   // 攻击矩形的网格尺寸。
     [ResourceKey(typeof(GameObject))]
     public string atkObj;                                          // 攻击投射物预制体的资源键。
@@ -141,6 +141,47 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     }
 
     public Type DataType => typeof(GameObjectPropertyData);        // 该组件对应的关卡序列化数据类型。
+
+    /// <summary>
+    /// 统一状态施加入口：执行 ApplyBuff、写入施加时间，并按 Buff/Debuff 类型
+    /// 登记到 currentBuff/currentDebuff（同实例重复施放只保留一条登记，
+    /// 层数/刷新策略由各状态组件自行管理）。
+    /// 兵种/能力脚本只通过本入口施加状态，不得直接增删 currentBuff/currentDebuff。
+    /// </summary>
+    /// <param name="buff">需要施加的状态实例。</param>
+    /// <param name="damage">来源伤害数据（含施法者与阵营，可传 DefaultDamage）。</param>
+    /// <returns>目标存活且施加成功时返回 <see langword="true"/>。</returns>
+    public bool ApplyStatus(BuffBase buff, Damage damage)
+    {
+        if (buff == null || isDead)
+            return false;
+
+        if (!buff.ApplyBuff(this, damage))
+            return false;
+
+        buff.buffApplyTime = Time.time;
+
+        if (buff.isDeBuff)
+        {
+            if (!currentDebuff.Contains(buff))
+                currentDebuff.Add(buff);
+        }
+        else
+        {
+            if (!currentBuff.Contains(buff))
+                currentBuff.Add(buff);
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// 不带来源信息的统一状态施加入口（等价于 ApplyStatus(buff, Damage.DefaultDamage)）。
+    /// </summary>
+    public bool ApplyStatus(BuffBase buff)
+    {
+        return ApplyStatus(buff, Damage.DefaultDamage);
+    }
 
     /// <summary>
     /// 将可持久化的对象类型、阵营、战斗、移动、占地和资源键配置导出为组件数据。

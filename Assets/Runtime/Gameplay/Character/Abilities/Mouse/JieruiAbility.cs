@@ -20,8 +20,8 @@ public class JieruiAbility : MonoBehaviour
     private float layerDuration = 10f;      // 每层持续秒数。
 
     [Header("死亡奶酪")]
-    [SerializeField, Tooltip("死亡时在原地生成的奶酪预制体（如 Huge cheese）")]
-    private GameObject cheesePrefab;
+    [SerializeField, ResourceKey(typeof(GameObject)), Tooltip("死亡时生成的奶酪预制体资源键（Huge cheese）")]
+    private string cheesePrefabKey = "Huge cheese";
 
     /// <summary>单层强化快照。</summary>
     private class Layer
@@ -90,11 +90,16 @@ public class JieruiAbility : MonoBehaviour
     }
 
     /// <summary>
-    /// 响应死亡事件：在死亡位置生成奶酪。
+    /// 响应死亡事件：在死亡位置生成奶酪。预制体按资源键经 ResourceManager 解析。
     /// </summary>
     private void HandleDied(GameObject unit)
     {
-        if (cheeseSpawned || cheesePrefab == null || GameObjectPool.Instance == null)
+        if (cheeseSpawned || GameObjectPool.Instance == null ||
+            ResourceManager.Instance == null || string.IsNullOrEmpty(cheesePrefabKey))
+            return;
+
+        GameObject cheesePrefab = ResourceManager.Instance.GetGameObject(cheesePrefabKey);
+        if (cheesePrefab == null)
             return;
 
         cheeseSpawned = true;

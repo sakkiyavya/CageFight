@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 public class BabaDoctorC1Script : MonoBehaviour, IProjectileImpactHandler
@@ -101,20 +101,9 @@ public class BabaDoctorC1Script : MonoBehaviour, IProjectileImpactHandler
             if (target == null)
                 continue;
 
-            // 已晶化的单位只刷新时间
-            if (!crystallization.ApplyBuff(target))
+            // 已晶化的单位只刷新时间（统一状态入口施加并登记）。
+            if (!target.ApplyStatus(crystallization))
                 continue;
-
-            crystallization.buffApplyTime =
-                Time.time;
-
-            if (!target.currentDebuff.Contains(
-                    crystallization))
-            {
-                target.currentDebuff.Add(
-                    crystallization
-                );
-            }
         }
     }
 }

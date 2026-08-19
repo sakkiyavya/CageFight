@@ -54,7 +54,7 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        Camera cam = Camera.main;                                                    // 当前用于距离衰减的主摄像机。
+        Camera cam = MainCamera;                                                     // 当前用于距离衰减的主摄像机（本服务缓存）。
         if (cam == null) return;
 
         float halfWidth  = cam.orthographicSize * cam.aspect;                        // 正交摄像机的可视半宽。
@@ -184,7 +184,7 @@ public class AudioManager : MonoBehaviour
     /// <returns>最远活跃声源的水平距离；没有主摄像机或有效声源时返回 0。</returns>
     private float GetMaxActiveDistance()
     {
-        Camera cam = Camera.main;                                                    // 当前主摄像机。
+        Camera cam = MainCamera;                                                    // 当前主摄像机（本服务缓存）。
         if (cam == null) return 0f;
         float camX = cam.transform.position.x;                                       // 摄像机水平坐标。
         float max = 0f;                                                              // 当前找到的最大水平距离。
@@ -267,6 +267,39 @@ public class AudioManager : MonoBehaviour
     #endregion
 
     #region 音效请求调度
+    private Camera _mainCamera;                                                      // 缓存的主相机（失效时自动重新查找）。
+
+    /// <summary>
+    /// 缓存的主相机：业务脚本经本服务取得，不再直接查询 Camera.main；
+    /// 缓存为空（场景切换/尚未就绪）时自动重新查找。
+    /// </summary>
+    public Camera MainCamera
+    {
+        get
+        {
+            if (_mainCamera == null)
+                _mainCamera = Camera.main;
+            return _mainCamera;
+        }
+    }
+
+    /// <summary>
+    /// 以声源自身位置播放效果：距离由本服务用缓存的主相机内部计算，
+    /// 业务脚本无需自行查询 Camera.main。
+    /// </summary>
+    /// <param name="source">携带音频片段及播放参数的音频源。</param>
+    /// <param name="priority">请求优先级，数值越小优先级越高。</param>
+    /// <param name="origin">播放期间需要持续跟踪位置的声源变换。</param>
+    /// <returns>请求是否获得通道并开始播放。</returns>
+    public bool PlayEffectAt(AudioSource source, uint priority, Transform origin)
+    {
+        Camera cam = MainCamera;
+        float distance = cam != null && origin != null
+            ? Vector3.Distance(origin.position, cam.transform.position)
+            : 0f;
+        return PlayEffect(source, priority, distance, origin);
+    }
+
     /// <summary>
     /// 根据优先级、当前通道占用情况和声源距离决定是否接受音效请求。
     /// 紧急请求可以抢占最低优先级通道，其余请求仅在池容量和竞争规则允许时播放。

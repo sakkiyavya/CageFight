@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterAI : MonoBehaviour
 {
     public List<BehaviourBase> Behaviours = new List<BehaviourBase>();                  // 按优先顺序执行的 AI 行为组件。
-    [SerializeField]private Transform shootPoint;                                       // 投射物生成位置；未配置时自动查找 ShootPoint 子节点。
+    [SerializeField] private Transform shootPoint;                                       // 投射物生成位置；未配置时自动查找 ShootPoint 子节点。
     private GameObjectProperty _prop;                                                   // 角色运行时属性和 AI 状态。
     private CharacterHealth _health;                                                    // 角色生命组件。
     private Animator _animator;                                                         // 同步攻击状态的动画组件。

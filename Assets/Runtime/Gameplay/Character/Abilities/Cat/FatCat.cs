@@ -36,18 +36,13 @@ public class FatCat : MonoBehaviour
     }
 
     /// <summary>
-    /// 每次攻击：对自身施加一层虚假力量。
+    /// 每次攻击：对自身施加一层虚假力量（统一状态入口登记）。
     /// </summary>
     private void HandleAttack()
     {
         if (_prop == null || _prop.isDead)
             return;
 
-        if (!_falsePower.ApplyBuff(_prop))
-            return;
-
-        // 登记 currentBuff（单条登记，避免重复条目累积）。
-        if (!_prop.currentBuff.Contains(_falsePower))
-            _prop.currentBuff.Add(_falsePower);
+        _prop.ApplyStatus(_falsePower);
     }
 }

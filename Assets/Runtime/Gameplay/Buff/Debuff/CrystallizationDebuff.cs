@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class CrystallizationDebuff : BuffBase
 {
     [SerializeField] private float duration = 5f;
 
     [Header("水晶图片")]
-    [SerializeField] private Sprite crystalTexture;
+    [SerializeField, ResourceKey(typeof(Sprite))]
+    private string crystalTextureKey = "Buff1 AP_0";
 
     [SerializeField, Min(0.01f)]
     private float crystalScale = 1f;
@@ -34,13 +35,25 @@ public class CrystallizationDebuff : BuffBase
         state.Apply(
             this,
             duration,
-            crystalTexture,
+            ResolveCrystalSprite(),
             crystalScale,
             crystalOffset
         );
 
         return true;
     }
+
+    /// <summary>按资源键解析水晶贴图（延迟补齐，成功一次后不再查找）。</summary>
+    private Sprite ResolveCrystalSprite()
+    {
+        if (_crystalSprite == null && ResourceManager.Instance != null &&
+            !string.IsNullOrEmpty(crystalTextureKey))
+            _crystalSprite = ResourceManager.Instance.GetSprite(crystalTextureKey);
+
+        return _crystalSprite;
+    }
+
+    private Sprite _crystalSprite;  // 经 ResourceManager 解析的水晶贴图缓存。
 
     public override bool CancelBuff(GameObjectProperty prop)
     {
@@ -58,11 +71,12 @@ public class CrystallizationDebuff : BuffBase
     }
 }
 
-class CrystallizationState : MonoBehaviour
+class CrystallizationState : MonoBehaviour, IIncomingDamageModifier
 {
     private GameObjectProperty prop;
     private SpriteRenderer body;
-    private SpriteRenderer crystal;
+    private const string CrystalVisualPrefabKey = "UnitVisualFollower"; // 水晶视觉预制体资源键（池化生成）。
+    private UnitVisualFollower crystalFollower;
     private CrystallizationDebuff source;
 
     private GameObjectType originalType;
@@ -101,7 +115,6 @@ class CrystallizationState : MonoBehaviour
 
         prop.objectType |= GameObjectType.Building;
         prop.moveSpeed *= 0.5f;
-        prop.OnHitted += ReduceDamage;
 
         if (body == null)
             return;
@@ -123,35 +136,31 @@ class CrystallizationState : MonoBehaviour
         float scale,
         Vector2 offset)
     {
-        GameObject child =
-            new GameObject("Crystal");
+        GameObject prefab = ResourceManager.Instance.GetGameObject(CrystalVisualPrefabKey);
+        if (prefab == null)
+            return;
 
-        child.transform.SetParent(
-            body.transform,
-            false
-        );
+        GameObject go = GameObjectPool.Instance.Get(prefab);
+        if (go == null)
+            return;
 
-        // 保持原比例，不再自动拉伸
-        child.transform.localScale =
-            Vector3.one * scale;
+        UnitVisualFollower follower = go.GetComponent<UnitVisualFollower>();
+        if (follower == null)
+            follower = go.AddComponent<UnitVisualFollower>();
 
-        // 调整上下左右位置
-        child.transform.localPosition =
-            new Vector3(
-                offset.x,
-                offset.y,
-                0f
-            );
+        SpriteRenderer renderer = go.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            renderer.sprite = texture;
+            renderer.sortingLayerID = body.sortingLayerID;
+            renderer.sortingOrder = body.sortingOrder + 1;
+            renderer.color = new Color(0.6f, 0.4f, 1f, 1f);
+        }
 
-        crystal =
-            child.AddComponent<SpriteRenderer>();
-
-        crystal.sprite = texture;
-        crystal.sortingLayerID =
-            body.sortingLayerID;
-
-        crystal.sortingOrder =
-            body.sortingOrder + 1;
+        go.transform.localScale = Vector3.one * scale;
+        follower.Init(gameObject, new Vector3(offset.x, offset.y, 0f),
+            0.48f, 0.25f, 0.55f);
+        crystalFollower = follower;
     }
 
     private void Update()
@@ -159,42 +168,19 @@ class CrystallizationState : MonoBehaviour
         if (Time.time >= expireTime)
         {
             Remove();
-            return;
         }
-
-        if (crystal == null)
-            return;
-
-        // 水晶图片呼吸
-        Color color =
-            new Color(
-                0.6f,
-                0.4f,
-                1f,
-                0.5f
-            );
-
-        color.a =
-            0.4f +
-            Mathf.Sin(Time.time * 3f) *
-            0.15f;
-
-        crystal.color = color;
     }
 
-    private void ReduceDamage(Damage damage)
+    /// <summary>
+    /// 统一入伤修正（IIncomingDamageModifier）：晶化期间非魔法伤害减免 70%，
+    /// 在正式扣血前按已结算伤害修正，不预先回血抵消。
+    /// </summary>
+    public int ModifyIncomingDamage(Damage damage)
     {
-        // 魔法伤害不享受减伤
-        if (damage.type == DamageType.magic)
-            return;
+        if (!active || damage.type == DamageType.magic || damage.finalDamage <= 0)
+            return damage.finalDamage;
 
-        prop.currentHp +=
-            Mathf.RoundToInt(
-                Mathf.Max(
-                    0,
-                    damage.initialDamage
-                ) * 0.7f
-            );
+        return Mathf.Max(0, Mathf.RoundToInt(damage.finalDamage * 0.3f));
     }
 
     public void Remove()
@@ -219,13 +205,15 @@ class CrystallizationState : MonoBehaviour
     {
         prop.objectType = originalType;
         prop.moveSpeed /= 0.5f;
-        prop.OnHitted -= ReduceDamage;
 
         if (body != null)
             body.color = originalColor;
 
-        if (crystal != null)
-            Destroy(crystal.gameObject);
+        if (crystalFollower != null)
+        {
+            crystalFollower.Finish();
+            crystalFollower = null;
+        }
     }
 
     private void OnDisable()

@@ -44,13 +44,6 @@ public class B39Ability : MonoBehaviour, IDebuffConverter
             return false;
 
         // 护甲施加失败时放行原减益，避免吞掉减益却没有转化收益。
-        if (!_armor.ApplyBuff(_prop))
-            return false;
-
-        // 登记 currentBuff（单条登记，避免重复条目累积）。
-        if (!_prop.currentBuff.Contains(_armor))
-            _prop.currentBuff.Add(_armor);
-
-        return true;
+        return _prop.ApplyStatus(_armor);
     }
 }

@@ -104,7 +104,7 @@ public class CharacterHealth : MonoBehaviour, ICollide
         if (_prop.isDead)
             return damage;
 
-        if(damage.buffs != null && damage.buffs.Count() > 0)
+        if(damage.buffs != null && damage.buffs.Length > 0)
         {
             IDebuffConverter converter = GetComponent<IDebuffConverter>();
             IBuffImmunity immunity = GetComponent<IBuffImmunity>();
@@ -118,13 +118,8 @@ public class CharacterHealth : MonoBehaviour, ICollide
                 if (buff.isDeBuff && converter != null && converter.ConvertDebuff(buff))
                     continue;
 
-                if(!buff.ApplyBuff(_prop, damage))
-                    continue;
-                buff.buffApplyTime = Time.time;
-                if(buff.isDeBuff)
-                    _prop.currentDebuff.Add(buff);
-                else 
-                    _prop.currentBuff.Add(buff);
+                // 统一状态入口：执行 ApplyBuff 并登记到 currentBuff/currentDebuff。
+                _prop.ApplyStatus(buff, damage);
             }
         }
 
@@ -197,6 +192,12 @@ public class CharacterHealth : MonoBehaviour, ICollide
         Damage d = DamageComputor.DamageCompute(damage);
         if (_prop.isDead)
             return d;
+
+        // 统一入伤修正（护盾吸收等）：在正式扣血前修正本次已结算伤害，
+        // 保证同一次攻击只结算一遍伤害，不允许实现方预先回血抵消。
+        IIncomingDamageModifier damageModifier = GetComponent<IIncomingDamageModifier>();
+        if (damageModifier != null)
+            d.finalDamage = damageModifier.ModifyIncomingDamage(d);
 
         _prop.currentHp = Mathf.Max(_prop.currentHp - d.finalDamage, 0);
         RestartHitEffect();

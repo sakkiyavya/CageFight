@@ -19,7 +19,7 @@ using UnityEngine;
 /// 兼容攻击动画缺少 StopShoot 事件导致 isAttack 不回落的情况。
 /// </summary>
 [RequireComponent(typeof(GameObjectProperty))]
-public class ThunderstormCat : MonoBehaviour
+public class ThunderstormCat : MonoBehaviour, IIncomingDamageModifier
 {
     [Header("雷霆模式")]
     [SerializeField, Min(0.1f)] private float thunderDuration = 7f;         // 雷霆模式持续秒。
@@ -28,12 +28,16 @@ public class ThunderstormCat : MonoBehaviour
     [SerializeField, Min(0.1f)] private float selfParalysisSeconds = 3f;    // 模式结束时自身麻痹秒数。
 
     [Header("电球")]
-    [SerializeField, Tooltip("电球预制体（Bullet2 AP 第四个素材，Bullet-Thunderstorm）")]
-    private GameObject ballPrefab;
+    [SerializeField, ResourceKey(typeof(GameObject)), Tooltip("电球预制体资源键（Bullet-Thunderstorm）")]
+    private string ballPrefabKey = "Bullet-Thunderstorm";
     [SerializeField, Min(0.1f)] private float ballSpeed = 10f;              // 电球飞行速度。
     [SerializeField, Min(0.05f)] private float ballHitDistance = 0.3f;      // 电球命中判定的接近距离。
 
     [Header("雷盾视觉（呼吸灯）")]
+    [SerializeField, ResourceKey(typeof(GameObject))]
+    private string shieldVisualPrefabKey = "UnitVisualFollower"; // 雷盾视觉预制体资源键（池化生成）。
+    [SerializeField, ResourceKey(typeof(Sprite))]
+    private string shieldVisualSpriteKey = "Bullet3 AP_0";       // 雷盾视觉贴图资源键。
     [SerializeField, Min(0f)] private float shieldVisualHeight = 1f;        // 护盾相对单位位置的 Y 轴高度（1 单位）。
     [SerializeField, Min(0.05f)] private float shieldVisualScale = 1.6f;    // 护盾缩放。
     [SerializeField, Min(0.1f)] private float breathSpeed = 2.5f;           // 呼吸频率（每秒周期数）。
@@ -48,6 +52,7 @@ public class ThunderstormCat : MonoBehaviour
     private GameObjectProperty _prop;
     private ParalysisDebuff _paralysis;                 // 电球命中的标准麻痹。
     private ThunderstormParalysisDebuff _selfParalysis; // 模式结束后的自身长时麻痹。
+    private GameObject _ballPrefab;                     // 经 ResourceManager 解析的电球预制体缓存。
 
     private Phase _phase;                               // 当前阶段。
     private float _thunderEndTime;                      // 雷霆模式结束时间。
@@ -57,9 +62,9 @@ public class ThunderstormCat : MonoBehaviour
     private float _moveSpeedBefore;                     // 定身前的移动速度（退出时恢复）。
     private float _antiRepelBefore;                     // 定身前的击退抗性（退出时恢复）。
 
-    private GameObject _shieldVisual;                   // 呼吸灯护盾子对象。
-    private SpriteRenderer _shieldRenderer;             // 呼吸灯护盾渲染器。
-    private static Sprite _generatedShieldSprite;       // 复用生成的圆形护盾贴图。
+    private UnitVisualFollower _shieldFollower;         // 雷盾视觉（池化跟随对象）。
+    private GameObject _shieldVisualPrefab;             // 视觉预制体缓存（按资源键解析）。
+    private Sprite _shieldSprite;                       // 视觉贴图缓存（按资源键解析）。
 
     private void Awake()
     {
@@ -67,13 +72,11 @@ public class ThunderstormCat : MonoBehaviour
         _paralysis = gameObject.AddComponent<ParalysisDebuff>();
         _selfParalysis = gameObject.AddComponent<ThunderstormParalysisDebuff>();
         _selfParalysis.SetDuration(selfParalysisSeconds);
-        CreateShieldVisual();
     }
 
     private void OnEnable()
     {
         _prop.OnAtt += HandleAttack;
-        _prop.OnHitted += HandleHitted;
 
         _phase = Phase.Idle;
         _shieldHp = 0;
@@ -84,7 +87,6 @@ public class ThunderstormCat : MonoBehaviour
     private void OnDisable()
     {
         _prop.OnAtt -= HandleAttack;
-        _prop.OnHitted -= HandleHitted;
 
         // 死亡/回收时直接结束模式，恢复移动，不再给死者叠麻痹。
         Immobilize(false);
@@ -107,8 +109,6 @@ public class ThunderstormCat : MonoBehaviour
                     _thunderEndTime = Time.time + thunderDuration;
                 else if (Time.time >= _thunderEndTime)
                     EndThunderMode();
-
-                UpdateShieldBreathing();
                 break;
 
             case Phase.SelfParalyzed:
@@ -174,35 +174,36 @@ public class ThunderstormCat : MonoBehaviour
         }
     }
 
-    /// <summary>被攻击：释放电球反击伤害来源，随后护盾吸收本次伤害。</summary>
-    private void HandleHitted(Damage damage)
+    /// <summary>
+    /// 统一入伤修正（IIncomingDamageModifier）：在正式扣血前处理雷霆模式的反击与护盾吸收。
+    /// 伤害已由 CharacterHealth 完成唯一一次结算，本方法只取最终值并返回剩余伤害，
+    /// 不重复计算、不预先回血抵消。
+    /// </summary>
+    public int ModifyIncomingDamage(Damage damage)
     {
-        if (_phase != Phase.Thunder || _prop == null)
-            return;
+        if (_phase != Phase.Thunder || _prop == null || damage.finalDamage <= 0)
+            return damage.finalDamage;
 
-        Damage calculated = DamageComputor.DamageCompute(damage);
-        int taken = calculated.missed ? 0 : calculated.finalDamage;
-
-        // 反击：对伤害来源释放电球（未命中不反击）。
-        if (taken > 0 && damage.source != null)
+        // 反击：对伤害来源释放电球（未命中时 finalDamage 为 0，不会进入这里）。
+        if (damage.source != null)
         {
-            int counter = Mathf.Max(1, Mathf.RoundToInt(taken * counterDamageMultiplier));
+            int counter = Mathf.Max(1, Mathf.RoundToInt(damage.finalDamage * counterDamageMultiplier));
             ReleaseBall(damage.source, counter);
         }
 
-        // 护盾吸收：预补血，随后的 TakeDamage 会把实际伤害扣掉。
+        // 护盾吸收：护盾耗尽即结束雷霆模式（触发自麻痹）。
         if (_shieldHp > 0)
         {
-            int absorbed = Mathf.Min(_shieldHp, taken);
-            if (absorbed > 0)
-            {
-                _shieldHp -= absorbed;
-                _prop.currentHp += absorbed;
-            }
+            int absorbed = Mathf.Min(_shieldHp, damage.finalDamage);
+            _shieldHp -= absorbed;
 
             if (_shieldHp <= 0)
                 EndThunderMode();
+
+            return damage.finalDamage - absorbed;
         }
+
+        return damage.finalDamage;
     }
 
     /// <summary>
@@ -223,20 +224,26 @@ public class ThunderstormCat : MonoBehaviour
         if (_prop == null || _prop.isDead)
             return;
 
-        _selfParalysis.ApplyBuff(_prop);
-        if (!_prop.currentDebuff.Contains(_selfParalysis))
-            _prop.currentDebuff.Add(_selfParalysis);
+        _prop.ApplyStatus(_selfParalysis);
     }
 
     /// <summary>
     /// 从对象池取电球并发射：电球飞向伤害来源，命中后结算反击伤害并附带一次麻痹。
+    /// 电球预制体经 ResourceManager 按资源键解析并缓存。
     /// </summary>
     private void ReleaseBall(GameObject attacker, int counterDamage)
     {
-        if (ballPrefab == null || attacker == null)
+        if (string.IsNullOrEmpty(ballPrefabKey) || attacker == null)
             return;
 
-        GameObject ball = GameObjectPool.Instance.Get(ballPrefab);
+        // 延迟补齐：资源就绪前跳过本次反击（键已进公共预载列表，正常对局首次攻击后即就绪）。
+        if (_ballPrefab == null && ResourceManager.Instance != null)
+            _ballPrefab = ResourceManager.Instance.GetGameObject(ballPrefabKey);
+
+        if (_ballPrefab == null)
+            return;
+
+        GameObject ball = GameObjectPool.Instance.Get(_ballPrefab);
         if (ball == null)
             return;
 
@@ -258,77 +265,68 @@ public class ThunderstormCat : MonoBehaviour
 
     #region 护盾视觉
     /// <summary>
-    /// 创建护盾视觉：单位 Y 轴上方 shieldVisualHeight 处的圆形呼吸灯渲染器，
-    /// 初始隐藏，雷霆模式期间显示并呼吸。
+    /// 生成雷盾视觉：按资源键解析池化预制体与贴图，经 GameObjectPool 生成
+    /// UnitVisualFollower 绑定自身（Y 轴上方 shieldVisualHeight 处呼吸），
+    /// 跟随、呼吸与回收由该组件统一管理，不再运行时生成贴图/临时对象。
     /// </summary>
-    private void CreateShieldVisual()
+    private void TrySpawnShieldVisual()
     {
-        _shieldVisual = new GameObject("ThunderShieldVisual");
-        _shieldVisual.transform.SetParent(transform, false);
-        _shieldVisual.transform.localPosition = new Vector3(0f, shieldVisualHeight, 0f);
-        _shieldVisual.transform.localScale = Vector3.one * shieldVisualScale;
-
-        _shieldRenderer = _shieldVisual.AddComponent<SpriteRenderer>();
-        _shieldRenderer.sprite = GetGeneratedShieldSprite();
-        _shieldRenderer.sortingLayerID = 495858691;   // OnMap 层，盖在单位身体（order 0）之上。
-        _shieldRenderer.sortingOrder = 1;
-        _shieldRenderer.color = new Color(1f, 1f, 1f, breathMaxAlpha);
-
-        _shieldVisual.SetActive(false);
-    }
-
-    private void SetShieldVisual(bool visible)
-    {
-        if (_shieldVisual != null)
-            _shieldVisual.SetActive(visible);
-    }
-
-    /// <summary>驱动呼吸灯：透明度在最低与最高之间按正弦波动。</summary>
-    private void UpdateShieldBreathing()
-    {
-        if (_shieldRenderer == null || _shieldVisual == null || !_shieldVisual.activeSelf)
-            return;
-
-        float t = 0.5f + 0.5f * Mathf.Sin(Time.time * breathSpeed * Mathf.PI * 2f);
-        Color color = _shieldRenderer.color;
-        color.a = Mathf.Lerp(breathMinAlpha, breathMaxAlpha, t);
-        _shieldRenderer.color = color;
-    }
-
-    /// <summary>生成并缓存蓝白色圆形护盾贴图（边缘亮、内部半透明）。</summary>
-    private static Sprite GetGeneratedShieldSprite()
-    {
-        if (_generatedShieldSprite != null)
-            return _generatedShieldSprite;
-
-        const int size = 128;
-
-        Texture2D texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
-        texture.name = "ThunderShieldCircle";
-        texture.filterMode = FilterMode.Bilinear;
-        texture.wrapMode = TextureWrapMode.Clamp;
-
-        Vector2 center = new Vector2((size - 1) * 0.5f, (size - 1) * 0.5f);
-        float radius = size * 0.47f;
-
-        for (int y = 0; y < size; y++)
+        if (_shieldFollower != null)
         {
-            for (int x = 0; x < size; x++)
-            {
-                float distance = Vector2.Distance(new Vector2(x, y), center) / radius;
-                float alpha = 0f;
-                if (distance <= 1f)
-                    alpha = distance >= 0.8f ? 0.9f : 0.15f;
-
-                texture.SetPixel(x, y, new Color(0.35f, 0.78f, 1f, alpha));
-            }
+            if (_shieldFollower.IsActive)
+                return;
+            _shieldFollower = null;
         }
 
-        texture.Apply();
+        if (ResourceManager.Instance == null)
+            return;
 
-        _generatedShieldSprite = Sprite.Create(texture, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), size);
-        _generatedShieldSprite.name = "ThunderShieldCircleSprite";
-        return _generatedShieldSprite;
+        // 延迟补齐：资源就绪前本次跳过，后续进入雷霆模式时重试。
+        if (_shieldVisualPrefab == null && !string.IsNullOrEmpty(shieldVisualPrefabKey))
+            _shieldVisualPrefab = ResourceManager.Instance.GetGameObject(shieldVisualPrefabKey);
+        if (_shieldSprite == null && !string.IsNullOrEmpty(shieldVisualSpriteKey))
+            _shieldSprite = ResourceManager.Instance.GetSprite(shieldVisualSpriteKey);
+
+        if (_shieldVisualPrefab == null || _shieldSprite == null)
+            return;
+
+        GameObject go = GameObjectPool.Instance.Get(_shieldVisualPrefab);
+        if (go == null)
+            return;
+
+        UnitVisualFollower follower = go.GetComponent<UnitVisualFollower>();
+        if (follower == null)
+            follower = go.AddComponent<UnitVisualFollower>();
+
+        SpriteRenderer renderer = go.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            renderer.sprite = _shieldSprite;
+            renderer.sortingLayerID = 495858691;    // OnMap 层，盖在单位身体（order 0）之上。
+            renderer.sortingOrder = 1;
+            renderer.color = new Color(0.55f, 0.8f, 1f, breathMaxAlpha);
+        }
+
+        go.transform.localScale = Vector3.one * shieldVisualScale;
+        follower.Init(gameObject, new Vector3(0f, shieldVisualHeight, 0f),
+            breathSpeed, breathMinAlpha, breathMaxAlpha);
+        _shieldFollower = follower;
+    }
+
+    /// <summary>显示或隐藏雷盾视觉。</summary>
+    private void SetShieldVisual(bool visible)
+    {
+        if (!visible)
+        {
+            if (_shieldFollower != null)
+            {
+                _shieldFollower.Finish();
+                _shieldFollower = null;
+            }
+            return;
+        }
+
+        TrySpawnShieldVisual();
     }
     #endregion
 }

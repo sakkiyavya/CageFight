@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(DamageSource))]
@@ -299,21 +299,11 @@ public class BOOMBroProjectile : MonoBehaviour
 
         audioSource.clip = explosionAudio;
 
-        Camera currentCamera = Camera.main;
-
-        if (AudioManager.Instance != null &&
-            currentCamera != null)
+        if (AudioManager.Instance != null)
         {
-            float distance =
-                Vector3.Distance(
-                    transform.position,
-                    currentCamera.transform.position
-                );
-
-            AudioManager.Instance.PlayEffect(
+            AudioManager.Instance.PlayEffectAt(
                 audioSource,
                 (uint)audioSource.priority,
-                distance,
                 transform
             );
         }

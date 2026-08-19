@@ -13,10 +13,6 @@ public class DamageTextPool : MonoBehaviour
     [SerializeField] Color healColor = Color.green;                                                       // 治疗数值使用的文本颜色。
     [SerializeField] Color missColor = Color.white;                                                       // 未命中（miss）跳字使用的文本颜色。
 
-
-
-    private readonly Queue<GameObject> _pool = new Queue<GameObject>();                                   // 当前可复用的停用跳字实例。
-
     #region 生命周期与回调
     /// <summary>
     /// 建立对象池单例，并按配置数量预先创建停用的跳字实例。
@@ -33,28 +29,16 @@ public class DamageTextPool : MonoBehaviour
             return;
         }
 
-        // 初始化预先载入对象
-        if (damageTextPrefab != null)
+        // 预热：经 GameObjectPool 创建并立即归还指定数量的跳字实例。
+        if (damageTextPrefab != null && GameObjectPool.Instance != null)
         {
             for (int i = 0; i < initialSize; i++)
             {
-                CreateNewInstance();
+                GameObject obj = GameObjectPool.Instance.Get(damageTextPrefab);
+                obj.SetActive(false);
+                GameObjectPool.Instance.Release(obj);
             }
         }
-    }
-    #endregion
-
-    #region 内部辅助
-    /// <summary>
-    /// 创建一个跳字实例，将其停用并加入空闲队列。
-    /// </summary>
-    /// <returns>新创建且已经进入对象池的跳字对象。</returns>
-    private GameObject CreateNewInstance()
-    {
-        GameObject obj = Instantiate(damageTextPrefab, transform);                                        // 新创建的跳字对象。
-        obj.SetActive(false);
-        _pool.Enqueue(obj);
-        return obj;
     }
     #endregion
 
@@ -68,7 +52,7 @@ public class DamageTextPool : MonoBehaviour
     {
         if (damageTextPrefab == null) return;
 
-        GameObject obj = _pool.Count > 0 ? _pool.Dequeue() : Instantiate(damageTextPrefab, transform);    // 本次使用的跳字对象。
+        GameObject obj = GetInstance();                                                             // 本次使用的跳字对象。
 
         obj.transform.position = pos;
         obj.SetActive(true);
@@ -89,7 +73,7 @@ public class DamageTextPool : MonoBehaviour
     {
         if (damageTextPrefab == null) return;
 
-        GameObject obj = _pool.Count > 0 ? _pool.Dequeue() : Instantiate(damageTextPrefab, transform);    // 本次使用的跳字对象。
+        GameObject obj = GetInstance();                                                             // 本次使用的跳字对象。
 
         obj.transform.position = pos;
         obj.SetActive(true);
@@ -109,7 +93,7 @@ public class DamageTextPool : MonoBehaviour
     {
         if (damageTextPrefab == null) return;
 
-        GameObject obj = _pool.Count > 0 ? _pool.Dequeue() : Instantiate(damageTextPrefab, transform);    // 本次使用的跳字对象。
+        GameObject obj = GetInstance();                                                             // 本次使用的跳字对象。
 
         obj.transform.position = pos;
         obj.SetActive(true);
@@ -124,13 +108,30 @@ public class DamageTextPool : MonoBehaviour
 
     #region 公开接口
     /// <summary>
-    /// 停用播放结束的跳字对象，并将其放回空闲队列。
+    /// 经 GameObjectPool 取得一个跳字实例（池服务不可用时回退到直接实例化）。
+    /// </summary>
+    private GameObject GetInstance()
+    {
+        if (GameObjectPool.Instance != null)
+            return GameObjectPool.Instance.Get(damageTextPrefab);
+
+        return Instantiate(damageTextPrefab, transform);
+    }
+
+    /// <summary>
+    /// 停用播放结束的跳字对象，并经 GameObjectPool 归还。
     /// </summary>
     /// <param name="obj">需要回收的跳字对象。</param>
     public void ReturnToPool(GameObject obj)
     {
+        if (GameObjectPool.Instance != null)
+        {
+            GameObjectPool.Instance.Release(obj);
+            return;
+        }
+
         obj.SetActive(false);
-        _pool.Enqueue(obj);
+        Destroy(obj);
     }
     #endregion
 }

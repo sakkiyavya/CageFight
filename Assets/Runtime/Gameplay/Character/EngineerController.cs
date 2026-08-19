@@ -96,6 +96,8 @@ public class EngineerController : MonoBehaviour, ICollide
     Animator animator;
     GameObjectProperty property;
     ParticleSystem healParticles;
+    GameObject healParticlesHost;                                  // 治疗粒子宿主（池化对象，随工程师回收归还）。
+    const string HealParticlesPrefabKey = "EngineerHealParticles"; // 治疗粒子宿主预制体资源键。
     Vector3 baseScale;
     Color baseColor;
     float nextHealTime, stunnedUntil;
@@ -129,6 +131,12 @@ public class EngineerController : MonoBehaviour, ICollide
     {
         if (Active == this) Active = null;
         StopAllBuildingGlow();
+
+        // 归还治疗粒子宿主到对象池，避免每次启用重复创建。
+        if (healParticlesHost != null && GameObjectPool.Instance != null)
+            GameObjectPool.Instance.Release(healParticlesHost);
+        healParticlesHost = null;
+        healParticles = null;
     }
 
     void Update()
@@ -311,9 +319,21 @@ public class EngineerController : MonoBehaviour, ICollide
 
     void CreateHealParticles()
     {
-        GameObject obj = new GameObject("Engineer Heal Particles");
-        obj.transform.SetParent(transform, false);
-        healParticles = obj.AddComponent<ParticleSystem>();
+        // 治疗粒子宿主经对象池生成（预制体：EngineerHealParticles），不再运行时 new GameObject。
+        GameObject host = null;
+        GameObject prefab = ResourceManager.Instance != null
+            ? ResourceManager.Instance.GetGameObject(HealParticlesPrefabKey)
+            : null;
+        if (prefab != null && GameObjectPool.Instance != null)
+            host = GameObjectPool.Instance.Get(prefab);
+        if (host == null)
+            return;
+
+        healParticlesHost = host;
+        healParticles = host.GetComponent<ParticleSystem>();
+        if (healParticles == null)
+            healParticles = host.AddComponent<ParticleSystem>();
+
         var main = healParticles.main;
         main.playOnAwake = false;
         main.loop = true;
@@ -328,7 +348,7 @@ public class EngineerController : MonoBehaviour, ICollide
             new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
             new[] { new GradientAlphaKey(1f, 0f), new GradientAlphaKey(0f, 1f) });
         fade.color = gradient;
-        obj.GetComponent<ParticleSystemRenderer>().sortingOrder = sprite.sortingOrder + 10;
+        host.GetComponent<ParticleSystemRenderer>().sortingOrder = sprite.sortingOrder + 10;
         healParticles.Play();
     }
 

@@ -18,8 +18,12 @@ public class ResoluteBuff : BuffBase
     private float duration = 0f;        // 每层持续秒；0 = 永久（只被伤害消耗）。
 
     [Header("棱形护盾视觉")]
-    [SerializeField, Tooltip("棱形护盾贴图（透明白色菱形），运行时作为子级渲染器显示")]
+    [SerializeField, Tooltip("棱形护盾贴图（直接拖入，优先使用；为空时回退 shieldSpriteKey 按资源键解析）")]
     private Sprite shieldSprite;
+    [SerializeField, ResourceKey(typeof(Sprite)), Tooltip("棱形护盾贴图资源键（State1 AP 第 33 个子精灵 = State1 AP_32），直接贴图为空时使用")]
+    private string shieldSpriteKey = "State1 AP_32";
+    [SerializeField, ResourceKey(typeof(GameObject)), Tooltip("护盾视觉预制体资源键（UnitVisualFollower，池化生成）")]
+    private string shieldVisualPrefabKey = "UnitVisualFollower";
     [SerializeField, Min(0f)]
     private float shieldHeight = 1f;    // 护盾相对图像重心 y 轴上的偏移（默认 1 格）。
     [SerializeField, Min(0.01f)]
@@ -38,14 +42,45 @@ public class ResoluteBuff : BuffBase
 
     /// <summary>每层持续秒（0 = 永久），供层管理器读取。</summary>
     public float Duration => duration;
+    /// <summary>护盾视觉预制体资源键，供层管理器读取。</summary>
+    public string ShieldVisualPrefabKey => shieldVisualPrefabKey;
+
+    private Sprite _resolvedSprite;     // 按资源键解析的运行时缓存（不写回序列化字段，避免污染预制体资产）。
+    private bool shieldSpriteWarned;    // 是否已输出过“贴图尚未加载”的一次性警告。
 
     /// <summary>供运行时创建/配置实例时设置每层持续秒（0 = 永久，只被伤害消耗）。</summary>
     public void SetDuration(float seconds)
     {
         duration = Mathf.Max(0f, seconds);
     }
-    /// <summary>护盾贴图，供层管理器读取。</summary>
-    public Sprite ShieldSprite => shieldSprite;
+
+    /// <summary>
+    /// 护盾贴图：优先使用 Inspector 直接拖入的贴图；为空时按资源键经 ResourceManager
+    /// 解析（未就绪时返回 null，由层管理器在每次施加坚毅时重试补齐，能自愈时序问题）。
+    /// 解析成功或持续缺失时输出一次性日志，便于在 Console 定位真实资源键。
+    /// </summary>
+    public Sprite ShieldSprite
+    {
+        get
+        {
+            if (shieldSprite != null)
+                return shieldSprite;
+
+            if (_resolvedSprite == null && ResourceManager.Instance != null &&
+                !string.IsNullOrEmpty(shieldSpriteKey))
+            {
+                _resolvedSprite = ResourceManager.Instance.GetSprite(shieldSpriteKey);
+
+                if (_resolvedSprite == null && !shieldSpriteWarned)
+                {
+                    shieldSpriteWarned = true;
+                    Debug.LogWarning($"[ResoluteBuff] 坚毅护盾贴图尚未加载：key={shieldSpriteKey}，将在后续施放时自动重试补齐。", this);
+                }
+            }
+
+            return _resolvedSprite;
+        }
+    }
     /// <summary>护盾 y 偏移，供层管理器读取。</summary>
     public float ShieldHeight => shieldHeight;    /// <summary>单层护盾基础缩放，供层管理器读取。</summary>
     public float BaseScale => baseScale;
@@ -62,6 +97,14 @@ public class ResoluteBuff : BuffBase
     public void SetShieldSprite(Sprite sprite)
     {
         shieldSprite = sprite;
+    }
+
+    /// <summary>供运行时创建/配置实例时设置护盾贴图资源键。</summary>
+    public void SetShieldSpriteKey(string key)
+    {
+        shieldSpriteKey = key;
+        _resolvedSprite = null;
+        shieldSpriteWarned = false;
     }
 
     #region Buff 生命周期
@@ -111,7 +154,7 @@ internal class ResoluteState : MonoBehaviour
     private readonly List<Layer> layers = new List<Layer>();
 
     private GameObjectProperty prop;
-    private SpriteRenderer shield;          // 棱形护盾渲染器（子级，运行时创建）。
+    private UnitVisualFollower shieldFollower;      // 棱形护盾视觉（池化跟随对象）。
     private float shieldHeight = 1f;
     private float baseScale = 1f;
     private float growPerLayer = 0.2f;
@@ -125,7 +168,8 @@ internal class ResoluteState : MonoBehaviour
     }
 
     /// <summary>
-    /// 无限叠加一层坚毅：格挡次数 +1，首个层加入时快照护盾视觉参数并创建护盾。
+    /// 无限叠加一层坚毅：格挡次数 +1。每次施加都核对/创建护盾并刷新贴图——
+    /// 资源晚加载或贴图被替换时，在下一次施加即自愈，不会永久停留在旧图/空图。
     /// </summary>
     public bool AddLayer(ResoluteBuff source)
     {
@@ -141,7 +185,6 @@ internal class ResoluteState : MonoBehaviour
             breathSpeed = source.BreathSpeed;
             breathMinAlpha = source.BreathMinAlpha;
             breathMaxAlpha = source.BreathMaxAlpha;
-            CreateShield(source.ShieldSprite);
         }
 
         layers.Add(new Layer
@@ -151,6 +194,7 @@ internal class ResoluteState : MonoBehaviour
         });
 
         prop.blockHits++;
+        EnsureShield(source);
         UpdateShieldScale();
         return true;
     }
@@ -188,35 +232,72 @@ internal class ResoluteState : MonoBehaviour
         // （blockHits 由伤害流程扣减，这里只移除层，不再重复扣减）。
         while (layers.Count > prop.blockHits)
             RemoveAt(0, false);
-
-        UpdateShieldBreathing();
     }
 
     /// <summary>
-    /// 创建棱形护盾（子级 SpriteRenderer），位于图像重心 y 轴上方 shieldHeight 处。
+    /// 核对护盾视觉：不存在则按资源键经对象池生成（UnitVisualFollower），
+    /// 贴图变化（首次解析成功/换图）时更新；跟随、呼吸与回收由该组件统一管理。
     /// </summary>
-    private void CreateShield(Sprite sprite)
+    private void EnsureShield(ResoluteBuff source)
     {
-        RemoveShield();
+        Sprite sprite = source.ShieldSprite;
 
-        if (sprite == null)
+        if (shieldFollower != null)
+        {
+            if (!shieldFollower.IsActive)
+            {
+                shieldFollower = null;
+            }
+            else
+            {
+                SyncShieldSprite(sprite);
+                return;
+            }
+        }
+
+        if (ResourceManager.Instance == null)
             return;
 
-        SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>(true);
+        // 延迟补齐：资源未就绪时本次跳过，下次施加坚毅时重试。
+        GameObject prefab = ResourceManager.Instance.GetGameObject(source.ShieldVisualPrefabKey);
+        if (prefab == null)
+            return;
 
-        GameObject child = new GameObject("ResoluteShield");
-        child.transform.SetParent(transform, false);
-        child.transform.localPosition = new Vector3(0f, shieldHeight, 0f);
+        GameObject go = GameObjectPool.Instance.Get(prefab);
+        if (go == null)
+            return;
 
-        shield = child.AddComponent<SpriteRenderer>();
-        shield.sprite = sprite;
-        shield.color = new Color(1f, 1f, 1f, breathMaxAlpha);
+        UnitVisualFollower follower = go.GetComponent<UnitVisualFollower>();
+        if (follower == null)
+            follower = go.AddComponent<UnitVisualFollower>();
 
-        if (renderers != null && renderers.Length > 0)
+        SpriteRenderer renderer = go.GetComponent<SpriteRenderer>();
+        if (renderer != null)
         {
-            shield.sortingLayerID = renderers[0].sortingLayerID;
-            shield.sortingOrder = renderers[0].sortingOrder + 1;
+            SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>(true);
+            if (renderers != null && renderers.Length > 0)
+            {
+                renderer.sortingLayerID = renderers[0].sortingLayerID;
+                renderer.sortingOrder = renderers[0].sortingOrder + 1;
+            }
+            renderer.color = new Color(1f, 1f, 1f, breathMaxAlpha);
         }
+
+        follower.Init(gameObject, new Vector3(0f, shieldHeight, 0f),
+            breathSpeed, breathMinAlpha, breathMaxAlpha);
+        shieldFollower = follower;
+        SyncShieldSprite(sprite);
+    }
+
+    /// <summary>把当前解析到的贴图同步到护盾视觉渲染器。</summary>
+    private void SyncShieldSprite(Sprite sprite)
+    {
+        if (shieldFollower == null || sprite == null)
+            return;
+
+        SpriteRenderer renderer = shieldFollower.GetComponent<SpriteRenderer>();
+        if (renderer != null && renderer.sprite != sprite)
+            renderer.sprite = sprite;
     }
 
     /// <summary>
@@ -224,27 +305,12 @@ internal class ResoluteState : MonoBehaviour
     /// </summary>
     private void UpdateShieldScale()
     {
-        if (shield == null)
+        if (shieldFollower == null || !shieldFollower.IsActive)
             return;
 
         int count = layers.Count;
         float scale = baseScale * (1f + Mathf.Max(0, count - 1) * growPerLayer);
-        shield.transform.localScale = new Vector3(scale, scale, 1f);
-    }
-
-    /// <summary>
-    /// 驱动护盾透明白色呼吸：透明度在 min 与 max 之间正弦波动，层数多少不影响呼吸。
-    /// </summary>
-    private void UpdateShieldBreathing()
-    {
-        if (shield == null)
-            return;
-
-        float wave = 0.5f + 0.5f * Mathf.Sin(Time.time * breathSpeed * Mathf.PI * 2f);
-        float alpha = Mathf.Lerp(breathMinAlpha, breathMaxAlpha, wave);
-        Color color = shield.color;
-        color.a = alpha;
-        shield.color = color;
+        shieldFollower.transform.localScale = new Vector3(scale, scale, 1f);
     }
 
     private void RemoveAt(int index, bool decrementBlock)
@@ -273,10 +339,10 @@ internal class ResoluteState : MonoBehaviour
 
     private void RemoveShield()
     {
-        if (shield != null)
+        if (shieldFollower != null)
         {
-            Destroy(shield.gameObject);
-            shield = null;
+            shieldFollower.Finish();
+            shieldFollower = null;
         }
     }
 }

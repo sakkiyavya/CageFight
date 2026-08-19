@@ -98,7 +98,8 @@ internal class BlindState : MonoBehaviour
     private readonly List<Layer> layers = new List<Layer>();
 
     private GameObjectProperty prop;
-    private SpriteRenderer blindIcon;   // 图标（子级，运行时创建）。
+    private const string IconVisualPrefabKey = "UnitVisualFollower"; // 图标视觉预制体资源键（池化生成）。
+    private UnitVisualFollower blindFollower;   // 图标视觉（池化跟随对象）。
     private float yOffset = 2f;
     private float firstMissPercent = 0.08f;
     private float missDecayPercent = 0.01f;
@@ -207,19 +208,32 @@ internal class BlindState : MonoBehaviour
             return;
         }
 
-        GameObject child = new GameObject("BlindIcon");
-        child.transform.SetParent(transform, false);
-        child.transform.localPosition = new Vector3(0f, yOffset, 0f);
+        GameObject prefab = ResourceManager.Instance.GetGameObject(IconVisualPrefabKey);
+        if (prefab == null)
+            return;
 
-        blindIcon = child.AddComponent<SpriteRenderer>();
-        blindIcon.sprite = sprite;
-        blindIcon.color = Color.white;
+        GameObject go = GameObjectPool.Instance.Get(prefab);
+        if (go == null)
+            return;
 
-        if (renderers != null && renderers.Length > 0)
+        UnitVisualFollower follower = go.GetComponent<UnitVisualFollower>();
+        if (follower == null)
+            follower = go.AddComponent<UnitVisualFollower>();
+
+        SpriteRenderer iconRenderer = go.GetComponent<SpriteRenderer>();
+        if (iconRenderer != null)
         {
-            blindIcon.sortingLayerID = renderers[0].sortingLayerID;
-            blindIcon.sortingOrder = renderers[0].sortingOrder + 1;
+            iconRenderer.sprite = sprite;
+            iconRenderer.color = Color.white;
+            if (renderers != null && renderers.Length > 0)
+            {
+                iconRenderer.sortingLayerID = renderers[0].sortingLayerID;
+                iconRenderer.sortingOrder = renderers[0].sortingOrder + 1;
+            }
         }
+
+        follower.Init(gameObject, new Vector3(0f, yOffset, 0f), 0f, 1f, 1f);
+        blindFollower = follower;
     }
 
     private void RemoveAt(int index)
@@ -245,10 +259,10 @@ internal class BlindState : MonoBehaviour
 
     private void DestroyIcon()
     {
-        if (blindIcon != null)
+        if (blindFollower != null)
         {
-            Destroy(blindIcon.gameObject);
-            blindIcon = null;
+            blindFollower.Finish();
+            blindFollower = null;
         }
     }
 }

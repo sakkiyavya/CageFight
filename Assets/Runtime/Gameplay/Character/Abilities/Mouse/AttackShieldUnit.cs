@@ -1,25 +1,30 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
-public class AttackShieldUnit : MonoBehaviour
+public class AttackShieldUnit : MonoBehaviour, IIncomingDamageModifier
 {
     [Header("护盾属性")]
-    [Range(0.01f, 1f)]
-    public float shieldHpPercent = 0.1f;
+    [SerializeField, Range(0.01f, 1f)]
+    private float shieldHpPercent = 0.1f;
 
-    [Min(0.1f)]
-    public float shieldDuration = 10f;
+    [SerializeField, Min(0.1f)]
+    private float shieldDuration = 10f;
 
     [Header("护盾外观")]
-    [Min(0.1f)]
-    public float shieldSize = 1.5f;
+    [SerializeField, ResourceKey(typeof(GameObject))]
+    private string shieldVisualPrefabKey = "UnitVisualFollower";  // 护盾视觉预制体资源键（池化生成）。
+    [SerializeField, ResourceKey(typeof(Sprite))]
+    private string shieldSpriteKey = "Bullet3 AP_0";              // 护盾贴图资源键（黄色调色显示）。
+    [SerializeField, Min(0.1f)]
+    private float shieldSize = 1.5f;
 
-    public Vector3 shieldOffset = Vector3.zero;
+    [SerializeField]
+    private Vector3 shieldOffset = Vector3.zero;
 
     private GameObjectProperty prop;
-    private GameObject shieldObject;
+    private UnitVisualFollower shieldFollower;
 
     private int shieldHp;
     private float shieldExpireTime;
@@ -29,18 +34,14 @@ public class AttackShieldUnit : MonoBehaviour
         targetListeners =
             new Dictionary<GameObjectProperty, Action<Damage>>();
 
-    private static Sprite generatedShieldSprite;
-
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
-        CreateShieldVisual();
     }
 
     private void OnEnable()
     {
         prop.OnAtt += OnAttack;
-        prop.OnHitted += OnHitted;
 
         shieldHp = 0;
         wasAttacking = prop.isAttack;
@@ -51,7 +52,6 @@ public class AttackShieldUnit : MonoBehaviour
     private void OnDisable()
     {
         prop.OnAtt -= OnAttack;
-        prop.OnHitted -= OnHitted;
 
         foreach (var pair in targetListeners)
         {
@@ -82,8 +82,8 @@ public class AttackShieldUnit : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (shieldObject == null ||
-            !shieldObject.activeSelf)
+        if (shieldFollower == null ||
+            !shieldFollower.IsActive)
         {
             return;
         }
@@ -92,7 +92,7 @@ public class AttackShieldUnit : MonoBehaviour
         float pulse =
             1f + Mathf.Sin(Time.time * 4f) * 0.05f;
 
-        shieldObject.transform.localScale =
+        shieldFollower.transform.localScale =
             Vector3.one * shieldSize * pulse;
     }
 
@@ -117,40 +117,28 @@ public class AttackShieldUnit : MonoBehaviour
         SetShieldVisible(true);
     }
 
-    private void OnHitted(Damage damage)
+    /// <summary>
+    /// 统一入伤修正（IIncomingDamageModifier）：护盾在正式扣血前吸收本次已结算伤害，
+    /// 返回剩余伤害；不重复计算、不预先回血抵消。
+    /// </summary>
+    public int ModifyIncomingDamage(Damage damage)
     {
-        if (shieldHp <= 0)
-            return;
+        if (shieldHp <= 0 || damage.finalDamage <= 0)
+            return damage.finalDamage;
 
         if (Time.time >= shieldExpireTime)
         {
             BreakShield();
-            return;
+            return damage.finalDamage;
         }
 
-        Damage calculated =
-            DamageComputor.DamageCompute(damage);
-
-        int absorbedDamage =
-            Mathf.Min(
-                shieldHp,
-                Mathf.Max(0, calculated.finalDamage)
-            );
-
-        if (absorbedDamage <= 0)
-            return;
-
-        shieldHp -= absorbedDamage;
-
-        /*
-         * OnHitted在正式扣血之前执行。
-         * 提前增加即将被护盾吸收的生命值，
-         * 随后的TakeDamage会将其扣除。
-         */
-        prop.currentHp += absorbedDamage;
+        int absorbed = Mathf.Min(shieldHp, damage.finalDamage);
+        shieldHp -= absorbed;
 
         if (shieldHp <= 0)
             BreakShield();
+
+        return damage.finalDamage - absorbed;
     }
 
     private void BreakShield()
@@ -193,46 +181,65 @@ public class AttackShieldUnit : MonoBehaviour
         targetProp.OnHitted += listener;
     }
 
-    private void CreateShieldVisual()
+    private void SetShieldVisible(bool visible)
     {
-        shieldObject =
-            new GameObject("GeneratedYellowShield");
-
-        shieldObject.transform.SetParent(
-            transform,
-            false
-        );
-
-        shieldObject.transform.localPosition =
-            shieldOffset;
-
-        shieldObject.transform.localScale =
-            Vector3.one * shieldSize;
-
-        SpriteRenderer shieldRenderer =
-            shieldObject.AddComponent<SpriteRenderer>();
-
-        shieldRenderer.sprite =
-            GetGeneratedShieldSprite();
-
-        SpriteRenderer referenceRenderer =
-            FindReferenceRenderer();
-
-        if (referenceRenderer != null)
+        if (!visible)
         {
-            shieldRenderer.sortingLayerID =
-                referenceRenderer.sortingLayerID;
-
-            shieldRenderer.sortingOrder =
-                referenceRenderer.sortingOrder + 100;
-        }
-        else
-        {
-            shieldRenderer.sortingOrder = 100;
+            if (shieldFollower != null)
+            {
+                shieldFollower.Finish();
+                shieldFollower = null;
+            }
+            return;
         }
 
-        shieldRenderer.color = Color.white;
-        shieldObject.SetActive(false);
+        if (shieldFollower != null)
+        {
+            if (shieldFollower.IsActive)
+                return;
+            shieldFollower = null;
+        }
+
+        if (ResourceManager.Instance == null)
+            return;
+
+        // 延迟补齐：资源未就绪时本次跳过，下次施放时重试。
+        GameObject prefab = ResourceManager.Instance.GetGameObject(shieldVisualPrefabKey);
+        if (prefab == null)
+            return;
+
+        Sprite sprite = ResourceManager.Instance.GetSprite(shieldSpriteKey);
+
+        GameObject go = GameObjectPool.Instance.Get(prefab);
+        if (go == null)
+            return;
+
+        UnitVisualFollower follower = go.GetComponent<UnitVisualFollower>();
+        if (follower == null)
+            follower = go.AddComponent<UnitVisualFollower>();
+
+        SpriteRenderer renderer = go.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            if (sprite != null)
+                renderer.sprite = sprite;
+
+            SpriteRenderer reference = FindReferenceRenderer();
+            if (reference != null)
+            {
+                renderer.sortingLayerID = reference.sortingLayerID;
+                renderer.sortingOrder = reference.sortingOrder + 100;
+            }
+            else
+            {
+                renderer.sortingOrder = 100;
+            }
+
+            renderer.color = new Color(1f, 0.82f, 0.05f, 1f);
+        }
+
+        follower.Init(gameObject, shieldOffset, 0f, 1f, 1f);
+        shieldFollower = follower;
     }
 
     private SpriteRenderer FindReferenceRenderer()
@@ -244,9 +251,6 @@ public class AttackShieldUnit : MonoBehaviour
 
         foreach (SpriteRenderer renderer in renderers)
         {
-            if (renderer.gameObject == shieldObject)
-                continue;
-
             if (result == null ||
                 renderer.sortingOrder >
                 result.sortingOrder)
@@ -256,86 +260,5 @@ public class AttackShieldUnit : MonoBehaviour
         }
 
         return result;
-    }
-
-    private void SetShieldVisible(bool visible)
-    {
-        if (shieldObject != null)
-            shieldObject.SetActive(visible);
-    }
-
-    private static Sprite GetGeneratedShieldSprite()
-    {
-        if (generatedShieldSprite != null)
-            return generatedShieldSprite;
-
-        const int size = 128;
-
-        Texture2D texture =
-            new Texture2D(
-                size,
-                size,
-                TextureFormat.RGBA32,
-                false
-            );
-
-        texture.name = "GeneratedYellowShield";
-        texture.filterMode = FilterMode.Bilinear;
-        texture.wrapMode = TextureWrapMode.Clamp;
-
-        Vector2 center =
-            new Vector2(
-                (size - 1) * 0.5f,
-                (size - 1) * 0.5f
-            );
-
-        float radius = size * 0.47f;
-
-        for (int y = 0; y < size; y++)
-        {
-            for (int x = 0; x < size; x++)
-            {
-                float distance =
-                    Vector2.Distance(
-                        new Vector2(x, y),
-                        center
-                    ) / radius;
-
-                float alpha = 0f;
-
-                if (distance <= 1f)
-                {
-                    // 内部透明，边缘明亮。
-                    alpha = distance >= 0.82f
-                        ? 0.65f
-                        : 0.13f;
-                }
-
-                texture.SetPixel(
-                    x,
-                    y,
-                    new Color(
-                        1f,
-                        0.82f,
-                        0.05f,
-                        alpha
-                    )
-                );
-            }
-        }
-
-        texture.Apply();
-
-        generatedShieldSprite = Sprite.Create(
-            texture,
-            new Rect(0, 0, size, size),
-            new Vector2(0.5f, 0.5f),
-            size
-        );
-
-        generatedShieldSprite.name =
-            "GeneratedYellowShieldSprite";
-
-        return generatedShieldSprite;
     }
 }

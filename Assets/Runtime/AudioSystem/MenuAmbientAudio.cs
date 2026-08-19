@@ -68,8 +68,7 @@ public sealed class MenuAmbientAudio : MonoBehaviour
         if (!clip || !AudioManager.Instance) return;
         beginPending = false;
         effectRequest.clip = clip;
-        AudioManager.Instance.PlayEffect(effectRequest, 4, 0f,
-            Camera.main ? Camera.main.transform : transform);
+        AudioManager.Instance.PlayEffectAt(effectRequest, 4, transform);
     }
 
     private void TryPlayCageDoor()

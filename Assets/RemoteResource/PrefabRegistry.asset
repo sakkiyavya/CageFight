@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -76,6 +76,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 2704503972681040971, guid: 5a404d311912e744d84a2f229b3106f9, type: 3}
+  - key: ConnectMasterCircle
+    prefabReference:
+      m_AssetGUID: 67901c17b682487ebec6e163d3057bb6
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 3487563477950919168, guid: 67901c17b682487ebec6e163d3057bb6, type: 3}
   - key: O energy
     prefabReference:
       m_AssetGUID: 6ee47a487a4451647b9fdbe3bf64b658
@@ -111,6 +118,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 334728432028503611, guid: a295ad867e0a5564199ff352d7d37eed, type: 3}
+  - key: Bullet-Thunderstorm
+    prefabReference:
+      m_AssetGUID: a727abd9df1143ed895b7420964c74a5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 1783597190871435264, guid: a727abd9df1143ed895b7420964c74a5, type: 3}
   - key: Bullet-Dark cat
     prefabReference:
       m_AssetGUID: ad3d8ef1712638d4091c064fe317bfdd
@@ -678,6 +692,34 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 7185331450149842993, guid: 3ace350d180fc4c4c8ff8d08652fcd3d, type: 3}
+  - key: Huge cheese
+    prefabReference:
+      m_AssetGUID: 4655a11859c1a0542b9d25b7da6fa706
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 4982157690039313999, guid: 4655a11859c1a0542b9d25b7da6fa706, type: 3}
+  - key: UPanime
+    prefabReference:
+      m_AssetGUID: c420cd35fb0e4804cbba09139e96a386
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 1452591897373347908, guid: c420cd35fb0e4804cbba09139e96a386, type: 3}
+  - key: UnitVisualFollower
+    prefabReference:
+      m_AssetGUID: 60f37214044c4c9b9ee13168b149b10e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 6124218588381548544, guid: 60f37214044c4c9b9ee13168b149b10e, type: 3}
+  - key: EngineerHealParticles
+    prefabReference:
+      m_AssetGUID: f5d5a0a787c84d2095b6548ad3cb12f7
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 8928556036429035520, guid: f5d5a0a787c84d2095b6548ad3cb12f7, type: 3}
   - key: BabaDoctor Believer
     prefabReference:
       m_AssetGUID: 07e0ecaac8918604cb97e6013c5fe160

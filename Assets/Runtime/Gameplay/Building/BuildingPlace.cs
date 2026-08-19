@@ -124,7 +124,10 @@ public class BuildingPlace : MonoBehaviour
             Touch touch = activeTouch.Value;                                                     // 当前帧的触摸数据。
             if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary)
             {
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(touch.position);               // 触摸位置转换得到的世界坐标。
+                // 触摸位置转换得到的世界坐标（主相机经音频服务缓存取得，不再直接查询 Camera.main）。
+                Vector3 worldPos = AudioManager.Instance != null && AudioManager.Instance.MainCamera != null
+                    ? AudioManager.Instance.MainCamera.ScreenToWorldPoint(touch.position)
+                    : Vector3.zero;
                 worldPos.z = 0;
 
                 GameObjectProperty prop = currentBuilding.GetComponent<GameObjectProperty>();    // 当前建筑的占地属性。

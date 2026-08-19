@@ -20,10 +20,10 @@ using UnityEngine;
 public class ConnectMaster : MonoBehaviour
 {
     [Header("法阵外观")]
-    [SerializeField, Tooltip("法阵素材（椭圆形，由用户拖入）")]
-    private Sprite magicCircleSprite;
-    [SerializeField, Tooltip("法阵预制体（ConnectMasterCircle）")]
-    private GameObject circlePrefab;
+    [SerializeField, ResourceKey(typeof(Sprite)), Tooltip("法阵素材资源键（Bullet3 AP_1）")]
+    private string magicCircleSpriteKey = "Bullet3 AP_1";
+    [SerializeField, ResourceKey(typeof(GameObject)), Tooltip("法阵预制体资源键（ConnectMasterCircle）")]
+    private string circlePrefabKey = "ConnectMasterCircle";
     [SerializeField]
     private Vector2 circleScale = new Vector2(0.8f, 0.55f); // 法阵缩放（椭圆可调 x/y）。
     [SerializeField, Range(0f, 1f)]
@@ -54,9 +54,18 @@ public class ConnectMaster : MonoBehaviour
     private static readonly ConnectCircleRuntime[] sideCircles = new ConnectCircleRuntime[256]; // 本方场上法阵暂存。
 
     private GameObjectProperty _prop;
+    private Sprite _circleSprite;              // 经 ResourceManager 解析的法阵贴图缓存。
+    private GameObject _circlePrefab;          // 经 ResourceManager 解析的法阵预制体缓存。
 
     #region 供法阵读取的配置
-    internal Sprite MagicCircleSprite => magicCircleSprite;
+    internal Sprite MagicCircleSprite
+    {
+        get
+        {
+            TryResolveResources();
+            return _circleSprite;
+        }
+    }
     internal Vector3 CircleScale => new Vector3(circleScale.x, circleScale.y, 1f);
     internal float IdleAlpha => idleAlpha;
     internal float StaySeconds => staySeconds;
@@ -103,13 +112,30 @@ public class ConnectMaster : MonoBehaviour
         CheckConnection();
     }
 
+    /// <summary>
+    /// 解析资源键（延迟补齐）：关卡资源可能晚于本组件加载完成，
+    /// 每次取用前重试，成功后缓存引用；不在攻击/每帧路径中重复加载。
+    /// </summary>
+    private void TryResolveResources()
+    {
+        if (ResourceManager.Instance == null)
+            return;
+
+        if (_circleSprite == null && !string.IsNullOrEmpty(magicCircleSpriteKey))
+            _circleSprite = ResourceManager.Instance.GetSprite(magicCircleSpriteKey);
+
+        if (_circlePrefab == null && !string.IsNullOrEmpty(circlePrefabKey))
+            _circlePrefab = ResourceManager.Instance.GetGameObject(circlePrefabKey);
+    }
+
     /// <summary>从对象池取法阵并放置在指定位置（法阵自行登记到全局列表）。</summary>
     private void PlaceCircle(Vector3 position, int attackDamage)
     {
-        if (circlePrefab == null)
+        TryResolveResources();
+        if (_circlePrefab == null)
             return;
 
-        GameObject go = GameObjectPool.Instance.Get(circlePrefab);
+        GameObject go = GameObjectPool.Instance.Get(_circlePrefab);
         if (go == null)
             return;
 

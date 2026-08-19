@@ -195,13 +195,9 @@ class ParalysisState : MonoBehaviour
         soundAudio.clip = clip;
         soundAudio.volume = SoundVolume;
         soundAudio.priority = SoundPriority;
-        Camera cam = Camera.main;
-        AudioManager.Instance.PlayEffect(
+        AudioManager.Instance.PlayEffectAt(
             soundAudio,
             (uint)SoundPriority,
-            cam != null
-                ? Vector3.Distance(prop.transform.position, cam.transform.position)
-                : 0f,
             prop.transform);
     }
 

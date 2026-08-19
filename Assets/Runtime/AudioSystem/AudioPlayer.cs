@@ -30,7 +30,7 @@ public class AudioPlayer : MonoBehaviour
     {
         if (AudioManager.Instance == null || _audioSource.clip == null) return false;
 
-        Camera cam = Camera.main;                                                         // 用于计算剔除范围和声源距离的主摄像机。
+        Camera cam = AudioManager.Instance.MainCamera;                                 // 用于计算剔除范围和声源距离的主摄像机（服务缓存）。
         if (cam == null) return false;
 
         // 摄像机剔除：超出正交摄像机视野 + 额外半屏宽（cullRadius = 1.5 × halfWidth）才跳过

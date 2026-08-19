@@ -119,7 +119,7 @@ public class EngineerCameraFollow : MonoBehaviour
     void FindBackground()
     {
         if (!autoFindBackground) return;
-        SpriteRenderer[] renderers = FindObjectsOfType<SpriteRenderer>();
+        SpriteRenderer[] renderers = Object.FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None);
         SpriteRenderer best = null;
         float bestArea = 0f;
         for (int i = 0; i < renderers.Length; i++)

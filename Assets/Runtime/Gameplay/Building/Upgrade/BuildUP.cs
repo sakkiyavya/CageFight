@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class BuildUP : MonoBehaviour
@@ -23,7 +24,8 @@ public class BuildUP : MonoBehaviour
     public TMP_Text costText;
 
     [Header("升级表现")]
-    [SerializeField] GameObject upgradeEffectPrefab;
+    [ResourceKey(typeof(GameObject))]
+    [SerializeField] string upgradeEffectPrefabKey = "UPanime"; // 升级特效预制体资源键（经资源框架解析后交对象池）。
     [SerializeField, Min(.05f)] float effectTime = .7f;
     [SerializeField, Min(.05f)] float jellyTime = .22f;
     [SerializeField, Range(0f, .5f)] float jellyAmount = .16f;
@@ -75,6 +77,11 @@ public class BuildUP : MonoBehaviour
                 box.isTrigger = true;
                 if (coinIcon.sprite) box.size = coinIcon.sprite.bounds.size * 1.25f;
             }
+
+            // 金币图标放入专用物理层，仅供 UpgradeCoin 层射线检测使用，
+            // 避免影响 EventSystem.IsPointerOverGameObject 等全局 UI 判定。
+            coinIcon.gameObject.layer = BuildingUpgradeCoinClick.UpgradeCoinLayer;
+            BuildingUpgradeCoinClick.EnsurePhysics2DRaycaster();
         }
 
         ApplyLevel();
@@ -107,22 +114,28 @@ public class BuildUP : MonoBehaviour
     IEnumerator UpgradeRoutine()
     {
         GameObject upgradeEffect = null;
-        if (upgradeEffectPrefab && GameObjectPool.Instance)
+        if (!string.IsNullOrEmpty(upgradeEffectPrefabKey) &&
+            ResourceManager.Instance && GameObjectPool.Instance)
         {
-            upgradeEffect = GameObjectPool.Instance.Get(upgradeEffectPrefab);
-            upgradeEffect.transform.position = transform.position;
-            upgradeEffect.transform.rotation = Quaternion.identity;
-            Animator animator = upgradeEffect.GetComponent<Animator>();
-            SpriteRenderer effectBody = upgradeEffect.GetComponent<SpriteRenderer>();
-            if (effectBody && body)
+            // 升级特效预制体先经资源框架按资源键解析，再交给对象池生成。
+            GameObject upgradeEffectPrefab = ResourceManager.Instance.GetGameObject(upgradeEffectPrefabKey);
+            if (upgradeEffectPrefab)
             {
-                effectBody.sortingLayerID = body.sortingLayerID;
-                effectBody.sortingOrder = body.sortingOrder + 1;
-            }
-            if (animator)
-            {
-                animator.Rebind();
-                animator.Play(0, 0, 0f);
+                upgradeEffect = GameObjectPool.Instance.Get(upgradeEffectPrefab);
+                upgradeEffect.transform.position = transform.position;
+                upgradeEffect.transform.rotation = Quaternion.identity;
+                Animator animator = upgradeEffect.GetComponent<Animator>();
+                SpriteRenderer effectBody = upgradeEffect.GetComponent<SpriteRenderer>();
+                if (effectBody && body)
+                {
+                    effectBody.sortingLayerID = body.sortingLayerID;
+                    effectBody.sortingOrder = body.sortingOrder + 1;
+                }
+                if (animator)
+                {
+                    animator.Rebind();
+                    animator.Play(0, 0, 0f);
+                }
             }
         }
 
@@ -222,20 +235,71 @@ public class BuildUP : MonoBehaviour
         upgradeAudio.clip = clip;
         upgradeAudio.volume = 1f;
         upgradeAudio.priority = 32;
-        Camera cam = Camera.main;
-        AudioManager.Instance.PlayEffect(upgradeAudio, (uint)upgradeAudio.priority,
-            cam ? Vector3.Distance(transform.position, cam.transform.position) : 0f, transform);
+        AudioManager.Instance.PlayEffectAt(upgradeAudio, (uint)upgradeAudio.priority, transform);
     }
 
 }
 
-class BuildingUpgradeCoinClick : MonoBehaviour
+class BuildingUpgradeCoinClick : MonoBehaviour, IPointerDownHandler
 {
+    /// <summary>金币图标专用物理层序号（TagManager 第 8 层，索引 7）。</summary>
+    public const int UpgradeCoinLayer = 7;
+
     public BuildUP owner;
 
-    void OnMouseDown()
+    private static bool warnedMissingEventSystem;
+
+    public void OnPointerDown(PointerEventData eventData)
     {
         if (BuildingUpgradeButton.Active && owner)
             owner.TryUpgrade();
+    }
+
+    /// <summary>
+    /// 确保 EventSystem 上挂有 Physics2DRaycaster（仅检测 UpgradeCoin 层），
+    /// 缺失时自动补齐并输出一次性日志。
+    /// </summary>
+    public static void EnsurePhysics2DRaycaster()
+    {
+        EventSystem system = EventSystem.current;
+        if (system == null)
+        {
+            if (!warnedMissingEventSystem)
+            {
+                warnedMissingEventSystem = true;
+                Debug.LogWarning("[BuildUP] 场景中缺少 EventSystem，建筑升级点击无法工作。");
+            }
+            return;
+        }
+
+        Physics2DRaycaster raycaster = system.GetComponent<Physics2DRaycaster>();
+        if (raycaster == null)
+        {
+            raycaster = system.gameObject.AddComponent<Physics2DRaycaster>();
+
+            // Physics2DRaycaster 带 [RequireComponent(typeof(Camera))]，
+            // AddComponent 时 Unity 会自动补一台 Camera 盖在画面上（蓝屏根因），
+            // 这里立即关闭这台自动相机，只保留射线检测功能。
+            Camera autoCamera = system.GetComponent<Camera>();
+            if (autoCamera != null)
+            {
+                autoCamera.enabled = false;
+            }
+        }
+        else
+        {
+            // 自动相机可能已被重新启用（场景重载等），持续保持关闭。
+            Camera autoCamera = system.GetComponent<Camera>();
+            if (autoCamera != null && autoCamera.enabled)
+            {
+                autoCamera.enabled = false;
+            }
+        }
+
+        // 只检测金币图标专用层，避免把其它 2D 碰撞体误判为 UI。
+        if (raycaster.eventMask != (1 << UpgradeCoinLayer))
+        {
+            raycaster.eventMask = 1 << UpgradeCoinLayer;
+        }
     }
 }

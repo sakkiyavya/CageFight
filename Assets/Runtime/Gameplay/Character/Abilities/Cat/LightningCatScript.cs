@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
@@ -6,16 +6,16 @@ using UnityEngine;
 public class LightningCatScript : MonoBehaviour
 {
     [Header("电柱素材")]
-    public GameObject lightningPrefab;
+    [SerializeField] private GameObject lightningPrefab;
 
-    [Min(0.01f)]
-    public float lightningDuration = 0.2f;
+    [SerializeField, Min(0.01f)]
+    private float lightningDuration = 0.2f;
 
     [Header("第二目标")]
-    [Min(0f)]
-    public float secondTargetRange = 10f;
+    [SerializeField, Min(0f)]
+    private float secondTargetRange = 10f;
 
-    public Transform shootPoint;
+    [SerializeField] private Transform shootPoint;
 
     private GameObjectProperty prop;
     private ParalysisDebuff paralysisBuff;

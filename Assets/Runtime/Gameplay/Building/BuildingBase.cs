@@ -238,7 +238,11 @@ public class BuildingBase : MonoBehaviour
             GameObject animePrefab = ResourceManager.Instance.GetGameObject(_prop.buildAnime);    // 配置的施工动画预制体。
             if (animePrefab != null)
             {
-                buildAnimeInstance = Instantiate(animePrefab, transform.position, transform.rotation);
+                buildAnimeInstance = GameObjectPool.Instance != null
+                    ? GameObjectPool.Instance.Get(animePrefab)
+                    : Instantiate(animePrefab);
+                buildAnimeInstance.transform.position = transform.position;
+                buildAnimeInstance.transform.rotation = transform.rotation;
             }
         }
 
@@ -300,7 +304,10 @@ public class BuildingBase : MonoBehaviour
 
         if (Application.isPlaying)
         {
-            Destroy(buildAnimeInstance);
+            if (GameObjectPool.Instance != null)
+                GameObjectPool.Instance.Release(buildAnimeInstance);
+            else
+                Destroy(buildAnimeInstance);
         }
         else
         {

@@ -332,12 +332,7 @@ public class BuildingTowerAI : BuildingAI
         attackAudio.clip = clip;
         attackAudio.volume = 1f;
         attackAudio.priority = 32;
-        Camera cam = Camera.main;
-        AudioManager.Instance.PlayEffect(
-            attackAudio,
-            (uint)attackAudio.priority,
-            cam != null ? Vector3.Distance(transform.position, cam.transform.position) : 0f,
-            transform);
+        AudioManager.Instance.PlayEffectAt(attackAudio, (uint)attackAudio.priority, transform);
     }
 
     /// <summary>

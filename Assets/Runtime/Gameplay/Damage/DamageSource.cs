@@ -140,13 +140,9 @@ public class DamageSource : MonoBehaviour
         hitAudio.clip = clip;
         hitAudio.volume = hitVolume;
         hitAudio.priority = hitPriority;
-        Camera cam = Camera.main;
-        AudioManager.Instance.PlayEffect(
+        AudioManager.Instance.PlayEffectAt(
             hitAudio,
             (uint)hitPriority,
-            cam != null
-                ? Vector3.Distance(targetTransform.position, cam.transform.position)
-                : 0f,
             targetTransform);
     }
     #endregion

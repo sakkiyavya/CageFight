@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 public class ZeiMeiScript : MonoBehaviour
 {
-    [Min(1)]
-    public int killReward = 100;
+    [SerializeField, Min(1)]
+    private int killReward = 100;
 
     private GameObjectProperty prop;
 

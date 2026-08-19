@@ -20,7 +20,7 @@ public sealed class UIUniversalClickFeedback : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Install()
     {
-        EventSystem system = Object.FindObjectOfType<EventSystem>();
+        EventSystem system = EventSystem.current;
         if (system && !system.GetComponent<UIUniversalClickFeedback>())
             system.gameObject.AddComponent<UIUniversalClickFeedback>();
     }
@@ -82,7 +82,9 @@ public sealed class UIUniversalClickFeedback : MonoBehaviour
         AudioClip clip = ResourceManager.Instance ? ResourceManager.Instance.GetAudio(clickAudioKey) : null;
         if (!clip || !AudioManager.Instance) return;
         source.clip = clip;
-        Transform origin = Camera.main ? Camera.main.transform : transform;
+        Transform origin = AudioManager.Instance.MainCamera
+            ? AudioManager.Instance.MainCamera.transform
+            : transform;
         AudioManager.Instance.PlayEffect(source, 5, 0f, origin);
     }
 }

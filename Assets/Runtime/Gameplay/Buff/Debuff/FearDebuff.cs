@@ -109,7 +109,8 @@ internal class FearState : MonoBehaviour
     private readonly List<Layer> layers = new List<Layer>();
 
     private GameObjectProperty prop;
-    private SpriteRenderer fearIcon;        // 呼吸灯图像（子级，运行时创建）。
+    private const string IconVisualPrefabKey = "UnitVisualFollower"; // 呼吸灯视觉预制体资源键（池化生成）。
+    private UnitVisualFollower fearFollower;    // 呼吸灯视觉（池化跟随对象）。
     private float yOffset = 2f;
     private float breathSpeed = 2f;
     private float breathMinAlpha = 0.35f;
@@ -199,8 +200,6 @@ internal class FearState : MonoBehaviour
         // 防御性保持不索敌（避免其他逻辑重新赋目标）。
         if (prop != null && prop.target != null)
             prop.target = null;
-
-        UpdateBreathing();
     }
 
     /// <summary>
@@ -253,34 +252,33 @@ internal class FearState : MonoBehaviour
             return;
         }
 
-        GameObject child = new GameObject("FearIcon");
-        child.transform.SetParent(transform, false);
-        child.transform.localPosition = new Vector3(0f, yOffset, 0f);
-
-        fearIcon = child.AddComponent<SpriteRenderer>();
-        fearIcon.sprite = sprite;
-        fearIcon.color = new Color(1f, 1f, 1f, breathMaxAlpha);
-
-        if (renderers != null && renderers.Length > 0)
-        {
-            fearIcon.sortingLayerID = renderers[0].sortingLayerID;
-            fearIcon.sortingOrder = renderers[0].sortingOrder + 1;
-        }
-    }
-
-    /// <summary>
-    /// 驱动呼吸灯图像：透明度在 min 与 max 之间正弦波动。
-    /// </summary>
-    private void UpdateBreathing()
-    {
-        if (fearIcon == null)
+        GameObject prefab = ResourceManager.Instance.GetGameObject(IconVisualPrefabKey);
+        if (prefab == null)
             return;
 
-        float wave = 0.5f + 0.5f * Mathf.Sin(Time.time * breathSpeed * Mathf.PI * 2f);
-        float alpha = Mathf.Lerp(breathMinAlpha, breathMaxAlpha, wave);
-        Color color = fearIcon.color;
-        color.a = alpha;
-        fearIcon.color = color;
+        GameObject go = GameObjectPool.Instance.Get(prefab);
+        if (go == null)
+            return;
+
+        UnitVisualFollower follower = go.GetComponent<UnitVisualFollower>();
+        if (follower == null)
+            follower = go.AddComponent<UnitVisualFollower>();
+
+        SpriteRenderer iconRenderer = go.GetComponent<SpriteRenderer>();
+        if (iconRenderer != null)
+        {
+            iconRenderer.sprite = sprite;
+            iconRenderer.color = new Color(1f, 1f, 1f, breathMaxAlpha);
+            if (renderers != null && renderers.Length > 0)
+            {
+                iconRenderer.sortingLayerID = renderers[0].sortingLayerID;
+                iconRenderer.sortingOrder = renderers[0].sortingOrder + 1;
+            }
+        }
+
+        follower.Init(gameObject, new Vector3(0f, yOffset, 0f),
+            breathSpeed, breathMinAlpha, breathMaxAlpha);
+        fearFollower = follower;
     }
 
     private void RemoveAt(int index)
@@ -308,10 +306,10 @@ internal class FearState : MonoBehaviour
 
     private void DestroyIcon()
     {
-        if (fearIcon != null)
+        if (fearFollower != null)
         {
-            Destroy(fearIcon.gameObject);
-            fearIcon = null;
+            fearFollower.Finish();
+            fearFollower = null;
         }
     }
 }

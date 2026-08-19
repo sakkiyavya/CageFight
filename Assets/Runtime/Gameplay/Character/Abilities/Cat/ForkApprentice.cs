@@ -70,9 +70,8 @@ public class ForkApprentice : MonoBehaviour
         if (_trauma.GetLayerCount(_prop) >= maxTraumaLayers)
             return;
 
-        // 登记 currentDebuff，层到期由创伤层管理器自行移除。
-        if (_trauma.ApplyBuff(_prop))
-            _prop.currentDebuff.Add(_trauma);
+        // 统一状态入口施加并登记。
+        _prop.ApplyStatus(_trauma);
     }
 
     /// <summary>

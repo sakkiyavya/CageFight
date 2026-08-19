@@ -40,8 +40,8 @@ public sealed class UnstableOreMagicProjectile : MonoBehaviour, IEngineerAimedSp
     [Header("音效")]
     [SerializeField]
     private AudioSource audioSource;        // 爆炸音效源（未配置时自动获取/创建）。
-    [SerializeField]
-    private AudioClip explosionAudio;       // 爆炸音效片段。
+    [SerializeField, ResourceKey(typeof(AudioClip))]
+    private string explosionAudioKey = "BOOM.LV.3"; // 爆炸音效资源键。
 
     private Animator animator;
     private SpriteRenderer body;
@@ -226,25 +226,22 @@ public sealed class UnstableOreMagicProjectile : MonoBehaviour, IEngineerAimedSp
     }
 
     /// <summary>
-    /// 爆炸动画音效帧调用（动画事件）。
+    /// 爆炸动画音效帧调用（动画事件）：按资源键经 ResourceManager 取得片段后播放。
     /// </summary>
     public void PlayExplosionAudio()
     {
-        if (audioSource == null || explosionAudio == null ||
-            AudioManager.Instance == null)
+        if (audioSource == null || AudioManager.Instance == null ||
+            ResourceManager.Instance == null || string.IsNullOrEmpty(explosionAudioKey))
             return;
 
-        audioSource.clip = explosionAudio;
+        AudioClip clip = ResourceManager.Instance.GetAudio(explosionAudioKey);
+        if (clip == null)
+            return;
+
+        audioSource.clip = clip;
         audioSource.volume = 1f;
         audioSource.priority = 32;
-        Camera cam = Camera.main;
-        AudioManager.Instance.PlayEffect(
-            audioSource,
-            32,
-            cam != null
-                ? Vector3.Distance(transform.position, cam.transform.position)
-                : 0f,
-            transform);
+        AudioManager.Instance.PlayEffectAt(audioSource, 32, transform);
     }
 
     #region 内部辅助

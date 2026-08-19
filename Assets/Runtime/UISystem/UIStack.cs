@@ -32,12 +32,11 @@ public class UIStack : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
 
-        // 优先从父级 Canvas 获取 GraphicRaycaster，找不到则全场景搜索
+        // 优先从父级 Canvas 获取 GraphicRaycaster，其次从事件系统层级获取；均找不到时警告。
         _raycaster = GetComponentInParent<GraphicRaycaster>();
-        if (_raycaster == null)
-            _raycaster = FindObjectOfType<GraphicRaycaster>();
-
         _eventSystem = EventSystem.current;
+        if (_raycaster == null && _eventSystem != null)
+            _raycaster = _eventSystem.GetComponentInParent<GraphicRaycaster>();
 
         if (_raycaster == null)
             Debug.LogWarning("[UIStack] 未找到 GraphicRaycaster，空白处检测将失效。请确保 Canvas 上已挂载该组件。");

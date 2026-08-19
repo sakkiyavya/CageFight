@@ -26,8 +26,10 @@ public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandl
             // // 在局部坐标系下判断点击点距离中心的长度是否在半径内
             // if (localPosition.magnitude <= buttonRadius)
             // {
-                // 实例化建筑并进入放置模式
-                GameObject obj = Instantiate(targetBuilding);                // 新创建的待放置建筑。
+                // 经对象池生成建筑并进入放置模式（池为空时对象池内部自动创建实例）。
+                GameObject obj = GameObjectPool.Instance != null
+                    ? GameObjectPool.Instance.Get(targetBuilding)
+                    : Instantiate(targetBuilding);
                 BuildingBase building = obj.GetComponent<BuildingBase>();    // 建筑的放置与建造逻辑组件。
 
                 if (building != null)

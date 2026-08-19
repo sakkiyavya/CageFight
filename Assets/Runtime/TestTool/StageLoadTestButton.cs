@@ -293,7 +293,7 @@ public class StageLoadTestButton : MonoBehaviour
         _spawnedEntities.Clear();
 
         // 2. 主动在场景中搜寻并清除所有挂载了 StageObjectMarker 的非常驻关卡物品 (无论是否由本脚本生成)
-        var sceneMarkers = FindObjectsOfType<StageObjectMarker>(true);
+        var sceneMarkers = UnityEngine.Object.FindObjectsByType<StageObjectMarker>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         int destroyedMarkerCount = 0;                                                                                                                     // 通过关卡标记额外清理的对象数量。
         foreach (var marker in sceneMarkers)
         {
