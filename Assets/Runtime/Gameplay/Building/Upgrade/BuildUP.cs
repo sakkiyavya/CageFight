@@ -68,18 +68,11 @@ public class BuildUP : MonoBehaviour
         baseScale = transform.localScale;
         if (coinIcon)
         {
+            // 金币图标的触发器碰撞体已由 CoinIcon 预制体配置，这里挂点击处理并配置输入层。
             BuildingUpgradeCoinClick click = coinIcon.GetComponent<BuildingUpgradeCoinClick>();
             if (!click) click = coinIcon.gameObject.AddComponent<BuildingUpgradeCoinClick>();
             click.owner = this;
-            if (!coinIcon.GetComponent<Collider2D>())
-            {
-                BoxCollider2D box = coinIcon.gameObject.AddComponent<BoxCollider2D>();
-                box.isTrigger = true;
-                if (coinIcon.sprite) box.size = coinIcon.sprite.bounds.size * 1.25f;
-            }
 
-            // 金币图标放入专用物理层，仅供 UpgradeCoin 层射线检测使用，
-            // 避免影响 EventSystem.IsPointerOverGameObject 等全局 UI 判定。
             coinIcon.gameObject.layer = BuildingUpgradeCoinClick.UpgradeCoinLayer;
             BuildingUpgradeCoinClick.EnsurePhysics2DRaycaster();
         }
@@ -240,6 +233,11 @@ public class BuildUP : MonoBehaviour
 
 }
 
+/// <summary>
+/// 金币图标点击（世界空间 Sprite + 预制体配置的触发器）：升级模式下点击图标即消耗对应金币升级。
+/// 事件走 EventSystem（IPointerDownHandler）：Physics2DRaycaster 挂在主相机上——
+/// 主相机自带 Camera 组件，不会触发 RequireComponent 自动补相机，且射线使用主相机的真实投影。
+/// </summary>
 class BuildingUpgradeCoinClick : MonoBehaviour, IPointerDownHandler
 {
     /// <summary>金币图标专用物理层序号（TagManager 第 8 层，索引 7）。</summary>
@@ -247,7 +245,7 @@ class BuildingUpgradeCoinClick : MonoBehaviour, IPointerDownHandler
 
     public BuildUP owner;
 
-    private static bool warnedMissingEventSystem;
+    private static bool warnedMissingCamera;
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -256,50 +254,30 @@ class BuildingUpgradeCoinClick : MonoBehaviour, IPointerDownHandler
     }
 
     /// <summary>
-    /// 确保 EventSystem 上挂有 Physics2DRaycaster（仅检测 UpgradeCoin 层），
-    /// 缺失时自动补齐并输出一次性日志。
+    /// 确保主相机上挂有 Physics2DRaycaster（仅检测 UpgradeCoin 层）。
+    /// 主相机已有 Camera 组件，添加射线器不会触发 RequireComponent 自动补相机，
+    /// 射线直接复用主相机的真实投影，无需任何额外相机。
     /// </summary>
     public static void EnsurePhysics2DRaycaster()
     {
-        EventSystem system = EventSystem.current;
-        if (system == null)
+        Camera main = Camera.main;
+        if (main == null)
         {
-            if (!warnedMissingEventSystem)
+            if (!warnedMissingCamera)
             {
-                warnedMissingEventSystem = true;
-                Debug.LogWarning("[BuildUP] 场景中缺少 EventSystem，建筑升级点击无法工作。");
+                warnedMissingCamera = true;
+                Debug.LogWarning("[BuildUP] 场景中缺少主相机，建筑升级点击无法工作。");
             }
             return;
         }
 
-        Physics2DRaycaster raycaster = system.GetComponent<Physics2DRaycaster>();
+        Physics2DRaycaster raycaster = main.GetComponent<Physics2DRaycaster>();
         if (raycaster == null)
         {
-            raycaster = system.gameObject.AddComponent<Physics2DRaycaster>();
-
-            // Physics2DRaycaster 带 [RequireComponent(typeof(Camera))]，
-            // AddComponent 时 Unity 会自动补一台 Camera 盖在画面上（蓝屏根因），
-            // 这里立即关闭这台自动相机，只保留射线检测功能。
-            Camera autoCamera = system.GetComponent<Camera>();
-            if (autoCamera != null)
-            {
-                autoCamera.enabled = false;
-            }
-        }
-        else
-        {
-            // 自动相机可能已被重新启用（场景重载等），持续保持关闭。
-            Camera autoCamera = system.GetComponent<Camera>();
-            if (autoCamera != null && autoCamera.enabled)
-            {
-                autoCamera.enabled = false;
-            }
+            raycaster = main.gameObject.AddComponent<Physics2DRaycaster>();
         }
 
         // 只检测金币图标专用层，避免把其它 2D 碰撞体误判为 UI。
-        if (raycaster.eventMask != (1 << UpgradeCoinLayer))
-        {
-            raycaster.eventMask = 1 << UpgradeCoinLayer;
-        }
+        raycaster.eventMask = 1 << UpgradeCoinLayer;
     }
 }
