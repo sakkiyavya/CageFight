@@ -30,7 +30,6 @@ public class EngineerCameraFollow : MonoBehaviour
     Vector3 backgroundMinOffset, backgroundMaxOffset;
     bool backgroundReady, backgroundAligned;
     Sprite lastBackgroundSprite;
-    float nextBackgroundSearchTime;
 
     void Awake()
     {
@@ -62,15 +61,9 @@ public class EngineerCameraFollow : MonoBehaviour
         transform.position = Vector3.SmoothDamp(
             transform.position, desired, ref cameraVelocity, cameraSmoothTime);
 
-        if (!background)
-        {
-            if (autoFindBackground && Time.unscaledTime >= nextBackgroundSearchTime)
-            {
-                nextBackgroundSearchTime = Time.unscaledTime + 1f;
-                FindBackground();
-            }
-            if (!background) return;
-        }
+        // 背景仅在初始化（Awake）与场景加载完成（sceneLoaded）时一次性查找；
+        // 规范禁止在 LateUpdate 热路径按秒全场景搜索（FindObjectsByType）。
+        if (!background) return;
         if (backgroundRenderer && backgroundRenderer.sprite != lastBackgroundSprite)
             SetBackground(backgroundRenderer);
         if (!backgroundReady)

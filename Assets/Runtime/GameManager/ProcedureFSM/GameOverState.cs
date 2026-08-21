@@ -15,7 +15,6 @@ public class GameOverState : SceneStateBase
     /// <returns>结算状态的进入协程。</returns>
     protected override IEnumerator OnEnter()
     {
-        Debug.Log("[GameOverState] OnEnter - 战斗结束，展现胜利/失败结算 UI！");
         // TODO: 从 GameplayState 或事件中获取战斗结果数据
         // TODO: 刷新 GameOverPanel 中的结算数据（星级、得分、奖励等）
         yield return null;
@@ -27,7 +26,6 @@ public class GameOverState : SceneStateBase
     /// <returns>结算状态的退出协程。</returns>
     protected override IEnumerator OnExit()
     {
-        Debug.Log("[GameOverState] OnExit - 关闭结算界面，释放本局关卡资源...");
         // TODO: 调用 ResourceManager.Instance.ReleaseLevelResources() 释放本局资源句柄
         yield return null;
     }

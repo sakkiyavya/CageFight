@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 [RequireComponent(typeof(CharacterHealth))]
-public class CatMix : MonoBehaviour
+public class CatMix : BehaviourBase
 {
     [SerializeField] private float range = 2f;
     [SerializeField, Range(0f, 1f)]
@@ -12,21 +12,49 @@ public class CatMix : MonoBehaviour
         new Collider2D[32];
 
     private GameObjectProperty prop;
+    private CharacterHealth health;
     private bool triggered;
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (this.prop == null)
+            this.prop = prop;
+        if (this.health == null)
+            this.health = health;
+    }
+
+    /// <summary>死亡连锁由生命框架 Died 事件驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
+        health = GetComponent<CharacterHealth>();
     }
 
     private void OnEnable()
     {
         triggered = false;
+        if (health != null)
+            health.Died += HandleDied;
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        if (triggered || !prop.isDead)
+        if (health != null)
+            health.Died -= HandleDied;
+    }
+
+    /// <summary>
+    /// 死亡时触发一次周边连锁扣血（经生命框架 Died 事件接入，不再轮询死亡状态）。
+    /// </summary>
+    private void HandleDied(GameObject unit)
+    {
+        if (triggered)
             return;
 
         triggered = true;
@@ -84,8 +112,8 @@ public class CatMix : MonoBehaviour
         damage.side = prop.side;
         damage.repel = 0f;
 
-        GetComponent<CharacterHealth>()
-            .TakeDamage(damage);
+        if (health != null)
+            health.TakeDamage(damage);
     }
 
     private void OnDrawGizmosSelected()

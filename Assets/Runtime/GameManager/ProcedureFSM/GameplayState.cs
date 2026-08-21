@@ -9,15 +9,22 @@ using UnityEngine;
 public class GameplayState : SceneStateBase
 {
     [SerializeField] private PlayerLoadoutSpawner playerLoadoutSpawner;
+    [Header("局内背景音乐")]
+    [SerializeField, ResourceKey(typeof(AudioClip)), Tooltip("进入局内时切换的背景音乐资源键")]
+    private string bgmKey = "Crystal Mine Cave";
+    [SerializeField, Range(0f, 1f)] private float bgmVolume = 1f;
 
     #region 生命周期与回调
     /// <summary>
-    /// 在关卡对象构造完成后进入局内流程，并预留计时器与地图单位启动逻辑。
+    /// 在关卡对象构造完成后进入局内流程，切换局内背景音乐，并预留计时器与地图单位启动逻辑。
     /// </summary>
     /// <returns>局内状态的进入协程。</returns>
     protected override IEnumerator OnEnter()
     {
-        Debug.Log("[GameplayState] OnEnter - 场景关卡构造完毕，游戏正式开始！");
+        // 进入局内：切换关卡背景音乐（经音频框架统一入口，淡入淡出循环）。
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayMusic(bgmKey, bgmVolume);
+
         if (playerLoadoutSpawner)
             yield return playerLoadoutSpawner.SpawnSelectedEngineerRoutine();
 
@@ -32,7 +39,6 @@ public class GameplayState : SceneStateBase
     /// <returns>局内状态的退出协程。</returns>
     protected override IEnumerator OnExit()
     {
-        Debug.Log("[GameplayState] OnExit - 退出战斗，清理场上残留实体...");
         if (playerLoadoutSpawner)
             playerLoadoutSpawner.ReleaseSpawnedEngineer();
 

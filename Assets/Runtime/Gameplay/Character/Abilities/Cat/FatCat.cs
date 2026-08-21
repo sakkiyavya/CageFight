@@ -7,18 +7,35 @@ using UnityEngine;
 /// 无视觉表现。
 /// 通过 GameObjectProperty.OnAtt 事件接入，仅新增本脚本即可生效。
 /// </summary>
-public class FatCat : MonoBehaviour
+public class FatCat : BehaviourBase
 {
     [Header("虚假力量")]
     [SerializeField, Min(0.1f)]
     private float layerDuration = 4f;       // 每层持续秒（4 秒）。
 
     private GameObjectProperty _prop;
+    private CharacterHealth _health;
     private FalsePowerBuff _falsePower;
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null)
+            _prop = prop;
+        if (_health == null)
+            _health = health;
+    }
+
+    /// <summary>攻击被动由 OnAtt 事件驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     private void Awake()
     {
         _prop = GetComponent<GameObjectProperty>();
+        _health = GetComponent<CharacterHealth>();
         _falsePower = gameObject.AddComponent<FalsePowerBuff>();
         _falsePower.SetDuration(layerDuration);
     }
@@ -40,9 +57,9 @@ public class FatCat : MonoBehaviour
     /// </summary>
     private void HandleAttack()
     {
-        if (_prop == null || _prop.isDead)
+        if (_prop == null || _prop.isDead || _health == null)
             return;
 
-        _prop.ApplyStatus(_falsePower);
+        _health.ApplyBuff(_falsePower);
     }
 }

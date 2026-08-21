@@ -69,6 +69,7 @@ class ColdState : MonoBehaviour
         new List<ColdLayer>();
 
     private GameObjectProperty prop;
+    private CharacterHealth health;
     private CharacterAI characterAI;
     private Animator animator;
     private Rigidbody2D body;
@@ -88,6 +89,7 @@ class ColdState : MonoBehaviour
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
+        health = GetComponent<CharacterHealth>();
         characterAI = GetComponent<CharacterAI>();
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
@@ -207,6 +209,15 @@ class ColdState : MonoBehaviour
         }
     }
 
+    /// <summary>判断该来源是否仍有剩余层（多层同实例时，仅最后一层结束时注销登记）。</summary>
+    private bool HasRemainingLayer(ColdDebuff source)
+    {
+        for (int i = 0; i < layers.Count; i++)
+            if (layers[i].source == source)
+                return true;
+        return false;
+    }
+
     private void RemoveAt(int index)
     {
         int oldCount = layers.Count;
@@ -214,8 +225,9 @@ class ColdState : MonoBehaviour
 
         layers.RemoveAt(index);
 
-        if (prop != null && source != null)
-            prop.currentDebuff.Remove(source);
+        // 仅当该来源不再有剩余层时注销登记（多层同实例不得提前摘除）。
+        if (health != null && source != null && !HasRemainingLayer(source))
+            health.RemoveBuff(source);
 
         UpdateState(oldCount);
 

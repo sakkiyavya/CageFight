@@ -9,7 +9,7 @@ using UnityEngine;
 /// 形成“以持续流血换取高增伤”的攻强机制。
 /// 通过 Update 计时自叠创伤、OnAtt 事件接入增伤，仅新增本脚本即可生效。
 /// </summary>
-public class ForkApprentice : MonoBehaviour
+public class ForkApprentice : BehaviourBase
 {
     [Header("自叠创伤")]
     [SerializeField, Min(0.1f)]
@@ -24,6 +24,7 @@ public class ForkApprentice : MonoBehaviour
     private float damagePerLayer = 0.35f;   // 攻击时每层创伤的增伤比例（35%）。
 
     private GameObjectProperty _prop;
+    private CharacterHealth _health;
     private TraumaDebuff _trauma;
     private float timer;
     private int _lastLayers;                // 上次攻击时参与增伤的层数（用于除旧乘新还原）。
@@ -31,6 +32,7 @@ public class ForkApprentice : MonoBehaviour
     private void Awake()
     {
         _prop = GetComponent<GameObjectProperty>();
+        _health = GetComponent<CharacterHealth>();
         _trauma = gameObject.AddComponent<TraumaDebuff>();
         _trauma.SetDuration(traumaDuration);
     }
@@ -55,23 +57,34 @@ public class ForkApprentice : MonoBehaviour
         }
     }
 
-    private void Update()
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
-        if (_prop == null || _prop.isDead)
-            return;
+        if (_prop == null)
+            _prop = prop;
+        if (_health == null)
+            _health = health;
+    }
+
+    /// <summary>按间隔对自身叠加一层创伤；被动不阻止后续 AI 行为。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null || _prop.isDead || _health == null)
+            return false;
 
         timer += Time.deltaTime;
         if (timer < selfApplyInterval)
-            return;
+            return false;
 
         timer = 0f;
 
         // 至高 5 层：达到上限不再叠加。
         if (_trauma.GetLayerCount(_prop) >= maxTraumaLayers)
-            return;
+            return false;
 
         // 统一状态入口施加并登记。
-        _prop.ApplyStatus(_trauma);
+        _health.ApplyBuff(_trauma);
+        return false;
     }
 
     /// <summary>

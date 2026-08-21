@@ -13,6 +13,8 @@ public class DamageTextPool : MonoBehaviour
     [SerializeField] Color healColor = Color.green;                                                       // 治疗数值使用的文本颜色。
     [SerializeField] Color missColor = Color.white;                                                       // 未命中（miss）跳字使用的文本颜色。
 
+    private bool warnedPoolMissing;                                                                       // 对象池未就绪的一次性警告标记。
+
     #region 生命周期与回调
     /// <summary>
     /// 建立对象池单例，并按配置数量预先创建停用的跳字实例。
@@ -25,7 +27,9 @@ public class DamageTextPool : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            // 重复实例：不销毁场景对象，仅停用本组件并保留首个实例（规范禁止业务脚本 Destroy）。
+            Debug.LogWarning("[DamageTextPool] 场景中存在重复实例，本组件已停用。", this);
+            enabled = false;
             return;
         }
 
@@ -53,6 +57,7 @@ public class DamageTextPool : MonoBehaviour
         if (damageTextPrefab == null) return;
 
         GameObject obj = GetInstance();                                                             // 本次使用的跳字对象。
+        if (obj == null) return;                                                                   // 对象池未就绪：安全失败，不显示跳字。
 
         obj.transform.position = pos;
         obj.SetActive(true);
@@ -74,6 +79,7 @@ public class DamageTextPool : MonoBehaviour
         if (damageTextPrefab == null) return;
 
         GameObject obj = GetInstance();                                                             // 本次使用的跳字对象。
+        if (obj == null) return;                                                                   // 对象池未就绪：安全失败，不显示跳字。
 
         obj.transform.position = pos;
         obj.SetActive(true);
@@ -94,6 +100,7 @@ public class DamageTextPool : MonoBehaviour
         if (damageTextPrefab == null) return;
 
         GameObject obj = GetInstance();                                                             // 本次使用的跳字对象。
+        if (obj == null) return;                                                                   // 对象池未就绪：安全失败，不显示跳字。
 
         obj.transform.position = pos;
         obj.SetActive(true);
@@ -108,18 +115,32 @@ public class DamageTextPool : MonoBehaviour
 
     #region 公开接口
     /// <summary>
-    /// 经 GameObjectPool 取得一个跳字实例（池服务不可用时回退到直接实例化）。
+    /// 经 GameObjectPool 取得一个跳字实例；池服务未就绪时安全失败并返回 null（规范禁止 Instantiate 回退）。
+    /// 跳字是 UGUI 文本，必须在画布层级下才能渲染：池化实例默认收纳在无画布的池根节点，
+    /// 取出时挂到本对象所在的画布下；worldPositionStays=false 保持局部缩放为 1，
+    /// 最终屏幕尺寸由画布自身缩放决定，随后由调用方设置世界位置。
     /// </summary>
     private GameObject GetInstance()
     {
         if (GameObjectPool.Instance != null)
-            return GameObjectPool.Instance.Get(damageTextPrefab);
+        {
+            GameObject obj = GameObjectPool.Instance.Get(damageTextPrefab);
+            if (obj != null && transform.parent != null)
+                obj.transform.SetParent(transform.parent, false);
+            return obj;
+        }
 
-        return Instantiate(damageTextPrefab, transform);
+        // 对象池未就绪时安全失败：不实例化新对象（规范禁止业务脚本 Instantiate 兜底）。
+        if (!warnedPoolMissing)
+        {
+            warnedPoolMissing = true;
+            Debug.LogWarning("[DamageTextPool] GameObjectPool 未就绪，无法显示跳字。", this);
+        }
+        return null;
     }
 
     /// <summary>
-    /// 停用播放结束的跳字对象，并经 GameObjectPool 归还。
+    /// 停用播放结束的跳字对象，并经 GameObjectPool 归还；池服务未就绪时仅停用实例。
     /// </summary>
     /// <param name="obj">需要回收的跳字对象。</param>
     public void ReturnToPool(GameObject obj)
@@ -130,8 +151,13 @@ public class DamageTextPool : MonoBehaviour
             return;
         }
 
+        // 对象池未就绪：仅停用实例，不 Destroy（规范禁止业务脚本销毁回退）。
+        if (!warnedPoolMissing)
+        {
+            warnedPoolMissing = true;
+            Debug.LogWarning("[DamageTextPool] GameObjectPool 未就绪，跳字实例仅停用未回收。", this);
+        }
         obj.SetActive(false);
-        Destroy(obj);
     }
     #endregion
 }

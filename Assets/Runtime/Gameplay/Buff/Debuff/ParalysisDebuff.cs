@@ -51,6 +51,7 @@ class ParalysisState : MonoBehaviour
         new List<ParalysisDebuff>();
 
     private GameObjectProperty prop;
+    private CharacterHealth health;
     private CharacterAI characterAI;
     private Animator animator;
     private Rigidbody2D body;
@@ -68,6 +69,7 @@ class ParalysisState : MonoBehaviour
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
+        health = GetComponent<CharacterHealth>();
         characterAI = GetComponent<CharacterAI>();
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
@@ -181,6 +183,17 @@ class ParalysisState : MonoBehaviour
             AudioManager.Instance == null || ResourceManager.Instance == null)
             return;
 
+        // 与 AudioPlayer 相同的镜头剔除：声源水平距离超出正交视野 + 半屏宽时不请求播放，
+        // 避免镜头外战斗的触发音效（2D 无距离衰减）在任意位置持续可闻。
+        Camera cam = AudioManager.Instance.MainCamera;
+        if (cam != null)
+        {
+            float halfWidth = cam.orthographicSize * cam.aspect;
+            float dx = Mathf.Abs(prop.transform.position.x - cam.transform.position.x);
+            if (dx >= halfWidth * 1.5f)
+                return;
+        }
+
         AudioClip clip = ResourceManager.Instance.GetAudio(ParalysisSoundKey);
         if (clip == null)
         {
@@ -240,9 +253,9 @@ class ParalysisState : MonoBehaviour
             if (source == null)
                 continue;
 
-            while (prop.currentDebuff.Remove(source))
-            {
-            }
+            // 经生命框架统一入口注销登记（不再直接操作状态列表）。
+            if (health != null)
+                health.RemoveBuff(source);
         }
 
         sources.Clear();

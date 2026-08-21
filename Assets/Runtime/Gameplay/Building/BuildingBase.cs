@@ -13,6 +13,16 @@ public class BuildingBase : MonoBehaviour
     /// <summary>建筑是否已完成施工，供战斗类扩展（如哨塔 AI）在完工前停火。</summary>
     public bool IsCompleted => isCompleted;
 
+    /// <summary>建筑显示等级（1 起，默认 1）。由建筑升级系统经 <see cref="SetLevel"/> 写入，
+    /// 供训练解锁等业务按框架数据读取，业务不得自行维护第二份等级状态。</summary>
+    public int Level { get; private set; } = 1;
+
+    /// <summary>写入建筑显示等级（小于 1 按 1 处理）；供建筑升级系统调用。</summary>
+    public void SetLevel(int level)
+    {
+        Level = Mathf.Max(1, level);
+    }
+
     private List<Vector2Int> occupiedCells = new List<Vector2Int>();                              // 当前建筑登记占用的全部网格。
     private Vector2Int lastOccupyBasePos = new Vector2Int(int.MinValue, int.MinValue);            // 最近同步占用时的左下网格坐标。
     private Vector2Int lastOccupySpace = new Vector2Int(int.MinValue, int.MinValue);              // 最近同步占用时的网格尺寸。
@@ -236,13 +246,14 @@ public class BuildingBase : MonoBehaviour
         if (!string.IsNullOrEmpty(_prop.buildAnime))
         {
             GameObject animePrefab = ResourceManager.Instance.GetGameObject(_prop.buildAnime);    // 配置的施工动画预制体。
-            if (animePrefab != null)
+            if (animePrefab != null && GameObjectPool.Instance != null)
             {
-                buildAnimeInstance = GameObjectPool.Instance != null
-                    ? GameObjectPool.Instance.Get(animePrefab)
-                    : Instantiate(animePrefab);
-                buildAnimeInstance.transform.position = transform.position;
-                buildAnimeInstance.transform.rotation = transform.rotation;
+                buildAnimeInstance = GameObjectPool.Instance.Get(animePrefab);
+                if (buildAnimeInstance != null)
+                {
+                    buildAnimeInstance.transform.position = transform.position;
+                    buildAnimeInstance.transform.rotation = transform.rotation;
+                }
             }
         }
 
@@ -302,17 +313,9 @@ public class BuildingBase : MonoBehaviour
             return;
         }
 
-        if (Application.isPlaying)
-        {
-            if (GameObjectPool.Instance != null)
-                GameObjectPool.Instance.Release(buildAnimeInstance);
-            else
-                Destroy(buildAnimeInstance);
-        }
-        else
-        {
-            DestroyImmediate(buildAnimeInstance);
-        }
+        // 仅经对象池回收；池服务未就绪时安全失败（规范禁止业务侧 Destroy/DestroyImmediate 回退）。
+        if (GameObjectPool.Instance != null)
+            GameObjectPool.Instance.Release(buildAnimeInstance);
 
         buildAnimeInstance = null;
     }

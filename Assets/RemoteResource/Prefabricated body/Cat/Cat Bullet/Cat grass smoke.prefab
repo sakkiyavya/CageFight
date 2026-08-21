@@ -207,7 +207,7 @@ MonoBehaviour:
     buffs: []
   target: {fileID: 0}
   sustainTime: 4
-  collideTimes: 5
+  collideTimes: 999
   hasSubProjectile: 0
   hitSoundKey: Hit
   hitAudio: {fileID: 0}
@@ -226,8 +226,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
-  shakeFrequency: 3
-  shakeAmplitude: 0.6
   concentrateDuration: 4
   rageDuration: 4
   healHpPercent: 0.07

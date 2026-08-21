@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
-public class AttackShieldUnit : MonoBehaviour, IIncomingDamageModifier
+[RequireComponent(typeof(CharacterHealth))]
+public class AttackShieldUnit : BehaviourBase
 {
     [Header("护盾属性")]
     [SerializeField, Range(0.01f, 1f)]
@@ -24,6 +25,7 @@ public class AttackShieldUnit : MonoBehaviour, IIncomingDamageModifier
     private Vector3 shieldOffset = Vector3.zero;
 
     private GameObjectProperty prop;
+    private CharacterHealth health;
     private UnitVisualFollower shieldFollower;
 
     private int shieldHp;
@@ -37,6 +39,7 @@ public class AttackShieldUnit : MonoBehaviour, IIncomingDamageModifier
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
+        health = GetComponent<CharacterHealth>();
     }
 
     private void OnEnable()
@@ -47,11 +50,18 @@ public class AttackShieldUnit : MonoBehaviour, IIncomingDamageModifier
         wasAttacking = prop.isAttack;
 
         SetShieldVisible(false);
+
+        // 经生命框架统一扩展点登记护盾吸收修正器（OnDisable 对称注销）。
+        if (health != null)
+            health.RegisterDamageModifier(AbsorbDamage);
     }
 
     private void OnDisable()
     {
         prop.OnAtt -= OnAttack;
+
+        if (health != null)
+            health.UnregisterDamageModifier(AbsorbDamage);
 
         foreach (var pair in targetListeners)
         {
@@ -65,19 +75,31 @@ public class AttackShieldUnit : MonoBehaviour, IIncomingDamageModifier
         SetShieldVisible(false);
     }
 
-    private void Update()
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
-        // 即使攻击动画没有调用OnAtt，也能检测攻击状态。
-        if (prop.isAttack && !wasAttacking)
+        if (this.prop == null)
+            this.prop = prop;
+        if (this.health == null)
+            this.health = health;
+    }
+
+    /// <summary>逐帧检测攻击状态切换与护盾到期；被动不阻止后续 AI 行为。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        // 即使攻击动画没有调用 OnAtt，也能检测攻击状态。
+        if (this.prop.isAttack && !wasAttacking)
             OnAttack();
 
-        wasAttacking = prop.isAttack;
+        wasAttacking = this.prop.isAttack;
 
         if (shieldHp > 0 &&
             Time.time >= shieldExpireTime)
         {
             BreakShield();
         }
+
+        return false;
     }
 
     private void LateUpdate()
@@ -118,10 +140,10 @@ public class AttackShieldUnit : MonoBehaviour, IIncomingDamageModifier
     }
 
     /// <summary>
-    /// 统一入伤修正（IIncomingDamageModifier）：护盾在正式扣血前吸收本次已结算伤害，
+    /// 入伤修正器（经 CharacterHealth 统一扩展点登记）：护盾在正式扣血前吸收本次已结算伤害，
     /// 返回剩余伤害；不重复计算、不预先回血抵消。
     /// </summary>
-    public int ModifyIncomingDamage(Damage damage)
+    private int AbsorbDamage(Damage damage)
     {
         if (shieldHp <= 0 || damage.finalDamage <= 0)
             return damage.finalDamage;
@@ -216,7 +238,11 @@ public class AttackShieldUnit : MonoBehaviour, IIncomingDamageModifier
 
         UnitVisualFollower follower = go.GetComponent<UnitVisualFollower>();
         if (follower == null)
-            follower = go.AddComponent<UnitVisualFollower>();
+        {
+            // 预制体已预配置 UnitVisualFollower（正式池化表现模块）；缺失时归还并安全失败。
+            GameObjectPool.Instance.Release(go);
+            return;
+        }
 
         SpriteRenderer renderer = go.GetComponent<SpriteRenderer>();
         if (renderer != null)
@@ -235,10 +261,12 @@ public class AttackShieldUnit : MonoBehaviour, IIncomingDamageModifier
                 renderer.sortingOrder = 100;
             }
 
-            renderer.color = new Color(1f, 0.82f, 0.05f, 1f);
+            renderer.color = new Color(1f, 1f, 1f, 1f);
         }
 
-        follower.Init(gameObject, shieldOffset, 0f, 1f, 1f);
+        // 不变色（纯白）+ 恒定半透明：呼吸参数上下限都设为 0.5，
+        // 避免 UnitVisualFollower.Init 把透明度重置回 1（不呼吸时取上限值）。
+        follower.Init(gameObject, shieldOffset, 0f, 0.5f, 0.5f);
         shieldFollower = follower;
     }
 

@@ -13,11 +13,11 @@ using UnityEngine;
 /// 3. 每次攻击：自身获得 1 层精准 + 1 层创伤（自我创伤推动下一次晶化）。
 /// 4. 免疫配置的指定 Buff（如未来的“妄业之力”，把其实例拖入 immuneBuff 即可）。
 /// 晶化期间显示水晶覆盖层视觉（呼吸效果，需配置 crystalSprite）。
-/// 实现 IDeathReviver 与 IBuffImmunity，由 CharacterHealth 的既有管线询问。
+/// 实现死亡复活器与 Buff 免疫过滤（经 CharacterHealth 统一扩展点登记）。
 /// </summary>
 [RequireComponent(typeof(GameObjectProperty))]
 [RequireComponent(typeof(CharacterHealth))]
-public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuffImmunity
+public class CrystallizedGiantBeastAbility : BehaviourBase
 {
     [Header("击杀成长")]
     [SerializeField, Min(0f)]
@@ -93,12 +93,25 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
     {
         if (_prop != null)
             _prop.OnAtt += HandleAttacked;
+
+        // 经生命框架统一扩展点登记死亡复活器与状态过滤器（OnDisable 对称注销）。
+        if (_health != null)
+        {
+            _health.RegisterDeathReviver(TryRevive);
+            _health.RegisterBuffFilter(IsImmuneTo);
+        }
     }
 
     private void OnDisable()
     {
         if (_prop != null)
             _prop.OnAtt -= HandleAttacked;
+
+        if (_health != null)
+        {
+            _health.UnregisterDeathReviver(TryRevive);
+            _health.UnregisterBuffFilter(IsImmuneTo);
+        }
 
         if (crystalRoutine != null)
         {
@@ -115,10 +128,20 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
     #endregion
 
     #region 帧更新
-    private void Update()
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null)
+            _prop = prop;
+        if (_health == null)
+            _health = health;
+    }
+
+    /// <summary>逐帧击杀判定；被动不阻止后续 AI 行为。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
         if (_prop == null || _prop.isDead || crystallizing)
-            return;
+            return false;
 
         // 击杀判定：攻击目标发生变化时，若上一目标已死亡则计一次击杀。
         GameObject current = _prop.target;
@@ -133,6 +156,8 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
 
             lastTarget = current;
         }
+
+        return false;
     }
     #endregion
 
@@ -152,16 +177,16 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
 
     private void RefreshMaxHp()
     {
-        _prop.maxHp = Mathf.Max(0, baseMaxHp + totalKillBonus - totalDeathDeduct);
+        _health.SetMaxHp(Mathf.Max(0, baseMaxHp + totalKillBonus - totalDeathDeduct));
     }
     #endregion
 
-    #region 死亡接管（IDeathReviver）
+    #region 死亡接管（CharacterHealth 死亡复活器）
     /// <summary>
     /// 接管致命伤害：扣除 20% 基础上限；上限归零则播放死亡特效后彻底离场，
     /// 否则进入晶化复活（无敌、不能动、前 3 秒回满）。
     /// </summary>
-    public bool TryRevive(GameObject unit, Damage lethalDamage)
+    private bool TryRevive(Damage lethalDamage)
     {
         if (_prop == null || crystallizing)
             return false;
@@ -190,8 +215,7 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
     {
         // 复活保留已累计的击杀加成（不清零），击杀加成始终受 13% 上限约束。
         crystallizing = true;
-        _prop.isDead = true;
-        _prop.currentHp = 0;
+        _health.SetPercentHp(0f);   // 受控标记死亡（currentHp=0 + isDead=true），单位被敌人忽略。
         _prop.target = null;
         TintCrystal();
         CreateCrystalOverlay();
@@ -209,24 +233,27 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
         {
             elapsed += Time.deltaTime;
 
-            // 前 healDuration 秒回血到满，并逐帧刷新血条。
+            // 前 healDuration 秒回血到满，并逐帧刷新血条（期间保持死亡标记不被翻转）。
             if (elapsed < healDuration)
             {
-                _prop.currentHp = Mathf.RoundToInt(_prop.maxHp * Mathf.Clamp01(elapsed / healDuration));
                 if (_health != null)
+                {
+                    _health.SetHpKeepDeadState(Mathf.RoundToInt(_prop.maxHp * Mathf.Clamp01(elapsed / healDuration)));
                     _health.SetHpbar();
+                }
             }
 
             yield return null;
         }
 
-        _prop.currentHp = _prop.maxHp;
         if (_health != null)
+        {
+            _health.RestoreFullHp();   // 受控复活：满血 + 清除死亡标记（框架 API）。
             _health.SetHpbar();
+        }
 
         RemoveCrystalOverlay();
         RestoreColors();
-        _prop.isDead = false;
         crystallizing = false;
         crystalRoutine = null;
     }
@@ -246,16 +273,16 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
         if (_prop == null || _prop.isDead || crystallizing)
             return;
 
-        _prop.ApplyStatus(_precise);
-        _prop.ApplyStatus(_trauma);
+        _health.ApplyBuff(_precise);
+        _health.ApplyBuff(_trauma);
     }
     #endregion
 
-    #region Buff 免疫（IBuffImmunity）
+    #region Buff 免疫（CharacterHealth 状态过滤器）
     /// <summary>
     /// 免疫配置的 Buff 类型（如未来的“妄业之力”）。
     /// </summary>
-    public bool IsImmuneTo(BuffBase buff)
+    private bool IsImmuneTo(BuffBase buff)
     {
         return immuneBuff != null && buff != null &&
                buff.GetType() == immuneBuff.GetType();
@@ -304,7 +331,11 @@ public class CrystallizedGiantBeastAbility : MonoBehaviour, IDeathReviver, IBuff
 
         UnitVisualFollower follower = go.GetComponent<UnitVisualFollower>();
         if (follower == null)
-            follower = go.AddComponent<UnitVisualFollower>();
+        {
+            // 预制体已预配置 UnitVisualFollower（正式池化表现模块）；缺失时归还并安全失败。
+            GameObjectPool.Instance.Release(go);
+            return;
+        }
 
         SpriteRenderer renderer = go.GetComponent<SpriteRenderer>();
         if (renderer != null)

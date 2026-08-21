@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &4806428073784452881
 GameObject:
@@ -185,11 +185,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 0
-  maxHp: 500
+  maxHp: 8500
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 30
+  atk: 200
   atkRate: 1
   magicAtk: 10
   repel: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 4
+  moveSpeed: 1.5
   suckBlood: 0
   currentHp: 0
   isDead: 0
@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Behaviours:
+  - {fileID: -3348403557235464735}
   - {fileID: 4464399892920952001}
   - {fileID: 4782449464891433700}
   - {fileID: 2290221216024631034}

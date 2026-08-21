@@ -340,6 +340,13 @@ public class ResourceManager : MonoBehaviour
         return _spriteDict.TryGetValue(key, out var res) ? res : null;
     }
 
+    #region 选装定义查询（负责人决议 2026-08-22：保留并正式接管为框架 API）
+    /// <summary>
+    /// 选装（工程师/种族/法术）定义查询入口。数据归属：全部选装定义来自 LoadoutDefinitionRegistry
+    /// （编辑器构建生成、ResourceManager 初始化期解析缓存）。加载时机：仅菜单/出战准备期查询，
+    /// 禁止在战斗热路径查询。失败策略：ID 未注册时返回 false/空，调用方须给出可定位警告。
+    /// 调用边界：仅选装 UI、出战生成（PlayerLoadoutSpawner）与法术条可依赖本组 API。
+    /// </summary>
     /// <summary>按稳定 ID 解析工程师定义；定义资源只从 LoadoutDefinitionRegistry 取得。</summary>
     public bool TryGetEngineer(string id, out EngineerDefinition definition)
     {
@@ -390,6 +397,7 @@ public class ResourceManager : MonoBehaviour
     public IReadOnlyList<SpellDefinition> SpellDefinitions =>
         loadoutDefinitionRegistry ? loadoutDefinitionRegistry.SpellDefinitions :
         Array.Empty<SpellDefinition>();
+    #endregion
 
     /// <summary>
     /// 通过 PrefabRegistry 预载一个预制体到当前缓存。该协程仅用于菜单和关卡加载期，
@@ -727,6 +735,17 @@ public class ResourceManager : MonoBehaviour
                 }
                 else if (resType == typeof(Sprite))
                 {
+#if UNITY_EDITOR
+                    // 编辑器直引快路径：按注册表的直接 sprite 引用解析，与 m_SubObjectName 无关，
+                    // 保证编辑器内测试不受注册表重载时序影响（运行时构建仍走 Addressables 子对象名）。
+                    Sprite editorSprite = spriteRegistry != null ? spriteRegistry.GetAsset(key) : null;
+                    if (editorSprite)
+                    {
+                        _spriteDict[key] = editorSprite;
+                        _spriteKeys.Add(key);
+                        continue;
+                    }
+#endif
                     var handle = Addressables.LoadAssetAsync<Sprite>(addressableKey);
                     yield return handle;
                     if (handle.Status == AsyncOperationStatus.Succeeded)
@@ -748,10 +767,11 @@ public class ResourceManager : MonoBehaviour
 
     #region 额外资源加载
     /// <summary>
-    /// 启动按 Addressables 键加载额外资源的协程，并在成功后写入相应类型缓存。
+    /// 启动加载额外资源的协程，并在成功后写入相应类型缓存。
+    /// 资源键优先按对应注册表解析；未注册时按原始 Addressables 键加载。
     /// </summary>
     /// <typeparam name="T">需要加载的 Unity 资源类型。</typeparam>
-    /// <param name="key">资源的 Addressables 键及缓存键。</param>
+    /// <param name="key">资源注册表键或 Addressables 键；成功后以该键写入缓存。</param>
     /// <param name="onComplete">加载结束后接收资源实例或空值的可选回调。</param>
     public void LoadExtraResourceAsync<T>(string key, Action<T> onComplete = null) where T : UnityEngine.Object
     {
@@ -760,34 +780,116 @@ public class ResourceManager : MonoBehaviour
 
     /// <summary>
     /// 异步加载单个额外资源，保存有效句柄，并根据泛型类型写入对应缓存后调用完成回调。
+    /// 资源键优先按对应注册表解析为 AssetReference；未注册时按原始 Addressables 键加载（兼容既有调用）。
     /// </summary>
     /// <typeparam name="T">需要加载的 Unity 资源类型。</typeparam>
-    /// <param name="key">资源的 Addressables 键及缓存键。</param>
+    /// <param name="key">资源注册表键或 Addressables 键；成功后以该键写入对应类型缓存。</param>
     /// <param name="onComplete">加载结束后接收资源实例或空值的回调。</param>
     /// <returns>等待 Addressables 加载完成的协程。</returns>
     private IEnumerator CoLoadExtraResource<T>(string key, Action<T> onComplete) where T : UnityEngine.Object
     {
-        var handle = Addressables.LoadAssetAsync<T>(key);
+#if UNITY_EDITOR
+        // 编辑器：注册表直接引用可用时立即缓存并完成。
+        // 多精灵图集必须按子对象精确解析；Addressables 引用未携带子对象名时只能取到
+        // 图集主对象（第一张精灵），编辑器直引用路径可保证每个键命中正确的精灵。
+        T direct = ResolveDirectAsset<T>(key);
+        if (direct != null)
+        {
+            CacheLoadedAsset(key, direct);
+            onComplete?.Invoke(direct);
+            yield break;
+        }
+#endif
+
+        var handle = Addressables.LoadAssetAsync<T>(ResolveRegisteredKey<T>(key));
         yield return handle;
 
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
             _handlesToRelease.Add(handle);
-            T result = handle.Result;                                                                                                       // 加载成功的资源实例。
-
-            // 根据类型存入对应的字典
-            if (typeof(T) == typeof(AudioClip)) _audioDict[key] = result as AudioClip;
-            else if (typeof(T) == typeof(Texture2D)) _textureDict[key] = result as Texture2D;
-            else if (typeof(T) == typeof(AnimationClip)) _animationDict[key] = result as AnimationClip;
-            else if (typeof(T) == typeof(RuntimeAnimatorController)) _animatorControllerDict[key] = result as RuntimeAnimatorController;
-
-            onComplete?.Invoke(result);
+            CacheLoadedAsset(key, handle.Result);
+            onComplete?.Invoke(handle.Result);
         }
         else
         {
-            Debug.LogError($"[ResourceManager] 按名称加载额外资源失败！Key: {key}, Type: {typeof(T)}");
+            Debug.LogError($"[ResourceManager] 加载额外资源失败！Key: {key}, Type: {typeof(T)}");
             onComplete?.Invoke(null);
         }
+    }
+
+    /// <summary>按泛型类型把加载结果写入对应缓存字典。</summary>
+    private void CacheLoadedAsset<T>(string key, T result) where T : UnityEngine.Object
+    {
+        if (typeof(T) == typeof(GameObject)) _gameObjectDict[key] = result as GameObject;
+        else if (typeof(T) == typeof(Sprite))
+        {
+            _spriteDict[key] = result as Sprite;
+            if (!_spriteKeys.Contains(key)) _spriteKeys.Add(key);
+        }
+        else if (typeof(T) == typeof(AudioClip)) _audioDict[key] = result as AudioClip;
+        else if (typeof(T) == typeof(Texture2D)) _textureDict[key] = result as Texture2D;
+        else if (typeof(T) == typeof(AnimationClip)) _animationDict[key] = result as AnimationClip;
+        else if (typeof(T) == typeof(RuntimeAnimatorController)) _animatorControllerDict[key] = result as RuntimeAnimatorController;
+    }
+
+#if UNITY_EDITOR
+    /// <summary>编辑器专用：按类型从对应注册表取得资源的直接引用（无则返回 null）。</summary>
+    private T ResolveDirectAsset<T>(string key) where T : UnityEngine.Object
+    {
+        if (typeof(T) == typeof(GameObject) && prefabRegistry != null)
+            return prefabRegistry.GetPrefab(key) as T;
+        if (typeof(T) == typeof(Sprite) && spriteRegistry != null)
+            return spriteRegistry.GetAsset(key) as T;
+        if (typeof(T) == typeof(AudioClip) && audioRegistry != null)
+            return audioRegistry.GetAsset(key) as T;
+        if (typeof(T) == typeof(Texture2D) && textureRegistry != null)
+            return textureRegistry.GetAsset(key) as T;
+        if (typeof(T) == typeof(AnimationClip) && animationClipRegistry != null)
+            return animationClipRegistry.GetAsset(key) as T;
+        if (typeof(T) == typeof(RuntimeAnimatorController) && animatorControllerRegistry != null)
+            return animatorControllerRegistry.GetAsset(key) as T;
+        return null;
+    }
+#endif
+
+    /// <summary>
+    /// 按泛型类型从对应注册表把资源键解析为 AssetReference（经 RuntimeKeyIsValid 校验）；
+    /// 未注册时回退为原始 Addressables 键。
+    /// </summary>
+    private object ResolveRegisteredKey<T>(string key)
+    {
+        if (typeof(T) == typeof(GameObject) && prefabRegistry != null)
+        {
+            AssetReferenceGameObject reference = prefabRegistry.GetReference(key);
+            if (reference != null && reference.RuntimeKeyIsValid()) return reference;
+        }
+        else if (typeof(T) == typeof(Sprite) && spriteRegistry != null)
+        {
+            AssetReferenceT<Sprite> reference = spriteRegistry.GetReference(key);
+            if (reference != null && reference.RuntimeKeyIsValid()) return reference;
+        }
+        else if (typeof(T) == typeof(AudioClip) && audioRegistry != null)
+        {
+            AssetReferenceT<AudioClip> reference = audioRegistry.GetReference(key);
+            if (reference != null && reference.RuntimeKeyIsValid()) return reference;
+        }
+        else if (typeof(T) == typeof(Texture2D) && textureRegistry != null)
+        {
+            AssetReferenceT<Texture2D> reference = textureRegistry.GetReference(key);
+            if (reference != null && reference.RuntimeKeyIsValid()) return reference;
+        }
+        else if (typeof(T) == typeof(AnimationClip) && animationClipRegistry != null)
+        {
+            AssetReferenceT<AnimationClip> reference = animationClipRegistry.GetReference(key);
+            if (reference != null && reference.RuntimeKeyIsValid()) return reference;
+        }
+        else if (typeof(T) == typeof(RuntimeAnimatorController) && animatorControllerRegistry != null)
+        {
+            AssetReferenceT<RuntimeAnimatorController> reference = animatorControllerRegistry.GetReference(key);
+            if (reference != null && reference.RuntimeKeyIsValid()) return reference;
+        }
+
+        return key;
     }
     #endregion
 

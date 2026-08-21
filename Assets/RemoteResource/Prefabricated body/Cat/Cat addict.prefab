@@ -55,8 +55,6 @@ GameObject:
   - component: {fileID: -4631185253080631089}
   - component: {fileID: -4926786180621723462}
   - component: {fileID: -5580192872522948980}
-  - component: {fileID: 4884676663970757416}
-  - component: {fileID: -2129298082522495295}
   m_Layer: 0
   m_Name: Cat addict
   m_TagString: Untagged
@@ -216,11 +214,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 300
+  maxHp: 1600
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 0
+  atk: 190
   atkRate: 1
   magicAtk: 0
   repel: 0
@@ -239,7 +237,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 1.9
+  moveSpeed: 1.8
   suckBlood: 0
   currentHp: 0
   isDead: 0
@@ -270,6 +268,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Behaviours:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 6959545207266935636}
   - {fileID: 4427979426340343264}
   - {fileID: 1562680138330206432}
@@ -530,33 +530,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
---- !u!114 &4884676663970757416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7297016226651582241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1874feb7361d2647939278d5c98c3a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseMissChance: 0.5
-  rageDuration: 4
---- !u!114 &-2129298082522495295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7297016226651582241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5e8fb7ec32a45c4385fd98948faf623, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  armorDuration: 3
 --- !u!1001 &177402963410636671
 PrefabInstance:
   m_ObjectHideFlags: 0

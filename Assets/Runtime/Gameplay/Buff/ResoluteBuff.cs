@@ -8,7 +8,7 @@ using UnityEngine;
 /// 配置 duration &gt; 0 时层也会随时间逐层到期。
 /// 无等级成长、无音效。
 /// 视觉：目标图像重心 y 轴上方 1 格处出现一个棱形透明白色呼吸护盾
-/// （需配置 shieldSprite，如菱形贴图），每叠加一层护盾图像按配置比例变大且累加。
+/// （贴图直接使用 UnitVisualFollower 预制体自带图片，不再按资源键解析），每叠加一层按配置比例变大。
 /// 仅新增本脚本即可生效，不改动任何既有脚本。
 /// </summary>
 public class ResoluteBuff : BuffBase
@@ -18,10 +18,6 @@ public class ResoluteBuff : BuffBase
     private float duration = 0f;        // 每层持续秒；0 = 永久（只被伤害消耗）。
 
     [Header("棱形护盾视觉")]
-    [SerializeField, Tooltip("棱形护盾贴图（直接拖入，优先使用；为空时回退 shieldSpriteKey 按资源键解析）")]
-    private Sprite shieldSprite;
-    [SerializeField, ResourceKey(typeof(Sprite)), Tooltip("棱形护盾贴图资源键（State1 AP 第 33 个子精灵 = State1 AP_32），直接贴图为空时使用")]
-    private string shieldSpriteKey = "State1 AP_32";
     [SerializeField, ResourceKey(typeof(GameObject)), Tooltip("护盾视觉预制体资源键（UnitVisualFollower，池化生成）")]
     private string shieldVisualPrefabKey = "UnitVisualFollower";
     [SerializeField, Min(0f)]
@@ -45,42 +41,12 @@ public class ResoluteBuff : BuffBase
     /// <summary>护盾视觉预制体资源键，供层管理器读取。</summary>
     public string ShieldVisualPrefabKey => shieldVisualPrefabKey;
 
-    private Sprite _resolvedSprite;     // 按资源键解析的运行时缓存（不写回序列化字段，避免污染预制体资产）。
-    private bool shieldSpriteWarned;    // 是否已输出过“贴图尚未加载”的一次性警告。
-
     /// <summary>供运行时创建/配置实例时设置每层持续秒（0 = 永久，只被伤害消耗）。</summary>
     public void SetDuration(float seconds)
     {
         duration = Mathf.Max(0f, seconds);
     }
 
-    /// <summary>
-    /// 护盾贴图：优先使用 Inspector 直接拖入的贴图；为空时按资源键经 ResourceManager
-    /// 解析（未就绪时返回 null，由层管理器在每次施加坚毅时重试补齐，能自愈时序问题）。
-    /// 解析成功或持续缺失时输出一次性日志，便于在 Console 定位真实资源键。
-    /// </summary>
-    public Sprite ShieldSprite
-    {
-        get
-        {
-            if (shieldSprite != null)
-                return shieldSprite;
-
-            if (_resolvedSprite == null && ResourceManager.Instance != null &&
-                !string.IsNullOrEmpty(shieldSpriteKey))
-            {
-                _resolvedSprite = ResourceManager.Instance.GetSprite(shieldSpriteKey);
-
-                if (_resolvedSprite == null && !shieldSpriteWarned)
-                {
-                    shieldSpriteWarned = true;
-                    Debug.LogWarning($"[ResoluteBuff] 坚毅护盾贴图尚未加载：key={shieldSpriteKey}，将在后续施放时自动重试补齐。", this);
-                }
-            }
-
-            return _resolvedSprite;
-        }
-    }
     /// <summary>护盾 y 偏移，供层管理器读取。</summary>
     public float ShieldHeight => shieldHeight;    /// <summary>单层护盾基础缩放，供层管理器读取。</summary>
     public float BaseScale => baseScale;
@@ -92,20 +58,6 @@ public class ResoluteBuff : BuffBase
     public float BreathMinAlpha => breathMinAlpha;
     /// <summary>呼吸透明度上限，供层管理器读取。</summary>
     public float BreathMaxAlpha => breathMaxAlpha;
-
-    /// <summary>供运行时创建/配置实例时设置护盾贴图。</summary>
-    public void SetShieldSprite(Sprite sprite)
-    {
-        shieldSprite = sprite;
-    }
-
-    /// <summary>供运行时创建/配置实例时设置护盾贴图资源键。</summary>
-    public void SetShieldSpriteKey(string key)
-    {
-        shieldSpriteKey = key;
-        _resolvedSprite = null;
-        shieldSpriteWarned = false;
-    }
 
     #region Buff 生命周期
     /// <summary>
@@ -240,8 +192,8 @@ internal class ResoluteState : MonoBehaviour
     /// </summary>
     private void EnsureShield(ResoluteBuff source)
     {
-        Sprite sprite = source.ShieldSprite;
-
+        // 贴图直接使用 UnitVisualFollower 预制体自带图片（负责人 2026-08-22 指示），
+        // 不再按资源键解析、不覆盖渲染器贴图。
         if (shieldFollower != null)
         {
             if (!shieldFollower.IsActive)
@@ -250,7 +202,6 @@ internal class ResoluteState : MonoBehaviour
             }
             else
             {
-                SyncShieldSprite(sprite);
                 return;
             }
         }
@@ -269,7 +220,11 @@ internal class ResoluteState : MonoBehaviour
 
         UnitVisualFollower follower = go.GetComponent<UnitVisualFollower>();
         if (follower == null)
-            follower = go.AddComponent<UnitVisualFollower>();
+        {
+            // 预制体已预配置 UnitVisualFollower（正式池化表现模块）；缺失时归还并安全失败。
+            GameObjectPool.Instance.Release(go);
+            return;
+        }
 
         SpriteRenderer renderer = go.GetComponent<SpriteRenderer>();
         if (renderer != null)
@@ -286,18 +241,6 @@ internal class ResoluteState : MonoBehaviour
         follower.Init(gameObject, new Vector3(0f, shieldHeight, 0f),
             breathSpeed, breathMinAlpha, breathMaxAlpha);
         shieldFollower = follower;
-        SyncShieldSprite(sprite);
-    }
-
-    /// <summary>把当前解析到的贴图同步到护盾视觉渲染器。</summary>
-    private void SyncShieldSprite(Sprite sprite)
-    {
-        if (shieldFollower == null || sprite == null)
-            return;
-
-        SpriteRenderer renderer = shieldFollower.GetComponent<SpriteRenderer>();
-        if (renderer != null && renderer.sprite != sprite)
-            renderer.sprite = sprite;
     }
 
     /// <summary>

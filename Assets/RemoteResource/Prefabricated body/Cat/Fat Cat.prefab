@@ -215,15 +215,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 1100
+  maxHp: 4200
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 80
+  atk: 220
   atkRate: 1
   magicAtk: 20
   repel: 0
-  antiRepel: 1
+  antiRepel: 5
   atkRange: {x: 2, y: 1}
   atkObj: Bullet-Fat Cat
   damageMultiplier: 1
@@ -238,7 +238,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 1.9
+  moveSpeed: 1.6
   suckBlood: 0
   currentHp: 0
   isDead: 0
@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Behaviours:
+  - {fileID: -910000000000000401}
   - {fileID: 4732647815923603634}
   - {fileID: 3722497070724528910}
   - {fileID: 8284275252014601542}

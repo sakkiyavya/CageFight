@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(GameObjectProperty))]
 public class BuildingAI : MonoBehaviour
 {
-    private GameObjectProperty _prop;    // 建筑的运行时属性和 AI 状态。
+    protected GameObjectProperty _prop;    // 建筑的运行时属性和 AI 状态（供 BuildingTowerAI 等子类复用，避免重名字段）。
 
     #region 初始化回调
     /// <summary>

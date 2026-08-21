@@ -185,11 +185,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 600
+  maxHp: 9000
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 30
+  atk: 550
   atkRate: 1
   magicAtk: 10
   repel: 1
@@ -208,7 +208,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 2.3
+  moveSpeed: 1.7
   suckBlood: 100
   currentHp: 0
   isDead: 0
@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Behaviours:
+  - {fileID: 7577430327953333989}
   - {fileID: 7547250788535692005}
   - {fileID: 5064058889964872212}
   - {fileID: 4711838443975175018}
@@ -523,7 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9890f1effb6947144ba7381d23af98b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconPrefab: {fileID: 106394124439655112, guid: ad3d8ef1712638d4091c064fe317bfdd, type: 3}
+  iconPrefabKey: Bullet-Dark cat
   iconTarget: {fileID: 819347441253106881}
   range: 6
   iconTime: 0.5

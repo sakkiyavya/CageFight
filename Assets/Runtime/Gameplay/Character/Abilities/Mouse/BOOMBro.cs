@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
-public class BOOMBro : MonoBehaviour, IProjectileImpactHandler
+public class BOOMBro : BehaviourBase, IProjectileImpactHandler
 {
     [Header("攻击设置")]
     [Range(0f, 90f)]
@@ -15,6 +15,19 @@ public class BOOMBro : MonoBehaviour, IProjectileImpactHandler
 
     private GameObjectProperty prop;
     private Collider2D ownCollider;
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (this.prop == null)
+            this.prop = prop;
+    }
+
+    /// <summary>纯攻击被动：无每帧行为，返回 false 放行后续 AI 行为。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     private void Awake()
     {

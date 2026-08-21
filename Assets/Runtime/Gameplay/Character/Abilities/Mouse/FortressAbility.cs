@@ -8,7 +8,7 @@ using UnityEngine;
 /// 仅新增本脚本即可生效。
 /// </summary>
 [RequireComponent(typeof(GameObjectProperty))]
-public class FortressAbility : MonoBehaviour
+public class FortressAbility : BehaviourBase
 {
     [Header("碰撞伤害")]
     [SerializeField, Range(0f, 1f)]
@@ -20,6 +20,19 @@ public class FortressAbility : MonoBehaviour
     private float elapsed;                          // 距上次碰撞伤害的计时。
 
     private Damage applyDamage = Damage.DefaultDamage;   // 复用的伤害结构。
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null)
+            _prop = prop;
+    }
+
+    /// <summary>碰撞伤害由触发器事件驱动，无每帧行为；返回 false 放行后续 AI 行为。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     #region 生命周期与回调
     private void Awake()

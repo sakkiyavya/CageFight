@@ -33,7 +33,6 @@ public class BuildingTowerAI : BuildingAI
     [SerializeField, Min(0.01f)] private float shakeDuration = 0.25f; // 震动持续秒。
     [SerializeField, Range(1f, 10f)] private float shakeWaves = 2.5f; // 震动往返波数。
 
-    private GameObjectProperty _prop;                                 // 建筑的战斗属性数据。
     private BuildingBase _base;                                       // 建筑基类，用于放置预览状态判定。
 
     private readonly HashSet<GameObject> _boundsCache =

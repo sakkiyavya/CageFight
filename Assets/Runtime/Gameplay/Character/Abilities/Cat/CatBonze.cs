@@ -8,7 +8,7 @@ using UnityEngine;
 /// 通过 GameObjectProperty 的 OnAtt（攻击）/OnHitted（被击）事件挂接，不侵入 AI 流程。
 /// 仅新增本脚本即可生效，不改动任何既有脚本。
 /// </summary>
-public class CatBonze : MonoBehaviour
+public class CatBonze : BehaviourBase
 {
     [Header("护甲施放")]
     [SerializeField, Min(1)]
@@ -19,12 +19,29 @@ public class CatBonze : MonoBehaviour
     private float layerDuration = 5f;       // 每层持续秒（5 秒）。
 
     private GameObjectProperty _prop;
+    private CharacterHealth _health;
     private ArmorBuff _armor;
     private Damage _selfDamage;             // 以自身为创造者的施放伤害数据（复用，避免每帧构造）。
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null)
+            _prop = prop;
+        if (_health == null)
+            _health = health;
+    }
+
+    /// <summary>攻击/受击被动由事件驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     private void Awake()
     {
         _prop = GetComponent<GameObjectProperty>();
+        _health = GetComponent<CharacterHealth>();
         _armor = gameObject.AddComponent<ArmorBuff>();
         _armor.SetDuration(layerDuration);
         _selfDamage = Damage.DefaultDamage;
@@ -58,7 +75,7 @@ public class CatBonze : MonoBehaviour
 
         _selfDamage.source = gameObject;
         for (int i = 0; i < layersPerAttack; i++)
-            _armor.ApplyBuff(_prop, _selfDamage);
+            _health.ApplyBuff(_armor, _selfDamage);
     }
 
     /// <summary>

@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 [RequireComponent(typeof(GameObjectProperty))]
 [RequireComponent(typeof(CharacterHealth))]
-public class RuifaSummoner : MonoBehaviour
+public class RuifaSummoner : BehaviourBase
 {
     [Header("召唤代价")]
     [SerializeField, Min(0f)]
@@ -15,6 +15,21 @@ public class RuifaSummoner : MonoBehaviour
 
     private GameObjectProperty prop;
     private CharacterHealth health;
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (this.prop == null)
+            this.prop = prop;
+        if (this.health == null)
+            this.health = health;
+    }
+
+    /// <summary>召唤代价由攻击事件驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     #region 生命周期与回调
     private void Awake()

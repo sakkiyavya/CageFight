@@ -5,8 +5,8 @@ using UnityEngine;
 /// <summary>
 /// Connect Master（连接大师）机制：
 /// 1. 攻击（攻击动画事件 ConnectMasterAttack）时：直接对当前目标造成一次伤害
-///    （prop.atk），并在目标脚下放置一个椭圆形半透明法阵（素材 magicCircleSprite
-///    由用户在 Inspector 拖入；未拖入时法阵不可见但逻辑照常）。
+///    （prop.atk），并在目标脚下放置一个椭圆形半透明法阵（渲染图片默认使用
+///    ConnectMasterCircle 预制体自带图片，也可经 magicCircleSpriteKey 指定其他素材覆盖）。
 /// 2. 法阵留场 staySeconds（默认 10）秒后渐变透明消失。
 /// 3. 相连引爆：场上的同类法阵按“阵营 + 类型”全局共享计数——任意友方 Connect Master
 ///    放置的法阵都计入；当本方场上法阵达到 connectCount（默认 6）个时立即触发，
@@ -17,11 +17,11 @@ using UnityEngine;
 /// 仅新增本脚本即可生效。
 /// </summary>
 [RequireComponent(typeof(GameObjectProperty))]
-public class ConnectMaster : MonoBehaviour
+public class ConnectMaster : BehaviourBase
 {
     [Header("法阵外观")]
-    [SerializeField, ResourceKey(typeof(Sprite)), Tooltip("法阵素材资源键（Bullet3 AP_1）")]
-    private string magicCircleSpriteKey = "Bullet3 AP_1";
+    [SerializeField, ResourceKey(typeof(Sprite)), Tooltip("法阵素材资源键；留空时使用 ConnectMasterCircle 预制体自带渲染图片")]
+    private string magicCircleSpriteKey = "";
     [SerializeField, ResourceKey(typeof(GameObject)), Tooltip("法阵预制体资源键（ConnectMasterCircle）")]
     private string circlePrefabKey = "ConnectMasterCircle";
     [SerializeField]
@@ -56,6 +56,19 @@ public class ConnectMaster : MonoBehaviour
     private GameObjectProperty _prop;
     private Sprite _circleSprite;              // 经 ResourceManager 解析的法阵贴图缓存。
     private GameObject _circlePrefab;          // 经 ResourceManager 解析的法阵预制体缓存。
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null)
+            _prop = prop;
+    }
+
+    /// <summary>法阵由攻击动画事件驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     #region 供法阵读取的配置
     internal Sprite MagicCircleSprite
@@ -198,6 +211,7 @@ public class ConnectMaster : MonoBehaviour
 internal class ConnectCircleRuntime : MonoBehaviour
 {
     private SpriteRenderer _renderer;
+    private Sprite _prefabSprite;            // ConnectMasterCircle 预制体自带渲染图片（默认外观）。
     private GameObject _source;              // 引爆伤害来源对象（放置者）。
     private int _side;                       // 引爆伤害阵营。
     private int _storedDamage;               // 放置时记录的攻击力（引爆伤害基数）。
@@ -225,6 +239,9 @@ internal class ConnectCircleRuntime : MonoBehaviour
     private void Awake()
     {
         _renderer = GetComponent<SpriteRenderer>();
+        // 快照预制体自带的渲染图片，作为法阵默认外观（magicCircleSpriteKey 留空时使用）。
+        if (_renderer != null)
+            _prefabSprite = _renderer.sprite;
     }
 
     /// <summary>池化对象重新启用时重置本轮状态（放置前不残留上一轮法阵状态）。</summary>
@@ -258,8 +275,13 @@ internal class ConnectCircleRuntime : MonoBehaviour
 
         if (_renderer != null)
         {
-            _renderer.sprite = owner.MagicCircleSprite;
-            _renderer.enabled = owner.MagicCircleSprite != null;
+            // 优先使用配置的法阵素材；未配置时使用 ConnectMasterCircle 预制体自带渲染图片。
+            Sprite sprite = owner.MagicCircleSprite;
+            if (sprite == null)
+                sprite = _prefabSprite;
+
+            _renderer.sprite = sprite;
+            _renderer.enabled = sprite != null;
             Color color = _renderer.color;
             color.a = _startAlpha;
             _renderer.color = color;

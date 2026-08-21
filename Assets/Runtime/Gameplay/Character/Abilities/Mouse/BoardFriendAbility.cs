@@ -8,7 +8,7 @@ using UnityEngine;
 /// 仅新增本脚本即可生效，不改动任何既有脚本。
 /// </summary>
 [RequireComponent(typeof(GameObjectProperty))]
-public class BoardFriendAbility : MonoBehaviour
+public class BoardFriendAbility : BehaviourBase
 {
     [Header("减益配置")]
     [SerializeField, Min(0.1f)]
@@ -26,6 +26,19 @@ public class BoardFriendAbility : MonoBehaviour
 
     private int _lastIndex = -1;             // 上一次施加的减益序号（0=寒冷 1=颓废 2=黏黏）。
     private int _streak;                     // 当前连续同一种减益的次数。
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null)
+            _prop = prop;
+    }
+
+    /// <summary>纯攻击被动：无每帧行为，返回 false 放行后续 AI 行为。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     #region 生命周期与回调
     private void Awake()
@@ -96,7 +109,12 @@ public class BoardFriendAbility : MonoBehaviour
         if (targetProp == null || targetProp.isDead)
             return;
 
-        debuff.ApplyBuff(targetProp);
+        // 经生命框架统一入口施加状态（业务不得直调 BuffBase.ApplyBuff）。
+        CharacterHealth targetHealth = targetProp.GetComponent<CharacterHealth>();
+        if (targetHealth == null)
+            return;
+
+        targetHealth.ApplyBuff(debuff);
     }
 
     /// <summary>

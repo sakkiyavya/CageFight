@@ -282,6 +282,7 @@ internal class AngerState : MonoBehaviour
             renderers[i].color = color;
         }
     }
+    
 
     /// <summary>
     /// 播放首次获得愤怒音效；资源键或片段缺失时输出一次性警告，避免静默失败。

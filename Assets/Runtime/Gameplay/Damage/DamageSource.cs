@@ -126,6 +126,17 @@ public class DamageSource : MonoBehaviour
             string.IsNullOrEmpty(hitSoundKey))
             return;
 
+        // 与 AudioPlayer 相同的镜头剔除：声源水平距离超出正交视野 + 半屏宽时不请求播放，
+        // 避免镜头外战斗的命中音效（2D 无距离衰减）在任意位置持续可闻。
+        Camera cam = AudioManager.Instance.MainCamera;
+        if (cam != null)
+        {
+            float halfWidth = cam.orthographicSize * cam.aspect;
+            float dx = Mathf.Abs(targetTransform.position.x - cam.transform.position.x);
+            if (dx >= halfWidth * 1.5f)
+                return;
+        }
+
         AudioClip clip = ResourceManager.Instance.GetAudio(hitSoundKey);
         if (clip == null)
         {

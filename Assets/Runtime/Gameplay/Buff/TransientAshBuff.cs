@@ -110,6 +110,7 @@ internal class TransientAshState : MonoBehaviour
     private readonly List<Layer> layers = new List<Layer>();
 
     private GameObjectProperty prop;
+    private CharacterHealth health;
     private int baseMaxHp;              // 首层施加时快照的基础最大生命（临时生命的基准）。
     private SpriteRenderer[] renderers;
     private Color[] originalColors;
@@ -120,6 +121,7 @@ internal class TransientAshState : MonoBehaviour
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
+        health = GetComponent<CharacterHealth>();
         renderers = GetComponentsInChildren<SpriteRenderer>(true);
         originalColors = new Color[renderers.Length];
         for (int i = 0; i < renderers.Length; i++)
@@ -154,8 +156,8 @@ internal class TransientAshState : MonoBehaviour
         });
 
         int newMax = prevMax + tempHp;
-        prop.maxHp = newMax;
-        prop.currentHp = Mathf.Clamp(prop.currentHp + tempHp, 0, newMax);
+        health.SetMaxHp(newMax);
+        health.SetHpKeepDeadState(Mathf.Clamp(prop.currentHp + tempHp, 0, newMax));
         return true;
     }
 
@@ -193,8 +195,8 @@ internal class TransientAshState : MonoBehaviour
         if (layers.Count > 0 && prop.currentHp <= baseMaxHp)
         {
             layers.Clear();
-            prop.maxHp = baseMaxHp;
-            prop.currentHp = Mathf.Clamp(prop.currentHp, 0, baseMaxHp);
+            health.SetMaxHp(baseMaxHp);
+            health.SetHpKeepDeadState(Mathf.Clamp(prop.currentHp, 0, baseMaxHp));
             Destroy(this);
             return;
         }
@@ -212,8 +214,8 @@ internal class TransientAshState : MonoBehaviour
         for (int i = 0; i < layers.Count; i++)
             newMax += layers[i].tempHp;
 
-        prop.maxHp = newMax;
-        prop.currentHp = Mathf.Clamp(prop.currentHp - layer.tempHp, 0, newMax);
+        health.SetMaxHp(newMax);
+        health.SetHpKeepDeadState(Mathf.Clamp(prop.currentHp - layer.tempHp, 0, newMax));
 
         if (layers.Count == 0)
             Destroy(this);
@@ -253,8 +255,8 @@ internal class TransientAshState : MonoBehaviour
     {
         if (prop != null && layers.Count > 0)
         {
-            prop.maxHp = baseMaxHp;
-            prop.currentHp = Mathf.Clamp(prop.currentHp, 0, baseMaxHp);
+            health.SetMaxHp(baseMaxHp);
+            health.SetHpKeepDeadState(Mathf.Clamp(prop.currentHp, 0, baseMaxHp));
         }
 
         layers.Clear();

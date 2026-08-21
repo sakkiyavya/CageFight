@@ -369,11 +369,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 280
+  maxHp: 1500
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 30
+  atk: 160
   atkRate: 1
   magicAtk: 10
   repel: 0.5
@@ -392,7 +392,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 1.9
+  moveSpeed: 1.7
   suckBlood: 0
   currentHp: 0
   isDead: 0

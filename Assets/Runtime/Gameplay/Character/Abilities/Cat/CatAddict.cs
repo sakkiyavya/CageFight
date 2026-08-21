@@ -9,7 +9,7 @@ using UnityEngine;
 /// CatGrassSmokeProjectile 处理：敌方浓缩 / 友方治疗+狂暴）。
 /// 缩放动画在 LateUpdate 持续应用（带朝向翻转），避免被 Move 的 localScale 覆盖。
 /// </summary>
-public class CatAddict : MonoBehaviour
+public class CatAddict : BehaviourBase
 {
     [Header("出场/离场动画")]
     [SerializeField, Min(0.01f)]
@@ -22,6 +22,19 @@ public class CatAddict : MonoBehaviour
     private float scaleFactor = 1f;         // 当前缩放系数（0 = 完全消失，1 = 正常体型）。
     private Coroutine scaleRoutine;
     private bool despawning;                // 是否正在离场缩小。
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null)
+            _prop = prop;
+    }
+
+    /// <summary>缩放动画由协程驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     private void Awake()
     {

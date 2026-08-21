@@ -3,10 +3,11 @@ using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 [RequireComponent(typeof(ParalysisDebuff))]
-public class LightningCatScript : MonoBehaviour
+public class LightningCatScript : BehaviourBase
 {
     [Header("电柱素材")]
-    [SerializeField] private GameObject lightningPrefab;
+    [SerializeField, ResourceKey(typeof(GameObject))]
+    private string lightningPrefabKey = "LightningBeam";
 
     [SerializeField, Min(0.01f)]
     private float lightningDuration = 0.2f;
@@ -18,13 +19,31 @@ public class LightningCatScript : MonoBehaviour
     [SerializeField] private Transform shootPoint;
 
     private GameObjectProperty prop;
+    private CharacterHealth health;
     private ParalysisDebuff paralysisBuff;
+    private GameObject _lightningPrefab;    // 经 ResourceManager 解析的电柱预制体缓存。
     private readonly HashSet<GameObject> nearbyUnits =
         new HashSet<GameObject>();
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (this.prop == null)
+            this.prop = prop;
+        if (this.health == null)
+            this.health = health;
+    }
+
+    /// <summary>闪电由攻击动画事件驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
+        health = GetComponent<CharacterHealth>();
         paralysisBuff = GetComponent<ParalysisDebuff>();
 
         if (shootPoint == null)
@@ -169,12 +188,16 @@ public class LightningCatScript : MonoBehaviour
         Vector3 start,
         Vector3 end)
     {
-        if (lightningPrefab == null)
+        // 电柱预制体按资源键经 ResourceManager 解析（规范禁止 Inspector 直引作为运行时兜底）。
+        if (_lightningPrefab == null && ResourceManager.Instance != null)
+            _lightningPrefab = ResourceManager.Instance.GetGameObject(lightningPrefabKey);
+
+        if (_lightningPrefab == null)
             return;
 
         GameObject lightning =
             GameObjectPool.Instance.Get(
-                lightningPrefab
+                _lightningPrefab
             );
 
         if (lightning == null)
@@ -183,10 +206,11 @@ public class LightningCatScript : MonoBehaviour
         LightningBeamRuntime runtime =
             lightning.GetComponent<LightningBeamRuntime>();
 
+        // 预制体已预配置 LightningBeamRuntime；缺失时归还对象池并安全失败。
         if (runtime == null)
         {
-            runtime =
-                lightning.AddComponent<LightningBeamRuntime>();
+            GameObjectPool.Instance.Release(lightning);
+            return;
         }
 
         runtime.Show(

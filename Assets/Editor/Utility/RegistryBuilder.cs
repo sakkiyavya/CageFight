@@ -192,10 +192,15 @@ public static class RegistryBuilder
                     continue;
                 }
 
+                // 记录子精灵名：运行时 Addressables 才能按名解析到正确的子精灵
+                //（否则 m_SubObjectName 为空，多子精灵图集会回退到图集第一帧）。
+                var spriteReference = new AssetReferenceT<Sprite>(entry.guid);
+                spriteReference.SetEditorSubObject(sprite);
+
                 registry.mappings.Add(new SpriteMapping
                 {
                     key = sprite.name,
-                    spriteReference = new AssetReferenceT<Sprite>(entry.guid),
+                    spriteReference = spriteReference,
 #if UNITY_EDITOR
                     sprite = sprite
 #endif

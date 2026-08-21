@@ -16,7 +16,7 @@ using UnityEngine;
 /// 通过低速定时 OverlapCircleNonAlloc 扫描实现，仅新增本脚本即可生效。
 /// </summary>
 [RequireComponent(typeof(GameObjectProperty))]
-public class Hungry : MonoBehaviour
+public class Hungry : BehaviourBase
 {
     [Header("妄业之力光环")]
     [SerializeField, Min(0.1f)] private float auraRange = 3f;           // 光环半径（格）。
@@ -78,25 +78,36 @@ public class Hungry : MonoBehaviour
 
         if (_prop != null && _baseCached)
         {
-            _prop.maxHp = _baseMaxHp;
+            _health.SetMaxHp(_baseMaxHp);
             _prop.atk = _baseAtk;
         }
         _baseCached = false;
         _growPercent = 0f;
     }
 
-    private void Update()
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null)
+            _prop = prop;
+        if (_health == null)
+            _health = health;
+    }
+
+    /// <summary>按间隔扫描光环与离场观察；被动不阻止后续 AI 行为。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
         if (_prop == null || _prop.isDead)
-            return;
+            return false;
 
         _auraTimer += Time.deltaTime;
         if (_auraTimer < auraTickInterval)
-            return;
+            return false;
 
         _auraTimer = 0f;
         RefreshAura();
         RefreshWatch();
+        return false;
     }
 
     #region 妄业之力光环
@@ -133,14 +144,18 @@ public class Hungry : MonoBehaviour
             }
         }
 
-        // 为范围内友方补满层数（统一状态入口施加并登记）。
+        // 为范围内友方补满层数（经生命框架统一入口施加并登记）。
         for (int i = 0; i < _inRange.Count; i++)
         {
             GameObjectProperty target = _inRange[i];
+            CharacterHealth targetHealth = target.GetComponent<CharacterHealth>();
+            if (targetHealth == null)
+                continue;
+
             FalseLifeState state = target.GetComponent<FalseLifeState>();
             int layers = state != null ? state.CountLayers(_falseLife) : 0;
             for (int add = layers; add < auraLayers; add++)
-                target.ApplyStatus(_falseLife);
+                targetHealth.ApplyBuff(_falseLife);
         }
 
         // 本轮范围内友方成为下一轮对比基准。
@@ -275,10 +290,10 @@ public class Hungry : MonoBehaviour
         int newAtk = Mathf.Max(1, Mathf.RoundToInt(_baseAtk * (1f + _growPercent)));
         int hpDelta = newMaxHp - _prop.maxHp;
 
-        _prop.maxHp = newMaxHp;
+        _health.SetMaxHp(newMaxHp);
         _prop.atk = newAtk;
         if (hpDelta > 0)
-            _prop.currentHp = Mathf.Min(_prop.maxHp, _prop.currentHp + hpDelta);
+            _health.SetHpKeepDeadState(Mathf.Min(_prop.maxHp, _prop.currentHp + hpDelta));
 
         if (_health != null && _health.isActiveAndEnabled)
             _health.SetHpbar();

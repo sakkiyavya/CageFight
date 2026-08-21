@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
-public class BabaDoctorC1Script : MonoBehaviour, IProjectileImpactHandler
+public class BabaDoctorC1Script : BehaviourBase, IProjectileImpactHandler
 {
     [SerializeField] private Transform shootPoint;
     [SerializeField] private CrystallizationDebuff crystallization;
@@ -13,6 +13,19 @@ public class BabaDoctorC1Script : MonoBehaviour, IProjectileImpactHandler
     // 固定缓存，避免爆炸时创建新数组
     private readonly Collider2D[] hitBuffer =
         new Collider2D[32];
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (this.prop == null)
+            this.prop = prop;
+    }
+
+    /// <summary>弹幕触发为事件驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     private void Awake()
     {
@@ -101,8 +114,9 @@ public class BabaDoctorC1Script : MonoBehaviour, IProjectileImpactHandler
             if (target == null)
                 continue;
 
-            // 已晶化的单位只刷新时间（统一状态入口施加并登记）。
-            if (!target.ApplyStatus(crystallization))
+            // 已晶化的单位只刷新时间（经生命框架统一入口施加并登记）。
+            CharacterHealth targetHealth = target.GetComponent<CharacterHealth>();
+            if (targetHealth == null || !targetHealth.ApplyBuff(crystallization))
                 continue;
         }
     }

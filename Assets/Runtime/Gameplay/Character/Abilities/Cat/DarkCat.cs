@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class DarkCat : MonoBehaviour
+public class DarkCat : BehaviourBase
 {
-    [SerializeField] private GameObject iconPrefab;
+    [SerializeField, ResourceKey(typeof(GameObject))]
+    private string iconPrefabKey = "Bullet-Dark cat";
     [SerializeField] private Transform iconTarget;
     [SerializeField] private float range = 6f;
     [SerializeField] private float iconTime = .5f;
@@ -17,6 +18,21 @@ public class DarkCat : MonoBehaviour
     GameObjectProperty prop;
     CharacterHealth health;                    // 自身生命组件，用于回复等量生命。
     FalseLifeBuff falseLife;                   // 击杀后叠给自己使用的妄业之力实例。
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (this.prop == null)
+            this.prop = prop;
+        if (this.health == null)
+            this.health = health;
+    }
+
+    /// <summary>攻击由动画事件驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     void Awake()
     {
@@ -86,13 +102,19 @@ public class DarkCat : MonoBehaviour
         Damage result = target.GetComponent<ICollide>().OnCollide(damage);
 
         // 击杀敌人（含建筑）：给自己叠加一层妄业之力。
-        if (target.isDead)
+        if (target.isDead && health != null)
         {
             for (int i = 0; i < falseLifeLayersPerKill; i++)
-                prop.ApplyStatus(falseLife);
+                health.ApplyBuff(falseLife);
         }
 
-        if (!iconPrefab) return result.missed ? 0 : result.finalDamage;
+        if (string.IsNullOrEmpty(iconPrefabKey)) return result.missed ? 0 : result.finalDamage;
+
+        // 图标预制体按资源键经 ResourceManager 解析（规范禁止 Inspector 直引作为运行时兜底）。
+        GameObject iconPrefab = ResourceManager.Instance != null
+            ? ResourceManager.Instance.GetGameObject(iconPrefabKey)
+            : null;
+        if (iconPrefab == null) return result.missed ? 0 : result.finalDamage;
 
         GameObject icon =
             GameObjectPool.Instance.Get(iconPrefab);

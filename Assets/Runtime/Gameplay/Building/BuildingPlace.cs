@@ -12,12 +12,18 @@ public class BuildingPlace : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        else
+        {
+            // 重复实例：不销毁场景对象，仅停用本组件（规范禁止业务脚本 Destroy）。
+            Debug.LogWarning("[BuildingPlace] 场景中存在重复实例，本组件已停用。", this);
+            enabled = false;
+        }
     }
     #endregion
 
     private BuildingBase currentBuilding;                                                        // 当前正在拖动预览的建筑。
     private bool isInPlaceMode = false;                                                          // 是否正在处理建筑放置输入。
+    private static bool warnedMissingCamera;                                                     // 主相机缺失的一次性警告标记。
 
     // 手指处理器
     private FingerIDHander fingerHandler = new FingerIDHander();                                 // 放置流程独占触摸输入的手指绑定器。
@@ -49,8 +55,6 @@ public class BuildingPlace : MonoBehaviour
         {
             fingerHandler.TryBind(initialFingerId);
         }
-
-        Debug.Log("进入放置模式");
     }
 
     /// <summary>
@@ -74,9 +78,11 @@ public class BuildingPlace : MonoBehaviour
             return true;
         }
 
-        // Debug.LogError("位置不合法");
-        // 位置不合法，销毁并释放
-        Destroy(currentBuilding.gameObject);
+        // 位置不合法：经对象池归还预览建筑（池服务未就绪时仅停用，不直接 Destroy）。
+        if (GameObjectPool.Instance != null)
+            GameObjectPool.Instance.Release(currentBuilding.gameObject);
+        else
+            currentBuilding.gameObject.SetActive(false);
         currentBuilding = null;
         isInPlaceMode = false;
         fingerHandler.Unbind();
@@ -124,10 +130,18 @@ public class BuildingPlace : MonoBehaviour
             Touch touch = activeTouch.Value;                                                     // 当前帧的触摸数据。
             if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary)
             {
-                // 触摸位置转换得到的世界坐标（主相机经音频服务缓存取得，不再直接查询 Camera.main）。
-                Vector3 worldPos = AudioManager.Instance != null && AudioManager.Instance.MainCamera != null
-                    ? AudioManager.Instance.MainCamera.ScreenToWorldPoint(touch.position)
-                    : Vector3.zero;
+                // 相机上下文缺失时中止本次坐标更新，禁止回退到原点放置（规范要求安全失败）。
+                if (AudioManager.Instance == null || AudioManager.Instance.MainCamera == null)
+                {
+                    if (!warnedMissingCamera)
+                    {
+                        warnedMissingCamera = true;
+                        Debug.LogWarning("[BuildingPlace] 主相机不可用，放置坐标更新已中止。", this);
+                    }
+                    return;
+                }
+
+                Vector3 worldPos = AudioManager.Instance.MainCamera.ScreenToWorldPoint(touch.position);
                 worldPos.z = 0;
 
                 GameObjectProperty prop = currentBuilding.GetComponent<GameObjectProperty>();    // 当前建筑的占地属性。

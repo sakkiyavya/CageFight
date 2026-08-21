@@ -36,6 +36,7 @@ public class BuildUP : MonoBehaviour
 
     GameObjectProperty prop;
     BuildingHealth health;
+    BuildingBase buildingBase;
     SpriteRenderer body;
     Color bodyColor;
     Vector3 baseScale;
@@ -57,6 +58,7 @@ public class BuildUP : MonoBehaviour
         prop = GetComponent<GameObjectProperty>();
         health = GetComponent<BuildingHealth>();
         body = GetComponent<SpriteRenderer>();
+        buildingBase = GetComponent<BuildingBase>();
         upgradeAudio = GetComponent<AudioSource>();
         if (!upgradeAudio)
         {
@@ -209,12 +211,19 @@ public class BuildUP : MonoBehaviour
         level = Mathf.Clamp(level, 0, levels.Length - 1);
         LevelData data = levels[level];
 
-        prop.maxHp = data.maxHp;
+        // 经建筑生命框架受控 API 应用升级后的最大生命（业务不得直写 maxHp）。
+        if (health)
+            health.SetMaxHp(data.maxHp);
         prop.atk = data.attack;
         prop.atkRange = data.attackRange;
 
         if (body && data.sprite)
             body.sprite = data.sprite;
+
+        // 同步写入框架的建筑等级数据（BuildingBase.Level，显示等级 1 起），
+        // 供训练解锁等业务按框架 API 读取；业务不再回读本组件的 CurrentLevel。
+        if (buildingBase)
+            buildingBase.SetLevel(level + 1);
     }
 
     void PlayUpgradeSound()
@@ -235,8 +244,8 @@ public class BuildUP : MonoBehaviour
 
 /// <summary>
 /// 金币图标点击（世界空间 Sprite + 预制体配置的触发器）：升级模式下点击图标即消耗对应金币升级。
-/// 事件走 EventSystem（IPointerDownHandler）：Physics2DRaycaster 挂在主相机上——
-/// 主相机自带 Camera 组件，不会触发 RequireComponent 自动补相机，且射线使用主相机的真实投影。
+/// 事件走 EventSystem（IPointerDownHandler）：Physics2DRaycaster 由场景统一预配置在主相机上
+/// （Event Mask 仅含金币图标层），本组件只做校验与告警——规范禁止运行时添加射线器/改写 eventMask。
 /// </summary>
 class BuildingUpgradeCoinClick : MonoBehaviour, IPointerDownHandler
 {
@@ -254,9 +263,9 @@ class BuildingUpgradeCoinClick : MonoBehaviour, IPointerDownHandler
     }
 
     /// <summary>
-    /// 确保主相机上挂有 Physics2DRaycaster（仅检测 UpgradeCoin 层）。
-    /// 主相机已有 Camera 组件，添加射线器不会触发 RequireComponent 自动补相机，
-    /// 射线直接复用主相机的真实投影，无需任何额外相机。
+    /// 校验主相机已按场景配置预挂载 Physics2DRaycaster 且 Event Mask 仅含金币图标层
+    /// （场景/输入框架统一预配置；规范禁止运行时 AddComponent 与改写 eventMask）。
+    /// 缺失或配置不符时输出一次性警告，不再运行时自动补装。
     /// </summary>
     public static void EnsurePhysics2DRaycaster()
     {
@@ -272,12 +281,13 @@ class BuildingUpgradeCoinClick : MonoBehaviour, IPointerDownHandler
         }
 
         Physics2DRaycaster raycaster = main.GetComponent<Physics2DRaycaster>();
-        if (raycaster == null)
+        if (raycaster == null || raycaster.eventMask != (1 << UpgradeCoinLayer))
         {
-            raycaster = main.gameObject.AddComponent<Physics2DRaycaster>();
+            if (!warnedMissingCamera)
+            {
+                warnedMissingCamera = true;
+                Debug.LogWarning("[BuildUP] 主相机未预配置 Physics2DRaycaster（Event Mask 需仅含金币图标层），建筑升级点击无法工作。");
+            }
         }
-
-        // 只检测金币图标专用层，避免把其它 2D 碰撞体误判为 UI。
-        raycaster.eventMask = 1 << UpgradeCoinLayer;
     }
 }

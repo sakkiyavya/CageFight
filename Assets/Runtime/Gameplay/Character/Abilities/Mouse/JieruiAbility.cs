@@ -11,7 +11,7 @@ using UnityEngine;
 /// </summary>
 [RequireComponent(typeof(GameObjectProperty))]
 [RequireComponent(typeof(CharacterHealth))]
-public class JieruiAbility : MonoBehaviour
+public class JieruiAbility : BehaviourBase
 {
     [Header("攻击自我强化")]
     [SerializeField, Min(0f)]
@@ -86,7 +86,7 @@ public class JieruiAbility : MonoBehaviour
         });
 
         ApplyMaxHp();
-        _prop.currentHp = Mathf.Min(_prop.currentHp + hpGain, _prop.maxHp);
+        _health.SetHpKeepDeadState(Mathf.Min(_prop.currentHp + hpGain, _prop.maxHp));
     }
 
     /// <summary>
@@ -125,7 +125,7 @@ public class JieruiAbility : MonoBehaviour
         for (int i = 0; i < layers.Count; i++)
             total += layers[i].percent;
 
-        _prop.maxHp = Mathf.Max(1, Mathf.RoundToInt(baseMaxHp * (1f + total)));
+        _health.SetMaxHp(Mathf.Max(1, Mathf.RoundToInt(baseMaxHp * (1f + total))));
     }
 
     private int propMaxHpSafe()
@@ -133,18 +133,33 @@ public class JieruiAbility : MonoBehaviour
         return _prop != null ? _prop.maxHp : 0;
     }
 
-    private void Update()
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
+        if (_prop == null)
+            _prop = prop;
+        if (_health == null)
+            _health = health;
+    }
+
+    /// <summary>逐帧清理到期强化层；被动不阻止后续 AI 行为。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null || _prop.isDead)
+            return false;
+
         // 倒序清理到期层：扣除该层增加的当前生命并重算最大生命。
         for (int i = layers.Count - 1; i >= 0; i--)
         {
             if (Time.time < layers[i].expireTime)
                 continue;
 
-            _prop.currentHp = Mathf.Clamp(_prop.currentHp - layers[i].hpGain, 0, _prop.maxHp);
+            _health.SetHpKeepDeadState(Mathf.Clamp(_prop.currentHp - layers[i].hpGain, 0, _prop.maxHp));
             layers.RemoveAt(i);
             ApplyMaxHp();
         }
+
+        return false;
     }
     #endregion
 }

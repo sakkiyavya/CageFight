@@ -9,7 +9,7 @@ using UnityEngine;
 /// 仅新增本脚本即可生效，不改动任何既有脚本。
 /// </summary>
 [RequireComponent(typeof(GameObjectProperty))]
-public class ThreeHandAbility : MonoBehaviour
+public class ThreeHandAbility : BehaviourBase
 {
     [Header("连击机制")]
     [SerializeField, Min(2)]
@@ -26,6 +26,21 @@ public class ThreeHandAbility : MonoBehaviour
     private GameObject _lastTarget;          // 上一次攻击的目标，用于连续判定。
     private int _streak;                     // 对当前目标的连续命中计数。
     private float _lastMultiplier = 1f;      // 上一次写入的倍率，用于还原。
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null)
+            _prop = prop;
+        if (_health == null)
+            _health = health;
+    }
+
+    /// <summary>纯攻击被动：无每帧行为，返回 false 放行后续 AI 行为。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     #region 生命周期与回调
     private void Awake()

@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
 [RequireComponent(typeof(CharacterHealth))]
-public class DaiDaiScript : MonoBehaviour
+public class DaiDaiScript : BehaviourBase
 {
     [Header("免死后图片")]
     [SerializeField, ResourceKey(typeof(Sprite))]
@@ -30,6 +30,21 @@ public class DaiDaiScript : MonoBehaviour
     private Vector3 originalScale;
 
     private bool triggered;
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (this.prop == null)
+            this.prop = prop;
+        if (this.health == null)
+            this.health = health;
+    }
+
+    /// <summary>免死由死亡复活器驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     private void Awake()
     {
@@ -58,12 +73,17 @@ public class DaiDaiScript : MonoBehaviour
     private void OnEnable()
     {
         triggered = false;
-        prop.OnHitted += OnHitted;
+        // 经生命框架统一扩展点登记免死复活器（OnDisable 对称注销）；
+        // 不再监听 OnHitted 预判伤害，避免重复调用伤害结算。
+        if (health != null)
+            health.RegisterDeathReviver(TryRevive);
     }
 
     private void OnDisable()
     {
-        prop.OnHitted -= OnHitted;
+        if (health != null)
+            health.UnregisterDeathReviver(TryRevive);
+
         StopAllCoroutines();
 
         if (animator != null)
@@ -75,21 +95,17 @@ public class DaiDaiScript : MonoBehaviour
         RestoreAppearance();
     }
 
-    private void OnHitted(Damage damage)
+    /// <summary>
+    /// 免死接管（经 CharacterHealth 死亡复活器登记）：致命伤害后按比例恢复生命，
+    /// 停止 AI 与攻击、替换贴图，并进入延迟死亡状态；本次伤害已由框架完成唯一结算，
+    /// 不再自行调用伤害计算。
+    /// </summary>
+    /// <param name="lethalDamage">导致生命归零的伤害数据。</param>
+    /// <returns>接管成功时返回 <see langword="true"/>（跳过常规死亡流程）。</returns>
+    private bool TryRevive(Damage lethalDamage)
     {
-        if (triggered || prop.isDead)
-            return;
-
-        int incomingDamage =
-            Mathf.Max(
-                0,
-                DamageComputor
-                    .DamageCompute(damage)
-                    .finalDamage
-            );
-
-        if (prop.currentHp - incomingDamage > 0)
-            return;
+        if (triggered)
+            return false;
 
         triggered = true;
 
@@ -101,12 +117,9 @@ public class DaiDaiScript : MonoBehaviour
                 )
             );
 
-        /*
-         * OnHitted在正式扣血前触发，
-         * 所以提前补上即将受到的伤害。
-         */
-        prop.currentHp =
-            restoredHp + incomingDamage;
+        // 经生命框架受控 API 恢复生命（框架已结算完本次致命伤害）。
+        if (health != null)
+            health.SetHpKeepDeadState(restoredHp);
 
         prop.isAttack = false;
         prop.target = null;
@@ -126,6 +139,7 @@ public class DaiDaiScript : MonoBehaviour
 
         ApplyReplacementAppearance();
         StartCoroutine(DelayedDeath());
+        return true;
     }
 
     private void ApplyReplacementAppearance()

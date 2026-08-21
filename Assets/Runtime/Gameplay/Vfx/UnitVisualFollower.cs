@@ -5,6 +5,10 @@ using UnityEngine;
 /// 按本地偏移跟随宿主，并按呼吸参数驱动透明度；宿主死亡/回收或显式 Finish 时
 /// 自动归还对象池。排序层、贴图、缩放由生成方在生成后配置。
 /// 表现逻辑统一收敛在本组件中，Buff/技能脚本不再自行创建与回收临时视觉对象。
+/// 
+/// 归属决议（负责人 2026-08-22）：正式接管为框架池化表现模块。
+/// 使用边界：仅承载纯表现（跟随/呼吸/回收），禁止承载战斗数值或状态逻辑；
+/// 生成必须经 ResourceManager 资源键 + GameObjectPool，业务不得自行实例化。
 /// </summary>
 public class UnitVisualFollower : MonoBehaviour
 {
@@ -46,7 +50,7 @@ public class UnitVisualFollower : MonoBehaviour
         if (_renderer != null)
         {
             Color color = _renderer.color;
-            color.a = _breathSpeed > 0f ? _breathMaxAlpha : _breathMaxAlpha;
+            color.a = _breathMaxAlpha;
             _renderer.color = color;
         }
     }

@@ -344,7 +344,7 @@ MonoBehaviour:
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 30
+  atk: 340
   atkRate: 1
   magicAtk: 0
   repel: 1
@@ -394,6 +394,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Behaviours:
+  - {fileID: 6791234501234567891}
+  - {fileID: 2653718700927350972}
   - {fileID: 6700040595002840752}
   - {fileID: 3336816685916399085}
   - {fileID: 1881044486619164538}

@@ -72,10 +72,11 @@ public class FalseLifeBuff : BuffBase
 
 /// <summary>
 /// 目标身上的妄业之力层管理器：无限叠加、每层独立到期；
-/// 实现 IDeathReviver，在目标生命归零时结算诅咒（假死恢复 + 持续扣血），
+/// 经 CharacterHealth 统一死亡复活器扩展点登记（OnEnable/OnDisable 对称），
+/// 在目标生命归零时结算诅咒（假死恢复 + 持续扣血），
 /// 同时驱动目标图像变黑 20% 的视觉表现。
 /// </summary>
-internal class FalseLifeState : MonoBehaviour, IDeathReviver
+internal class FalseLifeState : MonoBehaviour
 {
     /// <summary>单层妄业之力快照。</summary>
     private class Layer
@@ -124,6 +125,10 @@ internal class FalseLifeState : MonoBehaviour, IDeathReviver
     private void OnEnable()
     {
         HasRevivedOnce = false;
+
+        // 经生命框架统一扩展点登记死亡复活器（OnDisable 对称注销）。
+        if (health != null)
+            health.RegisterDeathReviver(TryRevive);
     }
 
     /// <summary>
@@ -208,10 +213,9 @@ internal class FalseLifeState : MonoBehaviour, IDeathReviver
     /// <summary>
     /// 目标生命归零时接管死亡：结算妄业之力诅咒（恢复 + 持续扣血）。
     /// </summary>
-    /// <param name="unit">即将死亡的单位。</param>
     /// <param name="lethalDamage">导致生命归零的伤害数据。</param>
     /// <returns>有活跃层且未在结算中时返回 <see langword="true"/>（跳过常规死亡）。</returns>
-    public bool TryRevive(GameObject unit, Damage lethalDamage)
+    private bool TryRevive(Damage lethalDamage)
     {
         if (prop == null || draining || layers.Count == 0)
             return false;
@@ -239,7 +243,8 @@ internal class FalseLifeState : MonoBehaviour, IDeathReviver
         PlayFalseLifeSound();
 
         // 恢复生命并刷新血条，随后进入持续扣血。
-        prop.currentHp = Mathf.Min(prop.maxHp, restoreHp);
+        if (health != null)
+            health.SetHpKeepDeadState(Mathf.Min(prop.maxHp, restoreHp));
         if (health != null)
             health.SetHpbar();
 
@@ -264,7 +269,8 @@ internal class FalseLifeState : MonoBehaviour, IDeathReviver
                 break; // 结算期间被真正击杀：停止扣血，交由常规死亡流程。
 
             float t = Mathf.Clamp01(elapsed / totalSeconds);
-            prop.currentHp = Mathf.Max(0, Mathf.RoundToInt(startHp * (1f - t)));
+            if (health != null)
+                health.SetHpKeepDeadState(Mathf.Max(0, Mathf.RoundToInt(startHp * (1f - t))));
             if (health != null)
                 health.SetHpbar();
 
@@ -279,7 +285,6 @@ internal class FalseLifeState : MonoBehaviour, IDeathReviver
             yield break;
 
         // 扣血结束：生命归零，进入常规死亡流程（抛飞 + 重生）。
-        prop.currentHp = 0;
         if (health != null && health.isActiveAndEnabled)
             health.Die();
     }
@@ -289,12 +294,12 @@ internal class FalseLifeState : MonoBehaviour, IDeathReviver
     /// </summary>
     private void ClearLayersForTrigger()
     {
-        if (prop != null)
+        if (health != null)
         {
             for (int i = 0; i < layers.Count; i++)
             {
                 if (layers[i].source != null)
-                    prop.currentBuff.Remove(layers[i].source);
+                    health.RemoveBuff(layers[i].source);   // 幂等：同一实例重复注销无副作用
             }
         }
 
@@ -330,13 +335,23 @@ internal class FalseLifeState : MonoBehaviour, IDeathReviver
             prop.transform);
     }
 
+    /// <summary>判断该来源是否仍有剩余层（多层同实例时，仅最后一层结束时注销登记）。</summary>
+    private bool HasRemainingLayer(FalseLifeBuff source)
+    {
+        for (int i = 0; i < layers.Count; i++)
+            if (layers[i].source == source)
+                return true;
+        return false;
+    }
+
     private void RemoveAt(int index)
     {
         Layer layer = layers[index];
         layers.RemoveAt(index);
 
-        if (prop != null && layer.source != null)
-            prop.currentBuff.Remove(layer.source);
+        // 仅当该来源不再有剩余层时注销登记（多层同实例不得提前摘除）。
+        if (health != null && layer.source != null && !HasRemainingLayer(layer.source))
+            health.RemoveBuff(layer.source);
 
         if (layers.Count == 0 && !draining)
             ApplyDarken();
@@ -347,6 +362,9 @@ internal class FalseLifeState : MonoBehaviour, IDeathReviver
 
     private void OnDisable()
     {
+        if (health != null)
+            health.UnregisterDeathReviver(TryRevive);
+
         if (drainRoutine != null)
         {
             StopCoroutine(drainRoutine);

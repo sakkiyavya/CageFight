@@ -6,7 +6,7 @@ using UnityEngine;
 /// 创造者已死亡时治疗无效（CharacterHealth.Heal 内部会忽略死亡目标）。
 /// </summary>
 [RequireComponent(typeof(GameObjectProperty))]
-public class RuifaMirror : MonoBehaviour, ISummonedUnit
+public class RuifaMirror : BehaviourBase, ISummonedUnit
 {
     [Header("回血配置")]
     [SerializeField, Min(0f)]
@@ -16,6 +16,19 @@ public class RuifaMirror : MonoBehaviour, ISummonedUnit
     private GameObject creator;
     private CharacterHealth creatorHealth;
     private GameObjectProperty creatorProp;
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (this.prop == null)
+            this.prop = prop;
+    }
+
+    /// <summary>回血由镜像攻击事件驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     #region 生命周期与回调
     private void Awake()

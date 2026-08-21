@@ -14,10 +14,15 @@ public sealed class EngineerMenuPortrait : MonoBehaviour
     private float elapsed;
     private int frameIndex;
     private Coroutine setupRoutine;
+    private float baseSlotHeight;  // 槽位基准高度：所有工程师立绘统一显示高度。
 
     private void OnEnable()
     {
-        if (portrait) portrait.preserveAspect = true;
+        if (portrait)
+        {
+            portrait.preserveAspect = true;
+            baseSlotHeight = portrait.rectTransform.sizeDelta.y;
+        }
         if (loadout) loadout.Changed += Refresh;
         setupRoutine = StartCoroutine(SetupRoutine());
     }
@@ -45,6 +50,7 @@ public sealed class EngineerMenuPortrait : MonoBehaviour
         elapsed -= frameTime;
         frameIndex = (frameIndex + 1) % frames.Length;
         portrait.sprite = frames[frameIndex];
+        ApplySlotFit(portrait.sprite);
     }
 
     private void Refresh()
@@ -58,7 +64,9 @@ public sealed class EngineerMenuPortrait : MonoBehaviour
         string[] keys = engineer.IdlePortraitFrameKeys;
         if (keys.Length == 0)
         {
-            portrait.sprite = ResourceManager.Instance.GetSprite(engineer.IconKey);
+            // 未配置待机帧：显示静态立绘（PortraitFrameKey），缺失时回退小图标。
+            portrait.sprite = ResolvePortraitSprite(engineer);
+            ApplySlotFit(portrait.sprite);
             return;
         }
 
@@ -71,12 +79,39 @@ public sealed class EngineerMenuPortrait : MonoBehaviour
         }
         if (count == 0)
         {
-            portrait.sprite = ResourceManager.Instance.GetSprite(engineer.IconKey);
+            // 待机帧全部解析失败：回退静态立绘。
+            portrait.sprite = ResolvePortraitSprite(engineer);
+            ApplySlotFit(portrait.sprite);
             frames = null;
             return;
         }
         if (count != frames.Length) System.Array.Resize(ref frames, count);
         frameTime = 1f / Mathf.Max(1f, engineer.IdlePortraitFrameRate);
         portrait.sprite = frames[0];
+        ApplySlotFit(frames[0]);
+    }
+
+    /// <summary>
+    /// 按槽位基准高度等比适配立绘：宽高各异的工程师贴图统一显示高度，
+    /// 宽度随贴图比例自然变化，新增工程师无需任何配置即自动跟随。
+    /// </summary>
+    private void ApplySlotFit(Sprite sprite)
+    {
+        if (!sprite || !portrait || baseSlotHeight <= 0f) return;
+        float aspect = sprite.rect.width / Mathf.Max(1f, sprite.rect.height);
+        Vector2 target = new Vector2(baseSlotHeight * aspect, baseSlotHeight);
+        if (portrait.rectTransform.sizeDelta != target)
+            portrait.rectTransform.sizeDelta = target;
+    }
+
+    /// <summary>解析静态立绘：优先 PortraitFrameKey，缺失时回退 IconKey。</summary>
+    private Sprite ResolvePortraitSprite(EngineerDefinition engineer)
+    {
+        Sprite sprite = null;
+        if (!string.IsNullOrEmpty(engineer.PortraitFrameKey))
+            sprite = ResourceManager.Instance.GetSprite(engineer.PortraitFrameKey);
+        if (sprite == null && !string.IsNullOrEmpty(engineer.IconKey))
+            sprite = ResourceManager.Instance.GetSprite(engineer.IconKey);
+        return sprite;
     }
 }

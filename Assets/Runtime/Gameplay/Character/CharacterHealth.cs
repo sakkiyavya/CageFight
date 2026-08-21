@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -38,6 +39,12 @@ public class CharacterHealth : MonoBehaviour, ICollide
     private readonly System.Collections.Generic.List<HitColorTarget> _hitColorTargets =
         new System.Collections.Generic.List<HitColorTarget>();                                          // 可参与受击闪色的渲染目标。
     private MaterialPropertyBlock _hitPropertyBlock;                                                    // 不实例化材质即可修改颜色的属性块。
+    private HeavyWoundState _heavyWound;                                                                // 缓存的“重伤”状态组件（低血量时挂载一次，避免每帧 GetComponent）。
+
+    // ── 统一生命扩展点（有序登记，登记顺序即执行顺序；登记方须在 OnDisable 对称注销）──────────
+    private readonly List<Func<Damage, int>> _damageModifiers = new List<Func<Damage, int>>(4);         // 入伤修正器：护盾吸收/减伤/反击，正式扣血前依序修正最终伤害。
+    private readonly List<Func<BuffBase, bool>> _buffFilters = new List<Func<BuffBase, bool>>(4);       // 状态过滤器：免疫/转化，返回 true 表示已接管、不再施加。
+    private readonly List<Func<Damage, bool>> _deathRevivers = new List<Func<Damage, bool>>(4);         // 死亡复活器：假死/晶化复活，返回 true 表示已接管、跳过常规死亡。
 
     #region 生命周期与碰撞回调
     /// <summary>
@@ -94,8 +101,8 @@ public class CharacterHealth : MonoBehaviour, ICollide
     }
 
     /// <summary>
-    /// 处理敌方伤害碰撞：向角色挂载伤害携带的 Buff，发布受击事件，
-    /// 再执行扣血、击退、跳字和死亡处理。
+    /// 处理敌方伤害碰撞：向角色挂载伤害携带的 Buff，再进入统一结算
+    /// （受击事件、扣血、击退、跳字和死亡处理）。
     /// </summary>
     /// <param name="damage">碰撞源携带的伤害、阵营、击退和 Buff 数据。</param>
     /// <returns>经过伤害计算器处理后的伤害结果；角色已死亡时原样返回。</returns>
@@ -106,27 +113,120 @@ public class CharacterHealth : MonoBehaviour, ICollide
 
         if(damage.buffs != null && damage.buffs.Length > 0)
         {
-            IDebuffConverter converter = GetComponent<IDebuffConverter>();
-            IBuffImmunity immunity = GetComponent<IBuffImmunity>();
             foreach(var buff in damage.buffs)
             {
-                // 目标免疫该 Buff 时直接忽略。
-                if (immunity != null && immunity.IsImmuneTo(buff))
-                    continue;
-
-                // 目标实现了减益转化器时，减益交由转化器处理（如转化为自身增益），原减益不再施加。
-                if (buff.isDeBuff && converter != null && converter.ConvertDebuff(buff))
+                // 按登记顺序询问状态过滤器（免疫/转化）：已接管的状态不再施加。
+                bool handled = false;
+                for (int i = 0; i < _buffFilters.Count && !handled; i++)
+                    handled = _buffFilters[i](buff);
+                if (handled)
                     continue;
 
                 // 统一状态入口：执行 ApplyBuff 并登记到 currentBuff/currentDebuff。
-                _prop.ApplyStatus(buff, damage);
+                ApplyBuff(buff, damage);
             }
         }
 
-        
-        _prop.OnHitted?.Invoke(damage);
         return TakeDamage(damage);
     }
+
+    /// <summary>
+    /// 统一状态入口（生命框架）：执行 BuffBase.ApplyBuff、写入施加时间，并按 Buff/Debuff
+    /// 类型登记到 GameObjectProperty.currentBuff/currentDebuff（同实例重复施放只保留一条登记，
+    /// 层数/刷新策略由各状态组件自行管理）。
+    /// 兵种/能力脚本只通过本入口施加状态，不得直接增删 currentBuff/currentDebuff。
+    /// </summary>
+    /// <param name="buff">需要施加的状态实例。</param>
+    /// <param name="damage">来源伤害数据（含施法者与阵营，可传 DefaultDamage）。</param>
+    /// <returns>目标存活且施加成功时返回 <see langword="true"/>。</returns>
+    public bool ApplyBuff(BuffBase buff, Damage damage)
+    {
+        if (buff == null || _prop == null || _prop.isDead)
+            return false;
+
+        if (!buff.ApplyBuff(_prop, damage))
+            return false;
+
+        buff.buffApplyTime = Time.time;
+
+        if (buff.isDeBuff)
+        {
+            if (!_prop.currentDebuff.Contains(buff))
+                _prop.currentDebuff.Add(buff);
+        }
+        else
+        {
+            if (!_prop.currentBuff.Contains(buff))
+                _prop.currentBuff.Add(buff);
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// 不带来源信息的统一状态入口（等价于 ApplyBuff(buff, Damage.DefaultDamage)）。
+    /// </summary>
+    public bool ApplyBuff(BuffBase buff)
+    {
+        return ApplyBuff(buff, Damage.DefaultDamage);
+    }
+
+    /// <summary>
+    /// 统一状态注销入口：从 currentBuff/currentDebuff 移除该状态实例的登记。
+    /// 多层状态仅在所有剩余层结束后调用（重复调用幂等）；业务脚本不得直接 Remove 状态列表。
+    /// </summary>
+    /// <param name="buff">需要注销的状态实例。</param>
+    public void RemoveBuff(BuffBase buff)
+    {
+        if (buff == null || _prop == null)
+            return;
+
+        if (buff.isDeBuff)
+            _prop.currentDebuff.Remove(buff);
+        else
+            _prop.currentBuff.Remove(buff);
+    }
+
+    #region 统一生命扩展点（有序登记，登记方须在 OnDisable 对称注销）
+    /// <summary>登记入伤修正器（护盾吸收/减伤/反击），登记顺序即修正顺序；重复登记同一委托只保留一条。</summary>
+    public void RegisterDamageModifier(Func<Damage, int> modifier)
+    {
+        if (modifier != null && !_damageModifiers.Contains(modifier))
+            _damageModifiers.Add(modifier);
+    }
+
+    /// <summary>注销入伤修正器。</summary>
+    public void UnregisterDamageModifier(Func<Damage, int> modifier)
+    {
+        _damageModifiers.Remove(modifier);
+    }
+
+    /// <summary>登记状态过滤器（免疫/转化，返回 true 表示已接管、不再施加）；登记顺序即询问顺序。</summary>
+    public void RegisterBuffFilter(Func<BuffBase, bool> filter)
+    {
+        if (filter != null && !_buffFilters.Contains(filter))
+            _buffFilters.Add(filter);
+    }
+
+    /// <summary>注销状态过滤器。</summary>
+    public void UnregisterBuffFilter(Func<BuffBase, bool> filter)
+    {
+        _buffFilters.Remove(filter);
+    }
+
+    /// <summary>登记死亡复活器（返回 true 表示已接管死亡、跳过常规死亡流程）；登记顺序即询问顺序。</summary>
+    public void RegisterDeathReviver(Func<Damage, bool> reviver)
+    {
+        if (reviver != null && !_deathRevivers.Contains(reviver))
+            _deathRevivers.Add(reviver);
+    }
+
+    /// <summary>注销死亡复活器。</summary>
+    public void UnregisterDeathReviver(Func<Damage, bool> reviver)
+    {
+        _deathRevivers.Remove(reviver);
+    }
+    #endregion
 
     /// <summary>
     /// 初始化血条填充比例，并在角色开始时隐藏血条。
@@ -139,7 +239,8 @@ public class CharacterHealth : MonoBehaviour, ICollide
 
     /// <summary>
     /// 到达预定隐藏时间时关闭血条并清除计时状态；
-    /// 生物单位血量降到 30% 以下时自动获得“重伤”状态（状态组件不存在时创建，
+    /// 生物单位血量降到 30% 以下时自动获得“重伤”状态（状态组件不存在时挂载一次，
+    /// 之后缓存复用，不在每帧重复 GetComponent/AddComponent；
     /// 效果与解除由重伤状态自身管理；阈值与 HeavyWoundState 的 lowHpPercent 默认一致）。
     /// </summary>
     private void Update()
@@ -151,10 +252,13 @@ public class CharacterHealth : MonoBehaviour, ICollide
         }
 
         if (_prop != null && _prop.maxHp > 0 &&
-            _prop.currentHp <= _prop.maxHp * 0.3f &&
-            GetComponent<HeavyWoundState>() == null)
+            _prop.currentHp <= _prop.maxHp * 0.3f)
         {
-            gameObject.AddComponent<HeavyWoundState>();
+            // 只查一次：重伤状态随单位生命周期常驻，缓存引用即可。
+            if (_heavyWound == null)
+                _heavyWound = GetComponent<HeavyWoundState>();
+            if (_heavyWound == null)
+                _heavyWound = gameObject.AddComponent<HeavyWoundState>();
         }
     }
     #endregion
@@ -193,11 +297,14 @@ public class CharacterHealth : MonoBehaviour, ICollide
         if (_prop.isDead)
             return d;
 
-        // 统一入伤修正（护盾吸收等）：在正式扣血前修正本次已结算伤害，
+        // 统一入伤修正（护盾吸收/减伤/反击等）：按登记顺序在正式扣血前修正本次已结算伤害，
         // 保证同一次攻击只结算一遍伤害，不允许实现方预先回血抵消。
-        IIncomingDamageModifier damageModifier = GetComponent<IIncomingDamageModifier>();
-        if (damageModifier != null)
-            d.finalDamage = damageModifier.ModifyIncomingDamage(d);
+        for (int i = 0; i < _damageModifiers.Count; i++)
+            d.finalDamage = _damageModifiers[i](d);
+
+        // 受击事件：在正式扣血前发布，携带唯一一次结算后的伤害数据
+        // （订阅方不得重复结算伤害或直接改血）。
+        _prop.OnHitted?.Invoke(d);
 
         _prop.currentHp = Mathf.Max(_prop.currentHp - d.finalDamage, 0);
         RestartHitEffect();
@@ -215,9 +322,11 @@ public class CharacterHealth : MonoBehaviour, ICollide
         }
         if(_prop.currentHp <= 0)
         {
-            // 死亡前询问死亡复活器：接管则跳过常规死亡流程（如晶化复活）。
-            IDeathReviver reviver = GetComponent<IDeathReviver>();
-            if (reviver == null || !reviver.TryRevive(gameObject, d))
+            // 死亡前依次询问死亡复活器：任一接管（假死/晶化复活）则跳过常规死亡流程。
+            bool revived = false;
+            for (int i = 0; i < _deathRevivers.Count && !revived; i++)
+                revived = _deathRevivers[i](d);
+            if (!revived)
                 Die(d);
         }
         if (d.missed)
@@ -326,6 +435,35 @@ public class CharacterHealth : MonoBehaviour, ICollide
     {
         _prop.currentHp = Mathf.Clamp(value, 0, _prop.maxHp);
         _prop.isDead = _prop.currentHp <= 0;
+        ApplyBarVisual();
+    }
+
+    /// <summary>
+    /// 设置最大生命值并保持当前生命不超过新上限（成长、巨大化、灰烬等受控系统专用；
+    /// 业务脚本不得直接写 maxHp）。允许设为 0 以支持“上限归零彻底离场”类机制。
+    /// </summary>
+    /// <param name="value">新的最大生命值。</param>
+    public void SetMaxHp(int value)
+    {
+        if (_prop == null)
+            return;
+
+        _prop.maxHp = Mathf.Max(0, value);
+        _prop.currentHp = Mathf.Clamp(_prop.currentHp, 0, _prop.maxHp);
+        ApplyBarVisual();
+    }
+
+    /// <summary>
+    /// 仅设置当前生命值、不联动死亡标记（复活接管类系统专用，如晶化复活与妄业假死期间
+    /// 逐帧回血/扣血；业务脚本不得直接写 currentHp）。
+    /// </summary>
+    /// <param name="value">目标生命值，自动限制在 0 到最大生命之间。</param>
+    public void SetHpKeepDeadState(int value)
+    {
+        if (_prop == null)
+            return;
+
+        _prop.currentHp = Mathf.Clamp(value, 0, _prop.maxHp);
         ApplyBarVisual();
     }
     #endregion

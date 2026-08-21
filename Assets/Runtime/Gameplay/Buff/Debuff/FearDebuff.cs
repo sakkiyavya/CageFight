@@ -262,7 +262,11 @@ internal class FearState : MonoBehaviour
 
         UnitVisualFollower follower = go.GetComponent<UnitVisualFollower>();
         if (follower == null)
-            follower = go.AddComponent<UnitVisualFollower>();
+        {
+            // 预制体已预配置 UnitVisualFollower（正式池化表现模块）；缺失时归还并安全失败。
+            GameObjectPool.Instance.Release(go);
+            return;
+        }
 
         SpriteRenderer iconRenderer = go.GetComponent<SpriteRenderer>();
         if (iconRenderer != null)

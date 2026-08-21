@@ -130,6 +130,7 @@ internal class GiantState : MonoBehaviour
     private readonly List<Layer> layers = new List<Layer>();
 
     private GameObjectProperty prop;
+    private CharacterHealth health;
     private int baseMaxHp;                    // 首层施加时快照的基础最大生命。
     private float baseAntiRepel;              // 首层施加时快照的基础抗击退。
     private Vector3 baseScale;                // 首层施加时快照的基础体型。
@@ -146,6 +147,7 @@ internal class GiantState : MonoBehaviour
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
+        health = GetComponent<CharacterHealth>();
         ResolveSoundAudio();
     }
 
@@ -251,7 +253,7 @@ internal class GiantState : MonoBehaviour
 
         if (layers.Count == 0)
         {
-            prop.maxHp = baseMaxHp;
+            health.SetMaxHp(baseMaxHp);
             prop.antiRepel = baseAntiRepel;
             prop.transform.localScale = baseScale;
             Destroy(this);
@@ -263,8 +265,8 @@ internal class GiantState : MonoBehaviour
     /// </summary>
     private void ApplyToProp(int newMax, int hpDelta)
     {
-        prop.maxHp = newMax;
-        prop.currentHp = Mathf.Clamp(prop.currentHp + hpDelta, 0, newMax);
+        health.SetMaxHp(newMax);
+        health.SetHpKeepDeadState(Mathf.Clamp(prop.currentHp + hpDelta, 0, newMax));
         prop.antiRepel = Mathf.Max(0f, baseAntiRepel + TotalAnti());
         prop.transform.localScale = baseScale * (1f + TotalPercent());
     }
@@ -362,7 +364,7 @@ internal class GiantState : MonoBehaviour
     {
         if (prop != null && layers.Count > 0)
         {
-            prop.maxHp = baseMaxHp;
+            health.SetMaxHp(baseMaxHp);
             prop.antiRepel = baseAntiRepel;
             prop.transform.localScale = baseScale;
         }

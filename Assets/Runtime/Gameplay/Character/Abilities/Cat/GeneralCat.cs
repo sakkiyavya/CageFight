@@ -9,19 +9,36 @@ using UnityEngine;
 /// 可无限叠加、蓝色呼吸光效；施加时以自身为创造者（等级接缝，当前等级系统未建成时为 10 点/层）。
 /// 仅新增本脚本即可生效，不改动任何既有脚本。
 /// </summary>
-public class GeneralCat : MonoBehaviour, IProjectileImpactHandler
+public class GeneralCat : BehaviourBase, IProjectileImpactHandler
 {
     [Header("护甲")]
     [SerializeField, Min(0.1f)]
     private float armorDuration = 3f;       // 每层护甲持续秒（3 秒）。
 
     private GameObjectProperty _prop;
+    private CharacterHealth _health;
     private ArmorBuff _armor;
     private Damage _selfDamage;             // 以自身为创造者的施放伤害数据（复用，避免构造）。
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null)
+            _prop = prop;
+        if (_health == null)
+            _health = health;
+    }
+
+    /// <summary>护甲由弹幕命中回调驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     private void Awake()
     {
         _prop = GetComponent<GameObjectProperty>();
+        _health = GetComponent<CharacterHealth>();
         _armor = gameObject.AddComponent<ArmorBuff>();
         _armor.SetDuration(armorDuration);
         _selfDamage = Damage.DefaultDamage;
@@ -40,6 +57,7 @@ public class GeneralCat : MonoBehaviour, IProjectileImpactHandler
         if (_prop == null || _prop.isDead)
             return;
 
-        _armor.ApplyBuff(_prop, _selfDamage);
+        if (_health != null)
+            _health.ApplyBuff(_armor, _selfDamage);
     }
 }

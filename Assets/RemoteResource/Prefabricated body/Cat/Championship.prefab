@@ -369,11 +369,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 520
+  maxHp: 3000
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 15
+  atk: 350
   atkRate: 1
   magicAtk: 0
   repel: 1
@@ -392,7 +392,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 2.4
+  moveSpeed: 1.9
   suckBlood: 0
   currentHp: 0
   isDead: 0
@@ -423,6 +423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Behaviours:
+  - {fileID: -910000000000000400}
   - {fileID: 8411433223003965158}
   - {fileID: 356632847309228632}
   - {fileID: 7789377844515861523}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3362513572270135447}
   - component: {fileID: 6392605074315512853}
+  - component: {fileID: 7041582634451299063}
   m_Layer: 0
   m_Name: LightningBeam
   m_TagString: Untagged
@@ -17,6 +18,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7041582634451299063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3288984486275212541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c061eed0c8c4a4e8f8d788ab64b87b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3362513572270135447
 Transform:
   m_ObjectHideFlags: 0

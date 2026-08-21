@@ -140,11 +140,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 900
+  maxHp: 13000
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 80
+  atk: 320
   atkRate: 1
   magicAtk: 20
   repel: 3
@@ -163,7 +163,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 2.2
+  moveSpeed: 1.5
   suckBlood: 0
   currentHp: 0
   isDead: 0
@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Behaviours:
+  - {fileID: 6561888548225367040}
   - {fileID: 727558355635245663}
   - {fileID: 6583583580902949226}
   - {fileID: 9091196660463324561}
@@ -530,6 +531,8 @@ MonoBehaviour:
   ballPrefabKey: Bullet-Thunderstorm
   ballSpeed: 10
   ballHitDistance: 0.3
+  shieldVisualPrefabKey: UnitVisualFollower
+  shieldVisualSpriteKey: Bullet2 AP_12
   shieldVisualHeight: 1
   shieldVisualScale: 1.6
   breathSpeed: 2.5

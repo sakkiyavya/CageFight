@@ -2,10 +2,23 @@ using UnityEngine;
 
 [DefaultExecutionOrder(-500)]
 [RequireComponent(typeof(GameObjectProperty))]
-public class SummonedUnitFacingFix : MonoBehaviour
+public class SummonedUnitFacingFix : BehaviourBase
 {
     private GameObjectProperty prop;
     private bool lastFacingLeft;
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (this.prop == null)
+            this.prop = prop;
+    }
+
+    /// <summary>朝向由 LateUpdate 表现层驱动，无每帧 AI 行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     private void Awake()
     {

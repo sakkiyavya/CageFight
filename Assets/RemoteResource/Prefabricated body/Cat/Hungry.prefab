@@ -338,15 +338,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 1000
+  maxHp: 11000
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 60
+  atk: 280
   atkRate: 1
   magicAtk: 10
   repel: 1
-  antiRepel: 1
+  antiRepel: 5
   atkRange: {x: 4, y: 2}
   atkObj: Bullet-Hungry
   damageMultiplier: 1
@@ -361,7 +361,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 1.8
+  moveSpeed: 1.5
   suckBlood: 0
   currentHp: 0
   isDead: 0
@@ -392,6 +392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Behaviours:
+  - {fileID: 6752368745442402304}
   - {fileID: 5784829463264056332}
   - {fileID: 4507812082961020721}
   - {fileID: 8202774120445417273}

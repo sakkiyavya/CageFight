@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: -2655984519163691111}
   - component: {fileID: 1057262903548245345}
   - component: {fileID: 6531140578899345871}
+  - component: {fileID: 5684352387064214375}
   m_Layer: 0
   m_Name: Cat dad
   m_TagString: Untagged
@@ -371,11 +372,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 700
+  maxHp: 1300
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 100
+  atk: 170
   atkRate: 1
   magicAtk: 30
   repel: 3
@@ -394,7 +395,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 1.8
+  moveSpeed: 2
   suckBlood: 0
   currentHp: 6000
   isDead: 0
@@ -543,6 +544,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.3
+--- !u!114 &5684352387064214375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4350524647282924559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1874feb7361d2647939278d5c98c3a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMissChance: 0.5
+  rageDuration: 4
 --- !u!1001 &363376559045589305
 PrefabInstance:
   m_ObjectHideFlags: 0

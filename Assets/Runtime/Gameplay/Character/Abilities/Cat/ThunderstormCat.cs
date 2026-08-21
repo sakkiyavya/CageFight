@@ -19,7 +19,7 @@ using UnityEngine;
 /// 兼容攻击动画缺少 StopShoot 事件导致 isAttack 不回落的情况。
 /// </summary>
 [RequireComponent(typeof(GameObjectProperty))]
-public class ThunderstormCat : MonoBehaviour, IIncomingDamageModifier
+public class ThunderstormCat : BehaviourBase
 {
     [Header("雷霆模式")]
     [SerializeField, Min(0.1f)] private float thunderDuration = 7f;         // 雷霆模式持续秒。
@@ -54,6 +54,7 @@ public class ThunderstormCat : MonoBehaviour, IIncomingDamageModifier
     private ThunderstormParalysisDebuff _selfParalysis; // 模式结束后的自身长时麻痹。
     private GameObject _ballPrefab;                     // 经 ResourceManager 解析的电球预制体缓存。
 
+    private CharacterHealth _health;                     // 生命组件（统一状态入口）。
     private Phase _phase;                               // 当前阶段。
     private float _thunderEndTime;                      // 雷霆模式结束时间。
     private float _paralysisEndTime;                    // 自身麻痹结束时间。
@@ -65,10 +66,12 @@ public class ThunderstormCat : MonoBehaviour, IIncomingDamageModifier
     private UnitVisualFollower _shieldFollower;         // 雷盾视觉（池化跟随对象）。
     private GameObject _shieldVisualPrefab;             // 视觉预制体缓存（按资源键解析）。
     private Sprite _shieldSprite;                       // 视觉贴图缓存（按资源键解析）。
+    private float _shieldVisualRetryTime;               // 雷盾视觉补回的下一次尝试时间（节流）。
 
     private void Awake()
     {
         _prop = GetComponent<GameObjectProperty>();
+        _health = GetComponent<CharacterHealth>();
         _paralysis = gameObject.AddComponent<ParalysisDebuff>();
         _selfParalysis = gameObject.AddComponent<ThunderstormParalysisDebuff>();
         _selfParalysis.SetDuration(selfParalysisSeconds);
@@ -78,15 +81,36 @@ public class ThunderstormCat : MonoBehaviour, IIncomingDamageModifier
     {
         _prop.OnAtt += HandleAttack;
 
+        // 经生命框架统一扩展点登记雷霆反击/护盾修正器（OnDisable 对称注销）。
+        if (_health != null)
+        {
+            _health.RegisterDamageModifier(ModifyDamage);
+            _health.Died += HandleDied;
+        }
+
         _phase = Phase.Idle;
         _shieldHp = 0;
         _immobilized = false;
+        _shieldVisualRetryTime = 0f;
         SetShieldVisual(false);
+
+        // 预载雷盾视觉资源（框架 API），保证进入雷霆模式时护盾视觉可立即生成。
+        if (ResourceManager.Instance != null)
+        {
+            ResourceManager.Instance.LoadExtraResourceAsync<GameObject>(shieldVisualPrefabKey);
+            ResourceManager.Instance.LoadExtraResourceAsync<Sprite>(shieldVisualSpriteKey);
+        }
     }
 
     private void OnDisable()
     {
         _prop.OnAtt -= HandleAttack;
+
+        if (_health != null)
+        {
+            _health.UnregisterDamageModifier(ModifyDamage);
+            _health.Died -= HandleDied;
+        }
 
         // 死亡/回收时直接结束模式，恢复移动，不再给死者叠麻痹。
         Immobilize(false);
@@ -95,20 +119,49 @@ public class ThunderstormCat : MonoBehaviour, IIncomingDamageModifier
         SetShieldVisual(false);
     }
 
-    private void Update()
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null)
+            _prop = prop;
+        if (_health == null)
+            _health = health;
+    }
+
+    /// <summary>死亡即结束雷霆模式并隐藏雷盾（经生命框架 Died 事件收尾，不再逐帧轮询尸体状态）。</summary>
+    private void HandleDied(GameObject unit)
+    {
+        if (_phase == Phase.Thunder)
+        {
+            _shieldHp = 0;
+            SetShieldVisual(false);
+            Immobilize(false);
+            _phase = Phase.Idle;
+        }
+    }
+
+    /// <summary>雷霆模式阶段机；被动不阻止后续 AI 行为。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
         if (_prop == null || _prop.isDead)
-            return;
+            return false;
 
         switch (_phase)
         {
             case Phase.Thunder:
-                // 攻击中持续刷新模式时间（电平触发，不依赖攻击状态边沿）；
-                // 停止攻击后超时则结束模式。
-                if (_prop.isAttack)
-                    _thunderEndTime = Time.time + thunderDuration;
-                else if (Time.time >= _thunderEndTime)
+                // 固定时长：进入雷霆模式 thunderDuration 秒后必定结束（不再因持续攻击无限刷新）。
+                if (Time.time >= _thunderEndTime)
                     EndThunderMode();
+
+                // 雷盾期间确保护盾视觉与呼吸动画持续在场：
+                // 资源延迟就绪或视觉意外失效时按节流间隔自动补回。
+                if (_phase == Phase.Thunder &&
+                    (_shieldFollower == null || !_shieldFollower.IsActive) &&
+                    Time.time >= _shieldVisualRetryTime)
+                {
+                    _shieldVisualRetryTime = Time.time + 0.5f;
+                    TrySpawnShieldVisual();
+                }
                 break;
 
             case Phase.SelfParalyzed:
@@ -117,11 +170,14 @@ public class ThunderstormCat : MonoBehaviour, IIncomingDamageModifier
                 break;
 
             default:
-                // 空闲且处于攻击状态 → 进入雷霆模式。
+                // 空闲且处于攻击状态 → 进入雷霆模式（电平触发保证可靠进入；
+                // 结束与重入由固定时长 + 自麻痹空档控制，不会无限持续）。
                 if (_prop.isAttack)
                     EnterThunderMode();
                 break;
         }
+
+        return false;
     }
 
     /// <summary>攻击事件（远程单位走 OnAtt）：空闲时进入雷霆模式。</summary>
@@ -175,11 +231,11 @@ public class ThunderstormCat : MonoBehaviour, IIncomingDamageModifier
     }
 
     /// <summary>
-    /// 统一入伤修正（IIncomingDamageModifier）：在正式扣血前处理雷霆模式的反击与护盾吸收。
+    /// 入伤修正器（经 CharacterHealth 统一扩展点登记）：在正式扣血前处理雷霆模式的反击与护盾吸收。
     /// 伤害已由 CharacterHealth 完成唯一一次结算，本方法只取最终值并返回剩余伤害，
     /// 不重复计算、不预先回血抵消。
     /// </summary>
-    public int ModifyIncomingDamage(Damage damage)
+    private int ModifyDamage(Damage damage)
     {
         if (_phase != Phase.Thunder || _prop == null || damage.finalDamage <= 0)
             return damage.finalDamage;
@@ -221,10 +277,10 @@ public class ThunderstormCat : MonoBehaviour, IIncomingDamageModifier
         SetShieldVisual(false);
         Immobilize(false);
 
-        if (_prop == null || _prop.isDead)
+        if (_prop == null || _prop.isDead || _health == null)
             return;
 
-        _prop.ApplyStatus(_selfParalysis);
+        _health.ApplyBuff(_selfParalysis);
     }
 
     /// <summary>
@@ -296,7 +352,11 @@ public class ThunderstormCat : MonoBehaviour, IIncomingDamageModifier
 
         UnitVisualFollower follower = go.GetComponent<UnitVisualFollower>();
         if (follower == null)
-            follower = go.AddComponent<UnitVisualFollower>();
+        {
+            // 预制体已预配置 UnitVisualFollower（正式池化表现模块）；缺失时归还并安全失败。
+            GameObjectPool.Instance.Release(go);
+            return;
+        }
 
         SpriteRenderer renderer = go.GetComponent<SpriteRenderer>();
         if (renderer != null)
@@ -304,7 +364,7 @@ public class ThunderstormCat : MonoBehaviour, IIncomingDamageModifier
             renderer.sprite = _shieldSprite;
             renderer.sortingLayerID = 495858691;    // OnMap 层，盖在单位身体（order 0）之上。
             renderer.sortingOrder = 1;
-            renderer.color = new Color(0.55f, 0.8f, 1f, breathMaxAlpha);
+            renderer.color = new Color(1f, 1f, 1f, breathMaxAlpha);   // 不变色（纯白）+ 呼吸透明度由跟随组件驱动。
         }
 
         go.transform.localScale = Vector3.one * shieldVisualScale;

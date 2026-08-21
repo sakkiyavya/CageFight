@@ -52,6 +52,7 @@ MonoBehaviour:
     side: 0
     initialDamage: 10
     finalDamage: 0
+    missed: 0
     collideDir: 1
     repel: 0
     type: 0
@@ -60,7 +61,7 @@ MonoBehaviour:
     buffs: []
   target: {fileID: 0}
   sustainTime: 2
-  collideTimes: 1
+  collideTimes: 999
   hasSubProjectile: 1
   hitSoundKey: Hit
   hitAudio: {fileID: 0}

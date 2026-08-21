@@ -6,10 +6,10 @@ using UnityEngine;
 /// 且当前血量低于 hpPercentThreshold（默认 15%），
 /// 则先赋予 target 层“妄业之力”（FalseLifeBuff，默认 2 层），
 /// 随后对其造成致命伤害直接斩杀（伤害经 OnCollide 完整结算，
-/// 生命归零时由妄业之力的 IDeathReviver 接管“假死”流程）。
+/// 生命归零时由妄业之力的死亡复活器接管“假死”流程）。
 /// 通过 GameObjectProperty.OnAtt 接入，仅新增本脚本即可生效。
 /// </summary>
-public class Championship : MonoBehaviour
+public class Championship : BehaviourBase
 {
     [Header("斩杀判定")]
     [SerializeField]
@@ -26,6 +26,19 @@ public class Championship : MonoBehaviour
     private GameObjectProperty _prop;
     private FalseLifeBuff _falseLife;
     private Damage _execDamage;
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null)
+            _prop = prop;
+    }
+
+    /// <summary>斩杀由攻击命中事件驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     private void Awake()
     {
@@ -73,8 +86,11 @@ public class Championship : MonoBehaviour
             return;
 
         // 先赋予妄业之力（死亡后假死接管），再造成致命伤害斩杀。
-        for (int i = 0; i < falseLifeLayers; i++)
-            targetProp.ApplyStatus(_falseLife);
+        if (collide is CharacterHealth targetHealth)
+        {
+            for (int i = 0; i < falseLifeLayers; i++)
+                targetHealth.ApplyBuff(_falseLife);
+        }
 
         _execDamage.side = _prop.side;
         _execDamage.source = gameObject;

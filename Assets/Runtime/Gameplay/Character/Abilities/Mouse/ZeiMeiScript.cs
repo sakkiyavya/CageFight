@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
-public class ZeiMeiScript : MonoBehaviour
+public class ZeiMeiScript : BehaviourBase
 {
     [SerializeField, Min(1)]
     private int killReward = 100;
@@ -20,6 +20,13 @@ public class ZeiMeiScript : MonoBehaviour
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
+    }
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (this.prop == null)
+            this.prop = prop;
     }
 
     private void OnEnable()
@@ -41,7 +48,8 @@ public class ZeiMeiScript : MonoBehaviour
         rewardedTargets.Clear();
     }
 
-    private void Update()
+    /// <summary>每帧监视当前锁定目标；被动不阻止后续 AI 行为。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
         // 提前监听当前锁定目标。
         WatchCurrentTarget();
@@ -55,6 +63,8 @@ public class ZeiMeiScript : MonoBehaviour
             if (target != null && !target.isDead)
                 rewardedTargets.Remove(target);
         }
+
+        return false;
     }
 
     private void WatchCurrentTarget()
@@ -99,11 +109,9 @@ public class ZeiMeiScript : MonoBehaviour
         if (damage.source != gameObject)
             return;
 
-        Damage calculated =
-            DamageComputor.DamageCompute(damage);
-
+        // 受击事件已由框架携带唯一结算后的伤害，直接读取最终伤害，不再重复调用伤害计算。
         int finalDamage =
-            Mathf.Max(0, calculated.finalDamage);
+            Mathf.Max(0, damage.finalDamage);
 
         // 本次伤害不足以击杀。
         if (target.currentHp - finalDamage > 0)

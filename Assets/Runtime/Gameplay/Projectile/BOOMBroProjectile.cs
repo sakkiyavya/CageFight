@@ -299,20 +299,15 @@ public class BOOMBroProjectile : MonoBehaviour
 
         audioSource.clip = explosionAudio;
 
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlayEffectAt(
-                audioSource,
-                (uint)audioSource.priority,
-                transform
-            );
-        }
-        else
-        {
-            audioSource.PlayOneShot(
-                explosionAudio
-            );
-        }
+        // 仅经 AudioManager 调度；音频服务不可用时跳过音效（规范禁止直接 PlayOneShot 绕过）。
+        if (AudioManager.Instance == null)
+            return;
+
+        AudioManager.Instance.PlayEffectAt(
+            audioSource,
+            (uint)audioSource.priority,
+            transform
+        );
     }
 
     // 爆炸动画最后一帧调用

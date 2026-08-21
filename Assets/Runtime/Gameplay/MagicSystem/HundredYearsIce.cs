@@ -110,10 +110,10 @@ public sealed class HundredYearsIce : MonoBehaviour, IEngineerDirectSpellInstanc
         {
             GameObjectProperty target = hitBuffer[i].GetComponentInParent<GameObjectProperty>();
             if (!target || target.isDead || target.side == side || !hitTargets.Add(target)) continue;
-            if (!coldDebuff.ApplyBuff(target)) continue;
 
-            coldDebuff.buffApplyTime = Time.time;
-            target.currentDebuff.Add(coldDebuff);
+            // 经生命框架统一入口施加冷霜（ApplyBuff + 登记 currentDebuff），禁止直加状态列表。
+            CharacterHealth targetHealth = target.GetComponent<CharacterHealth>();
+            if (targetHealth == null || !targetHealth.ApplyBuff(coldDebuff)) continue;
         }
     }
 

@@ -183,13 +183,25 @@ public class BuildingHealth : MonoBehaviour, ICollide
     }
 
     /// <summary>
-    /// 直接设置建筑生命值；当前尚未实现，调用时会抛出 <see cref="System.NotImplementedException"/>。
+    /// 直接设置建筑生命值，限制在有效范围内并刷新血条。
     /// </summary>
     /// <param name="value">计划设置的生命值。</param>
     public void SetHp(int value)
     {
-        // TODO: Implement direct HP assignment logic.
-        throw new System.NotImplementedException();
+        hp = Mathf.Clamp(value, 0, _prop.maxHp);
+        ApplyBarVisual();
+    }
+
+    /// <summary>
+    /// 设置建筑最大生命并保持当前生命不超过新上限（建筑升级等受控系统专用；
+    /// 业务脚本不得直接写 maxHp）。
+    /// </summary>
+    /// <param name="value">新的最大生命值。</param>
+    public void SetMaxHp(int value)
+    {
+        _prop.maxHp = Mathf.Max(1, value);
+        hp = Mathf.Clamp(hp, 0, _prop.maxHp);
+        ApplyBarVisual();
     }
     #endregion
 

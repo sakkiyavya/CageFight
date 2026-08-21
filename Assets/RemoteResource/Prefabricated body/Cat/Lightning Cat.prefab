@@ -216,11 +216,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 500
+  maxHp: 6800
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 20
+  atk: 380
   atkRate: 1
   magicAtk: 10
   repel: 2
@@ -239,7 +239,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 2.3
+  moveSpeed: 1.5
   suckBlood: 0
   currentHp: 0
   isDead: 0
@@ -270,6 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Behaviours:
+  - {fileID: -8355140100622594376}
   - {fileID: 6083961416697477980}
   - {fileID: 1108828753551623743}
   - {fileID: 2532841511477828772}
@@ -555,7 +556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c061eed0c8c4a4e8f8d788ab64b87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightningPrefab: {fileID: 3288984486275212541, guid: d5d8f07ab5cbc764d9529cf995522269, type: 3}
+  lightningPrefabKey: LightningBeam
   lightningDuration: 0.3
   secondTargetRange: 10
   shootPoint: {fileID: 6156323331844156329}

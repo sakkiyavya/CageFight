@@ -71,9 +71,10 @@ public class CrystallizationDebuff : BuffBase
     }
 }
 
-class CrystallizationState : MonoBehaviour, IIncomingDamageModifier
+class CrystallizationState : MonoBehaviour
 {
     private GameObjectProperty prop;
+    private CharacterHealth health;
     private SpriteRenderer body;
     private const string CrystalVisualPrefabKey = "UnitVisualFollower"; // 水晶视觉预制体资源键（池化生成）。
     private UnitVisualFollower crystalFollower;
@@ -88,6 +89,7 @@ class CrystallizationState : MonoBehaviour, IIncomingDamageModifier
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
+        health = GetComponent<CharacterHealth>();
 
         body =
             GetComponentInChildren<SpriteRenderer>(true);
@@ -115,6 +117,10 @@ class CrystallizationState : MonoBehaviour, IIncomingDamageModifier
 
         prop.objectType |= GameObjectType.Building;
         prop.moveSpeed *= 0.5f;
+
+        // 晶化期间登记入伤修正器（减伤 70%），解除/禁用时对称注销。
+        if (health != null)
+            health.RegisterDamageModifier(ReduceDamage);
 
         if (body == null)
             return;
@@ -146,7 +152,11 @@ class CrystallizationState : MonoBehaviour, IIncomingDamageModifier
 
         UnitVisualFollower follower = go.GetComponent<UnitVisualFollower>();
         if (follower == null)
-            follower = go.AddComponent<UnitVisualFollower>();
+        {
+            // 预制体已预配置 UnitVisualFollower（正式池化表现模块）；缺失时归还并安全失败。
+            GameObjectPool.Instance.Release(go);
+            return;
+        }
 
         SpriteRenderer renderer = go.GetComponent<SpriteRenderer>();
         if (renderer != null)
@@ -172,10 +182,10 @@ class CrystallizationState : MonoBehaviour, IIncomingDamageModifier
     }
 
     /// <summary>
-    /// 统一入伤修正（IIncomingDamageModifier）：晶化期间非魔法伤害减免 70%，
+    /// 入伤修正器（经 CharacterHealth 统一扩展点登记）：晶化期间非魔法伤害减免 70%，
     /// 在正式扣血前按已结算伤害修正，不预先回血抵消。
     /// </summary>
-    public int ModifyIncomingDamage(Damage damage)
+    private int ReduceDamage(Damage damage)
     {
         if (!active || damage.type == DamageType.magic || damage.finalDamage <= 0)
             return damage.finalDamage;
@@ -189,14 +199,12 @@ class CrystallizationState : MonoBehaviour, IIncomingDamageModifier
             return;
 
         active = false;
+        if (health != null)
+            health.UnregisterDamageModifier(ReduceDamage);
         Restore();
 
-        if (source != null)
-        {
-            while (prop.currentDebuff.Remove(source))
-            {
-            }
-        }
+        if (source != null && health != null)
+            health.RemoveBuff(source);
 
         Destroy(this);
     }
@@ -218,6 +226,9 @@ class CrystallizationState : MonoBehaviour, IIncomingDamageModifier
 
     private void OnDisable()
     {
+        if (health != null)
+            health.UnregisterDamageModifier(ReduceDamage);
+
         if (!active)
             return;
 

@@ -143,47 +143,6 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     public Type DataType => typeof(GameObjectPropertyData);        // 该组件对应的关卡序列化数据类型。
 
     /// <summary>
-    /// 统一状态施加入口：执行 ApplyBuff、写入施加时间，并按 Buff/Debuff 类型
-    /// 登记到 currentBuff/currentDebuff（同实例重复施放只保留一条登记，
-    /// 层数/刷新策略由各状态组件自行管理）。
-    /// 兵种/能力脚本只通过本入口施加状态，不得直接增删 currentBuff/currentDebuff。
-    /// </summary>
-    /// <param name="buff">需要施加的状态实例。</param>
-    /// <param name="damage">来源伤害数据（含施法者与阵营，可传 DefaultDamage）。</param>
-    /// <returns>目标存活且施加成功时返回 <see langword="true"/>。</returns>
-    public bool ApplyStatus(BuffBase buff, Damage damage)
-    {
-        if (buff == null || isDead)
-            return false;
-
-        if (!buff.ApplyBuff(this, damage))
-            return false;
-
-        buff.buffApplyTime = Time.time;
-
-        if (buff.isDeBuff)
-        {
-            if (!currentDebuff.Contains(buff))
-                currentDebuff.Add(buff);
-        }
-        else
-        {
-            if (!currentBuff.Contains(buff))
-                currentBuff.Add(buff);
-        }
-
-        return true;
-    }
-
-    /// <summary>
-    /// 不带来源信息的统一状态施加入口（等价于 ApplyStatus(buff, Damage.DefaultDamage)）。
-    /// </summary>
-    public bool ApplyStatus(BuffBase buff)
-    {
-        return ApplyStatus(buff, Damage.DefaultDamage);
-    }
-
-    /// <summary>
     /// 将可持久化的对象类型、阵营、战斗、移动、占地和资源键配置导出为组件数据。
     /// </summary>
     /// <returns>包含当前静态配置的 <see cref="GameObjectPropertyData"/>。</returns>

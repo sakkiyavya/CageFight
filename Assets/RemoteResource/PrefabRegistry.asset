@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -132,6 +132,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 106394124439655112, guid: ad3d8ef1712638d4091c064fe317bfdd, type: 3}
+  - key: LightningBeam
+    prefabReference:
+      m_AssetGUID: d5d8f07ab5cbc764d9529cf995522269
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 3288984486275212541, guid: d5d8f07ab5cbc764d9529cf995522269, type: 3}
   - key: Bullet-Iron Wall Guard
     prefabReference:
       m_AssetGUID: b9f7e2aea2b3bb64bab1c8473b051157
@@ -685,6 +692,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 5459129488202058866, guid: 24696c1a62c1c7c40959b83f66361f09, type: 3}
+  - key: CrystallizationDebuff
+    prefabReference:
+      m_AssetGUID: 27c1a2c719019fb479f66b2508c430b3
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 5770731164727070035, guid: 27c1a2c719019fb479f66b2508c430b3, type: 3}
   - key: Cast spell
     prefabReference:
       m_AssetGUID: 3ace350d180fc4c4c8ff8d08652fcd3d
@@ -699,6 +713,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 4982157690039313999, guid: 4655a11859c1a0542b9d25b7da6fa706, type: 3}
+  - key: ResoluteBuff
+    prefabReference:
+      m_AssetGUID: 85a7a3e51f434f43852b0b87120e2d9d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 7694737793081243648, guid: 85a7a3e51f434f43852b0b87120e2d9d, type: 3}
   - key: UPanime
     prefabReference:
       m_AssetGUID: c420cd35fb0e4804cbba09139e96a386
@@ -706,20 +727,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 1452591897373347908, guid: c420cd35fb0e4804cbba09139e96a386, type: 3}
-  - key: UnitVisualFollower
-    prefabReference:
-      m_AssetGUID: 60f37214044c4c9b9ee13168b149b10e
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 6124218588381548544, guid: 60f37214044c4c9b9ee13168b149b10e, type: 3}
-  - key: EngineerHealParticles
-    prefabReference:
-      m_AssetGUID: f5d5a0a787c84d2095b6548ad3cb12f7
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 8928556036429035520, guid: f5d5a0a787c84d2095b6548ad3cb12f7, type: 3}
   - key: BabaDoctor Believer
     prefabReference:
       m_AssetGUID: 07e0ecaac8918604cb97e6013c5fe160
@@ -790,6 +797,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 8753158320783009564, guid: 43b94ef59dd46314e83a65a6d9ceb5a2, type: 3}
+  - key: UnitVisualFollower
+    prefabReference:
+      m_AssetGUID: 60f37214044c4c9b9ee13168b149b10e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 6124218588381548544, guid: 60f37214044c4c9b9ee13168b149b10e, type: 3}
   - key: Mouse Barracks1
     prefabReference:
       m_AssetGUID: 6529a6431e6fd12479dd239d1c67a623
@@ -832,6 +846,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 1460251372945402035, guid: f1dfe0092e4f02740afc8f1414718f40, type: 3}
+  - key: EngineerHealParticles
+    prefabReference:
+      m_AssetGUID: f5d5a0a787c84d2095b6548ad3cb12f7
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 8928556036429035520, guid: f5d5a0a787c84d2095b6548ad3cb12f7, type: 3}
   - key: Raise the pay magic
     prefabReference:
       m_AssetGUID: 04afbe487c72cb74b98e12aa192c5b51
@@ -944,3 +965,10 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 1417879808759964401, guid: fb7920d124dce57429695557542bbae5, type: 3}
+  - key: TroopTrainingPanel
+    prefabReference:
+      m_AssetGUID: feb0042e07e5429fb940bcc9916efd3f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 100000100000, guid: feb0042e07e5429fb940bcc9916efd3f, type: 3}

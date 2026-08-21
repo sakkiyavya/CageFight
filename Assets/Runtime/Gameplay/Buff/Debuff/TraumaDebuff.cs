@@ -127,6 +127,7 @@ internal class TraumaState : MonoBehaviour
     public int LayerCount => layers.Count;
 
     private GameObjectProperty prop;
+    private CharacterHealth health;
     private ICollide collide;
     private Damage tickDamage = Damage.DefaultDamage;   // 复用的伤害结构，避免每 tick 重新构造分配。
 
@@ -139,6 +140,7 @@ internal class TraumaState : MonoBehaviour
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
+        health = GetComponent<CharacterHealth>();
         collide = GetComponent<ICollide>();
     }
 
@@ -238,13 +240,23 @@ internal class TraumaState : MonoBehaviour
         collide.OnCollide(tickDamage);
     }
 
+    /// <summary>判断该来源是否仍有剩余层（多层同实例时，仅最后一层结束时注销登记）。</summary>
+    private bool HasRemainingLayer(TraumaDebuff source)
+    {
+        for (int i = 0; i < layers.Count; i++)
+            if (layers[i].source == source)
+                return true;
+        return false;
+    }
+
     private void RemoveAt(int index)
     {
         Layer layer = layers[index];
         layers.RemoveAt(index);
 
-        if (prop != null && layer.source != null)
-            prop.currentDebuff.Remove(layer.source);
+        // 仅当该来源不再有剩余层时注销登记（多层同实例不得提前摘除）。
+        if (health != null && layer.source != null && !HasRemainingLayer(layer.source))
+            health.RemoveBuff(layer.source);
 
         if (layers.Count == 0)
             Destroy(this);
@@ -260,12 +272,12 @@ internal class TraumaState : MonoBehaviour
     /// </summary>
     private void RestoreEverything()
     {
-        if (prop != null)
+        if (health != null)
         {
             for (int i = 0; i < layers.Count; i++)
             {
                 if (layers[i].source != null)
-                    prop.currentDebuff.Remove(layers[i].source);
+                    health.RemoveBuff(layers[i].source);   // 幂等：同一实例重复注销无副作用
             }
         }
 

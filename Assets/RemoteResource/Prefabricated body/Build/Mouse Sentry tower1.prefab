@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &1137238724567431102
 GameObject:
@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 941318418492629086}
-  - component: {fileID: -910000000000000100}
   m_Layer: 0
   m_Name: UpgradeMark
   m_TagString: Untagged
@@ -221,6 +220,8 @@ GameObject:
   - component: {fileID: 2991682355288395854}
   - component: {fileID: -337167485877599616}
   - component: {fileID: 5781234501234567890}
+  - component: {fileID: -910000000000000100}
+  - component: {fileID: -6633949477277437076}
   m_Layer: 0
   m_Name: Mouse Sentry tower1
   m_TagString: Untagged
@@ -409,7 +410,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.01238066, y: 1.0963793}
@@ -480,6 +481,64 @@ MonoBehaviour:
   shakeAngle: 4
   shakeDuration: 0.25
   shakeWaves: 2.5
+--- !u!114 &-910000000000000100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4528404349138767949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bdccd20c62a496cae905c2fbab60bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upkeepPerLevel: 0a000000140000001e000000
+--- !u!61 &-6633949477277437076
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4528404349138767949}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0000007748604, y: 1.0179634}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.49999964, y: 0.09922706}
+    oldSize: {x: 1.740127, y: 2.54}
+    newSize: {x: 1.740127, y: 2.54}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.740127, y: 2.54}
+  m_EdgeRadius: 0
 --- !u!1 &8092722474699817005
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,20 +771,3 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2150188761146788317, guid: 24696c1a62c1c7c40959b83f66361f09, type: 3}
   m_PrefabInstance: {fileID: 8926125653331673526}
   m_PrefabAsset: {fileID: 0}
-
---- !u!114 &-910000000000000100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4528404349138767949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bdccd20c62a496cae905c2fbab60bcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upkeepPerLevel:
-  - 10
-  - 20
-  - 30

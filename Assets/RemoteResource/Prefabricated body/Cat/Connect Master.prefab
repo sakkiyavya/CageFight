@@ -370,11 +370,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 550
+  maxHp: 8000
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 50
+  atk: 460
   atkRate: 1
   magicAtk: 0
   repel: 0
@@ -393,7 +393,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 2
+  moveSpeed: 1.4
   suckBlood: 0
   currentHp: 3000
   isDead: 0
@@ -424,6 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Behaviours:
+  - {fileID: 7479034059607029760}
   - {fileID: 4949154026705878436}
   - {fileID: 1798952528635622662}
   - {fileID: 3941245769424879787}
@@ -554,7 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 626e308c3dd04c9daded8f06f3db351b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magicCircleSpriteKey: Bullet3 AP_1
+  magicCircleSpriteKey: 
   circlePrefabKey: ConnectMasterCircle
   circleScale: {x: 0.8, y: 0.55}
   idleAlpha: 0.45

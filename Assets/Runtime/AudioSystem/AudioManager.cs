@@ -41,7 +41,7 @@ public class AudioManager : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        if (!GetComponent<MenuAmbientAudio>()) gameObject.AddComponent<MenuAmbientAudio>();
+        // MenuAmbientAudio 由场景显式挂载（规范：禁止核心单例 Awake 隐式自动安装外部模块）。
 
         _musicSource = CreateSource("MusicChannel");
         for (int i = 0; i < CHANNEL_DEFAULT; i++)
@@ -211,6 +211,30 @@ public class AudioManager : MonoBehaviour
         if (source == null || source.clip == null) return false;
         if (_fadeCo != null) StopCoroutine(_fadeCo);
         _fadeCo = StartCoroutine(FadeMusicTo(source.clip, source.volume, source.loop));
+        return true;
+    }
+
+    /// <summary>
+    /// 按资源键请求切换背景音乐（框架统一入口：解析音频片段后走淡入淡出通道，循环播放）。
+    /// 业务脚本不得自行创建 AudioSource 或直调 AudioSource.Play。
+    /// </summary>
+    /// <param name="audioKey">背景音乐资源键。</param>
+    /// <param name="volume">淡入完成后的目标音量。</param>
+    /// <returns>片段已解析且成功启动切换协程时返回 <see langword="true"/>。</returns>
+    public bool PlayMusic(string audioKey, float volume = 1f)
+    {
+        if (string.IsNullOrEmpty(audioKey) || ResourceManager.Instance == null)
+            return false;
+
+        AudioClip clip = ResourceManager.Instance.GetAudio(audioKey);
+        if (clip == null)
+        {
+            Debug.LogWarning($"[AudioManager] 背景音乐资源未加载：{audioKey}，请确认已列入关卡预载清单。", this);
+            return false;
+        }
+
+        if (_fadeCo != null) StopCoroutine(_fadeCo);
+        _fadeCo = StartCoroutine(FadeMusicTo(clip, Mathf.Clamp01(volume), true));
         return true;
     }
 

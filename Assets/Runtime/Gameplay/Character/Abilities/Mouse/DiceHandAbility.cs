@@ -9,7 +9,7 @@ using UnityEngine;
 /// 仅新增本脚本即可生效，不改动任何既有脚本。
 /// </summary>
 [RequireComponent(typeof(GameObjectProperty))]
-public class DiceHandAbility : MonoBehaviour
+public class DiceHandAbility : BehaviourBase
 {
     [Header("骰子机制")]
     [SerializeField, Range(1, 6)]
@@ -24,14 +24,31 @@ public class DiceHandAbility : MonoBehaviour
     private float rageDuration = 4f;         // 点数 5-6 时自身狂暴时长。
 
     private GameObjectProperty _prop;
+    private CharacterHealth _health;
     private DecadentDebuff _decadent;        // 运行时创建的颓废实例（仅作配置载体，状态在目标层管理器）。
     private RageBuff _rage;                  // 运行时创建的狂暴实例。
     private int _lastRoll = 1;               // 上一次骰子点数，用于还原倍率。
+
+    /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
+    public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        if (_prop == null)
+            _prop = prop;
+        if (_health == null)
+            _health = health;
+    }
+
+    /// <summary>纯攻击被动：无每帧行为，返回 false 放行后续 AI 行为。</summary>
+    public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
+    {
+        return false;
+    }
 
     #region 生命周期与回调
     private void Awake()
     {
         _prop = GetComponent<GameObjectProperty>();
+        _health = GetComponent<CharacterHealth>();
 
         // 运行时创建并配置 buff 实例，避免预制体额外挂载组件。
         _decadent = gameObject.AddComponent<DecadentDebuff>();
@@ -77,9 +94,9 @@ public class DiceHandAbility : MonoBehaviour
         _prop.damageMultiplier *= _lastRoll;
 
         if (_lastRoll <= 2)
-            _decadent.ApplyBuff(_prop);
+            _health.ApplyBuff(_decadent);
         else if (_lastRoll >= 5)
-            _rage.ApplyBuff(_prop);
+            _health.ApplyBuff(_rage);
     }
     #endregion
 }
