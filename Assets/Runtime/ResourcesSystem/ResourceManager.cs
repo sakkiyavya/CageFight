@@ -56,9 +56,9 @@ public class ResourceManager : MonoBehaviour
     [SerializeField] private LoadoutDefinitionRegistry loadoutDefinitionRegistry;
 
     [Header("局内公共资源（所有关卡自动预载）")]
-    [SerializeField] private List<string> commonPrefabs = new List<string> { "Build Animation", "Cast spell", "Bullet-Arrow", "Bullet-Thunderstorm", "ConnectMasterCircle", "Huge cheese", "UPanime", "UnitVisualFollower", "EngineerHealParticles" };
-    [SerializeField] private List<string> commonAudios = new List<string> { "Build", "UP", "UI Click", "Arrow-Shoot", "Hit" };
-    [SerializeField] private List<string> persistentAudios = new List<string> { "UI Click", "Cage door", "Begin", "Hit", "Huge buff", "Violent", "Zip buff", "False life", "Cold dbuff", "paralysed dbuff", "BOOM.LV.3", "BOOM.LV.1", "Mechanical reinforcement ore" };
+    [SerializeField] private List<string> commonPrefabs = new List<string> { "Build Animation", "Cast spell", "Bullet-Arrow", "Bullet-Thunderstorm", "ConnectMasterCircle", "Huge cheese", "UPanime", "UnitVisualFollower", "EngineerHealParticles", "LightningBeam" };
+    [SerializeField] private List<string> commonAudios = new List<string> { "Build", "UP", "UI Click", "Arrow-Shoot" };
+    [SerializeField] private List<string> persistentAudios = new List<string> { "UI Click", "Cage door", "Begin", "Huge buff", "Violent", "Zip buff", "False life", "Cold dbuff", "paralysed dbuff", "BOOM.LV.3", "BOOM.LV.1", "Mechanical reinforcement ore" };
     [SerializeField] private List<string> commonAnimatorControllers = new List<string> { "Build Animation AC" };
     [SerializeField] private List<string> commonSprites = new List<string> { "Build Animation_6", "State1 AP", "State1 AP_32", "Bullet3 AP_1", "Buff1 AP_0", "Derivative-Two fool" };
 
@@ -137,16 +137,15 @@ public class ResourceManager : MonoBehaviour
         if (!commonPrefabs.Contains("UPanime")) commonPrefabs.Add("UPanime");
         if (!commonPrefabs.Contains("UnitVisualFollower")) commonPrefabs.Add("UnitVisualFollower");
         if (!commonPrefabs.Contains("EngineerHealParticles")) commonPrefabs.Add("EngineerHealParticles");
+        if (!commonPrefabs.Contains("LightningBeam")) commonPrefabs.Add("LightningBeam");
         if (!commonAudios.Contains("Build")) commonAudios.Add("Build");
         if (!commonAudios.Contains("UP")) commonAudios.Add("UP");
         if (!commonAudios.Contains("UI Click")) commonAudios.Add("UI Click");
         if (!commonAudios.Contains("Arrow-Shoot")) commonAudios.Add("Arrow-Shoot");
-        if (!commonAudios.Contains("Hit")) commonAudios.Add("Hit");
         if (persistentAudios == null) persistentAudios = new List<string>();
         if (!persistentAudios.Contains("UI Click")) persistentAudios.Add("UI Click");
         if (!persistentAudios.Contains("Cage door")) persistentAudios.Add("Cage door");
         if (!persistentAudios.Contains("Begin")) persistentAudios.Add("Begin");
-        if (!persistentAudios.Contains("Hit")) persistentAudios.Add("Hit");
         if (!persistentAudios.Contains("Huge buff")) persistentAudios.Add("Huge buff");
         if (!persistentAudios.Contains("Violent")) persistentAudios.Add("Violent");
         if (!persistentAudios.Contains("Zip buff")) persistentAudios.Add("Zip buff");

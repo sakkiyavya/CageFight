@@ -223,7 +223,7 @@ MonoBehaviour:
   atk: 380
   atkRate: 1
   magicAtk: 10
-  repel: 2
+  repel: 0
   antiRepel: 4
   atkRange: {x: 7, y: 4}
   atkObj: 
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightningPrefabKey: LightningBeam
-  lightningDuration: 0.3
+  lightningDuration: 1
   secondTargetRange: 10
   shootPoint: {fileID: 6156323331844156329}
 --- !u!1001 &1000209810875653606

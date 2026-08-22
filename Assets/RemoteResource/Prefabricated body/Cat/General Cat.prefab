@@ -218,11 +218,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 5000
+  maxHp: 6000
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 120
+  atk: 450
   atkRate: 1
   magicAtk: 30
   repel: 5
@@ -243,7 +243,7 @@ MonoBehaviour:
   buildTime: 3
   moveSpeed: 1.8
   suckBlood: 0
-  currentHp: 8000
+  currentHp: 6000
   isDead: 0
   isUntargetable: 0
   target: {fileID: 0}
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e8fb7ec32a45c4385fd98948faf623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armorDuration: 3
+  armorDuration: 2
 --- !u!1001 &1075496232565407905
 PrefabInstance:
   m_ObjectHideFlags: 0
