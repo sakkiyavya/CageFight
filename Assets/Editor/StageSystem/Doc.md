@@ -47,6 +47,14 @@
 *   选中生成的 `StageX.asset` 文件，点击 Inspector 里的 **“加载关卡”** 按钮。
 *   系统会自动清理非垂直物品并还原配置中的所有内容。
 
+### 3.5 资源 Key 自动扫描
+*   新关卡导出和 `StageConfig` Inspector 的扫描按钮共用同一套收集逻辑。
+*   扫描从所有 `StageObjectMarker` 物品开始，包含其子物体组件。
+*   `[ResourceKey]` 支持 `string`、`string[]` 与 `List<string>`。
+*   扫描器会继续进入组件序列化引用的 ScriptableObject、数组/List 与自定义可序列化对象，并自动去重、防止循环引用。
+*   例如组件引用 `DialogueSeriesSO` 后，扫描器会沿系列中的 `DialogueConfigSO` 自动收集人物 Sprite Key。
+*   配置资产必须能从关卡物品的序列化字段到达；扫描器不会全局收集与当前关卡无关的配置资产。
+
 ---
 
 ## 4. 运行时加载流程

@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEditor;
-using UnityEditor.AddressableAssets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
@@ -50,15 +47,10 @@ public class StageConfigEditor : Editor
         GUI.color = new Color(1f, 0.75f, 0.75f);
         if (GUILayout.Button("清空所有资源 Key 列表", GUILayout.Height(24)))
         {
-            if (EditorUtility.DisplayDialog("确认清空", "确定要清空所有五个分类的资源 Key 清单吗？", "确定", "取消"))
+            if (EditorUtility.DisplayDialog("确认清空", "确定要清空所有六个分类的资源 Key 清单吗？", "确定", "取消"))
             {
                 Undo.RecordObject(config, "Clear All Resource Keys");
-                config.prefabs.Clear();
-                config.audios.Clear();
-                config.textures.Clear();
-                config.animationClips.Clear();
-                config.animatorControllers.Clear();
-                config.sprites.Clear();
+                StageResourceKeyCollector.ClearConfig(config);
                 EditorUtility.SetDirty(config);
             }
         }
@@ -147,17 +139,10 @@ public class StageConfigEditor : Editor
             return;
         }
 
-        HashSet<string> visitedKeys = new HashSet<string>();
-        HashSet<string> visitedPrefabs = new HashSet<string>();
-
         Undo.RecordObject(config, "Scan Resource Keys");
-        
-        config.prefabs.Clear();
-        config.audios.Clear();
-        config.textures.Clear();
-        config.animationClips.Clear();
-        config.animatorControllers.Clear();
-        config.sprites.Clear();
+
+        StageResourceKeyCollector.ClearConfig(config);
+        var collector = new StageResourceKeyCollector(config);
 
         foreach (var marker in markers)
         {
@@ -165,20 +150,13 @@ public class StageConfigEditor : Editor
             GameObject prefabAsset = PrefabUtility.GetCorrespondingObjectFromOriginalSource(go);
             string key = prefabAsset != null ? prefabAsset.name : go.name;
 
-            if (visitedKeys.Add(key))
-            {
-                AddKeyToConfig(key, typeof(GameObject), config);
-            }
-            visitedPrefabs.Add(key);
-
-            CollectResourceKeys(go, visitedKeys, visitedPrefabs, config);
+            collector.CollectStageObject(go, key);
         }
 
         EditorUtility.SetDirty(config);
 
-        int totalKeys = config.prefabs.Count + config.audios.Count + config.textures.Count + config.animationClips.Count + config.animatorControllers.Count + config.sprites.Count;
         EditorUtility.DisplayDialog("扫描完成",
-            $"共扫描到 {totalKeys} 个资源 Key。\n" +
+            $"共扫描到 {collector.TotalKeyCount} 个资源 Key。\n" +
             $"Prefab: {config.prefabs.Count}\n" +
             $"Audio: {config.audios.Count}\n" +
             $"Texture: {config.textures.Count}\n" +
@@ -186,136 +164,6 @@ public class StageConfigEditor : Editor
             $"AnimatorController: {config.animatorControllers.Count}\n" +
             $"Sprite: {config.sprites.Count}\n\n" +
             $"请在 Inspector 中展开各列表审查清单内容是否正确。", "确定");
-    }
-
-    private static void AddKeyToConfig(string key, Type type, StageConfig config)
-    {
-        if (type == typeof(GameObject))
-        {
-            if (!config.prefabs.Contains(key)) config.prefabs.Add(key);
-        }
-        else if (type == typeof(AudioClip))
-        {
-            if (!config.audios.Contains(key)) config.audios.Add(key);
-        }
-        else if (type == typeof(Texture2D))
-        {
-            if (!config.textures.Contains(key)) config.textures.Add(key);
-        }
-        else if (type == typeof(AnimationClip))
-        {
-            if (!config.animationClips.Contains(key)) config.animationClips.Add(key);
-        }
-        else if (type == typeof(RuntimeAnimatorController))
-        {
-            if (!config.animatorControllers.Contains(key)) config.animatorControllers.Add(key);
-        }
-        else if (type == typeof(Sprite))
-        {
-            if (!config.sprites.Contains(key)) config.sprites.Add(key);
-        }
-    }
-
-    private static void CollectResourceKeys(
-        GameObject go,
-        HashSet<string> visitedKeys,
-        HashSet<string> visitedPrefabs,
-        StageConfig config)
-    {
-        var components = go.GetComponents<Component>();
-        foreach (var comp in components)
-        {
-            if (comp == null) continue;
-
-            var type = comp.GetType();
-            var fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-
-            foreach (var field in fields)
-            {
-                if (field.FieldType != typeof(string)) continue;
-
-                var attr = field.GetCustomAttribute<ResourceKeyAttribute>();
-                if (attr == null) continue;
-
-                string resKey = field.GetValue(comp) as string;
-                if (string.IsNullOrEmpty(resKey)) continue;
-
-                if (visitedKeys.Add(resKey))
-                {
-                    AddKeyToConfig(resKey, attr.ResourceType, config);
-                }
-
-                if (attr.ResourceType == typeof(GameObject))
-                {
-                    RecursiveCollectFromPrefabAsset(resKey, visitedKeys, visitedPrefabs, config);
-                }
-            }
-        }
-    }
-
-    private static void RecursiveCollectFromPrefabAsset(
-        string prefabKey,
-        HashSet<string> visitedKeys,
-        HashSet<string> visitedPrefabs,
-        StageConfig config)
-    {
-        if (!visitedPrefabs.Add(prefabKey)) return;
-
-        var settings = AddressableAssetSettingsDefaultObject.Settings;
-        if (settings == null) return;
-
-        string assetPath = null;
-        foreach (var group in settings.groups)
-        {
-            if (group == null) continue;
-            foreach (var entry in group.entries)
-            {
-                if (entry == null) continue;
-                if (entry.address == prefabKey && entry.AssetPath.EndsWith(".prefab", System.StringComparison.OrdinalIgnoreCase))
-                {
-                    assetPath = entry.AssetPath;
-                    break;
-                }
-            }
-            if (assetPath != null) break;
-        }
-
-        if (assetPath == null)
-        {
-            Debug.LogWarning($"[ResourceKey扫描] 在 Addressables 中未找到 address 为 '{prefabKey}' 的 Prefab，跳过递归。");
-            return;
-        }
-
-        GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
-        if (prefab == null) return;
-
-        var components = prefab.GetComponents<Component>();
-        foreach (var comp in components)
-        {
-            if (comp == null) continue;
-
-            var type = comp.GetType();
-            var fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-
-            foreach (var field in fields)
-            {
-                if (field.FieldType != typeof(string)) continue;
-
-                var attr = field.GetCustomAttribute<ResourceKeyAttribute>();
-                if (attr == null) continue;
-
-                string resKey = field.GetValue(comp) as string;
-                if (string.IsNullOrEmpty(resKey)) continue;
-
-                if (visitedKeys.Add(resKey))
-                {
-                    AddKeyToConfig(resKey, attr.ResourceType, config);
-                }
-
-                if (attr.ResourceType == typeof(GameObject))
-                    RecursiveCollectFromPrefabAsset(resKey, visitedKeys, visitedPrefabs, config);
-            }
-        }
     }
 
     // -----------------------------------------------------------------------

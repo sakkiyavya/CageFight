@@ -132,13 +132,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 106394124439655112, guid: ad3d8ef1712638d4091c064fe317bfdd, type: 3}
-  - key: LightningBeam
-    prefabReference:
-      m_AssetGUID: d5d8f07ab5cbc764d9529cf995522269
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 3288984486275212541, guid: d5d8f07ab5cbc764d9529cf995522269, type: 3}
   - key: Bullet-Iron Wall Guard
     prefabReference:
       m_AssetGUID: b9f7e2aea2b3bb64bab1c8473b051157
@@ -167,6 +160,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 7250204807128086796, guid: d4a5a17931fc7b14d801bef4b9066e47, type: 3}
+  - key: LightningBeam
+    prefabReference:
+      m_AssetGUID: d5d8f07ab5cbc764d9529cf995522269
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 3288984486275212541, guid: d5d8f07ab5cbc764d9529cf995522269, type: 3}
   - key: Bullet-Cat dad
     prefabReference:
       m_AssetGUID: f171edc52f75ccc4eb9741dc685f6eb5
@@ -853,6 +853,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 8928556036429035520, guid: f5d5a0a787c84d2095b6548ad3cb12f7, type: 3}
+  - key: TroopTrainingPanel
+    prefabReference:
+      m_AssetGUID: feb0042e07e5429fb940bcc9916efd3f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    prefab: {fileID: 100000100000, guid: feb0042e07e5429fb940bcc9916efd3f, type: 3}
   - key: Raise the pay magic
     prefabReference:
       m_AssetGUID: 04afbe487c72cb74b98e12aa192c5b51
@@ -965,10 +972,3 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     prefab: {fileID: 1417879808759964401, guid: fb7920d124dce57429695557542bbae5, type: 3}
-  - key: TroopTrainingPanel
-    prefabReference:
-      m_AssetGUID: feb0042e07e5429fb940bcc9916efd3f
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    prefab: {fileID: 100000100000, guid: feb0042e07e5429fb940bcc9916efd3f, type: 3}

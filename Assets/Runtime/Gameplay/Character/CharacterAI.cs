@@ -78,6 +78,8 @@ public class CharacterAI : MonoBehaviour
         {
             foreach (var behaviour in Behaviours)
             {
+                if(!behaviour)
+                    continue;
                 if(behaviour.AIBehaviour(gameObject, _prop, _health))
                     break;
             }
