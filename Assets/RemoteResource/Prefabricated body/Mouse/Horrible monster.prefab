@@ -616,10 +616,11 @@ MonoBehaviour:
   crystalDuration: 4
   healDuration: 3
   crystalSpriteKey: Buff1 AP_0
+  crystalVisualPrefabKey: UnitVisualFollower
   crystalScale: 1
   crystalOffset: {x: 0, y: 0}
-  preciseDuration: 10
-  traumaDuration: 5
+  preciseDuration: 20
+  traumaDuration: 20
   immuneBuff: {fileID: 0}
 --- !u!1 &6846461848895319480
 GameObject:

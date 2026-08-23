@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: -8581889462832488220}
   - component: {fileID: 7046509332732908134}
   - component: {fileID: 5620452734366672896}
+  - component: {fileID: 7309130000000000001}
   m_Layer: 0
   m_Name: Cat son
   m_TagString: Untagged
@@ -375,7 +376,7 @@ MonoBehaviour:
   atk: 120
   atkRate: 1
   magicAtk: 10
-  repel: 1
+  repel: 0.5
   antiRepel: 1
   atkRange: {x: 1, y: 1}
   atkObj: Bullet-Cat son
@@ -422,6 +423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Behaviours:
+  - {fileID: 7309130000000000001}
   - {fileID: 1703566502361516980}
   - {fileID: 2503833867128125107}
   - {fileID: 8597236890020657521}
@@ -528,6 +530,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
+--- !u!114 &7309130000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833764086662534789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71f7d3f81834c929b5f441e0166e23c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMissChance: 0.3
+  decadentDuration: 3
+  rageDuration: 7
 --- !u!1001 &2323096290276552042
 PrefabInstance:
   m_ObjectHideFlags: 0

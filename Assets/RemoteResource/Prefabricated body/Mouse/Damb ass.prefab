@@ -147,8 +147,8 @@ MonoBehaviour:
   atk: 80
   atkRate: 1
   magicAtk: 10
-  repel: 1.5
-  antiRepel: 1
+  repel: 0.5
+  antiRepel: 2
   atkRange: {x: 2, y: 2}
   atkObj: Bullet-Damb ass
   damageMultiplier: 1
@@ -524,11 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03f7046e60fbadd429481fd30e62ff46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  replacementSpriteKey: Derivative-Two fool
-  targetRenderer: {fileID: 0}
-  replacementSize: {x: 0.9, y: 0.9}
-  deathDelay: 10
-  restoredHpPercent: 0.5
+  wreckagePrefabKey: Derivative-Two fool
 --- !u!1 &4826880470415616423
 GameObject:
   m_ObjectHideFlags: 0

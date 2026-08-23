@@ -17,6 +17,15 @@ public interface IMissHandler
 {
     void OnAttackMissed();
 }
+
+/// <summary>
+/// 命中反馈接口：攻击者的攻击在伤害结算中未被未命中判定拦下（成功命中）时回调，
+/// 供攻击者获得反馈（如 Cat son 每次命中获得一层狂暴）。
+/// </summary>
+public interface IHitHandler
+{
+    void OnAttackHit();
+}
 [Serializable]
 public struct Damage
 {
@@ -90,6 +99,13 @@ public static class DamageComputor
 
             return f;
         }
+
+        // 命中反馈：攻击者实现 IHitHandler 时在此回调（如 Cat son 命中得狂暴）。
+        IHitHandler hitHandler = f.source != null
+            ? f.source.GetComponent<IHitHandler>()
+            : null;
+        if (hitHandler != null)
+            hitHandler.OnAttackHit();
 
         float multiplier = 1f;
         if (sourceProp != null)

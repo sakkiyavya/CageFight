@@ -22,25 +22,25 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 364771669, guid: 67ed70dc5779d054caadf5d7b5ed4dea, type: 3}
-    - time: 0.15
+    - time: 0.1
       value: {fileID: -726871863, guid: 67ed70dc5779d054caadf5d7b5ed4dea, type: 3}
-    - time: 0.3
+    - time: 0.2
       value: {fileID: 26328821, guid: 67ed70dc5779d054caadf5d7b5ed4dea, type: 3}
-    - time: 0.45
+    - time: 0.3
       value: {fileID: 2113764943, guid: 67ed70dc5779d054caadf5d7b5ed4dea, type: 3}
-    - time: 0.6
+    - time: 0.4
       value: {fileID: 982068890, guid: 67ed70dc5779d054caadf5d7b5ed4dea, type: 3}
-    - time: 0.75
+    - time: 0.5
       value: {fileID: 424447360, guid: 67ed70dc5779d054caadf5d7b5ed4dea, type: 3}
-    - time: 0.9
+    - time: 0.6
       value: {fileID: -1573855303, guid: 67ed70dc5779d054caadf5d7b5ed4dea, type: 3}
-    - time: 1.05
+    - time: 0.7
       value: {fileID: -1044828325, guid: 67ed70dc5779d054caadf5d7b5ed4dea, type: 3}
-    - time: 1.2
+    - time: 0.8
       value: {fileID: 191333197, guid: 67ed70dc5779d054caadf5d7b5ed4dea, type: 3}
-    - time: 1.35
+    - time: 0.9
       value: {fileID: -509476422, guid: 67ed70dc5779d054caadf5d7b5ed4dea, type: 3}
-    - time: 1.5
+    - time: 1
       value: {fileID: -153434887, guid: 67ed70dc5779d054caadf5d7b5ed4dea, type: 3}
     attribute: m_Sprite
     path: 
@@ -80,7 +80,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.5166667
+    m_StopTime: 1.0166667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -100,7 +100,28 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 1.5
+  - time: 0
+    functionName: PlayEffect
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 1
+    messageOptions: 0
+  - time: 0.68333334
+    functionName: PlayEffect
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 2
+    messageOptions: 0
+  - time: 0.7
+    functionName: ShootProjectile
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1
     functionName: StopShoot
     data: 
     objectReferenceParameter: {fileID: 0}
