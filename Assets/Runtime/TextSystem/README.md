@@ -24,8 +24,6 @@
 
 人物立绘通过 `Sprite Key` 从 `ResourceManager` 的当前关卡预加载缓存获取。所有对话人物 Key 必须由关卡加载逻辑加入对应的 `StageConfig.sprites`。
 
-> 当前 StageConfig 的“扫描场景资源 Key”会重建资源清单，而且不会扫描 DialogueConfigSO。你的关卡预加载逻辑需要在扫描/导出后重新汇入对话人物 Key，否则运行时缓存中无法取得立绘。
->
-> 人物立绘暂时应使用 Sprite Mode=Single 的独立资源。现有 SpriteRegistry 没有记录 spritesheet 子资源名，Multiple 切片在玩家构建中不能可靠地按逻辑 Key 区分。
+> StageConfig 的“扫描场景资源 Key”和新关卡导出会递归进入关卡物品组件引用的 `DialogueSeriesSO` / `DialogueConfigSO`，并自动把人物 Key 加入 `StageConfig.sprites`。对应对话资产必须能从某个 `StageObjectMarker` 物品的序列化字段到达；扫描器不会把项目里的全部对话资产无差别加入每个关卡。
 
 公开入口为 `Show`、`Hide`、`PlaySeries`、`Advance` 和 `CancelSeries`。框架未启用 Manager 时，请求会被忽略。
