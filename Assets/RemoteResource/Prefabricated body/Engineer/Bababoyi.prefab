@@ -198,7 +198,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 3
+  moveSpeed: 2.5
   suckBlood: 0
   currentHp: 0
   isDead: 0
@@ -228,15 +228,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090cf18db13074e4c85806ec24eb75a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  maxHp: 100
-  antiRepel: 3
+  moveSpeed: 2.5
+  maxHp: 1500
+  antiRepel: 4
   cameraViewSize: 5
   defeatFlyDistance: 5
   defeatFlyTime: 0.35
   defeatStunTime: 3
   buildingHealRadius: 2
-  buildingHealPercentPerSecond: 0.02
+  buildingHealPercentPerSecond: 0.03
   buildingHealTick: 0.25
   buildingLayer:
     serializedVersion: 2

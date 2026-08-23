@@ -25,7 +25,6 @@ GameObject:
   - component: {fileID: 6888697356183234625}
   - component: {fileID: 3851037427605757970}
   - component: {fileID: -1309500394119446676}
-  - component: {fileID: -1426927460560558878}
   m_Layer: 0
   m_Name: Damb ass
   m_TagString: Untagged
@@ -194,7 +193,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Behaviours:
-  - {fileID: -1426927460560558878}
   - {fileID: 3681963970743007896}
   - {fileID: 1658584342881032588}
   - {fileID: 21822079031249265}
@@ -512,19 +510,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.2
---- !u!114 &-1426927460560558878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299742171776721008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03f7046e60fbadd429481fd30e62ff46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wreckagePrefabKey: Derivative-Two fool
 --- !u!1 &4826880470415616423
 GameObject:
   m_ObjectHideFlags: 0

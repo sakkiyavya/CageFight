@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: -4631185253080631089}
   - component: {fileID: -4926786180621723462}
   - component: {fileID: -5580192872522948980}
+  - component: {fileID: 7310000000000000001}
   m_Layer: 0
   m_Name: Cat addict
   m_TagString: Untagged
@@ -268,8 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Behaviours:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7310000000000000001}
   - {fileID: 6959545207266935636}
   - {fileID: 4427979426340343264}
   - {fileID: 1562680138330206432}
@@ -837,4 +837,18 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 053655311d3387b478055ac653158d44, type: 3}
   m_Name: 
+  m_EditorClassIdentifier:
+--- !u!114 &7310000000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833764086662534789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe55cd37c97bd6c419b9ab43cb0f054a, type: 3}
+  m_Name: 
   m_EditorClassIdentifier: 
+  spawnDuration: 0.3
+  despawnDuration: 0.3

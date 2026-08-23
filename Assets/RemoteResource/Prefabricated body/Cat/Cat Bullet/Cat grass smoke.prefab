@@ -209,10 +209,6 @@ MonoBehaviour:
   sustainTime: 4
   collideTimes: 999
   hasSubProjectile: 0
-  hitSoundKey: Hit
-  hitAudio: {fileID: 0}
-  hitVolume: 1
-  hitPriority: 32
 --- !u!114 &-5149685981358365992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,6 +222,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
-  concentrateDuration: 4
-  rageDuration: 4
+  concentrateDuration: 7
+  rageDuration: 7
   healHpPercent: 0.07
