@@ -52,6 +52,7 @@ MonoBehaviour:
     side: 0
     initialDamage: 10
     finalDamage: 0
+    missed: 0
     collideDir: 1
     repel: 0
     type: 0
@@ -60,12 +61,8 @@ MonoBehaviour:
     buffs: []
   target: {fileID: 0}
   sustainTime: 0.2
-  collideTimes: 3
+  collideTimes: 5
   hasSubProjectile: 0
-  hitSoundKey: Hit
-  hitAudio: {fileID: 0}
-  hitVolume: 1
-  hitPriority: 32
 --- !u!61 &725445610784549122
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -152,6 +149,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffApplyTime: 0
   duration: 5
+  buffSoundKey: Cold dbuff
+  buffSoundVolume: 1
+  buffSoundPriority: 32
 --- !u!114 &587390564511513520
 MonoBehaviour:
   m_ObjectHideFlags: 0

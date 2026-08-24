@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98659304213c8dc4d8cc24a2779e7a17, type: 3}
+  m_Name: Strange mine Magic
+  m_EditorClassIdentifier: 
+  id: strange_mine_magic
+  displayName: Strange mine Magic
+  iconKey: Magic UI_10
+  cooldown: 8
+  castPrefabKey: Strange mine
+  deliveryType: 1
+  directCastTime: 0.68
+  releaseMode: 1
+  spawnOffset: {x: 0, y: 0, z: 0}
+  faceEngineerDirection: 0
+  dragAim: 1
+  maxDistance: 9
+  arcHeight: 0
+  flightTime: 0.1
+  showWarningCircle: 1
+  warningCircleKey: Bullet3 AP_0
+  warningCircleScale: 1.275
+  editorIcon: {fileID: 0}
+  editorCastPrefab: {fileID: 0}
+  editorWarningCircle: {fileID: 0}

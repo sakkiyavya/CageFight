@@ -12,6 +12,8 @@ public sealed class LoadoutSelectionPanel : UISystemBase
     [SerializeField] private LoadoutSelectionKind kind;
     [SerializeField, Range(0, 1)] private int spellSlot;
     [SerializeField] private LoadoutSelectionOption[] options;
+    [SerializeField, Min(1), Tooltip("每页最多显示的候选数量（不超过场景预置的选项槽数）；候选超过该值时启用左右翻页")]
+    private int pageSize = 6;
     [SerializeField] private bool closeAfterSelect = true;
     [SerializeField] private MonoBehaviour engineerDetailCard;
     [SerializeField, Range(.05f, 1f)] private float unselectedAlpha = .35f;
@@ -185,21 +187,30 @@ public sealed class LoadoutSelectionPanel : UISystemBase
     private void AssignCurrentPageIds()
     {
         List<string> ids = GetDefinitionIds();
-        int capacity = Mathf.Max(1, options.Length);
+        int capacity = PageCapacity();
         pageIndex = Mathf.Clamp(pageIndex, 0, Mathf.Max(0, Mathf.CeilToInt(ids.Count / (float)capacity) - 1));
         int first = pageIndex * capacity;
         for (int i = 0; i < options.Length; i++)
         {
             LoadoutSelectionOption option = options[i];
             if (!option) continue;
+            // 超出每页容量的槽位清空（隐藏），避免同一候选在本页与下一页重复显示。
+            bool inPage = i < capacity;
             int index = first + i;
-            option.SetDefinitionId(index < ids.Count ? ids[index] : string.Empty);
+            option.SetDefinitionId(inPage && index < ids.Count ? ids[index] : string.Empty);
         }
+    }
+
+    /// <summary>每页容量 = min(pageSize, 场景预置选项槽数)。</summary>
+    private int PageCapacity()
+    {
+        int slots = options == null ? 0 : options.Length;
+        return Mathf.Max(1, Mathf.Min(pageSize, slots));
     }
 
     private int PageCount()
     {
-        int capacity = Mathf.Max(1, options == null ? 0 : options.Length);
+        int capacity = PageCapacity();
         return Mathf.Max(1, Mathf.CeilToInt(GetDefinitionIds().Count / (float)capacity));
     }
 

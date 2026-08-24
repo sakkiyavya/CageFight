@@ -227,13 +227,29 @@ public sealed class LocalJsonSaveStorage : ISaveStorage
 
     private static void CommitTemporaryFile(string temporaryFilePath, string filePath)
     {
-        if (File.Exists(filePath))
+        if (!File.Exists(filePath))
+        {
+            File.Move(temporaryFilePath, filePath);
+            return;
+        }
+
+        try
         {
             File.Replace(temporaryFilePath, filePath, null);
             return;
         }
+        catch (IOException)
+        {
+            // 目标文件被占用/平台不支持原子替换时，走兜底覆盖路径。
+        }
+        catch (UnauthorizedAccessException)
+        {
+            // 目标文件只读/被占用时，同样尝试兜底覆盖路径。
+        }
 
-        File.Move(temporaryFilePath, filePath);
+        // 兜底：直接覆盖目标内容（无需先删除目标文件），
+        // 规避 Replace 对目标文件的删除要求。
+        File.Copy(temporaryFilePath, filePath, true);
     }
 
     private static SemaphoreSlim GetIoGate(string filePath)

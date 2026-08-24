@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5704447573808849894}
   - component: {fileID: 7333957308337500692}
   - component: {fileID: 4343632102778602015}
+  - component: {fileID: 7370000000000000001}
   m_Layer: 6
   m_Name: Bullet-Mass-produce mouse
   m_TagString: Untagged
@@ -126,6 +127,21 @@ MonoBehaviour:
     type: 0
     source: {fileID: 0}
     target: {fileID: 0}
+    buffs:
+    - {fileID: 7370000000000000001}
   target: {fileID: 0}
   sustainTime: 0.2
   collideTimes: 1
+--- !u!114 &7370000000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909531030874728491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b15a110f7c2f764499d58539fdc6ed34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 5

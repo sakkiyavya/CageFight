@@ -327,7 +327,7 @@ MonoBehaviour:
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 100
+  atk: 20
   atkRate: 1
   magicAtk: 10
   repel: 0.5
@@ -484,7 +484,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -544,7 +544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboCount: 3
   comboMultiplier: 3
-  stealHpPercent: 0.05
+  stealHpPercent: 0.01
 --- !u!1001 &4001067467459517357
 PrefabInstance:
   m_ObjectHideFlags: 0

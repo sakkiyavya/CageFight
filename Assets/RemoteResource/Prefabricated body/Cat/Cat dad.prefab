@@ -372,11 +372,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 7000
+  maxHp: 7500
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 300
+  atk: 500
   atkRate: 1
   magicAtk: 30
   repel: 3
@@ -397,7 +397,7 @@ MonoBehaviour:
   buildTime: 3
   moveSpeed: 2
   suckBlood: 0
-  currentHp: 6000
+  currentHp: 7500
   isDead: 0
   isUntargetable: 0
   target: {fileID: 0}
@@ -407,8 +407,8 @@ MonoBehaviour:
   isRepel: 0
   repelDistance: 0
   audioClips: []
-  atkRangeMin: {x: -2147483648, y: -2147483648}
-  atkRangeMax: {x: -2147483647, y: -2147483647}
+  atkRangeMin: {x: 0, y: 0}
+  atkRangeMax: {x: 1, y: 1}
   currentBuff: []
   currentDebuff: []
   occupySpace: {x: 1, y: 1}
@@ -556,7 +556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1874feb7361d2647939278d5c98c3a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMissChance: 0.5
+  baseMissChance: 0.3
   rageDuration: 8
 --- !u!1001 &363376559045589305
 PrefabInstance:

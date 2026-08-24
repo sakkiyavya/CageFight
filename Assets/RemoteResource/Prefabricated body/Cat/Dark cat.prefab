@@ -189,10 +189,10 @@ MonoBehaviour:
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 250
+  atk: 125
   atkRate: 1
   magicAtk: 10
-  repel: 1
+  repel: 0
   antiRepel: 3
   atkRange: {x: 6, y: 4}
   atkObj: 
@@ -209,7 +209,7 @@ MonoBehaviour:
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 1.7
-  suckBlood: 100
+  suckBlood: 50
   currentHp: 0
   isDead: 0
   isUntargetable: 0

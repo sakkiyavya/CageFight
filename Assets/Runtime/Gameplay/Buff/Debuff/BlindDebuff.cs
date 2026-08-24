@@ -7,7 +7,7 @@ using UnityEngine;
 /// 叠加公式（递减）：第 1 层 8%、第 2 层 7%、…第 8 层 1%，此后每层不再增加，
 /// 8 层封顶：8+7+6+5+4+3+2+1 = 36%（极限）。层独立计时、逐层到期，总未命中率按剩余层求和。
 /// 视觉：单位重心 y 轴上方 2 格处显示一个静态图标
-/// （默认资源键 "State1 AP"，指向该图集第二个子精灵，可在 Inspector 调整）。
+/// （默认资源键 "State1 AP_1"，即 State1 AP 图集的第二个子精灵，可在 Inspector 调整）。
 /// 无等级成长、无音效。
 /// </summary>
 public class BlindDebuff : BuffBase
@@ -24,7 +24,7 @@ public class BlindDebuff : BuffBase
 
     [Header("目盲图标视觉")]
     [SerializeField, ResourceKey(typeof(Sprite))]
-    private string blindSpriteKey = "State1 AP"; // 图标图像资源键（默认图集 State1 AP 的第二个子精灵）。
+    private string blindSpriteKey = "State1 AP_1"; // 图标图像资源键（State1 AP 图集的第二个子精灵）。
     [SerializeField, Min(0f)]
     private float yOffset = 2f;             // 图标相对单位重心 y 轴上的偏移（默认 2 格）。
 

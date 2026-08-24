@@ -374,7 +374,7 @@ MonoBehaviour:
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 300
+  atk: 100
   atkRate: 1
   magicAtk: 0
   repel: 0
@@ -557,13 +557,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicCircleSpriteKey: 
   circlePrefabKey: ConnectMasterCircle
-  circleScale: {x: 0.8, y: 0.55}
+  circleScale: {x: 0.6, y: 0.6}
   idleAlpha: 0.45
   staySeconds: 10
   fadeSeconds: 0.5
   connectCount: 6
-  burstDamageMultiplier: 2
-  burstRadius: 1.6
+  burstDamageMultiplier: 1.2
+  burstRadius: 1.2
   riseHeight: 1.68
   riseSeconds: 0.5
 --- !u!1001 &1906436259176804063

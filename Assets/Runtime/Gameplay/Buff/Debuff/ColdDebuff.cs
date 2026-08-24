@@ -60,7 +60,7 @@ class ColdState : MonoBehaviour
     private const float SlowPerLayer = 0.07f;
     private const float ColorPerLayer = 0.1f;
     private const float MinimumSpeed = 0.1f;
-    private const int FreezeLayers = 6;
+    private const int FreezeLayers = 10;    // 冻结所需寒冷层数（10 层触发）。
 
     private static readonly Color ColdColor =
         new Color(0.1f, 0.85f, 1f, 1f);

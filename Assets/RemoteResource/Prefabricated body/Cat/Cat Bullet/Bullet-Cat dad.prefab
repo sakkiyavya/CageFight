@@ -50,6 +50,7 @@ MonoBehaviour:
     side: 0
     initialDamage: 10
     finalDamage: 0
+    missed: 0
     collideDir: 1
     repel: 0
     type: 0
@@ -58,7 +59,7 @@ MonoBehaviour:
     buffs: []
   target: {fileID: 0}
   sustainTime: 0.2
-  collideTimes: 1
+  collideTimes: 3
   hasSubProjectile: 0
 --- !u!61 &9037165348938731135
 BoxCollider2D:

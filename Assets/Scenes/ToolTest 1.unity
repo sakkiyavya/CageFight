@@ -188,7 +188,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &18729880
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1001,7 +1001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &83323665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11069,7 +11069,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1299108441
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12031,6 +12031,7 @@ MonoBehaviour:
   - {fileID: 410473491}
   - {fileID: 1239979462}
   - {fileID: 2081166415}
+  pageSize: 6
   closeAfterSelect: 0
   engineerDetailCard: {fileID: 0}
   unselectedAlpha: 0.35
@@ -12310,6 +12311,7 @@ MonoBehaviour:
   spellSlot: 0
   options:
   - {fileID: 1469849321}
+  pageSize: 6
   closeAfterSelect: 1
   engineerDetailCard: {fileID: 0}
   unselectedAlpha: 0.35
@@ -12611,7 +12613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1469849320
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13264,6 +13266,7 @@ MonoBehaviour:
   - {fileID: 926640454}
   - {fileID: 1617168799}
   - {fileID: 1764413978}
+  pageSize: 6
   closeAfterSelect: 0
   engineerDetailCard: {fileID: 0}
   unselectedAlpha: 0.35
@@ -13731,6 +13734,7 @@ MonoBehaviour:
   - {fileID: 407880168}
   - {fileID: 645779211}
   - {fileID: 2097117052}
+  pageSize: 6
   closeAfterSelect: 0
   engineerDetailCard: {fileID: 0}
   unselectedAlpha: 0.35
@@ -16009,6 +16013,7 @@ MonoBehaviour:
   options:
   - {fileID: 83323665}
   - {fileID: 18729881}
+  pageSize: 6
   closeAfterSelect: 1
   engineerDetailCard: {fileID: 0}
   unselectedAlpha: 0.35
@@ -16513,6 +16518,7 @@ MonoBehaviour:
   spellSlot: 0
   options:
   - {fileID: 1299108442}
+  pageSize: 6
   closeAfterSelect: 1
   engineerDetailCard: {fileID: 0}
   unselectedAlpha: 0.35

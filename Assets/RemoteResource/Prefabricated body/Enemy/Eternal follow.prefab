@@ -52,6 +52,8 @@ GameObject:
   - component: {fileID: 6466173682434201566}
   - component: {fileID: -4488410660853896067}
   - component: {fileID: 7492261131741627200}
+  - component: {fileID: -766744267453719434}
+  - component: {fileID: 3422027182101252678}
   m_Layer: 0
   m_Name: Eternal follow
   m_TagString: Untagged
@@ -222,12 +224,23 @@ MonoBehaviour:
   antiRepel: 1
   atkRange: {x: 1, y: 1}
   atkObj: 
+  damageMultiplier: 1
+  damageTakenMultiplier: 1
+  critChance: 0
+  armor: 0
+  damageReduction: 0
+  blockHits: 0
+  repelTakenMultiplier: 1
+  healTakenMultiplier: 1
+  missChance: 0
+  baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
   moveSpeed: 3
   suckBlood: 0
   currentHp: 0
   isDead: 0
+  isUntargetable: 0
   target: {fileID: 0}
   path: []
   isFacingLeft: 0
@@ -285,7 +298,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
-  hitFlashDuration: 0.3
 --- !u!82 &5574072033675805392
 AudioSource:
   m_ObjectHideFlags: 0
@@ -440,6 +452,68 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteKey: Eternal follow AP_0
+--- !u!50 &-766744267453719434
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7141039889819595872}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &3422027182101252678
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7141039889819595872}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1001 &2152629118366762483
 PrefabInstance:
   m_ObjectHideFlags: 0

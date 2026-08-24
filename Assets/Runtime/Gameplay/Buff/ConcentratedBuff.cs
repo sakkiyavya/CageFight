@@ -8,6 +8,10 @@ using UnityEngine;
 /// 可无限叠加：每层独立计时、独立快照加成，总效果为各层比例相加（如 2 层 = 7% + 7% = 14%）。
 /// 获得音效（默认 Zip buff）仅在首次施加时触发，叠加不触发。
 /// 仅新增本脚本即可生效，不改动任何既有脚本。
+///
+/// 视觉-only 缩小（2026-08-22 修订）：根 Transform 缩放仅用于显示。
+/// 碰撞体与发射点按 1/缩放 反向补偿，世界受击框与攻击发射位置保持不变，
+/// 消除“缩小后互相打不中”（发射点内缩导致近战挥空、受击框变小导致子弹隧穿）。
 /// </summary>
 public class ConcentratedBuff : BuffBase
 {
@@ -94,7 +98,7 @@ public class ConcentratedBuff : BuffBase
 
 /// <summary>
 /// 目标身上的浓缩层管理器：无限叠加、每层独立到期，总加成按各层比例相加；
-/// 体型按 (1 - 总比例) 缩小并保留下限，攻击力按 (1 + 总比例) 提升；
+/// 体型按 (1 - 总比例) 缩小并保留下限（仅视觉），攻击力按 (1 + 总比例) 提升；
 /// 获得音效仅在首层施加时播放。
 /// </summary>
 internal class ConcentratedState : MonoBehaviour
@@ -111,8 +115,18 @@ internal class ConcentratedState : MonoBehaviour
 
     private GameObjectProperty prop;
     private int baseAtk;                       // 首层施加时快照的基础攻击力。
-    private Vector3 baseScale;                 // 首层施加时快照的基础体型。
+    private Vector3 baseScale;                 // 首层施加时快照的基础体型（含朝向翻转）。
     private float minScaleFactor = 0.2f;       // 体型缩小下限。
+    private float currentScaleFactor = 1f;     // 当前生效的体型缩放（每帧重应用用）。
+
+    // 视觉-only 补偿：碰撞体与发射点的世界占位保持原始大小。
+    private Collider2D[] bodyColliders;        // 根物体上的碰撞体（受击框）。
+    private Vector2[] colliderBaseSizes;       // Box: size；Circle: (半径, 0)；不支持类型为 0（跳过）。
+    private Vector2[] colliderBaseOffsets;     // 各碰撞体基准偏移。
+    private bool[] colliderIsCircle;           // 是否为圆形碰撞体。
+    private Transform shootPoint;              // 发射点子物体。
+    private Vector3 shootPointBaseLocal;       // 发射点基准本地坐标。
+
     private AudioSource soundAudio;            // 获得音效音频源（首层施加时解析）。
     private string soundKey = "Zip buff";
     private float soundVolume = 1f;
@@ -144,7 +158,7 @@ internal class ConcentratedState : MonoBehaviour
     }
 
     /// <summary>
-    /// 无限叠加一层浓缩；首个层加入时快照基础攻击力/体型与音效参数。
+    /// 无限叠加一层浓缩；首个层加入时快照基础攻击力/体型/碰撞体/发射点与音效参数。
     /// 获得音效仅在首层施加时播放，后续叠加不触发。
     /// </summary>
     public bool AddLayer(ConcentratedBuff source)
@@ -162,6 +176,7 @@ internal class ConcentratedState : MonoBehaviour
             soundVolume = source.BuffSoundVolume;
             soundPriority = source.BuffSoundPriority;
             ResolveSoundAudio();
+            CaptureBodyFootprint();
         }
 
         layers.Add(new Layer
@@ -175,6 +190,46 @@ internal class ConcentratedState : MonoBehaviour
         if (isFirstLayer)
             PlayBuffSound();
         return true;
+    }
+
+    /// <summary>
+    /// 快照根物体碰撞体与发射点的基准占位（视觉-only 补偿换算用）。
+    /// </summary>
+    private void CaptureBodyFootprint()
+    {
+        bodyColliders = GetComponents<Collider2D>();
+        colliderIsCircle = new bool[bodyColliders.Length];
+        colliderBaseSizes = new Vector2[bodyColliders.Length];
+        colliderBaseOffsets = new Vector2[bodyColliders.Length];
+
+        for (int i = 0; i < bodyColliders.Length; i++)
+        {
+            Collider2D col = bodyColliders[i];
+            if (col == null)
+                continue;
+
+            colliderBaseOffsets[i] = col.offset;
+            if (col is CircleCollider2D circle)
+            {
+                colliderIsCircle[i] = true;
+                colliderBaseSizes[i] = new Vector2(circle.radius, 0f);
+            }
+            else if (col is BoxCollider2D box)
+            {
+                colliderIsCircle[i] = false;
+                colliderBaseSizes[i] = box.size;
+            }
+            else
+            {
+                // 不支持的类型（Polygon/Capsule 等）跳过补偿。
+                colliderIsCircle[i] = false;
+                colliderBaseSizes[i] = Vector2.zero;
+            }
+        }
+
+        shootPoint = transform.Find("ShootPoint");
+        if (shootPoint != null)
+            shootPointBaseLocal = shootPoint.localPosition;
     }
 
     /// <summary>
@@ -204,6 +259,18 @@ internal class ConcentratedState : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 每帧重应用视觉缩放（覆盖 Move 等行为对 localScale 的朝向翻转写入），
+    /// 保证缩小显示与补偿占位始终一致。
+    /// </summary>
+    private void LateUpdate()
+    {
+        if (prop == null || layers.Count == 0)
+            return;
+
+        ApplyVisualScale(currentScaleFactor);
+    }
+
     private void RemoveAt(int index)
     {
         layers.RemoveAt(index);
@@ -213,13 +280,14 @@ internal class ConcentratedState : MonoBehaviour
         {
             prop.atk = baseAtk;
             prop.transform.localScale = baseScale;
+            RestoreBodyFootprint();
             Destroy(this);
         }
     }
 
     /// <summary>
-    /// 按当前全部层的比例求和：体型按 (1 - 总比例) 缩小（不低于下限），
-    /// 攻击力按 (1 + 总比例) 提升。
+    /// 按当前全部层的比例求和：体型按 (1 - 总比例) 视觉缩小（不低于下限），
+    /// 攻击力按 (1 + 总比例) 提升；碰撞体与发射点反向补偿保持世界占位不变。
     /// </summary>
     private void ApplyEffect()
     {
@@ -228,8 +296,86 @@ internal class ConcentratedState : MonoBehaviour
             total += layers[i].percent;
 
         float scaleFactor = Mathf.Max(minScaleFactor, 1f - total);
-        prop.transform.localScale = baseScale * scaleFactor;
+        currentScaleFactor = scaleFactor;
+
+        ApplyVisualScale(scaleFactor);
+        CompensateBodyFootprint(scaleFactor);
+
         prop.atk = Mathf.Max(0, Mathf.RoundToInt(baseAtk * (1f + total)));
+    }
+
+    /// <summary>应用视觉缩放（保留朝向翻转）。</summary>
+    private void ApplyVisualScale(float scaleFactor)
+    {
+        float flipX = prop.isFacingLeft ? -1f : 1f;
+        prop.transform.localScale = new Vector3(
+            Mathf.Abs(baseScale.x) * flipX * scaleFactor,
+            Mathf.Abs(baseScale.y) * scaleFactor,
+            Mathf.Abs(baseScale.z) * scaleFactor);
+    }
+
+    /// <summary>
+    /// 视觉-only 补偿：碰撞体尺寸/偏移与发射点本地坐标乘以 1/缩放，
+    /// 使它们在世界空间中的占位与未缩小时完全一致。
+    /// </summary>
+    private void CompensateBodyFootprint(float scaleFactor)
+    {
+        if (scaleFactor <= 0.001f)
+            return;
+
+        float inv = 1f / scaleFactor;
+
+        if (bodyColliders != null)
+        {
+            for (int i = 0; i < bodyColliders.Length; i++)
+            {
+                Collider2D col = bodyColliders[i];
+                if (col == null)
+                    continue;
+
+                col.offset = colliderBaseOffsets[i] * inv;
+
+                if (colliderIsCircle[i] && col is CircleCollider2D circle)
+                {
+                    circle.radius = colliderBaseSizes[i].x * inv;
+                }
+                else if (colliderBaseSizes[i].x > 0.001f && col is BoxCollider2D box)
+                {
+                    box.size = colliderBaseSizes[i] * inv;
+                }
+            }
+        }
+
+        if (shootPoint != null)
+            shootPoint.localPosition = shootPointBaseLocal * inv;
+    }
+
+    /// <summary>还原碰撞体与发射点的基准占位。</summary>
+    private void RestoreBodyFootprint()
+    {
+        if (bodyColliders != null)
+        {
+            for (int i = 0; i < bodyColliders.Length; i++)
+            {
+                Collider2D col = bodyColliders[i];
+                if (col == null)
+                    continue;
+
+                col.offset = colliderBaseOffsets[i];
+
+                if (colliderIsCircle[i] && col is CircleCollider2D circle)
+                {
+                    circle.radius = colliderBaseSizes[i].x;
+                }
+                else if (colliderBaseSizes[i].x > 0.001f && col is BoxCollider2D box)
+                {
+                    box.size = colliderBaseSizes[i];
+                }
+            }
+        }
+
+        if (shootPoint != null)
+            shootPoint.localPosition = shootPointBaseLocal;
     }
 
     /// <summary>
@@ -268,7 +414,7 @@ internal class ConcentratedState : MonoBehaviour
     }
 
     /// <summary>
-    /// 还原基础攻击力与体型，并清空层列表。
+    /// 还原基础攻击力、体型、碰撞体与发射点，并清空层列表。
     /// </summary>
     private void RestoreEverything()
     {
@@ -276,8 +422,10 @@ internal class ConcentratedState : MonoBehaviour
         {
             prop.atk = baseAtk;
             prop.transform.localScale = baseScale;
+            RestoreBodyFootprint();
         }
 
         layers.Clear();
+        currentScaleFactor = 1f;
     }
 }
