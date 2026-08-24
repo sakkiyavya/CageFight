@@ -6,19 +6,16 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// 直接挂在 Canvas 子节点上的对话框显示组件。自身作为不可见的全屏射线拦截层，
-/// 内容节点负责显示与位移动画。
+/// 直接挂在 Canvas 子节点上的对话框显示组件。
+/// 自身 RectTransform 同时负责对话框位移和 UI 射线拦截。
 /// </summary>
 [DisallowMultipleComponent]
+[RequireComponent(typeof(CanvasRenderer))]
 public sealed class DialogueView : Graphic, IPointerClickHandler
 {
     [Header("内容引用")]
     [SerializeField] private Image portraitImage;
     [SerializeField] private TMP_Text dialogueText;
-
-    [Header("根节点引用")]
-    [Tooltip("需要显示和进行位移动画的内容子节点。DialogueView 自身的 RectTransform 应铺满 Canvas。")]
-    [SerializeField] private RectTransform animatedRoot;
 
     [Header("固定进退场动画")]
     [SerializeField, Min(0f)] private float enterDuration = 0.25f;
@@ -34,9 +31,30 @@ public sealed class DialogueView : Graphic, IPointerClickHandler
 
     protected override void Awake()
     {
+        // Graphic 的射线参与依赖 CanvasRenderer。RequireComponent 会为新建对象添加，
+        // 这里同时兼容添加该特性之前已存在的场景对象。
+        if (!TryGetComponent<CanvasRenderer>(out _))
+            gameObject.AddComponent<CanvasRenderer>();
+
         base.Awake();
         InitializeIfNeeded();
         SnapHidden();
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        // Graphic 会在编辑器模式下执行启用回调，不应因此改写场景的激活状态。
+        if (!Application.isPlaying)
+            return;
+
+        DialogueManager manager = DialogueManager.Instance;
+        if (manager != null && manager.ShouldKeepViewEnabled(this))
+            return;
+
+        SetInputBlocked(false);
+        gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -50,10 +68,6 @@ public sealed class DialogueView : Graphic, IPointerClickHandler
             error = "Portrait Image 未配置";
         else if (dialogueText == null)
             error = "Dialogue TMP_Text 未配置";
-        else if (animatedRoot == null)
-            error = "Animated Root 未配置";
-        else if (animatedRoot == rectTransform || !animatedRoot.IsChildOf(transform))
-            error = "Animated Root 必须是 DialogueView 的内容子节点";
         else if (GetComponentInParent<Canvas>(true) == null)
             error = "DialogueView 必须位于 Canvas 层级下";
         else
@@ -103,8 +117,6 @@ public sealed class DialogueView : Graphic, IPointerClickHandler
     public IEnumerator PlayEnter()
     {
         InitializeIfNeeded();
-        if (animatedRoot != null)
-            animatedRoot.gameObject.SetActive(true);
         SetInputBlocked(true);
 
         Vector2 from = _shownPosition + enterOffset;
@@ -120,7 +132,7 @@ public sealed class DialogueView : Graphic, IPointerClickHandler
         InitializeIfNeeded();
         SetInputBlocked(true);
 
-        Vector2 from = animatedRoot != null ? animatedRoot.anchoredPosition : _shownPosition;
+        Vector2 from = rectTransform.anchoredPosition;
         yield return Animate(from, _shownPosition + exitOffset, exitDuration);
     }
 
@@ -132,8 +144,6 @@ public sealed class DialogueView : Graphic, IPointerClickHandler
         InitializeIfNeeded();
         SetPosition(_shownPosition + enterOffset);
         SetInputBlocked(false);
-        if (animatedRoot != null)
-            animatedRoot.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -160,8 +170,7 @@ public sealed class DialogueView : Graphic, IPointerClickHandler
         if (_initialized)
             return;
 
-        if (animatedRoot != null)
-            _shownPosition = animatedRoot.anchoredPosition;
+        _shownPosition = rectTransform.anchoredPosition;
 
         _initialized = true;
     }
@@ -192,8 +201,7 @@ public sealed class DialogueView : Graphic, IPointerClickHandler
 
     private void SetPosition(Vector2 position)
     {
-        if (animatedRoot != null)
-            animatedRoot.anchoredPosition = position;
+        rectTransform.anchoredPosition = position;
     }
 
     /// <summary>

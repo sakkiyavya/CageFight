@@ -70,6 +70,14 @@ public sealed class DialogueManager : MonoBehaviour
     public DialogueSeriesSO ActiveSeries => _activeSeries;
     public int ActiveSeriesIndex => _seriesIndex;
     public bool IsVisible => State == DialogueState.Visible;
+    /// <summary>
+    /// 是否存在正在准备、显示或退场的单条对话/对话系列。
+    /// </summary>
+    public bool HasDialoguePlayback =>
+        _desiredConfig != null ||
+        _currentConfig != null ||
+        _activeSeries != null ||
+        _seriesAwaitingCompletion != null;
     public static bool IsInputBlocked => Instance != null && Instance._ownsPause;
 
     public event Action<DialogueConfigSO> OnDialogueShown;
@@ -269,6 +277,7 @@ public sealed class DialogueManager : MonoBehaviour
         _desiredConfig = config;
         _desiredPresentationId = config != null ? NextPresentationId() : 0;
         ClearPrepared();
+        SynchronizeViewActiveState();
         EnsureWorker();
     }
 
@@ -319,6 +328,8 @@ public sealed class DialogueManager : MonoBehaviour
 
         if (_currentConfig == null && _desiredConfig == null)
             ReleaseModalState();
+
+        SynchronizeViewActiveState();
 
         if (!ActualMatchesDesired())
             EnsureWorker();
@@ -460,6 +471,8 @@ public sealed class DialogueManager : MonoBehaviour
             // 两条对话切换之间保持全屏模态拦截。
             _view.SetInputBlocked(true);
         }
+
+        SynchronizeViewActiveState();
     }
 
     private bool ActualMatchesDesired()
@@ -518,6 +531,8 @@ public sealed class DialogueManager : MonoBehaviour
         InvokeSafely(OnDialogueFailed, config, reason);
         if (failedSeries != null)
             InvokeSafely(OnSeriesCancelled, failedSeries, DialogueSeriesCancelReason.InvalidResource);
+
+        SynchronizeViewActiveState();
     }
 
     private void ClearPrepared(ulong onlyIfPresentationId = 0)
@@ -541,6 +556,9 @@ public sealed class DialogueManager : MonoBehaviour
             error = "上层 UI 框架未给 DialogueManager 配置 DialogueView 实例";
             return false;
         }
+
+        // 对话请求已存在时由 Manager 激活 View，View.OnEnable 会反向校验该请求。
+        SynchronizeViewActiveState();
 
         if (!_view.TryValidate(out error))
             return false;
@@ -566,12 +584,19 @@ public sealed class DialogueManager : MonoBehaviour
         dialogueView = _view;
         _view.AdvanceRequested += HandleAdvanceRequested;
         _view.SnapHidden();
+        SynchronizeViewActiveState();
     }
 
     private void DetachView()
     {
         if (_view != null)
+        {
             _view.AdvanceRequested -= HandleAdvanceRequested;
+            _view.SetInputBlocked(false);
+            if (_view.gameObject.activeSelf)
+                _view.gameObject.SetActive(false);
+        }
+
         _view = null;
     }
 
@@ -643,6 +668,37 @@ public sealed class DialogueManager : MonoBehaviour
             InvokeSafely(OnSeriesCancelled, cancelledActiveSeries, reason);
         if (cancelledCompletingSeries != null)
             InvokeSafely(OnSeriesCancelled, cancelledCompletingSeries, reason);
+
+        SynchronizeViewActiveState();
+    }
+
+    /// <summary>
+    /// 供 DialogueView.OnEnable 检查自己是否属于当前有效的对话播放。
+    /// </summary>
+    internal bool ShouldKeepViewEnabled(DialogueView view)
+    {
+        return Instance == this &&
+               isActiveAndEnabled &&
+               HasDialoguePlayback &&
+               view != null &&
+               (_view == view || dialogueView == view);
+    }
+
+    /// <summary>
+    /// 对话请求存在时激活 View，最后一条对话完整退场后停用 View。
+    /// </summary>
+    private void SynchronizeViewActiveState()
+    {
+        DialogueView targetView = _view != null ? _view : dialogueView;
+        if (targetView == null)
+            return;
+
+        bool shouldBeActive = ShouldKeepViewEnabled(targetView);
+        if (!shouldBeActive)
+            targetView.SetInputBlocked(false);
+
+        if (targetView.gameObject.activeSelf != shouldBeActive)
+            targetView.gameObject.SetActive(shouldBeActive);
     }
     #endregion
 
