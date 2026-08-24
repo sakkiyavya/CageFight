@@ -45,6 +45,8 @@ public abstract class SceneStateBase : MonoBehaviour
 
     /// <summary>
     /// 激活所有已配置的 UI 模块，并并行等待它们的进入动画完成。
+    /// 单个模块的动画异常只会记录并跳过该模块，绝不中断状态进入流程
+    /// （否则 Enter 协程死亡会导致 OnEnter 的玩法逻辑——如工程师生成——被静默吞掉）。
     /// </summary>
     /// <returns>等待全部模块进入动画完成的协程。</returns>
     private IEnumerator OpenModules()
@@ -52,10 +54,17 @@ public abstract class SceneStateBase : MonoBehaviour
         var coroutines = new List<Coroutine>();
         foreach (var module in stateModules)
         {
-            if (module != null)
+            if (module == null)
+                continue;
+
+            try
             {
                 module.gameObject.SetActive(true);
                 coroutines.Add(StartCoroutine(module.UIMotionEffectRoutine(true)));
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[SceneStateBase] UI 模块 {module.name} 进入动画异常，已跳过该模块：{e.Message}", module);
             }
         }
         foreach (var coroutine in coroutines)
@@ -64,6 +73,7 @@ public abstract class SceneStateBase : MonoBehaviour
 
     /// <summary>
     /// 并行播放所有活动 UI 模块的退出动画，完成后停用对应对象。
+    /// 单个模块异常同样只记录并跳过，不中断状态退出流程。
     /// </summary>
     /// <returns>等待全部模块退出动画完成的协程。</returns>
     private IEnumerator CloseModules()
@@ -71,10 +81,17 @@ public abstract class SceneStateBase : MonoBehaviour
         var coroutines = new List<Coroutine>();
         foreach (var module in stateModules)
         {
-            if (module != null)
+            if (module == null)
+                continue;
+
+            try
             {
                 if (module.gameObject.activeInHierarchy)
                     coroutines.Add(StartCoroutine(module.UIMotionEffectRoutine(false)));
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[SceneStateBase] UI 模块 {module.name} 退出动画异常，已跳过该模块：{e.Message}", module);
             }
         }
         foreach (var coroutine in coroutines)
@@ -82,8 +99,17 @@ public abstract class SceneStateBase : MonoBehaviour
 
         foreach (var module in stateModules)
         {
-            if (module != null)
+            if (module == null)
+                continue;
+
+            try
+            {
                 module.gameObject.SetActive(false);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[SceneStateBase] 停用 UI 模块 {module.name} 异常：{e.Message}", module);
+            }
         }
     }
     #endregion

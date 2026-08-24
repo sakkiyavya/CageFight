@@ -17705,9 +17705,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1965327641}
   - component: {fileID: 1965327644}
-  - component: {fileID: 1965327643}
   - component: {fileID: 1965327642}
   - component: {fileID: 1965327645}
+  - component: {fileID: 1965327646}
   m_Layer: 5
   m_Name: DialogueView
   m_TagString: Untagged
@@ -17749,29 +17749,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be093fd393322994f83442f937bc3a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1965327643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965327640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fc94f53264c618438dfdea3580032c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startPos: {x: 0.0036926, y: 0, z: 0}
-  startSize: {x: 1997, y: 922.79, z: 0}
-  startRot: {x: -0, y: 0, z: 0}
-  startScale: {x: 1, y: 1, z: 1}
-  endPos: {x: 0.0036926, y: 0, z: 0}
-  endSize: {x: 1997, y: 922.79, z: 0}
-  endRot: {x: -0, y: 0, z: 0}
-  endScale: {x: 1, y: 1, z: 1}
-  transitionTime: 0.1
-  buttonRadius: 100
-  subUI: []
 --- !u!114 &1965327644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17802,6 +17779,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965327640}
   m_CullTransparentMesh: 1
+--- !u!114 &1965327646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965327640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc94f53264c618438dfdea3580032c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPos: {x: 0, y: 0, z: 0}
+  startSize: {x: 0, y: 0, z: 0}
+  startRot: {x: 0, y: 0, z: 0}
+  startScale: {x: 1, y: 1, z: 1}
+  endPos: {x: 0, y: 0, z: 0}
+  endSize: {x: 0, y: 0, z: 0}
+  endRot: {x: 0, y: 0, z: 0}
+  endScale: {x: 1, y: 1, z: 1}
+  transitionTime: 0.5
+  buttonRadius: 100
+  subUI: []
 --- !u!1 &1979090123
 GameObject:
   m_ObjectHideFlags: 0
@@ -18501,7 +18501,7 @@ MonoBehaviour:
   - {fileID: 983120156}
   - {fileID: 700302017}
   - {fileID: 2785193194651604186}
-  - {fileID: 1965327643}
+  - {fileID: 0}
   playerLoadoutSpawner: {fileID: 1979090127}
   bgmKey: Crystal Mine Cave
   bgmVolume: 1

@@ -60,7 +60,7 @@ public class ResourceManager : MonoBehaviour
     [SerializeField] private List<string> commonAudios = new List<string> { "Build", "UP", "UI Click", "Arrow-Shoot" };
     [SerializeField] private List<string> persistentAudios = new List<string> { "UI Click", "Cage door", "Begin", "Huge buff", "Violent", "Zip buff", "False life", "Cold dbuff", "paralysed dbuff", "BOOM.LV.3", "BOOM.LV.1", "Mechanical reinforcement ore", "Crystal Mine Cave" };
     [SerializeField] private List<string> commonAnimatorControllers = new List<string> { "Build Animation AC" };
-    [SerializeField] private List<string> commonSprites = new List<string> { "Build Animation_6", "State1 AP_1", "State1 AP_32", "Bullet3 AP_1", "Buff1 AP_0" };
+    [SerializeField] private List<string> commonSprites = new List<string> { "Build Animation_6", "State1 AP_1", "State1 AP_32", "State1 AP_6", "Bullet3 AP_1", "Buff1 AP_0" };
 
     public ResourceState CurrentState { get; private set; } = ResourceState.None;                                                           // 当前关卡资源加载或卸载所处的阶段。
     public bool IsLoadoutRegistryReady => loadoutDefinitionRegistry != null;
@@ -164,6 +164,7 @@ public class ResourceManager : MonoBehaviour
         if (!commonSprites.Contains("Build Animation_6")) commonSprites.Add("Build Animation_6");
         if (!commonSprites.Contains("State1 AP_1")) commonSprites.Add("State1 AP_1");
         if (!commonSprites.Contains("State1 AP_32")) commonSprites.Add("State1 AP_32");
+        if (!commonSprites.Contains("State1 AP_6")) commonSprites.Add("State1 AP_6");
         if (!commonSprites.Contains("Bullet3 AP_1")) commonSprites.Add("Bullet3 AP_1");
         if (!commonSprites.Contains("Buff1 AP_0")) commonSprites.Add("Buff1 AP_0");
     }

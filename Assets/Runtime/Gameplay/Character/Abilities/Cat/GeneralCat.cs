@@ -1,24 +1,27 @@
 using UnityEngine;
 
 /// <summary>
-/// General Cat（猫将军）：每次受到弹幕攻击（投射物命中）时获得一层“护甲”，
-/// 每层持续 armorDuration 秒（默认 3 秒）。
-/// 弹幕命中由 DamageSource / BOOMBroProjectile / CatGrassSmokeProjectile 统一回调
-/// IProjectileImpactHandler 通知被命中的目标，本脚本实现该接口接收回调。
-/// 护甲（ArmorBuff）：每层提供免伤点数（默认 10 点，随创造者单位等级成长），
-/// 可无限叠加、蓝色呼吸光效；施加时以自身为创造者（等级接缝，当前等级系统未建成时为 10 点/层）。
-/// 仅新增本脚本即可生效，不改动任何既有脚本。
+/// General Cat（猫将军）：每次受击（CharacterHealth.TakeDamage 在正式扣血前发布
+/// GameObjectProperty.OnHitted）获得一层“勇气”。每层持续 7 秒、至多 10 层，
+/// 持续时长与层数上限全部配置在勇气 Buff 预制体（RemoteResource/Buff/CourageBuff）上，
+/// 本脚本不做任何运行时数值配置，避免配置链路漂移。
+/// 勇气（CourageBuff）：每层提供 3% 最终伤害减免（局外防御魔法等级每级额外 +0.3%），
+/// 各层独立计时到期，总减免上限 100%；叠加期间目标呈淡黄色呼吸光效。
+/// 勇气实例由预制体提供（把 RemoteResource/Buff/CourageBuff 预制体拖入 courageBuff 字段），
+/// 通过 CharacterHealth.ApplyBuff 统一入口施加，无运行时 AddComponent。
+/// 原“受弹幕命中获得护甲（ArmorBuff）”机制已移除。
+/// 通过 GameObjectProperty 的 OnHitted 事件挂接，不侵入 AI 流程。
 /// </summary>
-public class GeneralCat : BehaviourBase, IProjectileImpactHandler
+[RequireComponent(typeof(GameObjectProperty))]
+[RequireComponent(typeof(CharacterHealth))]
+public class GeneralCat : BehaviourBase
 {
-    [Header("护甲")]
-    [SerializeField, Min(0.1f)]
-    private float armorDuration = 3f;       // 每层护甲持续秒（3 秒）。
+    [Header("勇气 Buff")]
+    [SerializeField, Tooltip("勇气 Buff 预制体实例（RemoteResource/Buff/CourageBuff）")]
+    private CourageBuff courageBuff;
 
     private GameObjectProperty _prop;
     private CharacterHealth _health;
-    private ArmorBuff _armor;
-    private Damage _selfDamage;             // 以自身为创造者的施放伤害数据（复用，避免构造）。
 
     /// <summary>经 CharacterAI 调度初始化：依赖已在 Awake 缓存，此处仅兜底补齐。</summary>
     public override void Init(GameObject self, GameObjectProperty prop, CharacterHealth health)
@@ -29,7 +32,7 @@ public class GeneralCat : BehaviourBase, IProjectileImpactHandler
             _health = health;
     }
 
-    /// <summary>护甲由弹幕命中回调驱动，无每帧行为；返回 false 放行后续 AI。</summary>
+    /// <summary>受击被动由事件驱动，无每帧行为；返回 false 放行后续 AI。</summary>
     public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
         return false;
@@ -39,25 +42,29 @@ public class GeneralCat : BehaviourBase, IProjectileImpactHandler
     {
         _prop = GetComponent<GameObjectProperty>();
         _health = GetComponent<CharacterHealth>();
-        _armor = gameObject.AddComponent<ArmorBuff>();
-        _armor.SetDuration(armorDuration);
-        _selfDamage = Damage.DefaultDamage;
     }
 
     private void OnEnable()
     {
-        _selfDamage.source = gameObject;
+        if (_prop != null)
+            _prop.OnHitted += HandleHitted;
+    }
+
+    private void OnDisable()
+    {
+        if (_prop != null)
+            _prop.OnHitted -= HandleHitted;
     }
 
     /// <summary>
-    /// 受到弹幕攻击：获得一层护甲（以自身为创造者，供等级接缝读取）。
+    /// 每次受击：经统一入口施加一层勇气；层数上限、每层时长与减免比例
+    /// 全部由勇气 Buff 预制体配置，到达上限后本次叠加自动不生效。
     /// </summary>
-    public void OnProjectileDamageTriggered(Vector3 impactPosition)
+    private void HandleHitted(Damage damage)
     {
-        if (_prop == null || _prop.isDead)
+        if (_prop == null || _prop.isDead || _health == null || courageBuff == null)
             return;
 
-        if (_health != null)
-            _health.ApplyBuff(_armor, _selfDamage);
+        _health.ApplyBuff(courageBuff);
     }
 }

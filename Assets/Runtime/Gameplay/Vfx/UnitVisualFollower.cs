@@ -18,6 +18,7 @@ public class UnitVisualFollower : MonoBehaviour
     private float _breathMinAlpha;     // 呼吸透明度下限。
     private float _breathMaxAlpha;     // 呼吸透明度上限。
     private SpriteRenderer _renderer;  // 本体渲染器。
+    private Sprite _defaultSprite;     // 预制体自带贴图（池化复用时恢复，防止跨 Buff 贴图污染）。
 
     /// <summary>是否处于活跃跟随状态。</summary>
     public bool IsActive { get; private set; }
@@ -25,6 +26,8 @@ public class UnitVisualFollower : MonoBehaviour
     private void Awake()
     {
         _renderer = GetComponent<SpriteRenderer>();
+        if (_renderer != null)
+            _defaultSprite = _renderer.sprite;
     }
 
     /// <summary>
@@ -83,6 +86,12 @@ public class UnitVisualFollower : MonoBehaviour
     {
         IsActive = false;
         _host = null;
+
+        // 归还前恢复预制体默认贴图：同一资源键的 UnitVisualFollower 被多个 Buff/技能共用，
+        // 不恢复会残留上一任使用者的贴图，导致池化复用偶发显示错误图片。
+        if (_renderer != null)
+            _renderer.sprite = _defaultSprite;
+
         GameObjectPool.Instance.Release(gameObject);
     }
 

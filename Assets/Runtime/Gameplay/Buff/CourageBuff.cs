@@ -4,8 +4,8 @@ using UnityEngine;
 /// <summary>
 /// 勇气：数值类增益 Buff，每层提供 3% 最终伤害减免，
 /// 并受局外“防御魔法等级”（UserGlobalInfo.DefenseMagicLevel）影响——每一级额外增加 0.3%。
-/// 可无限叠加：每层独立计时、独立快照减免比例，总减免为各层相加（上限 100%），
-/// 层到期时对应减免同步移除。
+/// 可叠加：每层独立计时、独立快照减免比例，总减免为各层相加（上限 100%），
+/// 层到期时对应减免同步移除；层数上限由 maxLayers 配置（0 = 不设上限）。
 /// 减免在伤害结算（DamageComputor）的最后阶段按比例乘算（最终伤害减免），
 /// 与护甲的固定免伤（armor）、愤怒的受伤倍率（damageTakenMultiplier）互不冲突。
 /// 拥有勇气期间（任意层数激活）目标图像显示淡黄色渐变呼吸光效，与层数无关。无音效。
@@ -20,6 +20,8 @@ public class CourageBuff : BuffBase
     private float levelReduction = 0.003f;  // 每级局外防御魔法等级额外减免比例（0.3%）。
     [SerializeField, Min(0.1f)]
     private float duration = 10f;           // 每层持续时间秒。
+    [SerializeField, Min(0)]
+    private int maxLayers = 0;              // 层数上限（0 = 不设上限）。
 
     [Header("淡黄色呼吸表现")]
     [SerializeField, Min(0f)]
@@ -34,6 +36,8 @@ public class CourageBuff : BuffBase
 
     /// <summary>每层持续时间，供层管理器读取。</summary>
     public float Duration => duration;
+    /// <summary>层数上限（0 = 不设上限），供层管理器读取。</summary>
+    public int MaxLayers => maxLayers;
     /// <summary>呼吸频率，供层管理器读取。</summary>
     public float BreathSpeed => breathSpeed;
     /// <summary>呼吸强度，供层管理器读取。</summary>
@@ -45,6 +49,12 @@ public class CourageBuff : BuffBase
     public void SetDuration(float seconds)
     {
         duration = Mathf.Max(0.1f, seconds);
+    }
+
+    /// <summary>供运行时创建/配置实例时设置层数上限（0 = 不设上限）。</summary>
+    public void SetMaxLayers(int count)
+    {
+        maxLayers = Mathf.Max(0, count);
     }
 
     #region Buff 生命周期
@@ -113,6 +123,7 @@ internal class CourageState : MonoBehaviour
     private float breathSpeed = 2f;
     private float breathStrength = 0.3f;
     private Color breathColor = new Color(1f, 0.92f, 0.55f, 1f);
+    private int maxLayers = 0;
 
     private void Awake()
     {
@@ -124,7 +135,8 @@ internal class CourageState : MonoBehaviour
     }
 
     /// <summary>
-    /// 无限叠加一层勇气；首个层加入时快照呼吸表现参数。
+    /// 叠加一层勇气；首个层加入时快照呼吸表现参数与层数上限，
+    /// 已到达上限时本次叠加不生效。
     /// </summary>
     public bool AddLayer(CourageBuff source)
     {
@@ -136,7 +148,11 @@ internal class CourageState : MonoBehaviour
             breathSpeed = source.BreathSpeed;
             breathStrength = source.BreathStrength;
             breathColor = source.BreathColor;
+            maxLayers = source.MaxLayers;
         }
+
+        if (maxLayers > 0 && layers.Count >= maxLayers)
+            return false;
 
         layers.Add(new Layer
         {

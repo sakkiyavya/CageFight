@@ -119,6 +119,15 @@ public class UISystemBase : MonoBehaviour
     /// <returns>逐帧更新界面布局直到过渡结束的协程。</returns>
     protected virtual IEnumerator MoveUIEffectRoutine(bool toEnd)
     {
+        // 防御：物体缺少 RectTransform（误挂到非 UI 节点/组件被移除）时跳过动画并记录，
+        // 不再以空引用异常中断上层状态进入流程。
+        if (rectTransform == null)
+        {
+            Debug.LogError($"[UISystemBase] {gameObject.name} 缺少 RectTransform，跳过界面过渡动画。", this);
+            effectCoroutine = null;
+            yield break;
+        }
+
         float elapsedTime = 0f;                                                // 当前过渡已经播放的时间。
         
         // 确定起始和结束数值
