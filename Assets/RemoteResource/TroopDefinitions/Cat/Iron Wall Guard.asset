@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a5e5467998c5fe4e8e04fd67a7ae0c6, type: 3}
+  m_Name: Iron Wall Guard
+  m_EditorClassIdentifier: 
+  id: iron_wall_guard
+  displayName: Iron Wall Guard
+  tier: 1
+  unlockLevel: 2
+  trainCount: 2
+  cooldown: 10
+  upkeep: 0
+  requiresOwnership: 0
+  iconKey: Cat Troop UI_3
+  prefabKey: Iron Wall Guard
+  animatorControllerKey: Iron Wall Guard AC
+  animationSpriteKey: Iron Wall Guard AP_0
+  editorIcon: {fileID: -1973290680, guid: 4bc78417d1072c74eb8aafb269b3a9ab, type: 3}
+  editorPrefab: {fileID: 0}

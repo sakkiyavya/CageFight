@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// 局内三格法术栏。UI 节点、冷却遮罩、瞄准线和相机均由 Inspector 预先配置，
-/// 本组件不扫描场景，也不动态创建 UI。
+/// 局内法术栏。UI 节点、冷却遮罩、瞄准线和相机均由 Inspector 预先配置，
+/// 本组件不动态创建 UI，也不做全局场景查找。
+/// 栏位布局自动计算：仅扫描自身直接子物体中挂有 SpellSlotButton 的活动栏位，
+/// 按子物体顺序从左到右、以 slotRightEdge 为右边界靠边排列，栏位增删后自动重排。
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class GameplaySpellBar : MonoBehaviour
@@ -27,7 +30,16 @@ public sealed class GameplaySpellBar : MonoBehaviour
     [SerializeField, Tooltip("拖拽瞄准取消区（右上角 Set UI-3）；拖入该矩形区域后抬起即取消施法。仅拖拽瞄准期间显示，其余时间隐藏")]
     private RectTransform cancelZone;
 
+    [Header("栏位自动布局")]
+    [SerializeField, Tooltip("栏位排的右边界（模块本地坐标 x，相对模块左边缘）；展开状态下该点即贴屏幕右缘的终点")]
+    private float slotRowRightEdge = 903.5572f;
+    [SerializeField, Min(0f), Tooltip("相邻栏位的横向间距（像素）")]
+    private float slotGap = 44f;
+    [SerializeField, Tooltip("三角按钮相对排内位置的额外右移量（正值向右靠近图标排）")]
+    private float triangleOffset = 20f;
+
     private readonly float[] readyTimes = new float[3];
+    private readonly List<RectTransform> _slots = new List<RectTransform>();     // 活动栏位缓存（按子物体顺序）。
     private Vector3 aimPoint;
     private bool cancelRequested;                                           // 当前指针是否位于取消区内。
     private Material aimPreviewInstance;
@@ -82,6 +94,7 @@ public sealed class GameplaySpellBar : MonoBehaviour
 
         loadout.Changed += RefreshIcons;
         RefreshIcons();
+        LayoutSlots();
     }
 
     private void OnDisable()
@@ -263,7 +276,72 @@ public sealed class GameplaySpellBar : MonoBehaviour
                 cooldownMasks[i].preserveAspect = true;
             }
         }
+
+        LayoutSlots();
     }
+
+    /// <summary>
+    /// 栏位自动布局：收集自身直接子物体中挂有 SpellSlotButton 的活动栏位，
+    /// 按子物体顺序从左到右、以 slotRowRightEdge（模块本地固定右边界）为基准
+    /// 靠边右对齐排列；栏位数量增删后自动重排，无需手工调整坐标。
+    /// 面板整体展开/收起由模块自身 UISystemBase 起止配置驱动，本布局只负责排内对齐。
+    /// 仅遍历直接子物体，非逐帧调用。
+    /// </summary>
+    public void LayoutSlots()
+    {
+        CollectSlots();
+        if (_slots.Count == 0)
+            return;
+
+        // 从固定的模块本地右边界向左依次排布；每个栏位右缘紧贴上一位的左缘减去间距。
+        float cursor = slotRowRightEdge;
+
+        for (int i = _slots.Count - 1; i >= 0; i--)
+        {
+            RectTransform slot = _slots[i];
+            if (slot == null)
+                continue;
+
+            float targetX = cursor - slot.rect.width;
+            // 三角按钮额外右移，贴近图标排（仅三角有效，不影响其他栏位间距）。
+            if (slot.GetComponent<TriangleButton>() != null)
+                targetX += triangleOffset;
+
+            Vector2 position = slot.anchoredPosition;
+            // 仅在值发生变化时写入，避免无关刷新重写布局属性。
+            if (!Mathf.Approximately(position.x, targetX))
+                slot.anchoredPosition = new Vector2(targetX, position.y);
+
+            cursor = targetX - slotGap;
+        }
+    }
+
+    /// <summary>收集活动栏位：法术槽位 + 转入转出三角按钮（作为排头元素），仅自身直接子物体。</summary>
+    private void CollectSlots()
+    {
+        _slots.Clear();
+        foreach (Transform child in transform)
+        {
+            if (child == null || !child.gameObject.activeInHierarchy)
+                continue;
+            // 栏位 = 法术槽位按钮 + 转入转出三角按钮（三角按子物体顺序天然排在最左端）。
+            if (child.GetComponent<SpellSlotButton>() == null &&
+                child.GetComponent<TriangleButton>() == null)
+                continue;
+
+            _slots.Add(child as RectTransform);
+        }
+    }
+
+#if UNITY_EDITOR
+    /// <summary>编辑器内即时预览布局；仅编辑器生效，不参与运行时逻辑。</summary>
+    private void OnValidate()
+    {
+        if (Application.isPlaying)
+            return;
+        LayoutSlots();
+    }
+#endif
 
     private bool CanCast(
         int slot,

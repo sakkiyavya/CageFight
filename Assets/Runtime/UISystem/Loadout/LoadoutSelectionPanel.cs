@@ -229,8 +229,16 @@ public sealed class LoadoutSelectionPanel : UISystemBase
                     if (item && !string.IsNullOrWhiteSpace(item.Id)) ids.Add(item.Id);
                 break;
             case LoadoutSelectionKind.Spell:
+                // 工程师自带法术（各工程师 innateSpellId）为该单位专属、唯一的能力，
+                // 不出现在法术选择面板候选列表中。
+                var innateSpellIds = new List<string>();
+                foreach (EngineerDefinition engineerDef in ResourceManager.Instance.EngineerDefinitions)
+                    if (engineerDef && !string.IsNullOrWhiteSpace(engineerDef.InnateSpellId))
+                        innateSpellIds.Add(engineerDef.InnateSpellId);
+
                 foreach (SpellDefinition item in ResourceManager.Instance.SpellDefinitions)
-                    if (item && !string.IsNullOrWhiteSpace(item.Id)) ids.Add(item.Id);
+                    if (item && !string.IsNullOrWhiteSpace(item.Id) && !innateSpellIds.Contains(item.Id))
+                        ids.Add(item.Id);
                 break;
         }
         return ids;

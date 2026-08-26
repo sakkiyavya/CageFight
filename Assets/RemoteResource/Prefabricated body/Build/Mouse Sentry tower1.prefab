@@ -221,7 +221,6 @@ GameObject:
   - component: {fileID: -337167485877599616}
   - component: {fileID: 5781234501234567890}
   - component: {fileID: -910000000000000100}
-  - component: {fileID: -6633949477277437076}
   m_Layer: 0
   m_Name: Mouse Sentry tower1
   m_TagString: Untagged
@@ -475,6 +474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootPoint: {fileID: 1684777745508249931}
+  projectilePrefabKey: Bullet-Arrow
+  attackInterval: 1.5
   damageType: 0
   attackSoundKey: Arrow-Shoot
   attackAudio: {fileID: 0}
@@ -494,51 +495,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upkeepPerLevel: 0a000000140000001e000000
---- !u!61 &-6633949477277437076
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4528404349138767949}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0000007748604, y: 1.0179634}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.49999964, y: 0.09922706}
-    oldSize: {x: 1.740127, y: 2.54}
-    newSize: {x: 1.740127, y: 2.54}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.740127, y: 2.54}
-  m_EdgeRadius: 0
 --- !u!1 &8092722474699817005
 GameObject:
   m_ObjectHideFlags: 0

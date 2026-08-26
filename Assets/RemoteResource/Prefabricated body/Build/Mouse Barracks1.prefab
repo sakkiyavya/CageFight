@@ -613,10 +613,11 @@ MonoBehaviour:
   avatarSize: 1
   avatarOffset: {x: -1.4, y: 2.05}
   cooldownMaskAlpha: 0.65
+  selectedTint: {r: 0.35, g: 1, b: 0.35, a: 1}
   panelPrefabKey: TroopTrainingPanel
-  upgradeCoinMark: {fileID: 1638121584402988164}
   avatarRenderer: {fileID: 7777001022}
   cooldownMaskRenderer: {fileID: 7777001032}
+  upgradeCoinMark: {fileID: 1638121584402988164}
 --- !u!61 &2340308097908451624
 BoxCollider2D:
   m_ObjectHideFlags: 0

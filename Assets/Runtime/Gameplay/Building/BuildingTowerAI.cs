@@ -5,10 +5,12 @@ using UnityEngine;
 /// 可复用的哨塔类建筑 AI：复用 BuildingAI 的逐帧 AIBehaviour 扩展点，
 /// 在攻击范围内通过 MapCells 的边界占用查询索敌，命中后从对象池发射配置的弹幕，
 /// 开火时播放攻击音效并执行一次摇头式震动作为攻击反馈。
-/// 数据全部取自 GameObjectProperty（atk/atkRate/atkRange/atkObj/side/repel），
-/// 不自行维护第二套战斗属性；atkRate 视为每秒射击次数。
+/// 战斗数据取自 GameObjectProperty（atk/atkRange/atkRate/side/repel），
+/// 不自行维护第二套战斗属性；atkRate 视为每秒射击次数（可被 attackInterval 覆盖）。
+/// 弹幕预制体由脚本字段 projectilePrefabKey 指定（留空回退 GameObjectProperty.atkObj）。
 /// 任何种族的防御塔预制体只需挂载本组件并配置以下内容即可工作，无需新增代码：
-/// GameObjectProperty 的 atk/atkRange/atkObj/atkRate/side，伤害类型 damageType，攻击音效键 attackSoundKey。
+/// GameObjectProperty 的 atk/atkRange/atkRate/side，弹幕键（projectilePrefabKey 或 atkObj），
+/// 攻击间隔 attackInterval（0 = 用 atkRate），伤害类型 damageType，攻击音效键 attackSoundKey。
 /// </summary>
 [RequireComponent(typeof(GameObjectProperty))]
 public class BuildingTowerAI : BuildingAI
@@ -16,6 +18,14 @@ public class BuildingTowerAI : BuildingAI
     [Header("发射点")]
     [SerializeField, Tooltip("弹幕生成位置；留空时按 Shoot point / ShootPoint 名称查找")]
     private Transform shootPoint;
+
+    [Header("发射弹幕")]
+    [SerializeField, ResourceKey(typeof(GameObject)), Tooltip("发射的弹幕预制体资源键；留空时回退读取 GameObjectProperty.atkObj")]
+    private string projectilePrefabKey = "";
+
+    [Header("攻击频率")]
+    [SerializeField, Min(0f), Tooltip("每多少秒进行一次攻击；为 0 时使用 GameObjectProperty.atkRate（每秒攻击次数）")]
+    private float attackInterval = 0f;
 
     [Header("攻击伤害")]
     [SerializeField, Tooltip("弹幕的伤害类型；物理塔用 normal，法系塔可改为 magic")]
@@ -58,6 +68,10 @@ public class BuildingTowerAI : BuildingAI
         _baseRotation = transform.rotation;
         ResolveShootPoint();
         ResolveAttackAudio();
+
+        // 预载脚本指定的弹幕预制体（仅一次；atkObj 回退键由关卡清单负责预载）。
+        if (!string.IsNullOrWhiteSpace(projectilePrefabKey) && ResourceManager.Instance != null)
+            ResourceManager.Instance.LoadExtraResourceAsync<GameObject>(projectilePrefabKey);
     }
 
     /// <summary>
@@ -243,18 +257,23 @@ public class BuildingTowerAI : BuildingAI
     /// </summary>
     private void FireAt(GameObject target)
     {
-        if (string.IsNullOrEmpty(_prop.atkObj))
+        // 脚本上指定的弹幕键优先；留空时回退 GameObjectProperty.atkObj（既有配置方式）。
+        string bulletKey = string.IsNullOrWhiteSpace(projectilePrefabKey)
+            ? _prop.atkObj
+            : projectilePrefabKey;
+
+        if (string.IsNullOrEmpty(bulletKey))
         {
             if (!_warnedMissingAtkObj)
             {
                 _warnedMissingAtkObj = true;
-                Debug.LogWarning($"[BuildingTowerAI] {name} 未配置 atkObj，哨塔无法攻击。", this);
+                Debug.LogWarning($"[BuildingTowerAI] {name} 未配置弹幕键（projectilePrefabKey/atkObj），哨塔无法攻击。", this);
             }
             return;
         }
 
         GameObject bulletPrefab = ResourceManager.Instance != null
-            ? ResourceManager.Instance.GetGameObject(_prop.atkObj)
+            ? ResourceManager.Instance.GetGameObject(bulletKey)
             : null;
         if (bulletPrefab == null)
         {
@@ -262,7 +281,7 @@ public class BuildingTowerAI : BuildingAI
             {
                 _warnedMissingBullet = true;
                 Debug.LogWarning(
-                    $"[BuildingTowerAI] 弹幕资源 {_prop.atkObj} 未加载（ResourceManager 缓存缺失），哨塔无法攻击。",
+                    $"[BuildingTowerAI] 弹幕资源 {bulletKey} 未加载（ResourceManager 缓存缺失），哨塔无法攻击。",
                     this);
             }
             return;
@@ -335,10 +354,14 @@ public class BuildingTowerAI : BuildingAI
     }
 
     /// <summary>
-    /// 由攻击频率换算的射击冷却秒；atkRate 视为每秒射击次数，至少 0.1 秒一发。
+    /// 由攻击频率换算的射击冷却秒；优先使用脚本上的 attackInterval（秒/次），
+    /// 为 0 时回退 atkRate（每秒射击次数），至少 0.1 秒一发。
     /// </summary>
     private float GetFireInterval()
     {
+        if (attackInterval > 0f)
+            return attackInterval;
+
         return 1f / Mathf.Max(0.01f, _prop.atkRate);
     }
     #endregion
