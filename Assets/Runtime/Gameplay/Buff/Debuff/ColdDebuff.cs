@@ -24,7 +24,7 @@ public class ColdDebuff : BuffBase
     /// <summary>获得音效优先级，供层管理器读取。</summary>
     public int BuffSoundPriority => buffSoundPriority;
 
-    public override bool ApplyBuff(GameObjectProperty prop)
+    protected override bool ApplyBuffInternal(GameObjectProperty prop)
     {
         if (prop == null)
             return false;
@@ -70,16 +70,12 @@ class ColdState : MonoBehaviour
 
     private GameObjectProperty prop;
     private CharacterHealth health;
-    private CharacterAI characterAI;
     private Animator animator;
-    private Rigidbody2D body;
 
     private SpriteRenderer[] renderers;
     private Color[] originalColors;
 
     private bool frozen;
-    private bool aiWasEnabled;
-    private float originalAnimatorSpeed = 1f;
     private AudioSource soundAudio;            // 获得音效音频源（首层施加时解析）。
     private string soundKey = "Cold dbuff";
     private float soundVolume = 1f;
@@ -90,9 +86,7 @@ class ColdState : MonoBehaviour
     {
         prop = GetComponent<GameObjectProperty>();
         health = GetComponent<CharacterHealth>();
-        characterAI = GetComponent<CharacterAI>();
         animator = GetComponent<Animator>();
-        body = GetComponent<Rigidbody2D>();
 
         renderers =
             GetComponentsInChildren<SpriteRenderer>(true);
@@ -101,9 +95,6 @@ class ColdState : MonoBehaviour
 
         for (int i = 0; i < renderers.Length; i++)
             originalColors[i] = renderers[i].color;
-
-        if (animator != null)
-            originalAnimatorSpeed = animator.speed;
     }
 
     /// <summary>
@@ -201,12 +192,6 @@ class ColdState : MonoBehaviour
             if (Time.time >= layers[i].expireTime)
                 RemoveAt(i);
         }
-
-        if (frozen && body != null)
-        {
-            body.velocity = Vector2.zero;
-            body.angularVelocity = 0f;
-        }
     }
 
     /// <summary>判断该来源是否仍有剩余层（多层同实例时，仅最后一层结束时注销登记）。</summary>
@@ -303,24 +288,11 @@ class ColdState : MonoBehaviour
         frozen = true;
         prop.isAttack = false;
 
-        if (characterAI != null)
-        {
-            aiWasEnabled = characterAI.enabled;
-            characterAI.enabled = false;
-        }
-
         if (animator != null)
-        {
-            originalAnimatorSpeed = animator.speed;
             animator.SetBool("IsAtt", false);
-            animator.speed = 0f;
-        }
 
-        if (body != null)
-        {
-            body.velocity = Vector2.zero;
-            body.angularVelocity = 0f;
-        }
+        // 经共享控制锁冻结 AI/动画：与其他硬控（麻痹）引用计数协调，避免互相覆盖恢复值。
+        GetFreezeLock().Lock();
     }
 
     private void Unfreeze()
@@ -329,12 +301,16 @@ class ColdState : MonoBehaviour
             return;
 
         frozen = false;
+        GetFreezeLock().Unlock();
+    }
 
-        if (characterAI != null && aiWasEnabled)
-            characterAI.enabled = true;
-
-        if (animator != null)
-            animator.speed = originalAnimatorSpeed;
+    /// <summary>取得单位上的共享控制锁；缺失时按 Buff 状态组件模式补挂。</summary>
+    private UnitFreezeLock GetFreezeLock()
+    {
+        UnitFreezeLock freezeLock = GetComponent<UnitFreezeLock>();
+        if (freezeLock == null)
+            freezeLock = gameObject.AddComponent<UnitFreezeLock>();
+        return freezeLock;
     }
 
     private void OnDisable()

@@ -17,6 +17,13 @@ public class CatAddict : BehaviourBase
     [SerializeField, Min(0.01f)]
     private float despawnDuration = 0.3f;   // 离场变小消失持续秒。
 
+    [Header("恢复")]
+    [SerializeField, Min(0f), Tooltip("弹幕命中友方时，为友方恢复自身最大生命值的比例（4% = 0.04）")]
+    private float healHpPercent = 0.04f;    // 友方恢复比例（当前削弱至 4%）。
+
+    /// <summary>命中友方时恢复自身最大生命值的比例，供弹幕读取。</summary>
+    public float HealHpPercent => healHpPercent;
+
     private GameObjectProperty _prop;
     private Vector3 baseScale;              // 基础体型（含朝向符号，由 Move 维护的翻转约定）。
     private float scaleFactor = 1f;         // 当前缩放系数（0 = 完全消失，1 = 正常体型）。

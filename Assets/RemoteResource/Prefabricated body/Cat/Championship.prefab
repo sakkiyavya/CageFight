@@ -376,7 +376,7 @@ MonoBehaviour:
   atk: 130
   atkRate: 1
   magicAtk: 0
-  repel: 1
+  repel: 0.3
   antiRepel: 4
   atkRange: {x: 2, y: 1}
   atkObj: Bullet-Championship
@@ -392,7 +392,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 1.9
+  moveSpeed: 3
   suckBlood: 0
   currentHp: 0
   isDead: 0

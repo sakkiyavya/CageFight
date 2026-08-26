@@ -50,14 +50,16 @@ MonoBehaviour:
     side: 0
     initialDamage: 10
     finalDamage: 0
+    missed: 0
     collideDir: 1
     repel: 0
     type: 0
     source: {fileID: 0}
     target: {fileID: 0}
+    buffs: []
   target: {fileID: 0}
   sustainTime: 0.2
-  collideTimes: 999
+  collideTimes: 99
   hasSubProjectile: 0
 --- !u!50 &3086956205671226700
 Rigidbody2D:

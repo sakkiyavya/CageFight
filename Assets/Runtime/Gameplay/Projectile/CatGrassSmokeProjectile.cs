@@ -152,11 +152,21 @@ public class CatGrassSmokeProjectile : MonoBehaviour
     {
         GameObject caster = damageSource.damage.source;
         GameObjectProperty casterProp = caster != null ? caster.GetComponent<GameObjectProperty>() : null;
+
+        // 恢复比例优先读施法者（Cat addict）上可配置的 healHpPercent，弹幕自身字段仅作兜底。
+        float percent = healHpPercent;
+        if (caster != null)
+        {
+            CatAddict addict = caster.GetComponent<CatAddict>();
+            if (addict != null)
+                percent = addict.HealHpPercent;
+        }
+
         if (casterProp != null && casterProp.maxHp > 0)
         {
             CharacterHealth health = collision.GetComponent<CharacterHealth>();
             if (health != null)
-                health.Heal(Mathf.Max(1, Mathf.RoundToInt(casterProp.maxHp * healHpPercent)));
+                health.Heal(Mathf.Max(1, Mathf.RoundToInt(casterProp.maxHp * percent)));
         }
 
         rage.ApplyBuff(targetProp);

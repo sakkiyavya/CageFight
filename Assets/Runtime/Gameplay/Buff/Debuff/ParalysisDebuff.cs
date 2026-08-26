@@ -6,7 +6,7 @@ public class ParalysisDebuff : BuffBase
     public override float buffSustainTime => 0.5f;
     public override bool isDeBuff => true;
 
-    public override bool ApplyBuff(GameObjectProperty prop)
+    protected override bool ApplyBuffInternal(GameObjectProperty prop)
     {
         if (prop == null || prop.isDead)
             return false;
@@ -52,16 +52,12 @@ class ParalysisState : MonoBehaviour
 
     private GameObjectProperty prop;
     private CharacterHealth health;
-    private CharacterAI characterAI;
-    private Animator animator;
     private Rigidbody2D body;
 
     private SpriteRenderer[] renderers;
     private Color[] originalColors;
 
     private float endTime;
-    private float originalAnimatorSpeed;
-    private bool aiWasEnabled;
     private bool active;
     private AudioSource soundAudio;                    // 触发音效音频源（首次麻痹时解析）。
     private bool warnedMissingSound;                   // 是否已输出过音效缺失警告（一次性）。
@@ -70,8 +66,6 @@ class ParalysisState : MonoBehaviour
     {
         prop = GetComponent<GameObjectProperty>();
         health = GetComponent<CharacterHealth>();
-        characterAI = GetComponent<CharacterAI>();
-        animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
 
         renderers =
@@ -97,17 +91,8 @@ class ParalysisState : MonoBehaviour
 
         active = true;
 
-        if (characterAI != null)
-        {
-            aiWasEnabled = characterAI.enabled;
-            characterAI.enabled = false;
-        }
-
-        if (animator != null)
-        {
-            originalAnimatorSpeed = animator.speed;
-            animator.speed = 0f;
-        }
+        // 经共享控制锁冻结 AI/动画：与寒冷冻结引用计数协调，避免互相覆盖恢复值。
+        GetFreezeLock().Lock();
 
         StopBody();
 
@@ -221,16 +206,21 @@ class ParalysisState : MonoBehaviour
 
         active = false;
 
-        if (characterAI != null && aiWasEnabled)
-            characterAI.enabled = true;
-
-        if (animator != null)
-            animator.speed = originalAnimatorSpeed;
+        GetFreezeLock().Unlock();
 
         RestoreColors();
         RemoveDebuffReferences();
 
         Destroy(this);
+    }
+
+    /// <summary>取得单位上的共享控制锁；缺失时按 Buff 状态组件模式补挂。</summary>
+    private UnitFreezeLock GetFreezeLock()
+    {
+        UnitFreezeLock freezeLock = GetComponent<UnitFreezeLock>();
+        if (freezeLock == null)
+            freezeLock = gameObject.AddComponent<UnitFreezeLock>();
+        return freezeLock;
     }
 
     private void RestoreColors()
@@ -267,12 +257,7 @@ class ParalysisState : MonoBehaviour
             return;
 
         active = false;
-
-        if (characterAI != null && aiWasEnabled)
-            characterAI.enabled = true;
-
-        if (animator != null)
-            animator.speed = originalAnimatorSpeed;
+        GetFreezeLock().Unlock();
 
         RestoreColors();
     }

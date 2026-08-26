@@ -37,7 +37,7 @@ public class TraumaDebuff : BuffBase
     /// 不带来源信息的施加入口：没有施法者数据，每 tick 伤害退化为仅基础伤害。
     /// 直接调用方应优先使用带 <see cref="Damage"/> 的重载，以继承施法者阵营与等级加成。
     /// </summary>
-    public override bool ApplyBuff(GameObjectProperty prop)
+    protected override bool ApplyBuffInternal(GameObjectProperty prop)
     {
         return ApplyBuff(prop, Damage.DefaultDamage);
     }
@@ -50,7 +50,8 @@ public class TraumaDebuff : BuffBase
     /// <returns>目标存活且成功叠加一层时返回 <see langword="true"/>。</returns>
     public override bool ApplyBuff(GameObjectProperty prop, Damage damage)
     {
-        if (prop == null || prop.isDead)
+        // 建筑免疫所有 Buff（与基类统一拦截一致）。
+        if (prop == null || prop.isDead || prop.GetComponent<BuildingBase>() != null)
             return false;
 
         GameObjectProperty casterProp = null;

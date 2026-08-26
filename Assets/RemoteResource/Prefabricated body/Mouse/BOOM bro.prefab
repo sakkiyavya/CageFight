@@ -216,7 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 0
-  maxHp: 2300
+  maxHp: 1900
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
@@ -555,9 +555,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc48379e3def9e4d8232a66ee3009e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spreadAngle: 10
+  spreadAngle: 7
   shootPoint: {fileID: 1845508452190629973}
-  selfRepelRadius: 2
+  selfRepelRadius: 1
 --- !u!1001 &4512146165778687536
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class AttackHealBuff : BuffBase
     /// </summary>
     /// <param name="prop">需要获得攻击回血效果的目标属性组件。</param>
     /// <returns>目标存在生命组件并成功订阅攻击事件时返回 <see langword="true"/>。</returns>
-    public override bool ApplyBuff(GameObjectProperty prop)
+    protected override bool ApplyBuffInternal(GameObjectProperty prop)
     {
         charHeak = prop.gameObject.GetComponent<CharacterHealth>();
         if(!charHeak)

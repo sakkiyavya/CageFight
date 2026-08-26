@@ -16,7 +16,7 @@ public class SuckBloodBuff : BuffBase
     /// </summary>
     /// <param name="prop">需要增加吸血比例的目标属性组件。</param>
     /// <returns>效果应用完成后返回 <see langword="true"/>。</returns>
-    public override bool ApplyBuff(GameObjectProperty prop)
+    protected override bool ApplyBuffInternal(GameObjectProperty prop)
     {
         prop.suckBlood += value;
         return true;

@@ -59,7 +59,7 @@ public class GiantBuff : BuffBase
     /// <summary>
     /// 叠加一层巨化；不设层数上限，每层独立计时与快照加成。
     /// </summary>
-    public override bool ApplyBuff(GameObjectProperty prop)
+    protected override bool ApplyBuffInternal(GameObjectProperty prop)
     {
         if (prop == null || prop.isDead)
             return false;

@@ -27,13 +27,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     animationClip: {fileID: 7400000, guid: 1a341b3bd607c3343ba406335ed3ea9f, type: 2}
-  - key: Audience-Rat-attack
-    animationClipReference:
-      m_AssetGUID: 1edc58cb8108c094a911c01dba44ca89
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    animationClip: {fileID: 7400000, guid: 1edc58cb8108c094a911c01dba44ca89, type: 2}
   - key: Board friend-attack
     animationClipReference:
       m_AssetGUID: 214c3f1bf10362647849e9a2ec89c162
@@ -55,13 +48,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     animationClip: {fileID: 7400000, guid: 2574c323b0be6824b923f7feacd310d5, type: 2}
-  - key: Audience-Cat-attack
-    animationClipReference:
-      m_AssetGUID: 2913b44a34f0acd4785b3e924416a1c6
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    animationClip: {fileID: 7400000, guid: 2913b44a34f0acd4785b3e924416a1c6, type: 2}
   - key: Three hand-attack
     animationClipReference:
       m_AssetGUID: 2de4cf5500795104caa2dd1527a8060a
@@ -202,13 +188,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     animationClip: {fileID: 7400000, guid: 8464aaa4106aaff4787fd85df6aaab4d, type: 2}
-  - key: Audience-Cat-Free
-    animationClipReference:
-      m_AssetGUID: 8622947fe3d56504b974c34e624b1201
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    animationClip: {fileID: 7400000, guid: 8622947fe3d56504b974c34e624b1201, type: 2}
   - key: Shenji-move
     animationClipReference:
       m_AssetGUID: 882c42bda72b49d4e8554967157963d9
@@ -237,13 +216,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     animationClip: {fileID: 7400000, guid: 92e459275060145478e4330b2e3a9182, type: 2}
-  - key: Audience-Chicken-idle
-    animationClipReference:
-      m_AssetGUID: 9aec682e9760b2f4bbd342bf15f6319c
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    animationClip: {fileID: 7400000, guid: 9aec682e9760b2f4bbd342bf15f6319c, type: 2}
   - key: Miner head-attack
     animationClipReference:
       m_AssetGUID: 9bf4009dec695b848b1181234bfcc9de
@@ -363,20 +335,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     animationClip: {fileID: 7400000, guid: f33b32492644104489a2e09d1e3852a9, type: 2}
-  - key: Audience-Rat-move
-    animationClipReference:
-      m_AssetGUID: f6d8b9d6863c8534a890b0e6a100f995
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    animationClip: {fileID: 7400000, guid: f6d8b9d6863c8534a890b0e6a100f995, type: 2}
-  - key: Audience-Chicken-attack
-    animationClipReference:
-      m_AssetGUID: fa7f40a453c9542419747b7c4e2dc486
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    animationClip: {fileID: 7400000, guid: fa7f40a453c9542419747b7c4e2dc486, type: 2}
   - key: Fork apprentice-attack
     animationClipReference:
       m_AssetGUID: 07462b908f01a2b43bf68476cee84edf
@@ -769,6 +727,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     animationClip: {fileID: 7400000, guid: 08937d5a4bca94b4ab5429a48670ef81, type: 2}
+  - key: BabaDoctor Y-7-C
+    animationClipReference:
+      m_AssetGUID: 2c46efff02fcf8447bb3c3f0fecb202d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 2c46efff02fcf8447bb3c3f0fecb202d, type: 2}
   - key: Family follow-attack
     animationClipReference:
       m_AssetGUID: 3b00b97a7e4145341ba14c96f056e09a
@@ -790,6 +755,27 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     animationClip: {fileID: 7400000, guid: 6979986ade6f1a7478673064f4c18024, type: 2}
+  - key: BabaDoctor Y-7-free
+    animationClipReference:
+      m_AssetGUID: 8aaf14f9505f0bc4a86145cb2dccef07
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 8aaf14f9505f0bc4a86145cb2dccef07, type: 2}
+  - key: BabaDoctor Y-7-move
+    animationClipReference:
+      m_AssetGUID: 9227a1c22b19c1342b75a007f6a6c62a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 9227a1c22b19c1342b75a007f6a6c62a, type: 2}
+  - key: BabaDoctor Y-7-A
+    animationClipReference:
+      m_AssetGUID: 98b807a5faec1324daf1e905e925df6c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 98b807a5faec1324daf1e905e925df6c, type: 2}
   - key: Mass-produce mouse-move
     animationClipReference:
       m_AssetGUID: 9b7a81b7cfacf0a48933834c0e17b1d6
@@ -804,6 +790,13 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     animationClip: {fileID: 7400000, guid: ac965fb956f7cc741bcad34d0a72b7fa, type: 2}
+  - key: BabaDoctor Y-7-B
+    animationClipReference:
+      m_AssetGUID: c9366dcef6effe84d88a894e7daafd36
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: c9366dcef6effe84d88a894e7daafd36, type: 2}
   - key: Eternal follow-move
     animationClipReference:
       m_AssetGUID: d384c32189af9764cb0ea64ffd0a539b
@@ -958,3 +951,73 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     animationClip: {fileID: 7400000, guid: ea46f1f4bb5378e4798ed00b0dac52d7, type: 2}
+  - key: Kende-move
+    animationClipReference:
+      m_AssetGUID: 29d73030e936f2943b793b913ab62776
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 29d73030e936f2943b793b913ab62776, type: 2}
+  - key: Mouse engineer-free
+    animationClipReference:
+      m_AssetGUID: 3e156d85ebb21a341b734cfd508ca24f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 3e156d85ebb21a341b734cfd508ca24f, type: 2}
+  - key: Omniscient-move
+    animationClipReference:
+      m_AssetGUID: 5d11633518fac0647badaeac9342ce2a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 5d11633518fac0647badaeac9342ce2a, type: 2}
+  - key: Mouse engineer-move
+    animationClipReference:
+      m_AssetGUID: 7742a4b01be2bfd4fabd4c9e79de0d41
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 7742a4b01be2bfd4fabd4c9e79de0d41, type: 2}
+  - key: Broom cat-move
+    animationClipReference:
+      m_AssetGUID: 99d81ea97ab36364aa0fca1b7817ac11
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: 99d81ea97ab36364aa0fca1b7817ac11, type: 2}
+  - key: Kende-free
+    animationClipReference:
+      m_AssetGUID: b090a4d5bb1dc7c4aa641c380077aaaa
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: b090a4d5bb1dc7c4aa641c380077aaaa, type: 2}
+  - key: Bababoyi-move
+    animationClipReference:
+      m_AssetGUID: c7a0fccaac6b36e48a93bf4f2f97ebe4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: c7a0fccaac6b36e48a93bf4f2f97ebe4, type: 2}
+  - key: Broom cat-free
+    animationClipReference:
+      m_AssetGUID: ca9465d0d268a184b84b04f0cbe98fb4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: ca9465d0d268a184b84b04f0cbe98fb4, type: 2}
+  - key: Bababoyi-free
+    animationClipReference:
+      m_AssetGUID: f7239a3b083f7b04ca1f788e1998a2f5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: f7239a3b083f7b04ca1f788e1998a2f5, type: 2}
+  - key: Omniscient-free
+    animationClipReference:
+      m_AssetGUID: fc38847f2712a174282c1584201940a3
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    animationClip: {fileID: 7400000, guid: fc38847f2712a174282c1584201940a3, type: 2}

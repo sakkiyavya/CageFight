@@ -44,7 +44,7 @@ public class FalseLifeBuff : BuffBase
     /// <summary>
     /// 叠加一层妄业之力；不设层数上限，对已持有者依旧生效，每层独立计时。
     /// </summary>
-    public override bool ApplyBuff(GameObjectProperty prop)
+    protected override bool ApplyBuffInternal(GameObjectProperty prop)
     {
         if (prop == null || prop.isDead)
             return false;

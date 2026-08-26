@@ -85,7 +85,8 @@ public class CharacterBase : MonoBehaviour
             }
         }
         
-        mapCells.UseCells(currentCells, gameObject);
+        // 兵种：占地且挡路（blocksPath = true）。
+        mapCells.UseCells(currentCells, gameObject, true);
         hasRegisteredOccupancy = true;
     }
 

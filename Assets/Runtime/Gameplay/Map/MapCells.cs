@@ -16,7 +16,8 @@ public class MapCells : MonoBehaviour
     public int width = 20;                                 // 地图横向格子数量。
     public int height = 20;                                // 地图纵向格子数量。
 
-    private HashSet<GameObject>[,] cellData;               // 每个网格当前登记的占用对象集合。
+    private HashSet<GameObject>[,] cellData;               // 每个网格当前登记的占用对象集合（占地账：建筑+兵种）。
+    private HashSet<GameObject>[,] pathBlockerData;        // 每个网格登记的"挡路"对象集合（挡路账：仅兵种）。
     private int version;                                   // 网格重新初始化的次数。
 
     #region 生命周期与回调
@@ -43,11 +44,13 @@ public class MapCells : MonoBehaviour
     public void InitializeGrid()
     {
         cellData = new HashSet<GameObject>[width, height];
+        pathBlockerData = new HashSet<GameObject>[width, height];
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
                 cellData[x, y] = new HashSet<GameObject>();
+                pathBlockerData[x, y] = new HashSet<GameObject>();
             }
         }
 
@@ -56,10 +59,12 @@ public class MapCells : MonoBehaviour
 
     /// <summary>
     /// 将同一占用对象登记到给定列表中的所有有效网格。
+    /// blocksPath 为 true 时同时写入挡路账（兵种），建筑等只占地的对象传 false。
     /// </summary>
     /// <param name="cells">需要登记占用的网格坐标。</param>
     /// <param name="occupier">占用这些网格的游戏对象。</param>
-    public void UseCells(List<Vector2Int> cells, GameObject occupier)
+    /// <param name="blocksPath">该对象是否阻挡寻路（仅兵种阻挡，建筑不挡路）。</param>
+    public void UseCells(List<Vector2Int> cells, GameObject occupier, bool blocksPath)
     {
         if (occupier == null || cellData == null) return;
 
@@ -71,12 +76,14 @@ public class MapCells : MonoBehaviour
             if (IsInRange(x, y))
             {
                 cellData[x, y].Add(occupier);
+                if (blocksPath)
+                    pathBlockerData[x, y].Add(occupier);
             }
         }
     }
 
     /// <summary>
-    /// 从给定列表中的所有有效网格移除指定占用对象。
+    /// 从给定列表中的所有有效网格移除指定占用对象（占地账与挡路账同步移除）。
     /// </summary>
     /// <param name="cells">需要释放占用的网格坐标。</param>
     /// <param name="occupier">需要从网格中移除的游戏对象。</param>
@@ -92,8 +99,22 @@ public class MapCells : MonoBehaviour
             if (IsInRange(x, y))
             {
                 cellData[x, y].Remove(occupier);
+                if (pathBlockerData != null)
+                    pathBlockerData[x, y].Remove(occupier);
             }
         }
+    }
+
+    /// <summary>
+    /// 判断单个有效网格是否被"挡路"对象占用（仅兵种登记挡路；建筑只占地不挡路）。
+    /// 供 A* 寻路判障使用，越界或未初始化时返回 false。
+    /// </summary>
+    /// <param name="cell">需要检查的网格坐标。</param>
+    /// <returns>有效网格被挡路对象占用时返回 <see langword="true"/>。</returns>
+    public bool IsPathBlocked(Vector2Int cell)
+    {
+        if (pathBlockerData == null || !IsInRange(cell.x, cell.y)) return false;
+        return pathBlockerData[cell.x, cell.y].Count > 0;
     }
 
     /// <summary>

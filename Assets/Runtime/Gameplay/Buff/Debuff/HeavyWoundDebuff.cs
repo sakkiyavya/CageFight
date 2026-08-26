@@ -58,7 +58,7 @@ public class HeavyWoundDebuff : BuffBase
     /// <summary>
     /// 施加重伤（不可叠加）：已有状态时只刷新被动持续时长，不重复叠加。
     /// </summary>
-    public override bool ApplyBuff(GameObjectProperty prop)
+    protected override bool ApplyBuffInternal(GameObjectProperty prop)
     {
         if (prop == null || prop.isDead)
             return false;

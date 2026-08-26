@@ -89,7 +89,7 @@ public static class AStarUtility
                 {
                     if (!map.IsInRange(neighborPos.x, neighborPos.y)) continue;
                     if (closedList.Contains(neighborPos)) continue;
-                    if (map.IsUse(neighborPos) && neighborPos != end) continue;
+                    if (map.IsPathBlocked(neighborPos) && neighborPos != end) continue;
 
                     int moveCost = GetDistance(current.pos, neighborPos);                     // 从当前节点移动到相邻节点的代价。
                     int newG = current.g + moveCost;                                          // 经当前节点到达相邻节点的新实际代价。

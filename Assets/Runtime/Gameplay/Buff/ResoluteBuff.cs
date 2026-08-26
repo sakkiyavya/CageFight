@@ -63,7 +63,7 @@ public class ResoluteBuff : BuffBase
     /// <summary>
     /// 叠加一层坚毅；不设层数上限。
     /// </summary>
-    public override bool ApplyBuff(GameObjectProperty prop)
+    protected override bool ApplyBuffInternal(GameObjectProperty prop)
     {
         if (prop == null || prop.isDead)
             return false;

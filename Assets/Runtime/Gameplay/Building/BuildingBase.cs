@@ -193,7 +193,8 @@ public class BuildingBase : MonoBehaviour
         }
 
         occupiedCells = GetOccupyCells();
-        mapCells.UseCells(occupiedCells, gameObject);
+        // 建筑：仅占地、不挡路（blocksPath = false）。
+        mapCells.UseCells(occupiedCells, gameObject, false);
 
         lastOccupyBasePos = currentBasePos;
         lastOccupySpace = _prop.occupySpace;

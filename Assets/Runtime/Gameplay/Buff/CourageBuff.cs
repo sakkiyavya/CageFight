@@ -61,7 +61,7 @@ public class CourageBuff : BuffBase
     /// <summary>
     /// 叠加一层勇气；不设层数上限，每层独立计时与快照减免比例。
     /// </summary>
-    public override bool ApplyBuff(GameObjectProperty prop)
+    protected override bool ApplyBuffInternal(GameObjectProperty prop)
     {
         if (prop == null || prop.isDead)
             return false;

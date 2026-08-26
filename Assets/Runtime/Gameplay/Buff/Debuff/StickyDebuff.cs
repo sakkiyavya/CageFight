@@ -9,7 +9,7 @@ public class StickyDebuff : BuffBase
     public override float buffSustainTime => duration;
     public override bool isDeBuff => true;
 
-    public override bool ApplyBuff(GameObjectProperty prop)
+    protected override bool ApplyBuffInternal(GameObjectProperty prop)
     {
         if (prop == null)
             return false;
