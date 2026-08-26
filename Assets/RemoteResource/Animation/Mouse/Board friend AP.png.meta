@@ -1,0 +1,928 @@
+fileFormatVersion: 2
+guid: b1c26308e164a70429ebe3fd12940e03
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 160
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Board friend AP_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1856
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77fa5066e4fc6744dba34f2b7ab37dea
+      internalID: -253338709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_1
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 1856
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d9213a49c469bb478ffd79610c12b71
+      internalID: -352486882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_2
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 1856
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e3eee7d8f8e8c04a9ff8902163c9905
+      internalID: -111672718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_3
+      rect:
+        serializedVersion: 2
+        x: 1518
+        y: 1856
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfe88ed762e2bbb4ea7191d165b1961c
+      internalID: 1100033135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_4
+      rect:
+        serializedVersion: 2
+        x: 2024
+        y: 1856
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b87faa17d56a324ab3948ac033778c8
+      internalID: -1742059390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_5
+      rect:
+        serializedVersion: 2
+        x: 2530
+        y: 1856
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1ab36c4efcbb8f49a9ed31ef04aec17
+      internalID: 1548171695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_6
+      rect:
+        serializedVersion: 2
+        x: 3036
+        y: 1856
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 808f05b6f2e0e584aac07a59327abb93
+      internalID: 1678432606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_7
+      rect:
+        serializedVersion: 2
+        x: 3542
+        y: 1856
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15710f770f25ade409cfdf5fb0a5552c
+      internalID: 329658958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1392
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 029cccb4de86fcf4bb59a798ecb1db0f
+      internalID: -1709242780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_9
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 1392
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71d96158bf9f4534db1ca940115d11f2
+      internalID: -1365512872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_10
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 1392
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4da49c64fc1410842a551e24b87b2b51
+      internalID: -1535210814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_11
+      rect:
+        serializedVersion: 2
+        x: 1518
+        y: 1392
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46bfc065b83d1ae44bb984a7f5d21512
+      internalID: -1695891164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_12
+      rect:
+        serializedVersion: 2
+        x: 2024
+        y: 1392
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d873a7b77ccae914584334abee15c397
+      internalID: -418472551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_13
+      rect:
+        serializedVersion: 2
+        x: 2530
+        y: 1392
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d733159e9494c734d90bb87493843bed
+      internalID: 204902864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_14
+      rect:
+        serializedVersion: 2
+        x: 3036
+        y: 1392
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc3914acbc4442e4b9ee36307785d210
+      internalID: -140916256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_15
+      rect:
+        serializedVersion: 2
+        x: 3542
+        y: 1392
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b500971ba9e5cab4db64b8c374f027ad
+      internalID: 1993695883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 928
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18f2d7ad75f06df4e956bccc9700e9bb
+      internalID: -1632926491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_17
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 928
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a4f8c95d126bc149b943ad31f0ededf
+      internalID: 1837925863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_18
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 928
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b49680b45ddc384e8b10c8ec356e6de
+      internalID: 1266630446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_19
+      rect:
+        serializedVersion: 2
+        x: 1518
+        y: 928
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4133af70584e1fc4882b8b1b2ca7f6e4
+      internalID: 936375427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_20
+      rect:
+        serializedVersion: 2
+        x: 2024
+        y: 928
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4a31c8cbe83d5447a4e50a2e2398e7d
+      internalID: -1005425737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_21
+      rect:
+        serializedVersion: 2
+        x: 2530
+        y: 928
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7636e6648279e734d8b4a27c6aad042c
+      internalID: -406145388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_22
+      rect:
+        serializedVersion: 2
+        x: 3036
+        y: 928
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42108a53fb1c301499eb9011effaba71
+      internalID: 593297664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_23
+      rect:
+        serializedVersion: 2
+        x: 3542
+        y: 928
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 065b2e73bbe8f6a40b42eb585878a4d4
+      internalID: 1709875430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 464
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd2644d5db41fe744b44207479757d9e
+      internalID: -409289961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_25
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 464
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9498d98bca8595e4aae67ad0a644c82a
+      internalID: -2027319351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_26
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 464
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7265df81621515649b14b4482e6b3857
+      internalID: 1432615522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_27
+      rect:
+        serializedVersion: 2
+        x: 1518
+        y: 464
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92e4b8c46032a934ca1fc78c3fdbc2e7
+      internalID: -1508048660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_28
+      rect:
+        serializedVersion: 2
+        x: 2024
+        y: 464
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4342dae857733643ab702f12ece006f
+      internalID: -1378612086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_29
+      rect:
+        serializedVersion: 2
+        x: 2530
+        y: 464
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e874a9311282b084b82e8340b50867f8
+      internalID: 1830401531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_30
+      rect:
+        serializedVersion: 2
+        x: 3036
+        y: 464
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b7c50a9fd8962143bc21d12b9e546c1
+      internalID: -772896018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_31
+      rect:
+        serializedVersion: 2
+        x: 3542
+        y: 464
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dd1b93f6e8e8654eaadd90527d68a7b
+      internalID: 1186300371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f33d9f2a1619a549a37a282c4ca6537
+      internalID: -1542774589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_33
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 0
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d27d3d0371e87a141b045eefd83daf32
+      internalID: 2066773638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_34
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 0
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e65689c622e28fc46814a21fa1ee6635
+      internalID: -910569952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_35
+      rect:
+        serializedVersion: 2
+        x: 1518
+        y: 0
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd4ff38da87437243910f6916c05db3b
+      internalID: 65728732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Board friend AP_36
+      rect:
+        serializedVersion: 2
+        x: 2024
+        y: 0
+        width: 506
+        height: 464
+      alignment: 9
+      pivot: {x: 0.48, y: 0.07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b756a9e64a2b44148b535a953c2a5cc6
+      internalID: -485140360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Board friend AP_0: -253338709
+      Board friend AP_1: -352486882
+      Board friend AP_10: -1535210814
+      Board friend AP_11: -1695891164
+      Board friend AP_12: -418472551
+      Board friend AP_13: 204902864
+      Board friend AP_14: -140916256
+      Board friend AP_15: 1993695883
+      Board friend AP_16: -1632926491
+      Board friend AP_17: 1837925863
+      Board friend AP_18: 1266630446
+      Board friend AP_19: 936375427
+      Board friend AP_2: -111672718
+      Board friend AP_20: -1005425737
+      Board friend AP_21: -406145388
+      Board friend AP_22: 593297664
+      Board friend AP_23: 1709875430
+      Board friend AP_24: -409289961
+      Board friend AP_25: -2027319351
+      Board friend AP_26: 1432615522
+      Board friend AP_27: -1508048660
+      Board friend AP_28: -1378612086
+      Board friend AP_29: 1830401531
+      Board friend AP_3: 1100033135
+      Board friend AP_30: -772896018
+      Board friend AP_31: 1186300371
+      Board friend AP_32: -1542774589
+      Board friend AP_33: 2066773638
+      Board friend AP_34: -910569952
+      Board friend AP_35: 65728732
+      Board friend AP_36: -485140360
+      Board friend AP_4: -1742059390
+      Board friend AP_5: 1548171695
+      Board friend AP_6: 1678432606
+      Board friend AP_7: 329658958
+      Board friend AP_8: -1709242780
+      Board friend AP_9: -1365512872
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

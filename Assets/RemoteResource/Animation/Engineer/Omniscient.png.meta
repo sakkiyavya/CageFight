@@ -1,0 +1,796 @@
+fileFormatVersion: 2
+guid: bd7213aadb551534788d1af849918dea
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 220
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Omniscient_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1224
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a34c0861f222a8544a15a0e69c1d0ffa
+      internalID: 1153426736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_1
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 1224
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 925575e5d07ac3343b0a93f2bd51cf53
+      internalID: -1762116908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_2
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 1224
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af531c2e7ad67494ba23a0b080718ed9
+      internalID: -1927310342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_3
+      rect:
+        serializedVersion: 2
+        x: 1527
+        y: 1224
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00f39890f797ca04d9e4e1dfb9535f77
+      internalID: 1355769613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_4
+      rect:
+        serializedVersion: 2
+        x: 2036
+        y: 1224
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df25f154068fdcc409f48ad7857e90ec
+      internalID: 829139881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_5
+      rect:
+        serializedVersion: 2
+        x: 2545
+        y: 1224
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ae2eb6feadc69c48af163863d61e756
+      internalID: -652139621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_6
+      rect:
+        serializedVersion: 2
+        x: 3054
+        y: 1224
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8014d32ffa4635341beb374b9d276f0c
+      internalID: 1422551803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_7
+      rect:
+        serializedVersion: 2
+        x: 3563
+        y: 1224
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e33f5740cf4749a4dbf5d4a4957d7df5
+      internalID: -2131826118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 816
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e58223a4aefd67b408b9288b5a6ffe69
+      internalID: -1339183575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_9
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 816
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e08c8761fcf1a148be338d0ba1b6829
+      internalID: -294847982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_10
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 816
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80edbd778fb1e0e428835fc66add8371
+      internalID: -1207477236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_11
+      rect:
+        serializedVersion: 2
+        x: 1527
+        y: 816
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92081913b68489446a661419e44b1f52
+      internalID: 2129402126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_12
+      rect:
+        serializedVersion: 2
+        x: 2036
+        y: 816
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68b0bb6f9e53c5042b03ef25ffb7cc73
+      internalID: 1810099530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_13
+      rect:
+        serializedVersion: 2
+        x: 2545
+        y: 816
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37a7181aff287594eace1ae15ac503b3
+      internalID: -1660036021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_14
+      rect:
+        serializedVersion: 2
+        x: 3054
+        y: 816
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 442e14229d7690547b44c0859a1ba4f9
+      internalID: -1860727729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_15
+      rect:
+        serializedVersion: 2
+        x: 3563
+        y: 816
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bb434269fafc4241bd723800e6bea39
+      internalID: -495317601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 408
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daa6947bc5e18c8479a42014456cf4e3
+      internalID: -1968169702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_17
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 408
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13616599159b1244fb37a72a631de735
+      internalID: 303401105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_18
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 408
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26f683d57ff73fd46a1071611afcfe09
+      internalID: -1896173982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_19
+      rect:
+        serializedVersion: 2
+        x: 1527
+        y: 408
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a85d8da410f3aa944a9e008234c805a9
+      internalID: 1143790052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_20
+      rect:
+        serializedVersion: 2
+        x: 2036
+        y: 408
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b0b78dc981ab3544b110235913085f2
+      internalID: 176513036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_21
+      rect:
+        serializedVersion: 2
+        x: 2545
+        y: 408
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 390745f73577008448f72cee19b0c76c
+      internalID: -646266879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_22
+      rect:
+        serializedVersion: 2
+        x: 3054
+        y: 408
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5fb07b9656fc3f419a926d48a9452d6
+      internalID: 914574345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_23
+      rect:
+        serializedVersion: 2
+        x: 3563
+        y: 408
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa0ea842784ef53478f4dba7055edbe2
+      internalID: 1855829287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed89aeab72aee94479a97dfd29da5008
+      internalID: -574586848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_25
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 0
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 915439f16088ce5408158b100d030f28
+      internalID: -1142876437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_26
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 0
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 352758237144c9049bee4ed9ffd9b453
+      internalID: 1447538874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_27
+      rect:
+        serializedVersion: 2
+        x: 1527
+        y: 0
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b89af9123b34ed4abef56db28227905
+      internalID: 1467336187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_28
+      rect:
+        serializedVersion: 2
+        x: 2036
+        y: 0
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 163c9523ef06d2e4f917598572f3ee92
+      internalID: -1190701713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_29
+      rect:
+        serializedVersion: 2
+        x: 2545
+        y: 0
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24b38e53bb08d834b96a8b31fd7131be
+      internalID: -1185955295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Omniscient_30
+      rect:
+        serializedVersion: 2
+        x: 3054
+        y: 0
+        width: 509
+        height: 408
+      alignment: 9
+      pivot: {x: 0.47, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed8c12d654f3ec646a3748af5b0b453a
+      internalID: -1324628680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Omniscient_0: 1153426736
+      Omniscient_1: -1762116908
+      Omniscient_10: -1207477236
+      Omniscient_11: 2129402126
+      Omniscient_12: 1810099530
+      Omniscient_13: -1660036021
+      Omniscient_14: -1860727729
+      Omniscient_15: -495317601
+      Omniscient_16: -1968169702
+      Omniscient_17: 303401105
+      Omniscient_18: -1896173982
+      Omniscient_19: 1143790052
+      Omniscient_2: -1927310342
+      Omniscient_20: 176513036
+      Omniscient_21: -646266879
+      Omniscient_22: 914574345
+      Omniscient_23: 1855829287
+      Omniscient_24: -574586848
+      Omniscient_25: -1142876437
+      Omniscient_26: 1447538874
+      Omniscient_27: 1467336187
+      Omniscient_28: -1190701713
+      Omniscient_29: -1185955295
+      Omniscient_3: 1355769613
+      Omniscient_30: -1324628680
+      Omniscient_4: 829139881
+      Omniscient_5: -652139621
+      Omniscient_6: 1422551803
+      Omniscient_7: -2131826118
+      Omniscient_8: -1339183575
+      Omniscient_9: -294847982
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

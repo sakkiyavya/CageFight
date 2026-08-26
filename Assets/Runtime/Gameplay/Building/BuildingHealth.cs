@@ -20,7 +20,8 @@ public class BuildingHealth : MonoBehaviour, ICollide
     /// <returns>伤害阵营与建筑阵营相同时返回 <see langword="true"/>。</returns>
     public bool IsFriendly(Damage damage)
     {
-        return damage.side == _prop.side;
+        GameObjectProperty prop = EnsureProp();
+        return prop != null && damage.side == prop.side;
     }
     #endregion
     #region 碰撞与生命周期回调
@@ -31,16 +32,31 @@ public class BuildingHealth : MonoBehaviour, ICollide
     /// <returns>建筑伤害计算后的结果。</returns>
     public Damage OnCollide(Damage damage)
     {
-        print(damage.source.name);
         return TakeDamage(damage);
     }
     
     /// <summary>
-    /// 缓存同一对象上的建筑属性组件。
+    /// 缓存同一对象上的建筑属性组件；同对象缺失时向上级物体兜底查找
+    /// （防御预制体把 BuildingHealth 挂在子物体、GameObjectProperty 在根物体的配置）。
     /// </summary>
     private void Awake()
     {
-        _prop = GetComponent<GameObjectProperty>();
+        EnsureProp();
+    }
+
+    /// <summary>
+    /// 懒解析 GameObjectProperty：优先同物体，其次父级物体。
+    /// 同时解决 Awake 执行顺序不确定导致的空引用（BuildUP.Awake 可能先于本组件 Awake 调用 SetMaxHp）。
+    /// </summary>
+    private GameObjectProperty EnsureProp()
+    {
+        if (_prop == null)
+        {
+            _prop = GetComponent<GameObjectProperty>();
+            if (_prop == null)
+                _prop = GetComponentInParent<GameObjectProperty>();
+        }
+        return _prop;
     }
 
 
@@ -73,7 +89,11 @@ public class BuildingHealth : MonoBehaviour, ICollide
     /// <param name="percent">相对于最大生命值的目标比例。</param>
     public void SetPercentHp(float percent)
     {
-        hp = Mathf.RoundToInt(_prop.maxHp * Mathf.Clamp01(percent));
+        GameObjectProperty prop = EnsureProp();
+        if (prop == null)
+            return;
+
+        hp = Mathf.RoundToInt(prop.maxHp * Mathf.Clamp01(percent));
         ApplyBarVisual();
         ShowBarTemporarily();
     }
@@ -188,7 +208,11 @@ public class BuildingHealth : MonoBehaviour, ICollide
     /// <param name="value">计划设置的生命值。</param>
     public void SetHp(int value)
     {
-        hp = Mathf.Clamp(value, 0, _prop.maxHp);
+        GameObjectProperty prop = EnsureProp();
+        if (prop == null)
+            return;
+
+        hp = Mathf.Clamp(value, 0, prop.maxHp);
         ApplyBarVisual();
     }
 
@@ -199,8 +223,15 @@ public class BuildingHealth : MonoBehaviour, ICollide
     /// <param name="value">新的最大生命值。</param>
     public void SetMaxHp(int value)
     {
-        _prop.maxHp = Mathf.Max(1, value);
-        hp = Mathf.Clamp(hp, 0, _prop.maxHp);
+        GameObjectProperty prop = EnsureProp();
+        if (prop == null)
+        {
+            Debug.LogError("[BuildingHealth] 未找到 GameObjectProperty（请把本组件与 GameObjectProperty 放在同一物体或根物体上），无法设置最大生命。", this);
+            return;
+        }
+
+        prop.maxHp = Mathf.Max(1, value);
+        hp = Mathf.Clamp(hp, 0, prop.maxHp);
         ApplyBarVisual();
     }
     #endregion
@@ -211,11 +242,15 @@ public class BuildingHealth : MonoBehaviour, ICollide
     /// </summary>
     private void ApplyBarVisual()
     {
-        if (HpBarUp != null)
-        {
-            float scaleX = _prop.maxHp > 0 ? (float)hp / _prop.maxHp : 0f;    // 血条横向填充比例。
-            HpBarUp.transform.localScale = new Vector3(scaleX, 1f, 1f);
-        }
+        if (HpBarUp == null)
+            return;
+
+        GameObjectProperty prop = EnsureProp();
+        if (prop == null)
+            return;
+
+        float scaleX = prop.maxHp > 0 ? (float)hp / prop.maxHp : 0f;    // 血条横向填充比例。
+        HpBarUp.transform.localScale = new Vector3(scaleX, 1f, 1f);
     }
 
     /// <summary>
@@ -223,8 +258,12 @@ public class BuildingHealth : MonoBehaviour, ICollide
     /// </summary>
     private void ShowBarTemporarily()
     {
+        GameObjectProperty prop = EnsureProp();
+        if (prop == null)
+            return;
+
         SetBarActive(true);
-        hideTime = Time.time + _prop.barSustainTime;
+        hideTime = Time.time + prop.barSustainTime;
     }
 
     /// <summary>

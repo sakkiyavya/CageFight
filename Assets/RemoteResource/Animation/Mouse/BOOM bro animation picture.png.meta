@@ -1,0 +1,796 @@
+fileFormatVersion: 2
+guid: ef4a80d6a5f96134ca454dfffeb206f9
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BOOM bro_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1546.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07480ef21e4f56743a3a34211283d021
+      internalID: 481235207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_1
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 1546.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34b7be472f69cff419ef06ef3799a0e1
+      internalID: -1055223949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_2
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 1546.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85c72de50b585884ea2ea16862705085
+      internalID: -1865495576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_3
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 1546.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3be0ac2848a4a4b4ab238532eee69633
+      internalID: 1163991815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_4
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 1546.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3967e1f4d7711164fa4588c8fae62bea
+      internalID: 3760870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_5
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 1546.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 898a740e7dbdf9e4e8d77de86937ae12
+      internalID: -352374049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1237.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1c5f72958825844faddc7b49fa67b1e
+      internalID: -1565546144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_7
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 1237.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64b76fa6517839947aacfe5a1dfcf771
+      internalID: -215326391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_8
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 1237.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc88f1ac387039a4fbe5066c18b2a1d0
+      internalID: 894996530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_9
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 1237.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62fbd8d94c6c5a7488d7d696566b7c73
+      internalID: 391284423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_10
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 1237.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 311e605bee58b714e89f237909c18f3f
+      internalID: 2061923167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_11
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 1237.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43b11f90d68ee4444b4f7607a2edc316
+      internalID: 1849635239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 928.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5328582dce92794486b51503e8461a8
+      internalID: 671032428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_13
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 928.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bc8a10621f61df41acd1c0557854c62
+      internalID: -320380581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_14
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 928.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ed9431f7300b194c8a864cc21e7b555
+      internalID: 1601808504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_15
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 928.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a26b94e968417dc4281acc04728b8fdd
+      internalID: -1357275143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_16
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 928.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b290cbaeb3b2bec49a6b3504c0ba19ae
+      internalID: 1170811845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_17
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 928.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e372faa0ed5b03f4bbbcbc5bd4659870
+      internalID: 1069791498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 619.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5936b87e34bbc64c9b92c41e2910a52
+      internalID: 1576978970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_19
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 619.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c68040e75e003d4ab5ed20664f3ac91
+      internalID: -1700258990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_20
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 619.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be71fa6bb66c11f4bb2275c50a087726
+      internalID: -29365661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_21
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 619.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f2814238b0ee254985a31b35c9afd02
+      internalID: -68839010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_22
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 619.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a7f906c2a8216d4db59a8a6f4217d22
+      internalID: 897170909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_23
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 619.6666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcec6b1479bc351449505e7bad8e3495
+      internalID: -63754458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 310.66666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90d502336ac180a429c5c94d52f57644
+      internalID: -411668412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_25
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 310.66666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47003cc41f88c584ca8a6f1c9d65b9ac
+      internalID: -502595776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_26
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 310.66666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1961616f215b24a4cad7f3d1ee3f321f
+      internalID: 1531145101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_27
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 310.66666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d724b3181c13714fb98e3b897d0d9bd
+      internalID: 202181010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_28
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 310.66666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e4a856c680af0f4488ec61c779f6cff
+      internalID: 644409313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_29
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 310.66666
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b055d613e02cbc042a14f3ce658e4d9d
+      internalID: 979779765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOOM bro_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1.6666565
+        width: 400
+        height: 309.33334
+      alignment: 9
+      pivot: {x: 0.53, y: 0.05}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bf9eabc6ddaf4b4a8efcf0e25ccab2a
+      internalID: 1109678652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      BOOM bro_0: 481235207
+      BOOM bro_1: -1055223949
+      BOOM bro_10: 2061923167
+      BOOM bro_11: 1849635239
+      BOOM bro_12: 671032428
+      BOOM bro_13: -320380581
+      BOOM bro_14: 1601808504
+      BOOM bro_15: -1357275143
+      BOOM bro_16: 1170811845
+      BOOM bro_17: 1069791498
+      BOOM bro_18: 1576978970
+      BOOM bro_19: -1700258990
+      BOOM bro_2: -1865495576
+      BOOM bro_20: -29365661
+      BOOM bro_21: -68839010
+      BOOM bro_22: 897170909
+      BOOM bro_23: -63754458
+      BOOM bro_24: -411668412
+      BOOM bro_25: -502595776
+      BOOM bro_26: 1531145101
+      BOOM bro_27: 202181010
+      BOOM bro_28: 644409313
+      BOOM bro_29: 979779765
+      BOOM bro_3: 1163991815
+      BOOM bro_30: 1109678652
+      BOOM bro_4: 3760870
+      BOOM bro_5: -352374049
+      BOOM bro_6: -1565546144
+      BOOM bro_7: -215326391
+      BOOM bro_8: 894996530
+      BOOM bro_9: 391284423
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

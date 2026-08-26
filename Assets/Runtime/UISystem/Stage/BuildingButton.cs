@@ -4,6 +4,12 @@ using UnityEngine.EventSystems;
 public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private GameObject targetBuilding;                         // 按下按钮时创建并进入放置模式的建筑预制体。
+
+    /// <summary>设置本按钮创建的目标建筑预制体（测试工具种族切换使用）。</summary>
+    public void SetTargetBuilding(GameObject prefab)
+    {
+        targetBuilding = prefab;
+    }
     
     
     #region 生命周期与回调
@@ -29,6 +35,15 @@ public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandl
                     ? GameObjectPool.Instance.Get(targetBuilding)
                     : null;
                 if (obj == null) return;
+
+                // 测试工具设定过阵营时，放置建筑沿用该阵营（产兵经 prop.side 自动跟随）。
+                if (FightTest.DesiredSide >= 0)
+                {
+                    GameObjectProperty prop = obj.GetComponent<GameObjectProperty>();
+                    if (prop != null)
+                        prop.side = FightTest.DesiredSide;
+                }
+
                 BuildingBase building = obj.GetComponent<BuildingBase>();    // 建筑的放置与建造逻辑组件。
 
                 if (building != null)

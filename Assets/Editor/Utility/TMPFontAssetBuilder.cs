@@ -74,15 +74,44 @@ public static class TMPFontAssetBuilder
         SetSourceFontFile(fontAsset, null);
         SetAtlasPopulationMode(fontAsset, AtlasPopulationMode.Static);
 
+        // 5.5 清理空图集条目：多页打包后可能出现空槽，留着会在渲染时抛 UnassignedReferenceException。
+        RemoveNullAtlasTextures(fontAsset);
+
         // 6. 覆盖保存（重新生成后 GUID 会变，需要重新拖到 TMP 组件的 Font Asset 上）
         if (AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(OutputPath) != null)
             AssetDatabase.DeleteAsset(OutputPath);
         AssetDatabase.CreateAsset(fontAsset, OutputPath);
+
+        // 6.5 图集纹理与材质必须登记为资产子对象，否则保存刷新后引用丢失。
+        foreach (Texture2D tex in fontAsset.atlasTextures)
+        {
+            if (tex != null && !AssetDatabase.Contains(tex))
+                AssetDatabase.AddObjectToAsset(tex, fontAsset);
+        }
+        if (fontAsset.material != null && !AssetDatabase.Contains(fontAsset.material))
+            AssetDatabase.AddObjectToAsset(fontAsset.material, fontAsset);
+
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
         Debug.Log($"[TMPFontAssetBuilder] 完成：{OutputPath}（收录 {charSet.Count} 字符，实际字形 {fontAsset.characterTable.Count} 个；" +
-                  $"缺失 {missing.Length} 个）。请把新资产重新拖到 TMP 组件的 Font Asset。");
+                  $"缺失 {missing.Length} 个，图集 {fontAsset.atlasTextures.Length} 页）。请把新资产重新拖到 TMP 组件的 Font Asset。");
+    }
+
+    /// <summary>移除 m_AtlasTextures 中的空引用条目（TMP 渲染按页取图集，空条目会抛异常）。</summary>
+    private static void RemoveNullAtlasTextures(TMP_FontAsset fontAsset)
+    {
+        SerializedObject so = new SerializedObject(fontAsset);
+        SerializedProperty atlasProp = so.FindProperty("m_AtlasTextures");
+        if (atlasProp != null && atlasProp.isArray)
+        {
+            for (int i = atlasProp.arraySize - 1; i >= 0; i--)
+            {
+                if (atlasProp.GetArrayElementAtIndex(i).objectReferenceValue == null)
+                    atlasProp.DeleteArrayElementAtIndex(i);
+            }
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
     }
 
     /// <summary>通过 SerializedObject 写入 m_SourceFontFile（TMP 内部字段，外部程序集不可直接访问）。</summary>

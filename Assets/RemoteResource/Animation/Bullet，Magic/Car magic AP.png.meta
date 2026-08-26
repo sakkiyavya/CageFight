@@ -1,0 +1,642 @@
+fileFormatVersion: 2
+guid: ad21f2614a9ae0f4b87a96284bddfa23
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 40
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Car magic AP_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1860
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 777066dadc81f784da0142e6b1c9eb56
+      internalID: 1770469724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_1
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 1860
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbeac82e692792246a117fbaaeedf223
+      internalID: -1915200181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_2
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 1860
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23ffc10ec3750854aac9d4fb6cd85fa6
+      internalID: 321251138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_3
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 1860
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7f32b25e2940bd438311a5718cf2053
+      internalID: -1976605406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1488
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d371f541c0429ef4e91005ea764a2805
+      internalID: 1140719268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_5
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 1488
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 922b4b79cf147ee40aabbf419f7e7acd
+      internalID: 341262984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_6
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 1488
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d98223fa9d6939144b98b397b9b1cfa6
+      internalID: -438184417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_7
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 1488
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf8ef1560e8337947917c0a5a44d4bea
+      internalID: 393933925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1116
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5c2334e00575af489de32e3986e2a1e
+      internalID: -1993678141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_9
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 1116
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09688637e65c06c4fa5f878fb2581772
+      internalID: 95389790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_10
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 1116
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26e79251b4195084086f248b5ca2cda7
+      internalID: 2086570652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_11
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 1116
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adce2ac17b636314c8cd41c7f764e4e1
+      internalID: -1568457098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 744
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 484cabcb90d010c4baf11b973b851534
+      internalID: -961074759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_13
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 744
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d82a84d834baaf047b13c56cb3ea5e7f
+      internalID: 1145541098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_14
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 744
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e93406a6055c42f4fb16f0524567c522
+      internalID: 1063026105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_15
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 744
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf70835fff9f2264c9fdd3e2bf8692b0
+      internalID: 1229546327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 372
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bde532ba46494b438a171fdc5688c07
+      internalID: -1237807300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_17
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 372
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7b423b17e0697647a2758b40d62192f
+      internalID: -571883976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_18
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 372
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd529930b51e04540aff67bb4d9affcc
+      internalID: -1575776058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_19
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 372
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b08efe375ed39c489dce8d936eb870d
+      internalID: 2091034634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eef7cfd906b3194492c176b8733705b
+      internalID: 668529918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_21
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 0
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02d3a9be9a19eaa43bb0a5a18de7f43d
+      internalID: -306276010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_22
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 0
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bca0e8571c648c49995ba3c4c504c2b
+      internalID: -559449393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Car magic AP_23
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 0
+        width: 398
+        height: 372
+      alignment: 9
+      pivot: {x: 0.47, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3ecbce37d6fe464e84ae864e6252ec0
+      internalID: -1144456672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Car magic AP_0: 1770469724
+      Car magic AP_1: -1915200181
+      Car magic AP_10: 2086570652
+      Car magic AP_11: -1568457098
+      Car magic AP_12: -961074759
+      Car magic AP_13: 1145541098
+      Car magic AP_14: 1063026105
+      Car magic AP_15: 1229546327
+      Car magic AP_16: -1237807300
+      Car magic AP_17: -571883976
+      Car magic AP_18: -1575776058
+      Car magic AP_19: 2091034634
+      Car magic AP_2: 321251138
+      Car magic AP_20: 668529918
+      Car magic AP_21: -306276010
+      Car magic AP_22: -559449393
+      Car magic AP_23: -1144456672
+      Car magic AP_3: -1976605406
+      Car magic AP_4: 1140719268
+      Car magic AP_5: 341262984
+      Car magic AP_6: -438184417
+      Car magic AP_7: 393933925
+      Car magic AP_8: -1993678141
+      Car magic AP_9: 95389790
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
