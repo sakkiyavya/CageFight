@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingUpgradeButton : MonoBehaviour
@@ -11,6 +11,10 @@ public class BuildingUpgradeButton : MonoBehaviour
     // 升级按钮调用：开启或关闭升级模式
     public void ToggleUpgrade()
     {
+        // 与拆除模式互斥：进入升级模式时先关闭拆除模式。
+        if (!Active)
+            BuildingRemoveButton.CloseAll();
+
         Active = !Active;
         RefreshAll();
     }
