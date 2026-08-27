@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 兵营训练选择面板：三排槽位分别对应一/二/三阶兵种，按兵营等级逐步解锁。
 /// 面板与槽位均由预制体预先配置（不动态创建 UI）；运行时只填充当前选中建筑提供的兵种，
-/// 未解锁或未拥有的兵种头像暗淡显示，点击后交由建筑开始训练并自动关闭面板。
+/// 未解锁、未拥有或维护费不足的兵种头像暗淡显示且不可点击，点击后交由建筑开始训练并自动关闭面板。
 /// 关闭按钮由本组件自身处理（面板级 IPointerClickHandler），不依赖 Button 事件绑定。
 /// </summary>
 [DisallowMultipleComponent]
@@ -13,6 +13,8 @@ public sealed class TroopTrainingPanel : UISystemBase, IPointerDownHandler, IPoi
 {
     [SerializeField] private TroopTrainingSlot[] slots = new TroopTrainingSlot[0];
     [SerializeField] private Image closeButtonImage;
+    [SerializeField, Tooltip("取消出兵按钮（位于关闭键下方）；点击后取消当前兵营正在训练的兵种并关闭面板")]
+    private Image cancelButtonImage;
 
     private const string PanelPrefabKey = "TroopTrainingPanel";
 
@@ -46,6 +48,40 @@ public sealed class TroopTrainingPanel : UISystemBase, IPointerDownHandler, IPoi
     private void OnDestroy()
     {
         if (instance == this) instance = null;
+    }
+
+    private void OnEnable()
+    {
+        // 订阅经济变化：收入结算或维护费登记变化时实时刷新槽位可用状态
+        // （维护费不足的兵种实时变灰、不可点击；阶段收入提升后自动恢复可点）。
+        if (Coins.Instance)
+        {
+            Coins.Instance.OnGainCoins += RefreshEconomyTick;
+            Coins.Instance.OnUpkeepChanged += RefreshEconomyChange;
+        }
+    }
+
+    private void OnDisable()
+    {
+        // 对称退订，避免面板关闭后仍持有经济事件回调（池化对象不得残留监听）。
+        if (Coins.Instance)
+        {
+            Coins.Instance.OnGainCoins -= RefreshEconomyTick;
+            Coins.Instance.OnUpkeepChanged -= RefreshEconomyChange;
+        }
+    }
+
+    /// <summary>金币每秒结算后刷新槽位可用状态。</summary>
+    private void RefreshEconomyTick(int _) => RefreshIfOpen();
+
+    /// <summary>维护费登记变化（训练/取消/换兵种/建筑被毁）后刷新槽位可用状态。</summary>
+    private void RefreshEconomyChange() => RefreshIfOpen();
+
+    /// <summary>面板打开中且有选中建筑时重新填充槽位状态。</summary>
+    private void RefreshIfOpen()
+    {
+        if (activeBuilding && gameObject.activeInHierarchy)
+            Refresh();
     }
 
     /// <summary>
@@ -102,9 +138,30 @@ public sealed class TroopTrainingPanel : UISystemBase, IPointerDownHandler, IPoi
     public void OnPointerDown(PointerEventData eventData)
     {
         RaycastResult raycast = eventData.pointerPressRaycast;
-        if (raycast.gameObject == null || !closeButtonImage) return;
-        if (raycast.gameObject != closeButtonImage.gameObject &&
-            !raycast.gameObject.transform.IsChildOf(closeButtonImage.transform)) return;
+        if (raycast.gameObject == null) return;
+
+        if (closeButtonImage &&
+            (raycast.gameObject == closeButtonImage.gameObject ||
+             raycast.gameObject.transform.IsChildOf(closeButtonImage.transform)))
+        {
+            Close();
+            return;
+        }
+
+        // 取消出兵按钮兜底：取消当前训练并关闭面板。
+        if (cancelButtonImage &&
+            (raycast.gameObject == cancelButtonImage.gameObject ||
+             raycast.gameObject.transform.IsChildOf(cancelButtonImage.transform)))
+        {
+            CancelCurrentTraining();
+        }
+    }
+
+    /// <summary>取消当前兵营训练并关闭面板。</summary>
+    private void CancelCurrentTraining()
+    {
+        if (activeBuilding)
+            activeBuilding.CancelTraining();
         Close();
     }
 
@@ -115,10 +172,23 @@ public sealed class TroopTrainingPanel : UISystemBase, IPointerDownHandler, IPoi
     public void OnPointerClick(PointerEventData eventData)
     {
         RaycastResult raycast = eventData.pointerPressRaycast;
-        if (raycast.gameObject == null || !closeButtonImage) return;
-        if (raycast.gameObject != closeButtonImage.gameObject &&
-            !raycast.gameObject.transform.IsChildOf(closeButtonImage.transform)) return;
-        Close();
+        if (raycast.gameObject == null) return;
+
+        if (closeButtonImage &&
+            (raycast.gameObject == closeButtonImage.gameObject ||
+             raycast.gameObject.transform.IsChildOf(closeButtonImage.transform)))
+        {
+            Close();
+            return;
+        }
+
+        // 取消出兵按钮兜底：取消当前训练并关闭面板。
+        if (cancelButtonImage &&
+            (raycast.gameObject == cancelButtonImage.gameObject ||
+             raycast.gameObject.transform.IsChildOf(cancelButtonImage.transform)))
+        {
+            CancelCurrentTraining();
+        }
     }
 
     /// <summary>退出键入口：隐藏面板并取消建筑选中，不再依赖 UIStack 或关闭动画。</summary>

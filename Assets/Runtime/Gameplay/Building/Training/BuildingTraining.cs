@@ -107,6 +107,9 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
         readyTime = float.NegativeInfinity;
         if (avatarRenderer) avatarRenderer.enabled = false;
         if (cooldownMaskRenderer) cooldownMaskRenderer.enabled = false;
+
+        // 建筑失效/被摧毁/回收时注销兵种维护费，收入恢复全额。
+        if (Coins.Instance) Coins.Instance.UnregisterUpkeep(this);
     }
 
     private void Update()
@@ -169,10 +172,46 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
     #endregion
 
     #region 训练与召唤
-    /// <summary>是否满足训练条件：当前建筑显示等级已解锁该兵种。</summary>
+    /// <summary>
+    /// 是否满足训练条件：当前建筑显示等级已解锁该兵种，且按当前收入足以承担其维护费
+    /// （维护费不足的兵种不可点击训练，避免把每秒净收入压到 0）。
+    /// </summary>
     public bool CanTrain(TroopDefinition troop)
     {
-        return troop && troop.UnlockLevel <= Level;
+        return troop && troop.UnlockLevel <= Level && CanAffordUpkeep(troop);
+    }
+
+    /// <summary>
+    /// 按当前毛收入与已登记维护费判断：开始/更换该兵种后每秒净收入仍大于 0。
+    /// 金币系统未就绪时不拦截（先按可训练处理）。
+    /// </summary>
+    private bool CanAffordUpkeep(TroopDefinition troop)
+    {
+        Coins coins = Coins.Instance;
+        if (!coins) return true;
+
+        int currentUpkeep = currentTroop ? currentTroop.Upkeep : 0;
+        int projected = coins.TotalUpkeep - currentUpkeep + troop.Upkeep;
+        return coins.CurrentCoinPerSec > projected;
+    }
+
+    /// <summary>
+    /// 取消当前出兵：清除正在训练的兵种，隐藏头像角标与冷却遮罩，
+    /// 并注销该兵种维护费（每秒收入恢复全额）。面板打开时由面板刷新槽位高亮。
+    /// </summary>
+    public void CancelTraining()
+    {
+        if (currentTroop == null)
+            return;
+
+        currentTroop = null;
+        readyTime = float.NegativeInfinity;
+        if (Coins.Instance) Coins.Instance.UnregisterUpkeep(this);
+
+        if (avatarRenderer)
+            avatarRenderer.enabled = false;
+        if (cooldownMaskRenderer)
+            cooldownMaskRenderer.enabled = false;
     }
 
     /// <summary>指定兵种是否处于当前产出中（供面板标记当前兵种）。</summary>
@@ -182,7 +221,8 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
     }
 
     /// <summary>
-    /// 开始持续产出指定兵种；成功后头像角标出现并进入冷却循环。
+    /// 开始持续产出指定兵种；成功后头像角标出现并进入冷却循环，
+    /// 同时把该兵种维护费登记进 Coins（每秒收入按维护费实时抵扣；更换兵种自动换成新值）。
     /// 已在产出同一兵种时不重复触发。
     /// </summary>
     public bool TryStartTraining(TroopDefinition troop)
@@ -193,6 +233,7 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
         readyTime = Time.time + troop.Cooldown;
         ApplyAvatar(troop);
         ApplyCooldownMask(1f);
+        if (Coins.Instance) Coins.Instance.RegisterUpkeep(this, troop.Upkeep);
         return true;
     }
 

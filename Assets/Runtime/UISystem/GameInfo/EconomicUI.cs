@@ -30,6 +30,7 @@ public class EconomicUI : MonoBehaviour
 
         Coins.Instance.OnGainCoins += RefreshText;
         Coins.Instance.OnConsumeCoins += RefreshText;
+        Coins.Instance.OnUpkeepChanged += RefreshUpkeep;
         RefreshText(0);
     }
 
@@ -42,6 +43,7 @@ public class EconomicUI : MonoBehaviour
         {
             Coins.Instance.OnGainCoins -= RefreshText;
             Coins.Instance.OnConsumeCoins -= RefreshText;
+            Coins.Instance.OnUpkeepChanged -= RefreshUpkeep;
         }
     }
     #endregion
@@ -59,7 +61,15 @@ public class EconomicUI : MonoBehaviour
         }
 
         coins.text = Coins.Instance.CurrentCoins.ToString();
-        coinPerSec.text = Coins.Instance.CurrentCoinPerSec.ToString();
+        coinPerSec.text = Coins.Instance.NetCoinPerSec.ToString();
+    }
+
+    /// <summary>
+    /// 维护费登记变化（开始训练/取消/换兵种/建筑被毁）时立即刷新每秒产量显示。
+    /// </summary>
+    private void RefreshUpkeep()
+    {
+        RefreshText(0);
     }
     #endregion
 }
