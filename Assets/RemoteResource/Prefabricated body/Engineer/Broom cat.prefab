@@ -249,10 +249,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090cf18db13074e4c85806ec24eb75a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
-  maxHp: 1000
-  antiRepel: 2
-  cameraViewSize: 4.7
+  moveSpeed: 4.4
+  maxHp: 2000
+  antiRepel: 3
+  cameraViewSize: 5
   defeatFlyDistance: 5
   defeatFlyTime: 0.35
   defeatStunTime: 3
@@ -270,6 +270,6 @@ MonoBehaviour:
   healParticleRiseSpeed: 0.6
   moveParameter: IsMoving
   spellAnchor: {fileID: 0}
-  hitFlashColor: {r: 1, g: 0.2028302, b: 0.2028302, a: 1}
+  hitFlashColor: {r: 1, g: 0, b: 0, a: 1}
   hitEffectTime: 0.18
   hitBounce: 0.15
