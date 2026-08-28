@@ -3391,10 +3391,7 @@ MonoBehaviour:
   - 60
   - 120
   - 180
-  phaseCoinPerSec:
-  - 150
-  - 400
-  - 600
+  phaseCoinPerSec: 960000009001000058020000
 --- !u!1 &365718527
 GameObject:
   m_ObjectHideFlags: 0
@@ -9417,20 +9414,6 @@ MonoBehaviour:
   buttonRadius: 100
   subUI: []
   targetBuilding: {fileID: 2520427044543007020, guid: 18ee951aae5b692449029cacc30c2e98, type: 3}
---- !u!114 &1008125290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1008125230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3f1a2b4d5e6478a9b0c1d2e3f4a5b6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  demolishPrefabKey: UPanime
-  demolishEffectTime: 0.7
 --- !u!114 &1008125233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9469,6 +9452,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008125230}
   m_CullTransparentMesh: 1
+--- !u!114 &1008125290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008125230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f1a2b4d5e6478a9b0c1d2e3f4a5b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  demolishPrefabKey: UPanime
+  demolishEffectTime: 0.7
 --- !u!1 &1010691927
 GameObject:
   m_ObjectHideFlags: 0

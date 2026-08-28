@@ -319,7 +319,7 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 170690899, guid: 265cf8f9a38feb944bffb75cbd88d89e, type: 3}
+  m_Sprite: {fileID: -634734723, guid: 545a1260c84973f4da4b7350798a7666, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -343,17 +343,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - sprite: {fileID: 170690899, guid: 265cf8f9a38feb944bffb75cbd88d89e, type: 3}
+  - sprite: {fileID: -634734723, guid: 545a1260c84973f4da4b7350798a7666, type: 3}
     maxHp: 3000
     attack: 100
     attackRange: {x: 10, y: 6}
     cost: 0
-  - sprite: {fileID: 967916399, guid: 265cf8f9a38feb944bffb75cbd88d89e, type: 3}
+  - sprite: {fileID: -1123283165, guid: 545a1260c84973f4da4b7350798a7666, type: 3}
     maxHp: 4500
     attack: 150
     attackRange: {x: 10, y: 6}
     cost: 0
-  - sprite: {fileID: -1550980960, guid: 265cf8f9a38feb944bffb75cbd88d89e, type: 3}
+  - sprite: {fileID: -1861327622, guid: 545a1260c84973f4da4b7350798a7666, type: 3}
     maxHp: 6500
     attack: 210
     attackRange: {x: 11, y: 6}
@@ -366,6 +366,13 @@ MonoBehaviour:
   jellyTime: 0.22
   jellyAmount: 0.16
   upgradeSoundKey: UP
+  removable: 1
+  demolishSoundKey: Construct-Hit
+  demolishAnimWait: 0.7
+  demolishFallTime: 0.8
+  demolishFallDistance: 15
+  demolishSway: 0.6
+  demolishAlpha: 0.5
 --- !u!114 &2008033283947817983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,8 +489,8 @@ BoxCollider2D:
   m_Offset: {x: 0.033785462, y: 2.079076}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.09}
-    oldSize: {x: 3.5714285, y: 4.7619047}
+    pivot: {x: 0.530228, y: 0.06040992}
+    oldSize: {x: 5.56, y: 7.79}
     newSize: {x: 3.5714285, y: 4.7619047}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

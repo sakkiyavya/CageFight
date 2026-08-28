@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 265cf8f9a38feb944bffb75cbd88d89e
+guid: 545a1260c84973f4da4b7350798a7666
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 140
+  spritePixelsToUnits: 180
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -97,253 +97,253 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cat Building_0
+      name: 1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1333.3333
-        width: 500
-        height: 666.6667
+        x: 48
+        y: 2602
+        width: 931
+        height: 768
       alignment: 9
-      pivot: {x: 0.45, y: 0.1}
+      pivot: {x: 0.50676966, y: 0.08420404}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 864c1a27740d3d24fa709cb630af494b
-      internalID: -1636992257
+      spriteID: d96623eb135c1674eb1d6175b4a81959
+      internalID: -366983595
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat Building_1
+      name: a
       rect:
         serializedVersion: 2
-        x: 500
-        y: 1333.3333
-        width: 500
-        height: 666.6667
+        x: 1188
+        y: 2648
+        width: 556
+        height: 779
       alignment: 9
-      pivot: {x: 0.45, y: 0.1}
+      pivot: {x: 0.530228, y: 0.06040992}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9abbad2394b69d343b2949657eb61c11
-      internalID: 468714996
+      spriteID: e7fe06786e19ef841a764113056cc676
+      internalID: -634734723
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat Building_2
+      name: A
       rect:
         serializedVersion: 2
-        x: 1000
-        y: 1333.3333
-        width: 500
-        height: 666.6667
+        x: 2030
+        y: 2456
+        width: 978
+        height: 936
       alignment: 9
-      pivot: {x: 0.45, y: 0.1}
+      pivot: {x: 0.5085926, y: 0.03763052}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ced8bbb4a995490499412bcf3786c9d0
-      internalID: 145958072
+      spriteID: 47ec885e8d30bfd439c2575c0b77639a
+      internalID: 261937699
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat Building_3
+      name: Cat Base1
       rect:
         serializedVersion: 2
-        x: 1500
-        y: 1333
-        width: 500
-        height: 667
+        x: 3288
+        y: 2458
+        width: 1321
+        height: 990
       alignment: 9
-      pivot: {x: 0.5, y: 0.11}
+      pivot: {x: 0.5397587, y: 0.068572514}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1b34f9fd4f0f3f46bd6394a30291629
-      internalID: -681074071
+      spriteID: a1550aad5da81f34eb1374a08d331f99
+      internalID: 218831865
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat Building_4
+      name: 2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 667.3333
-        width: 500
-        height: 666.6667
+        x: 12
+        y: 1816
+        width: 982
+        height: 776
       alignment: 9
-      pivot: {x: 0.5, y: 0.11}
+      pivot: {x: 0.49999997, y: 0.10473444}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a76c39a9dac36f648a365eae82a578cc
-      internalID: 1514803031
+      spriteID: c2b0ba3afeb5a0343b3dd70bdb0e8805
+      internalID: -918292471
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat Building_5
+      name: b
       rect:
         serializedVersion: 2
-        x: 500
-        y: 667.3333
-        width: 500
-        height: 666.6667
+        x: 1156
+        y: 1752
+        width: 633
+        height: 856
       alignment: 9
-      pivot: {x: 0.5, y: 0.11}
+      pivot: {x: 0.51327556, y: 0.060683917}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e6161a666e35e94ea6e8e3a676e4243
-      internalID: 2013239389
+      spriteID: 3919c9dc0d206fd459cbe5b453c1f584
+      internalID: -1123283165
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat Building_6
+      name: B
       rect:
         serializedVersion: 2
-        x: 1000
-        y: 667.3333
-        width: 500
-        height: 666.6667
+        x: 1965
+        y: 1472
+        width: 1107
+        height: 928
       alignment: 9
-      pivot: {x: 0.5, y: 0.13}
+      pivot: {x: 0.5, y: 0.04722753}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24af03f054049f843a2d2950703f916a
-      internalID: 337424887
+      spriteID: e094a5862130d2440871dddc42085b0b
+      internalID: 41917664
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat Building_7
+      name: Cat Base2
       rect:
         serializedVersion: 2
-        x: 1500
-        y: 667.3333
-        width: 500
-        height: 666.6667
+        x: 3336
+        y: 1408
+        width: 1354
+        height: 1045
       alignment: 9
-      pivot: {x: 0.5, y: 0.13}
+      pivot: {x: 0.49224195, y: 0.06298828}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1fcf6ac1090afa4bb6fde56e69e52f2
-      internalID: -1992730780
+      spriteID: 282004440693add429d73681165b80b8
+      internalID: -173126463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat Building_8
+      name: 3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1.333313
-        width: 500
-        height: 666.6667
+        x: 8
+        y: 963
+        width: 1036
+        height: 821
       alignment: 9
-      pivot: {x: 0.5, y: 0.13}
+      pivot: {x: 0.5020278, y: 0.09057483}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad9a5788bc891794aa73b206f2111d77
-      internalID: 751680972
+      spriteID: f73004dd371c4e9408a23a96e74aec8b
+      internalID: -464847234
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat Building_9
+      name: c
       rect:
         serializedVersion: 2
-        x: 500
-        y: 1.333313
-        width: 500
-        height: 666.6667
+        x: 1096
+        y: 844
+        width: 665
+        height: 852
       alignment: 9
-      pivot: {x: 0.5, y: 0.09}
+      pivot: {x: 0.52211416, y: 0.056155566}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a28305f428bbc904e8fd90f358f16d61
-      internalID: 170690899
+      spriteID: 3649967dfb1a244488b23cdfae559c1a
+      internalID: -1861327622
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat Building_10
+      name: C
       rect:
         serializedVersion: 2
-        x: 1000
-        y: 1.333313
-        width: 500
-        height: 666.6667
+        x: 1964
+        y: 464
+        width: 1116
+        height: 912
       alignment: 9
-      pivot: {x: 0.5, y: 0.09}
+      pivot: {x: 0.48682255, y: 0.034677103}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5c3b120b9c07f1469c35f849c8b951b
-      internalID: 967916399
+      spriteID: b721b512e997c1f46985c74ba9f9e46d
+      internalID: -700836251
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat Building_11
+      name: Cat Base3
       rect:
         serializedVersion: 2
-        x: 1500
-        y: 1.333313
-        width: 500
-        height: 666.6667
+        x: 3304
+        y: 6
+        width: 1488
+        height: 1284
       alignment: 9
-      pivot: {x: 0.5, y: 0.09}
+      pivot: {x: 0.48164564, y: 0.06641055}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 26b6d8c925bfa6e43a84b732f0bb2d60
-      internalID: -1550980960
+      spriteID: f18b8520023684540928adc28bbab615
+      internalID: -54823197
       vertices: []
       indices: 
       edges: []
@@ -359,18 +359,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Cat Building_0: -1636992257
-      Cat Building_1: 468714996
-      Cat Building_10: 967916399
-      Cat Building_11: -1550980960
-      Cat Building_2: 145958072
-      Cat Building_3: -681074071
-      Cat Building_4: 1514803031
-      Cat Building_5: 2013239389
-      Cat Building_6: 337424887
-      Cat Building_7: -1992730780
-      Cat Building_8: 751680972
-      Cat Building_9: 170690899
+      1: -366983595
+      2: -918292471
+      3: -464847234
+      A: 261937699
+      B: 41917664
+      C: -700836251
+      Cat Base1: 218831865
+      Cat Base2: -173126463
+      Cat Base3: -54823197
+      a: -634734723
+      b: -1123283165
+      c: -1861327622
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
