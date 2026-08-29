@@ -24,6 +24,8 @@ public class CharacterHealth : MonoBehaviour, ICollide
     private float jellyDuration = 0.6f;                                                                 // 受击果冻形变持续时间。
     private float jellyFrequency = 2f;                                                                  // 受击形变的振荡频率。
     private float jellyAmplitude = 0.1f;                                                                // 受击时向上弹动的最大幅度。
+    private Vector3 _hpBarBaseScale;                                                                    // 前景血条在预制体中的原始缩放（血量比例只乘 X，避免溢出背景框）。
+    private bool _hpBarBaseScaleCached;
     
     private float deathAngularSpeed = 1440f;                                                            // 死亡抛飞期间的旋转角速度。
     private float deathParabolaAcceleration = -50f;                                                     // 死亡抛物线的纵向加速度。
@@ -527,7 +529,8 @@ public class CharacterHealth : MonoBehaviour, ICollide
         bool colorRestored = false;
         float effectDuration = Mathf.Max(hitFlashDuration, jellyDuration);
 
-        SetHitColor(Color.red);
+        // 受击闪色：略微偏白的红（纯红过于刺眼）。
+        SetHitColor(new Color(1f, 0.4f, 0.4f, 1f));
         while (elapsed < effectDuration)
         {
             if (elapsed < jellyDuration)
@@ -684,8 +687,17 @@ public class CharacterHealth : MonoBehaviour, ICollide
     {
         if (HpBarUp != null)
         {
+            // 首次记录前景条在预制体中的原始缩放（如 BOSS 血条为 0.7），血量比例只乘 X 轴，
+            // 满血时恰好等于原始尺寸，不会超出背景血条框。
+            if (!_hpBarBaseScaleCached)
+            {
+                _hpBarBaseScale = HpBarUp.transform.localScale;
+                _hpBarBaseScaleCached = true;
+            }
+
             float scaleX = _prop.maxHp > 0 ? (float)_prop.currentHp / _prop.maxHp : 0f;
-            HpBarUp.transform.localScale = new Vector3(scaleX, 1f, 1f);
+            HpBarUp.transform.localScale = new Vector3(
+                _hpBarBaseScale.x * scaleX, _hpBarBaseScale.y, _hpBarBaseScale.z);
         }
     }
 

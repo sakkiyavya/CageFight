@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
 OcclusionCullingSettings:
@@ -1403,6 +1403,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coins: 0
   coinPerSec: 500
+  phaseTimes:
+  - 60
+  - 120
+  - 180
+  phaseCoinPerSec: 960000009001000058020000
 --- !u!1 &375285328
 GameObject:
   m_ObjectHideFlags: 0
@@ -6046,6 +6051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 527d6e496538aa341a1ae7eef322881a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cancelZone: {fileID: 0}
 --- !u!4 &1282025459
 Transform:
   m_ObjectHideFlags: 0
@@ -6660,7 +6666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    schemaVersion: 3
+    schemaVersion: 4
     defenseMagicLevel: 0
     attackMagicLevel: 0
     barracksLevel: 0
@@ -6671,6 +6677,10 @@ MonoBehaviour:
     unlockedStage: 1
     volume: 1
     showDamage: 1
+    selectedEngineerId: 
+    selectedRaceId: 
+    selectedSpellSlot1Id: 
+    selectedSpellSlot2Id: 
 --- !u!1 &1360657254
 GameObject:
   m_ObjectHideFlags: 0
@@ -7971,6 +7981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateModules: []
+  playerLoadout: {fileID: 0}
 --- !u!1 &1660042394
 GameObject:
   m_ObjectHideFlags: 0
@@ -9031,6 +9042,50 @@ MonoBehaviour:
   animationClipRegistry: {fileID: 0}
   animatorControllerRegistry: {fileID: 0}
   spriteRegistry: {fileID: 0}
+  loadoutDefinitionRegistry: {fileID: 0}
+  commonPrefabs:
+  - Build Animation
+  - Cast spell
+  - Bullet-Arrow
+  - Bullet-Thunderstorm
+  - ConnectMasterCircle
+  - Huge cheese
+  - UPanime
+  - UnitVisualFollower
+  - EngineerHealParticles
+  - LightningBeam
+  - attack punish
+  - move punish
+  - Bullet-Mass-produce mouse
+  - Bullet-BabaDoctor Believer
+  commonAudios:
+  - Build
+  - UP
+  - UI Click
+  - Arrow-Shoot
+  persistentAudios:
+  - UI Click
+  - Cage door
+  - Begin
+  - Huge buff
+  - Violent
+  - Zip buff
+  - False life
+  - Cold dbuff
+  - paralysed dbuff
+  - BOOM.LV.3
+  - BOOM.LV.1
+  - Mechanical reinforcement ore
+  - Crystal Mine Cave
+  commonAnimatorControllers:
+  - Build Animation AC
+  commonSprites:
+  - Build Animation_6
+  - State1 AP_1
+  - State1 AP_32
+  - State1 AP_6
+  - Bullet3 AP_1
+  - Buff1 AP_0
   _spriteKeys: []
 --- !u!4 &1836100264
 Transform:
@@ -9763,6 +9818,7 @@ GameObject:
   - component: {fileID: 1965327644}
   - component: {fileID: 1965327643}
   - component: {fileID: 1965327642}
+  - component: {fileID: 1965327645}
   m_Layer: 5
   m_Name: DialogueView
   m_TagString: Untagged
@@ -9845,11 +9901,18 @@ MonoBehaviour:
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   portraitImage: {fileID: 895228871}
   dialogueText: {fileID: 539948403}
-  animatedRoot: {fileID: 0}
   enterDuration: 0.25
   exitDuration: 0.2
   enterOffset: {x: -160, y: 0}
   exitOffset: {x: 160, y: 0}
+--- !u!222 &1965327645
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965327640}
+  m_CullTransparentMesh: 1
 --- !u!1 &2041392316
 GameObject:
   m_ObjectHideFlags: 0
@@ -10207,6 +10270,9 @@ MonoBehaviour:
   - {fileID: 700302017}
   - {fileID: 2785193194651604186}
   - {fileID: 1965327643}
+  playerLoadoutSpawner: {fileID: 0}
+  bgmKey: Crystal Mine Cave
+  bgmVolume: 1
 --- !u!1 &2105746470
 GameObject:
   m_ObjectHideFlags: 0
@@ -10259,6 +10325,7 @@ MonoBehaviour:
   initialSize: 50
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   healColor: {r: 0, g: 1, b: 0, a: 1}
+  missColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2115049658
 GameObject:
   m_ObjectHideFlags: 0

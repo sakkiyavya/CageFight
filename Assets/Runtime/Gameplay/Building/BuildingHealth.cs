@@ -1,4 +1,5 @@
 // using Unity.Mathematics;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObjectProperty))]
@@ -6,6 +7,26 @@ public class BuildingHealth : MonoBehaviour, ICollide
 {
     private int hp; public int HP => hp;                                      // 当前建筑生命值及其只读访问器。
     private float hideTime = -1f;                                             // 血条自动隐藏的游戏时间，负数表示未计时。
+    private Vector3 _hpBarBaseScale;                                          // 前景血条在预制体中的原始缩放（血量比例只乘 X，避免溢出背景框）。
+    private bool _hpBarBaseScaleCached;
+
+    [Header("受击表现")]
+    [SerializeField] private float hitFlashDuration = 0.3f;                    // 受击闪红持续时长。
+    [SerializeField] private Color hitFlashColor = new Color(1f, 0.4f, 0.4f, 1f);  // 受击闪红颜色（与角色受击色一致）。
+    [SerializeField, Min(0f)] private float shakeDuration = 0.5f;              // 左右晃动持续时长。
+    [SerializeField, Min(0f)] private float shakeAmplitude = 0.3f;             // 晃动幅度（世界单位，建议小于半格）。
+    [SerializeField, Min(0f)] private float shakeFrequency = 30f;              // 晃动频率（每秒振荡次数）。
+    [ResourceKey(typeof(AudioClip))]
+    [SerializeField] private string hitSoundKey = "Construct-Hit";             // 受击音效资源键。
+
+    private SpriteRenderer _bodyRenderer;                                     // 建筑本体渲染器（闪红用）。
+    private AudioSource _hitAudio;                                            // 受击音效的缓存音频源。
+    private BuildingBase _buildingBase;                                       // 建筑生命周期组件（拖拽预览判定）。
+    private Coroutine _hitEffectCoroutine;                                    // 当前受击闪红与晃动协程。
+    private Color _flashOriginalColor;                                        // 闪红前建筑本体的原始颜色。
+    private bool _flashActive;                                                // 闪红是否生效中。
+    private Vector3 _shakeBasePos;                                            // 晃动前建筑的世界坐标。
+    private bool _shakeActive;                                                // 晃动是否生效中。
 
     private GameObjectProperty _prop;                                         // 提供阵营、最大生命和血条持续时间的建筑属性。
     public GameObject HpBarUp;                                                // 通过横向缩放显示剩余生命的前景条。
@@ -38,10 +59,36 @@ public class BuildingHealth : MonoBehaviour, ICollide
     /// <summary>
     /// 缓存同一对象上的建筑属性组件；同对象缺失时向上级物体兜底查找
     /// （防御预制体把 BuildingHealth 挂在子物体、GameObjectProperty 在根物体的配置）。
+    /// 同时缓存建筑本体渲染器与受击音效音频源（与 BuildUP 同做法）。
     /// </summary>
     private void Awake()
     {
         EnsureProp();
+        _bodyRenderer = GetComponent<SpriteRenderer>();
+        _buildingBase = GetComponent<BuildingBase>();
+        _hitAudio = GetComponent<AudioSource>();
+        if (!_hitAudio)
+        {
+            _hitAudio = gameObject.AddComponent<AudioSource>();
+            _hitAudio.playOnAwake = false;
+            _hitAudio.spatialBlend = 0f;
+        }
+    }
+
+    private void OnEnable()
+    {
+        // 预载受击音效（已缓存则跳过，避免每个建筑重复发起加载）。
+        if (ResourceManager.Instance != null && !string.IsNullOrEmpty(hitSoundKey) &&
+            ResourceManager.Instance.GetAudio(hitSoundKey) == null)
+        {
+            ResourceManager.Instance.LoadExtraResourceAsync<AudioClip>(hitSoundKey);
+        }
+    }
+
+    private void OnDisable()
+    {
+        // 池化回收/建筑失效：停止受击表现并恢复颜色与位置。
+        StopHitEffect();
     }
 
     /// <summary>
@@ -127,6 +174,8 @@ public class BuildingHealth : MonoBehaviour, ICollide
         // 未命中（目盲等）同样弹出 miss 跳字。
         if (d.missed)
             DamageTextPool.Instance.ShowMiss(transform.position + Vector3.up);
+        else
+            StartHitEffect();                      // 受击表现：闪红 + 左右剧烈晃动 + Construct-Hit 音效。
 
         return d;
     }
@@ -236,6 +285,117 @@ public class BuildingHealth : MonoBehaviour, ICollide
     }
     #endregion
 
+    #region 受击表现
+    /// <summary>
+    /// 启动受击表现：播放 Construct-Hit 音效、建筑本体闪红并左右剧烈晃动。
+    /// 连续受击时重开协程（刷新基准位置与计时）；拖拽预览中的建筑不晃动。
+    /// </summary>
+    private void StartHitEffect()
+    {
+        // 音效：经缓存音频源走 AudioManager 统一播放入口。
+        if (!string.IsNullOrEmpty(hitSoundKey) && ResourceManager.Instance != null &&
+            AudioManager.Instance != null && _hitAudio != null)
+        {
+            AudioClip clip = ResourceManager.Instance.GetAudio(hitSoundKey);
+            if (clip != null)
+            {
+                _hitAudio.clip = clip;
+                _hitAudio.volume = 1f;
+                _hitAudio.priority = 32;
+                AudioManager.Instance.PlayEffectAt(_hitAudio, (uint)_hitAudio.priority, transform);
+            }
+        }
+
+        // 闪红：记录受击前的原始颜色（不覆盖升级蓝/拆除红等既有着色），随后置为闪红色。
+        if (_bodyRenderer != null)
+        {
+            if (!_flashActive)
+            {
+                _flashOriginalColor = _bodyRenderer.color;
+                _flashActive = true;
+            }
+            _bodyRenderer.color = hitFlashColor;
+        }
+
+        // 晃动与闪红共用一个协程；连续受击时重开以刷新计时。
+        if (_hitEffectCoroutine != null)
+            StopCoroutine(_hitEffectCoroutine);
+        _hitEffectCoroutine = StartCoroutine(HitEffectCoroutine());
+    }
+
+    /// <summary>
+    /// 受击表现协程：衰减正弦驱动建筑左右晃动，闪红到时长后恢复原色，结束复位坐标。
+    /// </summary>
+    private IEnumerator HitEffectCoroutine()
+    {
+        _shakeBasePos = transform.position;
+        _shakeActive = true;
+        float elapsed = 0f;
+        float total = Mathf.Max(hitFlashDuration, shakeDuration);
+
+        while (elapsed < total)
+        {
+            elapsed += Time.deltaTime;
+
+            // 左右剧烈晃动（拖拽预览中跳过，避免与放置系统抢位移）。
+            if (_shakeActive && elapsed < shakeDuration &&
+                !(BuildingPlace.Instance != null && _buildingBase != null &&
+                  BuildingPlace.Instance.IsBuildingInPreview(_buildingBase)))
+            {
+                float t = elapsed / shakeDuration;
+                float damping = 1f - t;
+                float offsetX = Mathf.Sin(elapsed * shakeFrequency * 2f * Mathf.PI) *
+                                shakeAmplitude * damping;
+                transform.position = new Vector3(
+                    _shakeBasePos.x + offsetX, _shakeBasePos.y, _shakeBasePos.z);
+            }
+            else if (_shakeActive && elapsed >= shakeDuration)
+            {
+                transform.position = _shakeBasePos;
+                _shakeActive = false;
+            }
+
+            // 闪红结束恢复原始颜色。
+            if (_flashActive && elapsed >= hitFlashDuration)
+            {
+                if (_bodyRenderer != null)
+                    _bodyRenderer.color = _flashOriginalColor;
+                _flashActive = false;
+            }
+
+            yield return null;
+        }
+
+        StopHitEffectVisuals();
+        _hitEffectCoroutine = null;
+    }
+
+    /// <summary>恢复受击表现修改过的颜色与位置，并清除状态标记。</summary>
+    private void StopHitEffect()
+    {
+        if (_hitEffectCoroutine != null)
+        {
+            StopCoroutine(_hitEffectCoroutine);
+            _hitEffectCoroutine = null;
+        }
+        StopHitEffectVisuals();
+    }
+
+    private void StopHitEffectVisuals()
+    {
+        if (_shakeActive)
+        {
+            transform.position = _shakeBasePos;
+            _shakeActive = false;
+        }
+        if (_flashActive && _bodyRenderer != null)
+        {
+            _bodyRenderer.color = _flashOriginalColor;
+            _flashActive = false;
+        }
+    }
+    #endregion
+
     #region 血条显示辅助
     /// <summary>
     /// 根据当前生命值占最大生命值的比例更新前景血条横向缩放。
@@ -249,8 +409,17 @@ public class BuildingHealth : MonoBehaviour, ICollide
         if (prop == null)
             return;
 
+        // 首次记录前景条在预制体中的原始缩放（大本营血条为 0.7），血量比例只乘 X 轴，
+        // 满血时恰好等于原始尺寸，不会超出背景血条框。
+        if (!_hpBarBaseScaleCached)
+        {
+            _hpBarBaseScale = HpBarUp.transform.localScale;
+            _hpBarBaseScaleCached = true;
+        }
+
         float scaleX = prop.maxHp > 0 ? (float)hp / prop.maxHp : 0f;    // 血条横向填充比例。
-        HpBarUp.transform.localScale = new Vector3(scaleX, 1f, 1f);
+        HpBarUp.transform.localScale = new Vector3(
+            _hpBarBaseScale.x * scaleX, _hpBarBaseScale.y, _hpBarBaseScale.z);
     }
 
     /// <summary>

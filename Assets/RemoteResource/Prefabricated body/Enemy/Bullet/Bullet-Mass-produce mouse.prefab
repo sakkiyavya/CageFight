@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1909531030874728491}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.169, y: 0.474, z: 0.07063992}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -123,6 +123,8 @@ MonoBehaviour:
     side: 0
     initialDamage: 10
     finalDamage: 0
+    missed: 0
+    collideDir: 1
     repel: 0
     type: 0
     source: {fileID: 0}
@@ -132,6 +134,7 @@ MonoBehaviour:
   target: {fileID: 0}
   sustainTime: 0.2
   collideTimes: 1
+  hasSubProjectile: 0
 --- !u!114 &7370000000000000001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,4 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b15a110f7c2f764499d58539fdc6ed34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buffApplyTime: 0
   duration: 5
+  tickInterval: 1
+  baseDamage: 10
+  damageType: 0
