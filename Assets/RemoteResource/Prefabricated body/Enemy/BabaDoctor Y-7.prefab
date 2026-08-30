@@ -147,7 +147,7 @@ MonoBehaviour:
   magicAtk: 0
   repel: 5
   antiRepel: 15
-  atkRange: {x: 7, y: 4}
+  atkRange: {x: 8, y: 6}
   atkObj: 
   damageMultiplier: 1
   damageTakenMultiplier: 1
@@ -177,7 +177,7 @@ MonoBehaviour:
   atkRangeMax: {x: 11, y: -13}
   currentBuff: []
   currentDebuff: []
-  occupySpace: {x: 3, y: 2}
+  occupySpace: {x: 4, y: 2}
   buildAnime: 
 --- !u!114 &1747031205071431570
 MonoBehaviour:
@@ -281,7 +281,7 @@ MonoBehaviour:
   - attackName: C
     cooldown: 10
     damagePercent: 10
-    hpBelowPercent: 0
+    hpBelowPercent: 75
     hpAbovePercent: 0
     requiresFlag: 
     clearFlagOnFire: 0
@@ -489,7 +489,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.32959986, y: 6.8211, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 0.8, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1986436097164946962}
