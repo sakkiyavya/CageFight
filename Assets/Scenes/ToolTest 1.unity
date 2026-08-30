@@ -224,6 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1801013612}
   definitionId: hundred_years_ice
+  prefabKey: 
   icon: {fileID: 18729883}
   portraitFrame: {fileID: 1068013817}
   selectedMarker: {fileID: 1089571060}
@@ -281,79 +282,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18729879}
   m_CullTransparentMesh: 1
---- !u!1001 &20164295
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1986436097164946962, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -29.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 1986436097164946962, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -97.86
-      objectReference: {fileID: 0}
-    - target: {fileID: 1986436097164946962, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1986436097164946962, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1986436097164946962, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1986436097164946962, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1986436097164946962, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1986436097164946962, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1986436097164946962, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1986436097164946962, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2169928049467925093, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: m_Name
-      value: BabaDoctor Y-7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8073651272944047338, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: atkRangeMax.x
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8073651272944047338, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: atkRangeMax.y
-      value: -91
-      objectReference: {fileID: 0}
-    - target: {fileID: 8073651272944047338, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: atkRangeMin.x
-      value: -26
-      objectReference: {fileID: 0}
-    - target: {fileID: 8073651272944047338, guid: 4d23ba769709db943978e5151121fda2, type: 3}
-      propertyPath: atkRangeMin.y
-      value: -94
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4d23ba769709db943978e5151121fda2, type: 3}
 --- !u!1 &33660743
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1801013612}
   definitionId: crowbar
+  prefabKey: 
   icon: {fileID: 83323667}
   portraitFrame: {fileID: 2145598268}
   selectedMarker: {fileID: 857310131}
@@ -2160,6 +2089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1611511541}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 212557361}
   portraitFrame: {fileID: 1737688759}
   selectedMarker: {fileID: 524792636}
@@ -4042,6 +3972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1611511541}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 407880170}
   portraitFrame: {fileID: 1676069441}
   selectedMarker: {fileID: 529283537}
@@ -4154,6 +4085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1387943500}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 410473493}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 80060083}
@@ -5270,7 +5202,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: TextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextText
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4c02846d6e1b6fa4ca576ae9ffb61c04, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5334,7 +5266,7 @@ MonoBehaviour:
   m_margin: {x: -641.3875, y: 0, z: -659.5975, w: -159.84108}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &539948404
@@ -5883,6 +5815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1611511541}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 645779213}
   portraitFrame: {fileID: 1822764317}
   selectedMarker: {fileID: 2039685297}
@@ -5961,51 +5894,6 @@ RectTransform:
   m_AnchoredPosition: {x: 160, y: -180}
   m_SizeDelta: {x: 376, y: 377}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &645801945
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 645801946}
-  - component: {fileID: 645801947}
-  m_Layer: 0
-  m_Name: GameOverState
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &645801946
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 645801945}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1216581800}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &645801947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 645801945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70ccff7445a32e44ba42f9c6ae9a75b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stateModules: []
 --- !u!1 &648800497
 GameObject:
   m_ObjectHideFlags: 0
@@ -6331,6 +6219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1611511541}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 686697679}
   portraitFrame: {fileID: 580594186}
   selectedMarker: {fileID: 1313381404}
@@ -6654,6 +6543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1611511541}
   definitionId: mouse_engineer_1
+  prefabKey: 
   icon: {fileID: 724083389}
   portraitFrame: {fileID: 994131706}
   selectedMarker: {fileID: 2099566879}
@@ -7393,6 +7283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1611511541}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 812933503}
   portraitFrame: {fileID: 2110689012}
   selectedMarker: {fileID: 2025448703}
@@ -8223,6 +8114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1387943500}
   definitionId: mouse_race_1
+  prefabKey: 
   icon: {fileID: 877118040}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 393772705}
@@ -8638,6 +8530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1571671869}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 926640452}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 521054353}
@@ -10418,6 +10311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1571671869}
   definitionId: hundred_years_ice
+  prefabKey: 
   icon: {fileID: 1097776038}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 1307258260}
@@ -10676,6 +10570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1571671869}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 1119475213}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 782550016}
@@ -10862,6 +10757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1571671869}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 1141129508}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 82620673}
@@ -11083,6 +10979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1571671869}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 1163443703}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 598998508}
@@ -11357,6 +11254,7 @@ GameObject:
   - component: {fileID: 1216581800}
   - component: {fileID: 1216581802}
   - component: {fileID: 1216581801}
+  - component: {fileID: 1216581803}
   m_Layer: 0
   m_Name: SceneFSM
   m_TagString: Untagged
@@ -11381,7 +11279,6 @@ Transform:
   - {fileID: 659272912}
   - {fileID: 1656837028}
   - {fileID: 2079413640}
-  - {fileID: 645801946}
   m_Father: {fileID: 1328006036}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1216581801
@@ -11400,7 +11297,7 @@ MonoBehaviour:
   stageSelectState: {fileID: 659272913}
   loadingState: {fileID: 1656837029}
   gameplayState: {fileID: 2079413641}
-  gameOverState: {fileID: 645801947}
+  gameOverState: {fileID: 0}
 --- !u!114 &1216581802
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -11411,6 +11308,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be093fd393322994f83442f937bc3a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1216581803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216581799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b646ebaf017489a8de0d8e0b9a9c35f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1239979461
@@ -11447,6 +11356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1387943500}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 1239979464}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 666623739}
@@ -12359,6 +12269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1826472072}
   definitionId: mouse_race_1
+  prefabKey: 
   icon: {fileID: 1299108444}
   portraitFrame: {fileID: 1929283838}
   selectedMarker: {fileID: 337793954}
@@ -12907,7 +12818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    schemaVersion: 4
+    schemaVersion: 5
     defenseMagicLevel: 0
     attackMagicLevel: 0
     barracksLevel: 0
@@ -12922,6 +12833,7 @@ MonoBehaviour:
     selectedRaceId: 
     selectedSpellSlot1Id: 
     selectedSpellSlot2Id: 
+    selectedRaceMainBasePrefabKey: 
 --- !u!114 &1331473807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13905,6 +13817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1439116644}
   definitionId: mouse_engineer_1
+  prefabKey: 
   icon: {fileID: 1469849323}
   portraitFrame: {fileID: 1826356536}
   selectedMarker: {fileID: 1784947184}
@@ -14574,38 +14487,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561673516}
   m_CullTransparentMesh: 1
---- !u!1 &1563392338
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1563392339}
-  - component: {fileID: 1811170002}
-  m_Layer: 0
-  m_Name: FightText
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1563392339
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563392338}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -145.64723, y: -0.94603854, z: -1.393006}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1571671868
 GameObject:
   m_ObjectHideFlags: 0
@@ -14758,6 +14639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1611511541}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 1599633320}
   portraitFrame: {fileID: 854691660}
   selectedMarker: {fileID: 101299173}
@@ -15251,6 +15133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1571671869}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 1617168797}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 1790655476}
@@ -16235,6 +16118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1387943500}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 1726270164}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 1142014342}
@@ -16970,6 +16854,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1571671869}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 1764413981}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 832997864}
@@ -17328,34 +17213,6 @@ MonoBehaviour:
   rowRightEdge: 1333.6667
   slotGap: 44
   triangleOffset: 20
---- !u!114 &1811170002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563392338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c353bbe62eea83429af0467a818bc74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingButtons:
-  - {fileID: 1737656273}
-  - {fileID: 1248872374}
-  - {fileID: 743823194}
-  mousePrefabs:
-  - {fileID: 3819307729446916852, guid: 6529a6431e6fd12479dd239d1c67a623, type: 3}
-  - {fileID: 6645265963449686121, guid: 28ca6f3b00915b24dad5e4aab9637a0f, type: 3}
-  - {fileID: 4528404349138767949, guid: 1794f8b5e3354fb4e87dcbd3baec1ae1, type: 3}
-  catPrefabs:
-  - {fileID: 4058234059512340190, guid: ed9e1cf2af99fd947bb72fad8dc60bf1, type: 3}
-  - {fileID: 5760018331020869139, guid: 218cdb5eae116944bb42893026c8441e, type: 3}
-  - {fileID: 8572516371017036780, guid: d72ea1d62a8308d499bbccc18ff0a0d4, type: 3}
-  r1: {fileID: 0}
-  r2: {fileID: 0}
-  raceText: {fileID: 0}
-  sideText: {fileID: 0}
 --- !u!1 &1817405063
 GameObject:
   m_ObjectHideFlags: 0
@@ -17450,6 +17307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1387943500}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 1820979883}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 1640105449}
@@ -20349,6 +20207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1387943500}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 2081166416}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 1626710698}
@@ -20461,6 +20320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1611511541}
   definitionId: 
+  prefabKey: 
   icon: {fileID: 2097117053}
   portraitFrame: {fileID: 1442918756}
   selectedMarker: {fileID: 1943618097}
@@ -20685,6 +20545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1571671869}
   definitionId: crowbar
+  prefabKey: 
   icon: {fileID: 2100950932}
   portraitFrame: {fileID: 0}
   selectedMarker: {fileID: 2106475211}
@@ -21443,63 +21304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc94f53264c618438dfdea3580032c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &2901253210438561042
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 653204256014866306, guid: 6a679f8d6e1fb9b4f8f5dcfea2574795, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -24.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 653204256014866306, guid: 6a679f8d6e1fb9b4f8f5dcfea2574795, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -95.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 653204256014866306, guid: 6a679f8d6e1fb9b4f8f5dcfea2574795, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.07063992
-      objectReference: {fileID: 0}
-    - target: {fileID: 653204256014866306, guid: 6a679f8d6e1fb9b4f8f5dcfea2574795, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 653204256014866306, guid: 6a679f8d6e1fb9b4f8f5dcfea2574795, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 653204256014866306, guid: 6a679f8d6e1fb9b4f8f5dcfea2574795, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 653204256014866306, guid: 6a679f8d6e1fb9b4f8f5dcfea2574795, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 653204256014866306, guid: 6a679f8d6e1fb9b4f8f5dcfea2574795, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 653204256014866306, guid: 6a679f8d6e1fb9b4f8f5dcfea2574795, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 653204256014866306, guid: 6a679f8d6e1fb9b4f8f5dcfea2574795, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6232159242274623743, guid: 6a679f8d6e1fb9b4f8f5dcfea2574795, type: 3}
-      propertyPath: m_Name
-      value: Bullet-BabaDoctor Y-7
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6a679f8d6e1fb9b4f8f5dcfea2574795, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -21514,6 +21318,3 @@ SceneRoots:
   - {fileID: 354871250}
   - {fileID: 1979090126}
   - {fileID: 12436354}
-  - {fileID: 1563392339}
-  - {fileID: 2901253210438561042}
-  - {fileID: 20164295}

@@ -42,6 +42,17 @@ public class Move : BehaviourBase
 
         // 获取路径中的下一个格点
         _nextCell = prop.path[0];
+
+        // 下一步目标格已被任意对象占用时，放弃当前追击与旧路径，避免继续撞入占地。
+        MapCells mapCells = MapCells.Instance;
+        if (mapCells != null && mapCells.IsUse(_nextCell))
+        {
+            prop.target = null;
+            prop.path.Clear();
+            prop.currentPathSession = null;
+            return false;
+        }
+
         // 计算格点中心的世界坐标 (0.5f 偏移)
         _targetWorldPos.x = _nextCell.x + 0.5f;
         _targetWorldPos.y = _nextCell.y + 0.5f;

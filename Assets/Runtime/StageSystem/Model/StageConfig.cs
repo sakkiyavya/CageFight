@@ -24,6 +24,12 @@ public class StageConfig : ScriptableObject
     [FormerlySerializedAs("levelId")]
     public int stageId;                                                    // 用于存档、选关和运行时寻址的关卡唯一编号。
 
+    [Tooltip("关卡玩法类型")]
+    public UserGlobalInfo.StageType stageType;
+
+    [Tooltip("防守关卡时限（秒）")]
+    public float DefenseTime;
+
     [Tooltip("Stage icon.")]
     public Sprite icon;                                                    // 选关界面用于展示该关卡的图标。
 

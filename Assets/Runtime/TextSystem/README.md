@@ -21,7 +21,7 @@
 
 ## 资源约定
 
-人物立绘通过 `Sprite Key` 从 `ResourceManager` 的当前关卡预加载缓存获取。所有对话人物 Key 必须由关卡加载逻辑加入对应的 `StageConfig.sprites`。
+人物立绘通过 `Sprite Key` 从 `ResourceManager` 的当前关卡预加载缓存获取。非空的对话人物 Key 必须由关卡加载逻辑加入对应的 `StageConfig.sprites`；Key 留空时不加载资源，`Image` 使用 Unity UI 内建白色纹理。
 
 > StageConfig 的“扫描场景资源 Key”和新关卡导出会递归进入关卡物品组件引用的 `DialogueSeriesSO` / `DialogueConfigSO`，并自动把人物 Key 加入 `StageConfig.sprites`。对应对话资产必须能从某个 `StageObjectMarker` 物品的序列化字段到达；扫描器不会把项目里的全部对话资产无差别加入每个关卡。
 

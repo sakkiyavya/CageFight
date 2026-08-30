@@ -14,8 +14,23 @@ public sealed class UserGlobalInfo : MonoBehaviour
 
     public static UserGlobalInfo Instance { get; private set; }
 
+    #region 需要序列化的字段
     [Header("玩家全局信息")]
     [SerializeField] private UserGlobalInfoData data = new UserGlobalInfoData();
+    #endregion
+
+    #region 不需要序列化的字段
+    private StageType currentStageType;
+    #endregion
+
+    /// <summary>
+    /// 当前关卡的玩法类型。
+    /// </summary>
+    public enum StageType
+    {
+        Defense,
+        Attack
+    }
 
     private UserGlobalInfoData Data
     {
@@ -42,6 +57,7 @@ public sealed class UserGlobalInfo : MonoBehaviour
     public string SelectedSpellSlot1Id => Data.selectedSpellSlot1Id;
     public string SelectedSpellSlot2Id => Data.selectedSpellSlot2Id;
     public string SelectedRaceMainBasePrefabKey => Data.selectedRaceMainBasePrefabKey;
+    public StageType CurrentStageType => currentStageType;
 
     /// <summary>
     /// 任意一项信息被修改、成功导入 JSON 或重置后触发。
@@ -80,6 +96,14 @@ public sealed class UserGlobalInfo : MonoBehaviour
     #endregion
 
     #region 信息修改
+    /// <summary>
+    /// 设置本局关卡类型。该信息仅在运行时传递给关卡内组件，不参与存档。
+    /// </summary>
+    public void SetCurrentStageType(StageType stageType)
+    {
+        currentStageType = stageType;
+    }
+
     public bool SetDefenseMagicLevel(int value)
     {
         EnsureDataExists();

@@ -65,7 +65,7 @@ public class FindEnemy : BehaviourBase
     #region 游戏逻辑
     /// <summary>
     /// 从完成的扫描会话中排除自身和同阵营对象，按曼哈顿距离排序，
-    /// 再从最近的最多三个候选中随机选择一个作为目标。
+    /// 并选择最近的敌方对象作为目标。
     /// </summary>
     /// <param name="self">正在选择目标的角色对象。</param>
     /// <param name="prop">提供阵营、扫描结果并接收最终目标的角色属性。</param>
@@ -96,9 +96,7 @@ public class FindEnemy : BehaviourBase
             // 按曼哈顿距离排序
             _enemiesCache.Sort(SortByDistance);
 
-            int count = Mathf.Min(3, _enemiesCache.Count);                                                                                                    // 可参与随机选择的最近候选数量。
-            GameObjectProperty targetProp = _enemiesCache[Random.Range(0, count)];                                                                            // 随机选中的敌方属性。
-            prop.target = targetProp.gameObject;
+            prop.target = _enemiesCache[0].gameObject;                                                                                                        // 排序后的第一个候选即最近敌方对象。
             
             // Debug.Log($"[FindEnemy] 索敌成功，锁定目标: {prop.target.name}");
         }

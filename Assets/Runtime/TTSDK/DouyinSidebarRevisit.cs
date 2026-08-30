@@ -25,6 +25,9 @@ public sealed class DouyinSidebarRevisit : MonoBehaviour
 
     public static DouyinSidebarRevisit Instance { get; private set; }
 
+    /// <summary>TTSDK 是否已初始化完成，可供其他抖音能力安全调用。</summary>
+    public bool IsSdkInitialized => _sdkInitialized;
+
     /// <summary>当前宿主是否支持首页侧边栏入口。</summary>
     public bool IsSidebarSupported { get; private set; }
 

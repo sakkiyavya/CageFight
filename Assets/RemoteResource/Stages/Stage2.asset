@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Stage2
   m_EditorClassIdentifier: 
   stageId: 2
+  stageType: 0
+  DefenseTime: 0
   icon: {fileID: 0}
   objects:
   - instanceId: 1000
@@ -147,6 +149,8 @@ MonoBehaviour:
     - rid: 9182622199686889517
     - rid: 9182622199686889518
     - rid: 9182622199686889519
+  hasFriendlyMainBaseGridPosition: 0
+  friendlyMainBaseGridPosition: {x: 0, y: 0}
   prefabs:
   - Miaosuan
   - Bullet-Miaosuan

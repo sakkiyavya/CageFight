@@ -89,7 +89,8 @@ public sealed class DialogueView : Graphic, IPointerClickHandler
         if (portraitImage != null)
         {
             portraitImage.sprite = portrait;
-            portraitImage.enabled = portrait != null;
+            // Image.sprite == null 时由 Graphic 使用内建白色纹理绘制。
+            portraitImage.enabled = true;
         }
 
         if (dialogueText != null)

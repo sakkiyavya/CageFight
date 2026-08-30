@@ -340,48 +340,56 @@ public sealed class DialogueManager : MonoBehaviour
         if (_currentConfig == null)
             State = DialogueState.WaitingForResources;
 
-        ResourceManager resourceManager = null;
-        float waitStartedAt = Time.realtimeSinceStartup;
-        while (IsStillDesired(capturedConfig, capturedId))
-        {
-            resourceManager = ResourceManager.Instance;
-            if (resourceManager != null && resourceManager.CurrentState == ResourceState.LoadComplete)
-                break;
+        string spriteKey = capturedConfig.PortraitSpriteKey;
+        Sprite portrait = null;
 
-            if (resourceWaitTimeout > 0f &&
-                Time.realtimeSinceStartup - waitStartedAt >= resourceWaitTimeout)
+        // Image 在 Sprite 为空但保持启用时会使用 Unity UI 内建的白色纹理，
+        // 因而空 Key 不需要等待或查询 ResourceManager。
+        if (!string.IsNullOrWhiteSpace(spriteKey))
+        {
+            ResourceManager resourceManager = null;
+            float waitStartedAt = Time.realtimeSinceStartup;
+            while (IsStillDesired(capturedConfig, capturedId))
+            {
+                resourceManager = ResourceManager.Instance;
+                if (resourceManager != null && resourceManager.CurrentState == ResourceState.LoadComplete)
+                    break;
+
+                if (resourceWaitTimeout > 0f &&
+                    Time.realtimeSinceStartup - waitStartedAt >= resourceWaitTimeout)
+                {
+                    RejectDesired(
+                        capturedConfig,
+                        capturedId,
+                        $"等待关卡资源预加载完成超过 {resourceWaitTimeout:0.##} 秒");
+                    yield break;
+                }
+
+                yield return null;
+            }
+
+            if (!IsStillDesired(capturedConfig, capturedId))
+            {
+                if (_currentConfig == null)
+                    State = DialogueState.Hidden;
+                yield break;
+            }
+
+            portrait = resourceManager.GetSprite(spriteKey);
+            if (portrait == null)
             {
                 RejectDesired(
                     capturedConfig,
                     capturedId,
-                    $"等待关卡资源预加载完成超过 {resourceWaitTimeout:0.##} 秒");
+                    $"未在当前关卡预加载缓存中找到 Sprite Key：{spriteKey}");
                 yield break;
             }
-
-            yield return null;
         }
 
         if (!IsStillDesired(capturedConfig, capturedId))
         {
             if (_currentConfig == null)
                 State = DialogueState.Hidden;
-            yield break;
-        }
-
-        string spriteKey = capturedConfig.PortraitSpriteKey;
-        if (string.IsNullOrWhiteSpace(spriteKey))
-        {
-            RejectDesired(capturedConfig, capturedId, "人物 Sprite Key 为空");
-            yield break;
-        }
-
-        Sprite portrait = resourceManager.GetSprite(spriteKey);
-        if (portrait == null)
-        {
-            RejectDesired(
-                capturedConfig,
-                capturedId,
-                $"未在当前关卡预加载缓存中找到 Sprite Key：{spriteKey}");
             yield break;
         }
 

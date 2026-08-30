@@ -21,6 +21,9 @@ public class GameplayState : SceneStateBase
     /// <returns>局内状态的进入协程。</returns>
     protected override IEnumerator OnEnter()
     {
+        if (GameOverManager.Instance != null)
+            GameOverManager.Instance.ResetGameOverState();
+
         // 进入局内：切换关卡背景音乐（经音频框架统一入口，淡入淡出循环）。
         if (AudioManager.Instance != null)
             AudioManager.Instance.PlayMusic(bgmKey, bgmVolume);

@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewDialogueConfig", menuName = "TextSystem/Dialogue Config")]
 public sealed class DialogueConfigSO : ScriptableObject
 {
-    [Tooltip("人物立绘的 Sprite 资源 Key。该资源必须已由当前关卡预加载。")]
+    [Tooltip("人物立绘的 Sprite 资源 Key。留空时使用 Unity UI 内建白色纹理；非空资源必须已由当前关卡预加载。")]
     [SerializeField, ResourceKey(typeof(Sprite))]
     private string portraitSpriteKey;
 
