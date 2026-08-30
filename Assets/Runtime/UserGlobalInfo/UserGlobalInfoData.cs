@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 [Serializable]
 public sealed class UserGlobalInfoData
 {
-    public const int CurrentSchemaVersion = 4;
+    public const int CurrentSchemaVersion = 5;
 
     [HideInInspector]
     public int schemaVersion = CurrentSchemaVersion;
@@ -35,4 +35,7 @@ public sealed class UserGlobalInfoData
     public string selectedRaceId = string.Empty;
     public string selectedSpellSlot1Id = string.Empty;
     public string selectedSpellSlot2Id = string.Empty;
+
+    [Header("种族大本营（选装界面配置的预制体 Key）")]
+    public string selectedRaceMainBasePrefabKey = string.Empty;
 }

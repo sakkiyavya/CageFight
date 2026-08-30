@@ -21,6 +21,11 @@ public sealed class PlayerLoadoutManager : MonoBehaviour
     public bool IsReady => userGlobalInfo && (!persistence || persistence.IsLoaded) &&
         ResourceManager.Instance && ResourceManager.Instance.IsLoadoutRegistryReady;
 
+    /// <summary>当前所选种族在选装界面配置的大本营预制体 Key；未配置时为空。</summary>
+    public string SelectedRaceMainBasePrefabKey => userGlobalInfo
+        ? userGlobalInfo.SelectedRaceMainBasePrefabKey
+        : string.Empty;
+
     private void Awake()
     {
         if (!userGlobalInfo) userGlobalInfo = UserGlobalInfo.Instance;
@@ -58,14 +63,21 @@ public sealed class PlayerLoadoutManager : MonoBehaviour
     }
 
     /// <summary>将种族选择写回全局 ID，不在场景对象上保存副本。</summary>
-    public bool SelectRace(RaceDefinition definition)
+    public bool SelectRace(RaceDefinition definition) => SelectRace(definition, string.Empty);
+
+    /// <summary>
+    /// 将种族选择及其按钮配置的大本营预制体 Key 一并写回全局数据。
+    /// 大本营 Key 属于选装配置快照，而非 <see cref="RaceDefinition"/> 的静态定义数据。
+    /// </summary>
+    public bool SelectRace(RaceDefinition definition, string mainBasePrefabKey)
     {
         if (!definition || string.IsNullOrWhiteSpace(definition.Id) || !IsReady) return false;
         return userGlobalInfo.SetLoadoutSelection(
             userGlobalInfo.SelectedEngineerId,
             definition.Id,
             userGlobalInfo.SelectedSpellSlot1Id,
-            userGlobalInfo.SelectedSpellSlot2Id);
+            userGlobalInfo.SelectedSpellSlot2Id,
+            mainBasePrefabKey);
     }
 
     /// <summary>将可选法术写入指定槽位；0、1 分别对应局内第二、第三格。</summary>
@@ -180,6 +192,12 @@ public sealed class PlayerLoadoutManager : MonoBehaviour
 
         if (TryGetSelectedRace(out RaceDefinition race))
             yield return ResourceManager.Instance.LoadRegisteredGameObject(race.RuntimeEffectPrefabKey);
+
+        if (!string.IsNullOrWhiteSpace(SelectedRaceMainBasePrefabKey))
+        {
+            yield return ResourceManager.Instance.PreloadGameObjectWithDependencies(
+                SelectedRaceMainBasePrefabKey);
+        }
 
         for (int slot = 1; slot < 3; slot++)
             if (TryGetGameplaySpell(slot, out SpellDefinition spell))

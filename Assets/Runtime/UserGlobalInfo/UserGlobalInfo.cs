@@ -41,6 +41,7 @@ public sealed class UserGlobalInfo : MonoBehaviour
     public string SelectedRaceId => Data.selectedRaceId;
     public string SelectedSpellSlot1Id => Data.selectedSpellSlot1Id;
     public string SelectedSpellSlot2Id => Data.selectedSpellSlot2Id;
+    public string SelectedRaceMainBasePrefabKey => Data.selectedRaceMainBasePrefabKey;
 
     /// <summary>
     /// 任意一项信息被修改、成功导入 JSON 或重置后触发。
@@ -176,8 +177,7 @@ public sealed class UserGlobalInfo : MonoBehaviour
     }
 
     /// <summary>
-    /// 原子地写入工程师、种族和两个自选法术的稳定 ID。
-    /// 空字符串表示尚未选择；资源对象本身不得写入全局存档。
+    /// 原子地写入工程师、种族和两个自选法术的稳定 ID，并保留现有种族大本营 Key。
     /// </summary>
     public bool SetLoadoutSelection(
         string engineerId,
@@ -185,17 +185,38 @@ public sealed class UserGlobalInfo : MonoBehaviour
         string spellSlot1Id,
         string spellSlot2Id)
     {
+        return SetLoadoutSelection(
+            engineerId,
+            raceId,
+            spellSlot1Id,
+            spellSlot2Id,
+            Data.selectedRaceMainBasePrefabKey);
+    }
+
+    /// <summary>
+    /// 原子地写入工程师、种族、两个自选法术及所选种族大本营的预制体 Key。
+    /// 大本营 Key 来自选装界面配置，空字符串表示该种族当前不生成大本营。
+    /// </summary>
+    public bool SetLoadoutSelection(
+        string engineerId,
+        string raceId,
+        string spellSlot1Id,
+        string spellSlot2Id,
+        string raceMainBasePrefabKey)
+    {
         EnsureDataExists();
 
         engineerId = NormalizeLoadoutId(engineerId);
         raceId = NormalizeLoadoutId(raceId);
         spellSlot1Id = NormalizeLoadoutId(spellSlot1Id);
         spellSlot2Id = NormalizeLoadoutId(spellSlot2Id);
+        raceMainBasePrefabKey = NormalizeLoadoutId(raceMainBasePrefabKey);
         if (!AreLoadoutIdsValid(
                 engineerId,
                 raceId,
                 spellSlot1Id,
                 spellSlot2Id,
+                raceMainBasePrefabKey,
                 out string error))
         {
             Debug.LogWarning($"[UserGlobalInfo] {error}", this);
@@ -205,13 +226,15 @@ public sealed class UserGlobalInfo : MonoBehaviour
         if (data.selectedEngineerId == engineerId &&
             data.selectedRaceId == raceId &&
             data.selectedSpellSlot1Id == spellSlot1Id &&
-            data.selectedSpellSlot2Id == spellSlot2Id)
+            data.selectedSpellSlot2Id == spellSlot2Id &&
+            data.selectedRaceMainBasePrefabKey == raceMainBasePrefabKey)
             return false;
 
         data.selectedEngineerId = engineerId;
         data.selectedRaceId = raceId;
         data.selectedSpellSlot1Id = spellSlot1Id;
         data.selectedSpellSlot2Id = spellSlot2Id;
+        data.selectedRaceMainBasePrefabKey = raceMainBasePrefabKey;
         Changed?.Invoke();
         return true;
     }
@@ -364,6 +387,14 @@ public sealed class UserGlobalInfo : MonoBehaviour
                     candidate.schemaVersion = 4;
                     break;
 
+                // 版本 5 新增由选装按钮配置的种族大本营预制体 Key。
+                // 旧存档缺少该字段时保留空字符串，避免未配置的位置意外生成大本营。
+                case 4:
+                    candidate.selectedRaceMainBasePrefabKey =
+                        NormalizeLoadoutId(candidate.selectedRaceMainBasePrefabKey);
+                    candidate.schemaVersion = 5;
+                    break;
+
                 // 后续提升 CurrentSchemaVersion 时，必须在这里补充逐版本迁移分支。
                 default:
                     error = $"缺少从存档版本 {candidate.schemaVersion} 开始的迁移逻辑。";
@@ -380,6 +411,8 @@ public sealed class UserGlobalInfo : MonoBehaviour
         candidate.selectedRaceId = NormalizeLoadoutId(candidate.selectedRaceId);
         candidate.selectedSpellSlot1Id = NormalizeLoadoutId(candidate.selectedSpellSlot1Id);
         candidate.selectedSpellSlot2Id = NormalizeLoadoutId(candidate.selectedSpellSlot2Id);
+        candidate.selectedRaceMainBasePrefabKey =
+            NormalizeLoadoutId(candidate.selectedRaceMainBasePrefabKey);
 
         if (candidate.defenseMagicLevel < 0)
         {
@@ -443,6 +476,7 @@ public sealed class UserGlobalInfo : MonoBehaviour
                 candidate.selectedRaceId,
                 candidate.selectedSpellSlot1Id,
                 candidate.selectedSpellSlot2Id,
+                candidate.selectedRaceMainBasePrefabKey,
                 out error))
             return false;
 
@@ -489,6 +523,8 @@ public sealed class UserGlobalInfo : MonoBehaviour
         data.selectedRaceId = NormalizeLoadoutId(data.selectedRaceId);
         data.selectedSpellSlot1Id = NormalizeLoadoutId(data.selectedSpellSlot1Id);
         data.selectedSpellSlot2Id = NormalizeLoadoutId(data.selectedSpellSlot2Id);
+        data.selectedRaceMainBasePrefabKey =
+            NormalizeLoadoutId(data.selectedRaceMainBasePrefabKey);
     }
 
     private static string NormalizeLoadoutId(string value) => (value ?? string.Empty).Trim();
@@ -498,14 +534,16 @@ public sealed class UserGlobalInfo : MonoBehaviour
         string raceId,
         string spellSlot1Id,
         string spellSlot2Id,
+        string raceMainBasePrefabKey,
         out string error)
     {
         if (!IsLoadoutIdValid(engineerId) ||
             !IsLoadoutIdValid(raceId) ||
             !IsLoadoutIdValid(spellSlot1Id) ||
-            !IsLoadoutIdValid(spellSlot2Id))
+            !IsLoadoutIdValid(spellSlot2Id) ||
+            !IsLoadoutIdValid(raceMainBasePrefabKey))
         {
-            error = $"出战选择 ID 可以为空，但不得超过 {MaxLoadoutIdLength} 个字符。";
+            error = $"出战选择 ID 和大本营预制体 Key 可以为空，但不得超过 {MaxLoadoutIdLength} 个字符。";
             return false;
         }
 

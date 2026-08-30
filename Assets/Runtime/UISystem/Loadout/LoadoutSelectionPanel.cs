@@ -103,7 +103,13 @@ public sealed class LoadoutSelectionPanel : UISystemBase
     }
 
     /// <summary>由预置候选按钮调用，将该稳定 ID 写入当前选择槽。</summary>
-    public void Select(string definitionId)
+    public void Select(string definitionId) => Select(definitionId, string.Empty);
+
+    /// <summary>
+    /// 由预置候选按钮调用，将稳定 ID 与其种族大本营预制体 Key 写入当前选择槽。
+    /// 非种族选项会忽略 <paramref name="raceMainBasePrefabKey"/>。
+    /// </summary>
+    public void Select(string definitionId, string raceMainBasePrefabKey)
     {
         if (!loadout || !loadout.IsReady || string.IsNullOrWhiteSpace(definitionId)) return;
 
@@ -116,7 +122,7 @@ public sealed class LoadoutSelectionPanel : UISystemBase
             LoadoutSelectionKind.Race =>
                 ResourceManager.Instance &&
                 ResourceManager.Instance.TryGetRace(definitionId, out RaceDefinition race) &&
-                loadout.SelectRace(race),
+                loadout.SelectRace(race, raceMainBasePrefabKey),
             LoadoutSelectionKind.Spell =>
                 ResourceManager.Instance &&
                 ResourceManager.Instance.TryGetSpell(definitionId, out SpellDefinition spell) &&

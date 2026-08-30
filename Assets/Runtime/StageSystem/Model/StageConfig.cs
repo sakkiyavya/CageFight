@@ -33,6 +33,13 @@ public class StageConfig : ScriptableObject
     [Tooltip("该关卡内包含的所有物体数据集合")]
     public List<StageObjectData> objects = new List<StageObjectData>();    // 进入关卡时需要实例化的全部对象数据。
 
+    [Header("己方大本营")]
+    [Tooltip("启用后，在该网格左下基准位置生成玩家所选种族的大本营。保持关闭可兼容旧关卡配置。")]
+    public bool hasFriendlyMainBaseGridPosition;
+
+    [Tooltip("己方大本营占用区域左下角的网格坐标；运行时会按实际占地尺寸换算为预制体中心位置。")]
+    public Vector2Int friendlyMainBaseGridPosition;
+
     [Tooltip("预制体资源 Key 清单")]
     public List<string> prefabs = new List<string>();                      // 本关卡依赖的预制体资源键集合。
 

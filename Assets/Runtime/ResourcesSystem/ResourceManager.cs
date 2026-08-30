@@ -6,6 +6,8 @@ using UnityEngine.Serialization;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -771,6 +773,281 @@ public class ResourceManager : MonoBehaviour
 
     #region 额外资源加载
     /// <summary>
+    /// 预载指定预制体，以及该预制体和其子物体序列化数据中所有标记了
+    /// <see cref="ResourceKeyAttribute"/> 的资源键。GameObject 类型的依赖会继续递归扫描，
+    /// 用于保证不在 StageConfig 内的运行时预制体也能在实例化前取得完整资源缓存。
+    /// </summary>
+    /// <param name="prefabKey">PrefabRegistry 键或 Addressables 键。</param>
+    public IEnumerator PreloadGameObjectWithDependencies(string prefabKey)
+    {
+        if (string.IsNullOrWhiteSpace(prefabKey))
+            yield break;
+
+        var pending = new Queue<ResourceDependency>();
+        var visited = new HashSet<ResourceDependency>();
+        pending.Enqueue(new ResourceDependency(typeof(GameObject), prefabKey));
+
+        while (pending.Count > 0)
+        {
+            ResourceDependency dependency = pending.Dequeue();
+            if (!visited.Add(dependency))
+                continue;
+
+            yield return CoLoadResourceDependency(dependency);
+
+            if (dependency.ResourceType != typeof(GameObject))
+                continue;
+
+            GameObject prefab = GetGameObject(dependency.Key);
+            if (prefab != null)
+                QueuePrefabResourceDependencies(prefab, pending);
+        }
+    }
+
+    /// <summary>按资源类型加载单项依赖；所有成功加载的资源都会进入当前关卡缓存。</summary>
+    private IEnumerator CoLoadResourceDependency(ResourceDependency dependency)
+    {
+        if (dependency.ResourceType == typeof(GameObject))
+            yield return CoLoadExtraResource<GameObject>(dependency.Key, null);
+        else if (dependency.ResourceType == typeof(AudioClip))
+            yield return CoLoadExtraResource<AudioClip>(dependency.Key, null);
+        else if (dependency.ResourceType == typeof(Texture2D))
+            yield return CoLoadExtraResource<Texture2D>(dependency.Key, null);
+        else if (dependency.ResourceType == typeof(AnimationClip))
+            yield return CoLoadExtraResource<AnimationClip>(dependency.Key, null);
+        else if (dependency.ResourceType == typeof(RuntimeAnimatorController))
+            yield return CoLoadExtraResource<RuntimeAnimatorController>(dependency.Key, null);
+        else if (dependency.ResourceType == typeof(Sprite))
+            yield return CoLoadExtraResource<Sprite>(dependency.Key, null);
+        else
+            Debug.LogWarning(
+                $"[ResourceManager] 不支持预载资源 Key '{dependency.Key}' 的类型：{dependency.ResourceType}。");
+    }
+
+    /// <summary>
+    /// 扫描一个预制体的组件、子组件及其可序列化配置对象，收集所有 ResourceKey 标记。
+    /// 扫描规则与关卡导出器保持一致，但完全在运行时使用已经加载的 Prefab，不依赖 AssetDatabase。
+    /// </summary>
+    private static void QueuePrefabResourceDependencies(
+        GameObject prefab,
+        Queue<ResourceDependency> pending)
+    {
+        var context = new ResourceDependencyScanContext();
+        foreach (Component component in prefab.GetComponentsInChildren<Component>(true))
+        {
+            if (component == null || !context.VisitedUnityObjects.Add(component.GetInstanceID()))
+                continue;
+
+            ScanResourceDependencyFields(component, context, pending);
+        }
+    }
+
+    private static void ScanResourceDependencyFields(
+        object owner,
+        ResourceDependencyScanContext context,
+        Queue<ResourceDependency> pending)
+    {
+        foreach (FieldInfo field in GetSerializableInstanceFields(owner.GetType()))
+        {
+            if (field.IsStatic)
+                continue;
+
+            ResourceKeyAttribute resourceKey = field.GetCustomAttribute<ResourceKeyAttribute>(true);
+            if (resourceKey != null)
+            {
+                QueueAttributedResourceKeys(owner, field, resourceKey, pending);
+                continue;
+            }
+
+            if (!IsUnitySerializedField(field))
+                continue;
+
+            ScanResourceDependencyValue(field.GetValue(owner), context, pending);
+        }
+    }
+
+    private static void QueueAttributedResourceKeys(
+        object owner,
+        FieldInfo field,
+        ResourceKeyAttribute resourceKey,
+        Queue<ResourceDependency> pending)
+    {
+        object value = field.GetValue(owner);
+        if (value is string key)
+        {
+            QueueResourceDependency(key, resourceKey.ResourceType, pending);
+            return;
+        }
+
+        if (value is IEnumerable values)
+        {
+            foreach (object item in values)
+            {
+                if (item is string itemKey)
+                    QueueResourceDependency(itemKey, resourceKey.ResourceType, pending);
+            }
+            return;
+        }
+
+        Debug.LogWarning(
+            $"[ResourceManager] {owner.GetType().Name}.{field.Name} 标记了 ResourceKey，" +
+            "但字段不是 string 或 string 集合，已跳过。",
+            owner as UnityEngine.Object);
+    }
+
+    private static void QueueResourceDependency(
+        string key,
+        Type resourceType,
+        Queue<ResourceDependency> pending)
+    {
+        if (!string.IsNullOrWhiteSpace(key) && resourceType != null)
+            pending.Enqueue(new ResourceDependency(resourceType, key));
+    }
+
+    private static void ScanResourceDependencyValue(
+        object value,
+        ResourceDependencyScanContext context,
+        Queue<ResourceDependency> pending)
+    {
+        if (value == null || value is string)
+            return;
+
+        if (value is UnityEngine.Object unityObject)
+        {
+            if (unityObject is ScriptableObject scriptableObject &&
+                context.VisitedUnityObjects.Add(scriptableObject.GetInstanceID()))
+            {
+                ScanResourceDependencyFields(scriptableObject, context, pending);
+            }
+            return;
+        }
+
+        if (value is IList list)
+        {
+            if (!context.VisitedManagedObjects.Add(value))
+                return;
+
+            foreach (object item in list)
+                ScanResourceDependencyValue(item, context, pending);
+            return;
+        }
+
+        Type valueType = value.GetType();
+        if (!ShouldTraverseManagedType(valueType))
+            return;
+
+        if (!valueType.IsValueType && !context.VisitedManagedObjects.Add(value))
+            return;
+
+        ScanResourceDependencyFields(value, context, pending);
+    }
+
+    private static IEnumerable<FieldInfo> GetSerializableInstanceFields(Type type)
+    {
+        for (Type current = type;
+             current != null && !IsUnityBaseType(current);
+             current = current.BaseType)
+        {
+            foreach (FieldInfo field in current.GetFields(
+                         BindingFlags.Public |
+                         BindingFlags.NonPublic |
+                         BindingFlags.Instance |
+                         BindingFlags.DeclaredOnly))
+            {
+                yield return field;
+            }
+        }
+    }
+
+    private static bool IsUnityBaseType(Type type)
+    {
+        return type == typeof(MonoBehaviour) ||
+               type == typeof(ScriptableObject) ||
+               type == typeof(Component) ||
+               type == typeof(UnityEngine.Object) ||
+               type == typeof(object);
+    }
+
+    private static bool IsUnitySerializedField(FieldInfo field)
+    {
+        return !field.IsStatic &&
+               !field.IsLiteral &&
+               !field.IsInitOnly &&
+               !field.IsNotSerialized &&
+               (field.IsPublic ||
+                field.GetCustomAttribute<SerializeField>() != null ||
+                field.GetCustomAttribute<SerializeReference>() != null);
+    }
+
+    private static bool ShouldTraverseManagedType(Type type)
+    {
+        if (!type.IsSerializable ||
+            type.IsPrimitive ||
+            type.IsEnum ||
+            type == typeof(string) ||
+            type == typeof(decimal) ||
+            typeof(Delegate).IsAssignableFrom(type))
+        {
+            return false;
+        }
+
+        string typeNamespace = type.Namespace;
+        return string.IsNullOrEmpty(typeNamespace) ||
+               (typeNamespace != "System" &&
+                !typeNamespace.StartsWith("System.") &&
+                typeNamespace != "UnityEngine" &&
+                !typeNamespace.StartsWith("UnityEngine."));
+    }
+
+    private readonly struct ResourceDependency : IEquatable<ResourceDependency>
+    {
+        public readonly Type ResourceType;
+        public readonly string Key;
+
+        public ResourceDependency(Type resourceType, string key)
+        {
+            ResourceType = resourceType;
+            Key = key;
+        }
+
+        public bool Equals(ResourceDependency other)
+        {
+            return ResourceType == other.ResourceType &&
+                   string.Equals(Key, other.Key, StringComparison.Ordinal);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is ResourceDependency other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((ResourceType != null ? ResourceType.GetHashCode() : 0) * 397) ^
+                       (Key != null ? StringComparer.Ordinal.GetHashCode(Key) : 0);
+            }
+        }
+    }
+
+    private sealed class ResourceDependencyScanContext
+    {
+        public readonly HashSet<int> VisitedUnityObjects = new HashSet<int>();
+        public readonly HashSet<object> VisitedManagedObjects =
+            new HashSet<object>(ReferenceEqualityComparer.Instance);
+    }
+
+    private sealed class ReferenceEqualityComparer : IEqualityComparer<object>
+    {
+        public static readonly ReferenceEqualityComparer Instance = new ReferenceEqualityComparer();
+
+        public new bool Equals(object x, object y) => ReferenceEquals(x, y);
+
+        public int GetHashCode(object obj) => RuntimeHelpers.GetHashCode(obj);
+    }
+
+    /// <summary>
     /// 启动加载额外资源的协程，并在成功后写入相应类型缓存。
     /// 资源键优先按对应注册表解析；未注册时按原始 Addressables 键加载。
     /// </summary>
@@ -792,6 +1069,18 @@ public class ResourceManager : MonoBehaviour
     /// <returns>等待 Addressables 加载完成的协程。</returns>
     private IEnumerator CoLoadExtraResource<T>(string key, Action<T> onComplete) where T : UnityEngine.Object
     {
+        if (string.IsNullOrWhiteSpace(key))
+        {
+            onComplete?.Invoke(null);
+            yield break;
+        }
+
+        if (TryGetCachedAsset(key, out T cached))
+        {
+            onComplete?.Invoke(cached);
+            yield break;
+        }
+
 #if UNITY_EDITOR
         // 编辑器：注册表直接引用可用时立即缓存并完成。
         // 多精灵图集必须按子对象精确解析；Addressables 引用未携带子对象名时只能取到
@@ -834,6 +1123,25 @@ public class ResourceManager : MonoBehaviour
         else if (typeof(T) == typeof(Texture2D)) _textureDict[key] = result as Texture2D;
         else if (typeof(T) == typeof(AnimationClip)) _animationDict[key] = result as AnimationClip;
         else if (typeof(T) == typeof(RuntimeAnimatorController)) _animatorControllerDict[key] = result as RuntimeAnimatorController;
+    }
+
+    /// <summary>按泛型类型查询当前缓存，避免同一资源在额外预载流程中重复申请句柄。</summary>
+    private bool TryGetCachedAsset<T>(string key, out T result) where T : UnityEngine.Object
+    {
+        result = null;
+        if (typeof(T) == typeof(GameObject))
+            result = GetGameObject(key) as T;
+        else if (typeof(T) == typeof(Sprite))
+            result = GetSprite(key) as T;
+        else if (typeof(T) == typeof(AudioClip))
+            result = GetAudio(key) as T;
+        else if (typeof(T) == typeof(Texture2D))
+            result = GetTexture(key) as T;
+        else if (typeof(T) == typeof(AnimationClip))
+            result = GetAnimation(key) as T;
+        else if (typeof(T) == typeof(RuntimeAnimatorController))
+            result = GetAnimatorController(key) as T;
+        return result != null;
     }
 
 #if UNITY_EDITOR

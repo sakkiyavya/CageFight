@@ -2,12 +2,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-/// <summary>预置候选按钮，仅保存稳定 ID 和显示引用，不直接持有定义资源。</summary>
+/// <summary>预置候选按钮，保存稳定 ID、显示引用及可选的种族大本营预制体 Key。</summary>
 [DisallowMultipleComponent]
 public sealed class LoadoutSelectionOption : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private LoadoutSelectionPanel panel;
     [SerializeField] private string definitionId;
+    [Tooltip("当所属面板为 Race 时，此候选种族进入关卡后使用的大本营预制体 Key。")]
+    [ResourceKey(typeof(GameObject))]
+    public string prefabKey;
     [SerializeField] private Image icon;
     [SerializeField] private Image portraitFrame;
     [SerializeField] private Graphic selectedMarker;
@@ -77,7 +80,7 @@ public sealed class LoadoutSelectionOption : MonoBehaviour, IPointerClickHandler
             suppressClick = false;
             return;
         }
-        if (panel) panel.Select(definitionId);
+        if (panel) panel.Select(definitionId, prefabKey);
     }
 
     public void OnPointerDown(PointerEventData eventData)

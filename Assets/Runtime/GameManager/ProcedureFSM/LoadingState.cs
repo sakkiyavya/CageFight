@@ -48,7 +48,10 @@ public class LoadingState : SceneStateBase
         }
 
         Debug.Log($"[LoadingState] Resources loaded. Instantiating stage: {CurrentStageConfig.stageId}");
-        if (!StageObjectInstantiator.InstantiateStage(CurrentStageConfig))
+        string friendlyMainBasePrefabKey = playerLoadout
+            ? playerLoadout.SelectedRaceMainBasePrefabKey
+            : string.Empty;
+        if (!StageObjectInstantiator.InstantiateStage(CurrentStageConfig, friendlyMainBasePrefabKey))
         {
             Debug.LogError("[LoadingState] Failed to instantiate stage objects.");
             yield break;
