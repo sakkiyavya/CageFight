@@ -7,8 +7,6 @@ public class BuildingHealth : MonoBehaviour, ICollide
 {
     private int hp; public int HP => hp;                                      // 当前建筑生命值及其只读访问器。
     private float hideTime = -1f;                                             // 血条自动隐藏的游戏时间，负数表示未计时。
-    private Vector3 _hpBarBaseScale;                                          // 前景血条在预制体中的原始缩放（血量比例只乘 X，避免溢出背景框）。
-    private bool _hpBarBaseScaleCached;
 
     [Header("受击表现")]
     [SerializeField] private float hitFlashDuration = 0.3f;                    // 受击闪红持续时长。
@@ -409,17 +407,20 @@ public class BuildingHealth : MonoBehaviour, ICollide
         if (prop == null)
             return;
 
-        // 首次记录前景条在预制体中的原始缩放（大本营血条为 0.7），血量比例只乘 X 轴，
-        // 满血时恰好等于原始尺寸，不会超出背景血条框。
-        if (!_hpBarBaseScaleCached)
-        {
-            _hpBarBaseScale = HpBarUp.transform.localScale;
-            _hpBarBaseScaleCached = true;
-        }
+        // 原尺寸规则：血条贴图重心在左中间，前景条 X 轴直接取血量比例（满血 = 1 = 贴图原尺寸）。
+        // 血条常挂在建筑节点下，该节点可能带整体缩放：按父级累计缩放取绝对值补偿，
+        // 让血条始终以贴图原尺寸渲染，不随建筑缩放被压短。
+        Vector3 parentLossy = HpBarUp.transform.parent != null
+            ? HpBarUp.transform.parent.lossyScale
+            : Vector3.one;
+        float invX = Mathf.Abs(parentLossy.x) > 0.0001f ? 1f / Mathf.Abs(parentLossy.x) : 1f;
+        float invY = Mathf.Abs(parentLossy.y) > 0.0001f ? 1f / Mathf.Abs(parentLossy.y) : 1f;
 
         float scaleX = prop.maxHp > 0 ? (float)hp / prop.maxHp : 0f;    // 血条横向填充比例。
-        HpBarUp.transform.localScale = new Vector3(
-            _hpBarBaseScale.x * scaleX, _hpBarBaseScale.y, _hpBarBaseScale.z);
+        HpBarUp.transform.localScale = new Vector3(scaleX * invX, invY, 1f);
+
+        if (HpBarBottom != null)
+            HpBarBottom.transform.localScale = new Vector3(invX, invY, 1f);
     }
 
     /// <summary>

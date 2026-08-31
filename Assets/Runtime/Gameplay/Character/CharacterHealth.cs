@@ -24,8 +24,6 @@ public class CharacterHealth : MonoBehaviour, ICollide
     private float jellyDuration = 0.6f;                                                                 // 受击果冻形变持续时间。
     private float jellyFrequency = 2f;                                                                  // 受击形变的振荡频率。
     private float jellyAmplitude = 0.1f;                                                                // 受击时向上弹动的最大幅度。
-    private Vector3 _hpBarBaseScale;                                                                    // 前景血条在预制体中的原始缩放（血量比例只乘 X，避免溢出背景框）。
-    private bool _hpBarBaseScaleCached;
     
     private float deathAngularSpeed = 1440f;                                                            // 死亡抛飞期间的旋转角速度。
     private float deathParabolaAcceleration = -50f;                                                     // 死亡抛物线的纵向加速度。
@@ -145,6 +143,18 @@ public class CharacterHealth : MonoBehaviour, ICollide
     {
         if (buff == null || _prop == null || _prop.isDead)
             return false;
+
+        // 统一状态入口的过滤器询问：任何施加路径（伤害携带或业务直调）的 Debuff
+        // 都在施加前按登记顺序询问状态过滤器（免疫/转化）；被接管则本次不施加。
+        // 增益（isDeBuff == false）不受过滤器影响，避免转化流程自身递归。
+        if (buff.isDeBuff)
+        {
+            for (int i = 0; i < _buffFilters.Count; i++)
+            {
+                if (_buffFilters[i](buff))
+                    return false;
+            }
+        }
 
         if (!buff.ApplyBuff(_prop, damage))
             return false;
@@ -687,17 +697,21 @@ public class CharacterHealth : MonoBehaviour, ICollide
     {
         if (HpBarUp != null)
         {
-            // 首次记录前景条在预制体中的原始缩放（如 BOSS 血条为 0.7），血量比例只乘 X 轴，
-            // 满血时恰好等于原始尺寸，不会超出背景血条框。
-            if (!_hpBarBaseScaleCached)
-            {
-                _hpBarBaseScale = HpBarUp.transform.localScale;
-                _hpBarBaseScaleCached = true;
-            }
+            // 原尺寸规则：血条贴图重心在左中间，前景条 X 轴直接取血量比例（满血 = 1 = 贴图原尺寸）。
+            // 血条常挂在单位节点下，而该节点会因朝向翻转 / 巨化 / 预制体整体缩放（如 Huge monster
+            // 的 0.7 根缩放）改变缩放：按父级累计缩放取绝对值补偿，让血条始终以贴图原尺寸渲染，
+            // 不随单位缩放被压短，也不会随朝向翻转被镜像。
+            Vector3 parentLossy = HpBarUp.transform.parent != null
+                ? HpBarUp.transform.parent.lossyScale
+                : Vector3.one;
+            float invX = Mathf.Abs(parentLossy.x) > 0.0001f ? 1f / Mathf.Abs(parentLossy.x) : 1f;
+            float invY = Mathf.Abs(parentLossy.y) > 0.0001f ? 1f / Mathf.Abs(parentLossy.y) : 1f;
 
             float scaleX = _prop.maxHp > 0 ? (float)_prop.currentHp / _prop.maxHp : 0f;
-            HpBarUp.transform.localScale = new Vector3(
-                _hpBarBaseScale.x * scaleX, _hpBarBaseScale.y, _hpBarBaseScale.z);
+            HpBarUp.transform.localScale = new Vector3(scaleX * invX, invY, 1f);
+
+            if (HpBarBottom != null)
+                HpBarBottom.transform.localScale = new Vector3(invX, invY, 1f);
         }
     }
 
