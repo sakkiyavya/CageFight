@@ -6,18 +6,18 @@ using UnityEditor;
 using UnityEngine;
 
 /// <summary>
-/// 批量移除与透明区域相邻的指定颜色连通域，并直接写回 PNG 源文件。
+/// 按 Sprite 矩形范围移除与透明区域相邻的指定颜色连通域，并直接写回其 PNG 源文件。
 /// </summary>
 public sealed class WhiteBorderRemovalWindow : EditorWindow
 {
-    [SerializeField] private List<Texture2D> _sourceTextures = new List<Texture2D>();
+    [SerializeField] private List<Sprite> _sourceSprites = new List<Sprite>();
     [SerializeField] private Color _removalColor = Color.white;
     [SerializeField] private float _colorTolerance = 0.08f;
     [SerializeField] private float _alphaThreshold = 0.01f;
     [SerializeField] private bool _useEightConnected = true;
-    [SerializeField] private int _selectedTextureIndex;
+    [SerializeField] private int _selectedSpriteIndex;
     [SerializeField] private Vector2 _windowScroll;
-    [SerializeField] private Vector2 _textureListScroll;
+    [SerializeField] private Vector2 _spriteListScroll;
 
     private const string MenuPath = "Tools/剔除白边";
     private const float PreviewHeight = 280f;
@@ -30,16 +30,16 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
 
     private void OnEnable()
     {
-        _sourceTextures ??= new List<Texture2D>();
-        RemoveMissingTextures();
+        _sourceSprites ??= new List<Sprite>();
+        RemoveMissingSprites();
 
-        if (_sourceTextures.Count == 0)
+        if (_sourceSprites.Count == 0)
         {
             AddObjects(Selection.objects, false);
         }
 
-        ClampSelectedIndex();
-        if (_sourceTextures.Count > 0)
+        ClampSelectedSpriteIndex();
+        if (_sourceSprites.Count > 0)
         {
             RefreshPreview();
         }
@@ -62,7 +62,7 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
         _windowScroll = EditorGUILayout.BeginScrollView(_windowScroll);
         EditorGUILayout.Space(8f);
 
-        DrawTextureSelection();
+        DrawSpriteSelection();
         EditorGUILayout.Space(10f);
         DrawParameters();
         EditorGUILayout.Space(10f);
@@ -75,7 +75,7 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
     }
 
     /// <summary>
-    /// 打开批量剔除白边工具，并复用当前 Project 选择作为初始素材。
+    /// 打开批量剔除白边工具，并复用当前 Project 选择中的 Sprite 作为初始素材。
     /// </summary>
     [MenuItem(MenuPath)]
     public static void Open()
@@ -85,19 +85,19 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
         window.Show();
     }
 
-    private void DrawTextureSelection()
+    private void DrawSpriteSelection()
     {
-        EditorGUILayout.LabelField("素材", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Sprite 素材", EditorStyles.boldLabel);
 
         EditorGUILayout.BeginHorizontal();
-        Texture2D pickedTexture = (Texture2D)EditorGUILayout.ObjectField(
-            new GUIContent("添加 PNG", "选择 Project 中的 PNG 纹理"),
+        Sprite pickedSprite = (Sprite)EditorGUILayout.ObjectField(
+            new GUIContent("添加 Sprite", "选择 Project 中的 Sprite；只处理该 Sprite 的矩形范围"),
             null,
-            typeof(Texture2D),
+            typeof(Sprite),
             false);
-        if (pickedTexture != null)
+        if (pickedSprite != null)
         {
-            AddObjects(new UnityEngine.Object[] { pickedTexture }, true);
+            AddObjects(new UnityEngine.Object[] { pickedSprite }, true);
         }
 
         if (GUILayout.Button("添加当前选择", GUILayout.Width(110f)))
@@ -105,12 +105,12 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
             AddObjects(Selection.objects, true);
         }
 
-        using (new EditorGUI.DisabledScope(_sourceTextures.Count == 0))
+        using (new EditorGUI.DisabledScope(_sourceSprites.Count == 0))
         {
             if (GUILayout.Button("清空", GUILayout.Width(55f)))
             {
-                _sourceTextures.Clear();
-                _selectedTextureIndex = 0;
+                _sourceSprites.Clear();
+                _selectedSpriteIndex = 0;
                 DestroyPreview();
                 _previewDirty = true;
             }
@@ -118,40 +118,40 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
         EditorGUILayout.EndHorizontal();
 
         Rect dropArea = GUILayoutUtility.GetRect(0f, 52f, GUILayout.ExpandWidth(true));
-        GUI.Box(dropArea, "将一个或多个 PNG（也可拖入文件夹）拖到这里", EditorStyles.helpBox);
+        GUI.Box(dropArea, "将一个或多个 Sprite、Sprite 图集 PNG 或文件夹拖到这里", EditorStyles.helpBox);
         HandleDragAndDrop(dropArea);
 
-        if (_sourceTextures.Count == 0)
+        if (_sourceSprites.Count == 0)
         {
-                EditorGUILayout.HelpBox("请先添加至少一个位于 Assets 目录下（不含 Plugins）的 PNG 素材。", MessageType.Info);
+            EditorGUILayout.HelpBox("请添加位于 Assets 目录下（不含 Plugins）的 PNG Sprite。", MessageType.Info);
             return;
         }
 
-        _textureListScroll = EditorGUILayout.BeginScrollView(_textureListScroll, GUILayout.Height(130f));
+        _spriteListScroll = EditorGUILayout.BeginScrollView(_spriteListScroll, GUILayout.Height(145f));
         int removeIndex = -1;
-        for (int i = 0; i < _sourceTextures.Count; i++)
+        for (int i = 0; i < _sourceSprites.Count; i++)
         {
-            Texture2D texture = _sourceTextures[i];
-            string assetPath = texture != null ? AssetDatabase.GetAssetPath(texture) : "（素材已丢失）";
+            Sprite sprite = _sourceSprites[i];
+            string itemLabel = sprite != null ? GetSpriteDisplayName(sprite) : "（Sprite 已丢失）";
 
             EditorGUILayout.BeginHorizontal();
             Color oldBackgroundColor = GUI.backgroundColor;
-            if (i == _selectedTextureIndex)
+            if (i == _selectedSpriteIndex)
             {
                 GUI.backgroundColor = new Color(0.55f, 0.8f, 1f);
             }
 
-            if (GUILayout.Button(new GUIContent(assetPath, assetPath), GUILayout.ExpandWidth(true)))
+            if (GUILayout.Button(new GUIContent(itemLabel, itemLabel), GUILayout.ExpandWidth(true)))
             {
-                SelectTexture(i);
+                SelectSprite(i);
             }
             GUI.backgroundColor = oldBackgroundColor;
 
-            using (new EditorGUI.DisabledScope(texture == null))
+            using (new EditorGUI.DisabledScope(sprite == null))
             {
                 if (GUILayout.Button("定位", GUILayout.Width(46f)))
                 {
-                    EditorGUIUtility.PingObject(texture);
+                    EditorGUIUtility.PingObject(sprite);
                 }
             }
 
@@ -165,10 +165,12 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
 
         if (removeIndex >= 0)
         {
-            RemoveTextureAt(removeIndex);
+            RemoveSpriteAt(removeIndex);
         }
 
-        EditorGUILayout.LabelField($"共 {_sourceTextures.Count} 个 PNG；点击列表项可切换对比预览。", EditorStyles.miniLabel);
+        EditorGUILayout.LabelField(
+            $"共 {_sourceSprites.Count} 个 Sprite；同一张图集中的多个 Sprite 会分别判定，连通域不会跨越 Sprite 边界。",
+            EditorStyles.miniLabel);
     }
 
     private void DrawParameters()
@@ -177,7 +179,7 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
 
         EditorGUI.BeginChangeCheck();
         _removalColor = EditorGUILayout.ColorField(
-            new GUIContent("剔除颜色", "点击右侧取色器后，可直接从屏幕上的原图预览取色"),
+            new GUIContent("剔除颜色", "点击右侧取色器后，可直接从左侧 Sprite 原图预览取色"),
             _removalColor,
             true,
             false,
@@ -188,7 +190,7 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
             0f,
             1f);
         _alphaThreshold = EditorGUILayout.Slider(
-            new GUIContent("相邻 Alpha 阈值", "连通域邻居的 alpha 严格小于此值时，整块连通域会被置透明"),
+            new GUIContent("相邻 Alpha 阈值", "Sprite 内相邻像素的 alpha 严格小于此值时，整块连通域会被置透明"),
             _alphaThreshold,
             0f,
             1f);
@@ -203,16 +205,15 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
             _previewDirty = true;
         }
 
-            EditorGUILayout.HelpBox(
-                "颜色距离 = √((ΔR² + ΔG² + ΔB²) / 3)，RGB 均按 0～1 归一化，Alpha 不参与颜色距离。" +
-                "仅颜色距离严格小于容错率的像素参与扩散；图像外部不视作透明像素。",
-                MessageType.None);
+        EditorGUILayout.HelpBox(
+            "颜色距离 = √((ΔR² + ΔG² + ΔB²) / 3)，RGB 均按 0～1 归一化，Alpha 不参与颜色距离。" +
+            "仅颜色距离严格小于容错率的像素参与扩散；Sprite 矩形外部不视作透明像素。",
+            MessageType.None);
 
-            if (Mathf.Approximately(_colorTolerance, 0f))
-            {
-                EditorGUILayout.HelpBox("颜色容错率采用严格“小于”判断；设为 0 时不会选中任何像素。", MessageType.Warning);
-            }
-
+        if (Mathf.Approximately(_colorTolerance, 0f))
+        {
+            EditorGUILayout.HelpBox("颜色容错率采用严格“小于”判断；设为 0 时不会选中任何像素。", MessageType.Warning);
+        }
         if (Mathf.Approximately(_alphaThreshold, 0f))
         {
             EditorGUILayout.HelpBox("Alpha 阈值采用严格“小于”判断；设为 0 时不会有连通域满足触发条件。", MessageType.Warning);
@@ -223,7 +224,7 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
     {
         EditorGUILayout.BeginHorizontal();
 
-        using (new EditorGUI.DisabledScope(GetSelectedTexture() == null))
+        using (new EditorGUI.DisabledScope(GetSelectedSprite() == null))
         {
             if (GUILayout.Button("生成 / 刷新预览", GUILayout.Height(34f)))
             {
@@ -231,11 +232,12 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
             }
         }
 
-        using (new EditorGUI.DisabledScope(_sourceTextures.Count == 0))
+        using (new EditorGUI.DisabledScope(_sourceSprites.Count == 0))
         {
             if (GUILayout.Button("剔除并覆盖全部原素材", GUILayout.Height(34f)))
             {
-                ApplyToAllTextures();
+                ApplyToAllSprites();
+                GUIUtility.ExitGUI();
             }
         }
 
@@ -244,6 +246,7 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
             if (GUILayout.Button("撤回上次覆盖", GUILayout.Height(34f)))
             {
                 UndoLastApply();
+                GUIUtility.ExitGUI();
             }
         }
 
@@ -258,8 +261,8 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
             }
 
             EditorGUILayout.HelpBox(
-                    $"可撤回最近一次覆盖：{_undoBackups.Count} 个文件，备份约 {byteCount / (1024f * 1024f):0.##} MB。" +
-                    "再次覆盖会替换这份记录，关闭窗口或发生脚本重载后记录失效。",
+                $"可撤回最近一次覆盖：{_undoBackups.Count} 个 PNG，备份约 {byteCount / (1024f * 1024f):0.##} MB。" +
+                "再次覆盖会替换这份记录，关闭窗口或发生脚本重载后记录失效。",
                 MessageType.Warning);
         }
     }
@@ -279,15 +282,15 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
 
     private void DrawPreview()
     {
-        EditorGUILayout.LabelField("对比预览", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Sprite 对比预览", EditorStyles.boldLabel);
 
         if (_preview == null)
         {
-            EditorGUILayout.HelpBox("添加 PNG 后生成预览。", MessageType.Info);
+            EditorGUILayout.HelpBox("添加 Sprite 后生成预览。", MessageType.Info);
             return;
         }
 
-        EditorGUILayout.LabelField(_preview.AssetPath, EditorStyles.miniLabel);
+        EditorGUILayout.LabelField(_preview.DisplayName, EditorStyles.miniLabel);
         EditorGUILayout.BeginHorizontal();
         DrawPreviewPanel(_preview.LeftLabel, _preview.OriginalTexture);
         GUILayout.Space(6f);
@@ -295,7 +298,7 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.LabelField(
-            $"尺寸：{_preview.OriginalTexture.width} × {_preview.OriginalTexture.height}    " +
+            $"Sprite 尺寸：{_preview.OriginalTexture.width} × {_preview.OriginalTexture.height}    " +
             $"剔除连通域：{_preview.Stats.RemovedComponentCount}    " +
             $"实际置透明像素：{_preview.Stats.ClearedPixelCount}",
             EditorStyles.miniLabel);
@@ -325,7 +328,7 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
 
         if (currentEvent.type == EventType.DragUpdated)
         {
-            DragAndDrop.visualMode = EventCanAddAnyTexture() ? DragAndDropVisualMode.Copy : DragAndDropVisualMode.Rejected;
+            DragAndDrop.visualMode = EventCanAddAnySprite() ? DragAndDropVisualMode.Copy : DragAndDropVisualMode.Rejected;
             currentEvent.Use();
         }
         else if (currentEvent.type == EventType.DragPerform)
@@ -336,11 +339,16 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
         }
     }
 
-    private static bool EventCanAddAnyTexture()
+    private static bool EventCanAddAnySprite()
     {
         UnityEngine.Object[] draggedObjects = DragAndDrop.objectReferences;
         for (int i = 0; i < draggedObjects.Length; i++)
         {
+            if (draggedObjects[i] is Sprite sprite && IsSupportedSprite(sprite))
+            {
+                return true;
+            }
+
             string path = AssetDatabase.GetAssetPath(draggedObjects[i]);
             if (AssetDatabase.IsValidFolder(path) || IsSupportedAssetPath(path))
             {
@@ -358,63 +366,71 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
             return;
         }
 
-        int addedCount = 0;
         int rejectedCount = 0;
-        var pathsToAdd = new List<string>();
-
+        var spritesToAdd = new List<Sprite>();
         for (int i = 0; i < objects.Length; i++)
         {
-            string path = AssetDatabase.GetAssetPath(objects[i]);
+            UnityEngine.Object sourceObject = objects[i];
+            if (sourceObject is Sprite sprite)
+            {
+                if (IsSupportedSprite(sprite))
+                {
+                    spritesToAdd.Add(sprite);
+                }
+                else
+                {
+                    rejectedCount++;
+                }
+                continue;
+            }
+
+            string path = AssetDatabase.GetAssetPath(sourceObject);
             if (AssetDatabase.IsValidFolder(path))
             {
-                string[] guids = AssetDatabase.FindAssets("t:Texture2D", new[] { path });
-                for (int guidIndex = 0; guidIndex < guids.Length; guidIndex++)
+                string[] textureGuids = AssetDatabase.FindAssets("t:Texture2D", new[] { path });
+                for (int guidIndex = 0; guidIndex < textureGuids.Length; guidIndex++)
                 {
-                    string texturePath = AssetDatabase.GUIDToAssetPath(guids[guidIndex]);
-                    if (IsSupportedAssetPath(texturePath))
-                    {
-                        pathsToAdd.Add(texturePath);
-                    }
+                    AddSpritesAtPath(AssetDatabase.GUIDToAssetPath(textureGuids[guidIndex]), spritesToAdd);
                 }
+                continue;
             }
-            else if (IsSupportedAssetPath(path))
+
+            if (IsSupportedAssetPath(path))
             {
-                pathsToAdd.Add(path);
+                int spriteCountBefore = spritesToAdd.Count;
+                AddSpritesAtPath(path, spritesToAdd);
+                if (spriteCountBefore == spritesToAdd.Count)
+                {
+                    rejectedCount++;
+                }
+                continue;
             }
-            else
-            {
-                rejectedCount++;
-            }
+
+            rejectedCount++;
         }
 
-        pathsToAdd.Sort(StringComparer.OrdinalIgnoreCase);
-        for (int i = 0; i < pathsToAdd.Count; i++)
+        spritesToAdd.Sort(CompareSprites);
+        int addedCount = 0;
+        for (int i = 0; i < spritesToAdd.Count; i++)
         {
-            string path = pathsToAdd[i];
-            if (ContainsAssetPath(path))
+            Sprite sprite = spritesToAdd[i];
+            if (ContainsSprite(sprite))
             {
                 continue;
             }
 
-            Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
-            if (texture == null)
-            {
-                rejectedCount++;
-                continue;
-            }
-
-            _sourceTextures.Add(texture);
+            _sourceSprites.Add(sprite);
             addedCount++;
         }
 
         if (addedCount > 0)
         {
-            if (_sourceTextures.Count == addedCount)
+            if (_sourceSprites.Count == addedCount)
             {
-                _selectedTextureIndex = 0;
+                _selectedSpriteIndex = 0;
             }
             _previewDirty = true;
-            _statusMessage = $"已添加 {addedCount} 个 PNG。";
+            _statusMessage = $"已添加 {addedCount} 个 Sprite。";
             _statusType = MessageType.Info;
 
             if (refreshPreview)
@@ -424,39 +440,85 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
         }
         else if (rejectedCount > 0)
         {
-            _statusMessage = "未添加素材：仅支持 Assets 目录内（不含 Plugins）可原地写回 Alpha 的 PNG 文件。";
+            _statusMessage = "未添加素材：仅支持 Assets 目录内（不含 Plugins）的 PNG Sprite。";
             _statusType = MessageType.Warning;
         }
 
         if (rejectedCount > 0 && addedCount > 0)
         {
-            _statusMessage += $" 另有 {rejectedCount} 个对象不是受支持的 PNG，已忽略。";
+            _statusMessage += $" 另有 {rejectedCount} 个对象不包含受支持的 PNG Sprite，已忽略。";
             _statusType = MessageType.Warning;
         }
     }
 
-    private void SelectTexture(int index)
+    private static void AddSpritesAtPath(string assetPath, List<Sprite> sprites)
     {
-        if (index < 0 || index >= _sourceTextures.Count || index == _selectedTextureIndex)
+        if (!IsSupportedAssetPath(assetPath))
         {
             return;
         }
 
-        _selectedTextureIndex = index;
+        UnityEngine.Object[] assetsAtPath = AssetDatabase.LoadAllAssetsAtPath(assetPath);
+        for (int i = 0; i < assetsAtPath.Length; i++)
+        {
+            if (assetsAtPath[i] is Sprite sprite && IsSupportedSprite(sprite))
+            {
+                sprites.Add(sprite);
+            }
+        }
+    }
+
+    private static int CompareSprites(Sprite left, Sprite right)
+    {
+        string leftPath = AssetDatabase.GetAssetPath(left);
+        string rightPath = AssetDatabase.GetAssetPath(right);
+        int pathCompare = string.Compare(leftPath, rightPath, StringComparison.OrdinalIgnoreCase);
+        if (pathCompare != 0)
+        {
+            return pathCompare;
+        }
+
+        Rect leftRect = left.rect;
+        Rect rightRect = right.rect;
+        int yCompare = leftRect.y.CompareTo(rightRect.y);
+        if (yCompare != 0)
+        {
+            return yCompare;
+        }
+        int xCompare = leftRect.x.CompareTo(rightRect.x);
+        if (xCompare != 0)
+        {
+            return xCompare;
+        }
+        return string.Compare(left.name, right.name, StringComparison.Ordinal);
+    }
+
+    private void SelectSprite(int index)
+    {
+        if (index < 0 || index >= _sourceSprites.Count || index == _selectedSpriteIndex)
+        {
+            return;
+        }
+
+        _selectedSpriteIndex = index;
         _previewDirty = true;
 
-        string assetPath = AssetDatabase.GetAssetPath(_sourceTextures[index]);
+        Sprite sprite = _sourceSprites[index];
+        string assetPath = AssetDatabase.GetAssetPath(sprite);
         FileBackup backup = FindUndoBackup(assetPath);
         if (backup != null)
         {
             try
             {
                 byte[] currentBytes = File.ReadAllBytes(GetAbsoluteAssetPath(assetPath));
+                ProcessedFile previewFile = ProcessPng(assetPath, backup.OriginalBytes, new List<Sprite> { sprite });
+                WhiteBorderRemovalStats stats = previewFile.FindSpriteStats(sprite);
                 SetComparisonPreview(
+                    sprite,
                     assetPath,
                     backup.OriginalBytes,
                     currentBytes,
-                    backup.Stats,
+                    stats,
                     "原素材（覆盖前）",
                     "新素材（已覆盖）");
                 _previewDirty = false;
@@ -471,22 +533,22 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
         RefreshPreview();
     }
 
-    private void RemoveTextureAt(int index)
+    private void RemoveSpriteAt(int index)
     {
-        if (index < 0 || index >= _sourceTextures.Count)
+        if (index < 0 || index >= _sourceSprites.Count)
         {
             return;
         }
 
-        _sourceTextures.RemoveAt(index);
-        if (_selectedTextureIndex > index)
+        _sourceSprites.RemoveAt(index);
+        if (_selectedSpriteIndex > index)
         {
-            _selectedTextureIndex--;
+            _selectedSpriteIndex--;
         }
-        ClampSelectedIndex();
+        ClampSelectedSpriteIndex();
         _previewDirty = true;
 
-        if (_sourceTextures.Count == 0)
+        if (_sourceSprites.Count == 0)
         {
             DestroyPreview();
         }
@@ -498,28 +560,30 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
 
     private void RefreshPreview()
     {
-        Texture2D selectedTexture = GetSelectedTexture();
-        if (selectedTexture == null)
+        Sprite selectedSprite = GetSelectedSprite();
+        if (selectedSprite == null)
         {
             DestroyPreview();
             return;
         }
 
-        string assetPath = AssetDatabase.GetAssetPath(selectedTexture);
+        string assetPath = AssetDatabase.GetAssetPath(selectedSprite);
         try
         {
             byte[] sourceBytes = File.ReadAllBytes(GetAbsoluteAssetPath(assetPath));
-            ProcessedFile processedFile = ProcessPng(assetPath, sourceBytes);
+            ProcessedFile processedFile = ProcessPng(assetPath, sourceBytes, new List<Sprite> { selectedSprite });
+            WhiteBorderRemovalStats stats = processedFile.FindSpriteStats(selectedSprite);
             SetComparisonPreview(
+                selectedSprite,
                 assetPath,
                 sourceBytes,
                 processedFile.OutputBytes,
-                processedFile.Stats,
-                "原素材",
-                "新素材预览");
+                stats,
+                "原 Sprite",
+                "新 Sprite 预览");
             _previewDirty = false;
-            _statusMessage = processedFile.Stats.ClearedPixelCount > 0
-                ? $"预览完成：{processedFile.Stats.RemovedComponentCount} 个连通域，共 {processedFile.Stats.ClearedPixelCount} 个像素会被置透明。"
+            _statusMessage = stats.ClearedPixelCount > 0
+                ? $"预览完成：{stats.RemovedComponentCount} 个连通域，共 {stats.ClearedPixelCount} 个像素会被置透明。"
                 : "预览完成：当前参数下没有需要置透明的像素。";
             _statusType = MessageType.Info;
         }
@@ -535,45 +599,51 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
     }
 
     /// <summary>
-    /// 先在内存中完成整批 PNG 的解码与处理，全部成功后才写回发生变化的文件。
-    /// 每次成功覆盖都会以本批原始文件字节替换上一份撤回记录。
+    /// 按 PNG 源文件分组处理所有 Sprite。同一张图集只解码、编码和覆盖一次，
+    /// 每个 Sprite 均以其自身矩形为边界独立进行连通域判断。
     /// </summary>
-    private void ApplyToAllTextures()
+    private void ApplyToAllSprites()
     {
-        RemoveMissingTextures();
-        if (_sourceTextures.Count == 0)
+        RemoveMissingSprites();
+        if (_sourceSprites.Count == 0)
         {
-            _statusMessage = "没有可处理的 PNG 素材。";
+            _statusMessage = "没有可处理的 PNG Sprite。";
             _statusType = MessageType.Warning;
             return;
         }
 
         string undoWarning = _undoBackups != null && _undoBackups.Count > 0
-            ? "这会覆盖全部所选 PNG，并替换当前的一次撤回记录。"
-            : "这会直接覆盖全部所选 PNG。";
+            ? "这会覆盖含有所选 Sprite 的 PNG，并替换当前的一次撤回记录。"
+            : "这会直接覆盖含有所选 Sprite 的 PNG。";
         if (!EditorUtility.DisplayDialog(
                 "确认剔除白边",
-                undoWarning + "\n\n覆盖后可在关闭本窗口或脚本重载前撤回一次。是否继续？",
+                undoWarning + "\n\n每个 Sprite 只在自身矩形范围内扩散。覆盖后可在关闭本窗口或脚本重载前撤回一次。是否继续？",
                 "覆盖原素材",
                 "取消"))
         {
             return;
         }
 
-        var processedFiles = new List<ProcessedFile>(_sourceTextures.Count);
+        var processedFiles = new List<ProcessedFile>();
+        var processedPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         try
         {
-            for (int i = 0; i < _sourceTextures.Count; i++)
+            for (int i = 0; i < _sourceSprites.Count; i++)
             {
-                Texture2D texture = _sourceTextures[i];
-                string assetPath = AssetDatabase.GetAssetPath(texture);
+                Sprite sprite = _sourceSprites[i];
+                string assetPath = AssetDatabase.GetAssetPath(sprite);
+                if (!processedPaths.Add(assetPath))
+                {
+                    continue;
+                }
+
                 EditorUtility.DisplayProgressBar(
                     "剔除白边",
-                    $"计算 {i + 1}/{_sourceTextures.Count}：{assetPath}",
-                    (float)i / _sourceTextures.Count);
+                    $"计算 {processedFiles.Count + 1}：{assetPath}",
+                    (float)i / _sourceSprites.Count);
 
                 byte[] sourceBytes = File.ReadAllBytes(GetAbsoluteAssetPath(assetPath));
-                processedFiles.Add(ProcessPng(assetPath, sourceBytes));
+                processedFiles.Add(ProcessPng(assetPath, sourceBytes, GetSpritesAtAssetPath(assetPath)));
             }
         }
         catch (Exception exception)
@@ -604,7 +674,7 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
 
         if (changedFiles.Count == 0)
         {
-            _statusMessage = "处理完成：当前参数下没有任何像素需要修改，未覆盖文件。";
+            _statusMessage = "处理完成：当前参数下没有任何 Sprite 像素需要修改，未覆盖文件。";
             _statusType = MessageType.Info;
             RefreshPreview();
             return;
@@ -640,24 +710,26 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
         }
         _undoBackups = newUndoBackups;
 
+        Sprite selectedSprite = GetSelectedSprite();
         string selectedAssetPath = GetSelectedAssetPath();
-        ProcessedFile selectedProcessedFile = processedFiles.Find(file =>
-            string.Equals(file.AssetPath, selectedAssetPath, StringComparison.OrdinalIgnoreCase));
-        if (selectedProcessedFile != null)
+        ProcessedFile selectedProcessedFile = FindProcessedFile(processedFiles, selectedAssetPath);
+        if (selectedSprite != null && selectedProcessedFile != null)
         {
-            bool selectedFileChanged = selectedProcessedFile.Stats.ClearedPixelCount > 0;
+            WhiteBorderRemovalStats selectedStats = selectedProcessedFile.FindSpriteStats(selectedSprite);
+            bool selectedSpriteChanged = selectedStats.ClearedPixelCount > 0;
             SetComparisonPreview(
+                selectedSprite,
                 selectedProcessedFile.AssetPath,
                 selectedProcessedFile.OriginalBytes,
                 selectedProcessedFile.OutputBytes,
-                selectedProcessedFile.Stats,
-                selectedFileChanged ? "原素材（覆盖前）" : "原素材",
-                selectedFileChanged ? "新素材（已覆盖）" : "当前素材（无需修改）");
+                selectedStats,
+                selectedSpriteChanged ? "原 Sprite（覆盖前）" : "原 Sprite",
+                selectedSpriteChanged ? "新 Sprite（已覆盖）" : "当前 Sprite（无需修改）");
         }
 
         _previewDirty = false;
         _statusMessage =
-            $"覆盖完成：修改 {changedFiles.Count}/{processedFiles.Count} 个 PNG，" +
+            $"覆盖完成：处理 {_sourceSprites.Count} 个 Sprite，修改 {changedFiles.Count}/{processedFiles.Count} 个 PNG，" +
             $"剔除 {totalRemovedComponentCount} 个连通域，实际置透明 {totalClearedPixelCount} 个像素。";
         _statusType = MessageType.Info;
         Debug.Log($"[剔除白边] {_statusMessage}");
@@ -736,28 +808,56 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
     }
 
     /// <summary>
-    /// 直接解码 PNG 源字节、执行连通域处理并重新编码，不依赖或改变 TextureImporter 的可读性与压缩设置。
+    /// 对同一 PNG 中的 Sprite 分别按其矩形裁出像素，再把各自需要置透明的 alpha 合并回完整纹理。
+    /// Sprite 之间不会共享连通域，也不会相互影响原始 alpha 判断。
     /// </summary>
-    private ProcessedFile ProcessPng(string assetPath, byte[] sourceBytes)
+    private ProcessedFile ProcessPng(string assetPath, byte[] sourceBytes, List<Sprite> sprites)
     {
+        if (sprites == null || sprites.Count == 0)
+        {
+            throw new ArgumentException("PNG 没有可处理的 Sprite。", nameof(sprites));
+        }
+
         Texture2D decodedTexture = null;
         try
         {
             decodedTexture = DecodePng(sourceBytes, Path.GetFileName(assetPath));
-            Color32[] pixels = decodedTexture.GetPixels32();
-            WhiteBorderRemovalStats stats = WhiteBorderRemovalProcessor.RemoveConnectedRegions(
-                pixels,
-                decodedTexture.width,
-                decodedTexture.height,
-                _removalColor,
-                _colorTolerance,
-                _alphaThreshold,
-                _useEightConnected);
+            Color32[] originalPixels = decodedTexture.GetPixels32();
+            Color32[] outputPixels = (Color32[])originalPixels.Clone();
+            var spriteResults = new List<SpriteProcessResult>(sprites.Count);
+            int totalRemovedComponentCount = 0;
+            int totalClearedPixelCount = 0;
 
-            byte[] outputBytes = sourceBytes;
-            if (stats.ClearedPixelCount > 0)
+            for (int i = 0; i < sprites.Count; i++)
             {
-                decodedTexture.SetPixels32(pixels);
+                Sprite sprite = sprites[i];
+                RectInt spriteRect = GetSpritePixelRect(sprite, decodedTexture.width, decodedTexture.height);
+                Color32[] spritePixels = ExtractRectPixels(originalPixels, decodedTexture.width, spriteRect);
+                WhiteBorderRemovalStats stats = WhiteBorderRemovalProcessor.RemoveConnectedRegions(
+                    spritePixels,
+                    spriteRect.width,
+                    spriteRect.height,
+                    _removalColor,
+                    _colorTolerance,
+                    _alphaThreshold,
+                    _useEightConnected);
+
+                if (stats.ClearedPixelCount > 0)
+                {
+                    MergeRemovedAlpha(outputPixels, decodedTexture.width, spriteRect, spritePixels);
+                    totalRemovedComponentCount += stats.RemovedComponentCount;
+                    totalClearedPixelCount += stats.ClearedPixelCount;
+                }
+                spriteResults.Add(new SpriteProcessResult(sprite, stats));
+            }
+
+            WhiteBorderRemovalStats totalStats = new WhiteBorderRemovalStats(
+                totalRemovedComponentCount,
+                totalClearedPixelCount);
+            byte[] outputBytes = sourceBytes;
+            if (totalStats.ClearedPixelCount > 0)
+            {
+                decodedTexture.SetPixels32(outputPixels);
                 decodedTexture.Apply(false, false);
                 outputBytes = ImageConversion.EncodeToPNG(decodedTexture);
                 if (outputBytes == null || outputBytes.Length == 0)
@@ -766,13 +866,74 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
                 }
             }
 
-            return new ProcessedFile(assetPath, sourceBytes, outputBytes, stats);
+            return new ProcessedFile(assetPath, sourceBytes, outputBytes, totalStats, spriteResults);
         }
         finally
         {
             if (decodedTexture != null)
             {
                 DestroyImmediate(decodedTexture);
+            }
+        }
+    }
+
+    private static RectInt GetSpritePixelRect(Sprite sprite, int textureWidth, int textureHeight)
+    {
+        if (!IsSupportedSprite(sprite))
+        {
+            throw new InvalidOperationException("Sprite 不是受支持的项目 PNG 子资源。");
+        }
+
+        Rect rect = sprite.rect;
+        int x = Mathf.RoundToInt(rect.x);
+        int y = Mathf.RoundToInt(rect.y);
+        int width = Mathf.RoundToInt(rect.width);
+        int height = Mathf.RoundToInt(rect.height);
+        var pixelRect = new RectInt(x, y, width, height);
+        if (pixelRect.width <= 0 || pixelRect.height <= 0 ||
+            pixelRect.xMin < 0 || pixelRect.yMin < 0 ||
+            pixelRect.xMax > textureWidth || pixelRect.yMax > textureHeight)
+        {
+            throw new InvalidOperationException($"Sprite 矩形超出 PNG 像素范围：{GetSpriteDisplayName(sprite)}");
+        }
+
+        return pixelRect;
+    }
+
+    private static Color32[] ExtractRectPixels(Color32[] sourcePixels, int sourceWidth, RectInt rect)
+    {
+        var spritePixels = new Color32[rect.width * rect.height];
+        for (int row = 0; row < rect.height; row++)
+        {
+            Array.Copy(
+                sourcePixels,
+                (rect.y + row) * sourceWidth + rect.x,
+                spritePixels,
+                row * rect.width,
+                rect.width);
+        }
+
+        return spritePixels;
+    }
+
+    private static void MergeRemovedAlpha(Color32[] targetPixels, int targetWidth, RectInt rect, Color32[] processedSpritePixels)
+    {
+        for (int row = 0; row < rect.height; row++)
+        {
+            int targetRowStart = (rect.y + row) * targetWidth + rect.x;
+            int spriteRowStart = row * rect.width;
+            for (int column = 0; column < rect.width; column++)
+            {
+                Color32 processedPixel = processedSpritePixels[spriteRowStart + column];
+                if (processedPixel.a != 0)
+                {
+                    continue;
+                }
+
+                int targetIndex = targetRowStart + column;
+                Color32 targetPixel = targetPixels[targetIndex];
+                targetPixel.a = 0;
+                targetPixels[targetIndex] = targetPixel;
             }
         }
     }
@@ -809,6 +970,7 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
     }
 
     private void SetComparisonPreview(
+        Sprite sprite,
         string assetPath,
         byte[] originalBytes,
         byte[] processedBytes,
@@ -820,11 +982,11 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
         Texture2D processedTexture = null;
         try
         {
-            originalTexture = DecodePng(originalBytes, $"{Path.GetFileName(assetPath)} - 原图");
-            processedTexture = DecodePng(processedBytes, $"{Path.GetFileName(assetPath)} - 新图");
+            originalTexture = CreateSpritePreviewTexture(originalBytes, sprite, $"{sprite.name} - 原图");
+            processedTexture = CreateSpritePreviewTexture(processedBytes, sprite, $"{sprite.name} - 新图");
             DestroyPreview();
             _preview = new PreviewData(
-                assetPath,
+                GetSpriteDisplayName(sprite) + "\n" + assetPath,
                 originalTexture,
                 processedTexture,
                 stats,
@@ -842,6 +1004,34 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
                 DestroyImmediate(processedTexture);
             }
             throw;
+        }
+    }
+
+    private static Texture2D CreateSpritePreviewTexture(byte[] pngBytes, Sprite sprite, string textureName)
+    {
+        Texture2D decodedTexture = null;
+        try
+        {
+            decodedTexture = DecodePng(pngBytes, textureName);
+            RectInt spriteRect = GetSpritePixelRect(sprite, decodedTexture.width, decodedTexture.height);
+            Color32[] spritePixels = ExtractRectPixels(decodedTexture.GetPixels32(), decodedTexture.width, spriteRect);
+            var previewTexture = new Texture2D(spriteRect.width, spriteRect.height, TextureFormat.RGBA32, false, false)
+            {
+                name = textureName,
+                hideFlags = HideFlags.HideAndDontSave,
+                filterMode = FilterMode.Bilinear,
+                wrapMode = TextureWrapMode.Clamp
+            };
+            previewTexture.SetPixels32(spritePixels);
+            previewTexture.Apply(false, false);
+            return previewTexture;
+        }
+        finally
+        {
+            if (decodedTexture != null)
+            {
+                DestroyImmediate(decodedTexture);
+            }
         }
     }
 
@@ -1067,20 +1257,6 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
         return absolutePath;
     }
 
-    private bool ContainsAssetPath(string assetPath)
-    {
-        for (int i = 0; i < _sourceTextures.Count; i++)
-        {
-            if (_sourceTextures[i] != null &&
-                string.Equals(AssetDatabase.GetAssetPath(_sourceTextures[i]), assetPath, StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     private static bool IsSupportedAssetPath(string assetPath)
     {
         return !string.IsNullOrEmpty(assetPath)
@@ -1089,37 +1265,76 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
                && string.Equals(Path.GetExtension(assetPath), ".png", StringComparison.OrdinalIgnoreCase);
     }
 
-    private Texture2D GetSelectedTexture()
+    private static bool IsSupportedSprite(Sprite sprite)
     {
-        ClampSelectedIndex();
-        return _sourceTextures.Count > 0 ? _sourceTextures[_selectedTextureIndex] : null;
+        if (sprite == null || !IsSupportedAssetPath(AssetDatabase.GetAssetPath(sprite)))
+        {
+            return false;
+        }
+
+        Rect rect = sprite.rect;
+        return rect.width > 0f && rect.height > 0f;
+    }
+
+    private bool ContainsSprite(Sprite sprite)
+    {
+        for (int i = 0; i < _sourceSprites.Count; i++)
+        {
+            if (_sourceSprites[i] == sprite)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private List<Sprite> GetSpritesAtAssetPath(string assetPath)
+    {
+        var sprites = new List<Sprite>();
+        for (int i = 0; i < _sourceSprites.Count; i++)
+        {
+            Sprite sprite = _sourceSprites[i];
+            if (sprite != null &&
+                string.Equals(AssetDatabase.GetAssetPath(sprite), assetPath, StringComparison.OrdinalIgnoreCase))
+            {
+                sprites.Add(sprite);
+            }
+        }
+
+        return sprites;
+    }
+
+    private Sprite GetSelectedSprite()
+    {
+        ClampSelectedSpriteIndex();
+        return _sourceSprites.Count > 0 ? _sourceSprites[_selectedSpriteIndex] : null;
     }
 
     private string GetSelectedAssetPath()
     {
-        Texture2D selectedTexture = GetSelectedTexture();
-        return selectedTexture != null ? AssetDatabase.GetAssetPath(selectedTexture) : null;
+        Sprite selectedSprite = GetSelectedSprite();
+        return selectedSprite != null ? AssetDatabase.GetAssetPath(selectedSprite) : null;
     }
 
-    private void ClampSelectedIndex()
+    private void ClampSelectedSpriteIndex()
     {
-        _selectedTextureIndex = _sourceTextures.Count == 0
+        _selectedSpriteIndex = _sourceSprites.Count == 0
             ? 0
-            : Mathf.Clamp(_selectedTextureIndex, 0, _sourceTextures.Count - 1);
+            : Mathf.Clamp(_selectedSpriteIndex, 0, _sourceSprites.Count - 1);
     }
 
-    private void RemoveMissingTextures()
+    private void RemoveMissingSprites()
     {
-        for (int i = _sourceTextures.Count - 1; i >= 0; i--)
+        for (int i = _sourceSprites.Count - 1; i >= 0; i--)
         {
-            Texture2D texture = _sourceTextures[i];
-            if (texture == null || !IsSupportedAssetPath(AssetDatabase.GetAssetPath(texture)))
+            if (!IsSupportedSprite(_sourceSprites[i]))
             {
-                _sourceTextures.RemoveAt(i);
+                _sourceSprites.RemoveAt(i);
             }
         }
 
-        ClampSelectedIndex();
+        ClampSelectedSpriteIndex();
     }
 
     private FileBackup FindUndoBackup(string assetPath)
@@ -1138,6 +1353,30 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
         }
 
         return null;
+    }
+
+    private static ProcessedFile FindProcessedFile(List<ProcessedFile> files, string assetPath)
+    {
+        for (int i = 0; i < files.Count; i++)
+        {
+            if (string.Equals(files[i].AssetPath, assetPath, StringComparison.OrdinalIgnoreCase))
+            {
+                return files[i];
+            }
+        }
+
+        return null;
+    }
+
+    private static string GetSpriteDisplayName(Sprite sprite)
+    {
+        if (sprite == null)
+        {
+            return "（Sprite 已丢失）";
+        }
+
+        Rect rect = sprite.rect;
+        return $"{sprite.name}  [{rect.x:0},{rect.y:0},{rect.width:0}×{rect.height:0}]  — {AssetDatabase.GetAssetPath(sprite)}";
     }
 
     private void DestroyPreview()
@@ -1160,7 +1399,7 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
 
     private sealed class PreviewData
     {
-        internal string AssetPath { get; }
+        internal string DisplayName { get; }
         internal Texture2D OriginalTexture { get; }
         internal Texture2D ProcessedTexture { get; }
         internal WhiteBorderRemovalStats Stats { get; }
@@ -1168,14 +1407,14 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
         internal string RightLabel { get; }
 
         internal PreviewData(
-            string assetPath,
+            string displayName,
             Texture2D originalTexture,
             Texture2D processedTexture,
             WhiteBorderRemovalStats stats,
             string leftLabel,
             string rightLabel)
         {
-            AssetPath = assetPath;
+            DisplayName = displayName;
             OriginalTexture = originalTexture;
             ProcessedTexture = processedTexture;
             Stats = stats;
@@ -1190,16 +1429,44 @@ public sealed class WhiteBorderRemovalWindow : EditorWindow
         internal byte[] OriginalBytes { get; }
         internal byte[] OutputBytes { get; }
         internal WhiteBorderRemovalStats Stats { get; }
+        private List<SpriteProcessResult> SpriteResults { get; }
 
         internal ProcessedFile(
             string assetPath,
             byte[] originalBytes,
             byte[] outputBytes,
-            WhiteBorderRemovalStats stats)
+            WhiteBorderRemovalStats stats,
+            List<SpriteProcessResult> spriteResults)
         {
             AssetPath = assetPath;
             OriginalBytes = originalBytes;
             OutputBytes = outputBytes;
+            Stats = stats;
+            SpriteResults = spriteResults;
+        }
+
+        internal WhiteBorderRemovalStats FindSpriteStats(Sprite sprite)
+        {
+            for (int i = 0; i < SpriteResults.Count; i++)
+            {
+                if (SpriteResults[i].Sprite == sprite)
+                {
+                    return SpriteResults[i].Stats;
+                }
+            }
+
+            return default;
+        }
+    }
+
+    private sealed class SpriteProcessResult
+    {
+        internal Sprite Sprite { get; }
+        internal WhiteBorderRemovalStats Stats { get; }
+
+        internal SpriteProcessResult(Sprite sprite, WhiteBorderRemovalStats stats)
+        {
+            Sprite = sprite;
             Stats = stats;
         }
     }
