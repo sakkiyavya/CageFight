@@ -114,6 +114,24 @@ public class GameObjectPool : MonoBehaviour
         _instanceToPrefab.TryGetValue(instance, out GameObject prefab);
         return prefab;
     }
+
+    /// <summary>
+    /// 回收所有当前处于激活状态的池化实例（空闲实例与非池化对象不在此范围）。
+    /// 用于关卡结算、局内放弃等场景统一清理场上由对象池生成的实体（单位、子弹、特效等），
+    /// 非池化对象保持原位，由各自归属方管理。
+    /// </summary>
+    public void ReleaseAllActive()
+    {
+        // 快照当前全部池化实例，避免回收过程中字典被修改。
+        var snapshot = new List<GameObject>(_instanceToPrefab.Keys);
+        foreach (GameObject instance in snapshot)
+        {
+            if (instance == null || !instance.activeSelf)
+                continue;
+
+            Release(instance);
+        }
+    }
     /// <summary>
     /// 销毁指定预制体当前处于空闲状态的全部实例，并移除对应池和层级节点。
     /// </summary>

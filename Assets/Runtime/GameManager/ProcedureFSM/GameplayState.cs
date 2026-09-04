@@ -37,7 +37,7 @@ public class GameplayState : SceneStateBase
     }
 
     /// <summary>
-    /// 退出局内流程，并预留停止计时器、清理实体及地图占用数据的逻辑。
+    /// 退出局内流程，释放工程师，并清理场上所有由对象池生成的局内实体。
     /// </summary>
     /// <returns>局内状态的退出协程。</returns>
     protected override IEnumerator OnExit()
@@ -45,8 +45,13 @@ public class GameplayState : SceneStateBase
         if (playerLoadoutSpawner)
             playerLoadoutSpawner.ReleaseSpawnedEngineer();
 
+        // 清理场上所有由对象池生成的局内实体（怪物、子弹、特效等）；
+        // 工程师已先释放（处于停用状态），不会被重复回收；非池化对象保持原位。
+        if (GameObjectPool.Instance != null)
+            GameObjectPool.Instance.ReleaseAllActive();
+
         // TODO: 停止局内计时器
-        // TODO: 清理场上所有怪物、子弹与网格占用数据
+        // TODO: 清理网格占用数据
         yield return null;
     }
     #endregion
