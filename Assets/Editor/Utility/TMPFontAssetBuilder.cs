@@ -16,11 +16,11 @@ using UnityEngine.TextCore.LowLevel;
 /// </summary>
 public static class TMPFontAssetBuilder
 {
-    private const string FontPath = "Assets/Resource/LocalResource/Font/SourceHanSansSC-Bold.otf";
+    private const string FontPath = "Assets/RemoteResource/Font/SourceHanSansSC-Bold.otf";
     private const string CharTablePath = "Assets/Resource/LocalResource/Font/常用字表.txt";
     private const string OutputPath = "Assets/Resource/LocalResource/Font/SourceHanSansSC-Bold SDF.asset";
-    private const int SamplingPointSize = 36;
-    private const int AtlasPadding = 9;
+    private const int SamplingPointSize = 30;
+    private const int AtlasPadding = 7;
     private const int AtlasWidth = 2048;
     private const int AtlasHeight = 2048;
 
