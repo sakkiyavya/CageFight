@@ -185,13 +185,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 0
-  maxHp: 8500
+  maxHp: 4000
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 200
+  atk: 150
   atkRate: 1
-  magicAtk: 10
+  magicAtk: 0
   repel: 0
   antiRepel: 2
   atkRange: {x: 1, y: 1}
@@ -526,7 +526,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHpPercent: 0.1
   layerDuration: 10
-  cheesePrefabKey: Huge cheese
+  cheesePrefabKey: cheese
 --- !u!1 &6748602846840938275
 GameObject:
   m_ObjectHideFlags: 0
