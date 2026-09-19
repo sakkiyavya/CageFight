@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: d6678621d44c5b748858851faa33ee05
   m_currentHash:
     serializedVersion: 2
-    Hash: 9c44be68674ad73cfa9a032055bdb636
+    Hash: 63bcc6550f5a9f526bece472256a6ee6
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
-  m_BuildAddressablesWithPlayerBuild: 0
+  m_BuildAddressablesWithPlayerBuild: 2
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
   - {fileID: 11400000, guid: 82c74742dc7bfd045874316f8d7e2aef, type: 2}
@@ -91,6 +91,20 @@ MonoBehaviour:
       - m_Id: fbcaa9cf106a8f045867bc08ebb0a57a
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
     - m_InheritedParent: 
+      m_Id: 383071b2db8a8254191a3650195c39de
+      m_ProfileName: Editor-Windows-local
+      m_Values:
+      - m_Id: 0afddf75c23264a41a4563bd6f670ad3
+        m_Value: D:/unity_project/CageFight/ServerData/Editor-local/StandaloneWindows64
+      - m_Id: 3f1cc8b8307b2ab48a05050b71f1f851
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: 65e1b8e66d109de42918593544c26e2c
+        m_Value: D:/unity_project/CageFight/ServerData/Editor-local/StandaloneWindows64
+      - m_Id: 81c15cf875996b64c9cca1f17a249205
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: fbcaa9cf106a8f045867bc08ebb0a57a
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+    - m_InheritedParent: 
       m_Id: 808cc4c00936a6444b130ee14bae342b
       m_ProfileName: Douyin-TOS-dev
       m_Values:
@@ -124,6 +138,7 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
+    - StartupPreload
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 3faef162053be204788524aceaba87ef, type: 2}
@@ -131,7 +146,7 @@ MonoBehaviour:
   m_CertificateHandlerType:
     m_AssemblyName: 
     m_ClassName: 
-  m_ActivePlayerDataBuilderIndex: 3
+  m_ActivePlayerDataBuilderIndex: 4
   m_DataBuilders:
   - {fileID: 11400000, guid: 887c995ca240d804fb004a0a45aa1699, type: 2}
   - {fileID: 11400000, guid: 8a8795772686ff1478edb910d4ef3257, type: 2}

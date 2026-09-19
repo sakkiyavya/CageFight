@@ -1,0 +1,9 @@
+<linker>
+  <!-- Addressables allocates operations through Activator.CreateInstance(Type).
+       Keep the runtime assemblies, including GroupOperation's default constructor.
+       This matches the preservation rules in Addressables' generated link.xml.
+       Keep this file outside AddressableAssetsData: that link.xml is temporary
+       and can be removed by Addressables during editor initialization. -->
+  <assembly fullname="Unity.Addressables" preserve="all" />
+  <assembly fullname="Unity.ResourceManager" preserve="all" />
+</linker>

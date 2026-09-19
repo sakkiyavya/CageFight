@@ -397,6 +397,7 @@ public static class RegistryBuilder
         }
 
         entry.address = address;
+        entry.SetLabel(RemoteStartup.PreloadLabel, true, true);
         EditorUtility.SetDirty(settings);
     }
 
@@ -421,7 +422,7 @@ public static class RegistryBuilder
             return;
         }
 
-        settings.CreateOrMoveEntry(guid, group);
+        settings.CreateOrMoveEntry(guid, group).SetLabel(RemoteStartup.PreloadLabel, true, true);
         EditorUtility.SetDirty(settings);
     }
 

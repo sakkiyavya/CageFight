@@ -48,6 +48,7 @@ public sealed class BuildScriptDouyinUpload : BuildScriptPackedMode
 
     private static void ValidateInput(AddressablesDataBuilderInput input)
     {
+        RemoteStartupBuildValidation.Validate();
         var s = input.AddressableSettings;
         if (input.Target != BuildTarget.WebGL || input.PreviousContentState != null)
             throw new InvalidOperationException("此脚本只用于 WebGL New Build；内容更新请使用原构建脚本。");

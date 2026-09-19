@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tag: 0
   wasmResourceUrl: http://
-  OutputDir: D:\unity_project\ttWebGLBuild
+  OutputDir: D:\ttMiniGame
   useByteAudioAPI: 0
   wasmMemorySize: 512
   isWebGL2: 0
   needCompress: 1
   symbolMode: 1
-  profiling: 0
+  profiling: 1
   clearStreamingAssets: 0
-  buildOptions: 0
+  buildOptions: 128
   wasmSubFramework: 0
   hideAfterCallmain: 1
   disableLoadingPage: 0
@@ -37,8 +37,11 @@ MonoBehaviour:
   dataLoadType: 1
   dataFileSubPrefix: 
   iOSDevicePixelRatio: 0
-  urlCacheList: []
-  dontCacheFileNames: []
+  urlCacheList:
+  - tt572c2191c956e13607-env-sqc4xosogq.tos-cn-beijing.volces.com
+  dontCacheFileNames:
+  - catalog_1.0.json
+  - catalog_1.0.hash
   isDevBuild: 0
   stripEngineCode: 0
   appHost: 2
@@ -51,15 +54,15 @@ MonoBehaviour:
   NativeWhiteListRegex:
   - com.bytedance.starksdk
   - _Backup~
-  _appId: tt501226afce76fb7d07
+  _appId: tt572c2191c956e13607
   version: 
   autoVersion: 0
-  _webglPackagePath: D:\unity_project\ttWebGLBuild\tt-minigame
+  _webglPackagePath: D:\ttMiniGame\tt-minigame
   _orientation: 0
   _iOSPerformancePlus: 0
   _menuButtonStyle: 0
   _publishType: 0
   publishDesc: 
-  idePath: "D:/\u6296\u97F3\u5F00\u53D1\u8005\u5DE5\u5177/\u6296\u97F3\u5F00\u53D1\u8005\u5DE5\u5177-4.5.2.exe"
+  idePath: "D:/\u6296\u97F3\u5F00\u53D1\u8005\u5DE5\u5177/@bytedminiprogram-ide/\u6296\u97F3\u5F00\u53D1\u8005\u5DE5\u5177.exe"
   isConvert: 0
   isOldBuildFormat: 0

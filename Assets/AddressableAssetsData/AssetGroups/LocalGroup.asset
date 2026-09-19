@@ -20,47 +20,56 @@ MonoBehaviour:
   - m_GUID: 3d17e31343f8d3643bf07f3bc875a1f9
     m_Address: PrefabRegistry
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - StartupPreload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3ede0ea036caf7a44b85705acfef9a56
     m_Address: Mouse Building AP
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - StartupPreload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 545a1260c84973f4da4b7350798a7666
     m_Address: Cat Building
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - StartupPreload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 643591c1d1464af2a0e0af99587ee2ae
     m_Address: LoadoutDefinitionRegistry
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - StartupPreload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a5100ed88d940224ca99b66ff1d48dae
     m_Address: AnimationClipRegistry
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - StartupPreload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd90c55a7883fff4a98526fc3a1a0bda
+    m_Address: AudioRegistry
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StartupPreload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e6a0863338e726c44bac655a67560eb0
     m_Address: TextureRegistry
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ee92bf2fc2ecfe64293d0cce1b63613b
-    m_Address: Assets/Resource/LocalResource/Animation/Load Anime AP.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - StartupPreload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f2ceb4c4a298c0646924f295de9c3d99
     m_Address: AnimatorControllerRegistry
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - StartupPreload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f89b73be20da5324384b4a42e4155fe0
     m_Address: SpriteRegistry
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - StartupPreload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: fd925235a4b76c34f8565d97364da12c, type: 2}

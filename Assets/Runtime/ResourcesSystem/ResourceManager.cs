@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceLocations;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -92,6 +93,23 @@ public class ResourceManager : MonoBehaviour
             foreach (string key in commonKeys) yield return key;
     }
 
+    /// <summary>按键和目标类型查询位置；缺失或类型不匹配时只警告，不发起必然失败的资源加载。</summary>
+    private IEnumerator ResolveResourceLocation(
+        string key, object addressableKey, Type resourceType, Action<IResourceLocation> onResolved)
+    {
+        var handle = Addressables.LoadResourceLocationsAsync(addressableKey, resourceType);
+        yield return handle;
+        IResourceLocation location = null;
+        if (handle.Status == AsyncOperationStatus.Succeeded && handle.Result != null && handle.Result.Count > 0)
+            location = handle.Result[0];
+
+        if (location == null)
+            Debug.LogWarning($"[ResourceManager] 未找到匹配的 Addressable 资源，已跳过。Key: {key}, Type: {resourceType.Name}", this);
+
+        if (handle.IsValid()) Addressables.Release(handle);
+        onResolved(location);
+    }
+
     #region 生命周期与回调
     /// <summary>
     /// 建立资源管理器单例，并在编辑器中同步查找注册表，或在玩家构建中启动注册表异步加载。
@@ -176,6 +194,7 @@ public class ResourceManager : MonoBehaviour
     /// </summary>
     private void OnDestroy()
     {
+        RemoteStartup.Instance?.HideLoading(this);
         if (Instance == this)
             Instance = null;
     }
@@ -292,16 +311,21 @@ public class ResourceManager : MonoBehaviour
         foreach (string key in persistentAudios)
         {
             if (string.IsNullOrEmpty(key) || _persistentAudioDict.ContainsKey(key)) continue;
-            object address = audioRegistry.GetReference(key);
-            if (address == null) continue;
-            var handle = Addressables.LoadAssetAsync<AudioClip>(address);
+            IResourceLocation location = null;
+            yield return ResolveResourceLocation(key, ResolveRegisteredKey<AudioClip>(key), typeof(AudioClip), result => location = result);
+            if (location == null) continue;
+            var handle = Addressables.LoadAssetAsync<AudioClip>(location);
             yield return handle;
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
                 _persistentAudioDict[key] = handle.Result;
                 _persistentAudioHandles.Add(handle);
             }
-            else Debug.LogError($"[ResourceManager] 持久音频加载失败：{key}");
+            else
+            {
+                Debug.LogError($"[ResourceManager] 持久音频加载失败：{key}");
+                if (handle.IsValid()) Addressables.Release(handle);
+            }
         }
     }
 
@@ -414,7 +438,7 @@ public class ResourceManager : MonoBehaviour
         if (string.IsNullOrWhiteSpace(key) || _gameObjectDict.ContainsKey(key)) yield break;
         if (!prefabRegistry)
         {
-            Debug.LogError("[ResourceManager] PrefabRegistry 未就绪，无法预载选装资源。", this);
+            Debug.LogWarning("[ResourceManager] PrefabRegistry 未就绪，已跳过选装资源预载。", this);
             yield break;
         }
 
@@ -430,11 +454,14 @@ public class ResourceManager : MonoBehaviour
         AssetReferenceGameObject reference = prefabRegistry.GetReference(key);
         if (reference == null || !reference.RuntimeKeyIsValid())
         {
-            Debug.LogError($"[ResourceManager] 未注册预制体 Key：{key}", this);
+            Debug.LogWarning($"[ResourceManager] 未注册预制体，已跳过。Key：{key}", this);
             yield break;
         }
 
-        var handle = Addressables.LoadAssetAsync<GameObject>(reference);
+        IResourceLocation location = null;
+        yield return ResolveResourceLocation(key, reference, typeof(GameObject), result => location = result);
+        if (location == null) yield break;
+        var handle = Addressables.LoadAssetAsync<GameObject>(location);
         yield return handle;
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
@@ -444,6 +471,7 @@ public class ResourceManager : MonoBehaviour
         else
         {
             Debug.LogError($"[ResourceManager] 预载预制体失败：{key}", this);
+            if (handle.IsValid()) Addressables.Release(handle);
         }
     }
 
@@ -455,7 +483,7 @@ public class ResourceManager : MonoBehaviour
         if (string.IsNullOrWhiteSpace(key) || _spriteDict.ContainsKey(key)) yield break;
         if (!spriteRegistry)
         {
-            Debug.LogError("[ResourceManager] SpriteRegistry 未就绪，无法预载选装图标。", this);
+            Debug.LogWarning("[ResourceManager] SpriteRegistry 未就绪，已跳过选装图标预载。", this);
             yield break;
         }
 
@@ -472,11 +500,14 @@ public class ResourceManager : MonoBehaviour
         AssetReferenceT<Sprite> reference = spriteRegistry.GetReference(key);
         if (reference == null || !reference.RuntimeKeyIsValid())
         {
-            Debug.LogError($"[ResourceManager] 未注册 Sprite Key：{key}", this);
+            Debug.LogWarning($"[ResourceManager] 未注册 Sprite，已跳过。Key：{key}", this);
             yield break;
         }
 
-        var handle = Addressables.LoadAssetAsync<Sprite>(reference);
+        IResourceLocation location = null;
+        yield return ResolveResourceLocation(key, reference, typeof(Sprite), result => location = result);
+        if (location == null) yield break;
+        var handle = Addressables.LoadAssetAsync<Sprite>(location);
         yield return handle;
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
@@ -487,6 +518,7 @@ public class ResourceManager : MonoBehaviour
         else
         {
             Debug.LogError($"[ResourceManager] 预载图标失败：{key}", this);
+            if (handle.IsValid()) Addressables.Release(handle);
         }
     }
     #endregion
@@ -502,7 +534,11 @@ public class ResourceManager : MonoBehaviour
     /// <returns>是否成功启动加载协程。</returns>
     public bool LoadStageResources(StageConfig stage)
     {
-
+        if (stage == null || !isActiveAndEnabled)
+        {
+            Debug.LogWarning("[ResourceManager] 关卡配置为空或资源管理器未启用，无法开始加载。", this);
+            return false;
+        }
         if (CurrentState == ResourceState.Loading)
         {
             Debug.LogWarning("[ResourceManager] 当前正在加载中，请勿重复调用！");
@@ -518,8 +554,23 @@ public class ResourceManager : MonoBehaviour
 
         UnloadStageResource();
         CurrentState = ResourceState.Loading;
-        StartCoroutine(CoLoadStageResources(stage));
+        RemoteStartup.GetForStageLoading()?.ShowLoading(this);
+        StartCoroutine(CoLoadStageResourcesWithOverlay(stage));
         return true;
+    }
+
+    private IEnumerator CoLoadStageResourcesWithOverlay(StageConfig stage)
+    {
+        try
+        {
+            // 先显示一帧加载动画，再开始目录检查和资源加载。
+            yield return null;
+            yield return CoLoadStageResources(stage);
+        }
+        finally
+        {
+            RemoteStartup.Instance?.HideLoading(this);
+        }
     }
 
     /// <summary>
@@ -649,22 +700,34 @@ public class ResourceManager : MonoBehaviour
             keysWithAddressableKeys[key] = addressableKey;
         }
 
-        List<object> keysToDownload = new List<object>();                                                                                   // 合并下载依赖时提交给 Addressables 的运行时键集合。
+        var validLocations = new Dictionary<string, IResourceLocation>();
         foreach (var kvp in keysWithTypes)
         {
             string key = kvp.Key;
-            if (keysWithAddressableKeys.TryGetValue(key, out var addrKey))
+#if UNITY_EDITOR
+            // 保留精灵直接引用快路径，避免多图切片被错误解析为主对象。
+            if (kvp.Value == typeof(Sprite) && spriteRegistry != null)
             {
-                keysToDownload.Add(addrKey);
+                Sprite editorSprite = spriteRegistry.GetAsset(key);
+                if (editorSprite != null)
+                {
+                    CacheLoadedAsset(key, editorSprite);
+                    continue;
+                }
             }
+#endif
+            IResourceLocation location = null;
+            yield return ResolveResourceLocation(key, keysWithAddressableKeys[key], kvp.Value, result => location = result);
+            if (location != null) validLocations.Add(key, location);
         }
+        var keysToDownload = validLocations.Values.ToList();
 
         // 2. 批量合并下载依赖 (避免网络风暴)
         if (keysToDownload.Count > 0)
         {
             Debug.Log($"[ResourceManager] 开始批量下载 {keysToDownload.Count} 个资源的依赖...");
-            // 显式转换为 IEnumerable 以消除 IList<object> 重载过时的警告
-            var downloadHandle = Addressables.DownloadDependenciesAsync((System.Collections.IEnumerable)keysToDownload, Addressables.MergeMode.Union);
+            // 只下载已验证类型的位置，缺失键不会导致整个批次失败。
+            var downloadHandle = Addressables.DownloadDependenciesAsync(keysToDownload);
             yield return downloadHandle;
 
             if (downloadHandle.Status != AsyncOperationStatus.Succeeded)
@@ -682,7 +745,7 @@ public class ResourceManager : MonoBehaviour
             {
                 string key = kvp.Key;
                 Type resType = kvp.Value;
-                object addressableKey = keysWithAddressableKeys[key];
+                if (!validLocations.TryGetValue(key, out var addressableKey)) continue;
 
                 if (resType == typeof(GameObject))
                 {
@@ -764,6 +827,9 @@ public class ResourceManager : MonoBehaviour
                 }
             }
         }
+
+        if (RemoteStartup.Instance != null)
+            yield return RemoteStartup.Instance.WaitForMinimumDisplay();
 
         CurrentState = ResourceState.LoadComplete;
         Debug.Log("[ResourceManager] 关卡预加载完成！");
@@ -1094,7 +1160,15 @@ public class ResourceManager : MonoBehaviour
         }
 #endif
 
-        var handle = Addressables.LoadAssetAsync<T>(ResolveRegisteredKey<T>(key));
+        IResourceLocation location = null;
+        yield return ResolveResourceLocation(key, ResolveRegisteredKey<T>(key), typeof(T), result => location = result);
+        if (location == null)
+        {
+            onComplete?.Invoke(null);
+            yield break;
+        }
+
+        var handle = Addressables.LoadAssetAsync<T>(location);
         yield return handle;
 
         if (handle.Status == AsyncOperationStatus.Succeeded)
@@ -1106,6 +1180,7 @@ public class ResourceManager : MonoBehaviour
         else
         {
             Debug.LogError($"[ResourceManager] 加载额外资源失败！Key: {key}, Type: {typeof(T)}");
+            if (handle.IsValid()) Addressables.Release(handle);
             onComplete?.Invoke(null);
         }
     }

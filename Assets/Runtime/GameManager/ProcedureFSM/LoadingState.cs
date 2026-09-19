@@ -13,6 +13,21 @@ public class LoadingState : SceneStateBase
     /// <returns>等待资源加载和关卡实例化完成的协程。</returns>
     protected override IEnumerator OnEnter()
     {
+        RemoteStartup.GetForStageLoading()?.ShowLoading(this);
+        try
+        {
+            yield return null;
+            yield return LoadStage();
+        }
+        finally
+        {
+            RemoteStartup.Instance?.HideLoading(this);
+        }
+    }
+
+    // 遮罩覆盖关卡预载、出战资源预载以及关卡实例化的完整过程。
+    private IEnumerator LoadStage()
+    {
         if (CurrentStageConfig == null)
         {
             Debug.LogError("[LoadingState] StageConfig is missing.");
@@ -57,6 +72,9 @@ public class LoadingState : SceneStateBase
             yield break;
         }
 
+        if (RemoteStartup.Instance != null)
+            yield return RemoteStartup.Instance.WaitForMinimumDisplay();
+
         SceneFSM.Instance.LoadState(GameState.Gameplay);
     }
 
@@ -66,7 +84,13 @@ public class LoadingState : SceneStateBase
     /// <returns>加载状态的退出协程。</returns>
     protected override IEnumerator OnExit()
     {
+        RemoteStartup.Instance?.HideLoading(this);
         yield return null;
+    }
+
+    private void OnDisable()
+    {
+        RemoteStartup.Instance?.HideLoading(this);
     }
     #endregion
 }

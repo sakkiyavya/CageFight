@@ -24,11 +24,16 @@ public static class DouyinStorageBuild
         profiles.SetValue(profile, "Remote.BuildPath", "ServerData/Douyin-dev/[BuildTarget]");
         profiles.SetValue(profile, "Remote.LoadPath", RemoteRoot + "/[BuildTarget]");
         settings.activeProfileId = profile;
+        // Build content explicitly before exporting the player. Nested content builds
+        // refresh the AssetDatabase while Unity is preparing player serialization.
+        settings.BuildAddressablesWithPlayerBuild = AddressableAssetSettings.PlayerBuildOption.DoNotBuildWithPlayer;
         settings.BuildRemoteCatalog = true;
         settings.RemoteCatalogBuildPath.SetVariableByName(settings, "Remote.BuildPath");
         settings.RemoteCatalogLoadPath.SetVariableByName(settings, "Remote.LoadPath");
         int count = 0;
-        foreach (var group in settings.groups.Where(g => g != null && g.Name.StartsWith("Remote ", StringComparison.Ordinal)))
+        foreach (var group in settings.groups.Where(g => g != null &&
+                     (g.Name.StartsWith("Remote ", StringComparison.Ordinal) ||
+                      g.Name == "LocalGroup" || g.Name == "UI Audio" || g.Name == "StageConfig")))
         {
             var schema = group.GetSchema<BundledAssetGroupSchema>();
             if (schema == null) continue;
