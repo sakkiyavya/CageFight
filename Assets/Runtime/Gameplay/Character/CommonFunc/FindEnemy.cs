@@ -46,10 +46,10 @@ public class FindEnemy : BehaviourBase
             prop.currentScanSession = new EnemyScanSession();
         }
 
-        // 1. 执行增量索敌扫描 (每帧最多 10 步)
+        // 1. 执行增量索敌扫描 (每帧最多 30 格)
         if (prop.currentScanSession != null)
         {
-            prop.currentScanSession.Scan(10);
+            prop.currentScanSession.Scan(30);
             
             if (prop.currentScanSession.isFinished)
             {

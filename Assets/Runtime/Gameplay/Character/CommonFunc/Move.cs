@@ -43,12 +43,11 @@ public class Move : BehaviourBase
         // 获取路径中的下一个格点
         _nextCell = prop.path[0];
 
-        // 下一步目标格被非当前目标的对象占用时，放弃当前追击与旧路径，避免继续撞入占地。
+        // 忽略自身和当前攻击目标，其余兵种、建筑与寻路使用相同挡路规则。
         MapCells mapCells = MapCells.Instance;
         if (mapCells != null)
         {
-            var nextOccupiers = mapCells.GetOccupiers(_nextCell.x, _nextCell.y);
-            if (nextOccupiers.Count > 0 && !nextOccupiers.Contains(prop.target))
+            if (mapCells.IsPathBlocked(_nextCell, self, prop.target))
             {
                 prop.target = null;
                 prop.path.Clear();

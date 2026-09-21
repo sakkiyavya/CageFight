@@ -38,7 +38,7 @@ public class FindBuilding : BehaviourBase
 
         if (prop.currentScanSession != null)
         {
-            prop.currentScanSession.Scan(10);
+            prop.currentScanSession.Scan(30);
 
             if (prop.currentScanSession.isFinished)
                 ProcessScanResult(self, prop);

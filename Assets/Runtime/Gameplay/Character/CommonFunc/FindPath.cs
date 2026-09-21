@@ -1,12 +1,16 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FindPath : BehaviourBase
 {
-    private Vector2Int _currentTargetPos;    // 目标当前所在的网格坐标。
     private Vector2Int _myPos;               // 执行者当前所在的网格坐标。
     private Vector2Int _targetPos;           // 本轮寻路使用的终点坐标。
-    private Vector2Int _lastPoint;           // 现有路径记录的最后一个坐标。
+    private Vector2Int _lastTargetPos;       // 上次观察到的目标格子，不是旧路径终点。
+    private GameObject _lastTarget;
+
+    private void OnEnable()
+    {
+        _lastTarget = null;
+    }
 
     #region 公开接口
     /// <summary>
@@ -19,42 +23,41 @@ public class FindPath : BehaviourBase
     /// <returns>本帧是否正在处理寻路或刚完成寻路。</returns>
     public override bool AIBehaviour(GameObject self, GameObjectProperty prop, CharacterHealth health)
     {
-        // 如果有目标且有路径，检查目标是否移动了位置
-        if (prop.target != null && prop.path != null && prop.path.Count > 0)
+        if (prop.target == null)
         {
-            _lastPoint = prop.path[prop.path.Count - 1];
-            _currentTargetPos.x = (int)(prop.target.transform.position.x - 0.5f + 0.5f); // 简化为 (int)pos.x ? 不，保持 (int)(pos.x - space/2 + 0.5) 逻辑
-            // 角色通常占据中心，坐标即为中心。
-            // 按照之前的逻辑：GetBasePos = (int)(pos.x - space.x/2f + 0.5f)
-            // 如果 space=1,1: (int)(pos.x - 0.5f + 0.5f) = (int)pos.x
-            // 这里为了严谨，直接调用一致的逻辑
-            _currentTargetPos.x = (int)(prop.target.transform.position.x - 0.5f + 0.5f);
-            _currentTargetPos.y = (int)(prop.target.transform.position.y - 0.5f + 0.5f);
-            
-            // 如果目标位置变了，清除旧路径触发重新寻路
-            if (_lastPoint != _currentTargetPos)
+            _lastTarget = null;
+            prop.currentPathSession = null;
+            return false;
+        }
+
+        _myPos = new Vector2Int((int)self.transform.position.x, (int)self.transform.position.y);
+        _targetPos = new Vector2Int((int)prop.target.transform.position.x, (int)prop.target.transform.position.y);
+
+        // 只在同一目标换格时判断；保留旧路后也更新观察位置，避免下一帧重复判断。
+        if (_lastTarget == prop.target && _lastTargetPos != _targetPos &&
+            prop.path != null && prop.path.Count > 0)
+        {
+            Vector2Int nextCell = prop.path[0];
+            int currentDistance = Mathf.Abs(_myPos.x - _targetPos.x) + Mathf.Abs(_myPos.y - _targetPos.y);
+            int nextDistance = Mathf.Abs(nextCell.x - _targetPos.x) + Mathf.Abs(nextCell.y - _targetPos.y);
+            if (nextDistance > currentDistance)
             {
                 prop.path.Clear();
                 prop.currentPathSession = null;
             }
         }
+        _lastTarget = prop.target;
+        _lastTargetPos = _targetPos;
 
-        // 否定条件：如果没有目标，或者已经有有效路径，则不需要寻路
-        if (prop.target == null || (prop.path != null && prop.path.Count > 0))
+        if (prop.path != null && prop.path.Count > 0)
         {
-            if (prop.target == null) prop.currentPathSession = null;
             return false;
         }
-
-        _myPos.x = (int)(self.transform.position.x - 0.5f + 0.5f);
-        _myPos.y = (int)(self.transform.position.y - 0.5f + 0.5f);
-        _targetPos.x = (int)(prop.target.transform.position.x - 0.5f + 0.5f);
-        _targetPos.y = (int)(prop.target.transform.position.y - 0.5f + 0.5f);
 
         // 如果没有会话或目标坐标已变，则启动/重启会话
         if (prop.currentPathSession == null || prop.currentPathSession.end != _targetPos)
         {
-            prop.currentPathSession = new AStarUtility.PathSearchSession(_myPos, _targetPos);
+            prop.currentPathSession = new AStarUtility.PathSearchSession(_myPos, _targetPos, self, prop.target);
         }
 
         // 执行增量寻路 (每帧最多 30 步)

@@ -39,6 +39,8 @@ public static class AStarUtility
         public List<Vector2Int> resultPath;                                                   // 搜索成功后生成的路径，不包含起点。
         public bool isFinished;                                                               // 搜索是否已经得到成功或失败结论。
         public bool isSuccess;                                                                // 搜索结束时是否找到可达路径。
+        private readonly GameObject self;
+        private readonly GameObject target;
 
         #region 游戏逻辑
         /// <summary>
@@ -46,10 +48,12 @@ public static class AStarUtility
         /// </summary>
         /// <param name="start">路径搜索的起点坐标。</param>
         /// <param name="end">路径搜索的终点坐标。</param>
-        public PathSearchSession(Vector2Int start, Vector2Int end)
+        public PathSearchSession(Vector2Int start, Vector2Int end, GameObject self = null, GameObject target = null)
         {
             this.start = start;
             this.end = end;
+            this.self = self;
+            this.target = target;
             Node startNode = new Node(start, 0, GetDistance(start, end), null);               // 搜索起点节点。
             openList.Enqueue(startNode, startNode.f);
             allNodes.Add(start, startNode);
@@ -89,7 +93,7 @@ public static class AStarUtility
                 {
                     if (!map.IsInRange(neighborPos.x, neighborPos.y)) continue;
                     if (closedList.Contains(neighborPos)) continue;
-                    if (map.IsPathBlocked(neighborPos) && neighborPos != end) continue;
+                    if (map.IsPathBlocked(neighborPos, self, target)) continue;
 
                     int moveCost = GetDistance(current.pos, neighborPos);                     // 从当前节点移动到相邻节点的代价。
                     int newG = current.g + moveCost;                                          // 经当前节点到达相邻节点的新实际代价。
