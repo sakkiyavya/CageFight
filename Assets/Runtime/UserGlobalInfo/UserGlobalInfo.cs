@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -126,6 +127,33 @@ public sealed class UserGlobalInfo : MonoBehaviour
     {
         EnsureDataExists();
         return SetNonNegativeValue(ref data.darkBarracksLevel, value, nameof(DarkBarracksLevel));
+    }
+
+    /// <summary>图鉴条目是否已解锁（已持久化到本地）。</summary>
+    public bool IsBookEntryUnlocked(string entryId)
+    {
+        if (string.IsNullOrEmpty(entryId))
+            return false;
+
+        EnsureDataExists();
+        return data.bookUnlockedIds != null && data.bookUnlockedIds.Contains(entryId);
+    }
+
+    /// <summary>解锁图鉴条目并持久化；已解锁时返回 false（幂等）。</summary>
+    public bool TryUnlockBookEntry(string entryId)
+    {
+        if (string.IsNullOrEmpty(entryId))
+            return false;
+
+        EnsureDataExists();
+        if (data.bookUnlockedIds == null)
+            data.bookUnlockedIds = new List<string>();
+        if (data.bookUnlockedIds.Contains(entryId))
+            return false;
+
+        data.bookUnlockedIds.Add(entryId);
+        Changed?.Invoke();
+        return true;
     }
 
     public bool SetSentryTowerLevel(int value)

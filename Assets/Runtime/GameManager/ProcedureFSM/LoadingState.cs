@@ -4,6 +4,8 @@ using UnityEngine;
 public class LoadingState : SceneStateBase
 {
     [SerializeField] private PlayerLoadoutManager playerLoadout;
+    [SerializeField, Tooltip("图鉴目录：进关前注册，供“遇见即解锁”标记解析条目。")]
+    private BookCatalog bookCatalog;
 
     #region 生命周期与回调
     /// <summary>
@@ -41,6 +43,7 @@ public class LoadingState : SceneStateBase
         }
 
         Debug.Log($"[LoadingState] Loading resources for stage: {CurrentStageConfig.stageId}");
+        BookProgress.RegisterCatalog(bookCatalog);
         if (!ResourceManager.Instance.LoadStageResources(CurrentStageConfig))
         {
             Debug.LogError("[LoadingState] Failed to start resource loading.");

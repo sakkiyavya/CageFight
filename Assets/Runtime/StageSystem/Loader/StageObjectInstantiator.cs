@@ -59,6 +59,9 @@ public static class StageObjectInstantiator
                     return false;
                 }
 
+                // 图鉴“遇见”标记：关卡实例化出该兵种即视为玩家遇见过。
+                BookProgress.MarkEncountered(objData.prefabKey);
+
                 instance.transform.position = objData.transform.position;
                 instance.transform.eulerAngles = objData.transform.rotation;
                 instance.transform.localScale = objData.transform.scale;

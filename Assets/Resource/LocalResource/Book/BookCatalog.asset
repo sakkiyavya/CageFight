@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d61, type: 3}
+  m_Name: BookCatalog
+  m_EditorClassIdentifier: 
+  categories:
+  - mouse
+  - cat
+  - chicken
+  - goat
+  - magic
+  - en
+  raceOptions:
+  - mouse
+  - cat
+  - chicken
+  - goat
+  - insect
+  - rabbit
+  - dog
+  entries:
+  - id: Miner rat
+    displayName: "\u77FF\u5DE5\u9F20"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -823088979, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 1959013169, guid: b4b481ad188b19e4e87cf5d57a3c8025, type: 3}
+    avatarSpriteKey: Mouse Troop UI_0
+    roleSpriteKey: Miner rat-attack_0
+    star: 1
+    prefabKey: 
+    unlockBarracksLevel: 0
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u653B\u51FB\u4F1A\u4EA7\u751F1\u91D1\u5E01\u3002"
+  - id: sc
+    displayName: "\u5446\u5446"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: 92428464, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 989191164, guid: 2837e346021c6954f84d0f7f333cba31, type: 3}
+    avatarSpriteKey: Mouse Troop UI_1
+    roleSpriteKey: Scavenger_13
+    star: 1
+    prefabKey: 
+    unlockBarracksLevel: 0
+    repelText: 1
+    quantityText: 2
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u6709\u6548\u7684\u8FDC\u7A0B\u6253\u51FB\u3002"
+  - id: Daidai
+    displayName: "\u5446\u5446"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: 1104108523, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: -1917012240, guid: 1dccae7e0afef374792303079f83dcc5, type: 3}
+    avatarSpriteKey: Mouse Troop UI_3
+    roleSpriteKey: Damb ass-attack_0
+    star: 2
+    prefabKey: 
+    unlockBarracksLevel: 0
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u62F3\u51FB\u624B\uFF01"

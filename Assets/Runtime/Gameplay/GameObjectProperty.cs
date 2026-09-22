@@ -125,6 +125,19 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
         repelElapsed = 0f;
         repelDuration = 0f;
         repelInitialized = false;
+        // 先逐一撤销各状态实例的实际效果（数值、修正器、视觉、计时），再清空登记列表。
+        // 只清列表不清实例，会在对象池复用（重新召唤同一单位）时继承上一轮的 Buff，
+        // 且因登记丢失、实例不再受任何到期/取消管理，临时 Buff 会表现为"永久"。
+        for (int i = currentBuff.Count - 1; i >= 0; i--)
+        {
+            if (currentBuff[i] != null)
+                currentBuff[i].CancelBuff(this);
+        }
+        for (int i = currentDebuff.Count - 1; i >= 0; i--)
+        {
+            if (currentDebuff[i] != null)
+                currentDebuff[i].CancelBuff(this);
+        }
         currentBuff.Clear();
         currentDebuff.Clear();
         damageMultiplier = 1f;

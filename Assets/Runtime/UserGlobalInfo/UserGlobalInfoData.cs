@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -38,4 +39,7 @@ public sealed class UserGlobalInfoData
 
     [Header("种族大本营（选装界面配置的预制体 Key）")]
     public string selectedRaceMainBasePrefabKey = string.Empty;
+
+    [Header("图鉴解锁")]
+    public List<string> bookUnlockedIds = new List<string>();
 }
