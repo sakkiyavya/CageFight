@@ -1,10 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// 局内游戏进行状态。
 /// UI 模块（HUDPanel 等）由基类 stateModules 统一驱动开关，
-/// OnEnter 负责启动局内逻辑，OnExit 负责清理所有局内实体。
+/// OnEnter 负责启动局内逻辑并关闭残留的菜单面板，OnExit 负责清理所有局内实体。
 /// </summary>
 public class GameplayState : SceneStateBase
 {
@@ -14,6 +15,10 @@ public class GameplayState : SceneStateBase
     private string bgmKey = "Crystal Mine Cave";
     [SerializeField, Range(0f, 1f)] private float bgmVolume = 1f;
 
+    [Header("进入局内时关闭的菜单面板")]
+    [SerializeField, Tooltip("菜单侧按需打开的面板（图鉴/商店/设置等）：进入局内时统一关闭，避免战斗界面残留 UI")]
+    private List<GameObject> closeOnEnter = new List<GameObject>();
+
     #region 生命周期与回调
     /// <summary>
     /// 在关卡对象构造完成后进入局内流程，切换局内背景音乐，并预留计时器与地图单位启动逻辑。
@@ -21,6 +26,13 @@ public class GameplayState : SceneStateBase
     /// <returns>局内状态的进入协程。</returns>
     protected override IEnumerator OnEnter()
     {
+        // 先关闭菜单侧残留面板，保证进入战斗时界面干净。
+        for (int i = 0; i < closeOnEnter.Count; i++)
+        {
+            if (closeOnEnter[i] != null)
+                closeOnEnter[i].SetActive(false);
+        }
+
         if (GameOverManager.Instance != null)
             GameOverManager.Instance.ResetGameOverState();
 

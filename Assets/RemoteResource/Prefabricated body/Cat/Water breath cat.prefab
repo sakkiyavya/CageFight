@@ -73,7 +73,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8177550023274728722}
@@ -301,6 +301,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
+  deathAngularSpeed: 180
+  deathFadeAlpha: 0.5
+  deathDarkFactor: 0.4
 --- !u!82 &7460061255420940485
 AudioSource:
   m_ObjectHideFlags: 0

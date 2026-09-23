@@ -25,7 +25,12 @@ public class CharacterHealth : MonoBehaviour, ICollide
     private float jellyFrequency = 2f;                                                                  // 受击形变的振荡频率。
     private float jellyAmplitude = 0.1f;                                                                // 受击时向上弹动的最大幅度。
     
-    private float deathAngularSpeed = 1440f;                                                            // 死亡抛飞期间的旋转角速度。
+    [SerializeField, Tooltip("死亡掉落期间的旋转角速度（度/秒）")]
+    private float deathAngularSpeed = 180f;                                                             // 死亡掉落期间的旋转角速度。
+    [SerializeField, Tooltip("死亡掉落结束时的透明度（半透明）")]
+    private float deathFadeAlpha = 0.5f;                                                                // 死亡掉落结束时的透明度。
+    [SerializeField, Tooltip("死亡掉落结束时的变黑系数（0.4 = 亮度降到 40%）")]
+    private float deathDarkFactor = 0.4f;                                                               // 死亡掉落结束时的变暗系数。
     private float deathParabolaAcceleration = -50f;                                                     // 死亡抛物线的纵向加速度。
     private Vector2 deathInitialVelocity = new Vector2(4f, 20f);                                        // 死亡抛飞的水平和纵向初速度。
     private float deathEffectDuration = 1f;                                                             // 死亡抛飞效果持续时间。
@@ -597,10 +602,15 @@ public class CharacterHealth : MonoBehaviour, ICollide
                 deathInitialVelocity.y * time + 0.5f * deathParabolaAcceleration * time * time,
                 0f);
             transform.Rotate(Vector3.forward, deathAngularSpeed * Time.deltaTime);
+
+            // 死亡掉落过程渐隐：逐渐变半透明、变黑一点。
+            SetDeathColor(Mathf.Clamp01(elapsed / deathEffectDuration));
+
             elapsed += Time.deltaTime;
             yield return null;
         }
 
+        RestoreOriginalColors();
         transform.position = startPosition;
         transform.rotation = startRotation;
         transform.localScale = startScale;
@@ -651,6 +661,30 @@ public class CharacterHealth : MonoBehaviour, ICollide
                 continue;
             target.renderer.GetPropertyBlock(_hitPropertyBlock);
             _hitPropertyBlock.SetColor(target.colorProperty, color);
+            target.renderer.SetPropertyBlock(_hitPropertyBlock);
+        }
+    }
+
+    /// <summary>
+    /// 死亡掉落期间按进度把渲染目标渐变为“半透明 + 变黑”的离场外观
+    /// （t=0 为原色，t=1 为最终暗淡状态；经材质属性块实现，不实例化材质）。
+    /// </summary>
+    /// <param name="t">死亡效果进度（0-1）。</param>
+    private void SetDeathColor(float t)
+    {
+        foreach (var target in _hitColorTargets)
+        {
+            if (target.renderer == null)
+                continue;
+
+            Color original = target.originalColor;
+            Color dark = new Color(
+                original.r * deathDarkFactor,
+                original.g * deathDarkFactor,
+                original.b * deathDarkFactor,
+                deathFadeAlpha);
+            target.renderer.GetPropertyBlock(_hitPropertyBlock);
+            _hitPropertyBlock.SetColor(target.colorProperty, Color.Lerp(original, dark, t));
             target.renderer.SetPropertyBlock(_hitPropertyBlock);
         }
     }

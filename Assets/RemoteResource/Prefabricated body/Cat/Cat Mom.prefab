@@ -73,7 +73,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 667462422638651163}
@@ -93,7 +93,7 @@ Animator:
   m_GameObject: {fileID: 4034282982542117128}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 31b0aa3f02ee63a47a9b56c917e2a76a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -178,7 +178,7 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1460891134, guid: 161da151378304c4fa9ca30d5971b347, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -186,7 +186,7 @@ SpriteRenderer:
   m_Size: {x: 2.1538463, y: 2.2153847}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &4479969729286265839
@@ -342,18 +342,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.020486355, y: 0.8993335}
+  m_Offset: {x: 0.008163452, y: 0.7186165}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.4, y: 0.06}
-    oldSize: {x: 2.1538463, y: 2.2153847}
+    oldSize: {x: 1.6470588, y: 1.6941177}
     newSize: {x: 2.1538463, y: 2.2153847}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3223314, y: 1.9527082}
+  m_Size: {x: 1.1005402, y: 1.5912743}
   m_EdgeRadius: 0
 --- !u!114 &8454515637764567139
 MonoBehaviour:
@@ -454,6 +454,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
+  deathAngularSpeed: 180
+  deathFadeAlpha: 0.5
+  deathDarkFactor: 0.4
 --- !u!58 &4538141078115748941
 CircleCollider2D:
   m_ObjectHideFlags: 0

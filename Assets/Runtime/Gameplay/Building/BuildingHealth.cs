@@ -17,6 +17,17 @@ public class BuildingHealth : MonoBehaviour, ICollide
     [ResourceKey(typeof(AudioClip))]
     [SerializeField] private string hitSoundKey = "Construct-Hit";             // 受击音效资源键。
 
+    [Header("死亡表现")]
+    [SerializeField, Tooltip("死亡掉落期间的旋转角速度（度/秒，与兵种一致）")]
+    private float deathAngularSpeed = 180f;                                     // 死亡掉落期间的旋转角速度。
+    [SerializeField] private float deathParabolaAcceleration = -50f;            // 死亡抛物线的纵向加速度。
+    [SerializeField] private Vector2 deathInitialVelocity = new Vector2(4f, 20f); // 死亡抛飞的水平和纵向初速度。
+    [SerializeField] private float deathEffectDuration = 1f;                    // 死亡掉落效果持续时间。
+    [SerializeField, Tooltip("死亡掉落结束时的透明度（半透明）")]
+    private float deathFadeAlpha = 0.5f;                                        // 死亡掉落结束时的透明度。
+    [SerializeField, Tooltip("死亡掉落结束时的变黑系数（0.4 = 亮度降到 40%）")]
+    private float deathDarkFactor = 0.4f;                                       // 死亡掉落结束时的变暗系数。
+
     private SpriteRenderer _bodyRenderer;                                     // 建筑本体渲染器（闪红用）。
     private AudioSource _hitAudio;                                            // 受击音效的缓存音频源。
     private BuildingBase _buildingBase;                                       // 建筑生命周期组件（拖拽预览判定）。
@@ -25,6 +36,10 @@ public class BuildingHealth : MonoBehaviour, ICollide
     private bool _flashActive;                                                // 闪红是否生效中。
     private Vector3 _shakeBasePos;                                            // 晃动前建筑的世界坐标。
     private bool _shakeActive;                                                // 晃动是否生效中。
+    private Coroutine _deathEffectCoroutine;                                  // 当前死亡掉落协程。
+    private SpriteRenderer[] _deathRenderers;                                 // 死亡渐隐的目标渲染器（建筑本体等）。
+    private Color[] _deathOriginalColors;                                     // 死亡渐隐开始前的原始颜色。
+    private bool _deathColorsActive;                                          // 死亡渐隐是否生效中。
 
     private GameObjectProperty _prop;                                         // 提供阵营、最大生命和血条持续时间的建筑属性。
     public GameObject HpBarUp;                                                // 通过横向缩放显示剩余生命的前景条。
@@ -75,6 +90,8 @@ public class BuildingHealth : MonoBehaviour, ICollide
 
     private void OnEnable()
     {
+        _deathEffectCoroutine = null;   // 池化复用：清除旧死亡协程引用。
+
         // 预载受击音效（已缓存则跳过，避免每个建筑重复发起加载）。
         if (ResourceManager.Instance != null && !string.IsNullOrEmpty(hitSoundKey) &&
             ResourceManager.Instance.GetAudio(hitSoundKey) == null)
@@ -87,6 +104,12 @@ public class BuildingHealth : MonoBehaviour, ICollide
     {
         // 池化回收/建筑失效：停止受击表现并恢复颜色与位置。
         StopHitEffect();
+        if (_deathEffectCoroutine != null)
+        {
+            StopCoroutine(_deathEffectCoroutine);
+            _deathEffectCoroutine = null;
+        }
+        RestoreDeathColors();
     }
 
     /// <summary>
@@ -163,6 +186,9 @@ public class BuildingHealth : MonoBehaviour, ICollide
     public Damage TakeDamage(Damage damage)
     {
         Damage d = DamageComputor.DamageCompute(damage);
+        if (IsDead() || _deathEffectCoroutine != null)
+            return d;
+
         hp = Mathf.Max(0, hp - d.finalDamage);
         ApplyBarVisual();
         ShowBarTemporarily();
@@ -174,6 +200,10 @@ public class BuildingHealth : MonoBehaviour, ICollide
             DamageTextPool.Instance.ShowMiss(transform.position + Vector3.up);
         else
             StartHitEffect();                      // 受击表现：闪红 + 左右剧烈晃动 + Construct-Hit 音效。
+
+        // HP ≤ 0 的死亡规则：与兵种一致（死亡标记 + 掉落死亡动画 + 对象池回收）。
+        if (hp <= 0)
+            Die(d);
 
         return d;
     }
@@ -200,23 +230,46 @@ public class BuildingHealth : MonoBehaviour, ICollide
     }
 
     /// <summary>
-    /// 将生命降为零的入口；当前尚未实现，调用时会抛出 <see cref="System.NotImplementedException"/>。
+    /// 将生命降为零并按 HP ≤ 0 的死亡规则进入死亡流程。
     /// </summary>
     public void ReduceToZero()
     {
-        // TODO: Implement HP depletion logic.
-        throw new System.NotImplementedException();
+        hp = 0;
+        if (_prop != null)
+            _prop.isDead = true;
+        Die();
     }
     #endregion
 
     #region 死亡与复活
     /// <summary>
-    /// 建筑死亡入口；当前尚未实现，调用时会抛出 <see cref="System.NotImplementedException"/>。
+    /// 建筑死亡入口（无来源伤害）：按 HP ≤ 0 的死亡规则播放与兵种相同的掉落死亡动画。
     /// </summary>
     public void Die()
     {
-        // TODO: Implement death logic.
-        throw new System.NotImplementedException();
+        Die(Damage.DefaultDamage);
+    }
+
+    /// <summary>
+    /// 将建筑标记为死亡、停止受击表现，并按致死方向播放与兵种相同的
+    /// 掉落死亡动画（抛物线 + 旋转 + 半透明变黑），结束后回收进对象池。
+    /// </summary>
+    /// <param name="damage">用于确定死亡掉落方向的致死伤害数据。</param>
+    private void Die(Damage damage)
+    {
+        if (_deathEffectCoroutine != null)
+            return;
+
+        if (_prop != null)
+        {
+            _prop.isDead = true;
+            _prop.isAttack = false;
+            _prop.target = null;
+        }
+
+        StopHitEffect();
+
+        _deathEffectCoroutine = StartCoroutine(DeathEffectCoroutine(damage));
     }
 
     /// <summary>
@@ -391,6 +444,130 @@ public class BuildingHealth : MonoBehaviour, ICollide
             _bodyRenderer.color = _flashOriginalColor;
             _flashActive = false;
         }
+    }
+    #endregion
+
+    #region 死亡表现
+    /// <summary>
+    /// 与兵种相同的掉落死亡动画：按致死方向做抛物线飞出并旋转，
+    /// 同时渐隐为半透明 + 变黑；结束后恢复变换与颜色并回收进对象池。
+    /// </summary>
+    /// <param name="damage">用于确定死亡掉落方向的致死伤害数据。</param>
+    /// <returns>逐帧更新死亡掉落效果直到结束的协程。</returns>
+    private IEnumerator DeathEffectCoroutine(Damage damage)
+    {
+        Vector3 startPosition = transform.position;
+        Quaternion startRotation = transform.rotation;
+        Vector3 startScale = transform.localScale;
+        int direction = GetDeathDirection(damage);
+        float horizontalSpeed = Mathf.Abs(deathInitialVelocity.x) * direction;
+        float elapsed = 0f;
+
+        CaptureDeathColors();
+
+        while (elapsed < deathEffectDuration)
+        {
+            float time = elapsed;
+            transform.position = startPosition + new Vector3(
+                horizontalSpeed * time,
+                deathInitialVelocity.y * time + 0.5f * deathParabolaAcceleration * time * time,
+                0f);
+            transform.Rotate(Vector3.forward, deathAngularSpeed * Time.deltaTime);
+            SetDeathColor(Mathf.Clamp01(elapsed / deathEffectDuration));
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        RestoreDeathColors();
+        transform.position = startPosition;
+        transform.rotation = startRotation;
+        transform.localScale = startScale;
+        _deathEffectCoroutine = null;
+        ReleaseAfterDeath();
+    }
+
+    /// <summary>死亡渐隐开始前缓存全部建筑渲染器的当前颜色（含建筑本体与子级部件）。</summary>
+    private void CaptureDeathColors()
+    {
+        if (_deathRenderers == null)
+            _deathRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+
+        _deathOriginalColors = new Color[_deathRenderers.Length];
+        for (int i = 0; i < _deathRenderers.Length; i++)
+        {
+            if (_deathRenderers[i] != null)
+                _deathOriginalColors[i] = _deathRenderers[i].color;
+        }
+
+        _deathColorsActive = true;
+    }
+
+    /// <summary>
+    /// 按死亡进度把建筑渲染器渐变为“半透明 + 变黑”（t=0 原色，t=1 最终暗淡状态）。
+    /// </summary>
+    /// <param name="t">死亡效果进度（0-1）。</param>
+    private void SetDeathColor(float t)
+    {
+        for (int i = 0; i < _deathRenderers.Length; i++)
+        {
+            SpriteRenderer renderer = _deathRenderers[i];
+            if (renderer == null)
+                continue;
+
+            Color original = _deathOriginalColors[i];
+            Color dark = new Color(
+                original.r * deathDarkFactor,
+                original.g * deathDarkFactor,
+                original.b * deathDarkFactor,
+                original.a * deathFadeAlpha);
+            renderer.color = Color.Lerp(original, dark, t);
+        }
+    }
+
+    /// <summary>恢复死亡渐隐修改过的全部渲染器颜色，并清除生效标记。</summary>
+    private void RestoreDeathColors()
+    {
+        if (!_deathColorsActive || _deathRenderers == null)
+            return;
+
+        for (int i = 0; i < _deathRenderers.Length; i++)
+        {
+            if (_deathRenderers[i] != null)
+                _deathRenderers[i].color = _deathOriginalColors[i];
+        }
+
+        _deathColorsActive = false;
+    }
+
+    /// <summary>
+    /// 优先根据伤害来源与建筑的相对位置确定掉落方向；
+    /// 来源无效或重合时退回使用碰撞方向。
+    /// </summary>
+    /// <param name="damage">致死伤害数据。</param>
+    /// <returns>-1 表示向左掉落，1 表示向右掉落。</returns>
+    private int GetDeathDirection(Damage damage)
+    {
+        if (damage.source != null)
+        {
+            float sourceToBuilding = transform.position.x - damage.source.transform.position.x;
+            if (Mathf.Abs(sourceToBuilding) > 0.001f)
+                return sourceToBuilding > 0f ? 1 : -1;
+        }
+
+        return damage.collideDir == 0 ? 1 : (damage.collideDir > 0 ? 1 : -1);
+    }
+
+    /// <summary>
+    /// 死亡动画结束后将建筑回收进对象池（与兵种死亡、建筑拆除同一回收路径；
+    /// 停用时会自动释放地图占用，池化复用时自动回到 1 级初始状态）。
+    /// </summary>
+    private void ReleaseAfterDeath()
+    {
+        GameObjectPool pool = GameObjectPool.Instance;
+        if (pool == null)
+            return;
+
+        pool.Release(gameObject);
     }
     #endregion
 

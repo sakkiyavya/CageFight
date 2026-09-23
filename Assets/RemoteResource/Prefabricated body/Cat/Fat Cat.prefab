@@ -73,7 +73,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3913596653512184167}
@@ -124,7 +124,7 @@ SpriteRenderer:
   m_SortingLayerID: 495858691
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1782577746, guid: cd33b92585b7b5a479b305d3c556124e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -132,7 +132,7 @@ SpriteRenderer:
   m_Size: {x: 4.114286, y: 4.3885717}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &4101998909332720602
@@ -145,7 +145,7 @@ Animator:
   m_GameObject: {fileID: 7578130326141947732}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0b54bcd96eda3a746879dc5459379677, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -188,18 +188,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.13947678, y: 1.1244038}
+  m_Offset: {x: -0.071894646, y: 0.71890974}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.16}
-    oldSize: {x: 4.114286, y: 4.3885717}
+    oldSize: {x: 2.88, y: 3.072}
     newSize: {x: 4.114286, y: 4.3885717}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.2520676, y: 2.8162916}
+  m_Size: {x: 2.116682, y: 2.0053034}
   m_EdgeRadius: 0
 --- !u!114 &3366573897741506578
 MonoBehaviour:
@@ -301,6 +301,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 0}
   HpBarBottom: {fileID: 0}
+  deathAngularSpeed: 180
+  deathFadeAlpha: 0.5
+  deathDarkFactor: 0.4
 --- !u!82 &5103105852571443277
 AudioSource:
   m_ObjectHideFlags: 0

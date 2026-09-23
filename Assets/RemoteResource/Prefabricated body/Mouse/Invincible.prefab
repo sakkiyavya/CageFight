@@ -74,7 +74,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7542738714518783064}
@@ -316,8 +316,8 @@ MonoBehaviour:
   isRepel: 0
   repelDistance: 0
   audioClips: []
-  atkRangeMin: {x: 0, y: 0}
-  atkRangeMax: {x: 2, y: 1}
+  atkRangeMin: {x: -2147483648, y: -2147483648}
+  atkRangeMax: {x: -2147483646, y: -2147483647}
   currentBuff: []
   currentDebuff: []
   occupySpace: {x: 1, y: 1}
@@ -367,6 +367,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 3618746117482262722}
   HpBarBottom: {fileID: 6142678638181297569}
+  deathAngularSpeed: 180
+  deathFadeAlpha: 0.5
+  deathDarkFactor: 0.4
 --- !u!61 &169545210290182268
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -399,18 +402,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.21209717, y: 1.9357905}
+  m_Offset: {x: -0.1577797, y: 1.3994141}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.08}
-    oldSize: {x: 6.45, y: 4.7761908}
+    oldSize: {x: 5.16, y: 3.8209527}
     newSize: {x: 6.45, y: 4.7761908}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.9915085, y: 3.7843904}
+  m_Size: {x: 2.5521164, y: 2.7116375}
   m_EdgeRadius: 0
 --- !u!114 &4849179102093513677
 MonoBehaviour:
@@ -580,7 +583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7127978043177654722, guid: fe1b03c4681dfbc4d807ec6a14bf9887, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.3
+      value: 2.97
       objectReference: {fileID: 0}
     - target: {fileID: 7127978043177654722, guid: fe1b03c4681dfbc4d807ec6a14bf9887, type: 3}
       propertyPath: m_LocalPosition.z
@@ -728,7 +731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7967408073250967750, guid: 90bfa036e537dfd4bb1f44aaef96b269, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.297
+      value: 2.967
       objectReference: {fileID: 0}
     - target: {fileID: 7967408073250967750, guid: 90bfa036e537dfd4bb1f44aaef96b269, type: 3}
       propertyPath: m_LocalPosition.z

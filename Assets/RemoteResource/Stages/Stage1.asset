@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Stage1
   m_EditorClassIdentifier: 
   stageId: 1
+  stageType: 0
+  DefenseTime: 0
   icon: {fileID: 0}
+  displayIcons:
+  - {fileID: -823088979, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
   objects:
   - instanceId: 1000
     prefabKey: TextTest

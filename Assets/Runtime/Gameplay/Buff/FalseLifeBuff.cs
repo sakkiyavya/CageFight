@@ -10,7 +10,8 @@ using UnityEngine;
 /// （基础 80%，防御魔法等级每级额外 +8%，等级取 UserGlobalInfo.DefenseMagicLevel），
 /// 并在 n × 每层秒数内持续扣除生命值直至归零（n = 结算时的层数，
 /// 因此叠层越多，“假死”持续越久），扣血结束后进入常规死亡流程。
-/// 持有期间（有活跃层或正在扣血结算）目标图像变黑 20%；
+/// 持有期间（有活跃层）目标图像变黑 20%；
+/// 触发结算（假死扣血期间）目标图像变半透明（透明度 50%）并更黑一点；
 /// 触发结算（目标死亡）时播放音效“False life”。
 /// 仅新增本脚本即可生效，不改动任何既有脚本。
 /// </summary>
@@ -74,7 +75,7 @@ public class FalseLifeBuff : BuffBase
 /// 目标身上的妄业之力层管理器：无限叠加、每层独立到期；
 /// 经 CharacterHealth 统一死亡复活器扩展点登记（OnEnable/OnDisable 对称），
 /// 在目标生命归零时结算诅咒（假死恢复 + 持续扣血），
-/// 同时驱动目标图像变黑 20% 的视觉表现。
+/// 同时驱动目标图像的视觉表现（持有变黑 20%；假死结算期间半透明 + 更黑）。
 /// </summary>
 internal class FalseLifeState : MonoBehaviour
 {
@@ -85,7 +86,9 @@ internal class FalseLifeState : MonoBehaviour
         public float expireTime;        // 该层到期时间。
     }
 
-    private const float DarkenFactor = 0.8f;            // 变黑 20%（颜色 RGB 乘 0.8，保持透明度）。
+    private const float DarkenFactor = 0.8f;            // 持有期间变黑 20%（颜色 RGB 乘 0.8，保持透明度）。
+    private const float TriggerDarkFactor = 0.6f;       // 触发结算（假死）期间变黑 40%（颜色 RGB 乘 0.6）。
+    private const float TriggerAlpha = 0.5f;            // 触发结算（假死）期间的透明度（半透明）。
     private const string FalseLifeSoundKey = "False life"; // 触发结算时播放的音频资源键。
     private const float SoundVolume = 1f;
     private const int SoundPriority = 32;
@@ -377,21 +380,31 @@ internal class FalseLifeState : MonoBehaviour
     }
 
     /// <summary>
-    /// 有活跃层或正在扣血结算时图像变黑 20%，否则恢复原色。
+    /// 驱动目标图像的视觉表现：
+    /// 持有活跃层时变黑 20%；触发结算（假死扣血期间）变半透明并更黑一点；否则恢复原色。
     /// </summary>
     private void ApplyDarken()
     {
         if (renderers == null)
             return;
 
-        bool dark = layers.Count > 0 || draining;
+        bool holding = layers.Count > 0;
+        bool triggered = draining;
         for (int i = 0; i < renderers.Length; i++)
         {
             if (renderers[i] == null)
                 continue;
 
             Color color = originalColors[i];
-            if (dark)
+            if (triggered)
+            {
+                // 假死结算期间：半透明 + 更黑一点。
+                color.r *= TriggerDarkFactor;
+                color.g *= TriggerDarkFactor;
+                color.b *= TriggerDarkFactor;
+                color.a *= TriggerAlpha;
+            }
+            else if (holding)
             {
                 color.r *= DarkenFactor;
                 color.g *= DarkenFactor;

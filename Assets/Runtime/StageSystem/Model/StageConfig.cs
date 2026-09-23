@@ -33,6 +33,10 @@ public class StageConfig : ScriptableObject
     [Tooltip("Stage icon.")]
     public Sprite icon;                                                    // 选关界面用于展示该关卡的图标。
 
+    [Header("选关弹窗展示图")]
+    [Tooltip("选中关卡后，弹窗正中间展示的图标（最多 4 个，按顺序从左到右居中横排）。")]
+    public List<Sprite> displayIcons = new List<Sprite>();                 // 选中关卡时展示在弹窗正中间的图标。
+
     [Tooltip("关卡的全局设置")]
     public StageSettings settings;                                         // 该关卡共用的全局规则和环境参数。
 

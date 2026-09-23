@@ -20,14 +20,27 @@ public sealed class ReturnToMenuButton : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">本次点击的指针事件数据。</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (SceneFSM.Instance != null &&
-            SceneFSM.Instance.CurrentStateEnum == GameState.Gameplay)
+        SceneFSM fsm = SceneFSM.Instance;
+        if (fsm != null)
         {
-            // 局内：判定本局失败（统一结算入口，幂等），并请求回到主菜单。
-            if (GameOverManager.Instance != null)
-                GameOverManager.Instance.TriggerGameOver(false);
+            if (fsm.CurrentStateEnum == GameState.Gameplay)
+            {
+                // 局内：判定本局失败（统一结算入口，幂等），并请求回到主菜单。
+                if (GameOverManager.Instance != null)
+                    GameOverManager.Instance.TriggerGameOver(false);
 
-            SceneFSM.Instance.LoadState(GameState.Menu);
+                fsm.LoadState(GameState.Menu);
+            }
+            else if (fsm.CurrentStateEnum == GameState.StageSelect)
+            {
+                // 关卡选择界面返回：必须走状态机切换，
+                // 由 MenuState 重新打开菜单的 UI 模块（否则只关面板会留下空白界面）。
+                // 注意：这里绝不能关闭 settingsPanel（StageSelectCanvas）——
+                // 选关 UI 模块都挂在该 Canvas 下，父节点一旦被关闭，
+                // 下次进入选关状态时模块无法显示，选关界面就再也打不开了。
+                fsm.LoadState(GameState.Menu);
+                return;
+            }
         }
 
         // 无论哪种上下文，点击后都关闭设置面板，避免局内回主菜单后残留面板。
