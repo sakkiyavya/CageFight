@@ -28,6 +28,7 @@ public sealed class StageSelectSelection : MonoBehaviour
     private Sprite _markerSprite;
     private RectTransform _canvasRect;
     private Coroutine _markerBounce;
+    private Vector2 _markerTargetPos;                                       // 标记页目标位置（弹动动画逐帧跟随的最新值）。
 
     private void Awake()
     {
@@ -43,6 +44,10 @@ public sealed class StageSelectSelection : MonoBehaviour
         // 防御：编辑器里若把面板根缩成 0（收纳面板的常见操作），打开时强制恢复 1，
         // 否则整个关卡选择界面会被压成一个点、看不见也点不到。
         transform.localScale = Vector3.one;
+
+        // 提前加载标记素材：素材异步到位前，首次点击只能用“素材填满整个矩形”的近似尺寸摆放，
+        // 会把标记页摆得比真实位置偏上；预加载让首次点击即按真实内容尺寸定位。
+        TryLoadMarkerSprite();
     }
 
     private void OnDestroy()
@@ -106,19 +111,7 @@ public sealed class StageSelectSelection : MonoBehaviour
             PlayMarkerBounce();
             UpdateCenterIcons();
 
-            if (!_markerReady && !string.IsNullOrEmpty(markerSpriteKey) && ResourceManager.Instance != null)
-            {
-                ResourceManager.Instance.LoadExtraResourceAsync<Sprite>(markerSpriteKey, sprite =>
-                {
-                    if (sprite == null || markerImage == null)
-                        return;
-
-                    _markerSprite = sprite;
-                    markerImage.sprite = sprite;
-                    _markerReady = true;
-                    RefreshMarkerPosition();   // 拿到素材后按真实内容尺寸再精确定位一次。
-                });
-            }
+            TryLoadMarkerSprite();   // 兜底：OnEnable 时资源管理器尚未就绪的首次点击。
         }
 
         if (glowImage != null && iconSprite != null)
@@ -173,9 +166,32 @@ public sealed class StageSelectSelection : MonoBehaviour
         if (scaleY < 0.0001f) scaleY = 1f;
         float headY = centerPos.y + buttonRt.sizeDelta.y * 0.5f * scaleY;
 
-        rt.anchoredPosition = new Vector2(
+        _markerTargetPos = new Vector2(
             centerPos.x - visOffset.x,
             headY + markerGap + visHalfH - visOffset.y);
+        rt.anchoredPosition = _markerTargetPos;
+    }
+
+    /// <summary>
+    /// 加载标记页素材（幂等）：到位后写入素材并按真实内容尺寸重新定位。
+    /// OnEnable 时预加载一次，避免首次点击用近似尺寸摆放导致位置偏上。
+    /// </summary>
+    private void TryLoadMarkerSprite()
+    {
+        if (_markerReady || markerImage == null || string.IsNullOrEmpty(markerSpriteKey) ||
+            ResourceManager.Instance == null)
+            return;
+
+        ResourceManager.Instance.LoadExtraResourceAsync<Sprite>(markerSpriteKey, sprite =>
+        {
+            if (sprite == null || markerImage == null)
+                return;
+
+            _markerSprite = sprite;
+            markerImage.sprite = sprite;
+            _markerReady = true;
+            RefreshMarkerPosition();   // 素材到位后按真实内容尺寸重新定位。
+        });
     }
 
     /// <summary>按当前选中关卡重新摆放标记页（素材异步加载完成后调用）。</summary>
@@ -243,7 +259,6 @@ public sealed class StageSelectSelection : MonoBehaviour
     private IEnumerator MarkerBounceRoutine()
     {
         RectTransform rt = markerImage.rectTransform;
-        Vector2 targetPos = rt.anchoredPosition;
         const float duration = 0.45f;
         const float rise = 36f;
         float t = 0f;
@@ -254,12 +269,14 @@ public sealed class StageSelectSelection : MonoBehaviour
             float p = Mathf.Clamp01(t / duration);
             float back = EaseOutBack(p);
             rt.localScale = Vector3.one * Mathf.Lerp(0.5f, 1f, back);
-            rt.anchoredPosition = targetPos + new Vector2(0f, -rise * (1f - p));
+            // 逐帧跟随最新目标位置：若素材在弹动中途异步到位，PositionMarker 会更新目标，
+            // 弹动过程与结束都收敛到最新定位，不再停留在首次点击的偏上旧位置。
+            rt.anchoredPosition = _markerTargetPos + new Vector2(0f, -rise * (1f - p));
             yield return null;
         }
 
         rt.localScale = Vector3.one;
-        rt.anchoredPosition = targetPos;
+        rt.anchoredPosition = _markerTargetPos;
         _markerBounce = null;
     }
 
