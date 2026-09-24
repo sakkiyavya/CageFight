@@ -33,11 +33,8 @@ public sealed class BookEntry
     [Tooltip("星级 1-7：Card 上点亮前 N 颗星")]
     [Range(1, 7)]
     public int star = 1;
-    [Tooltip("对应单位预制体键：关卡内加载到该键即视为“遇见”并解锁（可空）")]
+    [Tooltip("对应单位预制体键：关卡内遇见该单位，或从任意途径获得该单位（商店/礼包/兵营训练等），即解锁（可空）")]
     public string prefabKey = string.Empty;
-    [Tooltip("兵营等级达到该值即视为“已拥有”（0 = 不需要兵营条件）")]
-    [Min(0)]
-    public int unlockBarracksLevel = 0;
 
     [Header("Card 数值文本（填什么显示什么）")]
     public string repelText = string.Empty;
@@ -117,13 +114,16 @@ public sealed class BookCatalog : ScriptableObject
 
 /// <summary>
 /// 图鉴解锁进度服务（静态）。
-/// 解锁规则：关卡内遇见该兵种（按 prefabKey 标记）或已拥有该兵种（兵营等级达标），
-/// 任一满足即解锁，并把结果持久化到 UserGlobalInfo。
+/// 解锁规则：关卡内遇见该兵种（按 prefabKey 标记）或从任意途径获得该兵种
+/// （兵营训练产出、商店购买、礼包发放等，获得即视为拥有），任一满足即解锁，
+/// 并把结果持久化到 UserGlobalInfo。解锁与兵营等级等成长需求无关。
+/// 拥有状态独立记录：已解锁但尚未拥有的条目，图鉴头像显示为灰白色。
 /// </summary>
 public static class BookProgress
 {
     private static BookCatalog _catalog;
-    private static readonly HashSet<string> _encountered = new HashSet<string>();
+    private static readonly HashSet<string> _unlockedPrefabKeys = new HashSet<string>();
+    private static readonly HashSet<string> _ownedPrefabKeys = new HashSet<string>();
 
     public static void RegisterCatalog(BookCatalog catalog)
     {
@@ -131,13 +131,42 @@ public static class BookProgress
             _catalog = catalog;
     }
 
-    /// <summary>标记“遇见”：关卡实例化出该预制体键时调用。</summary>
+    /// <summary>标记“遇见”：关卡实例化出该预制体键时调用（仅解锁，不视为拥有）。</summary>
     public static void MarkEncountered(string prefabKey)
     {
-        if (string.IsNullOrEmpty(prefabKey) || _encountered.Contains(prefabKey))
+        UnlockByPrefabKey(prefabKey);
+    }
+
+    /// <summary>
+    /// 标记“获得/拥有”：玩家从任意途径获得该兵种时调用
+    /// （兵营训练产出、商店购买、礼包发放等）：解锁图鉴并记为“已拥有”。
+    /// </summary>
+    public static void MarkOwned(string prefabKey)
+    {
+        if (string.IsNullOrEmpty(prefabKey))
             return;
 
-        _encountered.Add(prefabKey);
+        _ownedPrefabKeys.Add(prefabKey);
+
+        if (_catalog != null)
+        {
+            BookEntry entry = _catalog.GetEntryByPrefabKey(prefabKey);
+            if (entry != null)
+            {
+                PersistOwned(entry.id);
+            }
+        }
+
+        UnlockByPrefabKey(prefabKey);
+    }
+
+    /// <summary>按预制体键解锁对应图鉴条目并持久化（幂等）。</summary>
+    private static void UnlockByPrefabKey(string prefabKey)
+    {
+        if (string.IsNullOrEmpty(prefabKey) || _unlockedPrefabKeys.Contains(prefabKey))
+            return;
+
+        _unlockedPrefabKeys.Add(prefabKey);
 
         if (_catalog != null)
         {
@@ -147,7 +176,7 @@ public static class BookProgress
         }
     }
 
-    /// <summary>条目是否已解锁（遇见 或 拥有）。评估到“拥有”时自动解锁并持久化。</summary>
+    /// <summary>条目是否已解锁（遇见 或 获得该兵种；评估到解锁时结果已持久化）。</summary>
     public static bool IsUnlocked(BookEntry entry)
     {
         if (entry == null || string.IsNullOrEmpty(entry.id))
@@ -156,14 +185,25 @@ public static class BookProgress
         if (UserGlobalInfo.Instance != null && UserGlobalInfo.Instance.IsBookEntryUnlocked(entry.id))
             return true;
 
-        if (!string.IsNullOrEmpty(entry.prefabKey) && _encountered.Contains(entry.prefabKey))
-            return PersistUnlock(entry.id);
-
-        if (entry.unlockBarracksLevel > 0 && UserGlobalInfo.Instance != null &&
-            UserGlobalInfo.Instance.BarracksLevel >= entry.unlockBarracksLevel)
+        if (!string.IsNullOrEmpty(entry.prefabKey) && _unlockedPrefabKeys.Contains(entry.prefabKey))
             return PersistUnlock(entry.id);
 
         return false;
+    }
+
+    /// <summary>
+    /// 条目对应兵种是否已被玩家拥有（任意途径获得过）。
+    /// 已解锁但未拥有的条目在图鉴中头像显示为灰白色。
+    /// </summary>
+    public static bool IsOwned(BookEntry entry)
+    {
+        if (entry == null || string.IsNullOrEmpty(entry.id))
+            return false;
+
+        if (UserGlobalInfo.Instance != null && UserGlobalInfo.Instance.IsBookEntryOwned(entry.id))
+            return true;
+
+        return !string.IsNullOrEmpty(entry.prefabKey) && _ownedPrefabKeys.Contains(entry.prefabKey);
     }
 
     private static bool PersistUnlock(string entryId)
@@ -172,6 +212,15 @@ public static class BookProgress
             return false;
 
         UserGlobalInfo.Instance.TryUnlockBookEntry(entryId);
+        return true;
+    }
+
+    private static bool PersistOwned(string entryId)
+    {
+        if (string.IsNullOrEmpty(entryId) || UserGlobalInfo.Instance == null)
+            return false;
+
+        UserGlobalInfo.Instance.TryOwnBookEntry(entryId);
         return true;
     }
 }

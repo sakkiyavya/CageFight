@@ -193,7 +193,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.54, y: 0.08}
-    oldSize: {x: 4.2, y: 2.8}
+    oldSize: {x: 3, y: 2}
     newSize: {x: 4.2, y: 2.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -216,13 +216,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 1
-  maxHp: 3300
+  maxHp: 500
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 300
+  atk: 80
   atkRate: 1
-  magicAtk: 10
+  magicAtk: 30
   repel: 0
   antiRepel: 4
   atkRange: {x: 7, y: 4}

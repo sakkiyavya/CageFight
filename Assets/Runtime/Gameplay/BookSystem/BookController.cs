@@ -18,6 +18,8 @@ public sealed class BookController : MonoBehaviour
     [SerializeField] private Transform detailCardRoot;
     [SerializeField] private string[] categoryIds = { "mouse", "cat", "chicken", "goat", "magic", "en" };
     [SerializeField] private bool debugShowAll;
+    [SerializeField, Tooltip("已解锁但尚未拥有的条目头像颜色（灰白）")]
+    private Color unownedColor = new Color(0.62f, 0.62f, 0.62f, 1f);
 
     private const int PageSize = 12;
 
@@ -196,7 +198,11 @@ public sealed class BookController : MonoBehaviour
             {
                 _slotImages[i].enabled = unlocked;
                 if (unlocked)
+                {
+                    // 新规则：已解锁但尚未拥有该兵种 → 头像显示为灰白色；获得后恢复原色。
+                    _slotImages[i].color = BookProgress.IsOwned(entry) ? Color.white : unownedColor;
                     ApplySlotIcon(i, entry);
+                }
             }
         }
     }

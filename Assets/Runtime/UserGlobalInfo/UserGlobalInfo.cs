@@ -156,6 +156,33 @@ public sealed class UserGlobalInfo : MonoBehaviour
         return true;
     }
 
+    /// <summary>图鉴条目对应兵种是否已被玩家拥有（已持久化到本地）。</summary>
+    public bool IsBookEntryOwned(string entryId)
+    {
+        if (string.IsNullOrEmpty(entryId))
+            return false;
+
+        EnsureDataExists();
+        return data.bookOwnedIds != null && data.bookOwnedIds.Contains(entryId);
+    }
+
+    /// <summary>记录图鉴条目已拥有并持久化；已拥有时返回 false（幂等）。</summary>
+    public bool TryOwnBookEntry(string entryId)
+    {
+        if (string.IsNullOrEmpty(entryId))
+            return false;
+
+        EnsureDataExists();
+        if (data.bookOwnedIds == null)
+            data.bookOwnedIds = new List<string>();
+        if (data.bookOwnedIds.Contains(entryId))
+            return false;
+
+        data.bookOwnedIds.Add(entryId);
+        Changed?.Invoke();
+        return true;
+    }
+
     public bool SetSentryTowerLevel(int value)
     {
         EnsureDataExists();

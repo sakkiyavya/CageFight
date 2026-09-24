@@ -42,4 +42,7 @@ public sealed class UserGlobalInfoData
 
     [Header("图鉴解锁")]
     public List<string> bookUnlockedIds = new List<string>();
+
+    [Header("图鉴拥有")]
+    public List<string> bookOwnedIds = new List<string>();
 }

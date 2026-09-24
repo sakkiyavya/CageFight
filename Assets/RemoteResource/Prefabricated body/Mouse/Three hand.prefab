@@ -323,11 +323,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 0
-  maxHp: 900
+  maxHp: 180
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
-  atk: 20
+  atk: 10
   atkRate: 1
   magicAtk: 10
   repel: 0.1
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee490820527261144b98c41153ab9c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comboCount: 3
+  comboCount: 6
   comboMultiplier: 3
   stealHpPercent: 0.01
 --- !u!1001 &4001067467459517357

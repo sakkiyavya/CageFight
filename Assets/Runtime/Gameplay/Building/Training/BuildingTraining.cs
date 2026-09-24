@@ -249,8 +249,8 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
             return;
         }
 
-        // 图鉴“遇见/拥有”标记：兵营产出该兵种即视为玩家拥有并遇见过。
-        BookProgress.MarkEncountered(currentTroop.PrefabKey);
+        // 图鉴“获得”标记：兵营产出该兵种即视为玩家获得了该兵种，解锁对应图鉴。
+        BookProgress.MarkOwned(currentTroop.PrefabKey);
 
         int count = Mathf.Max(1, currentTroop.TrainCount);
         for (int i = 0; i < count; i++)

@@ -47,8 +47,8 @@ public sealed class PlayerLoadoutSpawner : MonoBehaviour
             return false;
         }
 
-        // 图鉴“遇见/拥有”标记：玩家出战该工程师即视为拥有并遇见过。
-        BookProgress.MarkEncountered(engineer.PrefabKey);
+        // 图鉴“获得”标记：玩家出战该工程师即视为已获得，解锁对应图鉴。
+        BookProgress.MarkOwned(engineer.PrefabKey);
 
         spawnedEngineer = pool.Get(prefab);
         Transform spawnTransform = engineerSpawnPoint ? engineerSpawnPoint : transform;

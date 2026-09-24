@@ -206,8 +206,7 @@ public sealed class BookCatalogEditor : Editor
         if (star != null)
             star.intValue = EditorGUILayout.IntPopup("star 星级（1-7，只亮所选一颗）", star.intValue, StarLabels, StarValues);
 
-        Field(e, "prefabKey", "单位预制体键（遇见判定，可空）");
-        Field(e, "unlockBarracksLevel", "兵营等级需求（0 = 不需要）");
+        Field(e, "prefabKey", "单位预制体键（遇见/获得判定，可空）");
 
         EditorGUILayout.LabelField("Card 数值文本", EditorStyles.miniBoldLabel);
         Field(e, "repelText", "Repel 文本");
