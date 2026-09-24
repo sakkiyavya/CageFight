@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// 虚魇之力：数值类增益 Buff，每层增加吸血（suckBlood）3%，
-/// 并受局外“防御魔法等级”（UserGlobalInfo.DefenseMagicLevel）影响——每一级额外增加 0.3%。
+/// 并受“目标单位防御魔法等级”影响（敌方取关卡配置、玩家取玩家成长）——每一级额外增加 0.3%。
 /// 可无限叠加：层管理、无层数上限、加法叠加、每层独立计时与快照、逐层到期
 /// （层消失时对应吸血加成同步移除）。
 /// 无任何视觉表现（不染色、无呼吸、无弹动、无音效）。
@@ -62,13 +62,12 @@ public class PhantomNightmareBuff : BuffBase
 
     #region 内部辅助
     /// <summary>
-    /// 计算单层吸血加成：基础 3% + 局外防御魔法等级 × 0.3%。
+    /// 计算单层吸血加成：基础 3% + 目标单位防御魔法等级 × 0.3%。
+    /// （敌方单位等级取关卡配置，玩家单位等级取玩家成长。）
     /// </summary>
-    public float GetTotalSuck()
+    public float GetTotalSuck(GameObjectProperty prop)
     {
-        int level = UserGlobalInfo.Instance != null
-            ? UserGlobalInfo.Instance.DefenseMagicLevel
-            : 0;
+        int level = prop != null ? prop.defenseMagicLevel : 1;
         return baseSuck + level * levelSuck;
     }
     #endregion
@@ -112,7 +111,7 @@ internal class PhantomNightmareState : MonoBehaviour
         layers.Add(new Layer
         {
             source = source,
-            suckBonus = source.GetTotalSuck(),
+            suckBonus = source.GetTotalSuck(prop),
             expireTime = Time.time + source.Duration,
         });
 

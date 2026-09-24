@@ -17,5 +17,14 @@ MonoBehaviour:
   iconKey: Race AP_0
   description: No additional race effect.
   runtimeEffectPrefabKey: 
+  buildings:
+  - buildingType: 4
+    prefabKey: Mouse Base1
+  - buildingType: 1
+    prefabKey: Mouse Barracks1
+  - buildingType: 2
+    prefabKey: Mouse Dark barracks1
+  - buildingType: 3
+    prefabKey: Mouse Sentry tower1
   editorIcon: {fileID: 508354343, guid: f2f18647da05cd74584402527f4f0cb2, type: 3}
   editorRuntimeEffectPrefab: {fileID: 0}

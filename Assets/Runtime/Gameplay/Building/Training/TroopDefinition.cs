@@ -1,5 +1,16 @@
 using UnityEngine;
 
+/// <summary>兵种定位标签（敌方 AI 判定兵种作用与转产克制用）。</summary>
+public enum TroopTag
+{
+    None = 0,      // 未标注
+    Melee = 1,     // 近战（高速突进）
+    Ranged = 2,    // 远程
+    Siege = 3,     // 攻城（对建筑高威胁）
+    Tank = 4,      // 肉盾
+    Support = 5,   // 辅助
+}
+
 /// <summary>
 /// 训练兵种的静态定义数据：阶数、解锁建筑等级、单次产出数量、冷却与资源键。
 /// 运行时资源必须通过 ResourceManager 按资源键取得，不直接持有贴图/预制体引用。
@@ -9,6 +20,12 @@ public sealed class TroopDefinition : ScriptableObject
 {
     [SerializeField] private string id;
     [SerializeField] private string displayName;
+
+    [Header("AI 定位")]
+    [SerializeField, Tooltip("兵种定位标签（敌方 AI 判断兵种作用与转产克制用）")]
+    private TroopTag tag = TroopTag.Melee;
+    [SerializeField, Min(0f), Tooltip("对建筑的威胁权重（敌方 AI 威胁评估：攻击力 × 该权重计入威胁值）")]
+    private float threatScore = 1f;
 
     [Header("训练规则")]
     [SerializeField, Range(1, 3)] private int tier = 1;
@@ -40,6 +57,8 @@ public sealed class TroopDefinition : ScriptableObject
 
     public string Id => id;
     public string DisplayName => displayName;
+    public TroopTag Tag => tag;
+    public float ThreatScore => threatScore;
     public int Tier => tier;
     public int UnlockLevel => unlockLevel;
     public int TrainCount => trainCount;

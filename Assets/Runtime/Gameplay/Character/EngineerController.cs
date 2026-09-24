@@ -174,7 +174,7 @@ public class EngineerController : MonoBehaviour, ICollide
         animator.SetBool(moveParameterHash, moving);
     }
 
-    public bool IsFriendly(Damage damage) => damage.side == Side;
+    public bool IsFriendly(Damage damage) => TeamRules.IsSameAlliance(damage.side, Side);
 
     public Damage OnCollide(Damage damage)
     {

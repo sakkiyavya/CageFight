@@ -17,18 +17,31 @@ public class Coins : MonoBehaviour
 
     public int CurrentCoins => coins;              // 对外只读的当前金币总量。
 
+    // ── 经济增长曲线（关卡配置驱动；useIncomeCurve 启用时优先于下方时间阶梯）──────────
+    private bool _useCurve;                        // 是否使用 StageConfig 的经济增长曲线。
+    private float _curveBase;                      // 曲线基础每秒产量（关卡配置）。
+    private IncomeGrowthPhase[] _curvePhases;      // 曲线阶段列表（关卡配置，已过滤空项）。
+    private float _levelStartTime;                 // 本局开始打点（GameplayState 进入局内时写入）。
+
+    /// <summary>当前局内时间（关卡开始后的秒数）。</summary>
+    private float LevelTime => Time.time - _levelStartTime;
+
     /// <summary>
-    /// 对外只读的每秒金币产量：按局内时间在时间阶梯中取当前阶段值。
-    /// 0~60s 取初始值，60~120s 取第一阶段值，依次类推。
+    /// 对外只读的每秒金币产量：
+    /// 关卡启用增长曲线时 = 基础值 + 各阶段内已触发步数 × 每步增量；
+    /// 未启用时沿用场景时间阶梯（0~60s 取初始值，60~120s 取第一阶段值，依次类推）。
     /// </summary>
     public int CurrentCoinPerSec
     {
         get
         {
+            if (_useCurve)
+                return ComputeCurveIncome(LevelTime);
+
             int value = coinPerSec;
             for (int i = 0; i < phaseTimes.Length && i < phaseCoinPerSec.Length; i++)
             {
-                if (Time.time >= phaseTimes[i])
+                if (LevelTime >= phaseTimes[i])
                     value = phaseCoinPerSec[i];
             }
             return value;
@@ -79,6 +92,57 @@ public class Coins : MonoBehaviour
         if(Time.time < nextGainTime) return;
         nextGainTime = Time.time + 1f;
         GainCoins(NetCoinPerSec);
+    }
+    #endregion
+
+    #region 经济增长曲线
+    /// <summary>
+    /// 局内开始打点（GameplayState 进入局内时调用）：
+    /// 记录局内时间起点，并读取当前关卡的经济增长曲线配置（未启用时回落场景时间阶梯）。
+    /// </summary>
+    public void OnLevelStart()
+    {
+        _levelStartTime = Time.time;
+        nextGainTime = -1f;   // 立即进入下一次自动结算。
+
+        StageConfig config = SceneFSM.Instance != null ? SceneFSM.Instance.CurrentStageConfig : null;
+        _useCurve = config != null && config.useIncomeCurve;
+        if (_useCurve)
+        {
+            _curveBase = Mathf.Max(0f, config.baseGoldPerSecond);
+            _curvePhases = config.incomeGrowth != null
+                ? config.incomeGrowth.FindAll(phase => phase != null).ToArray()
+                : Array.Empty<IncomeGrowthPhase>();
+        }
+    }
+
+    /// <summary>
+    /// 按经济增长曲线计算 t 时刻的每秒产量：
+    /// 基础值 + 各阶段内已触发的步数（向下取整） × 每步增量；阶段外不再增长。
+    /// </summary>
+    /// <param name="t">局内时间（秒）。</param>
+    private int ComputeCurveIncome(float t)
+    {
+        float income = _curveBase;
+        if (_curvePhases != null)
+        {
+            for (int i = 0; i < _curvePhases.Length; i++)
+            {
+                IncomeGrowthPhase phase = _curvePhases[i];
+                if (phase == null || t <= phase.startTime)
+                    continue;
+
+                float windowEnd = phase.endTime > phase.startTime
+                    ? Mathf.Min(t, phase.endTime)
+                    : t;
+                float span = Mathf.Max(0f, windowEnd - phase.startTime);
+                float interval = Mathf.Max(0.1f, phase.stepInterval);
+                int steps = Mathf.FloorToInt(span / interval);
+                income += steps * Mathf.Max(0f, phase.stepAmount);
+            }
+        }
+
+        return Mathf.Max(0, Mathf.RoundToInt(income));
     }
     #endregion
 

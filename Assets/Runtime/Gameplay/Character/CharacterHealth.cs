@@ -20,6 +20,8 @@ public class CharacterHealth : MonoBehaviour, ICollide
     public event Action<GameObject> Died;
     public GameObject HpBarUp;                                                                          // 通过横向缩放显示剩余生命的前景条。
     public GameObject HpBarBottom;                                                                      // 血条背景对象。
+    [Tooltip("勾选后血条常显、不自动隐藏（Boss 血条用）")]
+    public bool alwaysShowBar = false;                                                                  // 血条是否常显。
     private float hitFlashDuration = 0.3f;                                                              // 受击红色闪烁持续时间。
     private float jellyDuration = 0.6f;                                                                 // 受击果冻形变持续时间。
     private float jellyFrequency = 2f;                                                                  // 受击形变的振荡频率。
@@ -96,13 +98,14 @@ public class CharacterHealth : MonoBehaviour, ICollide
 
     /// <summary>
     /// 比较伤害来源阵营与角色阵营，判断是否应忽略友方碰撞。
+    /// 队伍规则：奇数队 = 友方、偶数队 = 敌方，同奇偶视为同一阵线。
     /// </summary>
     /// <param name="damage">包含伤害来源阵营的数据。</param>
-    /// <returns>来源阵营与角色阵营相同时返回 <see langword="true"/>。</returns>
+    /// <returns>来源队伍与角色队伍同属一个阵线时返回 <see langword="true"/>。</returns>
     public bool IsFriendly(Damage damage)
     {
-        // 简单示例：如果双方属于同一阵营，则视为友好
-        return damage.side == _prop.side;
+        // 队伍规则：同奇偶 = 友军（奇数↔奇数、偶数↔偶数），奇偶互敌。
+        return TeamRules.IsSameAlliance(damage.side, _prop.side);
     }
 
     /// <summary>
@@ -247,11 +250,13 @@ public class CharacterHealth : MonoBehaviour, ICollide
 
     /// <summary>
     /// 初始化血条填充比例，并在角色开始时隐藏血条。
+    /// 勾选 alwaysShowBar（Boss 血条用）时保持常显。
     /// </summary>
     private void Start()
     {
         ApplyBarVisual();
-        SetBarActive(false);
+        if (!alwaysShowBar)
+            SetBarActive(false);
     }
 
     /// <summary>
@@ -262,7 +267,7 @@ public class CharacterHealth : MonoBehaviour, ICollide
     /// </summary>
     private void Update()
     {
-        if (hideTime >= 0f && Time.time >= hideTime)
+        if (!alwaysShowBar && hideTime >= 0f && Time.time >= hideTime)
         {
             SetBarActive(false);
             hideTime = -1f;

@@ -80,7 +80,22 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     [ResourceKey(typeof(GameObject))]
     public string buildAnime;                                      // 建筑施工特效预制体的资源键。
 
+    [Header("等级上下文（1 起；由生成方注入，决定等级缩放与 Buff 等级）")]
+    [Min(1)] public int barracksLevel = 1;                         // 普通兵营等级（兵营建筑与其训练兵种的生命/攻击/魔攻缩放）。
+    [Min(1)] public int darkBarracksLevel = 1;                     // 黑暗兵营等级（预留：黑暗兵营及其兵种）。
+    [Min(1)] public int sentryTowerLevel = 1;                      // 哨塔等级（哨塔血量与伤害）。
+    [Min(1)] public int defenseMagicLevel = 1;                     // 防御魔法等级 = 防御类 Buff 的等级。
+    [Min(1)] public int attackMagicLevel = 1;                      // 攻击魔法等级 = 攻击类 Buff 的等级。
+
+    [Header("AI 定位（兵种出生时由兵营按 TroopDefinition 注入）")]
+    public TroopTag troopTag = TroopTag.None;                      // 兵种定位标签（敌方 AI 判定作用/转产克制）。
+    [Min(0f)] public float threatScore = 1f;                       // 对建筑的威胁权重（敌方 AI 威胁评估）。
+
     GameObjectPropertyData recordGOPD;                             // 最近一次应用的静态属性快照，用于恢复默认数据。
+
+    [NonSerialized] private int _levelBaseMaxHp;                   // 等级缩放前的基准最大生命（Awake/ApplyData 时记录）。
+    [NonSerialized] private int _levelBaseAtk;                     // 等级缩放前的基准攻击力。
+    [NonSerialized] private int _levelBaseMagicAtk;                // 等级缩放前的基准魔法攻击力。
 
     #region 生命周期与回调
     /// <summary>
@@ -89,6 +104,12 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     private void OnEnable()
     {
         ResetRuntimeState();
+    }
+
+    /// <summary>记录等级缩放的基准值（实例首次生成 / 应用静态数据时调用）。</summary>
+    private void Awake()
+    {
+        CaptureLevelBase();
     }
     #endregion
 
@@ -151,6 +172,8 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
         missChance = baseMissChance;
         currentPathSession = null;
         currentScanSession = null;
+        troopTag = TroopTag.None;      // AI 定位标签随对象池复用复位（出生时由兵营重新注入）。
+        threatScore = 1f;
     }
 
     public Type DataType => typeof(GameObjectPropertyData);        // 该组件对应的关卡序列化数据类型。
@@ -253,6 +276,43 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     /// 深复制一份静态对象属性，用作之后恢复默认配置的快照。
     /// </summary>
     /// <param name="d">需要记录的对象属性数据。</param>
+    /// <summary>
+    /// 记录等级缩放的基准值（当前静态属性）；ApplyData 写入新静态数据后基准同步更新。
+    /// </summary>
+    private void CaptureLevelBase()
+    {
+        _levelBaseMaxHp = maxHp;
+        _levelBaseAtk = atk;
+        _levelBaseMagicAtk = magicAtk;
+    }
+
+    /// <summary>
+    /// 按等级缩放生命/攻击/魔攻（1.1^(等级-1)；从基准值计算，可重复调用不叠加）。
+    /// 防御/攻速/击退/移速不缩放。供兵种单位出生时按所属兵营等级调用。
+    /// 生命经 CharacterHealth 受控 API 写入（规范禁止业务直写 maxHp/currentHp）；
+    /// 攻击/魔攻无受控入口，按项目现状直写（与 BuildUP 写 prop.atk 一致）。
+    /// </summary>
+    public void ApplyLevelScale(int level)
+    {
+        float scale = LevelScale.Pow(level);
+        int newMaxHp = Mathf.Max(1, Mathf.RoundToInt(_levelBaseMaxHp * scale));
+
+        CharacterHealth characterHealth = GetComponent<CharacterHealth>();
+        if (characterHealth != null)
+        {
+            characterHealth.SetMaxHp(newMaxHp);
+            characterHealth.SetHpKeepDeadState(newMaxHp);   // 等级注入即满血（出生状态）。
+        }
+        else
+        {
+            maxHp = newMaxHp;
+            currentHp = Mathf.Max(0, newMaxHp);
+        }
+
+        atk = Mathf.Max(1, Mathf.RoundToInt(_levelBaseAtk * scale));
+        magicAtk = Mathf.Max(1, Mathf.RoundToInt(_levelBaseMagicAtk * scale));
+    }
+
     void RecordData(GameObjectPropertyData d)
     {
         recordGOPD = new GameObjectPropertyData
@@ -276,6 +336,8 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
             buildAnime = d.buildAnime,
             repel = d.repel
         };
+
+        CaptureLevelBase();    // 静态数据更新后同步等级缩放基准。
     }
     #endregion
 
@@ -289,4 +351,31 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     }
     #endregion
 
+}
+
+/// <summary>
+/// 等级缩放工具：生命/攻击/魔攻按 1.1^(等级-1) 缩放；等级 ≤1 不缩放。
+/// </summary>
+public static class LevelScale
+{
+    public const float PerLevel = 1.1f;
+
+    /// <summary>等级缩放系数：1.1^(等级-1)。</summary>
+    public static float Pow(int level)
+    {
+        return Mathf.Pow(PerLevel, Mathf.Max(0, level - 1));
+    }
+}
+
+/// <summary>
+/// 队伍规则：奇数队 = 友方，偶数队 = 敌方；同奇偶 = 同一阵线。
+/// 玩家固定为队伍 1；奇数队（3、5、7…）为 AI 队友/联机预留，偶数队（2、4、6、8）为敌方队伍。
+/// </summary>
+public static class TeamRules
+{
+    /// <summary>该队伍编号是否为敌方（偶数队）。</summary>
+    public static bool IsEnemySide(int side) => (side & 1) == 0;
+
+    /// <summary>两支队伍是否同属一个阵线（同为奇数或同为偶数）。</summary>
+    public static bool IsSameAlliance(int sideA, int sideB) => (sideA & 1) == (sideB & 1);
 }

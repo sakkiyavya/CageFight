@@ -1,10 +1,11 @@
 using UnityEngine;
 
 /// <summary>
-/// 建筑维护费（哨塔用）：把当前等级的维护费用登记进 Coins 维护费表，
+/// 建筑维护费（哨塔用）：把当前等级的维护费用登记进经济账本，
 /// 从每秒净收入中实时抵扣（收入不足时只抵扣到 0，不欠费、不动已有余额）；
 /// 维护费随建筑等级变化，upkeepPerLevel 依次配置 1/2/3 级的每秒消耗。
 /// 等级读取自 BuildUP.CurrentLevel；建筑被摧毁/禁用/回收时自动注销登记，收入恢复全额。
+/// 经 TeamEconomy 路由：敌方建筑走对应队伍账本（防守类标记），玩家建筑走全局 Coins。
 /// </summary>
 [RequireComponent(typeof(BuildUP))]
 public class BuildingUpkeep : MonoBehaviour
@@ -14,11 +15,13 @@ public class BuildingUpkeep : MonoBehaviour
     private int[] upkeepPerLevel = new int[] { 10, 20, 30 };
 
     private BuildUP _buildUp;
-    private int _registeredUpkeep = -1;   // 当前已登记进 Coins 的维护费；-1 表示尚未同步。
+    private GameObjectProperty _prop;
+    private int _registeredUpkeep = -1;   // 当前已登记进账本的维护费；-1 表示尚未同步。
 
     private void Awake()
     {
         _buildUp = GetComponent<BuildUP>();
+        _prop = GetComponent<GameObjectProperty>();
     }
 
     private void OnEnable()
@@ -52,23 +55,29 @@ public class BuildingUpkeep : MonoBehaviour
         return Mathf.Max(0, upkeepPerLevel[level]);
     }
 
-    /// <summary>把当前等级维护费同步进 Coins 维护费表（等级变化时自动按新值覆盖）。</summary>
+    /// <summary>账本是否就绪：敌方需要对应队伍指挥官，玩家需要 Coins。</summary>
+    private bool IsLedgerReady()
+    {
+        if (_prop != null && TeamRules.IsEnemySide(_prop.side))
+            return TeamCommander.GetForSide(_prop.side) != null;
+
+        return Coins.Instance != null;
+    }
+
+    /// <summary>把当前等级维护费同步进账本（等级变化时自动按新值覆盖）；账本未就绪时下一帧重试。</summary>
     private void SyncUpkeep()
     {
-        if (Coins.Instance == null)
-        {
-            _registeredUpkeep = -1;   // 金币系统未就绪，下一帧重试登记。
-            return;
-        }
-
         int desired = CurrentLevelUpkeep();
         if (desired == _registeredUpkeep)
             return;
 
+        if (!IsLedgerReady())
+            return;
+
         if (desired > 0)
-            Coins.Instance.RegisterUpkeep(this, desired);
+            TeamEconomy.RegisterUpkeep(_prop, this, desired, isDefense: true);
         else
-            Coins.Instance.UnregisterUpkeep(this);
+            TeamEconomy.UnregisterUpkeep(_prop, this);
 
         _registeredUpkeep = desired;
     }
@@ -76,9 +85,7 @@ public class BuildingUpkeep : MonoBehaviour
     /// <summary>注销维护费登记（建筑被摧毁/禁用/回收时调用），收入恢复全额。</summary>
     private void Unregister()
     {
-        if (Coins.Instance != null)
-            Coins.Instance.UnregisterUpkeep(this);
-
+        TeamEconomy.UnregisterUpkeep(_prop, this);
         _registeredUpkeep = 0;
     }
 }

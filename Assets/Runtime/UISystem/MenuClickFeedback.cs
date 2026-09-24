@@ -11,7 +11,7 @@ using UnityEngine.UI;
 ///   2) 经 AudioManager 播放 "UI Click"（框架音频键，持久预载列表内，2D 非循环）。
 /// 仅在 SceneFSM 处于 Menu 状态（进入关卡之前）时生效；射线检测与 UIStack
 /// 的空白点击检测使用同一套 EventSystem + GraphicRaycaster 机制，不需要逐按钮接线。
-/// AudioSource 采用与 MenuAmbientAudio 相同的菜单音频模式（Awake 时确保存在）。
+/// 音效经 AudioManager.PlayEffectClip 直接发起请求（规范禁止业务运行时 AddComponent）。
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class MenuClickFeedback : MonoBehaviour
@@ -26,22 +26,12 @@ public sealed class MenuClickFeedback : MonoBehaviour
     private string clickSoundKey = "UI Click";
 
     private EventSystem _eventSystem;
-    private AudioSource _clickSource;
     private readonly Dictionary<Transform, Vector3> _originalScales = new Dictionary<Transform, Vector3>();
     private readonly Dictionary<Transform, Coroutine> _activeBounces = new Dictionary<Transform, Coroutine>();
 
     private void Awake()
     {
         _eventSystem = EventSystem.current;
-
-        // 菜单音频同款模式：确保存在一个 2D、非循环的 AudioSource。
-        _clickSource = GetComponent<AudioSource>();
-        if (_clickSource == null)
-            _clickSource = gameObject.AddComponent<AudioSource>();
-        _clickSource.playOnAwake = false;
-        _clickSource.loop = false;
-        _clickSource.spatialBlend = 0f;
-        _clickSource.priority = 32;
     }
 
     private void Update()
@@ -105,8 +95,7 @@ public sealed class MenuClickFeedback : MonoBehaviour
         if (clip == null)
             return;
 
-        _clickSource.clip = clip;
-        AudioManager.Instance.PlayEffectAt(_clickSource, 32, transform);
+        AudioManager.Instance.PlayEffectClip(clip, 32, transform);
     }
 
     /// <summary>

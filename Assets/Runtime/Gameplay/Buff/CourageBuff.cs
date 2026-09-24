@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// 勇气：数值类增益 Buff，每层提供 3% 最终伤害减免，
-/// 并受局外“防御魔法等级”（UserGlobalInfo.DefenseMagicLevel）影响——每一级额外增加 0.3%。
+/// 并受“目标单位防御魔法等级”影响（敌方取关卡配置、玩家取玩家成长）——每一级额外增加 0.3%。
 /// 可叠加：每层独立计时、独立快照减免比例，总减免为各层相加（上限 100%），
 /// 层到期时对应减免同步移除；层数上限由 maxLayers 配置（0 = 不设上限）。
 /// 减免在伤害结算（DamageComputor）的最后阶段按比例乘算（最终伤害减免），
@@ -88,13 +88,12 @@ public class CourageBuff : BuffBase
 
     #region 内部辅助
     /// <summary>
-    /// 计算单层最终伤害减免比例：基础 3% + 局外防御魔法等级 × 0.3%。
+    /// 计算单层最终伤害减免比例：基础 3% + 目标单位防御魔法等级 × 0.3%。
+    /// （敌方单位等级取关卡配置，玩家单位等级取玩家成长。）
     /// </summary>
-    public float GetTotalReduction()
+    public float GetTotalReduction(GameObjectProperty prop)
     {
-        int level = UserGlobalInfo.Instance != null
-            ? UserGlobalInfo.Instance.DefenseMagicLevel
-            : 0;
+        int level = prop != null ? prop.defenseMagicLevel : 1;
         return baseReduction + level * levelReduction;
     }
     #endregion
@@ -157,7 +156,7 @@ internal class CourageState : MonoBehaviour
         layers.Add(new Layer
         {
             source = source,
-            reduction = source.GetTotalReduction(),
+            reduction = source.GetTotalReduction(prop),
             expireTime = Time.time + source.Duration,
         });
 

@@ -7,7 +7,7 @@ using UnityEngine;
 /// 施加后目标叠加一层“妄业之力”，层数无限叠加，且对已持有该 Buff 的单位依旧生效
 /// （不免疫、不唯一，叠多少层都可以）。
 /// 当目标生命归零时结算诅咒：不立即死亡，而是恢复一部分最大生命值
-/// （基础 80%，防御魔法等级每级额外 +8%，等级取 UserGlobalInfo.DefenseMagicLevel），
+/// （基础 80%，目标单位防御魔法等级每级额外 +8%；敌方取关卡配置、玩家取玩家成长），
 /// 并在 n × 每层秒数内持续扣除生命值直至归零（n = 结算时的层数，
 /// 因此叠层越多，“假死”持续越久），扣血结束后进入常规死亡流程。
 /// 持有期间（有活跃层）目标图像变黑 20%；
@@ -108,14 +108,12 @@ internal class FalseLifeState : MonoBehaviour
     private Color[] originalColors;
     private bool draining;                              // 是否正在扣血结算（假死期间）。
     private Coroutine drainRoutine;
-    private AudioSource soundAudio;                     // 触发音效音频源。
     private bool warnedMissingSound;                    // 是否已输出过音效缺失警告（一次性）。
 
     private void Awake()
     {
         prop = GetComponent<GameObjectProperty>();
         health = GetComponent<CharacterHealth>();
-        ResolveSoundAudio();
         renderers = GetComponentsInChildren<SpriteRenderer>(true);
         originalColors = new Color[renderers.Length];
         for (int i = 0; i < renderers.Length; i++)
@@ -135,20 +133,30 @@ internal class FalseLifeState : MonoBehaviour
     }
 
     /// <summary>
-    /// 解析触发音效音频源：优先复用对象上的 AudioSource，没有则新建一个。
+    /// 解析触发音效音频源：经 AudioManager.PlayEffectClip 直接发起请求（规范禁止运行时 AddComponent）。
     /// </summary>
-    private void ResolveSoundAudio()
+    private void PlayFalseLifeSound()
     {
-        if (soundAudio != null)
+        if (prop == null ||
+            AudioManager.Instance == null || ResourceManager.Instance == null)
             return;
 
-        soundAudio = GetComponent<AudioSource>();
-        if (soundAudio == null)
+        AudioClip clip = ResourceManager.Instance.GetAudio(FalseLifeSoundKey);
+        if (clip == null)
         {
-            soundAudio = gameObject.AddComponent<AudioSource>();
-            soundAudio.playOnAwake = false;
-            soundAudio.spatialBlend = 0f;
+            if (!warnedMissingSound)
+            {
+                warnedMissingSound = true;
+                Debug.LogWarning($"[FalseLifeBuff] 音频资源 {FalseLifeSoundKey} 未加载，触发音效无法播放。", this);
+            }
+            return;
         }
+
+        AudioManager.Instance.PlayEffectClip(
+            clip,
+            (uint)SoundPriority,
+            prop.transform,
+            SoundVolume);
     }
 
     /// <summary>
@@ -230,10 +238,9 @@ internal class FalseLifeState : MonoBehaviour
         // 记录本次复活已触发：光环类能力此后在本轮生命周期内不再施加妄业之力。
         HasRevivedOnce = true;
 
-        // 恢复比例 = 基础 80% + 防御魔法等级 × 每级 8%（等级取全局玩家防御魔法等级）。
-        int level = UserGlobalInfo.Instance != null
-            ? UserGlobalInfo.Instance.DefenseMagicLevel
-            : 0;
+        // 恢复比例 = 基础 80% + 目标单位防御魔法等级 × 每级 8%
+        // （敌方单位等级取关卡配置，玩家单位等级取玩家成长）。
+        int level = prop != null ? prop.defenseMagicLevel : 1;
         float restorePercent = Mathf.Clamp01(
             source.BaseRestorePercent + level * source.LevelRestorePercent);
         int restoreHp = Mathf.Max(0, Mathf.RoundToInt(prop.maxHp * restorePercent));
@@ -307,35 +314,6 @@ internal class FalseLifeState : MonoBehaviour
         }
 
         layers.Clear();
-    }
-
-    /// <summary>
-    /// 播放触发结算音效“False life”；资源键或片段缺失时输出一次性警告，避免静默失败。
-    /// </summary>
-    private void PlayFalseLifeSound()
-    {
-        if (soundAudio == null || prop == null ||
-            AudioManager.Instance == null || ResourceManager.Instance == null)
-            return;
-
-        AudioClip clip = ResourceManager.Instance.GetAudio(FalseLifeSoundKey);
-        if (clip == null)
-        {
-            if (!warnedMissingSound)
-            {
-                warnedMissingSound = true;
-                Debug.LogWarning($"[FalseLifeBuff] 音频资源 {FalseLifeSoundKey} 未加载，触发音效无法播放。", this);
-            }
-            return;
-        }
-
-        soundAudio.clip = clip;
-        soundAudio.volume = SoundVolume;
-        soundAudio.priority = SoundPriority;
-        AudioManager.Instance.PlayEffectAt(
-            soundAudio,
-            (uint)SoundPriority,
-            prop.transform);
     }
 
     /// <summary>判断该来源是否仍有剩余层（多层同实例时，仅最后一层结束时注销登记）。</summary>

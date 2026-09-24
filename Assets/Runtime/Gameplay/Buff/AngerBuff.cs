@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// 愤怒增益：目标获得增伤、受伤增加与暴击概率。
 /// 每层：增伤 +6%、受伤增加 +6%、造成 200% 伤害的概率 +6%；
-/// 受局外“攻击魔法等级”（UserGlobalInfo.AttackMagicLevel）影响——每一级额外 +0.6%。
+/// 受“目标单位攻击魔法等级”影响（敌方取关卡配置、玩家取玩家成长）——每一级额外 +0.6%。
 /// 可无限叠加：每层独立计时、独立快照加成，总效果为各层比例相加。
 /// 首次施加播放 Violent 音效，叠加不触发；拥有期间目标图像显示红色渐变呼吸。
 /// 增伤/受伤/暴击经 GameObjectProperty 新增的战斗修正字段接入 DamageComputor。
@@ -94,13 +94,12 @@ public class AngerBuff : BuffBase
 
     #region 内部辅助
     /// <summary>
-    /// 计算单层加成比例：基础 6% + 局外攻击魔法等级 × 0.6%。
+    /// 计算单层加成比例：基础 6% + 目标单位攻击魔法等级 × 0.6%。
+    /// （敌方单位等级取关卡配置，玩家单位等级取玩家成长。）
     /// </summary>
-    public float GetTotalPercent()
+    public float GetTotalPercent(GameObjectProperty prop)
     {
-        int level = UserGlobalInfo.Instance != null
-            ? UserGlobalInfo.Instance.AttackMagicLevel
-            : 0;
+        int level = prop != null ? prop.attackMagicLevel : 1;
         return basePercent + level * levelPercent;
     }
     #endregion
@@ -194,7 +193,7 @@ internal class AngerState : MonoBehaviour
         layers.Add(new Layer
         {
             source = source,
-            percent = source.GetTotalPercent(),
+            percent = source.GetTotalPercent(prop),
             expireTime = Time.time + source.Duration,
         });
 

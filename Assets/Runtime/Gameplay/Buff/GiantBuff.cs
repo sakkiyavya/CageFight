@@ -6,7 +6,7 @@ using UnityEngine;
 /// 巨化增益：体型（根物体缩放）与最大生命按比例增大，差值补齐为临时生命值
 /// （层消失时临时生命同步扣除），并获得抗击退加成。
 /// 基础：体型/最大生命 +7%、抗击退 +0.5；受局外“防御魔法等级”
-/// （UserGlobalInfo.DefenseMagicLevel）影响——每级额外 +0.7% 体型/生命、+0.1 抗击退。
+/// （目标单位防御魔法等级，敌方取关卡配置、玩家取玩家成长）影响——每级额外 +0.7% 体型/生命、+0.1 抗击退。
 /// 可无限叠加：每层独立计时、独立快照加成，总效果为各层比例相加（如 2 层 = 7% + 7% = 14%）。
 /// 每获得一层巨化时，目标弹动一下并播放配置的获得音效（默认 Huge buff）。
 /// 仅新增本脚本即可生效，不改动任何既有脚本。
@@ -86,26 +86,25 @@ public class GiantBuff : BuffBase
 
     #region 内部辅助
     /// <summary>
-    /// 计算单层体型/最大生命加成比例：基础 7% + 局外防御魔法等级 × 0.7%。
+    /// 计算单层体型/最大生命加成比例：基础 7% + 目标单位防御魔法等级 × 0.7%。
+    /// （敌方单位等级取关卡配置，玩家单位等级取玩家成长。）
     /// </summary>
-    public float GetTotalPercent()
+    public float GetTotalPercent(GameObjectProperty prop)
     {
-        return basePercent + GetDefenseMagicLevel() * levelPercent;
+        return basePercent + GetDefenseMagicLevel(prop) * levelPercent;
     }
 
     /// <summary>
-    /// 计算单层抗击退加成：基础 0.5 + 局外防御魔法等级 × 0.1。
+    /// 计算单层抗击退加成：基础 0.5 + 目标单位防御魔法等级 × 0.1。
     /// </summary>
-    public float GetTotalAntiRepel()
+    public float GetTotalAntiRepel(GameObjectProperty prop)
     {
-        return baseAntiRepel + GetDefenseMagicLevel() * levelAntiRepel;
+        return baseAntiRepel + GetDefenseMagicLevel(prop) * levelAntiRepel;
     }
 
-    private int GetDefenseMagicLevel()
+    private int GetDefenseMagicLevel(GameObjectProperty prop)
     {
-        return UserGlobalInfo.Instance != null
-            ? UserGlobalInfo.Instance.DefenseMagicLevel
-            : 0;
+        return prop != null ? prop.defenseMagicLevel : 1;
     }
     #endregion
 }
@@ -193,13 +192,13 @@ internal class GiantState : MonoBehaviour
         }
 
         int prevMax = prop.maxHp;
-        float percent = source.GetTotalPercent();
+        float percent = source.GetTotalPercent(prop);
 
         layers.Add(new Layer
         {
             source = source,
             percent = percent,
-            antiBonus = source.GetTotalAntiRepel(),
+            antiBonus = source.GetTotalAntiRepel(prop),
             tempHp = 0,
             expireTime = Time.time + source.Duration,
         });

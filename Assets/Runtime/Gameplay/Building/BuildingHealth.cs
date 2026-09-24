@@ -1,4 +1,5 @@
 // using Unity.Mathematics;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ public class BuildingHealth : MonoBehaviour, ICollide
 {
     private int hp; public int HP => hp;                                      // 当前建筑生命值及其只读访问器。
     private float hideTime = -1f;                                             // 血条自动隐藏的游戏时间，负数表示未计时。
+
+    /// <summary>建筑死亡时触发（进入死亡流程时广播一次），供胜负判定等扩展订阅。</summary>
+    public event Action<GameObject> Died;
 
     [Header("受击表现")]
     [SerializeField] private float hitFlashDuration = 0.3f;                    // 受击闪红持续时长。
@@ -29,7 +33,6 @@ public class BuildingHealth : MonoBehaviour, ICollide
     private float deathDarkFactor = 0.4f;                                       // 死亡掉落结束时的变暗系数。
 
     private SpriteRenderer _bodyRenderer;                                     // 建筑本体渲染器（闪红用）。
-    private AudioSource _hitAudio;                                            // 受击音效的缓存音频源。
     private BuildingBase _buildingBase;                                       // 建筑生命周期组件（拖拽预览判定）。
     private Coroutine _hitEffectCoroutine;                                    // 当前受击闪红与晃动协程。
     private Color _flashOriginalColor;                                        // 闪红前建筑本体的原始颜色。
@@ -49,13 +52,14 @@ public class BuildingHealth : MonoBehaviour, ICollide
     #region 阵营判定
     /// <summary>
     /// 比较伤害来源阵营与建筑阵营，判断是否应忽略友方碰撞。
+    /// 队伍规则：奇数队 = 友方、偶数队 = 敌方，同奇偶视为同一阵线。
     /// </summary>
     /// <param name="damage">包含来源阵营的伤害数据。</param>
-    /// <returns>伤害阵营与建筑阵营相同时返回 <see langword="true"/>。</returns>
+    /// <returns>来源队伍与建筑队伍同属一个阵线时返回 <see langword="true"/>。</returns>
     public bool IsFriendly(Damage damage)
     {
         GameObjectProperty prop = EnsureProp();
-        return prop != null && damage.side == prop.side;
+        return prop != null && TeamRules.IsSameAlliance(damage.side, prop.side);
     }
     #endregion
     #region 碰撞与生命周期回调
@@ -72,20 +76,13 @@ public class BuildingHealth : MonoBehaviour, ICollide
     /// <summary>
     /// 缓存同一对象上的建筑属性组件；同对象缺失时向上级物体兜底查找
     /// （防御预制体把 BuildingHealth 挂在子物体、GameObjectProperty 在根物体的配置）。
-    /// 同时缓存建筑本体渲染器与受击音效音频源（与 BuildUP 同做法）。
+    /// 同时缓存建筑本体渲染器（受击音效经 AudioManager.PlayEffectClip 请求，无需自建音频源）。
     /// </summary>
     private void Awake()
     {
         EnsureProp();
         _bodyRenderer = GetComponent<SpriteRenderer>();
         _buildingBase = GetComponent<BuildingBase>();
-        _hitAudio = GetComponent<AudioSource>();
-        if (!_hitAudio)
-        {
-            _hitAudio = gameObject.AddComponent<AudioSource>();
-            _hitAudio.playOnAwake = false;
-            _hitAudio.spatialBlend = 0f;
-        }
     }
 
     private void OnEnable()
@@ -260,6 +257,8 @@ public class BuildingHealth : MonoBehaviour, ICollide
         if (_deathEffectCoroutine != null)
             return;
 
+        Died?.Invoke(gameObject);   // 死亡广播（胜负判定等扩展订阅）。
+
         if (_prop != null)
         {
             _prop.isDead = true;
@@ -343,18 +342,13 @@ public class BuildingHealth : MonoBehaviour, ICollide
     /// </summary>
     private void StartHitEffect()
     {
-        // 音效：经缓存音频源走 AudioManager 统一播放入口。
+        // 音效：经 AudioManager.PlayEffectClip 统一播放入口（规范禁止运行时 AddComponent）。
         if (!string.IsNullOrEmpty(hitSoundKey) && ResourceManager.Instance != null &&
-            AudioManager.Instance != null && _hitAudio != null)
+            AudioManager.Instance != null)
         {
             AudioClip clip = ResourceManager.Instance.GetAudio(hitSoundKey);
             if (clip != null)
-            {
-                _hitAudio.clip = clip;
-                _hitAudio.volume = 1f;
-                _hitAudio.priority = 32;
-                AudioManager.Instance.PlayEffectAt(_hitAudio, (uint)_hitAudio.priority, transform);
-            }
+                AudioManager.Instance.PlayEffectClip(clip, 32, transform);
         }
 
         // 闪红：记录受击前的原始颜色（不覆盖升级蓝/拆除红等既有着色），随后置为闪红色。

@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
 
     // 音乐通道
     private AudioSource _musicSource;                                                // 专用于播放背景音乐的通道。
+    private AudioSource _requestCarrier;                                             // 共享的音效请求载体（PlayEffectClip 使用，业务无需自建 AudioSource）。
     private Coroutine _fadeCo;                                                       // 当前正在执行的音乐切换协程。
 
     // 对象池：所有已创建的音效 AudioSource（空闲 + 活跃）
@@ -322,6 +323,35 @@ public class AudioManager : MonoBehaviour
             ? Vector3.Distance(origin.position, cam.transform.position)
             : 0f;
         return PlayEffect(source, priority, distance, origin);
+    }
+
+    /// <summary>
+    /// 无需业务侧自建 AudioSource 的音效请求入口（规范禁止业务运行时 AddComponent）：
+    /// 直接用片段与播放参数发起请求，内部以共享载体转交给音效通道池。
+    /// </summary>
+    /// <param name="clip">要播放的音频片段。</param>
+    /// <param name="priority">请求优先级，数值越小优先级越高。</param>
+    /// <param name="origin">播放期间需要持续跟踪位置的声源变换。</param>
+    /// <param name="volume">播放音量（0-1）。</param>
+    /// <param name="pitch">播放音调。</param>
+    /// <returns>请求是否获得通道并开始播放。</returns>
+    public bool PlayEffectClip(AudioClip clip, uint priority, Transform origin, float volume = 1f, float pitch = 1f)
+    {
+        if (clip == null)
+            return false;
+
+        if (_requestCarrier == null)
+            _requestCarrier = CreateSource("EffectRequestCarrier");
+
+        _requestCarrier.clip = clip;
+        _requestCarrier.volume = volume;
+        _requestCarrier.pitch = pitch;
+        _requestCarrier.priority = (int)priority;
+        _requestCarrier.spatialBlend = 0f;
+        _requestCarrier.loop = false;
+        _requestCarrier.playOnAwake = false;
+
+        return PlayEffectAt(_requestCarrier, priority, origin);
     }
 
     /// <summary>

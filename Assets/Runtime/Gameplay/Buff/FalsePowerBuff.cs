@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// 虚假力量：数值类增益 Buff，每层增加击退（repel）1 点，
-/// 并受局外“攻击魔法等级”（UserGlobalInfo.AttackMagicLevel）影响——每一级额外增加 0.1 点击退。
+/// 并受“目标单位攻击魔法等级”影响（敌方取关卡配置、玩家取玩家成长）——每一级额外增加 0.1 点击退。
 /// 叠加公式与“巨化”一致：层管理、无层数上限、加法叠加、每层独立计时与快照、
 /// 逐层到期（层消失时对应加成同步移除）。
 /// 无任何视觉表现（不染色、无呼吸、无弹动、无音效）。
@@ -62,13 +62,12 @@ public class FalsePowerBuff : BuffBase
 
     #region 内部辅助
     /// <summary>
-    /// 计算单层击退加成：基础 1 点 + 局外攻击魔法等级 × 0.1 点。
+    /// 计算单层击退加成：基础 1 点 + 目标单位攻击魔法等级 × 0.1 点。
+    /// （敌方单位等级取关卡配置，玩家单位等级取玩家成长。）
     /// </summary>
-    public float GetTotalRepel()
+    public float GetTotalRepel(GameObjectProperty prop)
     {
-        int level = UserGlobalInfo.Instance != null
-            ? UserGlobalInfo.Instance.AttackMagicLevel
-            : 0;
+        int level = prop != null ? prop.attackMagicLevel : 1;
         return baseRepel + level * levelRepel;
     }
     #endregion
@@ -112,7 +111,7 @@ internal class FalsePowerState : MonoBehaviour
         layers.Add(new Layer
         {
             source = source,
-            repelBonus = source.GetTotalRepel(),
+            repelBonus = source.GetTotalRepel(prop),
             expireTime = Time.time + source.Duration,
         });
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// 须臾之烬：数值类增益 Buff，每层获得“基础最大生命的 7%”临时生命值，
-/// 并受局外“防御魔法等级”（UserGlobalInfo.DefenseMagicLevel）影响——每一级额外增加 0.7%。
+/// 并受“目标单位防御魔法等级”影响（敌方取关卡配置、玩家取玩家成长）——每一级额外增加 0.7%。
 /// 叠加公式与“巨化”一致：层管理、无层数上限、加法叠加、每层独立计时与快照、逐层到期；
 /// 每层加入时把最大生命抬升对应数值，差值补齐为当前生命（临时生命），
 /// 该层消失（时限到期/取消）时同步扣回其临时生命。
@@ -79,13 +79,12 @@ public class TransientAshBuff : BuffBase
 
     #region 内部辅助
     /// <summary>
-    /// 计算单层临时生命比例：基础 7% + 局外防御魔法等级 × 0.7%。
+    /// 计算单层临时生命比例：基础 7% + 目标单位防御魔法等级 × 0.7%。
+    /// （敌方单位等级取关卡配置，玩家单位等级取玩家成长。）
     /// </summary>
-    public float GetTotalPercent()
+    public float GetTotalPercent(GameObjectProperty prop)
     {
-        int level = UserGlobalInfo.Instance != null
-            ? UserGlobalInfo.Instance.DefenseMagicLevel
-            : 0;
+        int level = prop != null ? prop.defenseMagicLevel : 1;
         return basePercent + level * levelPercent;
     }
     #endregion
@@ -145,7 +144,7 @@ internal class TransientAshState : MonoBehaviour
             breathColor = source.BreathColor;
         }
 
-        int tempHp = Mathf.Max(1, Mathf.RoundToInt(baseMaxHp * source.GetTotalPercent()));
+        int tempHp = Mathf.Max(1, Mathf.RoundToInt(baseMaxHp * source.GetTotalPercent(prop)));
         int prevMax = prop.maxHp;
 
         layers.Add(new Layer

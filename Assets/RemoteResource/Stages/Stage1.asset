@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageId: 1
   stageType: 0
-  DefenseTime: 0
+  DefenseTime: 300
   icon: {fileID: 0}
   displayIcons:
   - {fileID: -823088979, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
@@ -26,15 +26,65 @@ MonoBehaviour:
       rotation: {x: -0, y: 0, z: 0}
       scale: {x: 1, y: 1, z: 1}
     components: []
-  hasFriendlyMainBaseGridPosition: 0
-  friendlyMainBaseGridPosition: {x: 0, y: 0}
+  hasFriendlyMainBaseGridPosition: 1
+  friendlyMainBaseGridPosition: {x: 0, y: 3}
   prefabs:
   - TextTest
+  - Mouse Base1
+  - Mouse Barracks1
+  - Mouse Dark barracks1
+  - Mouse Sentry tower1
+  - Cat Base1
+  - Cat Barracks1
+  - Cat Dark barracks1
+  - Cat Sentry tower1
   audios: []
   textures: []
   animationClips: []
   animatorControllers: []
   sprites: []
+  useIncomeCurve: 0
+  baseGoldPerSecond: 10
+  incomeGrowth: []
+  enemyBarracksLevel: 1
+  enemyDarkBarracksLevel: 1
+  enemySentryTowerLevel: 1
+  enemyDefenseMagicLevel: 1
+  enemyAttackMagicLevel: 1
+  enemyBaseDistance: 60
+  enemyTeams:
+  - teamId: 2
+    raceId: mouse_race_1
+    startGold: 500
+    baseGoldPerSecond: 30
+    incomeGrowth:
+    - startTime: 0
+      endTime: 120
+      stepInterval: 10
+      stepAmount: 10
+    - startTime: 120
+      endTime: 240
+      stepInterval: 10
+      stepAmount: 15
+    reserve: 0
+    defenseSpendRatio: 0.4
+    surplusSeconds: 10
+    strategy: 1
+    threatThreshold: 300
+    defendRadius: 12
+    homeGridPosition: {x: 60, y: 3}
+    buildSlots:
+    - buildingType: 1
+      gridPosition: {x: 58, y: 3}
+    - buildingType: 1
+      gridPosition: {x: 56, y: 3}
+    - buildingType: 3
+      gridPosition: {x: 59, y: 3}
+    troopUnlocks: []
+  attackTimeLimit: 180
+  bossTimeLimit: 180
+  bossPrefabKey: 
+  bossGridPosition: {x: 0, y: 0}
   references:
     version: 2
     RefIds: []

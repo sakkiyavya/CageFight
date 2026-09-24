@@ -13,6 +13,8 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
 {
     [Header("兵种列表")]
     [SerializeField] private TroopDefinition[] troops = new TroopDefinition[0];
+    [SerializeField, Tooltip("勾选后本建筑按“黑暗兵营”结算等级（建筑与产出兵种使用黑暗兵营等级）")]
+    private bool isDarkBarracks;
 
     [Header("左上角头像角标")]
     [SerializeField, Min(.05f)] private float avatarSize = 1f;
@@ -58,6 +60,9 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
 
     /// <summary>当前被选中（面板打开中）的训练建筑。</summary>
     public static BuildingTraining ActiveBuilding => activeBuilding;
+
+    /// <summary>本建筑是否按黑暗兵营结算等级（供等级注入方读取）。</summary>
+    public bool IsDarkBarracks => isDarkBarracks;
 
     /// <summary>取解锁等级为 row 的兵种中第 index 个；不存在时返回 null（面板按解锁等级 1/2/3 分排）。</summary>
     public TroopDefinition GetTroop(int row, int index)
@@ -142,11 +147,13 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
     /// <summary>
     /// 建筑被点击：升级金币标记可见（升级模式）时点击仅用于升级，不打开训练面板；
     /// 施工完成（BuildingBase 框架状态，未完成的建筑不响应）时打开训练面板。
+    /// 队伍规则：玩家只能操作队伍 1 的建筑（敌方/队友建筑不响应）。
     /// </summary>
     private void HandleBuildingClicked()
     {
         if (upgradeCoinMark && upgradeCoinMark.activeInHierarchy) return;
         if (!buildingBase || !buildingBase.IsCompleted) return;
+        if (prop == null || prop.side != 1) return;
         TroopTrainingPanel.Open(this);
     }
 
@@ -183,16 +190,18 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
 
     /// <summary>
     /// 按当前毛收入与已登记维护费判断：开始/更换该兵种后每秒净收入仍大于 0。
-    /// 金币系统未就绪时不拦截（先按可训练处理）。
+    /// 经 TeamEconomy 路由：敌方建筑走队伍账本，玩家建筑走全局 Coins。
+    /// 玩家侧金币系统未就绪时不拦截（先按可训练处理）。
     /// </summary>
     private bool CanAffordUpkeep(TroopDefinition troop)
     {
-        Coins coins = Coins.Instance;
-        if (!coins) return true;
+        int side = prop != null ? prop.side : 1;
+        if (!TeamRules.IsEnemySide(side) && Coins.Instance == null)
+            return true;
 
         int currentUpkeep = currentTroop ? currentTroop.Upkeep : 0;
-        int projected = coins.TotalUpkeep - currentUpkeep + troop.Upkeep;
-        return coins.CurrentCoinPerSec > projected;
+        int projected = TeamEconomy.TotalUpkeep(prop) - currentUpkeep + troop.Upkeep;
+        return TeamEconomy.CurrentCoinPerSec(prop) > projected;
     }
 
     /// <summary>
@@ -206,7 +215,7 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
 
         currentTroop = null;
         readyTime = float.NegativeInfinity;
-        if (Coins.Instance) Coins.Instance.UnregisterUpkeep(this);
+        TeamEconomy.UnregisterUpkeep(prop, this);
 
         if (avatarRenderer)
             avatarRenderer.enabled = false;
@@ -233,7 +242,7 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
         readyTime = Time.time + troop.Cooldown;
         ApplyAvatar(troop);
         ApplyCooldownMask(1f);
-        if (Coins.Instance) Coins.Instance.RegisterUpkeep(this, troop.Upkeep);
+        TeamEconomy.RegisterUpkeep(prop, this, troop.Upkeep);
         return true;
     }
 
@@ -261,8 +270,21 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
             // 出生点固定在建筑正中间，避免兵种出生在四角/地图边界无法移动。
             unit.transform.position = transform.position;
 
+            // 等级注入：兵种继承兵营的等级上下文（兵营等级缩放 + Buff 等级），并按其缩放生命/攻击/魔攻。
+            // ApplyLevelScale 内部经 CharacterHealth 受控 API 同步满血。
             GameObjectProperty unitProp = unit.GetComponent<GameObjectProperty>();
-            if (unitProp && prop) unitProp.side = prop.side;
+            if (unitProp && prop)
+            {
+                unitProp.side = prop.side;
+                unitProp.barracksLevel = prop.barracksLevel;
+                unitProp.darkBarracksLevel = prop.darkBarracksLevel;
+                unitProp.sentryTowerLevel = prop.sentryTowerLevel;
+                unitProp.defenseMagicLevel = prop.defenseMagicLevel;
+                unitProp.attackMagicLevel = prop.attackMagicLevel;
+                unitProp.troopTag = currentTroop.Tag;               // AI 定位标签（敌方 AI 判定作用/转产）。
+                unitProp.threatScore = currentTroop.ThreatScore;    // 威胁权重（敌方 AI 威胁评估）。
+                unitProp.ApplyLevelScale(prop.barracksLevel);
+            }
         }
     }
     #endregion

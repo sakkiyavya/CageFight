@@ -28,6 +28,7 @@ public class BuildingBase : MonoBehaviour
     private Vector2Int lastOccupySpace = new Vector2Int(int.MinValue, int.MinValue);              // 最近同步占用时的网格尺寸。
     private int lastMapVersion = -1;                                                              // 最近同步占用时的地图版本。
     private bool hasRegisteredOccupancy = false;                                                  // 当前建筑是否已经登记地图占用。
+    private int _flipAppliedSide = int.MinValue;                                                  // 最近一次应用朝向翻转时的队伍编号。
     private Coroutine buildCoroutine;                                                             // 当前正在运行的施工协程。
     private GameObject buildAnimeInstance;                                                        // 施工期间显示的临时特效实例。
     BuildingHealth buildingHealth;                                                                // 施工期间逐步更新的生命组件。
@@ -343,11 +344,26 @@ public class BuildingBase : MonoBehaviour
     }
 
     /// <summary>
-    /// 每帧检查并同步建筑的地图占用。
+    /// 每帧检查并同步建筑的地图占用，并按队伍规则同步建筑朝向。
     /// </summary>
     private void Update()
     {
         RefreshOccupancy();
+        ApplyTeamFlip();
+    }
+
+    /// <summary>
+    /// 队伍规则：偶数队（敌方）的建筑左右翻转，避免与我方建筑同方向；
+    /// 奇数队（含玩家队伍 1）保持原朝向。单位不受此规则影响（按移动朝向翻转）。
+    /// 仅在队伍编号变化时应用一次。
+    /// </summary>
+    private void ApplyTeamFlip()
+    {
+        if (spr == null || _prop == null || _prop.side == _flipAppliedSide)
+            return;
+
+        _flipAppliedSide = _prop.side;
+        spr.flipX = TeamRules.IsEnemySide(_prop.side);
     }
     #endregion
 

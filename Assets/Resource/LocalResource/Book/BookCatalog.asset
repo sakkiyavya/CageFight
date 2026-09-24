@@ -38,7 +38,6 @@ MonoBehaviour:
     roleSpriteKey: Miner rat-attack_0
     star: 1
     prefabKey: 
-    unlockBarracksLevel: 0
     repelText: 1
     quantityText: 3
     scopeText: 2
@@ -46,8 +45,8 @@ MonoBehaviour:
     weightText: 1
     coinText: 30
     explainText: "\u653B\u51FB\u4F1A\u4EA7\u751F1\u91D1\u5E01\u3002"
-  - id: sc
-    displayName: "\u5446\u5446"
+  - id: Scavenger
+    displayName: "\u62FE\u8352\u9F20"
     categoryId: mouse
     raceId: mouse
     avatarSprite: {fileID: 92428464, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
@@ -56,7 +55,6 @@ MonoBehaviour:
     roleSpriteKey: Scavenger_13
     star: 1
     prefabKey: 
-    unlockBarracksLevel: 0
     repelText: 1
     quantityText: 2
     scopeText: 2
@@ -64,6 +62,40 @@ MonoBehaviour:
     weightText: 1
     coinText: 30
     explainText: "\u6709\u6548\u7684\u8FDC\u7A0B\u6253\u51FB\u3002"
+  - id: Miaosuan
+    displayName: "\u5999\u7B97"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -1076785467, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 1435070328, guid: 568f20952254f2341bf09c72a2ed3637, type: 3}
+    avatarSpriteKey: Mouse Troop UI_8
+    roleSpriteKey: Miaosuan AP_0
+    star: 2
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u653B\u51FB\u4E3A10\u53D1\u6563\u5C04\u3002"
+  - id: Shenji
+    displayName: "\u795E\u673A"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: 1102624762, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: -124471177, guid: ccc4ad0e54085504da04c2a22e8459cb, type: 3}
+    avatarSpriteKey: Mouse Troop UI_7
+    roleSpriteKey: Shenji AP_14
+    star: 2
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u653B\u51FB\u65F6\u83B7\u5F97\u4E00\u5C42\u201C\u987B\u81FE\u4E4B\u70EC\u201D"
   - id: Daidai
     displayName: "\u5446\u5446"
     categoryId: mouse
@@ -74,14 +106,319 @@ MonoBehaviour:
     roleSpriteKey: Damb ass-attack_0
     star: 2
     prefabKey: 
-    unlockBarracksLevel: 0
     repelText: 1
     quantityText: 3
     scopeText: 2
     timeText: 9
     weightText: 1
     coinText: 30
-    explainText: "\u62F3\u51FB\u624B\uFF01"
+    explainText: "\u5730\u4E0B\u77FF\u6D1E\u6700\u5446\u7684\u62F3\u51FB\u624B\u3002"
+  - id: Harm eyebrow
+    displayName: "\u8D3C\u7709"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -1042530612, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: -1396230759, guid: 67c0250342befef4d884a41570f45086, type: 3}
+    avatarSpriteKey: Mouse Troop UI_4
+    roleSpriteKey: Harm eyebrow_0
+    star: 2
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u51FB\u8D25\u654C\u4EBA\u5373\u53EF\u83B7\u5F97100\u91D1\u5E01\u3002\n"
+  - id: Transparent
+    displayName: "\u900F\u660E"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -1073133994, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: -776970273, guid: b17894072dd5d5a4491a4e7ab4abe92a, type: 3}
+    avatarSpriteKey: Mouse Troop UI_6
+    roleSpriteKey: Transparent 1_0
+    star: 2
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u8131\u62181.5s\u540E\u9690\u8EAB\u3002"
+  - id: Dice hand
+    displayName: "\u9AB0\u624B"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: 1363519203, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: -1564408123, guid: 16339fd1a72e3b9479745bdb9485212f, type: 3}
+    avatarSpriteKey: Mouse Troop UI_5
+    roleSpriteKey: Dice hand AP_11
+    star: 2
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u653B\u51FB\u4F1A\u968F\u673A\u9020\u62101-6\u500D\u7684\u4F24\u5BB3\uFF0C1-2\u500D\u65F6\u83B7\u5F97\u201C\u9893\u5E9F\u201D3s\uFF0C5-6\u500D\u65F6\u83B7\u5F97\u201C\u72C2\u66B4\u201D3s\u3002"
+  - id: Board friend
+    displayName: "\u724C\u53CB"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -1734723383, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: -253338709, guid: b1c26308e164a70429ebe3fd12940e03, type: 3}
+    avatarSpriteKey: Mouse Troop UI_12
+    roleSpriteKey: Board friend AP_0
+    star: 3
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u653B\u51FB\u65F6\u968F\u673A\u65BD\u52A0\u201C\u5BD2\u51B7\u201D\u201C\u9ECF\u9ECF\u201D\u201C\u9893\u5E9F\u201D4s\uFF0C\u82E5\u8FDE\u7EED3\u6B21\u65BD\u52A0\u540C\u4E00buff\uFF0C\u5219\u83B7\u5F97100\u91D1\u5E01\u3002"
+  - id: BOOM brothers
+    displayName: "\u7830\u7830\u5144\u5F1F"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: 360135241, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 481235207, guid: ef4a80d6a5f96134ca454dfffeb206f9, type: 3}
+    avatarSpriteKey: Mouse Troop UI_11
+    roleSpriteKey: BOOM bro_0
+    star: 3
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u653B\u51FB\u4E5F\u4F1A\u7ED9\u81EA\u5DF1\u51FB\u98DE\u3002"
+  - id: Miner head
+    displayName: "\u77FF\u5DE5\u5934"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -1926494488, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: -1732569561, guid: 0a165a93a750aec4da845f4d72692252, type: 3}
+    avatarSpriteKey: Mouse Troop UI_10
+    roleSpriteKey: Miner head_8
+    star: 3
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u653B\u51FB\u4E3A\u629B\u5C04\u4E00\u4E2A\u77FF\u5DE5\u9F20\u3002"
+  - id: Mouse eyes
+    displayName: "\u9F20\u773C"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: 672597462, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 264563243, guid: 7ee9794dc3fb1644d84ae1cdce673e7c, type: 3}
+    avatarSpriteKey: Mouse Troop UI_9
+    roleSpriteKey: Mouse eyes-attack_1
+    star: 3
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u653B\u51FB\u83B7\u5F97\u4E00\u5C42\u201C\u7CBE\u51C6\u201D\uFF0C\u7BAD\u77E2\u53EF\u7A7F\u900F\u4E00\u6B21\u3002"
+  - id: Hege monster
+    displayName: "\u5927\u536B-\u6234"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -62552608, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: -1667045413, guid: c5fbb11ac275ea0468c266a11e5d8a38, type: 3}
+    avatarSpriteKey: Mouse Troop UI_13
+    roleSpriteKey: 1_3
+    star: 4
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u88AB\u51FB\u4E2D\u7684\u8D28\u91CF\u4F4E\u4E8E3\u7684\u76EE\u680720%\u83B7\u5F97\u4E00\u5C42\u201C\u754F\u60E7\u201D"
+  - id: Invincible
+    displayName: "\u4E0D\u8D25"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: 741427972, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 1505756246, guid: 33b0a512b105a7e43b36b9d1b5f04cc6, type: 3}
+    avatarSpriteKey: Mouse Troop UI_14
+    roleSpriteKey: Invincible AP_26
+    star: 4
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u53D7\u5230\u7684\u6240\u6709dbuff\u5168\u90E8\u8F6C\u5316\u4E3A\u6124\u60123s\u3002"
+  - id: Skunk
+    displayName: "\u81ED\u9F2C"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -1459053585, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 1126552858, guid: 80f524201e3d49e4281061753df886d9, type: 3}
+    avatarSpriteKey: Mouse Troop UI_15
+    roleSpriteKey: Skunk_8
+    star: 4
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u88AB\u653B\u51FB\u8986\u76D6\u7684\u654C\u4EBA\u83B7\u5F97\u4E00\u5C42\u201C\u521B\u4F24\u201D/0.5s\u3002"
+  - id: Jierui
+    displayName: "\u6377\u745E"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -1803892302, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 1032717978, guid: b5b2696ecaf2bd145afd41370690ee2b, type: 3}
+    avatarSpriteKey: Mouse Troop UI_18
+    roleSpriteKey: jierui_0
+    star: 5
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u6BCF\u6B21\u653B\u51FB\u589E\u52A0\u751F\u547D\u503C\u4E0A\u9650\uFF0C\u79BB\u573A\u540E\u53EC\u5524\u5976\u916A\u6CBB\u7597\u53CB\u65B9\uFF0C\u6CBB\u7597\u91CF\u6839\u636E\u81EA\u5DF1\u6700\u5927\u751F\u547D\u503C\u6765\u3002"
+  - id: Loser cannon
+    displayName: "\u8F93\u8005\u5927\u70AE"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -673449381, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 1497897916, guid: c2c596bb44abe90478f75e2b99686824, type: 3}
+    avatarSpriteKey: Mouse Troop UI_19
+    roleSpriteKey: Loser cannon AP_0
+    star: 5
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u968F\u673A\u53D1\u5C04\u53EA\u670950%HP\u7684\u201C\u724C\u53CB\u201D\u201C\u9AB0\u624B\u201D\u201C\u4E09\u53EA\u624B\u201D\u3002"
+  - id: Boulder
+    displayName: "\u5DE8\u77F3"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -378042027, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 1410641952, guid: 993996531ef25d548840e4db039b08c8, type: 3}
+    avatarSpriteKey: Mouse Troop UI_17
+    roleSpriteKey: Boulder-attack 1_0
+    star: 5
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u7ED9\u547D\u4E2D\u7684\u8D28\u91CF\u5C0F\u4E8E4\u7684\u5355\u4F4D50%\u7838\u62415s\u3002"
+  - id: B-39
+    displayName: B-39
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -1798932616, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: -1536533039, guid: 5656995b65bbc1740888dadd6ce58cf5, type: 3}
+    avatarSpriteKey: Mouse Troop UI_16
+    roleSpriteKey: B-39 AP_12
+    star: 5
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u53D7\u5230\u7684\u6240\u6709dbuff\u8F6C\u5316\u4E3A\u201C\u62A4\u7532\u201D3s\u3002"
+  - id: Fortress
+    displayName: "\u5821\u5792"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -2095667181, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 460813192, guid: 06cf4c1c12e727a46b948886198b97dd, type: 3}
+    avatarSpriteKey: Mouse Troop UI_22
+    roleSpriteKey: Fortress AP_0
+    star: 6
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u5177\u6709\u8FD1\u6218\u523A\u4F24\u80FD\u529B\uFF0C\u4EC5\u4F1A\u653B\u51FB\u5EFA\u7B51\u3002"
+  - id: DabaDoctorC1
+    displayName: "\u5DF4\u5DF4\u535A\u58EBC1"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -213248309, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 418437172, guid: a1b0692d9b3f0464f97e720b366e50a7, type: 3}
+    avatarSpriteKey: Mouse Troop UI_20
+    roleSpriteKey: DabaDoctor_6
+    star: 6
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u4F7F\u547D\u4E2D\u7684\u6240\u6709\u5355\u4F4D\u83B7\u5F97\u4E00\u5C42\u201C\u6676\u5316\u201D3s\u3002"
+  - id: Space mouse
+    displayName: "\u822A\u5929\u9F20\u9F20"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: -1826266315, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 1575944949, guid: 606dab9fa6dacda4ea7f0a445d8ddc87, type: 3}
+    avatarSpriteKey: Mouse Troop UI_24
+    roleSpriteKey: Cat apprentice-attack_3
+    star: 7
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u53EA\u662F\u4E00\u4E2A\u666E\u901A\u7684\u5B66\u5F92\u5C0F\u732B\u3002"
+  - id: Crystallized giant beast
+    displayName: "\u6676\u5316\u5DE8\u517D"
+    categoryId: mouse
+    raceId: mouse
+    avatarSprite: {fileID: 1338827498, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+    roleSprite: {fileID: 1777263160, guid: ce36dd197fcc34e479ba7b9c890c532c, type: 3}
+    avatarSpriteKey: Mouse Troop UI_23
+    roleSpriteKey: Crystallized giant beast_12
+    star: 7
+    prefabKey: 
+    repelText: 1
+    quantityText: 3
+    scopeText: 2
+    timeText: 9
+    weightText: 1
+    coinText: 30
+    explainText: "\u6BCF\u6B21\u88AB\u51FB\u8D25\u90FD\u4F1A\u590D\u6D3B\uFF0C\u76F4\u5230\u751F\u547D\u503C\u4E0A\u9650\u88AB\u5F7B\u5E95\u6263\u9664\uFF01"
   - id: Daidai
     displayName: "\u5446\u5446"
     categoryId: cat
@@ -92,7 +429,6 @@ MonoBehaviour:
     roleSpriteKey: Cat apprentice-attack_3
     star: 1
     prefabKey: 
-    unlockBarracksLevel: 0
     repelText: 1
     quantityText: 3
     scopeText: 2

@@ -66,6 +66,12 @@ public class BuildUP : MonoBehaviour
     public bool CanUpgrade =>
         !upgrading && levels != null && level < levels.Length - 1;
 
+    /// <summary>
+    /// 本建筑是否属于玩家队伍 1。队伍规则：玩家只能升级/拆除/训练队伍 1 的建筑，
+    /// 敌方与队友建筑不响应这些操作（仍可被战斗正常攻击）。
+    /// </summary>
+    public bool IsPlayerTeam => prop != null && prop.side == 1;
+
     /// <summary>当前等级（0 起），供维护费、UI 等外部逻辑读取。</summary>
     public int CurrentLevel => level;
 
@@ -141,7 +147,7 @@ public class BuildUP : MonoBehaviour
 
     public bool TryUpgrade()
     {
-        if (!CanUpgrade || !Coins.Instance)
+        if (!IsPlayerTeam || !CanUpgrade || !Coins.Instance)
             return false;
 
         int cost = Cost;                          // 在置位 upgrading 前先取值（Cost 依赖 CanUpgrade）。
@@ -216,7 +222,7 @@ public class BuildUP : MonoBehaviour
 
     public void ShowUpgrade(bool show)
     {
-        show &= CanUpgrade;
+        show &= CanUpgrade && IsPlayerTeam;
 
         if (upgradeMark)
             upgradeMark.SetActive(show);
@@ -260,7 +266,7 @@ public class BuildUP : MonoBehaviour
     /// <param name="show">是否进入拆除模式显示。</param>
     public void ShowRemove(bool show)
     {
-        bool display = show && removable &&
+        bool display = show && removable && IsPlayerTeam &&
             buildingBase != null && buildingBase.IsCompleted &&
             !(BuildingPlace.Instance != null &&
               BuildingPlace.Instance.IsBuildingInPreview(buildingBase));
@@ -288,7 +294,7 @@ public class BuildUP : MonoBehaviour
     /// <returns>是否进入了拆除流程。</returns>
     public bool TryRemove()
     {
-        if (!removable || _demolishing)
+        if (!IsPlayerTeam || !removable || _demolishing)
             return false;
         if (buildingBase != null && BuildingPlace.Instance != null &&
             BuildingPlace.Instance.IsBuildingInPreview(buildingBase))
@@ -397,10 +403,14 @@ public class BuildUP : MonoBehaviour
         level = Mathf.Clamp(level, 0, levels.Length - 1);
         LevelData data = levels[level];
 
+        // 建筑等级缩放（1.1^(L-1)，只乘生命/攻击/魔攻）与局内升级独立叠加：
+        // 哨塔按哨塔等级、兵营按兵营等级（黑暗兵营由注入方写入 barracksLevel 字段）。
+        float scale = LevelScale.Pow(ResolveBuildingScaleLevel());
+
         // 经建筑生命框架受控 API 应用升级后的最大生命（业务不得直写 maxHp）。
         if (health)
-            health.SetMaxHp(data.maxHp);
-        prop.atk = data.attack;
+            health.SetMaxHp(Mathf.Max(1, Mathf.RoundToInt(data.maxHp * scale)));
+        prop.atk = Mathf.Max(1, Mathf.RoundToInt(data.attack * scale));
         prop.atkRange = data.attackRange;
 
         if (body && data.sprite)
@@ -410,6 +420,30 @@ public class BuildUP : MonoBehaviour
         // 供训练解锁等业务按框架 API 读取；业务不再回读本组件的 CurrentLevel。
         if (buildingBase)
             buildingBase.SetLevel(level + 1);
+    }
+
+    /// <summary>
+    /// 解析本建筑使用的等级上下文：哨塔 → 哨塔等级，兵营 → 兵营等级，其他建筑 → 1。
+    /// </summary>
+    private int ResolveBuildingScaleLevel()
+    {
+        if (prop == null)
+            return 1;
+
+        if (GetComponent<BuildingTowerAI>() != null)
+            return prop.sentryTowerLevel;
+        if (GetComponent<BuildingTraining>() != null)
+            return prop.barracksLevel;
+
+        return 1;
+    }
+
+    /// <summary>
+    /// 按当前等级上下文重新应用建筑统计（生成方注入等级后调用；内部即 ApplyLevel）。
+    /// </summary>
+    public void RefreshLevelScale()
+    {
+        ApplyLevel();
     }
 
     void PlayUpgradeSound()
@@ -444,6 +478,10 @@ class BuildingUpgradeCoinClick : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        // 队伍规则：玩家只能升级/拆除队伍 1 的建筑。
+        if (owner == null || !owner.IsPlayerTeam)
+            return;
+
         // 拆除模式优先：点击金币执行拆除（此时升级模式已互斥关闭）。
         if (BuildingRemoveButton.Active)
         {

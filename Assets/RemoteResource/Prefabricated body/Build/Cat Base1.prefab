@@ -254,7 +254,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 218831865, guid: 545a1260c84973f4da4b7350798a7666, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 3.5714285, y: 4.7642856}
@@ -299,7 +299,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5397587, y: 0.068572514}
-    oldSize: {x: 13.21, y: 9.9}
+    oldSize: {x: 7.338889, y: 5.5}
     newSize: {x: 3.5714285, y: 4.7642856}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -406,6 +406,11 @@ MonoBehaviour:
   currentDebuff: []
   occupySpace: {x: 4, y: 2}
   buildAnime: 
+  barracksLevel: 1
+  darkBarracksLevel: 1
+  sentryTowerLevel: 1
+  defenseMagicLevel: 1
+  attackMagicLevel: 1
 --- !u!114 &2600203841349000697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,6 +435,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e99e643ee691a04a92f2ba53e7affe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitFlashDuration: 0.3
+  hitFlashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  shakeDuration: 0.5
+  shakeAmplitude: 0.3
+  shakeFrequency: 30
+  hitSoundKey: Construct-Hit
+  deathAngularSpeed: 180
+  deathParabolaAcceleration: -50
+  deathInitialVelocity: {x: 4, y: 20}
+  deathEffectDuration: 1
+  deathFadeAlpha: 0.5
+  deathDarkFactor: 0.4
   HpBarUp: {fileID: 4054077903831668059}
   HpBarBottom: {fileID: 6141995113647559810}
 --- !u!1 &7985102473196865193
@@ -483,23 +500,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7127978043177654722, guid: fe1b03c4681dfbc4d807ec6a14bf9887, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.35384613
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7127978043177654722, guid: fe1b03c4681dfbc4d807ec6a14bf9887, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.35384613
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7127978043177654722, guid: fe1b03c4681dfbc4d807ec6a14bf9887, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.35384613
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7127978043177654722, guid: fe1b03c4681dfbc4d807ec6a14bf9887, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.37
+      value: -1.307
       objectReference: {fileID: 0}
     - target: {fileID: 7127978043177654722, guid: fe1b03c4681dfbc4d807ec6a14bf9887, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8795567
+      value: 3.0520003
       objectReference: {fileID: 0}
     - target: {fileID: 7127978043177654722, guid: fe1b03c4681dfbc4d807ec6a14bf9887, type: 3}
       propertyPath: m_LocalPosition.z
@@ -637,23 +654,23 @@ PrefabInstance:
       objectReference: {fileID: 741059581, guid: 8e8a6431b4c9aa14ebbf9bb2708cf033, type: 3}
     - target: {fileID: 7967408073250967750, guid: 90bfa036e537dfd4bb1f44aaef96b269, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.35384613
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7967408073250967750, guid: 90bfa036e537dfd4bb1f44aaef96b269, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.35384613
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7967408073250967750, guid: 90bfa036e537dfd4bb1f44aaef96b269, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.35384613
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7967408073250967750, guid: 90bfa036e537dfd4bb1f44aaef96b269, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.10922909
+      value: -0.943
       objectReference: {fileID: 0}
     - target: {fileID: 7967408073250967750, guid: 90bfa036e537dfd4bb1f44aaef96b269, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8849413
+      value: 3.066
       objectReference: {fileID: 0}
     - target: {fileID: 7967408073250967750, guid: 90bfa036e537dfd4bb1f44aaef96b269, type: 3}
       propertyPath: m_LocalPosition.z

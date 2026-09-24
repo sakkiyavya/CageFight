@@ -52,6 +52,12 @@ public class BuildingPlace : MonoBehaviour
     /// <param name="initialFingerId">创建建筑时已经按下的指针编号；-1 表示等待新的有效触摸（编辑器鼠标）。</param>
     public void EnterPlaceMode(BuildingBase building, int initialFingerId = -1)
     {
+        // 预览即注入玩家队伍与等级上下文：拖拽期间建筑朝向/队伍即正确
+        // （否则预览对象沿用预制体默认或上一轮池化的阵营，偶数队会被翻转成敌方外观）。
+        // 测试工具指定过阵营时跳过注入（保留 DesiredSide）。
+        if (building != null && FightTest.DesiredSide < 0)
+            ApplyPlayerLevels(building);
+
         currentBuilding = building;
         isInPlaceMode = true;
         cancelRequested = false;
@@ -93,6 +99,7 @@ public class BuildingPlace : MonoBehaviour
         {
             // 正式占用地图网格
             // 完成放置
+            ApplyPlayerLevels(currentBuilding);   // 注入玩家成长等级（建筑等级缩放 + Buff 等级上下文）。
             currentBuilding.StartBuild();
             currentBuilding = null;
             isInPlaceMode = false;
@@ -226,6 +233,43 @@ public class BuildingPlace : MonoBehaviour
             return false;
 
         return RectTransformUtility.RectangleContainsScreenPoint(cancelZone, screenPoint);
+    }
+
+    /// <summary>
+    /// 按玩家成长等级注入建筑等级上下文：
+    /// 玩家固定为队伍 1；哨塔 → 哨塔等级，兵营 → 兵营/黑暗兵营等级；
+    /// 防御/攻击魔法等级注入 Buff 等级上下文。注入后经 BuildUP 重算统计（1.1 缩放与局内升级叠加）。
+    /// </summary>
+    private void ApplyPlayerLevels(BuildingBase building)
+    {
+        GameObjectProperty prop = building.GetComponent<GameObjectProperty>();
+        if (prop == null)
+            return;
+
+        UserGlobalInfo info = UserGlobalInfo.Instance;
+        prop.side = 1;
+        prop.defenseMagicLevel = info != null ? Mathf.Max(1, info.DefenseMagicLevel) : 1;
+        prop.attackMagicLevel = info != null ? Mathf.Max(1, info.AttackMagicLevel) : 1;
+
+        if (building.GetComponent<BuildingTowerAI>() != null)
+        {
+            prop.sentryTowerLevel = info != null ? Mathf.Max(1, info.SentryTowerLevel) : 1;
+        }
+        else
+        {
+            BuildingTraining training = building.GetComponent<BuildingTraining>();
+            if (training != null)
+            {
+                int level = training.IsDarkBarracks
+                    ? (info != null ? info.DarkBarracksLevel : 1)
+                    : (info != null ? info.BarracksLevel : 1);
+                prop.barracksLevel = Mathf.Max(1, level);
+            }
+        }
+
+        BuildUP buildUp = building.GetComponent<BuildUP>();
+        if (buildUp != null)
+            buildUp.RefreshLevelScale();
     }
 
     /// <summary>切换取消区的显示状态；仅在放置模式期间可见。</summary>

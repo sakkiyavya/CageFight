@@ -30,7 +30,8 @@ public sealed class UserGlobalInfo : MonoBehaviour
     public enum StageType
     {
         Defense,
-        Attack
+        Attack,
+        Boss,
     }
 
     private UserGlobalInfoData Data

@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// 狂暴增益：提升目标攻速（atkRate）与移速（moveSpeed）。
-/// 基础加成 6%，并受局外“攻击魔法等级”（UserGlobalInfo.AttackMagicLevel）影响——每一级额外增加 0.6%。
+/// 基础加成 6%，并受“目标单位攻击魔法等级”影响（敌方取关卡配置、玩家取玩家成长）——每一级额外增加 0.6%。
 /// 可无限叠加：每层独立计时、独立快照加成比例，总效果为各层比例相加（如 2 层 = 6% + 6% = 12%）。
 /// 拥有狂暴期间（任意层数激活）目标图像显示红色渐变呼吸效果，与层数无关。
 /// 仅新增本脚本即可生效，不改动任何既有脚本。
@@ -93,13 +93,12 @@ public class RageBuff : BuffBase
 
     #region 内部辅助
     /// <summary>
-    /// 计算单层加成比例：基础 6% + 局外攻击魔法等级 × 0.6%。
+    /// 计算单层加成比例：基础 6% + 目标单位攻击魔法等级 × 0.6%。
+    /// （敌方单位等级取关卡配置，玩家单位等级取玩家成长。）
     /// </summary>
-    public float GetTotalPercent()
+    public float GetTotalPercent(GameObjectProperty prop)
     {
-        int level = UserGlobalInfo.Instance != null
-            ? UserGlobalInfo.Instance.AttackMagicLevel
-            : 0;
+        int level = prop != null ? prop.attackMagicLevel : 1;
         return basePercent + level * levelPercent;
     }
     #endregion
@@ -191,7 +190,7 @@ internal class RageState : MonoBehaviour
         layers.Add(new Layer
         {
             source = source,
-            percent = source.GetTotalPercent(),
+            percent = source.GetTotalPercent(prop),
             expireTime = Time.time + source.Duration,
         });
 

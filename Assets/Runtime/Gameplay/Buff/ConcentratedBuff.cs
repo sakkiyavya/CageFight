@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// 浓缩增益：使目标随从（被施加的单位）体型缩小、攻击力提升。
 /// 基础：体型 -7%、攻击力 +7%；受局外“防御魔法等级”
-/// （UserGlobalInfo.DefenseMagicLevel，即守护魔法等级）影响——每级额外 +0.7%。
+/// （目标单位防御魔法等级，即守护魔法等级；敌方取关卡配置、玩家取玩家成长）影响——每级额外 +0.7%。
 /// 可无限叠加：每层独立计时、独立快照加成，总效果为各层比例相加（如 2 层 = 7% + 7% = 14%）。
 /// 获得音效（默认 Zip buff）仅在首次施加时触发，叠加不触发。
 /// 仅新增本脚本即可生效，不改动任何既有脚本。
@@ -84,13 +84,12 @@ public class ConcentratedBuff : BuffBase
 
     #region 内部辅助
     /// <summary>
-    /// 计算单层加成比例：基础 7% + 局外防御魔法等级（守护魔法等级）× 0.7%。
+    /// 计算单层加成比例：基础 7% + 目标单位防御魔法等级（守护魔法等级）× 0.7%。
+    /// （敌方单位等级取关卡配置，玩家单位等级取玩家成长。）
     /// </summary>
-    public float GetTotalPercent()
+    public float GetTotalPercent(GameObjectProperty prop)
     {
-        int level = UserGlobalInfo.Instance != null
-            ? UserGlobalInfo.Instance.DefenseMagicLevel
-            : 0;
+        int level = prop != null ? prop.defenseMagicLevel : 1;
         return basePercent + level * levelPercent;
     }
     #endregion
@@ -182,7 +181,7 @@ internal class ConcentratedState : MonoBehaviour
         layers.Add(new Layer
         {
             source = source,
-            percent = source.GetTotalPercent(),
+            percent = source.GetTotalPercent(prop),
             expireTime = Time.time + source.Duration,
         });
 

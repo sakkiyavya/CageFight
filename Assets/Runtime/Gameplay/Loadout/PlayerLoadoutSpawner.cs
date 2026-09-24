@@ -56,6 +56,15 @@ public sealed class PlayerLoadoutSpawner : MonoBehaviour
             spawnTransform.position,
             spawnTransform.rotation);
 
+        // 等级上下文注入：出战单位按玩家成长等级结算 Buff 等级（队伍固定为 1）。
+        GameObjectProperty engineerProp = spawnedEngineer.GetComponent<GameObjectProperty>();
+        if (engineerProp != null && UserGlobalInfo.Instance != null)
+        {
+            engineerProp.side = 1;
+            engineerProp.defenseMagicLevel = Mathf.Max(1, UserGlobalInfo.Instance.DefenseMagicLevel);
+            engineerProp.attackMagicLevel = Mathf.Max(1, UserGlobalInfo.Instance.AttackMagicLevel);
+        }
+
         EngineerController controller = spawnedEngineer.GetComponent<EngineerController>();
         if (!controller)
         {
