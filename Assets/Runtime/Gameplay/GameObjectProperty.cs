@@ -74,6 +74,8 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
     // AI 增量搜索会话
     public AStarUtility.PathSearchSession currentPathSession;      // 跨帧推进的当前 A* 寻路会话。
     public EnemyScanSession currentScanSession;                    // 跨帧推进的当前全图索敌会话。
+    [NonSerialized] public GameObject unreachableTarget;           // 寻路失败后临时拉黑的目标（避免反复选同一不可达目标）。
+    [NonSerialized] public float unreachableUntil;                 // 拉黑截止时间（Time.time 基准）。
 
     [Header("空间属性")]
     public Vector2Int occupySpace = Vector2Int.one;                // 对象在地图上占用的网格宽高。
@@ -172,6 +174,8 @@ public class GameObjectProperty : MonoBehaviour, IStageComponent
         missChance = baseMissChance;
         currentPathSession = null;
         currentScanSession = null;
+        unreachableTarget = null;      // 拉黑目标随对象池复用复位。
+        unreachableUntil = 0f;
         troopTag = TroopTag.None;      // AI 定位标签随对象池复用复位（出生时由兵营重新注入）。
         threatScore = 1f;
     }

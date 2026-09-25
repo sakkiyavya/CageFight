@@ -42,7 +42,7 @@ public sealed class EngineerSpellProjectile : MonoBehaviour, IEngineerAimedSpell
 
         source.damage.side = caster.Side;
         source.damage.source = caster.gameObject;
-        source.damage.initialDamage = damage;
+        source.damage.initialDamage = EngineerSpellCaster.ScaleDirectSpellDamage(damage);   // 总等级跟随：1.1^(总等级-1)。
         source.damage.finalDamage = 0;
         source.damage.target = null;
         source.damage.type = damageType;

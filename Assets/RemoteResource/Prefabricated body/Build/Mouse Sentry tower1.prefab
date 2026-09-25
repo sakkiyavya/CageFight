@@ -237,7 +237,7 @@ Transform:
   m_GameObject: {fileID: 4528404349138767949}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: 1, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -290,7 +290,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -471742703, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.740127, y: 2.54}
@@ -352,8 +352,15 @@ MonoBehaviour:
   atkRangeMax: {x: 0, y: 0}
   currentBuff: []
   currentDebuff: []
-  occupySpace: {x: 1, y: 1}
+  occupySpace: {x: 2, y: 1}
   buildAnime: Build Animation
+  barracksLevel: 1
+  darkBarracksLevel: 1
+  sentryTowerLevel: 1
+  defenseMagicLevel: 1
+  attackMagicLevel: 1
+  troopTag: 0
+  threatScore: 1
 --- !u!114 &4801787463097312364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +385,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e99e643ee691a04a92f2ba53e7affe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitFlashDuration: 0.3
+  hitFlashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  shakeDuration: 0.5
+  shakeAmplitude: 0.3
+  shakeFrequency: 30
+  hitSoundKey: Construct-Hit
+  deathAngularSpeed: 180
+  deathParabolaAcceleration: -50
+  deathInitialVelocity: {x: 4, y: 20}
+  deathEffectDuration: 1
+  deathFadeAlpha: 0.5
+  deathDarkFactor: 0.4
   HpBarUp: {fileID: 6172699342417359387}
   HpBarBottom: {fileID: 2607561720658937858}
 --- !u!61 &2991682355288395854
@@ -461,6 +480,13 @@ MonoBehaviour:
   jellyTime: 0.22
   jellyAmount: 0.16
   upgradeSoundKey: UP
+  removable: 1
+  demolishSoundKey: Construct-Hit
+  demolishAnimWait: 0.7
+  demolishFallTime: 0.8
+  demolishFallDistance: 15
+  demolishSway: 0.6
+  demolishAlpha: 0.5
 --- !u!114 &5781234501234567890
 MonoBehaviour:
   m_ObjectHideFlags: 0

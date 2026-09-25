@@ -341,7 +341,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -366983595, guid: 545a1260c84973f4da4b7350798a7666, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 3.5714285, y: 4.7619047}
@@ -386,7 +386,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.50676966, y: 0.08420404}
-    oldSize: {x: 9.31, y: 7.68}
+    oldSize: {x: 5.172222, y: 4.266667}
     newSize: {x: 3.5714285, y: 4.7619047}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -493,6 +493,13 @@ MonoBehaviour:
   currentDebuff: []
   occupySpace: {x: 2, y: 2}
   buildAnime: Build Animation
+  barracksLevel: 1
+  darkBarracksLevel: 1
+  sentryTowerLevel: 1
+  defenseMagicLevel: 1
+  attackMagicLevel: 1
+  troopTag: 0
+  threatScore: 1
 --- !u!114 &5892798636771821334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,6 +536,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b3a4429e7a8e4fab844a16fbc76e7475, type: 2}
   - {fileID: 11400000, guid: b5232645f0644383b670118cf97264c6, type: 2}
   - {fileID: 11400000, guid: 0b6a8c54f3fe45798899331118a955dd, type: 2}
+  isDarkBarracks: 0
   avatarSize: 1
   avatarOffset: {x: -1.4, y: 2.05}
   cooldownMaskAlpha: 0.65
@@ -549,6 +557,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e99e643ee691a04a92f2ba53e7affe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitFlashDuration: 0.3
+  hitFlashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  shakeDuration: 0.5
+  shakeAmplitude: 0.3
+  shakeFrequency: 30
+  hitSoundKey: Construct-Hit
+  deathAngularSpeed: 180
+  deathParabolaAcceleration: -50
+  deathInitialVelocity: {x: 4, y: 20}
+  deathEffectDuration: 1
+  deathFadeAlpha: 0.5
+  deathDarkFactor: 0.4
   HpBarUp: {fileID: 4374257481531845359}
   HpBarBottom: {fileID: 4808533908768701749}
 --- !u!1 &6604600194802133383
@@ -749,7 +769,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7967408073250967750, guid: 90bfa036e537dfd4bb1f44aaef96b269, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.19999999
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7967408073250967750, guid: 90bfa036e537dfd4bb1f44aaef96b269, type: 3}
       propertyPath: m_LocalPosition.x

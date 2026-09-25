@@ -152,13 +152,39 @@ public class BuildUP : MonoBehaviour
 
         int cost = Cost;                          // 在置位 upgrading 前先取值（Cost 依赖 CanUpgrade）。
         if (!Coins.Instance.ConsumeCoins(cost))
+        {
+            // 金币不足：弹红色“金币不足”提示。
+            if (DamageTextPool.Instance != null)
+                DamageTextPool.Instance.ShowCoinLack(transform.position);
             return false;
+        }
 
         _paidUpgradeCost += cost;                 // 累计已付升级费（拆除返还按总花费 50% 计入）。
         upgrading = true;
         PlayUpgradeSound();
         StartCoroutine(UpgradeRoutine());
         BuildingUpgradeButton.CloseAll();
+        return true;
+    }
+
+    /// <summary>
+    /// 敌方 AI 升级入口：与玩家 TryUpgrade 同一套升级流程（动画/音效/等级应用），
+    /// 但费用经 TeamEconomy 路由到该队账本，不受 IsPlayerTeam / 全局金币限制。
+    /// 由 TeamCommander 在存款富余时调用（经济驱动升级）。
+    /// </summary>
+    public bool TryUpgradeByTeam()
+    {
+        if (upgrading || !CanUpgrade || prop == null)
+            return false;
+
+        int cost = Cost;                          // 在置位 upgrading 前先取值（Cost 依赖 CanUpgrade）。
+        if (!TeamEconomy.TrySpend(prop, cost))
+            return false;
+
+        _paidUpgradeCost += cost;
+        upgrading = true;
+        PlayUpgradeSound();
+        StartCoroutine(UpgradeRoutine());
         return true;
     }
 

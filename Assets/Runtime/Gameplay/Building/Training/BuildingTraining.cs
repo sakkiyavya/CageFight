@@ -243,6 +243,10 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
         ApplyAvatar(troop);
         ApplyCooldownMask(1f);
         TeamEconomy.RegisterUpkeep(prop, this, troop.Upkeep);
+
+        // 选定即预载（幂等）：让异步资源在首个冷却周期内加载完成，
+        // 避免“出生时资源还没进缓存 → 本周期跳过生产”（部分兵种生产不出来的时序根因）。
+        TroopPreloader.Preload(troop);
         return true;
     }
 
@@ -254,7 +258,10 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
         GameObject prefab = ResourceManager.Instance.GetGameObject(currentTroop.PrefabKey);
         if (!prefab)
         {
-            Debug.LogWarning($"[BuildingTraining] 兵种预制体未预载：{currentTroop.PrefabKey}", this);
+            // 资源还没进缓存：重新发起预载（幂等，已缓存直接返回），下个冷却周期再产出，
+            // 避免异步预载未完成/曾失败时兵种被永久跳过。
+            Debug.LogWarning($"[BuildingTraining] 兵种预制体未预载：{currentTroop.PrefabKey}，已重新发起预载，下个冷却周期重试。", this);
+            TroopPreloader.Preload(currentTroop);
             return;
         }
 
@@ -265,10 +272,31 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
         for (int i = 0; i < count; i++)
         {
             GameObject unit = GameObjectPool.Instance.Get(prefab);
-            if (!unit) continue;
+            if (!unit)
+            {
+                // 对象池没有可用实例（全部在场上/池上限）：告警并跳过本轮，
+                // 下个冷却周期重试；不再静默失败。
+                Debug.LogWarning($"[BuildingTraining] 对象池无法提供兵种实例：{currentTroop.PrefabKey}，下个冷却周期重试。", this);
+                continue;
+            }
 
-            // 出生点固定在建筑正中间，避免兵种出生在四角/地图边界无法移动。
-            unit.transform.position = transform.position;
+            // 出生点：建筑朝向敌方的正面外沿（我方 → 右侧，敌方翻转 → 左侧）。
+            // 原实现出生在建筑正中间（落在自家建筑占地内），寻路第一步就被自己建筑挡死。
+            // 正面被邻接建筑占用时依次尝试背面、最后回落建筑中心。
+            Vector3 spawnPos = transform.position;
+            if (prop != null)
+            {
+                int dir = TeamRules.IsEnemySide(prop.side) ? -1 : 1;
+                float offset = prop.occupySpace.x * 0.5f + 0.6f;
+                Vector3 front = transform.position + Vector3.right * (dir * offset);
+                Vector3 back = transform.position - Vector3.right * (dir * offset);
+
+                if (IsSpawnCellFree(front))
+                    spawnPos = front;
+                else if (IsSpawnCellFree(back))
+                    spawnPos = back;
+            }
+            unit.transform.position = spawnPos;
 
             // 等级注入：兵种继承兵营的等级上下文（兵营等级缩放 + Buff 等级），并按其缩放生命/攻击/魔攻。
             // ApplyLevelScale 内部经 CharacterHealth 受控 API 同步满血。
@@ -334,43 +362,32 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
     }
     #endregion
 
+    /// <summary>出生候选点所在网格是否可通行（地图未就绪时按可通行处理）。</summary>
+    private static bool IsSpawnCellFree(Vector3 worldPos)
+    {
+        MapCells mapCells = MapCells.Instance;
+        if (mapCells == null)
+            return true;
+
+        Vector2Int cell = new Vector2Int(
+            Mathf.FloorToInt(worldPos.x),
+            Mathf.FloorToInt(worldPos.y));
+        return !mapCells.IsPathBlocked(cell, null, null);
+    }
+
     #region 资源预载（仅框架 API：ResourceManager.LoadExtraResourceAsync）
     /// <summary>
-    /// 预载本建筑全部兵种预制体/图标、兵种单位依赖的动画控制器与贴图（数据驱动，
-    /// 资源键来自 TroopDefinition 配置）、攻击投射物（读取框架组件 GameObjectProperty.atkObj），
-    /// 以及训练面板预制体。全部经 ResourceManager.LoadExtraResourceAsync 异步加载。
+    /// 预载本建筑全部兵种依赖（统一走 TroopPreloader：预制体/图标/动画/投射物/音效自动扫描），
+    /// 以及训练面板预制体。加载期通常已按种族预载过，这里是幂等兜底（已缓存直接返回）。
     /// </summary>
     private void PreloadResources()
     {
         if (!ResourceManager.Instance) return;
 
         foreach (TroopDefinition troop in troops)
-        {
-            if (!troop) continue;
-            ResourceManager.Instance.LoadExtraResourceAsync<GameObject>(
-                troop.PrefabKey, PreloadUnitAttackProjectile);
-            ResourceManager.Instance.LoadExtraResourceAsync<Sprite>(troop.IconKey);
-            if (!string.IsNullOrWhiteSpace(troop.AnimatorControllerKey))
-                ResourceManager.Instance.LoadExtraResourceAsync<RuntimeAnimatorController>(
-                    troop.AnimatorControllerKey);
-            if (!string.IsNullOrWhiteSpace(troop.AnimationSpriteKey))
-                ResourceManager.Instance.LoadExtraResourceAsync<Sprite>(troop.AnimationSpriteKey);
-        }
+            TroopPreloader.Preload(troop);
 
         ResourceManager.Instance.LoadExtraResourceAsync<GameObject>(panelPrefabKey);
-    }
-
-    /// <summary>
-    /// 兵种预制体加载完成后预载其攻击投射物（读取框架组件 GameObjectProperty.atkObj）。
-    /// 投射物平时由关卡加载器按关卡清单预载；训练召唤的单位不经过关卡清单，必须自行预载，
-    /// 否则单位攻击无法生成投射物（表现为无伤害、无伤害跳字）。
-    /// </summary>
-    private void PreloadUnitAttackProjectile(GameObject unitPrefab)
-    {
-        if (!unitPrefab || !ResourceManager.Instance) return;
-        GameObjectProperty unitProp = unitPrefab.GetComponent<GameObjectProperty>();
-        if (!unitProp || string.IsNullOrWhiteSpace(unitProp.atkObj)) return;
-        ResourceManager.Instance.LoadExtraResourceAsync<GameObject>(unitProp.atkObj);
     }
     #endregion
 }

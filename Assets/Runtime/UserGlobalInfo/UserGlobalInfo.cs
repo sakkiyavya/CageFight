@@ -52,6 +52,10 @@ public sealed class UserGlobalInfo : MonoBehaviour
     public int GoldBarCount => Data.goldBarCount;
     public uint UnlockedStage => Data.unlockedStage;
 
+    /// <summary>总等级：三个建筑等级（兵营/黑暗兵营/哨塔）中的最低值（至少 1）。</summary>
+    public int TotalLevel =>
+        Mathf.Max(1, Mathf.Min(BarracksLevel, Mathf.Min(DarkBarracksLevel, SentryTowerLevel)));
+
     public float Volume => Data.volume;
     public bool ShowDamage => Data.showDamage;
     public string SelectedEngineerId => Data.selectedEngineerId;
@@ -121,13 +125,13 @@ public sealed class UserGlobalInfo : MonoBehaviour
     public bool SetBarracksLevel(int value)
     {
         EnsureDataExists();
-        return SetNonNegativeValue(ref data.barracksLevel, value, nameof(BarracksLevel));
+        return SetAtLeastOneValue(ref data.barracksLevel, value, nameof(BarracksLevel));
     }
 
     public bool SetDarkBarracksLevel(int value)
     {
         EnsureDataExists();
-        return SetNonNegativeValue(ref data.darkBarracksLevel, value, nameof(DarkBarracksLevel));
+        return SetAtLeastOneValue(ref data.darkBarracksLevel, value, nameof(DarkBarracksLevel));
     }
 
     /// <summary>图鉴条目是否已解锁（已持久化到本地）。</summary>
@@ -187,7 +191,16 @@ public sealed class UserGlobalInfo : MonoBehaviour
     public bool SetSentryTowerLevel(int value)
     {
         EnsureDataExists();
-        return SetNonNegativeValue(ref data.sentryTowerLevel, value, nameof(SentryTowerLevel));
+        return SetAtLeastOneValue(ref data.sentryTowerLevel, value, nameof(SentryTowerLevel));
+    }
+
+    /// <summary>
+    /// 按总等级缩放直接伤害：1.1^(总等级-1)（与建筑/兵种等级缩放同一规则）。
+    /// 总等级 = 三个建筑等级中的最低值；等级 1 时原值返回。
+    /// </summary>
+    public int ScaleDamageByTotalLevel(int baseDamage)
+    {
+        return Mathf.Max(1, Mathf.RoundToInt(baseDamage * LevelScale.Pow(TotalLevel)));
     }
 
     public bool SetDiamondCount(int value)
@@ -418,6 +431,25 @@ public sealed class UserGlobalInfo : MonoBehaviour
         return true;
     }
 
+    /// <summary>写入“至少 1 级起步”的建筑等级（兵营/黑暗兵营/哨塔）。</summary>
+    private bool SetAtLeastOneValue(ref int currentValue, int newValue, string valueName)
+    {
+        if (newValue < 1)
+        {
+            Debug.LogWarning($"[UserGlobalInfo] {valueName} 不能小于 1。", this);
+            return false;
+        }
+
+        if (currentValue == newValue)
+        {
+            return false;
+        }
+
+        currentValue = newValue;
+        Changed?.Invoke();
+        return true;
+    }
+
     private static bool TryMigrate(UserGlobalInfoData candidate, out string error)
     {
         error = null;
@@ -475,6 +507,14 @@ public sealed class UserGlobalInfo : MonoBehaviour
                     candidate.schemaVersion = 5;
                     break;
 
+                // 版本 6：三个建筑等级改为“至少 1 级起步”，旧存档中的 0 统一抬到 1。
+                case 5:
+                    candidate.barracksLevel = Mathf.Max(1, candidate.barracksLevel);
+                    candidate.darkBarracksLevel = Mathf.Max(1, candidate.darkBarracksLevel);
+                    candidate.sentryTowerLevel = Mathf.Max(1, candidate.sentryTowerLevel);
+                    candidate.schemaVersion = 6;
+                    break;
+
                 // 后续提升 CurrentSchemaVersion 时，必须在这里补充逐版本迁移分支。
                 default:
                     error = $"缺少从存档版本 {candidate.schemaVersion} 开始的迁移逻辑。";
@@ -506,21 +546,21 @@ public sealed class UserGlobalInfo : MonoBehaviour
             return false;
         }
 
-        if (candidate.barracksLevel < 0)
+        if (candidate.barracksLevel < 1)
         {
-            error = "barracksLevel 不能小于 0。";
+            error = "barracksLevel 不能小于 1。";
             return false;
         }
 
-        if (candidate.darkBarracksLevel < 0)
+        if (candidate.darkBarracksLevel < 1)
         {
-            error = "darkBarracksLevel 不能小于 0。";
+            error = "darkBarracksLevel 不能小于 1。";
             return false;
         }
 
-        if (candidate.sentryTowerLevel < 0)
+        if (candidate.sentryTowerLevel < 1)
         {
-            error = "sentryTowerLevel 不能小于 0。";
+            error = "sentryTowerLevel 不能小于 1。";
             return false;
         }
 
@@ -584,9 +624,9 @@ public sealed class UserGlobalInfo : MonoBehaviour
         data.schemaVersion = UserGlobalInfoData.CurrentSchemaVersion;
         data.defenseMagicLevel = Mathf.Max(0, data.defenseMagicLevel);
         data.attackMagicLevel = Mathf.Max(0, data.attackMagicLevel);
-        data.barracksLevel = Mathf.Max(0, data.barracksLevel);
-        data.darkBarracksLevel = Mathf.Max(0, data.darkBarracksLevel);
-        data.sentryTowerLevel = Mathf.Max(0, data.sentryTowerLevel);
+        data.barracksLevel = Mathf.Max(1, data.barracksLevel);
+        data.darkBarracksLevel = Mathf.Max(1, data.darkBarracksLevel);
+        data.sentryTowerLevel = Mathf.Max(1, data.sentryTowerLevel);
         data.diamondCount = Mathf.Max(0, data.diamondCount);
         data.goldBarCount = Mathf.Max(0, data.goldBarCount);
 

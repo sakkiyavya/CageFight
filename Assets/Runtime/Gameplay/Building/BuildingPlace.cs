@@ -19,6 +19,74 @@ public class BuildingPlace : MonoBehaviour
             enabled = false;
         }
     }
+
+    private void OnEnable()
+    {
+        SubscribeIfReady();
+    }
+
+    private void OnDisable()
+    {
+        Unsubscribe();
+    }
+    #endregion
+
+    #region 玩家等级实时同步
+    /// <summary>懒订阅：UserGlobalInfo 就绪后订阅等级变化（每帧重试一次，成本可忽略）。</summary>
+    private void SubscribeIfReady()
+    {
+        if (_subscribedInfo != null)
+            return;
+
+        UserGlobalInfo info = UserGlobalInfo.Instance;
+        if (info == null)
+            return;
+
+        _subscribedInfo = info;
+        info.Changed += OnPlayerLevelsChanged;
+    }
+
+    private void Unsubscribe()
+    {
+        if (_subscribedInfo != null)
+        {
+            _subscribedInfo.Changed -= OnPlayerLevelsChanged;
+            _subscribedInfo = null;
+        }
+    }
+
+    /// <summary>
+    /// 玩家在升级面板升级后（UserGlobalInfo.Changed），立即把新等级应用到局内
+    /// 已放置的队伍 1 建筑——局内等级始终与面板/存档一致，不用等下一座建筑。
+    /// 经 MapCells 全图枚举，只处理玩家建筑（兵种不处理：新产出的兵种自然继承新等级）。
+    /// </summary>
+    private void OnPlayerLevelsChanged()
+    {
+        MapCells map = MapCells.Instance;
+        if (map == null)
+            return;
+
+        var candidates = new System.Collections.Generic.HashSet<GameObject>();
+        map.CollectOccupiersInBounds(
+            new Vector2Int(0, 0),
+            new Vector2Int(map.width - 1, map.height - 1),
+            candidates);
+
+        foreach (GameObject obj in candidates)
+        {
+            if (obj == null)
+                continue;
+
+            GameObjectProperty prop = obj.GetComponent<GameObjectProperty>();
+            if (prop == null || prop.side != 1 ||
+                (prop.objectType & GameObjectType.Building) == 0)
+                continue;
+
+            BuildingBase building = obj.GetComponent<BuildingBase>();
+            if (building != null)
+                ApplyPlayerLevels(building);
+        }
+    }
     #endregion
 
     [Header("拖拽取消")]
@@ -29,6 +97,7 @@ public class BuildingPlace : MonoBehaviour
     private bool isInPlaceMode = false;                                                          // 是否正在处理建筑放置输入。
     private bool cancelRequested;                                                                // 指针是否已拖入取消区。
     private static bool warnedMissingCamera;                                                     // 主相机缺失的一次性警告标记。
+    private UserGlobalInfo _subscribedInfo;                                                      // 已订阅等级变化事件的玩家全局信息（懒订阅）。
 
     // 手指处理器
     private FingerIDHander fingerHandler = new FingerIDHander();                                 // 放置流程独占触摸输入的手指绑定器。
@@ -97,6 +166,51 @@ public class BuildingPlace : MonoBehaviour
         // 检测当前位置是否合法
         if (currentBuilding.ChechValid())
         {
+            // 黑暗兵营建造限制（局内规则）：本方大本营局内升级到 2 级才可建造，
+            // 否则弹“大本营等级不足”并按取消放置回收预览建筑。
+            BuildingTraining training = currentBuilding.GetComponent<BuildingTraining>();
+            if (training != null && training.IsDarkBarracks &&
+                !UpgradeLevelRules.CanBuildDarkBarracks(
+                    currentBuilding.GetComponent<GameObjectProperty>()))
+            {
+                if (DamageTextPool.Instance != null)
+                    DamageTextPool.Instance.ShowText("大本营等级不足", currentBuilding.transform.position, Color.red);
+                CurrencyFeedbackAudio.PlayWrong();   // 内容不满足要求：Wrong UI AD。
+
+                if (GameObjectPool.Instance != null)
+                    GameObjectPool.Instance.Release(currentBuilding.gameObject);
+                else
+                    currentBuilding.gameObject.SetActive(false);
+                currentBuilding = null;
+                isInPlaceMode = false;
+                SetCancelZoneVisible(false);
+                fingerHandler.Unbind();
+                return false;
+            }
+
+            // 建造费用 = 预制体 BuildUP 三个等级中 Element 0 的 Cost。
+            // 金币不足：不建造，弹红色“金币不足”，并按取消放置回收预览建筑。
+            int cost = GetBuildCost(currentBuilding);
+            if (cost > 0 && Coins.Instance != null && Coins.Instance.CurrentCoins < cost)
+            {
+                if (DamageTextPool.Instance != null)
+                    DamageTextPool.Instance.ShowCoinLack(currentBuilding.transform.position);
+
+                if (GameObjectPool.Instance != null)
+                    GameObjectPool.Instance.Release(currentBuilding.gameObject);
+                else
+                    currentBuilding.gameObject.SetActive(false);
+                currentBuilding = null;
+                isInPlaceMode = false;
+                SetCancelZoneVisible(false);
+                fingerHandler.Unbind();
+                return false;
+            }
+
+            // 扣除建造费用（0 费用建筑跳过）。
+            if (cost > 0 && Coins.Instance != null)
+                Coins.Instance.ConsumeCoins(cost);
+
             // 正式占用地图网格
             // 完成放置
             ApplyPlayerLevels(currentBuilding);   // 注入玩家成长等级（建筑等级缩放 + Buff 等级上下文）。
@@ -131,6 +245,9 @@ public class BuildingPlace : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        // 懒订阅重试：UserGlobalInfo 后于本组件就绪时，在这里补上订阅（每帧一次判空，成本可忽略）。
+        SubscribeIfReady();
+
         if (!isInPlaceMode || currentBuilding == null) return;
 
         // 1. 如果还没绑定手指，寻找第一个有效手指（不在 UI 上）
@@ -233,6 +350,16 @@ public class BuildingPlace : MonoBehaviour
             return false;
 
         return RectTransformUtility.RectangleContainsScreenPoint(cancelZone, screenPoint);
+    }
+
+    /// <summary>建筑建造费用 = 预制体 BuildUP 三个等级中 Element 0（第一级）的 Cost。</summary>
+    private static int GetBuildCost(BuildingBase building)
+    {
+        BuildUP buildUp = building != null ? building.GetComponent<BuildUP>() : null;
+        if (buildUp != null && buildUp.levels != null && buildUp.levels.Length > 0)
+            return Mathf.Max(0, buildUp.levels[0].cost);
+
+        return 0;
     }
 
     /// <summary>

@@ -80,6 +80,12 @@ public class FindEnemy : BehaviourBase
         {
             if (otherProp == null || otherProp.gameObject == self) continue;
 
+            // 寻路失败拉黑中的目标暂时跳过（FindPath 写入 unreachableTarget/unreachableUntil）。
+            if (prop.unreachableTarget != null &&
+                prop.unreachableTarget == otherProp.gameObject &&
+                Time.time < prop.unreachableUntil)
+                continue;
+
             if (otherProp.side != prop.side &&
                 !otherProp.isDead &&
                 !otherProp.isUntargetable &&

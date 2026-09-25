@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>兵种定位标签（敌方 AI 判定兵种作用与转产克制用）。</summary>
@@ -83,4 +84,142 @@ public sealed class TroopDefinition : ScriptableObject
         if (string.IsNullOrWhiteSpace(prefabKey) && editorPrefab) prefabKey = editorPrefab.name;
     }
 #endif
+}
+
+/// <summary>
+/// 兵种资源统一预载服务：从 TroopDefinition 与其预制体组件**自动收集**全部依赖并异步预载——
+/// 预制体、图标、动画控制器、动画贴图、攻击投射物（GameObjectProperty.atkObj）、
+/// 兵种与投射物预制体上的 StageAudio 音效键。重复调用幂等（已缓存直接返回）。
+/// 解决两个问题：
+/// 1) 设计师无需逐关手拉兵种、扫描资源填清单——按种族一调即可；
+/// 2) 玩家携带兵种不一——加载期按“本局实际出现的种族”动态预载（玩家所选种族 + 每支敌方队伍种族）。
+/// </summary>
+public static class TroopPreloader
+{
+    /// <summary>预载单个兵种的全部依赖资源（幂等）。</summary>
+    public static void Preload(TroopDefinition troop)
+    {
+        if (troop == null || ResourceManager.Instance == null)
+            return;
+
+        ResourceManager.Instance.LoadExtraResourceAsync<GameObject>(troop.PrefabKey, prefab =>
+        {
+            if (prefab == null)
+                return;
+
+            // 自动扫描预制体携带的依赖：攻击投射物（含其音效）+ 本体的 StageAudio 音效键。
+            GameObjectProperty prop = prefab.GetComponent<GameObjectProperty>();
+            if (prop != null && !string.IsNullOrEmpty(prop.atkObj))
+            {
+                ResourceManager.Instance.LoadExtraResourceAsync<GameObject>(prop.atkObj, projectile =>
+                {
+                    if (projectile != null)
+                        PreloadStageAudio(projectile.GetComponent<StageAudio>());
+                });
+            }
+
+            PreloadStageAudio(prefab.GetComponent<StageAudio>());
+        });
+
+        ResourceManager.Instance.LoadExtraResourceAsync<Sprite>(troop.IconKey);
+        if (!string.IsNullOrEmpty(troop.AnimatorControllerKey))
+            ResourceManager.Instance.LoadExtraResourceAsync<RuntimeAnimatorController>(troop.AnimatorControllerKey);
+        if (!string.IsNullOrEmpty(troop.AnimationSpriteKey))
+            ResourceManager.Instance.LoadExtraResourceAsync<Sprite>(troop.AnimationSpriteKey);
+    }
+
+    /// <summary>预载某种族全部兵营（普通/黑暗）可训练的兵种资源。</summary>
+    public static void PreloadRaceTroops(string raceId)
+    {
+        if (string.IsNullOrEmpty(raceId) || ResourceManager.Instance == null)
+            return;
+
+        PreloadBuildingTroops(raceId, BuildingType.Barracks);
+        PreloadBuildingTroops(raceId, BuildingType.DarkBarracks);
+    }
+
+    /// <summary>
+    /// 按敌方队伍配置预载本队兵种资源：
+    /// troopUnlocks 为空 = 本局全部兵种可用 → 整族预载；
+    /// 填写了具体兵种 = 本局只能生产列表内兵种 → 只预载白名单里的兵种（省资源）。
+    /// </summary>
+    public static void PreloadTeamTroops(EnemyTeamConfig team)
+    {
+        if (team == null || string.IsNullOrEmpty(team.raceId) || ResourceManager.Instance == null)
+            return;
+
+        if (team.troopUnlocks == null || team.troopUnlocks.Count == 0)
+        {
+            PreloadRaceTroops(team.raceId);
+            return;
+        }
+
+        // 白名单集合（按 TroopDefinition.Id 匹配）。
+        var allowed = new HashSet<string>();
+        for (int i = 0; i < team.troopUnlocks.Count; i++)
+        {
+            EnemyTroopUnlock unlock = team.troopUnlocks[i];
+            if (unlock != null && !string.IsNullOrEmpty(unlock.troopId))
+                allowed.Add(unlock.troopId);
+        }
+
+        PreloadAllowedTroops(team.raceId, BuildingType.Barracks, allowed);
+        PreloadAllowedTroops(team.raceId, BuildingType.DarkBarracks, allowed);
+    }
+
+    private static void PreloadAllowedTroops(string raceId, BuildingType type, HashSet<string> allowed)
+    {
+        GameObject prefab = BuildingButton.TryResolveBuilding(raceId, type);
+        if (prefab == null)
+            return;
+
+        BuildingTraining training = prefab.GetComponent<BuildingTraining>();
+        TroopDefinition[] troops = training != null ? training.Troops : null;
+        if (troops == null)
+            return;
+
+        for (int i = 0; i < troops.Length; i++)
+        {
+            TroopDefinition troop = troops[i];
+            if (troop != null && allowed.Contains(troop.Id))
+                Preload(troop);
+        }
+    }
+
+    private static void PreloadBuildingTroops(string raceId, BuildingType type)
+    {
+        GameObject prefab = BuildingButton.TryResolveBuilding(raceId, type);
+        if (prefab == null)
+            return;
+
+        BuildingTraining training = prefab.GetComponent<BuildingTraining>();
+        TroopDefinition[] troops = training != null ? training.Troops : null;
+        if (troops == null)
+            return;
+
+        for (int i = 0; i < troops.Length; i++)
+            Preload(troops[i]);
+    }
+
+    /// <summary>预载 StageAudio 组件上的全部非空音效键。</summary>
+    private static void PreloadStageAudio(StageAudio stageAudio)
+    {
+        if (stageAudio == null || ResourceManager.Instance == null)
+            return;
+
+        PreloadAudio(stageAudio.audioKey1);
+        PreloadAudio(stageAudio.audioKey2);
+        PreloadAudio(stageAudio.audioKey3);
+        PreloadAudio(stageAudio.audioKey4);
+        PreloadAudio(stageAudio.audioKey5);
+        PreloadAudio(stageAudio.audioKey6);
+        PreloadAudio(stageAudio.audioKey7);
+        PreloadAudio(stageAudio.audioKey8);
+    }
+
+    private static void PreloadAudio(string key)
+    {
+        if (!string.IsNullOrEmpty(key))
+            ResourceManager.Instance.LoadExtraResourceAsync<AudioClip>(key);
+    }
 }

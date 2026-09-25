@@ -206,11 +206,16 @@ public sealed class MagicEnergySing : MonoBehaviour, IEngineerDirectSpellInstanc
     }
 
     /// <summary>
-    /// 等级跟随接缝：未来在此读取“总等级”并换算加成伤害；当前返回 0。
+    /// 等级跟随接缝：按玩家总等级（三个建筑等级中的最低值）换算加成伤害，
+    /// 总伤害 = baseDamage × 1.1^(总等级-1)。
     /// </summary>
     private int GetLevelBonus()
     {
-        return 0;
+        UserGlobalInfo info = UserGlobalInfo.Instance;
+        if (info == null)
+            return 0;
+
+        return Mathf.Max(0, Mathf.RoundToInt(baseDamage * (LevelScale.Pow(info.TotalLevel) - 1f)));
     }
 
     private bool IsPooled()

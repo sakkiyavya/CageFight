@@ -38,14 +38,26 @@ MonoBehaviour:
   - Cat Barracks1
   - Cat Dark barracks1
   - Cat Sentry tower1
-  audios: []
+  audios:
+  - Build
+  - Construct-Hit
+  - UP
+  - Arrow-Shoot
   textures: []
   animationClips: []
   animatorControllers: []
   sprites: []
-  useIncomeCurve: 0
-  baseGoldPerSecond: 10
-  incomeGrowth: []
+  useIncomeCurve: 1
+  baseGoldPerSecond: 100
+  incomeGrowth:
+  - startTime: 0
+    endTime: 120
+    stepInterval: 10
+    stepAmount: 10
+  - startTime: 120
+    endTime: 240
+    stepInterval: 10
+    stepAmount: 15
   enemyBarracksLevel: 1
   enemyDarkBarracksLevel: 1
   enemySentryTowerLevel: 1
@@ -54,9 +66,9 @@ MonoBehaviour:
   enemyBaseDistance: 60
   enemyTeams:
   - teamId: 2
-    raceId: mouse_race_1
-    startGold: 500
-    baseGoldPerSecond: 30
+    raceId: Cat
+    startGold: 2000
+    baseGoldPerSecond: 100
     incomeGrowth:
     - startTime: 0
       endTime: 120
@@ -79,7 +91,12 @@ MonoBehaviour:
     - buildingType: 1
       gridPosition: {x: 56, y: 3}
     - buildingType: 3
-      gridPosition: {x: 59, y: 3}
+      gridPosition: {x: 59, y: 5}
+    randomizeBuildOrder: 1
+    buildGapRange: {x: 1.5, y: 5}
+    positionJitter: 1
+    maxBarracks: 6
+    maxSentries: 7
     troopUnlocks: []
   attackTimeLimit: 180
   bossTimeLimit: 180

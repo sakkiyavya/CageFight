@@ -69,6 +69,19 @@ public class FindPath : BehaviourBase
             {
                 prop.path = prop.currentPathSession.resultPath;
             }
+            else
+            {
+                // 目标不可达（被建筑/地形完全围死）：拉黑一段时间并放弃该目标，
+                // 让 FindEnemy 改选其它敌人——否则全体兵种会一直对着同一个
+                // 不可达目标无限重搜寻路，表现为“所有人卡住不动”。
+                if (prop.target != null)
+                {
+                    prop.unreachableTarget = prop.target;
+                    prop.unreachableUntil = Time.time + 4f;
+                }
+                prop.target = null;
+                _lastTarget = null;
+            }
             prop.currentPathSession = null;
             return true;
         }

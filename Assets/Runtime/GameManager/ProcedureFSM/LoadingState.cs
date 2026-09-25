@@ -65,6 +65,21 @@ public class LoadingState : SceneStateBase
             yield return playerLoadout.PreloadGameplayResources();
         }
 
+        // 兵种资源按“本局实际出现的种族”动态预载（自动扫描兵种预制体携带的全部依赖，含音效）：
+        // 玩家所选种族 + 每支敌方队伍。敌方队伍遵循 troopUnlocks 规则：
+        // 列表为空 = 本局全兵种可用 → 整族预载；填写了具体兵种 = 本局只能生产列表内兵种 → 只预载白名单。
+        if (playerLoadout && playerLoadout.TryGetSelectedRace(out RaceDefinition playerRace))
+            TroopPreloader.PreloadRaceTroops(playerRace.Id);
+        if (CurrentStageConfig.enemyTeams != null)
+        {
+            for (int i = 0; i < CurrentStageConfig.enemyTeams.Count; i++)
+            {
+                EnemyTeamConfig team = CurrentStageConfig.enemyTeams[i];
+                if (team != null && !string.IsNullOrEmpty(team.raceId))
+                    TroopPreloader.PreloadTeamTroops(team);
+            }
+        }
+
         Debug.Log($"[LoadingState] Resources loaded. Instantiating stage: {CurrentStageConfig.stageId}");
         string friendlyMainBasePrefabKey = playerLoadout
             ? playerLoadout.SelectedRaceMainBasePrefabKey

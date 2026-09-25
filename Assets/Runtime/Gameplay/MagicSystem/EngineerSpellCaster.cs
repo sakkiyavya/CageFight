@@ -8,6 +8,18 @@ using UnityEngine;
 public static class EngineerSpellCaster
 {
     /// <summary>
+    /// 直接伤害型法术按玩家总等级缩放伤害：1.1^(总等级-1)，
+    /// 总等级 = 兵营/黑暗兵营/哨塔三级中的最低值。无全局信息时原值返回。
+    /// </summary>
+    public static int ScaleDirectSpellDamage(int baseDamage)
+    {
+        UserGlobalInfo info = UserGlobalInfo.Instance;
+        return info != null
+            ? info.ScaleDamageByTotalLevel(baseDamage)
+            : Mathf.Max(1, baseDamage);
+    }
+
+    /// <summary>
     /// Casts a spell toward the engineer's current facing direction.
     /// </summary>
     public static bool Cast(SpellDefinition definition, EngineerController caster)

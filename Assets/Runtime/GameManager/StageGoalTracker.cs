@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// 阶段 4：局内胜负判定器（挂 GameplayState，进入局内时 Setup）。
 /// 三种模式：
-///   Defense：防守到计时结束且我方大本营存活 → 胜；大本营被拆 → 败。
+///   Defense：计时结束且我方大本营存活 → 胜；提前推掉敌方大本营 → 胜；我方大本营被拆 → 败。
 ///   Attack ：摧毁敌方大本营 → 胜；计时到点未摧毁 → 败；我方大本营被拆 → 败。
 ///   Boss   ：限时内击败 Boss → 胜；计时到点 → 败；我方大本营被拆 → 败。
 /// 工程师无敌（失败判定不含工程师阵亡）。
@@ -106,8 +106,13 @@ public sealed class StageGoalTracker : MonoBehaviour
         switch (_stageType)
         {
             case UserGlobalInfo.StageType.Defense:
+                bool enemyBaseDead = _enemyBaseSpawned &&
+                    (_enemyHealth == null || _enemyHealth.IsDead() ||
+                     !_enemyBase.activeInHierarchy);
                 if (friendlyDead)
                     Finish(false);
+                else if (enemyBaseDead)
+                    Finish(true);   // 提前推掉敌方大本营 = 直接胜利。
                 else if (_timeLimit > 0f && Time.time - _levelStart >= _timeLimit)
                     Finish(true);
                 break;
@@ -150,6 +155,9 @@ public sealed class StageGoalTracker : MonoBehaviour
         if (countdownText != null && countdownText.gameObject.activeSelf != visible)
             countdownText.gameObject.SetActive(visible);
     }
+
+    /// <summary>本局敌方大本营实例（第一支敌方队伍种族；供局内等级规则等读取，未生成时为 null）。</summary>
+    public static GameObject LastEnemyMainBase { get; private set; }
 
     /// <summary>
     /// 敌方大本营 = 第一支敌方队伍种族的大本营预制体，
@@ -204,6 +212,7 @@ public sealed class StageGoalTracker : MonoBehaviour
             building.RefreshOccupancy();
 
         _enemyBaseSpawned = true;
+        LastEnemyMainBase = _enemyBase;   // 记录本局敌方大本营（局内等级规则等读取）。
     }
 
     /// <summary>按关卡配置生成 Boss（Boss 血条由预制体 CharacterHealth.alwaysShowBar 常显）。</summary>

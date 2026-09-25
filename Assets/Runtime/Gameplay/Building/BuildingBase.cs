@@ -94,6 +94,14 @@ public class BuildingBase : MonoBehaviour
                 isValid = false;
                 break;
             }
+
+            // 建筑区域规则：只能修建在己方半场——奇数队（玩家/友方）在敌我大本营中点往左，
+            // 偶数队（敌方）在中点往右。中点 = 我方大本营 X 与敌方大本营 X 的中点。
+            if (!IsInOwnHalf(cell))
+            {
+                isValid = false;
+                break;
+            }
         }
 
         List<GameObject> cellsObj = mapCells.GetOccupiers(cellsToOccupy);                         // 目标网格中已登记的占用对象。
@@ -129,6 +137,25 @@ public class BuildingBase : MonoBehaviour
 
         CleanupBuildAnimeInstance();
         buildCoroutine = StartCoroutine(BuildRoutine());
+    }
+
+    /// <summary>
+    /// 建筑区域规则：该网格是否位于本建筑所属队伍的己方半场。
+    /// 奇数队（玩家/友方）→ 敌我大本营中点往左；偶数队（敌方）→ 中点往右。
+    /// 中点 =（我方大本营 X + 我方 X + enemyBaseDistance）/ 2；无关卡上下文时不拦截。
+    /// </summary>
+    private bool IsInOwnHalf(Vector2Int cell)
+    {
+        StageConfig config = SceneFSM.Instance != null ? SceneFSM.Instance.CurrentStageConfig : null;
+        if (config == null)
+            return true;
+
+        int friendlyX = config.friendlyMainBaseGridPosition.x;
+        int enemyX = friendlyX + Mathf.Max(1, config.enemyBaseDistance);
+        int midpoint = (friendlyX + enemyX) / 2;
+
+        bool isEnemy = _prop != null && TeamRules.IsEnemySide(_prop.side);
+        return isEnemy ? cell.x >= midpoint : cell.x <= midpoint;
     }
 
     /// <summary>

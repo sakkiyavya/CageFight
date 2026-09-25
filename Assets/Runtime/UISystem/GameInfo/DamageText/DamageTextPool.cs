@@ -111,6 +111,40 @@ public class DamageTextPool : MonoBehaviour
             textComp.Init("miss", missColor, this);
         }
     }
+
+    /// <summary>
+    /// 在指定世界坐标以红色显示“金币不足”提示（建造/升级金币不够时调用）。
+    /// </summary>
+    /// <param name="pos">提示出现的世界坐标。</param>
+    public void ShowCoinLack(Vector3 pos)
+    {
+        ShowText("金币不足", pos, damageColor);
+    }
+
+    /// <summary>
+    /// 在指定世界坐标显示自定义提示文本（如“大本营等级不足”）。
+    /// 复用跳字实例与动画，颜色由调用方指定。
+    /// </summary>
+    /// <param name="text">显示的文本内容。</param>
+    /// <param name="pos">提示出现的世界坐标。</param>
+    /// <param name="color">文本颜色。</param>
+    public void ShowText(string text, Vector3 pos, Color color)
+    {
+        if (damageTextPrefab == null || string.IsNullOrEmpty(text))
+            return;
+
+        GameObject obj = GetInstance();                                                             // 本次使用的跳字对象。
+        if (obj == null) return;                                                                   // 对象池未就绪：安全失败，不显示跳字。
+
+        obj.transform.position = pos;
+        obj.SetActive(true);
+
+        DamageText textComp = obj.GetComponent<DamageText>();                                             // 控制文本内容和动画的组件。
+        if (textComp != null)
+        {
+            textComp.Init(text, color, this);
+        }
+    }
     #endregion
 
     #region 公开接口

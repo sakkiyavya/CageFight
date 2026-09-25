@@ -17,6 +17,8 @@ public class DamageSource : MonoBehaviour
     public bool hasSubProjectile = false;                   // 是否由子投射物自行处理命中，跳过当前触发器逻辑。
     float _remainTime = 0f;                                 // 当前启用周期的剩余存活时间。
     int _remainCollideTime = 0;                             // 当前启用周期的剩余命中次数。
+    float _spawnTime = 0f;                                  // 本次启用（发射）时刻（绝对存活上限用）。
+    private const float MaxLifeSeconds = 6f;                // 弹体绝对存活上限：任何续命都不能让弹体活过这么久。
     readonly System.Collections.Generic.HashSet<GameObject> _hitTargets =
         new System.Collections.Generic.HashSet<GameObject>(); // 本次启用周期已结算的目标（防止同一目标的多个碰撞体/反复进出导致叠伤）。
 
@@ -45,20 +47,29 @@ public class DamageSource : MonoBehaviour
         if(_remainCollideTime <= 0)
             return;
 
-        // 同一目标去重：单位的多个碰撞体（Box/Circle）会各自触发一次本回调，
-        // 只允许同一目标结算一次，避免“一瞬间两次伤害”的叠伤。
-        if (!_hitTargets.Add(collision.gameObject))
+        // ICollide 可能挂在碰撞体的父物体上（碰撞体在子节点、生命组件在根节点）：
+        // 命中结算与去重都以“承载 ICollide 的对象”为准，避免子碰撞体命中被判无效，
+        // 导致弹体贴着目标却永远不结算、追着目标转（贴脚旋转的根因之一）。
+        ICollide c = collision.GetComponent<ICollide>();
+        if (c == null)
+            c = collision.GetComponentInParent<ICollide>();
+        if (c == null)
             return;
 
-        ICollide c = collision.GetComponent<ICollide>();    // 碰撞对象上的伤害接收接口。
-        if(c == null)
+        GameObject hitObject = (c as Component) != null
+            ? ((Component)c).gameObject
+            : collision.gameObject;
+
+        // 同一目标去重：单位的多个碰撞体（Box/Circle）会各自触发一次本回调，
+        // 只允许同一目标结算一次，避免“一瞬间两次伤害”的叠伤。
+        if (!_hitTargets.Add(hitObject))
             return;
 
         if(c.IsFriendly(damage))
             return;
 
         damage.collideDir = transform.position.x < collision.transform.position.x? 1 : -1;
-        damage.target = collision.gameObject;
+        damage.target = hitObject;
         c.OnCollide(damage);
         // 弹幕命中通知：被命中的目标实现 IProjectileImpactHandler 时回调
         // （如 General Cat 每次受到弹幕攻击获得一层护甲）。
@@ -82,6 +93,34 @@ public class DamageSource : MonoBehaviour
         _remainTime = sustainTime;
         _remainCollideTime = collideTimes;
         _hitTargets.Clear();
+        _spawnTime = Time.time;
+    }
+
+    /// <summary>
+    /// 延长当前启用周期的剩余存活时间（只增不减）。
+    /// 绝对上限：从本次发射起最多存活 MaxLifeSeconds——追踪续命不能反复叠加让弹体永远不死。
+    /// </summary>
+    public void EnsureLife(float seconds)
+    {
+        float aliveFor = Time.time - _spawnTime;
+        float maxRemaining = MaxLifeSeconds - aliveFor;
+        if (maxRemaining <= 0f)
+            return;
+
+        if (seconds > _remainTime)
+            _remainTime = Mathf.Min(seconds, maxRemaining);
+    }
+
+    /// <summary>
+    /// 立即回收当前弹体（追踪到目标却始终无法命中判定时的兜底，
+    /// 防止弹体贴着目标无限飘荡/永不消失）。经对象池回收，池未就绪时安全停用。
+    /// </summary>
+    public void ReleaseNow()
+    {
+        if (GameObjectPool.Instance != null)
+            GameObjectPool.Instance.Release(gameObject);
+        else
+            gameObject.SetActive(false);
     }
     #endregion
 

@@ -45,6 +45,10 @@ public sealed class StageSelectSelection : MonoBehaviour
         // 否则整个关卡选择界面会被压成一个点、看不见也点不到。
         transform.localScale = Vector3.one;
 
+        // 每次进入关卡选择界面先清空选中视觉：标记与黄光只在选中关卡后出现，
+        // 不会残留在主菜单/其它界面（SelectMark/SelectGlow 的场景默认状态也是隐藏）。
+        ClearSelection();
+
         // 提前加载标记素材：素材异步到位前，首次点击只能用“素材填满整个矩形”的近似尺寸摆放，
         // 会把标记页摆得比真实位置偏上；预加载让首次点击即按真实内容尺寸定位。
         TryLoadMarkerSprite();

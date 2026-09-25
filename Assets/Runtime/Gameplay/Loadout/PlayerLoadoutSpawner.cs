@@ -51,10 +51,25 @@ public sealed class PlayerLoadoutSpawner : MonoBehaviour
         BookProgress.MarkOwned(engineer.PrefabKey);
 
         spawnedEngineer = pool.Get(prefab);
+
+        // 出生点规则：大本营前（正面朝向敌方一侧的外沿 + 小间距）。
+        // 场景配置的 engineerSpawnPoint 只在大本营缺失时作为兜底。
         Transform spawnTransform = engineerSpawnPoint ? engineerSpawnPoint : transform;
-        spawnedEngineer.transform.SetPositionAndRotation(
-            spawnTransform.position,
-            spawnTransform.rotation);
+        Vector3 spawnPos = spawnTransform.position;
+        Quaternion spawnRot = spawnTransform.rotation;
+
+        GameObject mainBase = StageObjectInstantiator.LastFriendlyMainBase;
+        if (mainBase != null)
+        {
+            GameObjectProperty baseProp = mainBase.GetComponent<GameObjectProperty>();
+            float halfWidth = baseProp != null
+                ? Mathf.Max(1, baseProp.occupySpace.x) * 0.5f
+                : 1f;
+            spawnPos = mainBase.transform.position + Vector3.right * (halfWidth + 0.9f);
+            spawnRot = Quaternion.identity;
+        }
+
+        spawnedEngineer.transform.SetPositionAndRotation(spawnPos, spawnRot);
 
         // 等级上下文注入：出战单位按玩家成长等级结算 Buff 等级（队伍固定为 1）。
         GameObjectProperty engineerProp = spawnedEngineer.GetComponent<GameObjectProperty>();

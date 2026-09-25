@@ -66,6 +66,18 @@ public class Attack : BehaviourBase
         _targetBasePos.x = (int)(prop.target.transform.position.x - targetProp.occupySpace.x / 2f + 0.5f);
         _targetBasePos.y = (int)(prop.target.transform.position.y - targetProp.occupySpace.y / 2f + 0.5f);
 
+        // 背身兜底：目标在身后时不攻击（攻击矩形按朝向计算，正常不会覆盖身后；
+        // 此处防止朝向矩形滞后一帧时的背身开火）。
+        // 注意：这里绝不能清空路径——路径刚算出来的那一帧 FindPath 返回 true 会阻塞 Move，
+        // 若本行为每帧清路径，Move 永远轮不到执行，单位会永久站桩（生产兵“傻站”的死锁根因）。
+        // 转身交给 FindPath/Move：路径还在就走路径，没有路径就重新寻路。
+        int myBaseX = (int)(_self.transform.position.x - prop.occupySpace.x / 2f + 0.5f);
+        bool targetAhead = prop.isFacingLeft
+            ? _targetBasePos.x <= myBaseX
+            : _targetBasePos.x >= myBaseX;
+        if (!targetAhead)
+            return false;
+
         int targetEndX = _targetBasePos.x + targetProp.occupySpace.x - 1;                  // 目标占用矩形最大横坐标。
         int targetEndY = _targetBasePos.y + targetProp.occupySpace.y - 1;                  // 目标占用矩形最大纵坐标。
 

@@ -49,7 +49,9 @@ public class Move : BehaviourBase
         {
             if (mapCells.IsPathBlocked(_nextCell, self, prop.target))
             {
-                prop.target = null;
+                // 下一格被挡：只清路径重新寻路（A* 会绕开阻挡），不再清空目标。
+                // 原实现连目标一起清掉 → 单位原地重扫索敌 → 再选同一目标 → 再被挡，
+                // 队列里的兵种全部卡死（“所有人卡住不动”的根因）。
                 prop.path.Clear();
                 prop.currentPathSession = null;
                 return false;

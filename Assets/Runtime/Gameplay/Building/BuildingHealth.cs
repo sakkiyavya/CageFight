@@ -338,10 +338,16 @@ public class BuildingHealth : MonoBehaviour, ICollide
     #region 受击表现
     /// <summary>
     /// 启动受击表现：播放 Construct-Hit 音效、建筑本体闪红并左右剧烈晃动。
-    /// 连续受击时重开协程（刷新基准位置与计时）；拖拽预览中的建筑不晃动。
+    /// 受击特效进行中不重复触发：连续高频受击不再重启晃动协程——每次重启都会把
+    /// “当前已偏移的坐标”当作新晃动基准，导致基准逐次漂移、建筑一直晃动且位置偏移。
+    /// 特效结束（协程自然结束或被停止）后才能再次触发受击特效。
     /// </summary>
     private void StartHitEffect()
     {
+        // 特效进行中：闪红/晃动/音效均不重触发（避免漂移与无限晃动）。
+        if (_hitEffectCoroutine != null)
+            return;
+
         // 音效：经 AudioManager.PlayEffectClip 统一播放入口（规范禁止运行时 AddComponent）。
         if (!string.IsNullOrEmpty(hitSoundKey) && ResourceManager.Instance != null &&
             AudioManager.Instance != null)
@@ -362,9 +368,7 @@ public class BuildingHealth : MonoBehaviour, ICollide
             _bodyRenderer.color = hitFlashColor;
         }
 
-        // 晃动与闪红共用一个协程；连续受击时重开以刷新计时。
-        if (_hitEffectCoroutine != null)
-            StopCoroutine(_hitEffectCoroutine);
+        // 晃动与闪红共用一个协程；特效进行中不重开（重开会把当前偏移坐标当作新基准）。
         _hitEffectCoroutine = StartCoroutine(HitEffectCoroutine());
     }
 

@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 [Serializable]
 public sealed class UserGlobalInfoData
 {
-    public const int CurrentSchemaVersion = 5;
+    public const int CurrentSchemaVersion = 6;
 
     [HideInInspector]
     public int schemaVersion = CurrentSchemaVersion;
@@ -18,9 +18,12 @@ public sealed class UserGlobalInfoData
     [Header("玩法信息")]
     [Min(0)] public int defenseMagicLevel;
     [Min(0)] public int attackMagicLevel;
-    [Min(0)] public int barracksLevel;
-    [Min(0)] public int darkBarracksLevel;
-    [Min(0)] public int sentryTowerLevel;
+    [Min(1), Tooltip("兵营等级（至少 1 级起步）")]
+    public int barracksLevel = 1;
+    [Min(1), Tooltip("黑暗兵营等级（至少 1 级起步）")]
+    public int darkBarracksLevel = 1;
+    [Min(1), Tooltip("哨塔等级（至少 1 级起步）")]
+    public int sentryTowerLevel = 1;
     [Min(0)] public int diamondCount;
     [FormerlySerializedAs("coinCount")]
     [Min(0)] public int goldBarCount;

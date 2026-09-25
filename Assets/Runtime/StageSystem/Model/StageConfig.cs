@@ -53,14 +53,18 @@ public class EnemyBuildSlot
     public Vector2Int gridPosition = Vector2Int.zero;
 }
 
-/// <summary>敌方兵种按时间解锁：局内时间到达 unlockTime 后该兵种才可被训练。</summary>
+/// <summary>
+/// 敌方队伍兵种白名单条目：本队本局可训练的兵种之一。
+/// troopUnlocks 整表为空 = 本局自动解锁兵营全部兵种；
+/// 一旦填写了条目，本局就**只能**训练列表内出现的兵种（未列出的兵种不可生产）。
+/// </summary>
 [Serializable]
 public class EnemyTroopUnlock
 {
     [Tooltip("兵种稳定 ID（与 TroopDefinition.Id 一致）")]
     public string troopId = string.Empty;
 
-    [Tooltip("解锁时间（秒，关卡开始后）")]
+    [Tooltip("本局可训练该兵种的时间门槛（秒，关卡开始后；0 = 开局即可训练）")]
     [Min(0)] public float unlockTime = 0f;
 }
 
@@ -108,8 +112,14 @@ public class EnemyTeamConfig
     [Tooltip("位置随机偏移（格）：在槽位坐标周围 ±N 格内随机偏移（0 = 精确位置）")]
     [Min(0)] public int positionJitter = 1;
 
+    [Header("动态扩张")]
+    [Tooltip("兵营总数上限：槽位表用完后，经济允许时在阵地锚点附近动态补建兵营")]
+    [Min(0)] public int maxBarracks = 3;
+    [Tooltip("哨塔总数上限：槽位表用完后，回防/富余时在阵地锚点附近动态补建哨塔")]
+    [Min(0)] public int maxSentries = 2;
+
     [Header("兵种")]
-    [Tooltip("按时间解锁的兵种（空列表 = 兵营自带兵种表全部可用；存在时只训练已解锁的）")]
+    [Tooltip("本队本局兵种白名单：留空 = 自动解锁兵营全部兵种；填写后本局只能训练列表内兵种（unlockTime 为该兵种本局可训练的时间门槛，0 = 开局即可）")]
     public List<EnemyTroopUnlock> troopUnlocks = new List<EnemyTroopUnlock>();
 }
 
