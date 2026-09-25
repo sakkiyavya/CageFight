@@ -12,8 +12,6 @@ public class MagicLevelUpButton : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log($"[MagicLevelUpButton] 点击 {kind} 魔法升级按钮。", this);
-
         UserGlobalInfo info = UserGlobalInfo.Instance;
         if (info == null)
         {
@@ -25,7 +23,6 @@ public class MagicLevelUpButton : MonoBehaviour, IPointerDownHandler
         int cost = UpgradeLevelRules.GetMagicUpgradeCost(level);
         if (info.DiamondCount < cost)
         {
-            Debug.Log($"[MagicLevelUpButton] 钻石不足（{info.DiamondCount}/{cost}），弹出货币不足。", this);
             CurrencyFeedbackAudio.PlayWrong();   // 不满足要求：Wrong UI AD。
             UpgradeNoticeText.Show("货币不足");
             return;

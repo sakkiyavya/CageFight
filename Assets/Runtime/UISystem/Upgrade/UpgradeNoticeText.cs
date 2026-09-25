@@ -39,30 +39,12 @@ public class UpgradeNoticeText : MonoBehaviour
     /// <summary>显示一条红色提示：向上飘动并渐变淡出后自动隐藏。</summary>
     public static void Show(string message)
     {
+        // 规范约束：不使用 FindObjectOfType / FindObjectsOfTypeAll 全局查找。
+        // 提示对象由场景保证挂载（Awake 注册静态实例）；缺失时给出可定位错误。
         UpgradeNoticeText notice = _instance;
         if (notice == null)
         {
-            notice = FindObjectOfType<UpgradeNoticeText>();
-        }
-
-        // 兜底：FindObjectOfType 找不到未激活对象，改用全量查找（含未激活）。
-        if (notice == null)
-        {
-            UpgradeNoticeText[] all = Resources.FindObjectsOfTypeAll<UpgradeNoticeText>();
-            for (int i = 0; i < all.Length; i++)
-            {
-                if (all[i] != null && all[i].gameObject.scene.IsValid())
-                {
-                    notice = all[i];
-                    break;
-                }
-            }
-            _instance = notice;
-        }
-
-        if (notice == null)
-        {
-            Debug.LogError($"[UpgradeNoticeText] 场景中找不到 UpgradeNotice 提示对象，无法显示：{message}");
+            Debug.LogError($"[UpgradeNoticeText] UpgradeNotice 实例未注册（场景缺失或脚本未挂载），无法显示：{message}");
             return;
         }
 

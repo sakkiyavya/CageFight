@@ -11,8 +11,6 @@ public class BuildingLevelUpButton : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log($"[BuildingLevelUpButton] 点击 {kind} 升级按钮。", this);
-
         UserGlobalInfo info = UserGlobalInfo.Instance;
         if (info == null)
         {
@@ -24,7 +22,6 @@ public class BuildingLevelUpButton : MonoBehaviour, IPointerDownHandler
         int cost = UpgradeLevelRules.GetUpgradeCost(level);
         if (info.GoldBarCount < cost)
         {
-            Debug.Log($"[BuildingLevelUpButton] 金条不足（{info.GoldBarCount}/{cost}），弹出货币不足。", this);
             CurrencyFeedbackAudio.PlayWrong();   // 不满足要求：Wrong UI AD。
             UpgradeNoticeText.Show("货币不足");
             return;

@@ -14,8 +14,6 @@ public class DailyLoginClaimButton : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log($"[DailyLoginClaimButton] 领取每日奖励：金条+{goldBarReward}，钻石+{diamondReward}。", this);
-
         UserGlobalInfo info = UserGlobalInfo.Instance;
         if (info == null)
         {

@@ -22,6 +22,7 @@ public sealed class CurrencyFeedbackAudio : MonoBehaviour
     private int _lastGold;
     private int _lastDiamond;
     private bool _subscribed;
+    private float _nextPreloadRetry;   // 预载重试限频（避免每帧启动加载协程）。
 
     public static CurrencyFeedbackAudio Instance => _instance;
 
@@ -37,14 +38,25 @@ public sealed class CurrencyFeedbackAudio : MonoBehaviour
             _instance = null;
     }
 
+    private void OnDisable()
+    {
+        // 规范约束：事件必须在订阅方对称退订。
+        if (_subscribed && _info != null)
+        {
+            _info.Changed -= OnChanged;
+            _subscribed = false;
+        }
+    }
+
     private void Update()
     {
         // 懒订阅重试：UserGlobalInfo 后于本组件就绪时补上（每帧判空，成本可忽略）。
         SubscribeIfReady();
 
-        // 音频未就绪时每帧重试预载：资源管理器晚于本组件初始化时，首个增长事件也能出声。
-        if (ResourceManager.Instance != null)
+        // 音频未就绪时按 1 秒限频重试预载（避免每帧启动加载协程）。
+        if (ResourceManager.Instance != null && Time.time >= _nextPreloadRetry)
         {
+            _nextPreloadRetry = Time.time + 1f;
             RetryPreload(GoldBarSoundKey);
             RetryPreload(DiamondSoundKey);
             RetryPreload(WrongSoundKey);
@@ -108,13 +120,11 @@ public sealed class CurrencyFeedbackAudio : MonoBehaviour
         AudioClip clip = ResourceManager.Instance.GetAudio(key);
         if (clip == null)
         {
-            // 尚未加载成功：立即补一次预载，下一帧重试循环会持续跟进；本次跳过。
-            Debug.LogWarning($"[CurrencyFeedbackAudio] 音频未加载：{key}，已重新发起预载。", this);
+            // 尚未加载成功：立即补一次预载（限频循环会持续跟进）；本次跳过。
             ResourceManager.Instance.LoadExtraResourceAsync<AudioClip>(key);
             return;
         }
 
-        Debug.Log($"[CurrencyFeedbackAudio] 播放：{key}", this);
         AudioManager.Instance.PlayEffectClip(clip, 32, transform);
     }
 }

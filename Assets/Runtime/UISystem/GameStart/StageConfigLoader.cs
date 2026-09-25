@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -16,6 +17,9 @@ public class StageConfigLoader : MonoBehaviour
     [Tooltip("The seven stage buttons, in display order.")]
     [FormerlySerializedAs("levelButtons")]
     [SerializeField] private StageButton[] stageButtons = new StageButton[ButtonsPerPage];              // 按显示顺序排列的七个关卡按钮。
+
+    [Tooltip("七个关卡的编号文本（显示顺序与 stageButtons 一致）：第 N 关显示为“页码-页内位置”，如 1-1、2-3。")]
+    [SerializeField] private TextMeshProUGUI[] stageNumberTexts = new TextMeshProUGUI[ButtonsPerPage];  // 关卡编号文本，翻页时自动更新。
 
     private readonly List<AsyncOperationHandle> _handles = new List<AsyncOperationHandle>();            // 已成功加载、销毁时需要释放的 Addressables 句柄。
     private readonly List<StageConfig> _configs = new List<StageConfig>();                              // 按关卡编号顺序加载的配置列表。
@@ -78,6 +82,9 @@ public class StageConfigLoader : MonoBehaviour
 
             _handles.Add(assetHandle);
             _configs.Add(assetHandle.Result);
+
+            // 预载该关导游对话资源（头像精灵 + 音频，幂等）：首次点击关卡即可直接弹出。
+            GuideDialoguePlayer.Preload(assetHandle.Result);
         }
 
         _currentPage = Mathf.Clamp(_currentPage, 0, TotalPages - 1);
@@ -120,6 +127,14 @@ public class StageConfigLoader : MonoBehaviour
             bool hasConfig = configIndex < _configs.Count;                                              // 当前按钮是否有可绑定的配置。
             button.Init(hasConfig ? _configs[configIndex] : null);
             button.gameObject.SetActive(hasConfig);
+
+            // 关卡编号文本：第 N 关 = “页码-页内位置”（第 8 关翻页为 2-1）。
+            if (stageNumberTexts != null && i < stageNumberTexts.Length && stageNumberTexts[i] != null)
+            {
+                stageNumberTexts[i].text = hasConfig
+                    ? $"{(configIndex) / ButtonsPerPage + 1}-{configIndex % ButtonsPerPage + 1}"
+                    : string.Empty;
+            }
         }
     }
     #endregion
@@ -135,13 +150,18 @@ public class StageConfigLoader : MonoBehaviour
     }
 
     /// <summary>
-    /// 在编辑器配置变化时将按钮数组强制调整为每页固定数量。
+    /// 在编辑器配置变化时将按钮数组与编号文本数组强制调整为每页固定数量。
     /// </summary>
     private void OnValidate()
     {
         if (stageButtons == null || stageButtons.Length != ButtonsPerPage)
         {
             System.Array.Resize(ref stageButtons, ButtonsPerPage);
+        }
+
+        if (stageNumberTexts == null || stageNumberTexts.Length != ButtonsPerPage)
+        {
+            System.Array.Resize(ref stageNumberTexts, ButtonsPerPage);
         }
     }
     #endregion

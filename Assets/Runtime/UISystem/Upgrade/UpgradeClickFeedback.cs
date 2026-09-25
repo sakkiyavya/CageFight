@@ -31,7 +31,6 @@ public class UpgradeClickFeedback : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log($"[UpgradeClickFeedback] 按钮 {name} 收到点击。", this);
         PlayBounce();
         PlayClickSound();
     }

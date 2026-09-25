@@ -124,6 +124,26 @@ public class EnemyTeamConfig
 }
 
 /// <summary>
+/// 导游对话条目：选关时点击该关弹出的一条导游台词。
+/// 头像精灵与音频均为资源键（经 ResourceManager 解析，加载期由 GuideDialoguePlayer.Preload 预载）。
+/// </summary>
+[Serializable]
+public class GuideDialogueEntry
+{
+    [ResourceKey(typeof(Sprite))]
+    [Tooltip("导游头像精灵键（SpriteRegistry）；留空则本条不显示头像")]
+    public string avatarSpriteKey = string.Empty;
+
+    [TextArea]
+    [Tooltip("本条对话文本")]
+    public string text = string.Empty;
+
+    [ResourceKey(typeof(AudioClip))]
+    [Tooltip("本条对话弹出时播放的音频键（AudioRegistry）；留空静音")]
+    public string audioKey = string.Empty;
+}
+
+/// <summary>
 /// 关卡配置的根数据结构（ScriptableObject）
 /// 这是编辑器和运行时唯一共享的核心数据源
 /// </summary>
@@ -181,6 +201,10 @@ public class StageConfig : ScriptableObject
     [Header("经济增长曲线（玩家）")]
     [Tooltip("启用后本关收入按下方曲线增长（基础值 + 各阶段阶梯增量）；关闭时沿用场景 Coins 的时间阶梯配置")]
     public bool useIncomeCurve = false;
+
+    [Header("导游对话")]
+    [Tooltip("选关界面点击本关时依次弹出的导游对话（头像/文本/音频按条目配置）；空列表 = 无对话")]
+    public List<GuideDialogueEntry> guideDialogues = new List<GuideDialogueEntry>();
 
     [Tooltip("关卡开始时的基础每秒金币产量")]
     [Min(0)] public float baseGoldPerSecond = 10f;

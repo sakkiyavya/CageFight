@@ -33,6 +33,7 @@ public static class AStarUtility
     {
         public Vector2Int start;                                                              // 搜索起点。
         public Vector2Int end;                                                                // 搜索终点。
+        public Vector2Int goalExtent;                                                         // 目标盒：与终点格差的 |dx|<=x 且 |dy|<=y 即视为到达；0,0 = 精确到达。
         public PriorityQueue<Node> openList = new PriorityQueue<Node>();                      // 等待扩展的候选节点。
         public Dictionary<Vector2Int, Node> allNodes = new Dictionary<Vector2Int, Node>();    // 已创建节点的坐标索引。
         public HashSet<Vector2Int> closedList = new HashSet<Vector2Int>();                    // 已完成扩展的节点坐标。
@@ -45,23 +46,38 @@ public static class AStarUtility
         #region 游戏逻辑
         /// <summary>
         /// 创建可分帧推进的 A* 搜索会话，并将起点加入开放列表。
+        /// goalExtent 非零时，进入终点周围的目标盒（射程内）即视为到达。
         /// </summary>
         /// <param name="start">路径搜索的起点坐标。</param>
         /// <param name="end">路径搜索的终点坐标。</param>
-        public PathSearchSession(Vector2Int start, Vector2Int end, GameObject self = null, GameObject target = null)
+        /// <param name="goalExtent">目标盒尺寸（0,0 = 精确到达终点格）。</param>
+        public PathSearchSession(
+            Vector2Int start,
+            Vector2Int end,
+            GameObject self = null,
+            GameObject target = null,
+            Vector2Int goalExtent = default)
         {
             this.start = start;
             this.end = end;
             this.self = self;
             this.target = target;
+            this.goalExtent = goalExtent;
             Node startNode = new Node(start, 0, GetDistance(start, end), null);               // 搜索起点节点。
             openList.Enqueue(startNode, startNode.f);
             allNodes.Add(start, startNode);
         }
 
+        /// <summary>该格子是否满足目标条件（目标盒内或精确等于终点）。</summary>
+        private bool IsGoal(Vector2Int pos)
+        {
+            return Mathf.Abs(pos.x - end.x) <= goalExtent.x &&
+                   Mathf.Abs(pos.y - end.y) <= goalExtent.y;
+        }
+
         /// <summary>
         /// 继续推进当前 A* 会话，在指定步数预算内扩展候选节点。
-        /// 遇到终点时生成路径，开放列表耗尽时标记搜索失败。
+        /// 遇到目标时生成路径，开放列表耗尽时标记搜索失败。
         /// </summary>
         /// <param name="maxSteps">本次调用最多扩展的节点数量。</param>
         /// <returns>本次是否实际扩展了节点；会话已经结束且没有继续工作时返回 <see langword="false"/>。</returns>
@@ -79,7 +95,7 @@ public static class AStarUtility
                 // 如果当前节点已经在关闭列表中（因为重复入队），则跳过
                 if (closedList.Contains(current.pos)) continue;
 
-                if (current.pos == end)
+                if (IsGoal(current.pos))
                 {
                     resultPath = RetracePath(current);
                     isFinished = true;
