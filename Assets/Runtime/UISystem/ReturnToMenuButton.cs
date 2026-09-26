@@ -3,35 +3,99 @@ using UnityEngine.EventSystems;
 
 /// <summary>
 /// 设置面板里的“返回主菜单”按钮。
-/// 局内（Gameplay）点击：经 GameOverManager 统一入口判定本局失败，并请求 SceneFSM 回到主菜单，
+/// 局内（Gameplay）点击：经 GameOverManager 统一入口判定本局失败，停留在结算界面，
 /// 清场由 GameplayState.OnExit 经对象池统一回收执行；
 /// 主菜单等非局内状态点击：直接关闭所属设置面板，返回主菜单界面。
 /// 流程切换一律走框架统一入口（SceneFSM / GameOverManager），本脚本不直接操作流程对象。
 /// </summary>
 [DisallowMultipleComponent]
-public sealed class ReturnToMenuButton : MonoBehaviour, IPointerClickHandler
+public sealed class ReturnToMenuButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
+    IPointerExitHandler, IPointerClickHandler
 {
     [SerializeField, Tooltip("点击后需要关闭的设置面板（Set Canvas）。")]
     private GameObject settingsPanel;
+    [SerializeField, Range(0.5f, 1f)] private float pressedScale = 0.88f;
+
+    private Vector3 originalScale;
+    private int pointerId;
+    private bool pressing;
+    private bool cancelled;
+    private bool clickReady;
+    private bool scaled;
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Left || pressing ||
+            (SceneFSM.Instance != null && SceneFSM.Instance.IsTransitioning)) return;
+        originalScale = transform.localScale;
+        pointerId = eventData.pointerId;
+        pressing = true;
+        cancelled = false;
+        clickReady = false;
+        scaled = true;
+        transform.localScale = originalScale * pressedScale;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!pressing || eventData.pointerId != pointerId) return;
+        cancelled = true; // Moving back inside does not re-arm this press.
+        RestoreScale();
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (!pressing || eventData.pointerId != pointerId ||
+            eventData.button != PointerEventData.InputButton.Left) return;
+        RestoreScale();
+        pressing = false;
+        clickReady = !cancelled && RectTransformUtility.RectangleContainsScreenPoint(
+            (RectTransform)transform, eventData.position, eventData.pressEventCamera);
+    }
+
+    private void RestoreScale()
+    {
+        if (!scaled) return;
+        transform.localScale = originalScale;
+        scaled = false;
+    }
+
+    private void CancelPress()
+    {
+        RestoreScale();
+        pressing = false;
+        clickReady = false;
+        cancelled = true;
+    }
+
+    private void OnDisable() => CancelPress();
+    private void OnApplicationFocus(bool focused) { if (!focused) CancelPress(); }
+    private void OnApplicationPause(bool paused) { if (paused) CancelPress(); }
 
     /// <summary>
-    /// 接收点击事件：局内判定失败并清场回主菜单；其他上下文直接关闭设置面板。
+    /// 局内点击只进入结算；结算页 Back 或选关页返回按钮才回到主菜单。
     /// </summary>
     /// <param name="eventData">本次点击的指针事件数据。</param>
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!clickReady || eventData.pointerId != pointerId ||
+            eventData.button != PointerEventData.InputButton.Left) return;
+        clickReady = false;
         SceneFSM fsm = SceneFSM.Instance;
+        if (fsm != null && fsm.IsTransitioning) return;
         if (fsm != null)
         {
             if (fsm.CurrentStateEnum == GameState.Gameplay)
             {
-                // 局内：判定本局失败（统一结算入口，幂等），并请求回到主菜单。
+                // 只提交一次结算请求，不再排入 Menu 请求跳过结算页面。
                 if (GameOverManager.Instance != null)
                     GameOverManager.Instance.TriggerGameOver(false);
 
-                fsm.LoadState(GameState.Menu);
+                else
+                    fsm.LoadState(GameState.GameOver);
             }
-            else if (fsm.CurrentStateEnum == GameState.StageSelect)
+            else if (fsm.CurrentStateEnum == GameState.StageSelect ||
+                     fsm.CurrentStateEnum == GameState.GameOver)
             {
                 // 关卡选择界面返回：必须走状态机切换，
                 // 由 MenuState 重新打开菜单的 UI 模块（否则只关面板会留下空白界面）。

@@ -44012,6 +44012,7 @@ GameObject:
   - component: {fileID: 1751629416}
   - component: {fileID: 1751629418}
   - component: {fileID: 1751629417}
+  - component: {fileID: 500000250}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -54230,3 +54231,16 @@ SceneRoots:
   - {fileID: 354871250}
   - {fileID: 1979090126}
   - {fileID: 12436354}
+--- !u!114 &500000250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751629415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  settingsPanel: {fileID: 0}

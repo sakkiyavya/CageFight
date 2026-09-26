@@ -8,16 +8,20 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-/// <summary>The only player scene: local animation first, remote assets before menu Awake/Start.</summary>
+/// <summary>Local startup cover, then remote assets before menu Awake/Start; animations for stage loading.</summary>
 public sealed class RemoteStartup : MonoBehaviour
 {
     public static RemoteStartup Instance { get; private set; }
     public const string PreloadLabel = "StartupPreload";
     public const string MenuAddress = "StartupMenuScene";
+    public const string StartupCoverPath = "Assets/Resource/LocalResource/UIImage/Loading AP.png";
+    public const string StageAnimationPath = "Assets/Resource/LocalResource/Animation/Load Anime AP.png";
+    [SerializeField] private Sprite startupCover;
     [SerializeField] private Sprite[] frames;
     [SerializeField, Min(1)] private float framesPerSecond = 12;
 
     private Image animationImage;
+    private Image coverImage;
     private GameObject overlay;
     private float elapsed;
     private string message;
@@ -40,7 +44,7 @@ public sealed class RemoteStartup : MonoBehaviour
         {
             var sprites = new List<Sprite>();
             foreach (var asset in UnityEditor.AssetDatabase.LoadAllAssetsAtPath(
-                         "Assets/Resource/LocalResource/Animation/Load Anime AP.png"))
+                         StageAnimationPath))
                 if (asset is Sprite sprite) sprites.Add(sprite);
             // 按数字帧号排序，避免第 10 帧排在第 2 帧之前。
             sprites.Sort((a, b) => GetFrameNumber(a).CompareTo(GetFrameNumber(b)));
@@ -117,6 +121,11 @@ public sealed class RemoteStartup : MonoBehaviour
     {
         if (complete) yield break; // 编辑器直开场景只复用动画，不下载或切换菜单。
         CreateOverlay();
+        if (!startupCover)
+        {
+            Fail("Startup cover is missing. Reconfigure the startup scene.");
+            yield break;
+        }
         if (frames == null || frames.Length == 0)
         {
             Fail("Loading animation has no frames. Reconfigure the startup scene.");
@@ -145,6 +154,14 @@ public sealed class RemoteStartup : MonoBehaviour
         background.rectTransform.anchorMin = Vector2.zero;
         background.rectTransform.anchorMax = Vector2.one;
         background.rectTransform.sizeDelta = Vector2.zero;
+        coverImage = new GameObject("Startup cover", typeof(RectTransform), typeof(Image)).GetComponent<Image>();
+        coverImage.transform.SetParent(canvasObject.transform, false);
+        coverImage.sprite = startupCover;
+        coverImage.rectTransform.anchorMin = Vector2.zero;
+        coverImage.rectTransform.anchorMax = Vector2.one;
+        coverImage.rectTransform.offsetMin = Vector2.zero;
+        coverImage.rectTransform.offsetMax = Vector2.zero;
+        coverImage.preserveAspect = false; // Fill the entire screen on every aspect ratio.
         animationImage = new GameObject("Loading animation", typeof(RectTransform), typeof(Image)).GetComponent<Image>();
         animationImage.transform.SetParent(canvasObject.transform, false);
         animationImage.rectTransform.sizeDelta = new Vector2(300, 300);
@@ -163,6 +180,14 @@ public sealed class RemoteStartup : MonoBehaviour
         retryButton.gameObject.SetActive(false);
         canvasObject.AddComponent<GraphicRaycaster>();
         if (frames != null && frames.Length > 0) animationImage.sprite = frames[0];
+        ApplyLoadingVisuals();
+    }
+
+    private void ApplyLoadingVisuals()
+    {
+        coverImage.gameObject.SetActive(!complete);
+        animationImage.gameObject.SetActive(complete);
+        statusText.gameObject.SetActive(complete || failed);
     }
 
     private void Update()
@@ -171,7 +196,7 @@ public sealed class RemoteStartup : MonoBehaviour
             Time.realtimeSinceStartupAsDouble - loadingStartedAt >= MinimumLoadingSeconds)
             overlay.SetActive(false);
         if (statusText) statusText.text = message ?? "Loading...";
-        if (!overlay || !overlay.activeInHierarchy || !animationImage || frames == null || frames.Length == 0) return;
+        if (!complete || !overlay || !overlay.activeInHierarchy || !animationImage || frames == null || frames.Length == 0) return;
         elapsed += Time.unscaledDeltaTime;
         animationImage.sprite = frames[(int)(elapsed * framesPerSecond) % frames.Length];
     }
@@ -179,6 +204,7 @@ public sealed class RemoteStartup : MonoBehaviour
     private IEnumerator LoadMenu()
     {
         failed = false;
+        ApplyLoadingVisuals();
         retryButton.gameObject.SetActive(false);
         if (retryEvents) Destroy(retryEvents);
         message = "Initializing...";
@@ -247,6 +273,8 @@ public sealed class RemoteStartup : MonoBehaviour
         }
         yield return null;
         complete = true;
+        elapsed = 0;
+        ApplyLoadingVisuals();
         message = "Loading resources...";
         overlay.SetActive(loadingOwners.Count > 0);
     }
@@ -254,6 +282,7 @@ public sealed class RemoteStartup : MonoBehaviour
     private void Fail(string error)
     {
         failed = true;
+        ApplyLoadingVisuals();
         retryButton.gameObject.SetActive(true);
         if (!EventSystem.current)
         {

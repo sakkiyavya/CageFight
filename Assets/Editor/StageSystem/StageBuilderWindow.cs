@@ -5,12 +5,15 @@ public class StageBuilderWindow : EditorWindow
 {
     private string savePath = "Assets/RemoteResource/Stages";
     private uint stageId = 1;
+    [SerializeField] private UserGlobalInfo.StageType stageType = UserGlobalInfo.StageType.Defense;
+    [SerializeField] private float defenseTime;
+    [SerializeField] private Sprite icon;
 
     [MenuItem("关卡构建/创建新关卡")]
     public static void ShowWindow()
     {
         var window = GetWindow<StageBuilderWindow>("关卡构建");
-        window.minSize = new Vector2(350, 160);
+        window.minSize = new Vector2(350, 260);
         window.Show();
     }
 
@@ -26,10 +29,14 @@ public class StageBuilderWindow : EditorWindow
         int inputId = EditorGUILayout.IntField("关卡编号", (int)stageId);
         stageId = (uint)Mathf.Max(0, inputId);
 
+        stageType = (UserGlobalInfo.StageType)EditorGUILayout.EnumPopup("关卡玩法类型", stageType);
+        defenseTime = Mathf.Max(0f, EditorGUILayout.FloatField("防守时限（秒）", defenseTime));
+        icon = (Sprite)EditorGUILayout.ObjectField("关卡图标", icon, typeof(Sprite), false);
+
         EditorGUILayout.Space(25);
         if (GUILayout.Button("确认生成关卡配置", GUILayout.Height(40)))
         {
-            StageExporter.ExportStage(stageId, savePath);
+            StageExporter.ExportStage(stageId, savePath, stageType, defenseTime, icon);
         }
     }
 }
