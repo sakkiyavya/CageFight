@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [InitializeOnLoad]
@@ -113,8 +114,57 @@ public static class StageObjectInspectorExtension
             GUI.enabled = true;
         }
 
+        DrawFriendlyMainBaseToggle(targets);
+
         // 恢复状态，避免影响其他 Inspector 的绘制
         EditorGUI.showMixedValue = false; 
         EditorGUILayout.EndVertical();
+    }
+
+    private static void DrawFriendlyMainBaseToggle(Object[] targets)
+    {
+        bool hasMarker = false;
+        bool missingMarker = false;
+        bool allScenePrefabs = true;
+        foreach (Object target in targets)
+        {
+            var go = target as GameObject;
+            if (go == null) continue;
+            hasMarker |= go.GetComponent<FriendlyMainBaseMarker>() != null;
+            missingMarker |= go.GetComponent<FriendlyMainBaseMarker>() == null;
+            allScenePrefabs &= go.scene.IsValid() && !EditorUtility.IsPersistent(go)
+                && PrefabStageUtility.GetPrefabStage(go) == null
+                && PrefabUtility.IsOutermostPrefabInstanceRoot(go);
+        }
+
+        EditorGUI.showMixedValue = hasMarker && missingMarker;
+        // 已有标记即使因解包而失效，也允许取消。
+        using (new EditorGUI.DisabledScope(!allScenePrefabs && !hasMarker))
+        {
+            EditorGUI.BeginChangeCheck();
+            bool enabled = EditorGUILayout.ToggleLeft(
+                " 设为己方大本营 (仅限场景最外层预制体根对象)", hasMarker, EditorStyles.boldLabel);
+            if (EditorGUI.EndChangeCheck() && (!enabled || allScenePrefabs))
+            {
+                foreach (Object target in targets)
+                {
+                    var go = target as GameObject;
+                    if (go == null) continue;
+                    var marker = go.GetComponent<FriendlyMainBaseMarker>();
+                    if (enabled && marker == null)
+                    {
+                        marker = Undo.AddComponent<FriendlyMainBaseMarker>(go);
+                        Undo.RecordObject(marker, "Mark Friendly Main Base");
+                        marker.hideFlags = HideFlags.HideInInspector;
+                        EditorUtility.SetDirty(marker);
+                    }
+                    else if (!enabled && marker != null)
+                    {
+                        Undo.DestroyObjectImmediate(marker);
+                    }
+                    if (go.scene.IsValid()) EditorSceneManager.MarkSceneDirty(go.scene);
+                }
+            }
+        }
     }
 }

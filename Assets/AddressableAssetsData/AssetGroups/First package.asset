@@ -23,11 +23,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - StartupPreload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 019036d83a21f7b478e02dacf70749ca
-    m_Address: Loading AP
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0409bc469422b184a975e0235f9eb03c
     m_Address: Main menu
     m_ReadOnly: 0
@@ -37,7 +32,8 @@ MonoBehaviour:
   - m_GUID: 06777b75daf772d40a1dce7f57ce55d8
     m_Address: Race2 AP
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - StartupPreload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 07b80be6bcb8981448788eea289870be
     m_Address: State1 AP
@@ -287,7 +283,8 @@ MonoBehaviour:
   - m_GUID: dc49d0ea57306e043907c8f018b9957d
     m_Address: Rule AP
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - StartupPreload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e0f05a0f13dc932468b3a60c94ca6a12
     m_Address: Radiate Energy
@@ -300,11 +297,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - StartupPreload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ee92bf2fc2ecfe64293d0cce1b63613b
-    m_Address: Load Anime AP
-    m_ReadOnly: 0
-    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f0b28f4d4266f13449bbf927f905e6e4
     m_Address: Profab card AP

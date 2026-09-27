@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class StageButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class StageButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
     public Image icon;
     private StageConfig _config;    // 当前按钮对应的关卡配置。
@@ -25,7 +25,8 @@ public class StageButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void Init(StageConfig config)
     {
         _config = config;
-        if(icon && _config != null && _config.icon != null)
+        if (!icon) return;
+        if(_config != null && _config.icon != null)
         {
             icon.sprite = config.icon;
             icon.color = Color.white;
@@ -42,6 +43,20 @@ public class StageButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     /// <param name="eventData">本次按下事件的指针数据。</param>
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (eventData.button == PointerEventData.InputButton.Left) SelectStage();
+    }
+
+    // Also support the standard completed-click path used by touch UI input modules.
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left) SelectStage();
+    }
+
+    private void SelectStage()
+    {
+        if (!isActiveAndEnabled || !HasConfig) return;
+        var fsm = SceneFSM.Instance;
+        if (fsm != null && fsm.CurrentStateEnum != GameState.StageSelect) return;
         Selected?.Invoke(this);
     }
 

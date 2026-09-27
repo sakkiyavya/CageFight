@@ -19,9 +19,23 @@ public class StageConfigEditor : Editor
         serializedObject.Update();
         StageConfig config = (StageConfig)target;
 
-        // --- 绘制标准字段（stageId、settings、objects），但跳过分类列表 ---
-        DrawPropertiesExcluding(serializedObject, "icon", "prefabs", "audios", "textures", "animationClips", "animatorControllers", "sprites");
-        DrawStageIconField(serializedObject.FindProperty("icon"));
+        // 构建参数仅供查看，统一通过关卡构建窗口设置。
+        DrawPropertiesExcluding(serializedObject, "stageType", "DefenseTime", "icon", "hasFriendlyMainBaseGridPosition", "friendlyMainBaseGridPosition", "prefabs", "audios", "textures", "animationClips", "animatorControllers", "sprites");
+        EditorGUILayout.Space(12);
+        EditorGUILayout.LabelField("关卡构建参数（只读）", EditorStyles.boldLabel);
+        using (new EditorGUI.DisabledScope(true))
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("stageType"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("DefenseTime"));
+            DrawStageIconField(serializedObject.FindProperty("icon"));
+        }
+        EditorGUILayout.HelpBox("玩法类型、防守时限和图标请在「关卡构建 → 创建新关卡」中设置后生成。", MessageType.Info);
+        using (new EditorGUI.DisabledScope(true))
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("hasFriendlyMainBaseGridPosition"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("friendlyMainBaseGridPosition"));
+        }
+        EditorGUILayout.HelpBox("己方大本营位置由构建时扫描场景中的「设为己方大本营」标记自动生成。", MessageType.Info);
 
         EditorGUILayout.Space(12);
 
@@ -147,6 +161,7 @@ public class StageConfigEditor : Editor
         foreach (var marker in markers)
         {
             GameObject go = marker.gameObject;
+            if (go.GetComponentInParent<FriendlyMainBaseMarker>(true) != null) continue;
             GameObject prefabAsset = PrefabUtility.GetCorrespondingObjectFromOriginalSource(go);
             string key = prefabAsset != null ? prefabAsset.name : go.name;
 

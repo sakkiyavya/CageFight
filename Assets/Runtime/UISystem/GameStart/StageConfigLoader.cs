@@ -24,6 +24,9 @@ public class StageConfigLoader : MonoBehaviour
     private readonly List<AsyncOperationHandle> _handles = new List<AsyncOperationHandle>();            // 已成功加载、销毁时需要释放的 Addressables 句柄。
     private readonly List<StageConfig> _configs = new List<StageConfig>();                              // 按关卡编号顺序加载的配置列表。
     private int _currentPage;                                                                           // 当前显示页的零基索引。
+    private Coroutine _loading;
+    private AsyncOperationHandle _pending;
+    private bool _allLoaded;
 
     private int TotalPages => Mathf.Max(1, Mathf.CeilToInt((float)_configs.Count / ButtonsPerPage));    // 根据已加载配置计算的总页数。
 
@@ -36,7 +39,25 @@ public class StageConfigLoader : MonoBehaviour
     /// <summary>
     /// 启动按编号顺序加载关卡配置的协程。
     /// </summary>
-    private void Start() => StartCoroutine(LoadConfigs());
+    private void OnEnable()
+    {
+        RefreshButtons();
+        if (!_allLoaded && _loading == null) _loading = StartCoroutine(LoadConfigs());
+    }
+
+    private void OnDisable()
+    {
+        if (_loading != null) StopCoroutine(_loading);
+        _loading = null;
+        // A disabled hierarchy stops coroutines, but does not release Addressables handles.
+        ReleasePending();
+    }
+
+    private void ReleasePending()
+    {
+        if (_pending.IsValid()) Addressables.Release(_pending);
+        _pending = default;
+    }
     #endregion
 
     #region 特效与协程
@@ -47,7 +68,7 @@ public class StageConfigLoader : MonoBehaviour
     /// <returns>逐个等待 Addressables 加载操作完成的协程。</returns>
     private IEnumerator LoadConfigs()
     {
-        for (int i = 1; ; i++)
+        for (int i = _configs.Count + 1; ; i++)
         {
             string key = $"Stage{i}";
 
@@ -55,20 +76,30 @@ public class StageConfigLoader : MonoBehaviour
             var locationsHandle = Addressables.LoadResourceLocationsAsync(
                 key,
                 typeof(StageConfig));
+            _pending = locationsHandle;
 
             yield return locationsHandle;
 
-            bool exists = locationsHandle.Status == AsyncOperationStatus.Succeeded &&
+            bool queried = locationsHandle.Status == AsyncOperationStatus.Succeeded;
+            bool exists = queried &&
                           locationsHandle.Result != null &&
                           locationsHandle.Result.Count > 0;
 
-            Addressables.Release(locationsHandle);
+            if (!queried)
+                Debug.LogError($"[StageConfigLoader] 查询关卡失败：{key}\n{locationsHandle.OperationException}");
+            ReleasePending();
 
             // 遇到第一个断续关卡，认为前面的配置就是全部关卡。
             if (!exists)
+            {
+                _allLoaded = queried && _configs.Count > 0;
+                if (queried && _configs.Count == 0)
+                    Debug.LogError("[StageConfigLoader] 远程目录中没有 Stage1，无法显示可选关卡。请重新构建并发布 Addressables。");
                 break;
+            }
 
             var assetHandle = Addressables.LoadAssetAsync<StageConfig>(key);
+            _pending = assetHandle;
             yield return assetHandle;
 
             if (assetHandle.Status != AsyncOperationStatus.Succeeded)
@@ -76,12 +107,14 @@ public class StageConfigLoader : MonoBehaviour
                 Debug.LogError(
                     $"关卡配置加载失败：{key}\n{assetHandle.OperationException}");
 
-                Addressables.Release(assetHandle);
+                ReleasePending();
                 break;
             }
 
             _handles.Add(assetHandle);
+            _pending = default; // Ownership moves to _handles until this loader is destroyed.
             _configs.Add(assetHandle.Result);
+            RefreshButtons();
 
             // 预载该关导游对话资源（头像精灵 + 音频，幂等）：首次点击关卡即可直接弹出。
             GuideDialoguePlayer.Preload(assetHandle.Result);
@@ -89,6 +122,7 @@ public class StageConfigLoader : MonoBehaviour
 
         _currentPage = Mathf.Clamp(_currentPage, 0, TotalPages - 1);
         RefreshButtons();
+        _loading = null;
     }
     #endregion
 
@@ -145,6 +179,7 @@ public class StageConfigLoader : MonoBehaviour
     /// </summary>
     private void OnDestroy()
     {
+        ReleasePending();
         foreach (var h in _handles)
             if (h.IsValid()) Addressables.Release(h);
     }
