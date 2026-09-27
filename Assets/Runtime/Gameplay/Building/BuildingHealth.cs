@@ -405,9 +405,11 @@ public class BuildingHealth : MonoBehaviour, ICollide
             }
 
             // 闪红结束恢复原始颜色。
+            // 仅当当前颜色仍是闪红色时才恢复：闪红期间若被其它系统改写（退出拆除红、升级蓝等），
+            // 不得用过期捕获色覆盖新颜色（否则建筑会永久卡在红色）。
             if (_flashActive && elapsed >= hitFlashDuration)
             {
-                if (_bodyRenderer != null)
+                if (_bodyRenderer != null && _bodyRenderer.color == hitFlashColor)
                     _bodyRenderer.color = _flashOriginalColor;
                 _flashActive = false;
             }
@@ -439,7 +441,9 @@ public class BuildingHealth : MonoBehaviour, ICollide
         }
         if (_flashActive && _bodyRenderer != null)
         {
-            _bodyRenderer.color = _flashOriginalColor;
+            // 与协程内恢复同一规则：只有当前仍是闪红色才恢复，不覆盖期间的其它着色。
+            if (_bodyRenderer.color == hitFlashColor)
+                _bodyRenderer.color = _flashOriginalColor;
             _flashActive = false;
         }
     }

@@ -122,12 +122,14 @@ public class FindEnemy : BehaviourBase
             GameObjectProperty nearest = _enemiesCache[0];
             int nearestDist = DistanceTo(nearest);
 
-            // 已有有效目标时：仅当新候选显著更近（迟滞 2 格）才替换，避免两个目标间来回切。
+            // 已有有效目标时：仅当新候选显著更近（迟滞 5 格）才替换；
+            // 正在攻击（已进入攻击状态）时绝不换目标——否则单位会在攻击范围边缘
+            // 两个目标间来回切换，表现为“索敌-丢失-索敌-丢失”的抖动。
             GameObjectProperty currentProp =
                 prop.target != null ? prop.target.GetComponent<GameObjectProperty>() : null;
             if (currentProp != null && !currentProp.isDead && !currentProp.isUntargetable)
             {
-                if (nearestDist + 2 >= DistanceTo(currentProp))
+                if (prop.isAttack || nearestDist + 5 >= DistanceTo(currentProp))
                     return;
             }
 

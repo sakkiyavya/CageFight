@@ -26,6 +26,8 @@ public class CharacterHealth : MonoBehaviour, ICollide
     private float jellyDuration = 0.6f;                                                                 // 受击果冻形变持续时间。
     private float jellyFrequency = 2f;                                                                  // 受击形变的振荡频率。
     private float jellyAmplitude = 0.1f;                                                                // 受击时向上弹动的最大幅度。
+    [SerializeField, Min(0.1f), Tooltip("果冻形变满强度的击退参考值：实际击退值达到该值时果冻幅度最大，击退值越大果冻越强")]
+    private float jellyRepelReference = 4f;                                                             // 果冻强度与击退值联动的参考击退值。
     
     [SerializeField, Tooltip("死亡掉落期间的旋转角速度（度/秒）")]
     private float deathAngularSpeed = 180f;                                                             // 死亡掉落期间的旋转角速度。
@@ -43,6 +45,7 @@ public class CharacterHealth : MonoBehaviour, ICollide
     private Vector3 _hitEffectBasePosition;                                                             // 受击形变开始前的世界坐标。
     private Vector3 _hitEffectBaseScale;                                                                // 受击形变开始前的局部缩放。
     private bool _hasHitEffectState;                                                                    // 是否保存了需要恢复的受击变换状态。
+    private bool _jellyPlayed;                                                                          // 本次受击是否播放了果冻形变（无击退命中不播，也不做变换恢复）。
     private readonly System.Collections.Generic.List<HitColorTarget> _hitColorTargets =
         new System.Collections.Generic.List<HitColorTarget>();                                          // 可参与受击闪色的渲染目标。
     private MaterialPropertyBlock _hitPropertyBlock;                                                    // 不实例化材质即可修改颜色的属性块。
@@ -338,12 +341,13 @@ public class CharacterHealth : MonoBehaviour, ICollide
         _prop.OnHitted?.Invoke(d);
 
         _prop.currentHp = Mathf.Max(_prop.currentHp - d.finalDamage, 0);
-        RestartHitEffect();
-        ShowBarTemporarily();
+
+        // 先写入击退（特效按实际击退值缩放果冻强度，需在特效启动前就绪）。
         if (_prop.blockHits > 0)
         {
             // 坚毅格挡：本次伤害已被降为 1 点，免疫击退，并消耗一层格挡。
             _prop.blockHits--;
+            _prop.repelDistance = 0f;
         }
         else
         {
@@ -351,6 +355,9 @@ public class CharacterHealth : MonoBehaviour, ICollide
             _prop.StartRepel(transform.position,
                 d.repel / _prop.antiRepel * d.collideDir * _prop.repelTakenMultiplier);
         }
+
+        RestartHitEffect();
+        ShowBarTemporarily();
         if(_prop.currentHp <= 0)
         {
             // 死亡前依次询问死亡复活器：任一接管（假死/晶化复活）则跳过常规死亡流程。
@@ -541,6 +548,7 @@ public class CharacterHealth : MonoBehaviour, ICollide
             RestoreHitTransform();
         }
 
+        _jellyPlayed = false;
         _hitEffectBasePosition = transform.position;
         _hitEffectBaseScale = transform.localScale;
         _hasHitEffectState = true;
@@ -556,23 +564,31 @@ public class CharacterHealth : MonoBehaviour, ICollide
     {
         float elapsed = 0f;
         bool colorRestored = false;
-        float effectDuration = Mathf.Max(hitFlashDuration, jellyDuration);
+
+        // 果冻强度与实际击退值联动：击退值越大，果冻形变越强；
+        // 无击退（击退值 ≈ 0）时只做闪红反馈，不播果冻（避免"卡顿"）。
+        float jellyFactor = Mathf.Clamp01(
+            Mathf.Abs(_prop.repelDistance) / Mathf.Max(0.001f, jellyRepelReference));
+        _jellyPlayed = jellyFactor > 0.001f;
+        float effectDuration = _jellyPlayed
+            ? Mathf.Max(hitFlashDuration, jellyDuration)
+            : hitFlashDuration;
 
         // 受击闪色：略微偏白的红（纯红过于刺眼）。
         SetHitColor(new Color(1f, 0.4f, 0.4f, 1f));
         while (elapsed < effectDuration)
         {
-            if (elapsed < jellyDuration)
+            if (_jellyPlayed && elapsed < jellyDuration)
             {
                 float jellyTime = elapsed / jellyDuration;
                 float damping = 1f - jellyTime;
                 float pulse = Mathf.Abs(Mathf.Sin(Mathf.PI * jellyFrequency * jellyTime)) * damping;
-                float jelly = Mathf.Sin(Mathf.PI * 2f * jellyFrequency * jellyTime) * damping;
+                float jelly = Mathf.Sin(Mathf.PI * 2f * jellyFrequency * jellyTime) * damping * jellyFactor;
                 // 果冻只改变纵向视觉偏移，保留当前 X 坐标，让 CharacterAI.Repel 的位移生效。
                 if (!_prop.isRepel)
                     transform.position = new Vector3(
                         transform.position.x,
-                        _hitEffectBasePosition.y + pulse * jellyAmplitude,
+                        _hitEffectBasePosition.y + pulse * jellyAmplitude * jellyFactor,
                         transform.position.z);
                 transform.localScale = new Vector3(
                     _hitEffectBaseScale.x * (1f - jelly * 0.14f),
@@ -723,11 +739,18 @@ public class CharacterHealth : MonoBehaviour, ICollide
 
     /// <summary>
     /// 在保存过受击状态时恢复角色位置和缩放，并清除恢复标记。
+    /// 无击退的命中没有播放果冻形变，不做任何变换恢复——避免用命中瞬间捕获的
+    /// 旧缩放覆盖移动系统当前写入的朝向翻转（表现为卡顿/闪跳）。
     /// </summary>
     private void RestoreHitTransform()
     {
         if (!_hasHitEffectState)
             return;
+        if (!_jellyPlayed)
+        {
+            _hasHitEffectState = false;
+            return;
+        }
         // 不回滚 X 坐标，避免覆盖受击期间 CharacterAI.Repel 已产生的位移。
         if (!_prop.isRepel)
             transform.position = new Vector3(
