@@ -22,6 +22,7 @@ public class Coins : MonoBehaviour
     private float _curveBase;                      // 曲线基础每秒产量（关卡配置）。
     private IncomeGrowthPhase[] _curvePhases;      // 曲线阶段列表（关卡配置，已过滤空项）。
     private float _levelStartTime;                 // 本局开始打点（GameplayState 进入局内时写入）。
+    private int _matchBonusPerSec;                 // 全局规则本局每秒金币加成（如 Strengthen1 +80；每局开始重置）。
 
     /// <summary>当前局内时间（关卡开始后的秒数）。</summary>
     private float LevelTime => Time.time - _levelStartTime;
@@ -35,17 +36,27 @@ public class Coins : MonoBehaviour
     {
         get
         {
+            int value;
             if (_useCurve)
-                return ComputeCurveIncome(LevelTime);
-
-            int value = coinPerSec;
-            for (int i = 0; i < phaseTimes.Length && i < phaseCoinPerSec.Length; i++)
+                value = ComputeCurveIncome(LevelTime);
+            else
             {
-                if (LevelTime >= phaseTimes[i])
-                    value = phaseCoinPerSec[i];
+                value = coinPerSec;
+                for (int i = 0; i < phaseTimes.Length && i < phaseCoinPerSec.Length; i++)
+                {
+                    if (LevelTime >= phaseTimes[i])
+                        value = phaseCoinPerSec[i];
+                }
             }
-            return value;
+
+            return value + _matchBonusPerSec;   // 全局规则本局加成。
         }
+    }
+
+    /// <summary>全局规则本局每秒金币加成（如 Strengthen1 +80）；每局开始自动重置。</summary>
+    public void AddMatchBonusPerSec(int amount)
+    {
+        _matchBonusPerSec = Mathf.Max(0, _matchBonusPerSec + amount);
     }
 
     // 维护费登记表：键为登记来源（训练建筑/哨塔等组件实例），值为该来源每秒抵扣的金币量。
@@ -104,6 +115,7 @@ public class Coins : MonoBehaviour
     {
         _levelStartTime = Time.time;
         nextGainTime = -1f;   // 立即进入下一次自动结算。
+        _matchBonusPerSec = 0;   // 全局规则本局加成随每局开始重置（由 GameplayState 重新应用）。
 
         StageConfig config = SceneFSM.Instance != null ? SceneFSM.Instance.CurrentStageConfig : null;
         _useCurve = config != null && config.useIncomeCurve;

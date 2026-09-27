@@ -90,6 +90,9 @@ public class SceneFSM : MonoBehaviour
         if (UserGlobalInfo.Instance != null)
             UserGlobalInfo.Instance.SetCurrentStageType(stageConfig.stageType);
 
+        // 全局规则：大师难度在本局开始（任何加载与出生之前）抽取随机负面/中立规则（幂等）。
+        GlobalRuleManager.PrepareMasterRules(stageConfig);
+
         MenuAmbientAudio.NotifyBeginStage();
         LoadState(GameState.Loading);
     }

@@ -89,11 +89,19 @@ public sealed class GuideDialoguePlayer : MonoBehaviour
     {
         _playing = true;
 
+        Debug.Log($"[GuideDialoguePlayer] 开始播放导游对话：{config.name}，共 {config.guideDialogues.Count} 条。", this);
+        if (guideSayBackground == null || dialogueText == null)
+            Debug.LogWarning("[GuideDialoguePlayer] guideSayBackground/dialogueText 未配置，对话无法显示。", this);
+
         for (int i = 0; i < config.guideDialogues.Count; i++)
         {
             GuideDialogueEntry entry = config.guideDialogues[i];
             if (entry == null || string.IsNullOrEmpty(entry.text))
                 continue;
+
+            // 语音提前播放：台词开始即出声（约比字幕弹出早 1 秒，覆盖头像出场 + 停顿），
+            // 不再跟随字幕弹入动画的时间点。
+            PlayAudio(entry.audioKey);
 
             // 1) 头像弹入并按条目换头像。
             if (guideAvatar != null)
@@ -117,7 +125,7 @@ public sealed class GuideDialoguePlayer : MonoBehaviour
             if (avatarHoldDelay > 0f)
                 yield return new WaitForSeconds(avatarHoldDelay);
 
-            // 2) 对话背景 + 文本弹出（文本黑色），播放本条音频；随后整个对话框上飘淡出。
+            // 2) 对话背景 + 文本弹出（文本黑色），随后整个对话框上飘淡出。
             if (guideSayBackground != null && dialogueText != null)
             {
                 dialogueText.text = entry.text;
@@ -128,26 +136,42 @@ public sealed class GuideDialoguePlayer : MonoBehaviour
                 guideSayBackground.gameObject.SetActive(true);
                 yield return PopIn(guideSayBackground.rectTransform, _sayBaseScale, 0.22f);
 
-                PlayAudio(entry.audioKey);
-
                 // 3) 整个对话框（背景 + 文本）渐上飘、整体淡出，然后隐藏背景。
                 yield return RiseAndFade();
                 guideSayBackground.gameObject.SetActive(false);
-            }
-            else
-            {
-                PlayAudio(entry.audioKey);
             }
 
             if (lineInterval > 0f)
                 yield return new WaitForSeconds(lineInterval);
         }
 
+        // 导游头像退场：缩小到消失后隐藏。
         if (guideAvatar != null)
+        {
+            yield return ScaleDown(guideAvatar.rectTransform, _avatarBaseScale, 0.25f);
             guideAvatar.gameObject.SetActive(false);
+        }
 
         _playing = false;
         _sequence = null;
+    }
+
+    /// <summary>退场动画：从基准缩放平滑缩小到 0（缩小到消失），结束后复位基准缩放。</summary>
+    private static IEnumerator ScaleDown(RectTransform rt, Vector3 baseScale, float duration)
+    {
+        if (rt == null)
+            yield break;
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            rt.localScale = baseScale * (1f - t);
+            yield return null;
+        }
+
+        rt.localScale = baseScale;
     }
 
     /// <summary>缩放弹入：0 倍带回弹过冲弹到基准缩放。</summary>
@@ -199,7 +223,7 @@ public sealed class GuideDialoguePlayer : MonoBehaviour
     }
 
     /// <summary>
-    /// 整个对话框（Guide say 背景 + 内部文本）向上飘动并整体渐变淡出，结束复位。
+    /// 退场动画：整个对话框（Guide say 背景 + 内部文本）向上飘动并整体渐变淡出，结束复位。
     /// 优先用 CanvasGroup 统一控制透明度；缺失时退化到分别淡出背景与文本。
     /// </summary>
     private IEnumerator RiseAndFade()
@@ -257,6 +281,12 @@ public sealed class GuideDialoguePlayer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 播放本条对话音频。缓存未命中时现场发起异步加载并在加载完成后播放，
+    /// 避免预载竞态（点击关卡时资源尚未就绪）导致语音被静默吞掉；
+    /// 加载失败会打出明确报错（最常见原因：audioKey 未登记到 AudioRegistry，
+    /// 需要重新执行 关卡构建/资源构建/一键生成全部资源注册表）。
+    /// </summary>
     private void PlayAudio(string audioKey)
     {
         if (string.IsNullOrEmpty(audioKey) || ResourceManager.Instance == null || AudioManager.Instance == null)
@@ -264,7 +294,38 @@ public sealed class GuideDialoguePlayer : MonoBehaviour
 
         AudioClip clip = ResourceManager.Instance.GetAudio(audioKey);
         if (clip != null)
-            AudioManager.Instance.PlayEffectClip(clip, 32, transform);
+        {
+            PlayEffectAtCamera(clip);
+            return;
+        }
+
+        Debug.LogWarning($"[GuideDialoguePlayer] 导游语音未在缓存中：{audioKey}，正在现场异步加载。", this);
+        ResourceManager.Instance.LoadExtraResourceAsync<AudioClip>(audioKey, loaded =>
+        {
+            if (loaded != null && AudioManager.Instance != null)
+            {
+                PlayEffectAtCamera(loaded);
+            }
+            else
+            {
+                Debug.LogError(
+                    $"[GuideDialoguePlayer] 导游语音加载失败：{audioKey}\n" +
+                    "请确认该 Key 已登记到 AudioRegistry（新增音频后执行 关卡构建/资源构建/一键生成全部资源注册表）。",
+                    this);
+            }
+        });
+    }
+
+    /// <summary>
+    /// 把语音"喇叭"挂在主摄像机位置播放：UI 语音是 2D 反馈，声源距离摄像机为零，
+    /// 音效通道的距离衰减与剔除对它天然不生效，不需要改动全局音效通道逻辑。
+    /// </summary>
+    private void PlayEffectAtCamera(AudioClip clip)
+    {
+        Transform origin = AudioManager.Instance.MainCamera != null
+            ? AudioManager.Instance.MainCamera.transform
+            : transform;
+        AudioManager.Instance.PlayEffectClip(clip, 32, origin);
     }
 
     private void StopSequence()

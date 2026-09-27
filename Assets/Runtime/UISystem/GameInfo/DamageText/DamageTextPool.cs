@@ -44,6 +44,19 @@ public class DamageTextPool : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Start 阶段预载伤害跳字的数字贴图（UIImage number_0..number_9，DamageText 数字模式用）：
+    /// 放在 Start 保证 ResourceManager.Awake 已建立单例（Awake 阶段它可能尚未就绪）。
+    /// </summary>
+    private void Start()
+    {
+        if (ResourceManager.Instance != null)
+        {
+            for (int i = 0; i < 10; i++)
+                ResourceManager.Instance.LoadExtraResourceAsync<Sprite>("number_" + i);
+        }
+    }
     #endregion
 
     #region 游戏逻辑

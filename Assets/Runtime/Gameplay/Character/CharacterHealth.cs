@@ -47,6 +47,8 @@ public class CharacterHealth : MonoBehaviour, ICollide
         new System.Collections.Generic.List<HitColorTarget>();                                          // 可参与受击闪色的渲染目标。
     private MaterialPropertyBlock _hitPropertyBlock;                                                    // 不实例化材质即可修改颜色的属性块。
     private HeavyWoundState _heavyWound;                                                                // 缓存的“重伤”状态组件（低血量时挂载一次，避免每帧 GetComponent）。
+    private Vector3 _barUpBaseScale = Vector3.one;                                                      // 前景血条在预制体里的设计缩放。
+    private Vector3 _barBottomBaseScale = Vector3.one;                                                  // 背景血条在预制体里的设计缩放。
 
     // ── 统一生命扩展点（有序登记，登记顺序即执行顺序；登记方须在 OnDisable 对称注销）──────────
     private readonly List<Func<Damage, int>> _damageModifiers = new List<Func<Damage, int>>(4);         // 入伤修正器：护盾吸收/减伤/反击，正式扣血前依序修正最终伤害。
@@ -75,6 +77,13 @@ public class CharacterHealth : MonoBehaviour, ICollide
         _prop = GetComponent<GameObjectProperty>();
         _hitPropertyBlock = new MaterialPropertyBlock();
         CacheHitColorTargets();
+
+        // 缓存血条在预制体里的设计缩放：运行时刷新只在设计缩放基础上叠加血量比例与补偿，
+        // 不覆盖设计师对血条的整体缩放（与建筑血条同一规则）。
+        if (HpBarUp != null)
+            _barUpBaseScale = HpBarUp.transform.localScale;
+        if (HpBarBottom != null)
+            _barBottomBaseScale = HpBarBottom.transform.localScale;
     }
 
     /// <summary>
@@ -731,6 +740,7 @@ public class CharacterHealth : MonoBehaviour, ICollide
 
     /// <summary>
     /// 根据当前生命比例更新前景血条的横向缩放。
+    /// 以预制体设计缩放为基准，在其上叠加血量比例与父级累计缩放补偿。
     /// </summary>
     private void ApplyBarVisual()
     {
@@ -747,10 +757,18 @@ public class CharacterHealth : MonoBehaviour, ICollide
             float invY = Mathf.Abs(parentLossy.y) > 0.0001f ? 1f / Mathf.Abs(parentLossy.y) : 1f;
 
             float scaleX = _prop.maxHp > 0 ? (float)_prop.currentHp / _prop.maxHp : 0f;
-            HpBarUp.transform.localScale = new Vector3(scaleX * invX, invY, 1f);
+            HpBarUp.transform.localScale = new Vector3(
+                _barUpBaseScale.x * scaleX * invX,
+                _barUpBaseScale.y * invY,
+                1f);
 
             if (HpBarBottom != null)
-                HpBarBottom.transform.localScale = new Vector3(invX, invY, 1f);
+            {
+                HpBarBottom.transform.localScale = new Vector3(
+                    _barBottomBaseScale.x * invX,
+                    _barBottomBaseScale.y * invY,
+                    1f);
+            }
         }
     }
 

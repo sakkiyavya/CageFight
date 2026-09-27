@@ -17,8 +17,6 @@ public class DamageSource : MonoBehaviour
     public bool hasSubProjectile = false;                   // 是否由子投射物自行处理命中，跳过当前触发器逻辑。
     float _remainTime = 0f;                                 // 当前启用周期的剩余存活时间。
     int _remainCollideTime = 0;                             // 当前启用周期的剩余命中次数。
-    float _spawnTime = 0f;                                  // 本次启用（发射）时刻（绝对存活上限用）。
-    private const float MaxLifeSeconds = 6f;                // 弹体绝对存活上限：任何续命都不能让弹体活过这么久。
     readonly System.Collections.Generic.HashSet<GameObject> _hitTargets =
         new System.Collections.Generic.HashSet<GameObject>(); // 本次启用周期已结算的目标（防止同一目标的多个碰撞体/反复进出导致叠伤）。
 
@@ -93,34 +91,6 @@ public class DamageSource : MonoBehaviour
         _remainTime = sustainTime;
         _remainCollideTime = collideTimes;
         _hitTargets.Clear();
-        _spawnTime = Time.time;
-    }
-
-    /// <summary>
-    /// 延长当前启用周期的剩余存活时间（只增不减）。
-    /// 绝对上限：从本次发射起最多存活 MaxLifeSeconds——追踪续命不能反复叠加让弹体永远不死。
-    /// </summary>
-    public void EnsureLife(float seconds)
-    {
-        float aliveFor = Time.time - _spawnTime;
-        float maxRemaining = MaxLifeSeconds - aliveFor;
-        if (maxRemaining <= 0f)
-            return;
-
-        if (seconds > _remainTime)
-            _remainTime = Mathf.Min(seconds, maxRemaining);
-    }
-
-    /// <summary>
-    /// 立即回收当前弹体（追踪到目标却始终无法命中判定时的兜底，
-    /// 防止弹体贴着目标无限飘荡/永不消失）。经对象池回收，池未就绪时安全停用。
-    /// </summary>
-    public void ReleaseNow()
-    {
-        if (GameObjectPool.Instance != null)
-            GameObjectPool.Instance.Release(gameObject);
-        else
-            gameObject.SetActive(false);
     }
     #endregion
 

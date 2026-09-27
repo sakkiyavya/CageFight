@@ -22,6 +22,8 @@ public sealed class UserGlobalInfo : MonoBehaviour
 
     #region 不需要序列化的字段
     private StageType currentStageType;
+    private int selectedGlobalRuleMask;   // 本局全局规则位掩码（选关界面选择，临时、不存档；支持多规则并存）。
+    private bool masterModeEnabled;       // 大师难度开关（选关界面 Difficult，临时、不存档；开启时本局敌方等级+1并抽取随机规则）。
     #endregion
 
     /// <summary>
@@ -64,6 +66,12 @@ public sealed class UserGlobalInfo : MonoBehaviour
     public string SelectedSpellSlot2Id => Data.selectedSpellSlot2Id;
     public string SelectedRaceMainBasePrefabKey => Data.selectedRaceMainBasePrefabKey;
     public StageType CurrentStageType => currentStageType;
+
+    /// <summary>本局选中的全局规则位掩码（选关界面选择，临时不存档；支持多规则并存）。</summary>
+    public int SelectedGlobalRuleMask => selectedGlobalRuleMask;
+
+    /// <summary>大师难度是否开启（选关界面 Difficult 开关，临时不存档）。</summary>
+    public bool MasterModeEnabled => masterModeEnabled;
 
     /// <summary>
     /// 任意一项信息被修改、成功导入 JSON 或重置后触发。
@@ -108,6 +116,26 @@ public sealed class UserGlobalInfo : MonoBehaviour
     public void SetCurrentStageType(StageType stageType)
     {
         currentStageType = stageType;
+    }
+
+    /// <summary>设置本局全局规则位掩码（临时状态：不触发 Changed、不参与存档）。</summary>
+    public bool SetSelectedGlobalRuleMask(int value)
+    {
+        if (selectedGlobalRuleMask == value)
+            return false;
+
+        selectedGlobalRuleMask = value;
+        return true;
+    }
+
+    /// <summary>设置大师难度开关（临时状态：不触发 Changed、不参与存档）。</summary>
+    public bool SetMasterModeEnabled(bool value)
+    {
+        if (masterModeEnabled == value)
+            return false;
+
+        masterModeEnabled = value;
+        return true;
     }
 
     public bool SetDefenseMagicLevel(int value)

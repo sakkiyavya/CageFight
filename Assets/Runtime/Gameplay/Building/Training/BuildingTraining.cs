@@ -312,6 +312,14 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
                 unitProp.troopTag = currentTroop.Tag;               // AI 定位标签（敌方 AI 判定作用/转产）。
                 unitProp.threatScore = currentTroop.ThreatScore;    // 威胁权重（敌方 AI 威胁评估）。
                 unitProp.ApplyLevelScale(prop.barracksLevel);
+
+                StageConfig config = SceneFSM.Instance != null ? SceneFSM.Instance.CurrentStageConfig : null;
+
+                // 关卡全局规则：敌方血量加强（敌方兵营训练产出的兵种同样生效）。
+                GlobalRuleManager.ApplyEnemyHpBonus(unit, config);
+
+                // 关卡全局规则（中立 All run）：所有兵种单位移速 +0.5。
+                GlobalRuleManager.ApplyTroopMoveSpeedBonus(unitProp, config);
             }
         }
     }

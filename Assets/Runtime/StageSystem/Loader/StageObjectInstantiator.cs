@@ -163,9 +163,14 @@ public static class StageObjectInstantiator
             {
                 property.defenseMagicLevel = Mathf.Max(1, UserGlobalInfo.Instance.DefenseMagicLevel);
                 property.attackMagicLevel = Mathf.Max(1, UserGlobalInfo.Instance.AttackMagicLevel);
-                property.barracksLevel = Mathf.Max(1, UserGlobalInfo.Instance.BarracksLevel);
-                property.darkBarracksLevel = Mathf.Max(1, UserGlobalInfo.Instance.DarkBarracksLevel);
-                property.sentryTowerLevel = Mathf.Max(1, UserGlobalInfo.Instance.SentryTowerLevel);
+
+                // 全局规则 Strengthen2：本局友方建筑局外等级 +2（与 BuildingPlace 放置注入一致）。
+                int bonusLevel = GlobalRuleManager.IsEnabled(GlobalRuleId.Strengthen2)
+                    ? GlobalRuleManager.Strengthen2BonusLevel
+                    : 0;
+                property.barracksLevel = Mathf.Max(1, UserGlobalInfo.Instance.BarracksLevel + bonusLevel);
+                property.darkBarracksLevel = Mathf.Max(1, UserGlobalInfo.Instance.DarkBarracksLevel + bonusLevel);
+                property.sentryTowerLevel = Mathf.Max(1, UserGlobalInfo.Instance.SentryTowerLevel + bonusLevel);
             }
         }
 
@@ -233,25 +238,28 @@ public static class StageObjectInstantiator
         if (prop == null || prop.side % 2 != 0)
             return;
 
+        // 大师难度：本局敌方等级 +1（防御/攻击魔法等级与建筑/兵种等级同步）。
+        int levelBonus = GlobalRuleManager.EnemyLevelBonus;
+
         // Buff 等级上下文：敌方防御/攻击魔法等级（= 敌方 Buff 等级）。
-        prop.defenseMagicLevel = Mathf.Max(1, config.enemyDefenseMagicLevel);
-        prop.attackMagicLevel = Mathf.Max(1, config.enemyAttackMagicLevel);
+        prop.defenseMagicLevel = Mathf.Max(1, config.enemyDefenseMagicLevel + levelBonus);
+        prop.attackMagicLevel = Mathf.Max(1, config.enemyAttackMagicLevel + levelBonus);
 
         if (instance.GetComponent<BuildingBase>() != null)
         {
             // 建筑：注入对应等级上下文，再经 BuildUP 统一重算统计（含 1.1 缩放与局内升级叠加）。
             if (instance.GetComponent<BuildingTowerAI>() != null)
             {
-                prop.sentryTowerLevel = Mathf.Max(1, config.enemySentryTowerLevel);
+                prop.sentryTowerLevel = Mathf.Max(1, config.enemySentryTowerLevel + levelBonus);
             }
             else
             {
                 BuildingTraining training = instance.GetComponent<BuildingTraining>();
                 if (training != null)
                 {
-                    int level = training.IsDarkBarracks
-                        ? config.enemyDarkBarracksLevel
-                        : config.enemyBarracksLevel;
+                    int level = (training.IsDarkBarracks
+                            ? config.enemyDarkBarracksLevel
+                            : config.enemyBarracksLevel) + levelBonus;
                     prop.barracksLevel = Mathf.Max(1, level);
                 }
             }
@@ -269,10 +277,16 @@ public static class StageObjectInstantiator
         {
             // 单位：按普通兵营等级缩放（黑暗兵种接入后按黑暗兵营等级）。
             // ApplyLevelScale 内部经 CharacterHealth 受控 API 同步满血。
-            int level = Mathf.Max(1, config.enemyBarracksLevel);
+            int level = Mathf.Max(1, config.enemyBarracksLevel + levelBonus);
             prop.barracksLevel = level;
             prop.ApplyLevelScale(level);
+
+            // 关卡全局规则（中立 All run）：所有兵种单位移速 +0.5。
+            GlobalRuleManager.ApplyTroopMoveSpeedBonus(prop, config);
         }
+
+        // 关卡全局规则：敌方血量加强（本局所有敌方建筑与单位血量额外增加）。
+        GlobalRuleManager.ApplyEnemyHpBonus(instance, config);
     }
     #endregion
 }

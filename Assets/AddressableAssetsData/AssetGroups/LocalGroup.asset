@@ -17,6 +17,16 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: d6678621d44c5b748858851faa33ee05
   m_SerializeEntries:
+  - m_GUID: 061ce244bc4f9bd449cf6eb71aa1ac7e
+    m_Address: EnemyAtk
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2763b5bd8ea069d4e93841679c8cc9b8
+    m_Address: All run
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3d17e31343f8d3643bf07f3bc875a1f9
     m_Address: PrefabRegistry
     m_ReadOnly: 0
@@ -40,6 +50,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - StartupPreload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9b1608785c57cca4d85ce14b3a36b2db
+    m_Address: EnemyHP
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a5100ed88d940224ca99b66ff1d48dae
     m_Address: AnimationClipRegistry

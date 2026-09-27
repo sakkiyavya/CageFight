@@ -35,7 +35,6 @@ public sealed class BookController : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log($"[Book诊断] Awake active={gameObject.activeSelf} scale={transform.localScale} catalog={(catalog != null ? catalog.name : "NULL")} slots={slotObjects.Length} tabs={tabButtons.Length} detailRoot={(detailCardRoot != null ? detailCardRoot.name : "NULL")}");
         BookProgress.RegisterCatalog(catalog);
         CacheSlots();
 
@@ -61,7 +60,6 @@ public sealed class BookController : MonoBehaviour
         _pageIndex = 0;
         CloseDetail();
         Refresh();
-        Debug.Log($"[Book诊断] OnEnable scale={transform.localScale} catalog={(catalog != null ? catalog.name : "NULL")} 条目总数={(catalog != null ? catalog.Entries.Count : 0)} mouse分类数={(catalog != null ? catalog.GetEntriesByCategory("mouse").Count : 0)}");
     }
 
     /// <summary>页签点击：切换派系（下标对应 categoryIds）。</summary>
@@ -101,7 +99,6 @@ public sealed class BookController : MonoBehaviour
     /// <summary>格子点击：已解锁则弹出/切换 Card。</summary>
     public void OnSlotClicked(int slotIndex)
     {
-        Debug.Log($"[Book诊断] OnSlotClicked 卡位{slotIndex} 本类条目={_currentEntries.Count} 页={_pageIndex}");
         int entryIndex = _pageIndex * PageSize + slotIndex;
         if (entryIndex < 0 || entryIndex >= _currentEntries.Count)
             return;
@@ -180,7 +177,6 @@ public sealed class BookController : MonoBehaviour
         _currentEntries.Sort((a, b) => a.star.CompareTo(b.star));
 
         int pageStart = _pageIndex * PageSize;
-        Debug.Log($"[Book诊断] Refresh 分类={(_categoryIndex < categoryIds.Length ? categoryIds[_categoryIndex] : "?")} 页={_pageIndex} 本类条目={_currentEntries.Count} slotImages={_slotImages.Count} overlays={_slotUnlockOverlays.Count}");
         for (int i = 0; i < PageSize; i++)
         {
             if (i >= _slotImages.Count)
@@ -216,10 +212,8 @@ public sealed class BookController : MonoBehaviour
         if (!string.IsNullOrEmpty(entry.avatarSpriteKey) && ResourceManager.Instance != null)
         {
             int token = _refreshToken;
-            Debug.Log($"[Book诊断] ApplySlotIcon 卡位{slotIndex} key={entry.avatarSpriteKey} 异步加载");
             ResourceManager.Instance.LoadExtraResourceAsync<Sprite>(entry.avatarSpriteKey, sprite =>
             {
-                Debug.Log($"[Book诊断] 头像回调 卡位{slotIndex} sprite={(sprite != null ? sprite.name : "NULL")} tokenOK={token == _refreshToken}");
                 if (sprite == null || token != _refreshToken)
                     return;
 
@@ -230,14 +224,12 @@ public sealed class BookController : MonoBehaviour
         }
 
         Sprite fallback = entry.AvatarEditorFallback;
-        Debug.Log($"[Book诊断] ApplySlotIcon 卡位{slotIndex} 编辑器回落 sprite={(fallback != null ? fallback.name : "NULL")}");
         if (fallback != null && slotIndex >= 0 && slotIndex < _slotImages.Count && _slotImages[slotIndex] != null)
             _slotImages[slotIndex].sprite = fallback;
     }
 
     private void ShowDetail(BookEntry entry)
     {
-        Debug.Log($"[Book诊断] ShowDetail entry={entry.id} detailRoot={(detailCardRoot != null ? detailCardRoot.name : "NULL")}");
         _selectedEntry = entry;
 
         bool cardWasActive = detailCardRoot != null && detailCardRoot.gameObject.activeSelf;

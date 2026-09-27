@@ -187,6 +187,13 @@ public class ResourceManager : MonoBehaviour
         if (!commonSprites.Contains("State1 AP_6")) commonSprites.Add("State1 AP_6");
         if (!commonSprites.Contains("Bullet3 AP_1")) commonSprites.Add("Bullet3 AP_1");
         if (!commonSprites.Contains("Buff1 AP_0")) commonSprites.Add("Buff1 AP_0");
+        // 伤害跳字数字贴图（UIImage number_0..number_9）：随关卡资源预载，首条伤害即用贴图模式。
+        // 全部来自同一图集，一次性缓存，开销可忽略。
+        for (int i = 0; i < 10; i++)
+        {
+            string digitKey = "number_" + i;
+            if (!commonSprites.Contains(digitKey)) commonSprites.Add(digitKey);
+        }
     }
 
     /// <summary>
@@ -1235,6 +1242,8 @@ public class ResourceManager : MonoBehaviour
             return animationClipRegistry.GetAsset(key) as T;
         if (typeof(T) == typeof(RuntimeAnimatorController) && animatorControllerRegistry != null)
             return animatorControllerRegistry.GetAsset(key) as T;
+        if (typeof(T) == typeof(GlobalRulePool))
+            return LoadRegistryEditor<GlobalRulePool>() as T;
         return null;
     }
 #endif

@@ -154,13 +154,20 @@ public static class TroopPreloader
             return;
         }
 
-        // 白名单集合（按 TroopDefinition.Id 匹配）。
+        // 白名单集合（拖入的 TroopDefinition 资产按 Id 匹配；空条目忽略）。
         var allowed = new HashSet<string>();
         for (int i = 0; i < team.troopUnlocks.Count; i++)
         {
             EnemyTroopUnlock unlock = team.troopUnlocks[i];
-            if (unlock != null && !string.IsNullOrEmpty(unlock.troopId))
-                allowed.Add(unlock.troopId);
+            if (unlock != null && unlock.Troop != null)
+                allowed.Add(unlock.Troop.Id);
+        }
+
+        // 列表全是空条目 = 视为未配置白名单，整族预载。
+        if (allowed.Count == 0)
+        {
+            PreloadRaceTroops(team.raceId);
+            return;
         }
 
         PreloadAllowedTroops(team.raceId, BuildingType.Barracks, allowed);

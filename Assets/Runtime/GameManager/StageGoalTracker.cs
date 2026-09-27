@@ -241,11 +241,17 @@ public sealed class StageGoalTracker : MonoBehaviour
         GameObjectProperty prop = _boss.GetComponent<GameObjectProperty>();
         if (prop != null)
         {
+            // 大师难度：本局敌方等级 +1（Boss 同为敌方单位）。
+            int levelBonus = GlobalRuleManager.EnemyLevelBonus;
+
             prop.side = 2;   // 敌方。
-            prop.defenseMagicLevel = Mathf.Max(1, config.enemyDefenseMagicLevel);
-            prop.attackMagicLevel = Mathf.Max(1, config.enemyAttackMagicLevel);
-            prop.barracksLevel = Mathf.Max(1, config.enemyBarracksLevel);
+            prop.defenseMagicLevel = Mathf.Max(1, config.enemyDefenseMagicLevel + levelBonus);
+            prop.attackMagicLevel = Mathf.Max(1, config.enemyAttackMagicLevel + levelBonus);
+            prop.barracksLevel = Mathf.Max(1, config.enemyBarracksLevel + levelBonus);
         }
+
+        // 关卡全局规则：敌方血量加强（Boss 同为敌方单位，同样生效）。
+        GlobalRuleManager.ApplyEnemyHpBonus(_boss, config);
 
         Vector2Int occupy = prop != null ? prop.occupySpace : Vector2Int.one;
         _boss.transform.position = new Vector3(

@@ -54,18 +54,21 @@ public class EnemyBuildSlot
 }
 
 /// <summary>
-/// 敌方队伍兵种白名单条目：本队本局可训练的兵种之一。
+/// 敌方队伍兵种白名单条目：本队本局可训练的兵种之一（直接拖入 TroopDefinition 资产）。
 /// troopUnlocks 整表为空 = 本局自动解锁兵营全部兵种；
 /// 一旦填写了条目，本局就**只能**训练列表内出现的兵种（未列出的兵种不可生产）。
 /// </summary>
 [Serializable]
 public class EnemyTroopUnlock
 {
-    [Tooltip("兵种稳定 ID（与 TroopDefinition.Id 一致）")]
-    public string troopId = string.Empty;
+    [Tooltip("本队可训练的兵种（拖入 TroopDefinition 资产；按资产 Id 匹配）")]
+    [SerializeField] private TroopDefinition troop;
 
     [Tooltip("本局可训练该兵种的时间门槛（秒，关卡开始后；0 = 开局即可训练）")]
-    [Min(0)] public float unlockTime = 0f;
+    [Min(0)] [SerializeField] private float unlockTime = 0f;
+
+    public TroopDefinition Troop => troop;
+    public float UnlockTime => unlockTime;
 }
 
 /// <summary>
@@ -119,7 +122,7 @@ public class EnemyTeamConfig
     [Min(0)] public int maxSentries = 2;
 
     [Header("兵种")]
-    [Tooltip("本队本局兵种白名单：留空 = 自动解锁兵营全部兵种；填写后本局只能训练列表内兵种（unlockTime 为该兵种本局可训练的时间门槛，0 = 开局即可）")]
+    [Tooltip("本队本局兵种白名单：留空 = 自动解锁兵营全部兵种；拖入兵种资产后本局只能训练列表内兵种（unlockTime 为该兵种本局可训练的时间门槛，0 = 开局即可）")]
     public List<EnemyTroopUnlock> troopUnlocks = new List<EnemyTroopUnlock>();
 }
 
@@ -234,6 +237,13 @@ public class StageConfig : ScriptableObject
 
     [Tooltip("本关敌方队伍配置（偶数队，最多 4 支）")]
     public List<EnemyTeamConfig> enemyTeams = new List<EnemyTeamConfig>();
+
+    [Header("全局规则")]
+    [Tooltip("本关生效的全局规则资产（可拖入多个）：局内显示其渲染图（点击弹出效果字幕），效果开局即生效")]
+    [SerializeField] private List<GlobalRuleDefinition> globalRules = new List<GlobalRuleDefinition>();
+
+    /// <summary>本关生效的全局规则列表（运行时只读）。</summary>
+    public List<GlobalRuleDefinition> GlobalRules => globalRules;
 
     [Header("胜负（阶段 4）")]
     [Tooltip("进攻关时限（秒，0 = 不限时）：到点未摧毁敌方大本营即失败")]

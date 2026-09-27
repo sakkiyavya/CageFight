@@ -1117,21 +1117,28 @@ public sealed class TeamCommander : MonoBehaviour
     }
 
     /// <summary>
-    /// 兵种白名单判定：troopUnlocks 为空 = 本局兵营全部兵种可用；
-    /// 填写了条目 = 本局只能训练列表内兵种，且局内时间到达该兵种 unlockTime 门槛后才可生产。
+    /// 兵种白名单判定：troopUnlocks 为空（或全部条目未拖入兵种）＝ 本局兵营全部兵种可用；
+    /// 存在有效条目 ＝ 本局只能训练列表内兵种（拖入的 TroopDefinition 资产，按 Id 匹配），
+    /// 且局内时间到达该兵种 unlockTime 门槛后才可生产。
     /// </summary>
     private bool IsTroopUnlocked(string troopId)
     {
         if (_config == null || _config.troopUnlocks == null || _config.troopUnlocks.Count == 0)
             return true;
 
+        bool hasValidEntry = false;
         for (int i = 0; i < _config.troopUnlocks.Count; i++)
         {
             EnemyTroopUnlock unlock = _config.troopUnlocks[i];
-            if (unlock != null && unlock.troopId == troopId && LevelTime >= unlock.unlockTime)
+            if (unlock == null || unlock.Troop == null)
+                continue;   // 空条目（未拖入兵种）不算白名单限制。
+
+            hasValidEntry = true;
+            if (unlock.Troop.Id == troopId && LevelTime >= unlock.UnlockTime)
                 return true;
         }
-        return false;
+
+        return !hasValidEntry;   // 列表全是空条目 = 视为未配置白名单，全部兵种可用。
     }
 
     /// <summary>默认克制表：攻城→近战突进、远程→肉盾、肉盾→攻城、近战→远程。</summary>

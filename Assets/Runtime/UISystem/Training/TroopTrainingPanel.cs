@@ -236,11 +236,12 @@ public sealed class TroopTrainingPanel : UISystemBase, IPointerDownHandler, IPoi
                     filled++;
                     slot.SetPresentation(troop,
                         activeBuilding.CanTrain(troop),
-                        activeBuilding.IsTrainingTroop(troop));
+                        activeBuilding.IsTrainingTroop(troop),
+                        activeBuilding.Level < troop.UnlockLevel);
                 }
                 else
                 {
-                    slot.SetPresentation(null, false, false);
+                    slot.SetPresentation(null, false, false, false);
                 }
             }
         }
@@ -256,7 +257,7 @@ public sealed class TroopTrainingPanel : UISystemBase, IPointerDownHandler, IPoi
     private void HideAllSlots()
     {
         foreach (TroopTrainingSlot slot in slots)
-            if (slot) slot.SetPresentation(null, false, false);
+            if (slot) slot.SetPresentation(null, false, false, false);
     }
 
     /// <summary>

@@ -2,10 +2,10 @@ using UnityEngine;
 
 /// <summary>
 /// 货币反馈音效（挂在与 UserGlobalInfo 同物体的常驻对象上）：
-/// - 金条增长（任意来源）→ 播放 "Gold bar UI AD"；
-/// - 钻石增长（任意来源）→ 播放 "Diamod UI AD"；
+/// - 金条变化（获取或花费，任意来源）→ 播放 "Gold bar UI AD"；
+/// - 钻石变化（获取或花费，任意来源）→ 播放 "Diamod UI AD"；
 /// - 内容不满足要求（如升级货币不足）→ 由业务调用 PlayWrong() 播放 "Wrong UI AD"。
-/// 金条/钻石增长经 UserGlobalInfo.Changed 自动侦测，无需每个发放点各自接音效；
+/// 金条/钻石变化经 UserGlobalInfo.Changed 自动侦测，无需每个发放/花费点各自接音效；
 /// 读档/首次订阅只记录基准值，不误播。
 /// 全部经 AudioManager.PlayEffectClip 统一播放入口（规范禁止运行时 AddComponent）。
 /// </summary>
@@ -93,9 +93,10 @@ public sealed class CurrencyFeedbackAudio : MonoBehaviour
         int gold = _info.GoldBarCount;
         int diamond = _info.DiamondCount;
 
-        if (gold > _lastGold)
+        // 获取与花费都会播放对应的货币音效。
+        if (gold != _lastGold)
             PlaySound(GoldBarSoundKey);
-        if (diamond > _lastDiamond)
+        if (diamond != _lastDiamond)
             PlaySound(DiamondSoundKey);
 
         _lastGold = gold;

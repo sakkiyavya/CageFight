@@ -15,6 +15,9 @@ public sealed class TroopTrainingSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField, Range(0f, 1f)] private float dimmedAlpha = .35f;
     [SerializeField, Range(0f, 1f)] private float trainingAlpha = .55f;
 
+    /// <summary>未到兵营等级解锁的兵种头像颜色（80% 黑）。</summary>
+    private static readonly Color LevelLockedColor = new Color(0.2f, 0.2f, 0.2f, 1f);
+
     private TroopTrainingPanel panel;
     private TroopDefinition troop;
 
@@ -29,8 +32,8 @@ public sealed class TroopTrainingSlot : MonoBehaviour, IPointerClickHandler
         if (icon) icon.preserveAspect = true;
     }
 
-    /// <summary>刷新头像与可用状态；troop 为空时隐藏槽位。</summary>
-    public void SetPresentation(TroopDefinition value, bool canTrain, bool isTraining)
+    /// <summary>刷新头像与可用状态；troop 为空时隐藏槽位。levelLocked = 未到兵营等级解锁（头像 80% 黑）。</summary>
+    public void SetPresentation(TroopDefinition value, bool canTrain, bool isTraining, bool levelLocked)
     {
         troop = value;
         gameObject.SetActive(value != null);
@@ -42,7 +45,7 @@ public sealed class TroopTrainingSlot : MonoBehaviour, IPointerClickHandler
         if (icon)
         {
             icon.sprite = sprite;
-            icon.color = sprite ? Color.white : Color.clear;
+            icon.color = sprite ? (levelLocked ? LevelLockedColor : Color.white) : Color.clear;
         }
 
         if (canvasGroup)

@@ -34,6 +34,9 @@ public class GameplayState : SceneStateBase
     /// <returns>局内状态的进入协程。</returns>
     protected override IEnumerator OnEnter()
     {
+        // 全局规则：大师难度随机规则抽取兜底（任何进入局内的路径都保证完成；幂等）。
+        GlobalRuleManager.PrepareMasterRules(CurrentStageConfig);
+
         // 先关闭菜单侧残留面板，保证进入战斗时界面干净。
         for (int i = 0; i < closeOnEnter.Count; i++)
         {
@@ -47,6 +50,10 @@ public class GameplayState : SceneStateBase
         // 局内经济开始打点：经济增长曲线按局内时间推进（Coins 读取当前关卡曲线配置）。
         if (Coins.Instance != null)
             Coins.Instance.OnLevelStart();
+
+        // 全局规则开局应用：Strengthen1 = 本局每秒金币 +80（Coins.OnLevelStart 已重置加成基数）。
+        if (GlobalRuleManager.IsEnabled(GlobalRuleId.Strengthen1) && Coins.Instance != null)
+            Coins.Instance.AddMatchBonusPerSec(GlobalRuleManager.Strengthen1BonusIncome);
 
         // 敌方 AI：按本关队伍表逐队配置指挥官（未配置的队伍停用）。
         ConfigureEnemyCommanders();

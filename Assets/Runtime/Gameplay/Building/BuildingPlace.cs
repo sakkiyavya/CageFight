@@ -374,13 +374,17 @@ public class BuildingPlace : MonoBehaviour
             return;
 
         UserGlobalInfo info = UserGlobalInfo.Instance;
+        // 全局规则 Strengthen2：本局友方建筑局外等级 +2（大本营注入点同步处理，见 StageObjectInstantiator）。
+        int bonusLevel = GlobalRuleManager.IsEnabled(GlobalRuleId.Strengthen2)
+            ? GlobalRuleManager.Strengthen2BonusLevel
+            : 0;
         prop.side = 1;
         prop.defenseMagicLevel = info != null ? Mathf.Max(1, info.DefenseMagicLevel) : 1;
         prop.attackMagicLevel = info != null ? Mathf.Max(1, info.AttackMagicLevel) : 1;
 
         if (building.GetComponent<BuildingTowerAI>() != null)
         {
-            prop.sentryTowerLevel = info != null ? Mathf.Max(1, info.SentryTowerLevel) : 1;
+            prop.sentryTowerLevel = info != null ? Mathf.Max(1, info.SentryTowerLevel + bonusLevel) : 1;
         }
         else
         {
@@ -390,7 +394,7 @@ public class BuildingPlace : MonoBehaviour
                 int level = training.IsDarkBarracks
                     ? (info != null ? info.DarkBarracksLevel : 1)
                     : (info != null ? info.BarracksLevel : 1);
-                prop.barracksLevel = Mathf.Max(1, level);
+                prop.barracksLevel = Mathf.Max(1, level + bonusLevel);
             }
         }
 
