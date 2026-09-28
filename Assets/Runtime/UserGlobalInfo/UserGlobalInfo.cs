@@ -199,6 +199,36 @@ public sealed class UserGlobalInfo : MonoBehaviour
         return data.bookOwnedIds != null && data.bookOwnedIds.Contains(entryId);
     }
 
+    /// <summary>该关卡在该模式下是否已通关（已领取通关奖励）。</summary>
+    public bool IsStageCleared(int stageId, bool masterMode)
+    {
+        EnsureDataExists();
+
+        List<int> list = masterMode ? data.clearedMasterStageIds : data.clearedNormalStageIds;
+        return list != null && list.Contains(stageId);
+    }
+
+    /// <summary>标记该关卡在该模式下已通关（重复标记返回 false；已持久化）。</summary>
+    public bool MarkStageCleared(int stageId, bool masterMode)
+    {
+        EnsureDataExists();
+
+        List<int> list = masterMode ? data.clearedMasterStageIds : data.clearedNormalStageIds;
+        if (list == null)
+        {
+            list = new List<int>();
+            if (masterMode) data.clearedMasterStageIds = list;
+            else data.clearedNormalStageIds = list;
+        }
+
+        if (list.Contains(stageId))
+            return false;
+
+        list.Add(stageId);
+        Changed?.Invoke();
+        return true;
+    }
+
     /// <summary>记录图鉴条目已拥有并持久化；已拥有时返回 false（幂等）。</summary>
     public bool TryOwnBookEntry(string entryId)
     {

@@ -117,6 +117,34 @@ public class SceneFSM : MonoBehaviour
     }
     #endregion
 
+    /// <summary>
+    /// 从结算界面重开当前关卡（失败重试入口）：
+    /// 沿用 CurrentStageConfig 重新抽取大师难度规则并进入加载流程（LoadingState 会重新实例化关卡）。
+    /// </summary>
+    public void RestartCurrentStage()
+    {
+        if (_isTransitioning || CurrentStageConfig == null)
+            return;
+
+        GlobalRuleManager.PrepareMasterRules(CurrentStageConfig);
+        LoadState(GameState.Loading);
+    }
+
+    /// <summary>
+    /// 从结算界面开始下一关（胜利入口）：接管调用方解析好的下一关配置并进入加载流程。
+    /// </summary>
+    public void StartNextStage(StageConfig nextConfig)
+    {
+        if (_isTransitioning || nextConfig == null)
+            return;
+
+        CurrentStageConfig = nextConfig;
+        if (UserGlobalInfo.Instance != null)
+            UserGlobalInfo.Instance.SetCurrentStageType(nextConfig.stageType);
+        GlobalRuleManager.PrepareMasterRules(nextConfig);
+        LoadState(GameState.Loading);
+    }
+
     #region 状态切换请求
     /// <summary>
     /// 请求切换到指定流程状态；切换期间收到的新请求会排队并在当前切换完成后继续执行。

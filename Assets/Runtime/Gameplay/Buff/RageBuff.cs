@@ -30,7 +30,7 @@ public class RageBuff : BuffBase
 
     [Header("获得音效（仅首次施加触发，叠加不触发）")]
     [SerializeField, ResourceKey(typeof(AudioClip))]
-    private string buffSoundKey = "Violent";  // 首次获得狂暴时播放的音频资源键。
+    private string buffSoundKey = "";  // 首次获得狂暴音效键（已关闭；恢复填回 "Violent"）。
     [SerializeField, Range(0f, 1f)]
     private float buffSoundVolume = 1f;       // 获得音效音量。
     [SerializeField, Range(0, 256)]
@@ -130,7 +130,7 @@ internal class RageState : MonoBehaviour
     private float breathMaxAlpha = 0.4f;
     private Color breathColor = new Color(1f, 0.2f, 0.15f, 1f);
     private AudioSource soundAudio;            // 获得音效音频源（首层施加时解析）。
-    private string soundKey = "Violent";
+    private string soundKey = "";   // 狂暴获得音效键（已按需求关闭；恢复播放时填回 "Violent"）。
     private float soundVolume = 1f;
     private int soundPriority = 32;
     private bool warnedMissingSound;           // 是否已输出过获得音效缺失警告（一次性）。

@@ -34,6 +34,7 @@ public sealed class ReturnToMenuButton : MonoBehaviour, IPointerDownHandler, IPo
         clickReady = false;
         scaled = true;
         transform.localScale = originalScale * pressedScale;
+        MenuClickFeedback.PlayUiClickSound(this);
     }
 
     public void OnPointerExit(PointerEventData eventData)

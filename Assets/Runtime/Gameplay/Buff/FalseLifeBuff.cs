@@ -89,7 +89,7 @@ internal class FalseLifeState : MonoBehaviour
     private const float DarkenFactor = 0.8f;            // 持有期间变黑 20%（颜色 RGB 乘 0.8，保持透明度）。
     private const float TriggerDarkFactor = 0.6f;       // 触发结算（假死）期间变黑 40%（颜色 RGB 乘 0.6）。
     private const float TriggerAlpha = 0.5f;            // 触发结算（假死）期间的透明度（半透明）。
-    private const string FalseLifeSoundKey = "False life"; // 触发结算时播放的音频资源键。
+    private const string FalseLifeSoundKey = ""; // 触发结算音效键（已按需求关闭；恢复播放时填回 "False life"）。
     private const float SoundVolume = 1f;
     private const int SoundPriority = 32;
 
@@ -138,7 +138,8 @@ internal class FalseLifeState : MonoBehaviour
     private void PlayFalseLifeSound()
     {
         if (prop == null ||
-            AudioManager.Instance == null || ResourceManager.Instance == null)
+            AudioManager.Instance == null || ResourceManager.Instance == null ||
+            string.IsNullOrEmpty(FalseLifeSoundKey))
             return;
 
         AudioClip clip = ResourceManager.Instance.GetAudio(FalseLifeSoundKey);

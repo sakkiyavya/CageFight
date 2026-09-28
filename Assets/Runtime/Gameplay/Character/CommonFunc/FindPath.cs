@@ -67,10 +67,12 @@ public class FindPath : BehaviourBase
         // 如果没有会话或目标坐标已变，则启动/重启会话。
         if (prop.currentPathSession == null || prop.currentPathSession.end != _targetPos)
         {
-            // 射程盒子：X 方向 ≤ atkRange.x-1，Y 方向 ≤ (atkRange.y-1)/2（向下取整，保守覆盖攻击矩形）。
+            // 射程盒子：X 方向 ≤ atkRange.x-2，Y 方向 ≤ (atkRange.y-1)/2（向下取整，保守覆盖攻击矩形）。
+            // 收紧一格：旧公式 (x-1) 允许单位停在攻击范围边界上，边界处的重叠判定时灵时不灵，
+            // 表现为“走到射程边就不攻击”（Ruifa 镜像等远程单位）。
             Vector2Int extent = _useRangeGoal
                 ? new Vector2Int(
-                    Mathf.Max(0, prop.atkRange.x - 1),
+                    Mathf.Max(0, prop.atkRange.x - 2),
                     Mathf.Max(0, (prop.atkRange.y - 1) / 2))
                 : Vector2Int.zero;
             prop.currentPathSession = new AStarUtility.PathSearchSession(

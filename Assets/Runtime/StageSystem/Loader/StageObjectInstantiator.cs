@@ -283,6 +283,9 @@ public static class StageObjectInstantiator
 
             // 关卡全局规则（中立 All run）：所有兵种单位移速 +0.5。
             GlobalRuleManager.ApplyTroopMoveSpeedBonus(prop, config);
+
+            // 关卡全局规则（负面 EnemyAtk）：敌方兵种攻击力与魔法攻击力 +10%。
+            GlobalRuleManager.ApplyEnemyAtkBonus(prop, config);
         }
 
         // 关卡全局规则：敌方血量加强（本局所有敌方建筑与单位血量额外增加）。

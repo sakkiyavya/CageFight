@@ -27,7 +27,7 @@ public class ConcentratedBuff : BuffBase
 
     [Header("获得音效（仅首次施加触发，叠加不触发）")]
     [SerializeField, ResourceKey(typeof(AudioClip))]
-    private string buffSoundKey = "Zip buff"; // 首次获得浓缩时播放的音频资源键。
+    private string buffSoundKey = ""; // 首次获得浓缩音效键（已关闭；恢复填回 "Zip buff"）。
     [SerializeField, Range(0f, 1f)]
     private float buffSoundVolume = 1f;       // 获得音效音量。
     [SerializeField, Range(0, 256)]
@@ -127,7 +127,7 @@ internal class ConcentratedState : MonoBehaviour
     private Vector3 shootPointBaseLocal;       // 发射点基准本地坐标。
 
     private AudioSource soundAudio;            // 获得音效音频源（首层施加时解析）。
-    private string soundKey = "Zip buff";
+    private string soundKey = "";   // 浓缩获得音效键（已按需求关闭；恢复播放时填回 "Zip buff"）。
     private float soundVolume = 1f;
     private int soundPriority = 32;
     private bool warnedMissingSound;           // 是否已输出过获得音效缺失警告（一次性）。

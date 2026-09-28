@@ -54,6 +54,22 @@ public sealed class MenuClickFeedback : MonoBehaviour
         PlayClickSound();
     }
 
+    /// <summary>
+    /// 经框架音频调度播放 "UI Click"（静态复用入口，供结算面板等非菜单按钮共用）。
+    /// 音频未就绪（键未预载 / AudioManager 为空）时静默跳过。
+    /// </summary>
+    public static void PlayUiClickSound(MonoBehaviour context, string soundKey = "UI Click")
+    {
+        if (context == null || AudioManager.Instance == null || ResourceManager.Instance == null)
+            return;
+
+        AudioClip clip = ResourceManager.Instance.GetAudio(soundKey);
+        if (clip == null)
+            return;
+
+        AudioManager.Instance.PlayEffectClip(clip, 32, context.transform);
+    }
+
     /// <summary>对按钮做一次轻回弹缩放（正弦缓动：1 → 谷值 → 1），结束后恢复原始缩放。</summary>
     private void Bounce(Transform target)
     {
@@ -88,14 +104,7 @@ public sealed class MenuClickFeedback : MonoBehaviour
     /// <summary>经框架音频调度播放 UI Click（资源键 → AudioManager，规范禁止直接 PlayOneShot 绕过）。</summary>
     private void PlayClickSound()
     {
-        if (AudioManager.Instance == null || ResourceManager.Instance == null)
-            return;
-
-        AudioClip clip = ResourceManager.Instance.GetAudio(clickSoundKey);
-        if (clip == null)
-            return;
-
-        AudioManager.Instance.PlayEffectClip(clip, 32, transform);
+        PlayUiClickSound(this, clickSoundKey);
     }
 
     /// <summary>

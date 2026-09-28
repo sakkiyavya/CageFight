@@ -72,6 +72,10 @@ public static class GlobalRuleManager
     public const string AllRunSpeedRuleId = "allRunSpeed";
     public const float AllRunSpeedBonus = 0.5f;
 
+    /// <summary>敌方攻击加强（负面规则 EnemyAtk）的效果实现键与效果参数。</summary>
+    public const string EnemyAtkRuleId = "enemyAtk";
+    public const float EnemyAtkBonusPercent = 10f;
+
     /// <summary>大师难度：本局敌方等级额外增加的级数（兵营/黑暗兵营/哨塔/魔法等级与兵种缩放统一生效）。</summary>
     public const int MasterModeEnemyLevelBonus = 2;
 
@@ -249,5 +253,20 @@ public static class GlobalRuleManager
             return;
 
         prop.moveSpeed += AllRunSpeedBonus;
+    }
+
+    /// <summary>
+    /// 关卡全局规则（负面 EnemyAtk）：本局所有敌方兵种单位攻击力与魔法攻击力额外增加 10%。
+    /// 在敌方兵种出生注入点统一调用（预摆单位 / 敌方训练产出 / Boss），
+    /// 直接写入 GameObjectProperty.atk / magicAtk（建筑与友方不受影响）。
+    /// </summary>
+    public static void ApplyEnemyAtkBonus(GameObjectProperty prop, StageConfig config)
+    {
+        if (prop == null || prop.side % 2 != 0 || !HasRule(config, EnemyAtkRuleId))
+            return;
+
+        float multiplier = 1f + EnemyAtkBonusPercent * 0.01f;
+        prop.atk = Mathf.Max(1, Mathf.RoundToInt(prop.atk * multiplier));
+        prop.magicAtk = Mathf.Max(1, Mathf.RoundToInt(prop.magicAtk * multiplier));
     }
 }

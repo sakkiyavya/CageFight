@@ -42,6 +42,17 @@ public class DarkCat : BehaviourBase
         if (!iconTarget) iconTarget = transform;
     }
 
+    private void OnEnable()
+    {
+        // 特效图标预制体预载：按资源键从缓存解析，缓存未就绪时特效会被静默跳过——
+        // 启用时补发预载（编辑器直取路径同步缓存），保证攻击时特效可用。
+        if (ResourceManager.Instance != null && !string.IsNullOrEmpty(iconPrefabKey) &&
+            ResourceManager.Instance.GetGameObject(iconPrefabKey) == null)
+        {
+            ResourceManager.Instance.LoadExtraResourceAsync<GameObject>(iconPrefabKey);
+        }
+    }
+
     // 攻击动画事件调用
     public void DarkCatAttack()
     {
@@ -114,7 +125,13 @@ public class DarkCat : BehaviourBase
         GameObject iconPrefab = ResourceManager.Instance != null
             ? ResourceManager.Instance.GetGameObject(iconPrefabKey)
             : null;
-        if (iconPrefab == null) return result.missed ? 0 : result.finalDamage;
+        if (iconPrefab == null)
+        {
+            // 仍未缓存：补发预载，后续攻击特效可用（本次跳过特效、伤害正常）。
+            if (ResourceManager.Instance != null)
+                ResourceManager.Instance.LoadExtraResourceAsync<GameObject>(iconPrefabKey);
+            return result.missed ? 0 : result.finalDamage;
+        }
 
         GameObject icon =
             GameObjectPool.Instance.Get(iconPrefab);

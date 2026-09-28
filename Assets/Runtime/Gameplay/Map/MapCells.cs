@@ -241,6 +241,20 @@ public class MapCells : MonoBehaviour
     {
         return x >= 0 && x < width && y >= 0 && y < height;
     }
+
+    /// <summary>
+    /// 单位禁锢：把世界坐标钳回地图网格范围内（留半格边距，单位中心不越出最外层格子）。
+    /// 供移动、击退与其它位移系统统一调用，防止任何单位跑出地图格之外。
+    /// </summary>
+    /// <param name="position">需要限制的世界坐标。</param>
+    /// <returns>限制在地图内的世界坐标。</returns>
+    public Vector3 ClampToMap(Vector3 position)
+    {
+        float half = 0.5f;
+        position.x = Mathf.Clamp(position.x, half, Mathf.Max(half, width - half));
+        position.y = Mathf.Clamp(position.y, half, Mathf.Max(half, height - half));
+        return position;
+    }
     #endregion
 
 #if UNITY_EDITOR

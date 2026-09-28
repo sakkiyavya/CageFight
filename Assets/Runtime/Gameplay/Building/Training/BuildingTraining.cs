@@ -320,6 +320,9 @@ public sealed class BuildingTraining : MonoBehaviour, IPointerDownHandler
 
                 // 关卡全局规则（中立 All run）：所有兵种单位移速 +0.5。
                 GlobalRuleManager.ApplyTroopMoveSpeedBonus(unitProp, config);
+
+                // 关卡全局规则（负面 EnemyAtk）：敌方兵种攻击力与魔法攻击力 +10%。
+                GlobalRuleManager.ApplyEnemyAtkBonus(unitProp, config);
             }
         }
     }

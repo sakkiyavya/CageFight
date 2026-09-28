@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,6 +20,10 @@ public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandl
     [SerializeField] private GameObject targetBuilding;                         // 按下按钮时创建并进入放置模式的建筑预制体。
     [SerializeField, Tooltip("建筑类型（与种族资产 Buildings 表匹配）；None = 始终使用默认预制体")]
     private BuildingType buildingType = BuildingType.None;
+
+    [Header("建造花费角标")]
+    [SerializeField, Tooltip("按钮右下角金币角标上的花费文本；显示本按钮当前解析建筑（种族变体优先）的 1 级建造费用")]
+    private TMP_Text costText;
 
     /// <summary>设置本按钮创建的目标建筑预制体（测试工具种族切换使用）。</summary>
     public void SetTargetBuilding(GameObject prefab)
@@ -79,6 +84,52 @@ public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandl
         return null;
     }
 
+    #region 建造花费角标
+    /// <summary>角标刷新兜底节流时间点；种族建筑预载晚于 Start 完成时由周期刷新自动纠正角标。</summary>
+    private float _nextBadgeRefreshAt;
+
+    /// <summary>启动时刷新角标；资源未就绪时按当前可解析值显示，后续由周期刷新补齐。</summary>
+    private void Start()
+    {
+        RefreshCostBadge();
+    }
+
+    /// <summary>按钮每次激活时刷新角标（面板切换可见性会再次触发本回调）。</summary>
+    private void OnEnable()
+    {
+        RefreshCostBadge();
+    }
+
+    /// <summary>每 0.5 秒兜底刷新一次角标，覆盖种族建筑预载晚于按钮启动的场景。</summary>
+    private void Update()
+    {
+        if (Time.unscaledTime < _nextBadgeRefreshAt)
+            return;
+
+        _nextBadgeRefreshAt = Time.unscaledTime + 0.5f;
+        RefreshCostBadge();
+    }
+
+    /// <summary>按当前解析的预制体重算角标花费。</summary>
+    private void RefreshCostBadge()
+    {
+        RefreshCostBadge(ResolvePrefab());
+    }
+
+    /// <summary>从建筑预制体读取 1 级建造费用（BuildUP.levels[0].cost）并写入角标文本。</summary>
+    private void RefreshCostBadge(GameObject prefab)
+    {
+        if (costText == null || prefab == null)
+            return;
+
+        BuildUP buildUp = prefab.GetComponent<BuildUP>();
+        int cost = buildUp != null && buildUp.levels != null && buildUp.levels.Length > 0
+            ? Mathf.Max(0, buildUp.levels[0].cost)
+            : 0;
+        costText.text = cost.ToString();
+    }
+    #endregion
+
     #region 生命周期与回调
     /// <summary>
     /// 将按下位置转换到按钮局部坐标；转换成功后经对象池生成目标建筑，并用当前指针进入建筑放置模式。
@@ -88,6 +139,9 @@ public class BuildingButton : UISystemBase, IPointerDownHandler, IPointerUpHandl
     {
         GameObject prefab = ResolvePrefab();
         if (prefab == null || BuildingPlace.Instance == null) return;
+
+        // 点击时按本次实际解析结果同步角标，保证角标费用与将要建造的费用一致（种族变体同源解析）。
+        RefreshCostBadge(prefab);
 
         RectTransform rectTransform = transform as RectTransform;            // 当前建筑按钮的矩形变换。
         Vector2 localPosition;                                               // 指针相对按钮的局部坐标。

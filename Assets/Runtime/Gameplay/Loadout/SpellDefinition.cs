@@ -21,6 +21,9 @@ public sealed class SpellDefinition : ScriptableObject
     [ResourceKey(typeof(Sprite))]
     [SerializeField] private string iconKey;
     [SerializeField, Min(0f)] private float cooldown = 5f;
+    [Header("消耗")]
+    [SerializeField, Min(0), Tooltip("每次施放消耗的金币；0 = 免费。按钮右下角角标实时显示该值")]
+    private int goldCost;
     [ResourceKey(typeof(GameObject))]
     [SerializeField] private string castPrefabKey;
     [Header("投递")]
@@ -52,6 +55,7 @@ public sealed class SpellDefinition : ScriptableObject
     public string DisplayName => displayName;
     public string IconKey => iconKey;
     public float Cooldown => cooldown;
+    public int GoldCost => Mathf.Max(0, goldCost);
     public string CastPrefabKey => castPrefabKey;
     public SpellDeliveryType DeliveryType => deliveryType;
     public float DirectCastTime => directCastTime;

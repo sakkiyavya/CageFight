@@ -99,7 +99,8 @@ public class CharacterAI : MonoBehaviour
 
     #region 帧更新回调
     /// <summary>
-    /// 活着时每帧先处理击退位移，再执行一轮 AI 行为决策。
+    /// 活着时每帧先处理击退位移，再执行一轮 AI 行为决策，最后把位置钳回地图内
+    /// （单位禁锢：移动、击退或任何行为位移都不能把单位送出地图格之外）。
     /// </summary>
     void Update()
     {
@@ -110,6 +111,17 @@ public class CharacterAI : MonoBehaviour
             Repel();
         AIBehaviour();
         UpdateAttackLatch();
+        ConfineToMap();
+    }
+
+    /// <summary>把角色位置钳回地图网格内（经 MapCells 统一入口）。</summary>
+    private void ConfineToMap()
+    {
+        MapCells map = MapCells.Instance;
+        if (map == null)
+            return;
+
+        transform.position = map.ClampToMap(transform.position);
     }
     #endregion
 
@@ -151,7 +163,13 @@ public class CharacterAI : MonoBehaviour
         if (_prop == null || string.IsNullOrEmpty(_prop.atkObj)) return;
 
         GameObject atkPrefab = ResourceManager.Instance.GetGameObject(_prop.atkObj);    // 当前角色配置的攻击预制体。
-        if (atkPrefab == null) return;
+        if (atkPrefab == null)
+        {
+            // 弹幕未缓存（如运行时召唤单位的弹幕不在关卡预载清单内）：补发预载，
+            // 下一轮攻击即可使用——避免"动画播放了但没有弹幕、无伤害"的静默失败。
+            ResourceManager.Instance.LoadExtraResourceAsync<GameObject>(_prop.atkObj);
+            return;
+        }
 
         GameObject projectile = GameObjectPool.Instance.Get(atkPrefab);                 // 从对象池取得的投射物实例。
         if (projectile != null)
@@ -193,7 +211,18 @@ public class CharacterAI : MonoBehaviour
             // 若生成的对象是召唤单位（实现 ISummonedUnit），把攻击者注入为创造者。
             ISummonedUnit summoned = projectile.GetComponent<ISummonedUnit>();
             if (summoned != null)
+            {
                 summoned.SetCreator(gameObject);
+
+                // 召唤单位自身还会发射弹幕（如 Ruifa M 的 Bullet-Ruifa M）：
+                // 它的弹幕不在关卡预载清单内，召唤时补发预载，保证镜像开火时弹幕已缓存。
+                GameObjectProperty mirrorProp = projectile.GetComponent<GameObjectProperty>();
+                if (mirrorProp != null && !string.IsNullOrEmpty(mirrorProp.atkObj) &&
+                    ResourceManager.Instance.GetGameObject(mirrorProp.atkObj) == null)
+                {
+                    ResourceManager.Instance.LoadExtraResourceAsync<GameObject>(mirrorProp.atkObj);
+                }
+            }
         }
 
         _prop.OnAtt?.Invoke();

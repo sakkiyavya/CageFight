@@ -33,7 +33,7 @@ public class GiantBuff : BuffBase
 
     [Header("获得音效")]
     [SerializeField, ResourceKey(typeof(AudioClip))]
-    private string buffSoundKey = "Huge buff"; // 获得巨化时播放的音频资源键。
+    private string buffSoundKey = ""; // 获得巨化音效键（已关闭；恢复填回 "Huge buff"）。
     [SerializeField, Range(0f, 1f)]
     private float buffSoundVolume = 1f;     // 获得音效音量。
     [SerializeField, Range(0, 256)]
@@ -138,7 +138,7 @@ internal class GiantState : MonoBehaviour
     private Coroutine bounceRoutine;          // 当前正在播放的弹动协程。
     private float bounceDuration = 0.3f;
     private float bounceAmount = 0.2f;
-    private string soundKey = "Huge buff";
+    private string soundKey = "";   // 巨化获得音效键（已按需求关闭；恢复播放时填回 "Huge buff"）。
     private float soundVolume = 1f;
     private int soundPriority = 32;
     private bool warnedMissingSound;          // 是否已输出过获得音效缺失警告（一次性）。

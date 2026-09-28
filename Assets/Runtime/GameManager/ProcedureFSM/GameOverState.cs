@@ -3,20 +3,31 @@ using UnityEngine;
 
 /// <summary>
 /// 结束结算状态。
-/// UI 模块（GameOverPanel）由基类 stateModules 统一驱动开关，
-/// OnEnter 负责刷新结算面板内容，OnExit 负责释放本局关卡资源。
+/// UI 模块（GameOverCanvas）由基类 stateModules 统一驱动开关；
+/// OnEnter 按本局胜负显示 Next（胜利）或 Try again（失败）按钮。
 /// </summary>
 public class GameOverState : SceneStateBase
 {
+    [SerializeField, Tooltip("胜利时显示的下一关按钮")]
+    private GameObject nextButton;
+
+    [SerializeField, Tooltip("失败时显示的重试按钮")]
+    private GameObject tryAgainButton;
+
     #region 生命周期与回调
     /// <summary>
-    /// 进入结算流程，并预留获取战斗结果及刷新奖励、星级和得分界面的逻辑。
+    /// 进入结算流程：按 GameOverManager 记录的胜负结果显示对应按钮。
     /// </summary>
     /// <returns>结算状态的进入协程。</returns>
     protected override IEnumerator OnEnter()
     {
-        // TODO: 从 GameplayState 或事件中获取战斗结果数据
-        // TODO: 刷新 GameOverPanel 中的结算数据（星级、得分、奖励等）
+        bool victory = GameOverManager.Instance != null && GameOverManager.Instance.IsVictory;
+
+        if (nextButton != null)
+            nextButton.SetActive(victory);
+        if (tryAgainButton != null)
+            tryAgainButton.SetActive(!victory);
+
         yield return null;
     }
 
@@ -26,7 +37,7 @@ public class GameOverState : SceneStateBase
     /// <returns>结算状态的退出协程。</returns>
     protected override IEnumerator OnExit()
     {
-        // TODO: 调用 ResourceManager.Instance.ReleaseLevelResources() 释放本局资源句柄
+        // TODO: 调用 ResourceManager 释放本局资源句柄
         yield return null;
     }
     #endregion

@@ -48,4 +48,11 @@ public sealed class UserGlobalInfoData
 
     [Header("图鉴拥有")]
     public List<string> bookOwnedIds = new List<string>();
+
+    [Header("通关奖励进度")]
+    [Tooltip("已通关（已领取奖励）的普通模式关卡 ID 列表")]
+    public List<int> clearedNormalStageIds = new List<int>();
+
+    [Tooltip("已通关（已领取奖励）的大师模式关卡 ID 列表")]
+    public List<int> clearedMasterStageIds = new List<int>();
 }

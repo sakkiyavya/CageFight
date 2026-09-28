@@ -26,8 +26,10 @@ public class CharacterHealth : MonoBehaviour, ICollide
     private float jellyDuration = 0.6f;                                                                 // 受击果冻形变持续时间。
     private float jellyFrequency = 2f;                                                                  // 受击形变的振荡频率。
     private float jellyAmplitude = 0.1f;                                                                // 受击时向上弹动的最大幅度。
-    [SerializeField, Min(0.1f), Tooltip("果冻形变满强度的击退参考值：实际击退值达到该值时果冻幅度最大，击退值越大果冻越强")]
-    private float jellyRepelReference = 4f;                                                             // 果冻强度与击退值联动的参考击退值。
+    [SerializeField, Min(0.1f), Tooltip("果冻强度的击退参考值：实际击退值等于该值时果冻为原版基准强度（默认 1 = 1 点击退即基准）")]
+    private float jellyRepelReference = 1f;                                                             // 果冻强度与击退值联动的参考击退值。
+    [SerializeField, Min(1f), Tooltip("果冻强度的放大上限：击退值远超参考值时，果冻最多放大到基准的该倍数（防止缩放反向）")]
+    private float jellyMaxFactor = 3f;                                                                  // 果冻强度放大上限。
     
     [SerializeField, Tooltip("死亡掉落期间的旋转角速度（度/秒）")]
     private float deathAngularSpeed = 180f;                                                             // 死亡掉落期间的旋转角速度。
@@ -565,10 +567,13 @@ public class CharacterHealth : MonoBehaviour, ICollide
         float elapsed = 0f;
         bool colorRestored = false;
 
-        // 果冻强度与实际击退值联动：击退值越大，果冻形变越强；
+        // 果冻强度与实际击退值联动：击退值 = 参考值时果冻为原版基准强度，
+        // 击退值越大果冻越夸张（上限 jellyMaxFactor 倍）；
         // 无击退（击退值 ≈ 0）时只做闪红反馈，不播果冻（避免"卡顿"）。
-        float jellyFactor = Mathf.Clamp01(
-            Mathf.Abs(_prop.repelDistance) / Mathf.Max(0.001f, jellyRepelReference));
+        float jellyFactor = Mathf.Clamp(
+            Mathf.Abs(_prop.repelDistance) / Mathf.Max(0.001f, jellyRepelReference),
+            0f,
+            jellyMaxFactor);
         _jellyPlayed = jellyFactor > 0.001f;
         float effectDuration = _jellyPlayed
             ? Mathf.Max(hitFlashDuration, jellyDuration)

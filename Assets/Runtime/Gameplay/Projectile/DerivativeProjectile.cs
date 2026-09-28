@@ -28,6 +28,14 @@ public class DerivativeProjectile : MonoBehaviour
     {
         life = fire = 0;
         ready = false;
+
+        // 弹幕预载：projectileKey 是本组件独立字段、不在关卡预载清单内，
+        // 缓存未命中时 Shoot 会静默跳过（表现为"不攻击"）。启用时补发预载（编辑器直取路径同步缓存）。
+        if (ResourceManager.Instance != null && !string.IsNullOrEmpty(projectileKey) &&
+            ResourceManager.Instance.GetGameObject(projectileKey) == null)
+        {
+            ResourceManager.Instance.LoadExtraResourceAsync<GameObject>(projectileKey);
+        }
     }
 
     void Update()
@@ -79,7 +87,15 @@ public class DerivativeProjectile : MonoBehaviour
         GameObject prefab =
             ResourceManager.Instance.GetGameObject(projectileKey);
 
-        if (!target || !prefab) return;
+        if (prefab == null)
+        {
+            // 弹幕仍未缓存：补发预载，后续齐射可用（本轮不发射）。
+            if (ResourceManager.Instance != null)
+                ResourceManager.Instance.LoadExtraResourceAsync<GameObject>(projectileKey);
+            return;
+        }
+
+        if (!target) return;
 
         GameObject bullet = GameObjectPool.Instance.Get(prefab);
         bullet.transform.position = transform.position;

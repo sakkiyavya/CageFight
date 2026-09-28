@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Stage7
   m_EditorClassIdentifier: 
   stageId: 7
+  stageType: 0
+  DefenseTime: 0
   icon: {fileID: 0}
+  displayIcons:
+  - {fileID: -182805030, guid: 2c44d11cbc2b5c143a2e899c97174511, type: 3}
   objects:
   - instanceId: 1000
     prefabKey: Miner rat
@@ -37,6 +41,8 @@ MonoBehaviour:
     - rid: 692231757289750533
     - rid: 692231757289750534
     - rid: 692231757289750535
+  hasFriendlyMainBaseGridPosition: 0
+  friendlyMainBaseGridPosition: {x: 0, y: 0}
   prefabs:
   - Miner rat
   - Bullet-Miner rat
@@ -48,6 +54,46 @@ MonoBehaviour:
   - Miner rat AC
   sprites:
   - Miner rat-move_0
+  useIncomeCurve: 1
+  guideDialogues:
+  - avatarSpriteKey: Guide_19
+    text: "\u6709\u597D\u620F\u770B\u4E86\uFF0C\u54C8\u54C8\u54C8\u54C8\u54C8\u54C8"
+    audioKey: DabaDoctor talk1
+  baseGoldPerSecond: 10
+  incomeGrowth: []
+  enemyBarracksLevel: 3
+  enemyDarkBarracksLevel: 3
+  enemySentryTowerLevel: 3
+  enemyDefenseMagicLevel: 6
+  enemyAttackMagicLevel: 6
+  enemyBaseDistance: 60
+  enemyTeams:
+  - teamId: 0
+    raceId: Cat
+    startGold: 0
+    baseGoldPerSecond: 0
+    incomeGrowth: []
+    reserve: 0
+    defenseSpendRatio: 0
+    surplusSeconds: 0
+    strategy: 0
+    threatThreshold: 0
+    defendRadius: 0
+    homeGridPosition: {x: 0, y: 0}
+    buildSlots: []
+    randomizeBuildOrder: 0
+    buildGapRange: {x: 0, y: 0}
+    positionJitter: 0
+    maxBarracks: 0
+    maxSentries: 0
+    troopUnlocks: []
+  globalRules: []
+  victoryGoldBars: 100
+  victoryDiamonds: 10
+  attackTimeLimit: 180
+  bossTimeLimit: 180
+  bossPrefabKey: BabaDoctor Y-7
+  bossGridPosition: {x: 70, y: 3}
   references:
     version: 2
     RefIds:

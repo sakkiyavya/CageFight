@@ -245,6 +245,19 @@ public class StageConfig : ScriptableObject
     /// <summary>本关生效的全局规则列表（运行时只读）。</summary>
     public List<GlobalRuleDefinition> GlobalRules => globalRules;
 
+    [Header("通关奖励")]
+    [Tooltip("本关胜利奖励金条数：普通模式发一半、大师模式发全部（普通已领一半时大师补剩下的一半）")]
+    [Min(0)] [SerializeField] private int victoryGoldBars = 100;
+
+    [Tooltip("本关胜利奖励钻石数：规则同上")]
+    [Min(0)] [SerializeField] private int victoryDiamonds = 10;
+
+    /// <summary>本关胜利奖励金条数（全量；普通模式按一半结算）。</summary>
+    public int VictoryGoldBars => victoryGoldBars;
+
+    /// <summary>本关胜利奖励钻石数（全量；普通模式按一半结算）。</summary>
+    public int VictoryDiamonds => victoryDiamonds;
+
     [Header("胜负（阶段 4）")]
     [Tooltip("进攻关时限（秒，0 = 不限时）：到点未摧毁敌方大本营即失败")]
     [Min(0)] public float attackTimeLimit = 180f;

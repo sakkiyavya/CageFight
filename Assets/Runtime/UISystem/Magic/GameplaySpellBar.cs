@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,12 @@ public sealed class GameplaySpellBar : MonoBehaviour
     [SerializeField] private PlayerLoadoutManager loadout;
     [SerializeField] private Image[] icons = new Image[3];
     [SerializeField] private Image[] cooldownMasks = new Image[3];
+
+    [Header("法术金币角标")]
+    [SerializeField, Tooltip("各栏位右下角金币角标（与 icons 同序）；该栏位无法术时自动隐藏")]
+    private GameObject[] costBadges = new GameObject[3];
+    [SerializeField, Tooltip("各栏位金币角标上的花费文本（与 icons 同序）；显示法术的金币消耗")]
+    private TMP_Text[] costTexts = new TMP_Text[3];
     [SerializeField] private LineRenderer aimPreview;
     [SerializeField] private SpriteRenderer aimStripPreview;
     [SerializeField] private Sprite aimPreviewSprite;
@@ -136,7 +143,9 @@ public sealed class GameplaySpellBar : MonoBehaviour
     public void Cast(int slot)
     {
         if (!CanCast(slot, out EngineerController engineer, out SpellDefinition spell)) return;
+        if (!CanAfford(spell, engineer)) return;
         if (!EngineerSpellCaster.Cast(spell, engineer)) return;
+        ChargeGold(spell);
         readyTimes[slot] = Time.time + spell.Cooldown;
     }
 
@@ -220,7 +229,9 @@ public sealed class GameplaySpellBar : MonoBehaviour
             return;
         }
         if (!CanCast(slot, out EngineerController engineer, out SpellDefinition spell)) return;
+        if (!CanAfford(spell, engineer)) return;
         if (!EngineerSpellCaster.Cast(spell, engineer, aimPoint)) return;
+        ChargeGold(spell);
         readyTimes[slot] = Time.time + spell.Cooldown;
     }
 
@@ -257,9 +268,16 @@ public sealed class GameplaySpellBar : MonoBehaviour
     {
         for (int i = 0; i < icons.Length && i < 3; i++)
         {
+            bool hasSpell = TryGetSpell(i, out SpellDefinition spell);
+
+            // 金币角标：无法术时整体隐藏；有法术时显示该法术配置的金币消耗。
+            if (i < costBadges.Length && costBadges[i])
+                costBadges[i].SetActive(hasSpell);
+            if (i < costTexts.Length && costTexts[i])
+                costTexts[i].text = hasSpell ? spell.GoldCost.ToString() : string.Empty;
+
             if (!icons[i]) continue;
 
-            bool hasSpell = TryGetSpell(i, out SpellDefinition spell);
             Sprite icon = null;
             if (hasSpell && ResourceManager.Instance)
                 icon = ResourceManager.Instance.GetSprite(spell.IconKey);
@@ -360,6 +378,29 @@ public sealed class GameplaySpellBar : MonoBehaviour
         spell = null;
         return (uint)slot < readyTimes.Length && loadout &&
             loadout.TryGetGameplaySpell(slot, out spell);
+    }
+
+    /// <summary>金币足够（或法术免费 / 金币系统未就绪）返回 true；不足时在工程师位置弹“金币不足”。</summary>
+    private bool CanAfford(SpellDefinition spell, EngineerController engineer)
+    {
+        if (spell.GoldCost <= 0 || Coins.Instance == null)
+            return true;
+
+        if (Coins.Instance.CurrentCoins >= spell.GoldCost)
+            return true;
+
+        if (DamageTextPool.Instance != null)
+            DamageTextPool.Instance.ShowCoinLack(engineer.transform.position);
+        return false;
+    }
+
+    /// <summary>施放成功后扣除该法术的金币消耗（0 消耗跳过）。</summary>
+    private void ChargeGold(SpellDefinition spell)
+    {
+        if (spell.GoldCost <= 0 || Coins.Instance == null)
+            return;
+
+        Coins.Instance.ConsumeCoins(spell.GoldCost);
     }
 
     private void DrawArc(Vector3 start, Vector3 end, float height)

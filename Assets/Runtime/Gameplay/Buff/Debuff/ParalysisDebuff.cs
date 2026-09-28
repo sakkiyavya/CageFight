@@ -43,7 +43,7 @@ public class ParalysisDebuff : BuffBase
 class ParalysisState : MonoBehaviour
 {
     private const float FlashInterval = 0.06f;
-    private const string ParalysisSoundKey = "paralysed dbuff"; // 麻痹触发时播放的音频资源键。
+    private const string ParalysisSoundKey = ""; // 麻痹触发音效键（已按需求关闭；恢复播放时填回 "paralysed dbuff"）。
     private const float SoundVolume = 1f;
     private const int SoundPriority = 32;
 
@@ -165,7 +165,8 @@ class ParalysisState : MonoBehaviour
     private void PlayBuffSound()
     {
         if (soundAudio == null || prop == null ||
-            AudioManager.Instance == null || ResourceManager.Instance == null)
+            AudioManager.Instance == null || ResourceManager.Instance == null ||
+            string.IsNullOrEmpty(ParalysisSoundKey))
             return;
 
         // 与 AudioPlayer 相同的镜头剔除：声源水平距离超出正交视野 + 半屏宽时不请求播放，

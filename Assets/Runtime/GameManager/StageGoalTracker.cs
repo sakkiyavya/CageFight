@@ -253,6 +253,9 @@ public sealed class StageGoalTracker : MonoBehaviour
         // 关卡全局规则：敌方血量加强（Boss 同为敌方单位，同样生效）。
         GlobalRuleManager.ApplyEnemyHpBonus(_boss, config);
 
+        // 关卡全局规则（负面 EnemyAtk）：敌方兵种攻击力与魔法攻击力 +10%（Boss 同样生效）。
+        GlobalRuleManager.ApplyEnemyAtkBonus(prop, config);
+
         Vector2Int occupy = prop != null ? prop.occupySpace : Vector2Int.one;
         _boss.transform.position = new Vector3(
             config.bossGridPosition.x + occupy.x / 2f,

@@ -159,7 +159,10 @@ public class StageAnimatorController : MonoBehaviour, IStageComponent
             : null;
         if (controller == null)
         {
-            Debug.LogWarning($"[StageAnimatorController] Missing RuntimeAnimatorController resource: {animatorControllerKey}", this);
+            // 缓存未命中（如运行时召唤的单位不在关卡预载清单内）时保留预制体序列化控制器兜底，
+            // 不能清空——否则单位失去动画、动画事件不发（召唤体"一张图罚站不开火"的根因）。
+            Debug.LogWarning($"[StageAnimatorController] Missing RuntimeAnimatorController resource: {animatorControllerKey}，保留预制体序列化控制器兜底。", this);
+            return;
         }
 
         _animator.runtimeAnimatorController = controller;
