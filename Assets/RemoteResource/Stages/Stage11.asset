@@ -10,17 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ef6c8b64f543249a7d45a2148ddbf4, type: 3}
-  m_Name: Stage8
+  m_Name: Stage11
   m_EditorClassIdentifier: 
-  stageId: 8
-  stageType: 1
-  DefenseTime: 0
+  stageId: 11
+  stageType: 0
+  DefenseTime: 350
   icon: {fileID: 0}
   displayIcons:
-  - {fileID: -1076785467, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
-  - {fileID: 1363519203, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
-  - {fileID: -1876860874, guid: 2c44d11cbc2b5c143a2e899c97174511, type: 3}
-  - {fileID: 672597462, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+  - {fileID: 741427972, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+  - {fileID: -673449381, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
   objects: []
   hasFriendlyMainBaseGridPosition: 1
   friendlyMainBaseGridPosition: {x: 0, y: 3}
@@ -39,21 +37,22 @@ MonoBehaviour:
   animatorControllers: []
   sprites: []
   useIncomeCurve: 1
-  guideDialogues:
-  - avatarSpriteKey: Guide_8
-    text: "\u771F\u6B63\u7684\u6218\u6597\u5F00\u59CB\u4E86\uFF01"
-    audioKey: 
+  guideDialogues: []
   baseGoldPerSecond: 100
   incomeGrowth:
   - startTime: 0
+    endTime: 150
+    stepInterval: 10
+    stepAmount: 5
+  - startTime: 150
     endTime: 250
     stepInterval: 10
     stepAmount: 10
-  enemyBarracksLevel: 6
-  enemyDarkBarracksLevel: 6
-  enemySentryTowerLevel: 5
-  enemyDefenseMagicLevel: 2
-  enemyAttackMagicLevel: 2
+  enemyBarracksLevel: 7
+  enemyDarkBarracksLevel: 7
+  enemySentryTowerLevel: 7
+  enemyDefenseMagicLevel: 3
+  enemyAttackMagicLevel: 3
   enemyBaseDistance: 60
   enemyTeams:
   - teamId: 2
@@ -70,6 +69,8 @@ MonoBehaviour:
     homeGridPosition: {x: 60, y: 3}
     buildSlots:
     - buildingType: 1
+      gridPosition: {x: 58, y: 6}
+    - buildingType: 1
       gridPosition: {x: 57, y: 3}
     - buildingType: 1
       gridPosition: {x: 55, y: 6}
@@ -83,29 +84,35 @@ MonoBehaviour:
       gridPosition: {x: 49, y: 2}
     - buildingType: 3
       gridPosition: {x: 49, y: 6}
+    - buildingType: 3
+      gridPosition: {x: 46, y: 4}
+    - buildingType: 3
+      gridPosition: {x: 46, y: 2}
     randomizeBuildOrder: 1
     buildGapRange: {x: 1.5, y: 5}
     positionJitter: 1
-    maxBarracks: 4
-    maxSentries: 3
+    maxBarracks: 5
+    maxSentries: 5
     troopUnlocks:
-    - troop: {fileID: 11400000, guid: 1325a0c91aad48e9bdddb408f92f6c4d, type: 2}
+    - troop: {fileID: 11400000, guid: 881ab067d3ea4a71813003b32bc16446, type: 2}
       unlockTime: 0
-    - troop: {fileID: 11400000, guid: 7a374a17331a45a59ffac658c78ddb0a, type: 2}
+    - troop: {fileID: 11400000, guid: c53d72be022d44f9a9edf95c4a65b3a5, type: 2}
       unlockTime: 0
-    - troop: {fileID: 11400000, guid: 0a6cd193cd6c49c0ba305251867c928c, type: 2}
+    - troop: {fileID: 11400000, guid: 3ddbfbadf61c4b6b824c6e639df0af3e, type: 2}
       unlockTime: 0
-    - troop: {fileID: 11400000, guid: ada45bfd0eb84bbebbe18b8d615e751b, type: 2}
+    - troop: {fileID: 11400000, guid: a232f8922195f33418bb445cb87404b3, type: 2}
+      unlockTime: 0
+    - troop: {fileID: 11400000, guid: 1438486b41fb4017a901c79e669a3286, type: 2}
       unlockTime: 0
     - troop: {fileID: 11400000, guid: 55afce3036b849dfa0b8d17b516321a3, type: 2}
       unlockTime: 0
   globalRules: []
   victoryGoldBars: 100
   victoryDiamonds: 10
-  attackTimeLimit: 600
+  attackTimeLimit: 0
   bossTimeLimit: 0
   bossPrefabKey: 
-  bossGridPosition: {x: 0, y: 0}
+  bossGridPosition: {x: 0, y: 3}
   references:
     version: 2
     RefIds: []

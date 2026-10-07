@@ -132,11 +132,13 @@ MonoBehaviour:
     homeGridPosition: {x: 40, y: 3}
     buildSlots:
     - buildingType: 1
-      gridPosition: {x: 40, y: 3}
-    - buildingType: 3
-      gridPosition: {x: 40, y: 3}
+      gridPosition: {x: 38, y: 6}
     - buildingType: 1
-      gridPosition: {x: 40, y: 3}
+      gridPosition: {x: 37, y: 3}
+    - buildingType: 3
+      gridPosition: {x: 34, y: 4}
+    - buildingType: 3
+      gridPosition: {x: 34, y: 2}
     randomizeBuildOrder: 1
     buildGapRange: {x: 1.5, y: 5}
     positionJitter: 1

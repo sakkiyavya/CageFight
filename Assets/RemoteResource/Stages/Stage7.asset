@@ -68,8 +68,8 @@ MonoBehaviour:
   globalRules: []
   victoryGoldBars: 100
   victoryDiamonds: 10
-  attackTimeLimit: 180
-  bossTimeLimit: 180
+  attackTimeLimit: 0
+  bossTimeLimit: 60
   bossPrefabKey: BabaDoctor Y-7
   bossGridPosition: {x: 70, y: 3}
   references:
