@@ -18,8 +18,11 @@ public class StageConfigLoader : MonoBehaviour
     [FormerlySerializedAs("levelButtons")]
     [SerializeField] private StageButton[] stageButtons = new StageButton[ButtonsPerPage];              // 按显示顺序排列的七个关卡按钮。
 
-    [Tooltip("七个关卡的编号文本（显示顺序与 stageButtons 一致）：第 N 关显示为“页码-页内位置”，如 1-1、2-3。")]
+    [Tooltip("七个关卡的编号文本（显示顺序与 stageButtons 一致）：按整条关卡序列编号，如 1-1、1-8。")]
     [SerializeField] private TextMeshProUGUI[] stageNumberTexts = new TextMeshProUGUI[ButtonsPerPage];  // 关卡编号文本，翻页时自动更新。
+
+    [Tooltip("关卡编号文本的章节前缀：第 8 关显示为 1-8，翻到第几页都不会变成 2-1。")]
+    [SerializeField] private string stageNumberChapter = "1";                                            // 关卡编号前半部分的章节号。
 
     private readonly List<AsyncOperationHandle> _handles = new List<AsyncOperationHandle>();            // 已成功加载、销毁时需要释放的 Addressables 句柄。
     private readonly List<StageConfig> _configs = new List<StageConfig>();                              // 按关卡编号顺序加载的配置列表。
@@ -30,11 +33,116 @@ public class StageConfigLoader : MonoBehaviour
 
     private int TotalPages => Mathf.Max(1, Mathf.CeilToInt((float)_configs.Count / ButtonsPerPage));    // 根据已加载配置计算的总页数。
 
+    #region 翻页功能（测试用，可整体删除）
+    // 目的：关卡选择面板上原本就有左右两个黄色箭头（Center 下的 L / R），但它们只是 Image，
+    // 没有挂任何脚本，所以第 8、9 关（第 2 页）点不到。这里在运行时给箭头挂上
+    // StagePageButton 并指定方向，无需改动场景连线即可翻页。
+    // 回滚方式：删除本区块 + StagePageButton 里的同名区块 +
+    //           StageSelectSelection 里标注了「翻页功能（测试用）」的几行，其余代码不受影响。
+    //           （注意：只回滚本区块、但 Stage9 仍注册在 Addressables 里的话，
+    //             第 8、9 关会重新变成翻不到、也点不到的状态。）
+    [Header("翻页（测试用）")]
+    [Tooltip("启动时自动把面板上的左右箭头接成翻页按钮；关掉则完全按原样运行。")]
+    [SerializeField] private bool autoBindPageArrows = true;
+
+    [Tooltip("左右箭头所在的父对象；留空则使用本组件的父对象（关卡选择面板 Center）。")]
+    [SerializeField] private Transform pageArrowRoot;
+
+    [Tooltip("上一页箭头的对象名（对应场景里 Center 下的 L）。")]
+    [SerializeField] private string previousArrowName = "L";
+
+    [Tooltip("下一页箭头的对象名（对应场景里 Center 下的 R）。")]
+    [SerializeField] private string nextArrowName = "R";
+
+    /// <summary>翻页完成后触发（测试用翻页功能）：供选中标记等视觉做清理。</summary>
+    public static event System.Action PageTurned;
+
+    /// <summary>当前页码，零基（测试用翻页功能）。</summary>
+    public int CurrentPage => _currentPage;
+
+    /// <summary>总页数（测试用翻页功能）。</summary>
+    public int PageCount => TotalPages;
+
+    private StagePageButton _previousArrow;   // 上一页箭头，运行时自动绑定。
+    private StagePageButton _nextArrow;       // 下一页箭头，运行时自动绑定。
+    private bool _pageArrowsBound;            // 是否已经绑定过，避免重复挂组件。
+
+    /// <summary>该方向是否还有可翻的页（测试用翻页功能）。</summary>
+    /// <param name="isNext"><see langword="true"/> 表示下一页方向。</param>
+    /// <returns>还有可翻的页时为 <see langword="true"/>。</returns>
+    public bool CanTurnPage(bool isNext)
+    {
+        int target = _currentPage + (isNext ? 1 : -1);
+        return target >= 0 && target < TotalPages;
+    }
+
+    /// <summary>
+    /// 运行时把面板上的左右箭头接成翻页按钮：箭头本身只是 Image，
+    /// 这里给它挂 StagePageButton 并指定方向；找不到箭头时只警告，不影响原有选关流程。
+    /// </summary>
+    private void BindPageArrows()
+    {
+        if (!autoBindPageArrows || _pageArrowsBound) return;
+        _pageArrowsBound = true;
+
+        Transform root = pageArrowRoot != null ? pageArrowRoot : transform.parent;
+        if (root == null) return;
+
+        _previousArrow = AttachArrow(root, previousArrowName, false);
+        _nextArrow = AttachArrow(root, nextArrowName, true);
+
+        if (_previousArrow == null && _nextArrow == null)
+        {
+            Debug.LogWarning(
+                $"[StageConfigLoader] 没找到翻页箭头（{previousArrowName} / {nextArrowName}），翻页按钮未启用。", this);
+        }
+
+        RefreshPageArrowState();
+    }
+
+    /// <summary>在 root 的直接子对象里按名字找箭头，挂上 StagePageButton 并指定翻页方向。</summary>
+    /// <param name="root">箭头所在的父对象。</param>
+    /// <param name="arrowName">箭头对象名。</param>
+    /// <param name="isNext">该箭头是否表示下一页。</param>
+    /// <returns>绑定好的翻页按钮；没找到同名子对象时为 <see langword="null"/>。</returns>
+    private StagePageButton AttachArrow(Transform root, string arrowName, bool isNext)
+    {
+        if (string.IsNullOrEmpty(arrowName)) return null;
+
+        for (int i = 0; i < root.childCount; i++)
+        {
+            Transform child = root.GetChild(i);
+            if (!string.Equals(child.name.Trim(), arrowName.Trim(), System.StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            StagePageButton button = child.GetComponent<StagePageButton>();
+            if (button == null) button = child.gameObject.AddComponent<StagePageButton>();
+
+            button.Bind(this, isNext);
+            return button;
+        }
+
+        return null;
+    }
+
+    /// <summary>按当前页刷新两个箭头：该方向没有可翻的页了就压暗。</summary>
+    private void RefreshPageArrowState()
+    {
+        if (_previousArrow != null) _previousArrow.SetAvailable(CanTurnPage(false));
+        if (_nextArrow != null) _nextArrow.SetAvailable(CanTurnPage(true));
+    }
+    #endregion
+
     #region 生命周期与回调
     /// <summary>
-    /// 在异步配置加载前先刷新按钮，使尚无配置的按钮保持隐藏。
+    /// 在异步配置加载前先刷新按钮，使尚无配置的按钮保持隐藏；
+    /// 同时把左右箭头接成翻页按钮（测试用翻页功能）。
     /// </summary>
-    private void Awake() => RefreshButtons();
+    private void Awake()
+    {
+        RefreshButtons();
+        BindPageArrows();
+    }
 
     /// <summary>
     /// 启动按编号顺序加载关卡配置的协程。
@@ -138,6 +246,7 @@ public class StageConfigLoader : MonoBehaviour
 
         _currentPage = targetPage;
         RefreshButtons();
+        PageTurned?.Invoke();   // 翻页功能（测试用）：通知选中标记等视觉做清理。
     }
     #endregion
 
@@ -162,14 +271,17 @@ public class StageConfigLoader : MonoBehaviour
             button.Init(hasConfig ? _configs[configIndex] : null);
             button.gameObject.SetActive(hasConfig);
 
-            // 关卡编号文本：第 N 关 = “页码-页内位置”（第 8 关翻页为 2-1）。
+            // 关卡编号文本：按整条关卡序列编号，与翻到第几页无关——第 8 关在第 2 页，
+            // 编号仍然是 1-8（取配置自己的 stageId），不会再按页算成 2-1。
             if (stageNumberTexts != null && i < stageNumberTexts.Length && stageNumberTexts[i] != null)
             {
-                stageNumberTexts[i].text = hasConfig
-                    ? $"{(configIndex) / ButtonsPerPage + 1}-{configIndex % ButtonsPerPage + 1}"
-                    : string.Empty;
+                StageConfig config = hasConfig ? _configs[configIndex] : null;
+                int number = config != null ? config.stageId : 0;
+                stageNumberTexts[i].text = number > 0 ? $"{stageNumberChapter}-{number}" : string.Empty;
             }
         }
+
+        RefreshPageArrowState();   // 翻页功能（测试用）：关卡数量或页码变化后同步箭头可用状态。
     }
     #endregion
 

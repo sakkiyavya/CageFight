@@ -34,6 +34,7 @@ public sealed class StageSelectSelection : MonoBehaviour
     {
         _canvasRect = (RectTransform)transform;
         StageButton.Selected += OnStageSelected;
+        StageConfigLoader.PageTurned += OnPageTurned;   // 翻页功能（测试用）：翻页后清掉选中标记。
 
         if (markerImage != null) markerImage.enabled = false;
         if (glowImage != null) glowImage.enabled = false;
@@ -57,6 +58,7 @@ public sealed class StageSelectSelection : MonoBehaviour
     private void OnDestroy()
     {
         StageButton.Selected -= OnStageSelected;
+        StageConfigLoader.PageTurned -= OnPageTurned;   // 翻页功能（测试用）。
     }
 
     private void OnDisable()
@@ -291,6 +293,17 @@ public sealed class StageSelectSelection : MonoBehaviour
         const float c3 = c1 + 1f;
         return 1f + c3 * Mathf.Pow(p - 1f, 3f) + c1 * Mathf.Pow(p - 1f, 2f);
     }
+
+    #region 翻页功能（测试用，可整体删除）
+    /// <summary>
+    /// 翻页后清掉选中标记：翻页会把按钮上的关卡整批换掉，旧标记会停在已经换成别的关卡的
+    /// 按钮上（第 2 页还会把没有配置的按钮隐藏，标记却仍然可见），中间展示的图标也会是旧关卡的。
+    /// </summary>
+    private void OnPageTurned()
+    {
+        ClearSelection();
+    }
+    #endregion
 
     /// <summary>清除选中：隐藏标记与黄光。</summary>
     public void ClearSelection()
