@@ -8,3 +8,24 @@
 !Assets/**
 !Packages/**
 !ProjectSettings/**
+
+# === 四个可视化编辑器（工具源码都在本仓库之外，靠目录联接挂进来）===
+# 工具源码位置（均不在本仓库内）与挂载点：
+#   GitHub\Level Editor\LevelVisualEditor        -> Assets\Editor\StageSystem\LevelVisualEditor
+#   GitHub\Building Editor\BuildingVisualEditor  -> Assets\Editor\BuildingSystem\BuildingVisualEditor
+#   GitHub\Illustration Editor\BookVisualEditor  -> Assets\Editor\BookSystem\BookVisualEditor
+#   GitHub\Unit Editor\UnitVisualEditor          -> Assets\Editor\UnitSystem
+# git 会顺着联接把工具源码当成"本工程的新文件"，所以这里排除全部四个联接路径：
+#   1) 避免把工具源码副本提交进游戏仓库（否则仓库里会出现两份、且以后必然对不上）
+#   2) 避免别人克隆时在这些路径生成真实文件，之后无法再建联接
+# 注意：StageSystem 目录下还有本工程自己的编辑器脚本（StageExporter.cs、StageBuilderWindow.cs、
+#       StageConfigEditor.cs、StageResourceKeyCollector.cs 等），必须照常跟踪，
+#       所以只排除 LevelVisualEditor 联接本身，不能整目录排除。
+/Assets/Editor/StageSystem/LevelVisualEditor
+/Assets/Editor/StageSystem/LevelVisualEditor.meta
+/Assets/Editor/BuildingSystem/BuildingVisualEditor
+/Assets/Editor/BuildingSystem/BuildingVisualEditor.meta
+/Assets/Editor/BookSystem/BookVisualEditor
+/Assets/Editor/BookSystem/BookVisualEditor.meta
+/Assets/Editor/UnitSystem
+/Assets/Editor/UnitSystem.meta
