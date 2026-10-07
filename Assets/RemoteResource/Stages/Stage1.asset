@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageId: 1
   stageType: 0
-  DefenseTime: 300
+  DefenseTime: 90
   icon: {fileID: 0}
   displayIcons:
   - {fileID: -823088979, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
@@ -47,7 +47,7 @@ MonoBehaviour:
   animationClips: []
   animatorControllers: []
   sprites: []
-  useIncomeCurve: 1
+  useIncomeCurve: 0
   guideDialogues:
   - avatarSpriteKey: Guide_8
     text: "\u5FEB\u4E0A\u5427\uFF01\u53BB\u6253\u8D25\u8FD9\u4E9B\u5C0F\u5352\u5B50\u3002"
@@ -56,24 +56,16 @@ MonoBehaviour:
     text: "\u81F3\u5C11\u522B\u8BA9\u4F60\u7684\u5927\u672C\u8425\u7206\u70B8\u5C31\u884C\uFF01"
     audioKey: DabaDoctor talk1
   baseGoldPerSecond: 100
-  incomeGrowth:
-  - startTime: 0
-    endTime: 120
-    stepInterval: 10
-    stepAmount: 10
-  - startTime: 120
-    endTime: 240
-    stepInterval: 10
-    stepAmount: 15
+  incomeGrowth: []
   enemyBarracksLevel: 1
   enemyDarkBarracksLevel: 1
   enemySentryTowerLevel: 1
   enemyDefenseMagicLevel: 1
   enemyAttackMagicLevel: 1
-  enemyBaseDistance: 60
+  enemyBaseDistance: 40
   enemyTeams:
   - teamId: 2
-    raceId: Cat
+    raceId: mouse_race_1
     startGold: 2000
     baseGoldPerSecond: 100
     incomeGrowth:
@@ -88,28 +80,28 @@ MonoBehaviour:
     reserve: 0
     defenseSpendRatio: 0.4
     surplusSeconds: 10
-    strategy: 1
+    strategy: 2
     threatThreshold: 300
     defendRadius: 12
-    homeGridPosition: {x: 60, y: 3}
+    homeGridPosition: {x: 40, y: 3}
     buildSlots:
     - buildingType: 1
-      gridPosition: {x: 58, y: 3}
-    - buildingType: 1
-      gridPosition: {x: 56, y: 3}
+      gridPosition: {x: 40, y: 3}
     - buildingType: 3
-      gridPosition: {x: 59, y: 5}
+      gridPosition: {x: 45, y: 3}
     randomizeBuildOrder: 1
     buildGapRange: {x: 1.5, y: 5}
     positionJitter: 1
-    maxBarracks: 6
-    maxSentries: 7
-    troopUnlocks: []
+    maxBarracks: 1
+    maxSentries: 2
+    troopUnlocks:
+    - troop: {fileID: 11400000, guid: c80465553d454c0ab887a8044cd63821, type: 2}
+      unlockTime: 0
   globalRules: []
-  victoryGoldBars: 100
-  victoryDiamonds: 10
-  attackTimeLimit: 180
-  bossTimeLimit: 180
+  victoryGoldBars: 40
+  victoryDiamonds: 20
+  attackTimeLimit: 0
+  bossTimeLimit: 0
   bossPrefabKey: 
   bossGridPosition: {x: 0, y: 0}
   references:

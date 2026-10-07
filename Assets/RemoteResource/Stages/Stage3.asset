@@ -13,31 +13,23 @@ MonoBehaviour:
   m_Name: Stage3
   m_EditorClassIdentifier: 
   stageId: 3
+  stageType: 0
+  DefenseTime: 140
   icon: {fileID: 0}
-  objects:
-  - instanceId: 1000
-    prefabKey: Flame cat
-    transform:
-      position: {x: 13.6599245, y: 1.7596941, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 9182622169005293792
-    - rid: 9182622169005293793
-    - rid: 9182622169005293794
-    - rid: 9182622169005293795
-  - instanceId: 1001
-    prefabKey: Boulder
-    transform:
-      position: {x: 7.8441334, y: 1.5375631, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 0.9972, z: 1}
-    components:
-    - rid: 9182622169005293796
-    - rid: 9182622169005293797
-    - rid: 9182622169005293798
-    - rid: 9182622169005293799
+  displayIcons:
+  - {fileID: -1073133994, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+  objects: []
+  hasFriendlyMainBaseGridPosition: 1
+  friendlyMainBaseGridPosition: {x: 0, y: 3}
   prefabs:
+  - Mouse Base1
+  - Mouse Barracks1
+  - Mouse Dark barracks1
+  - Mouse Sentry tower1
+  - Cat Base1
+  - Cat Barracks1
+  - Cat Dark barracks1
+  - Cat Sentry tower1
   - Boulder
   - Bullet-Boulder
   - Flame cat
@@ -54,86 +46,64 @@ MonoBehaviour:
   sprites:
   - Boulder-attack 1_0
   - Flame cat-attack_2
+  useIncomeCurve: 1
+  guideDialogues:
+  - avatarSpriteKey: Guide_8
+    text: "\u770B\u5230\u4E86\u5417\uFF1F\u8FD9\u5BB6\u4F19\u4F1A\u6572\u4F60\u95F7\u68CD\uFF0C\u522B\u7ED9\u6572\u6655\u4E86"
+    audioKey: DabaDoctor talk1
+  baseGoldPerSecond: 100
+  incomeGrowth:
+  - startTime: 60
+    endTime: 200
+    stepInterval: 10
+    stepAmount: 5
+  enemyBarracksLevel: 3
+  enemyDarkBarracksLevel: 2
+  enemySentryTowerLevel: 2
+  enemyDefenseMagicLevel: 1
+  enemyAttackMagicLevel: 1
+  enemyBaseDistance: 60
+  enemyTeams:
+  - teamId: 2
+    raceId: mouse_race_1
+    startGold: 3000
+    baseGoldPerSecond: 100
+    incomeGrowth: []
+    reserve: 0
+    defenseSpendRatio: 0.4
+    surplusSeconds: 10
+    strategy: 1
+    threatThreshold: 500
+    defendRadius: 12
+    homeGridPosition: {x: 60, y: 3}
+    buildSlots:
+    - buildingType: 1
+      gridPosition: {x: 60, y: 3}
+    - buildingType: 1
+      gridPosition: {x: 60, y: 3}
+    - buildingType: 1
+      gridPosition: {x: 60, y: 3}
+    - buildingType: 3
+      gridPosition: {x: 60, y: 3}
+    - buildingType: 3
+      gridPosition: {x: 60, y: 3}
+    randomizeBuildOrder: 1
+    buildGapRange: {x: 1.5, y: 5}
+    positionJitter: 1
+    maxBarracks: 3
+    maxSentries: 2
+    troopUnlocks:
+    - troop: {fileID: 11400000, guid: 1325a0c91aad48e9bdddb408f92f6c4d, type: 2}
+      unlockTime: 0
+    - troop: {fileID: 11400000, guid: 3ddbfbadf61c4b6b824c6e639df0af3e, type: 2}
+      unlockTime: 20
+  globalRules: []
+  victoryGoldBars: 100
+  victoryDiamonds: 10
+  attackTimeLimit: 0
+  bossTimeLimit: 0
+  bossPrefabKey: 
+  bossGridPosition: {x: 0, y: 0}
   references:
     version: 2
-    RefIds:
-    - rid: 9182622169005293792
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 3500
-        defense: 0
-        magicDefense: 0
-        atk: 50
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 6, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 2.1
-        repel: 1
-        side: 1
-        atkObj: Bullet-Flame cat
-        buildAnime: 
-    - rid: 9182622169005293793
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Flame cat-attack_2
-    - rid: 9182622169005293794
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Flame cat1 A
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622169005293795
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Flame cat AC
-    - rid: 9182622169005293796
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 12000
-        defense: 0
-        magicDefense: 0
-        atk: 700
-        atkRate: 1
-        magicAtk: 1500
-        atkRange: {x: 3, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 0
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 1.7
-        repel: 5
-        side: 0
-        atkObj: Bullet-Boulder
-        buildAnime: 
-    - rid: 9182622169005293797
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Boulder-attack 1_0
-    - rid: 9182622169005293798
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Boulder1
-        audioKey2: Boulder2
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 9182622169005293799
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Boulder AC
+    RefIds: []

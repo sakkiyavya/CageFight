@@ -489,6 +489,13 @@ MonoBehaviour:
   currentDebuff: []
   occupySpace: {x: 2, y: 2}
   buildAnime: Build Animation
+  barracksLevel: 1
+  darkBarracksLevel: 1
+  sentryTowerLevel: 1
+  defenseMagicLevel: 1
+  attackMagicLevel: 1
+  troopTag: 0
+  threatScore: 1
 --- !u!114 &5425436059312550339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,6 +508,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e99e643ee691a04a92f2ba53e7affe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitFlashDuration: 0.3
+  hitFlashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  shakeDuration: 0.5
+  shakeAmplitude: 0.3
+  shakeFrequency: 30
+  hitSoundKey: Construct-Hit
+  deathAngularSpeed: 180
+  deathParabolaAcceleration: -50
+  deathInitialVelocity: {x: 4, y: 20}
+  deathEffectDuration: 1
+  deathFadeAlpha: 0.5
+  deathDarkFactor: 0.4
   HpBarUp: {fileID: 8125773181473173431}
   HpBarBottom: {fileID: 5882504722996757002}
 --- !u!114 &8980528018165770225
@@ -532,17 +551,17 @@ MonoBehaviour:
     maxHp: 3000
     attack: 0
     attackRange: {x: 0, y: 0}
-    cost: 2500
+    cost: 3000
   - sprite: {fileID: 2072011012, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
     maxHp: 4000
     attack: 0
     attackRange: {x: 0, y: 0}
-    cost: 750
+    cost: 2000
   - sprite: {fileID: -1745697020, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
     maxHp: 5400
     attack: 0
     attackRange: {x: 0, y: 0}
-    cost: 1500
+    cost: 4000
   upgradeMark: {fileID: 7376561219690953516}
   coinIcon: {fileID: 1533011704920739351}
   costText: {fileID: 2342714487847556175}
@@ -551,6 +570,13 @@ MonoBehaviour:
   jellyTime: 0.22
   jellyAmount: 0.16
   upgradeSoundKey: UP
+  removable: 1
+  demolishSoundKey: Construct-Hit
+  demolishAnimWait: 0.7
+  demolishFallTime: 0.8
+  demolishFallDistance: 15
+  demolishSway: 0.6
+  demolishAlpha: 0.5
 --- !u!114 &7777002001
 MonoBehaviour:
   m_ObjectHideFlags: 0

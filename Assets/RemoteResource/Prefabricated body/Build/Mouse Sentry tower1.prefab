@@ -458,20 +458,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - sprite: {fileID: -471742703, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
-    maxHp: 1400
-    attack: 40
+    maxHp: 500
+    attack: 20
     attackRange: {x: 20, y: 10}
     cost: 1200
   - sprite: {fileID: -1148193463, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
-    maxHp: 1900
-    attack: 50
+    maxHp: 1000
+    attack: 40
     attackRange: {x: 20, y: 10}
-    cost: 500
+    cost: 1500
   - sprite: {fileID: -1651579008, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
-    maxHp: 2600
+    maxHp: 2000
     attack: 70
     attackRange: {x: 20, y: 10}
-    cost: 800
+    cost: 2000
   upgradeMark: {fileID: 1137238724567431102}
   coinIcon: {fileID: 7352397644895291499}
   costText: {fileID: 2829609321855383}

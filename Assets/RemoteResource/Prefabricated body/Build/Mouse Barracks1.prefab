@@ -522,6 +522,13 @@ MonoBehaviour:
   currentDebuff: []
   occupySpace: {x: 2, y: 2}
   buildAnime: Build Animation
+  barracksLevel: 1
+  darkBarracksLevel: 1
+  sentryTowerLevel: 1
+  defenseMagicLevel: 1
+  attackMagicLevel: 1
+  troopTag: 0
+  threatScore: 1
 --- !u!114 &6259216158362658921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,6 +553,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e99e643ee691a04a92f2ba53e7affe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitFlashDuration: 0.3
+  hitFlashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  shakeDuration: 0.5
+  shakeAmplitude: 0.3
+  shakeFrequency: 30
+  hitSoundKey: Construct-Hit
+  deathAngularSpeed: 180
+  deathParabolaAcceleration: -50
+  deathInitialVelocity: {x: 4, y: 20}
+  deathEffectDuration: 1
+  deathFadeAlpha: 0.5
+  deathDarkFactor: 0.4
   HpBarUp: {fileID: 3777067147408387013}
   HpBarBottom: {fileID: 5603332652547421118}
 --- !u!114 &6581798922929251654
@@ -570,12 +589,12 @@ MonoBehaviour:
     maxHp: 2600
     attack: 0
     attackRange: {x: 0, y: 0}
-    cost: 500
+    cost: 1500
   - sprite: {fileID: 962199993, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
     maxHp: 3400
     attack: 0
     attackRange: {x: 0, y: 0}
-    cost: 1000
+    cost: 3000
   upgradeMark: {fileID: 1638121584402988164}
   coinIcon: {fileID: 7935874945738589031}
   costText: {fileID: 4402558179235293120}
@@ -584,6 +603,13 @@ MonoBehaviour:
   jellyTime: 0.22
   jellyAmount: 0.16
   upgradeSoundKey: UP
+  removable: 1
+  demolishSoundKey: Construct-Hit
+  demolishAnimWait: 0.7
+  demolishFallTime: 0.8
+  demolishFallDistance: 15
+  demolishSway: 0.6
+  demolishAlpha: 0.5
 --- !u!114 &7777001001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,6 +636,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a232f8922195f33418bb445cb87404b3, type: 2}
   - {fileID: 11400000, guid: 278325967edcda5429ae294ac904c073, type: 2}
   - {fileID: 11400000, guid: 9cb6e31f0a0d47c4b47a7277d5336d66, type: 2}
+  isDarkBarracks: 0
   avatarSize: 1
   avatarOffset: {x: -1.4, y: 2.05}
   cooldownMaskAlpha: 0.65

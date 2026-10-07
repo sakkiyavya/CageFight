@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ef6c8b64f543249a7d45a2148ddbf4, type: 3}
+  m_Name: Stage9
+  m_EditorClassIdentifier: 
+  stageId: 9
+  stageType: 0
+  DefenseTime: 0
+  icon: {fileID: 0}
+  displayIcons: []
+  objects: []
+  hasFriendlyMainBaseGridPosition: 0
+  friendlyMainBaseGridPosition: {x: 0, y: 0}
+  prefabs: []
+  audios: []
+  textures: []
+  animationClips: []
+  animatorControllers: []
+  sprites: []
+  useIncomeCurve: 0
+  guideDialogues: []
+  baseGoldPerSecond: 10
+  incomeGrowth: []
+  enemyBarracksLevel: 1
+  enemyDarkBarracksLevel: 1
+  enemySentryTowerLevel: 1
+  enemyDefenseMagicLevel: 1
+  enemyAttackMagicLevel: 1
+  enemyBaseDistance: 60
+  enemyTeams: []
+  globalRules: []
+  victoryGoldBars: 100
+  victoryDiamonds: 10
+  attackTimeLimit: 180
+  bossTimeLimit: 180
+  bossPrefabKey: 
+  bossGridPosition: {x: 0, y: 0}
+  references:
+    version: 2
+    RefIds: []

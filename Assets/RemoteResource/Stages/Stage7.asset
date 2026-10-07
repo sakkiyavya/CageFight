@@ -13,34 +13,12 @@ MonoBehaviour:
   m_Name: Stage7
   m_EditorClassIdentifier: 
   stageId: 7
-  stageType: 0
+  stageType: 2
   DefenseTime: 0
   icon: {fileID: 0}
   displayIcons:
   - {fileID: -182805030, guid: 2c44d11cbc2b5c143a2e899c97174511, type: 3}
-  objects:
-  - instanceId: 1000
-    prefabKey: Miner rat
-    transform:
-      position: {x: 5.04, y: 2.83, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 692231757289750528
-    - rid: 692231757289750529
-    - rid: 692231757289750530
-    - rid: 692231757289750531
-  - instanceId: 1001
-    prefabKey: Miner rat
-    transform:
-      position: {x: 13.81, y: 3.33, z: 0}
-      rotation: {x: -0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    components:
-    - rid: 692231757289750532
-    - rid: 692231757289750533
-    - rid: 692231757289750534
-    - rid: 692231757289750535
+  objects: []
   hasFriendlyMainBaseGridPosition: 0
   friendlyMainBaseGridPosition: {x: 0, y: 0}
   prefabs:
@@ -96,84 +74,4 @@ MonoBehaviour:
   bossGridPosition: {x: 70, y: 3}
   references:
     version: 2
-    RefIds:
-    - rid: 692231757289750528
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 800
-        defense: 0
-        magicDefense: 0
-        atk: 150
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 1, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 1
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3
-        repel: 1
-        side: 0
-        atkObj: Bullet-Miner rat
-        buildAnime: 
-    - rid: 692231757289750529
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Miner rat AC
-    - rid: 692231757289750530
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Miner rat1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 692231757289750531
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Miner rat-move_0
-    - rid: 692231757289750532
-      type: {class: GameObjectPropertyData, ns: , asm: CageFightRuntime}
-      data:
-        objectType: 2
-        maxHp: 800
-        defense: 0
-        magicDefense: 0
-        atk: 150
-        atkRate: 1
-        magicAtk: 0
-        atkRange: {x: 1, y: 2}
-        isRemoteAtk: 0
-        isFacingLeft: 1
-        occupySpace: {x: 1, y: 1}
-        barSustainTime: 2
-        buildTime: 3
-        moveSpeed: 3
-        repel: 1
-        side: 1
-        atkObj: Bullet-Miner rat
-        buildAnime: 
-    - rid: 692231757289750533
-      type: {class: StageAnimatorControllerData, ns: , asm: CageFightRuntime}
-      data:
-        animatorControllerKey: Miner rat AC
-    - rid: 692231757289750534
-      type: {class: StageAudioData, ns: , asm: CageFightRuntime}
-      data:
-        audioKey1: Miner rat1
-        audioKey2: 
-        audioKey3: 
-        audioKey4: 
-        audioKey5: 
-        audioKey6: 
-        audioKey7: 
-        audioKey8: 
-    - rid: 692231757289750535
-      type: {class: StageTextureData, ns: , asm: CageFightRuntime}
-      data:
-        spriteKey: Miner rat-move_0
+    RefIds: []

@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ef6c8b64f543249a7d45a2148ddbf4, type: 3}
+  m_Name: Stage8
+  m_EditorClassIdentifier: 
+  stageId: 8
+  stageType: 1
+  DefenseTime: 0
+  icon: {fileID: 0}
+  displayIcons:
+  - {fileID: -1076785467, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+  - {fileID: 1363519203, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+  - {fileID: -1876860874, guid: 2c44d11cbc2b5c143a2e899c97174511, type: 3}
+  objects: []
+  hasFriendlyMainBaseGridPosition: 1
+  friendlyMainBaseGridPosition: {x: 0, y: 0}
+  prefabs:
+  - Cat Base1
+  - Cat Barracks1
+  - Cat Dark barracks1
+  - Cat Sentry tower1
+  - Mouse Base1
+  - Mouse Barracks1
+  - Mouse Dark barracks1
+  - Mouse Sentry tower1
+  audios: []
+  textures: []
+  animationClips: []
+  animatorControllers: []
+  sprites: []
+  useIncomeCurve: 1
+  guideDialogues: []
+  baseGoldPerSecond: 100
+  incomeGrowth:
+  - startTime: 0
+    endTime: 250
+    stepInterval: 10
+    stepAmount: 10
+  enemyBarracksLevel: 6
+  enemyDarkBarracksLevel: 6
+  enemySentryTowerLevel: 5
+  enemyDefenseMagicLevel: 2
+  enemyAttackMagicLevel: 2
+  enemyBaseDistance: 60
+  enemyTeams:
+  - teamId: 2
+    raceId: mouse_race_1
+    startGold: 5000
+    baseGoldPerSecond: 250
+    incomeGrowth: []
+    reserve: 0
+    defenseSpendRatio: 0.4
+    surplusSeconds: 10
+    strategy: 1
+    threatThreshold: 500
+    defendRadius: 12
+    homeGridPosition: {x: 60, y: 0}
+    buildSlots: []
+    randomizeBuildOrder: 1
+    buildGapRange: {x: 1.5, y: 5}
+    positionJitter: 1
+    maxBarracks: 3
+    maxSentries: 2
+    troopUnlocks:
+    - troop: {fileID: 11400000, guid: 1325a0c91aad48e9bdddb408f92f6c4d, type: 2}
+      unlockTime: 0
+    - troop: {fileID: 11400000, guid: 7a374a17331a45a59ffac658c78ddb0a, type: 2}
+      unlockTime: 0
+    - troop: {fileID: 11400000, guid: 0a6cd193cd6c49c0ba305251867c928c, type: 2}
+      unlockTime: 0
+    - troop: {fileID: 11400000, guid: ada45bfd0eb84bbebbe18b8d615e751b, type: 2}
+      unlockTime: 0
+  globalRules: []
+  victoryGoldBars: 100
+  victoryDiamonds: 10
+  attackTimeLimit: 250
+  bossTimeLimit: 0
+  bossPrefabKey: 
+  bossGridPosition: {x: 0, y: 0}
+  references:
+    version: 2
+    RefIds: []
