@@ -59,7 +59,7 @@ public class ResourceManager : MonoBehaviour
     [SerializeField] private LoadoutDefinitionRegistry loadoutDefinitionRegistry;
 
     [Header("局内公共资源（所有关卡自动预载）")]
-    [SerializeField] private List<string> commonPrefabs = new List<string> { "Build Animation", "Cast spell", "Bullet-Arrow", "Bullet-Thunderstorm", "ConnectMasterCircle", "Huge cheese", "UPanime", "UnitVisualFollower", "EngineerHealParticles", "LightningBeam", "attack punish", "move punish", "Bullet-Mass-produce mouse", "Bullet-BabaDoctor Believer" };
+    [SerializeField] private List<string> commonPrefabs = new List<string> { "Build Animation", "Cast spell", "Bullet-Arrow", "Bullet-Thunderstorm", "ConnectMasterCircle", "cheese", "UPanime", "UnitVisualFollower", "EngineerHealParticles", "LightningBeam", "attack punish", "move punish", "Bullet-Mass-produce mouse", "Bullet-BabaDoctor Believer" };
     [SerializeField] private List<string> commonAudios = new List<string> { "Build", "UP", "UI Click", "Arrow-Shoot" };
     [SerializeField] private List<string> persistentAudios = new List<string> { "UI Click", "Cage door", "Begin", "Huge buff", "Violent", "Zip buff", "False life", "Cold dbuff", "paralysed dbuff", "BOOM.LV.3", "BOOM.LV.1", "Mechanical reinforcement ore", "Crystal Mine Cave" };
     [SerializeField] private List<string> commonAnimatorControllers = new List<string> { "Build Animation AC" };
@@ -153,7 +153,7 @@ public class ResourceManager : MonoBehaviour
         if (!commonPrefabs.Contains("Bullet-Arrow")) commonPrefabs.Add("Bullet-Arrow");
         if (!commonPrefabs.Contains("Bullet-Thunderstorm")) commonPrefabs.Add("Bullet-Thunderstorm");
         if (!commonPrefabs.Contains("ConnectMasterCircle")) commonPrefabs.Add("ConnectMasterCircle");
-        if (!commonPrefabs.Contains("Huge cheese")) commonPrefabs.Add("Huge cheese");
+        if (!commonPrefabs.Contains("cheese")) commonPrefabs.Add("cheese");
         if (!commonPrefabs.Contains("UPanime")) commonPrefabs.Add("UPanime");
         if (!commonPrefabs.Contains("UnitVisualFollower")) commonPrefabs.Add("UnitVisualFollower");
         if (!commonPrefabs.Contains("EngineerHealParticles")) commonPrefabs.Add("EngineerHealParticles");

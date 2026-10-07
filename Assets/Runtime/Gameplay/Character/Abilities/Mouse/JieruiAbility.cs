@@ -20,8 +20,8 @@ public class JieruiAbility : BehaviourBase
     private float layerDuration = 10f;      // 每层持续秒数。
 
     [Header("死亡奶酪")]
-    [SerializeField, ResourceKey(typeof(GameObject)), Tooltip("死亡时生成的奶酪预制体资源键（Huge cheese）")]
-    private string cheesePrefabKey = "Huge cheese";
+    [SerializeField, ResourceKey(typeof(GameObject)), Tooltip("死亡时生成的奶酪预制体资源键（cheese）")]
+    private string cheesePrefabKey = "cheese";
 
     /// <summary>单层强化快照。</summary>
     private class Layer
