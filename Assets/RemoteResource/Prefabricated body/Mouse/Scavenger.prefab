@@ -188,11 +188,11 @@ MonoBehaviour:
   magicDefense: 0
   isRemoteAtk: 0
   atk: 20
-  atkRate: 1
+  atkRate: 1.5
   magicAtk: 10
   repel: 0
   antiRepel: 1
-  atkRange: {x: 10, y: 4}
+  atkRange: {x: 8, y: 4}
   atkObj: Bullet-Stone-Scavenger
   damageMultiplier: 1
   damageTakenMultiplier: 1
@@ -206,7 +206,7 @@ MonoBehaviour:
   baseMissChance: 0
   barSustainTime: 2
   buildTime: 3
-  moveSpeed: 2.4
+  moveSpeed: 2
   suckBlood: 0
   currentHp: 0
   isDead: 0
