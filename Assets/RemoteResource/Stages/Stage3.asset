@@ -57,6 +57,8 @@ MonoBehaviour:
     endTime: 200
     stepInterval: 10
     stepAmount: 5
+  hasPlayerStartGold: 1
+  playerStartGold: 2000
   enemyBarracksLevel: 3
   enemyDarkBarracksLevel: 2
   enemySentryTowerLevel: 2
@@ -68,11 +70,15 @@ MonoBehaviour:
     raceId: mouse_race_1
     startGold: 3000
     baseGoldPerSecond: 100
-    incomeGrowth: []
+    incomeGrowth:
+    - startTime: 0
+      endTime: 100
+      stepInterval: 10
+      stepAmount: 10
     reserve: 0
     defenseSpendRatio: 0.4
     surplusSeconds: 10
-    strategy: 1
+    strategy: 2
     threatThreshold: 500
     defendRadius: 12
     homeGridPosition: {x: 60, y: 3}
@@ -91,6 +97,7 @@ MonoBehaviour:
     buildGapRange: {x: 1.5, y: 5}
     positionJitter: 1
     maxBarracks: 3
+    maxDarkBarracks: 0
     maxSentries: 2
     troopUnlocks:
     - troop: {fileID: 11400000, guid: 1325a0c91aad48e9bdddb408f92f6c4d, type: 2}
@@ -98,8 +105,11 @@ MonoBehaviour:
     - troop: {fileID: 11400000, guid: 3ddbfbadf61c4b6b824c6e639df0af3e, type: 2}
       unlockTime: 20
   globalRules: []
-  victoryGoldBars: 100
-  victoryDiamonds: 10
+  victoryGoldBars: 30
+  victoryDiamonds: 20
+  customNormalReward: 1
+  normalVictoryGoldBars: 20
+  normalVictoryDiamonds: 10
   attackTimeLimit: 0
   bossTimeLimit: 0
   bossPrefabKey: 

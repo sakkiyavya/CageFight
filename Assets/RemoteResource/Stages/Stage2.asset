@@ -104,13 +104,19 @@ MonoBehaviour:
   - Damb ass-move_0
   - DabaDoctor_6
   - BOOM bro_0
-  useIncomeCurve: 0
+  useIncomeCurve: 1
   guideDialogues:
   - avatarSpriteKey: Guide_8
     text: "\u5F88\u6709\u5929\u8D4B\u561B\u6307\u6325\u5B98\uFF0C\u518D\u6765\u4E00\u6B21"
     audioKey: DabaDoctor talk1
   baseGoldPerSecond: 100
-  incomeGrowth: []
+  incomeGrowth:
+  - startTime: 0
+    endTime: 60
+    stepInterval: 10
+    stepAmount: 10
+  hasPlayerStartGold: 1
+  playerStartGold: 2000
   enemyBarracksLevel: 2
   enemyDarkBarracksLevel: 2
   enemySentryTowerLevel: 2
@@ -122,11 +128,15 @@ MonoBehaviour:
     raceId: mouse_race_1
     startGold: 2000
     baseGoldPerSecond: 100
-    incomeGrowth: []
+    incomeGrowth:
+    - startTime: 0
+      endTime: 100
+      stepInterval: 10
+      stepAmount: 10
     reserve: 0
     defenseSpendRatio: 0.4
     surplusSeconds: 10
-    strategy: 1
+    strategy: 2
     threatThreshold: 500
     defendRadius: 12
     homeGridPosition: {x: 40, y: 3}
@@ -143,6 +153,7 @@ MonoBehaviour:
     buildGapRange: {x: 1.5, y: 5}
     positionJitter: 1
     maxBarracks: 2
+    maxDarkBarracks: 0
     maxSentries: 2
     troopUnlocks:
     - troop: {fileID: 11400000, guid: c80465553d454c0ab887a8044cd63821, type: 2}
@@ -150,8 +161,11 @@ MonoBehaviour:
     - troop: {fileID: 11400000, guid: 1325a0c91aad48e9bdddb408f92f6c4d, type: 2}
       unlockTime: 20
   globalRules: []
-  victoryGoldBars: 100
-  victoryDiamonds: 10
+  victoryGoldBars: 30
+  victoryDiamonds: 20
+  customNormalReward: 1
+  normalVictoryGoldBars: 20
+  normalVictoryDiamonds: 10
   attackTimeLimit: 0
   bossTimeLimit: 0
   bossPrefabKey: 

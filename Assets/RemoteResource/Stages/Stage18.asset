@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ef6c8b64f543249a7d45a2148ddbf4, type: 3}
+  m_Name: Stage18
+  m_EditorClassIdentifier: 
+  stageId: 18
+  stageType: 1
+  DefenseTime: 0
+  icon: {fileID: 0}
+  displayIcons:
+  - {fileID: -2095667181, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+  - {fileID: -213248309, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
+  objects: []
+  hasFriendlyMainBaseGridPosition: 1
+  friendlyMainBaseGridPosition: {x: 0, y: 3}
+  prefabs:
+  - Cat Base1
+  - Cat Barracks1
+  - Cat Dark barracks1
+  - Cat Sentry tower1
+  - Mouse Base1
+  - Mouse Barracks1
+  - Mouse Dark barracks1
+  - Mouse Sentry tower1
+  audios: []
+  textures: []
+  animationClips: []
+  animatorControllers: []
+  sprites: []
+  useIncomeCurve: 1
+  guideDialogues: []
+  baseGoldPerSecond: 100
+  incomeGrowth:
+  - startTime: 0
+    endTime: 400
+    stepInterval: 10
+    stepAmount: 10
+  hasPlayerStartGold: 1
+  playerStartGold: 4000
+  enemyBarracksLevel: 11
+  enemyDarkBarracksLevel: 11
+  enemySentryTowerLevel: 11
+  enemyDefenseMagicLevel: 6
+  enemyAttackMagicLevel: 6
+  enemyBaseDistance: 60
+  enemyTeams:
+  - teamId: 2
+    raceId: mouse_race_1
+    startGold: 0
+    baseGoldPerSecond: 100
+    incomeGrowth:
+    - startTime: 0
+      endTime: 300
+      stepInterval: 10
+      stepAmount: 15
+    reserve: 0
+    defenseSpendRatio: 0.4
+    surplusSeconds: 10
+    strategy: 1
+    threatThreshold: 500
+    defendRadius: 12
+    homeGridPosition: {x: 60, y: 3}
+    buildSlots:
+    - buildingType: 1
+      gridPosition: {x: 58, y: 6}
+    - buildingType: 1
+      gridPosition: {x: 57, y: 3}
+    - buildingType: 1
+      gridPosition: {x: 55, y: 6}
+    - buildingType: 1
+      gridPosition: {x: 54, y: 3}
+    - buildingType: 2
+      gridPosition: {x: 52, y: 6}
+    - buildingType: 2
+      gridPosition: {x: 51, y: 3}
+    - buildingType: 3
+      gridPosition: {x: 48, y: 4}
+    - buildingType: 3
+      gridPosition: {x: 48, y: 2}
+    - buildingType: 3
+      gridPosition: {x: 48, y: 6}
+    - buildingType: 3
+      gridPosition: {x: 45, y: 4}
+    - buildingType: 3
+      gridPosition: {x: 45, y: 2}
+    randomizeBuildOrder: 1
+    buildGapRange: {x: 1.5, y: 5}
+    positionJitter: 1
+    maxBarracks: 4
+    maxDarkBarracks: 2
+    maxSentries: 5
+    troopUnlocks:
+    - troop: {fileID: 11400000, guid: 3071e56d01cd4ef0baf80bdab986e96d, type: 2}
+      unlockTime: 0
+    - troop: {fileID: 11400000, guid: be5d4a3c7a2b44649646f6f7d15af9b0, type: 2}
+      unlockTime: 0
+    - troop: {fileID: 11400000, guid: 1438486b41fb4017a901c79e669a3286, type: 2}
+      unlockTime: 0
+    - troop: {fileID: 11400000, guid: 278325967edcda5429ae294ac904c073, type: 2}
+      unlockTime: 0
+    - troop: {fileID: 11400000, guid: a232f8922195f33418bb445cb87404b3, type: 2}
+      unlockTime: 0
+    - troop: {fileID: 11400000, guid: ada45bfd0eb84bbebbe18b8d615e751b, type: 2}
+      unlockTime: 0
+    - troop: {fileID: 11400000, guid: 9cb6e31f0a0d47c4b47a7277d5336d66, type: 2}
+      unlockTime: 0
+    - troop: {fileID: 11400000, guid: c53d72be022d44f9a9edf95c4a65b3a5, type: 2}
+      unlockTime: 0
+    - troop: {fileID: 11400000, guid: 881ab067d3ea4a71813003b32bc16446, type: 2}
+      unlockTime: 0
+  globalRules: []
+  victoryGoldBars: 80
+  victoryDiamonds: 40
+  customNormalReward: 1
+  normalVictoryGoldBars: 40
+  normalVictoryDiamonds: 20
+  attackTimeLimit: 800
+  bossTimeLimit: 0
+  bossPrefabKey: 
+  bossGridPosition: {x: 0, y: 0}
+  references:
+    version: 2
+    RefIds: []

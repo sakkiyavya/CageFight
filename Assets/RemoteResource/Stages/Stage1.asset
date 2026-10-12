@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageId: 1
   stageType: 0
-  DefenseTime: 60
+  DefenseTime: 100
   icon: {fileID: 0}
   displayIcons:
   - {fileID: -823088979, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
@@ -35,13 +35,19 @@ MonoBehaviour:
   animationClips: []
   animatorControllers: []
   sprites: []
-  useIncomeCurve: 0
+  useIncomeCurve: 1
   guideDialogues:
   - avatarSpriteKey: Guide_8
     text: "\u4E0A\u5427\uFF01\u51FB\u8D25\u8FD9\u4E9B\u5C0F\u5352\u5B50"
     audioKey: DabaDoctor talk1
-  baseGoldPerSecond: 10
-  incomeGrowth: []
+  baseGoldPerSecond: 100
+  incomeGrowth:
+  - startTime: 0
+    endTime: 60
+    stepInterval: 10
+    stepAmount: 10
+  hasPlayerStartGold: 1
+  playerStartGold: 5000
   enemyBarracksLevel: 1
   enemyDarkBarracksLevel: 1
   enemySentryTowerLevel: 1
@@ -53,11 +59,15 @@ MonoBehaviour:
     raceId: mouse_race_1
     startGold: 2000
     baseGoldPerSecond: 100
-    incomeGrowth: []
+    incomeGrowth:
+    - startTime: 0
+      endTime: 60
+      stepInterval: 10
+      stepAmount: 10
     reserve: 0
     defenseSpendRatio: 0.4
     surplusSeconds: 10
-    strategy: 1
+    strategy: 2
     threatThreshold: 500
     defendRadius: 12
     homeGridPosition: {x: 60, y: 3}
@@ -71,14 +81,18 @@ MonoBehaviour:
     randomizeBuildOrder: 1
     buildGapRange: {x: 1.5, y: 5}
     positionJitter: 1
-    maxBarracks: 3
+    maxBarracks: 1
+    maxDarkBarracks: 0
     maxSentries: 2
     troopUnlocks:
     - troop: {fileID: 11400000, guid: c80465553d454c0ab887a8044cd63821, type: 2}
       unlockTime: 0
   globalRules: []
-  victoryGoldBars: 100
-  victoryDiamonds: 10
+  victoryGoldBars: 30
+  victoryDiamonds: 20
+  customNormalReward: 1
+  normalVictoryGoldBars: 20
+  normalVictoryDiamonds: 10
   attackTimeLimit: 0
   bossTimeLimit: 0
   bossPrefabKey: 

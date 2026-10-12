@@ -46,9 +46,11 @@ MonoBehaviour:
   baseGoldPerSecond: 100
   incomeGrowth:
   - startTime: 0
-    endTime: 250
+    endTime: 300
     stepInterval: 10
     stepAmount: 10
+  hasPlayerStartGold: 1
+  playerStartGold: 3000
   enemyBarracksLevel: 6
   enemyDarkBarracksLevel: 6
   enemySentryTowerLevel: 5
@@ -59,8 +61,12 @@ MonoBehaviour:
   - teamId: 2
     raceId: mouse_race_1
     startGold: 2000
-    baseGoldPerSecond: 200
-    incomeGrowth: []
+    baseGoldPerSecond: 150
+    incomeGrowth:
+    - startTime: 0
+      endTime: 250
+      stepInterval: 10
+      stepAmount: 15
     reserve: 0
     defenseSpendRatio: 0.4
     surplusSeconds: 10
@@ -70,23 +76,24 @@ MonoBehaviour:
     homeGridPosition: {x: 60, y: 3}
     buildSlots:
     - buildingType: 1
+      gridPosition: {x: 58, y: 6}
+    - buildingType: 1
       gridPosition: {x: 57, y: 3}
     - buildingType: 1
       gridPosition: {x: 55, y: 6}
     - buildingType: 1
       gridPosition: {x: 54, y: 3}
-    - buildingType: 1
-      gridPosition: {x: 52, y: 6}
     - buildingType: 3
-      gridPosition: {x: 49, y: 4}
+      gridPosition: {x: 51, y: 4}
     - buildingType: 3
-      gridPosition: {x: 49, y: 2}
+      gridPosition: {x: 51, y: 2}
     - buildingType: 3
-      gridPosition: {x: 49, y: 6}
+      gridPosition: {x: 51, y: 6}
     randomizeBuildOrder: 1
     buildGapRange: {x: 1.5, y: 5}
     positionJitter: 1
     maxBarracks: 4
+    maxDarkBarracks: 0
     maxSentries: 3
     troopUnlocks:
     - troop: {fileID: 11400000, guid: 1325a0c91aad48e9bdddb408f92f6c4d, type: 2}
@@ -100,9 +107,12 @@ MonoBehaviour:
     - troop: {fileID: 11400000, guid: 55afce3036b849dfa0b8d17b516321a3, type: 2}
       unlockTime: 0
   globalRules: []
-  victoryGoldBars: 100
-  victoryDiamonds: 10
-  attackTimeLimit: 600
+  victoryGoldBars: 80
+  victoryDiamonds: 40
+  customNormalReward: 1
+  normalVictoryGoldBars: 40
+  normalVictoryDiamonds: 20
+  attackTimeLimit: 800
   bossTimeLimit: 0
   bossPrefabKey: 
   bossGridPosition: {x: 0, y: 0}

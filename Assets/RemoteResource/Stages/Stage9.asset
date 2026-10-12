@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageId: 9
   stageType: 0
-  DefenseTime: 250
+  DefenseTime: 400
   icon: {fileID: 0}
   displayIcons:
   - {fileID: 1102624762, guid: f50910754816ee444a6218c9ba4ce643, type: 3}
@@ -44,6 +44,8 @@ MonoBehaviour:
     endTime: 250
     stepInterval: 10
     stepAmount: 10
+  hasPlayerStartGold: 1
+  playerStartGold: 2000
   enemyBarracksLevel: 6
   enemyDarkBarracksLevel: 6
   enemySentryTowerLevel: 6
@@ -54,12 +56,16 @@ MonoBehaviour:
   - teamId: 2
     raceId: mouse_race_1
     startGold: 2000
-    baseGoldPerSecond: 200
-    incomeGrowth: []
+    baseGoldPerSecond: 100
+    incomeGrowth:
+    - startTime: 0
+      endTime: 250
+      stepInterval: 10
+      stepAmount: 15
     reserve: 0
     defenseSpendRatio: 0.4
     surplusSeconds: 10
-    strategy: 1
+    strategy: 2
     threatThreshold: 500
     defendRadius: 12
     homeGridPosition: {x: 60, y: 3}
@@ -72,7 +78,7 @@ MonoBehaviour:
       gridPosition: {x: 55, y: 6}
     - buildingType: 1
       gridPosition: {x: 54, y: 3}
-    - buildingType: 1
+    - buildingType: 2
       gridPosition: {x: 52, y: 6}
     - buildingType: 3
       gridPosition: {x: 49, y: 4}
@@ -87,7 +93,8 @@ MonoBehaviour:
     randomizeBuildOrder: 1
     buildGapRange: {x: 1.5, y: 5}
     positionJitter: 1
-    maxBarracks: 5
+    maxBarracks: 4
+    maxDarkBarracks: 1
     maxSentries: 5
     troopUnlocks:
     - troop: {fileID: 11400000, guid: 7a374a17331a45a59ffac658c78ddb0a, type: 2}
@@ -99,8 +106,11 @@ MonoBehaviour:
     - troop: {fileID: 11400000, guid: 026c88abb6be4a0686493fbba68b455e, type: 2}
       unlockTime: 0
   globalRules: []
-  victoryGoldBars: 100
-  victoryDiamonds: 10
+  victoryGoldBars: 30
+  victoryDiamonds: 20
+  customNormalReward: 1
+  normalVictoryGoldBars: 20
+  normalVictoryDiamonds: 10
   attackTimeLimit: 0
   bossTimeLimit: 0
   bossPrefabKey: 
