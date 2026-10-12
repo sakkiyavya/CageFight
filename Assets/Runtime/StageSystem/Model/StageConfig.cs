@@ -116,8 +116,10 @@ public class EnemyTeamConfig
     [Min(0)] public int positionJitter = 1;
 
     [Header("动态扩张")]
-    [Tooltip("兵营总数上限：槽位表用完后，经济允许时在阵地锚点附近动态补建兵营")]
+    [Tooltip("普通兵营总数上限：与「黑暗兵营上限」分开计算（黑暗兵营不占这个名额）；槽位表用完后，经济允许时在阵地锚点附近动态补建普通兵营")]
     [Min(0)] public int maxBarracks = 3;
+    [Tooltip("黑暗兵营总数上限：与「普通兵营上限」分开计算（普通兵营不占这个名额）；另外还要求本方大本营局内等级 ≥2")]
+    [Min(0)] public int maxDarkBarracks = 2;
     [Tooltip("哨塔总数上限：槽位表用完后，回防/富余时在阵地锚点附近动态补建哨塔")]
     [Min(0)] public int maxSentries = 2;
 
@@ -215,6 +217,13 @@ public class StageConfig : ScriptableObject
     [Tooltip("收入增长阶段列表：每阶段内每 stepInterval 秒，每秒产量增加 stepAmount（累计阶梯增长）")]
     public List<IncomeGrowthPhase> incomeGrowth = new List<IncomeGrowthPhase>();
 
+    [Header("玩家初始金币（本关覆盖）")]
+    [Tooltip("勾上后本关独立指定玩家开局金币（playerStartGold）；不勾则沿用游戏场景 Coins 组件上的 coins 值（全局共用）")]
+    public bool hasPlayerStartGold = false;
+
+    [Tooltip("本关玩家开局金币；只在勾选 hasPlayerStartGold 时生效（0 = 开局没钱）")]
+    [Min(0)] public int playerStartGold = 0;
+
     [Header("本关敌方等级")]
     [Tooltip("敌方普通兵营等级：决定该兵营血量与其训练兵种的生命/攻击/魔攻（1.1^(等级-1) 缩放）")]
     [Min(1)] public int enemyBarracksLevel = 1;
@@ -246,17 +255,37 @@ public class StageConfig : ScriptableObject
     public List<GlobalRuleDefinition> GlobalRules => globalRules;
 
     [Header("通关奖励")]
-    [Tooltip("本关胜利奖励金条数：普通模式发一半、大师模式发全部（普通已领一半时大师补剩下的一半）")]
+    [Tooltip("本关胜利奖励金条数（大师模式全额；普通模式默认发它的一半，可在下面「普通模式自定义奖励」里单独指定）")]
     [Min(0)] [SerializeField] private int victoryGoldBars = 100;
 
-    [Tooltip("本关胜利奖励钻石数：规则同上")]
+    [Tooltip("本关胜利奖励钻石数（规则同上）")]
     [Min(0)] [SerializeField] private int victoryDiamonds = 10;
 
-    /// <summary>本关胜利奖励金条数（全量；普通模式按一半结算）。</summary>
+    [Tooltip("勾选后普通模式发下面两个自定义值；不勾则沿用旧规则：普通 = 大师的一半（向下取整）")]
+    [SerializeField] private bool customNormalReward = false;
+
+    [Tooltip("普通模式金条奖励（只在勾选上一项时生效）")]
+    [Min(0)] [SerializeField] private int normalVictoryGoldBars = 0;
+
+    [Tooltip("普通模式钻石奖励（只在勾选上一项时生效）")]
+    [Min(0)] [SerializeField] private int normalVictoryDiamonds = 0;
+
+    /// <summary>本关胜利奖励金条数（大师模式全额）。</summary>
     public int VictoryGoldBars => victoryGoldBars;
 
-    /// <summary>本关胜利奖励钻石数（全量；普通模式按一半结算）。</summary>
+    /// <summary>本关胜利奖励钻石数（大师模式全额）。</summary>
     public int VictoryDiamonds => victoryDiamonds;
+
+    /// <summary>普通模式是否用自定义奖励值（关掉时沿用「大师的一半」）。</summary>
+    public bool CustomNormalReward => customNormalReward;
+
+    /// <summary>普通模式通关奖励金条：勾了自定义就用自定义值，否则 = 大师全额的一半（向下取整）。</summary>
+    public int NormalVictoryGoldBars =>
+        customNormalReward ? Mathf.Max(0, normalVictoryGoldBars) : Mathf.Max(0, victoryGoldBars) / 2;
+
+    /// <summary>普通模式通关奖励钻石（规则同上）。</summary>
+    public int NormalVictoryDiamonds =>
+        customNormalReward ? Mathf.Max(0, normalVictoryDiamonds) : Mathf.Max(0, victoryDiamonds) / 2;
 
     [Header("胜负（阶段 4）")]
     [Tooltip("进攻关时限（秒，0 = 不限时）：到点未摧毁敌方大本营即失败")]

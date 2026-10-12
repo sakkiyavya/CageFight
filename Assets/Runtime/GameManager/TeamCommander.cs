@@ -511,9 +511,14 @@ public sealed class TeamCommander : MonoBehaviour
         if (Time.time < _nextBuildTime)
             return;
 
-        int barracksSlot = FindSlot(BuildingType.Barracks);
+        // 兵营分两类、各有各的上限：**普通兵营与黑暗兵营分开计算**，互不占名额。
+        // 老版本用 CountBarracks() 把两者数在一起再比 maxBarracks，于是"普通兵营槽位填满"
+        // 就等于"黑暗兵营永远不开工"（cap 已满 → 整个兵营分支进不去，黑暗兵营槽位形同虚设）。
+        bool canBuildBarracks = CountBarracks(false) < _config.maxBarracks;
+        bool canBuildDarkBarracks = CountBarracks(true) < _config.maxDarkBarracks &&
+                                    UpgradeLevelRules.CanBuildDarkBarracksForSide(TeamId);
+
         int sentrySlot = FindSlot(BuildingType.Sentry);
-        bool canExpandBarracks = CountBarracks() < _config.maxBarracks;
         bool canExpandSentries = CountSentries() < _config.maxSentries && CanBuildSentry();
 
         if (PreferSentry())
@@ -524,19 +529,9 @@ public sealed class TeamCommander : MonoBehaviour
                 if (sentrySlot >= 0) { TryBuildSlot(sentrySlot); return; }
                 if (TryBuildDynamic(BuildingType.Sentry)) return;
             }
-            if (canExpandBarracks)
-            {
-                // 兵营种类：先按设计槽位盖普通兵营；槽位用完后动态扩张阶段按概率混搭黑暗兵营。
-                if (barracksSlot >= 0) { TryBuildSlot(barracksSlot); return; }
 
-                if (UnityEngine.Random.value < DarkBarracksChance)
-                {
-                    int darkSlot = FindSlot(BuildingType.DarkBarracks);
-                    if (darkSlot >= 0) { TryBuildSlot(darkSlot); return; }
-                    if (TryBuildDynamic(BuildingType.DarkBarracks)) return;
-                }
-                if (TryBuildDynamic(BuildingType.Barracks)) return;
-            }
+            if (TryBuildBarracksStep(canBuildBarracks, canBuildDarkBarracks))
+                return;
         }
         else
         {
@@ -547,20 +542,9 @@ public sealed class TeamCommander : MonoBehaviour
             if (HasIdleBarracks() && !IsRich())
                 return;
 
-            if (canExpandBarracks)
-            {
-                // 兵营种类：先按设计槽位盖普通兵营；槽位用完后进入动态扩张阶段，
-                // 再按概率混搭黑暗兵营（避免黑暗兵营抢在普通槽位之前、显得“只会盖黑暗兵营”）。
-                if (barracksSlot >= 0) { TryBuildSlot(barracksSlot); return; }
+            if (TryBuildBarracksStep(canBuildBarracks, canBuildDarkBarracks))
+                return;
 
-                if (UnityEngine.Random.value < DarkBarracksChance)
-                {
-                    int darkSlot = FindSlot(BuildingType.DarkBarracks);
-                    if (darkSlot >= 0) { TryBuildSlot(darkSlot); return; }
-                    if (TryBuildDynamic(BuildingType.DarkBarracks)) return;
-                }
-                if (TryBuildDynamic(BuildingType.Barracks)) return;
-            }
             if (canExpandSentries)
             {
                 if (sentrySlot >= 0) { TryBuildSlot(sentrySlot); return; }
@@ -568,25 +552,87 @@ public sealed class TeamCommander : MonoBehaviour
             }
         }
 
-        // 槽位表里其它类型按（可能随机打乱后的）顺序补。
+        // 槽位表里其它类型按（可能随机打乱后的）顺序补；已达该类型上限的槽位跳过（留着不动，
+        // 上限调大后仍会开工）—— 上限是硬约束：**槽位表决定"在哪、按什么顺序"，上限决定"最多几座"**。
         for (int i = 0; i < _slotOrder.Count; i++)
         {
             int slotIndex = _slotOrder[i];
             if (_builtOrSkippedSlots.Contains(slotIndex))
                 continue;
+
+            EnemyBuildSlot slot = _config.buildSlots[slotIndex];
+            if (slot != null && IsSlotTypeAtCap(slot.buildingType))
+                continue;
+
             TryBuildSlot(slotIndex);
             return;
         }
     }
 
-    /// <summary>已建造的兵营总数（含施工中与动态扩张）。</summary>
-    private int CountBarracks()
+    /// <summary>
+    /// 该类型的槽位是否已达上限（普通兵营 / 黑暗兵营 / 哨塔各算各的，互不占名额）。
+    /// 大本营等没有上限字段的类型恒为 false。
+    /// </summary>
+    private bool IsSlotTypeAtCap(BuildingType type)
+    {
+        if (_config == null)
+            return false;
+
+        switch (type)
+        {
+            case BuildingType.Barracks: return CountBarracks(false) >= _config.maxBarracks;
+            case BuildingType.DarkBarracks: return CountBarracks(true) >= _config.maxDarkBarracks;
+            case BuildingType.Sentry: return CountSentries() >= _config.maxSentries;
+            default: return false;
+        }
+    }
+
+    /// <summary>
+    /// 兵营建造一步：普通/黑暗各自受自己的上限约束（canBuildBarracks / canBuildDarkBarracks 由调用方算好）。
+    /// ① 先按设计槽位建 —— **普通兵营槽优先，再黑暗兵营槽**（不让黑暗兵营抢在普通槽位前面，保持原设计意图）；
+    /// ② 槽位表里该类型没有可建的了，再动态扩张 —— 仍按 DarkBarracksChance 概率混搭黑暗兵营。
+    /// 返回 true = 本次建造决策已经被这一步用掉（等价于旧逻辑里的 `return;`），调用方别再走后面的分支。
+    /// </summary>
+    private bool TryBuildBarracksStep(bool canBuildBarracks, bool canBuildDarkBarracks)
+    {
+        if (!canBuildBarracks && !canBuildDarkBarracks)
+            return false;
+
+        if (canBuildBarracks)
+        {
+            int slot = FindSlot(BuildingType.Barracks);
+            if (slot >= 0) { TryBuildSlot(slot); return true; }
+        }
+
+        if (canBuildDarkBarracks)
+        {
+            int slot = FindSlot(BuildingType.DarkBarracks);
+            if (slot >= 0) { TryBuildSlot(slot); return true; }
+        }
+
+        if (canBuildDarkBarracks && UnityEngine.Random.value < DarkBarracksChance)
+        {
+            if (TryBuildDynamic(BuildingType.DarkBarracks)) return true;
+        }
+
+        if (canBuildBarracks && TryBuildDynamic(BuildingType.Barracks)) return true;
+
+        return false;
+    }
+
+    /// <summary>
+    /// 已建造的兵营数量（含施工中与动态扩张）。
+    /// dark = false 数**普通兵营**、true 数**黑暗兵营** —— 两者分开计数，各受各的上限约束
+    /// （BuildingTraining.IsDarkBarracks 是预制体上的分类标记，与建筑编辑器里那一栏同源）。
+    /// </summary>
+    private int CountBarracks(bool dark)
     {
         int count = 0;
         for (int i = 0; i < _buildings.Count; i++)
         {
             BuildingBase building = _buildings[i];
-            if (building != null && building.GetComponent<BuildingTraining>() != null)
+            BuildingTraining training = building != null ? building.GetComponent<BuildingTraining>() : null;
+            if (training != null && training.IsDarkBarracks == dark)
                 count++;
         }
         return count;

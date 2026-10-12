@@ -4,8 +4,9 @@ using UnityEngine.EventSystems;
 
 /// <summary>
 /// 结算奖励（挂在 GameOverCanvas 的 X3 按钮上）：
-/// - 胜利时按关卡配置发放通关奖励：普通模式发 50%，大师模式发全部
-///   （普通已领过一半时，大师补发剩下的 50%）；已通关的模式不再重复发放；
+/// - 胜利时按关卡配置发放通关奖励：**普通模式与大师模式的数值分别来自关卡配置**
+///   （普通默认是大师的一半，也可以在关卡里单独自定义；大师模式按「大师值 − 普通已领的部分」补发，
+///   所以两种模式加起来正好等于大师值）；已通关的模式不再重复发放；
 /// - Gold/Diamond 文本显示本次实际获得的资源数量；
 /// - 点击 X3：播放激励视频，完整观看后本次奖励补发 2 倍（合计 3 倍）。
 /// </summary>
@@ -102,7 +103,9 @@ public sealed class GameOverRewards : MonoBehaviour, IPointerDownHandler,
     }
 
     /// <summary>
-    /// 发放基础通关奖励（幂等）：普通 50%、大师全量（普通已领时补剩下 50%），
+    /// 发放基础通关奖励（幂等）：
+    /// · 普通模式：发关卡配置的「普通模式奖励」（默认 = 大师的一半，可在关卡里自定义）；
+    /// · 大师模式：发「大师奖励 − 普通模式已领的部分」（普通没领过就是全额，不足 0 按 0）；
     /// 已通关的模式不再重复发放；奖励经受控入口写入 UserGlobalInfo。
     /// </summary>
     private void GrantVictoryReward()
@@ -125,17 +128,18 @@ public sealed class GameOverRewards : MonoBehaviour, IPointerDownHandler,
         {
             if (!masterCleared)
             {
-                // 大师难度：普通已领一半 → 补剩下 50%；否则给全量 100%。
-                int portion = normalCleared ? 1 : 2;
-                _baseGold = config.VictoryGoldBars * portion / 2;
-                _baseDiamond = config.VictoryDiamonds * portion / 2;
+                // 大师难度：补发差额 —— 普通已领过就只补「大师值 − 普通实际发的量」，没领过就发全量。
+                int paidGold = normalCleared ? config.NormalVictoryGoldBars : 0;
+                int paidDiamond = normalCleared ? config.NormalVictoryDiamonds : 0;
+                _baseGold = Mathf.Max(0, config.VictoryGoldBars - paidGold);
+                _baseDiamond = Mathf.Max(0, config.VictoryDiamonds - paidDiamond);
                 info.MarkStageCleared(config.stageId, true);
             }
         }
         else if (!normalCleared && !masterCleared)
         {
-            _baseGold = config.VictoryGoldBars / 2;
-            _baseDiamond = config.VictoryDiamonds / 2;
+            _baseGold = config.NormalVictoryGoldBars;
+            _baseDiamond = config.NormalVictoryDiamonds;
             info.MarkStageCleared(config.stageId, false);
         }
 

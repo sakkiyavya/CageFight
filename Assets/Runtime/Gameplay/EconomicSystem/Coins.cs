@@ -126,6 +126,32 @@ public class Coins : MonoBehaviour
                 ? config.incomeGrowth.FindAll(phase => phase != null).ToArray()
                 : Array.Empty<IncomeGrowthPhase>();
         }
+
+        ApplyStageStartGold(config);
+    }
+
+    /// <summary>
+    /// 应用本关的初始金币：
+    ///   · 关卡勾了 `hasPlayerStartGold` → 用关卡自己的 `playerStartGold`（**每关可以不同**）；
+    ///   · 没勾 → 保持场景上 `coins` 的序列化值（全局共用，行为与以前一致）。
+    /// 直接改余额时**手动补发一次事件**，让金币界面立刻刷新到开局值（否则要等下一次每秒结算，界面会先显示旧值）。
+    /// </summary>
+    private void ApplyStageStartGold(StageConfig config)
+    {
+        if (config == null || !config.hasPlayerStartGold)
+            return;
+
+        int target = Mathf.Max(0, config.playerStartGold);
+        if (target == coins)
+            return;
+
+        int delta = target - coins;
+        coins = target;
+
+        if (delta > 0)
+            OnGainCoins?.Invoke(delta);
+        else
+            OnConsumeCoins?.Invoke(-delta);
     }
 
     /// <summary>
