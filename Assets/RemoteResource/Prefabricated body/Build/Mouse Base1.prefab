@@ -351,6 +351,13 @@ MonoBehaviour:
   currentDebuff: []
   occupySpace: {x: 4, y: 2}
   buildAnime: 
+  barracksLevel: 1
+  darkBarracksLevel: 1
+  sentryTowerLevel: 1
+  defenseMagicLevel: 1
+  attackMagicLevel: 1
+  troopTag: 0
+  threatScore: 1
 --- !u!114 &782631194484437442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,6 +382,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e99e643ee691a04a92f2ba53e7affe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitFlashDuration: 0.3
+  hitFlashColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  shakeDuration: 0.5
+  shakeAmplitude: 0.3
+  shakeFrequency: 30
+  hitSoundKey: Construct-Hit
+  deathAngularSpeed: 180
+  deathParabolaAcceleration: -50
+  deathInitialVelocity: {x: 4, y: 20}
+  deathEffectDuration: 1
+  deathFadeAlpha: 0.5
+  deathDarkFactor: 0.4
   HpBarUp: {fileID: 1798134077483688127}
   HpBarBottom: {fileID: 8853874519803300192}
 --- !u!114 &2039831784276253925
@@ -391,20 +410,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - sprite: {fileID: -388975429, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
-    maxHp: 8000
+    maxHp: 4000
     attack: 0
     attackRange: {x: 0, y: 0}
     cost: 0
   - sprite: {fileID: 1445851671, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
+    maxHp: 6000
+    attack: 0
+    attackRange: {x: 0, y: 0}
+    cost: 6000
+  - sprite: {fileID: -2040994778, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
     maxHp: 10000
     attack: 0
     attackRange: {x: 0, y: 0}
-    cost: 1500
-  - sprite: {fileID: -2040994778, guid: 3ede0ea036caf7a44b85705acfef9a56, type: 3}
-    maxHp: 13000
-    attack: 0
-    attackRange: {x: 0, y: 0}
-    cost: 3000
+    cost: 5000
   upgradeMark: {fileID: 2868415141154602266}
   coinIcon: {fileID: 3870501680943201725}
   costText: {fileID: 5596715123396565643}
@@ -414,6 +433,12 @@ MonoBehaviour:
   jellyAmount: 0.16
   upgradeSoundKey: UP
   removable: 0
+  demolishSoundKey: Construct-Hit
+  demolishAnimWait: 0.7
+  demolishFallTime: 0.8
+  demolishFallDistance: 15
+  demolishSway: 0.6
+  demolishAlpha: 0.5
 --- !u!61 &4236147928232562667
 BoxCollider2D:
   m_ObjectHideFlags: 0

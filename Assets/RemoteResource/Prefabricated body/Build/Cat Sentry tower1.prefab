@@ -344,20 +344,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - sprite: {fileID: -634734723, guid: 545a1260c84973f4da4b7350798a7666, type: 3}
-    maxHp: 3000
-    attack: 100
-    attackRange: {x: 10, y: 6}
-    cost: 0
+    maxHp: 700
+    attack: 24
+    attackRange: {x: 10, y: 10}
+    cost: 15000
   - sprite: {fileID: -1123283165, guid: 545a1260c84973f4da4b7350798a7666, type: 3}
-    maxHp: 4500
-    attack: 150
-    attackRange: {x: 10, y: 6}
-    cost: 0
+    maxHp: 1200
+    attack: 42
+    attackRange: {x: 10, y: 10}
+    cost: 2000
   - sprite: {fileID: -1861327622, guid: 545a1260c84973f4da4b7350798a7666, type: 3}
-    maxHp: 6500
-    attack: 210
-    attackRange: {x: 11, y: 6}
-    cost: 0
+    maxHp: 200
+    attack: 100
+    attackRange: {x: 10, y: 10}
+    cost: 4000
   upgradeMark: {fileID: 8484330088635094366}
   coinIcon: {fileID: 3109290375359801589}
   costText: {fileID: 7146559207589098399}
@@ -509,7 +509,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.530228, y: 0.06040992}
-    oldSize: {x: 3.088889, y: 4.327778}
+    oldSize: {x: 2.78, y: 3.895}
     newSize: {x: 3.5714285, y: 4.7619047}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
