@@ -15,11 +15,12 @@ MonoBehaviour:
   id: cat_mix
   displayName: Cat Mix
   tag: 1
-  tier: 1
+  threatScore: 1
+  tier: 2
   unlockLevel: 2
-  trainCount: 3
+  trainCount: 1
   cooldown: 12
-  upkeep: 0
+  upkeep: 40
   requiresOwnership: 0
   iconKey: Cat Troop UI_2
   prefabKey: Cat Mix

@@ -15,11 +15,12 @@ MonoBehaviour:
   id: cat_son
   displayName: Cat son
   tag: 1
+  threatScore: 1
   tier: 1
   unlockLevel: 1
   trainCount: 2
-  cooldown: 10
-  upkeep: 0
+  cooldown: 12
+  upkeep: 35
   requiresOwnership: 0
   iconKey: Cat Troop UI_1
   prefabKey: Cat son

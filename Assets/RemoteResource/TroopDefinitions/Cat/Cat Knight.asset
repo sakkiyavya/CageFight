@@ -15,11 +15,12 @@ MonoBehaviour:
   id: cat_knight
   displayName: Cat Knight
   tag: 1
+  threatScore: 1
   tier: 1
   unlockLevel: 2
   trainCount: 2
   cooldown: 12
-  upkeep: 0
+  upkeep: 45
   requiresOwnership: 0
   iconKey: Cat Troop UI_4
   prefabKey: Cat Knight

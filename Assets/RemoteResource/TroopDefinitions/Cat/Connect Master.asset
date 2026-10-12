@@ -15,11 +15,12 @@ MonoBehaviour:
   id: connect_master
   displayName: Connect Master
   tag: 2
+  threatScore: 1
   tier: 1
   unlockLevel: 2
   trainCount: 2
-  cooldown: 15
-  upkeep: 0
+  cooldown: 16
+  upkeep: 55
   requiresOwnership: 0
   iconKey: Cat Troop UI_15
   prefabKey: Connect Master

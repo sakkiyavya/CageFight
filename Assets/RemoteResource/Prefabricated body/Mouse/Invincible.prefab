@@ -281,7 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 2
   side: 0
-  maxHp: 900
+  maxHp: 800
   defense: 0
   magicDefense: 0
   isRemoteAtk: 0
@@ -322,6 +322,13 @@ MonoBehaviour:
   currentDebuff: []
   occupySpace: {x: 1, y: 1}
   buildAnime: 
+  barracksLevel: 1
+  darkBarracksLevel: 1
+  sentryTowerLevel: 1
+  defenseMagicLevel: 1
+  attackMagicLevel: 1
+  troopTag: 0
+  threatScore: 1
 --- !u!114 &8044513548444427366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,6 +374,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBarUp: {fileID: 3618746117482262722}
   HpBarBottom: {fileID: 6142678638181297569}
+  alwaysShowBar: 0
+  jellyRepelReference: 1
+  jellyMaxFactor: 3
   deathAngularSpeed: 180
   deathFadeAlpha: 0.5
   deathDarkFactor: 0.4

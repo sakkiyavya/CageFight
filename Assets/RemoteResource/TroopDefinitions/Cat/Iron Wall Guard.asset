@@ -15,11 +15,12 @@ MonoBehaviour:
   id: iron_wall_guard
   displayName: Iron Wall Guard
   tag: 4
-  tier: 1
+  threatScore: 1
+  tier: 2
   unlockLevel: 2
   trainCount: 1
   cooldown: 12
-  upkeep: 0
+  upkeep: 45
   requiresOwnership: 0
   iconKey: Cat Troop UI_3
   prefabKey: Iron Wall Guard
