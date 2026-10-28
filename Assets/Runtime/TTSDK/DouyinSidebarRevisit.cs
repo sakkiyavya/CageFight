@@ -210,6 +210,7 @@ public sealed class DouyinSidebarRevisit : MonoBehaviour
 
     private void SetSidebarSupport(bool supported)
     {
+        Debug.Log($"[DouyinSidebarRevisit] 侧边栏能力检测：supported={supported}", this);
         if (IsSidebarSupported == supported)
             return;
 
@@ -219,6 +220,7 @@ public sealed class DouyinSidebarRevisit : MonoBehaviour
 
     private void UpdateReturnState(string scene, string launchFrom, string location)
     {
+        _isNavigating = false;
         LatestScene = scene ?? string.Empty;
 
         // scene=1036 也可能对应其他入口，因此不能单独据此发奖。
@@ -226,6 +228,9 @@ public sealed class DouyinSidebarRevisit : MonoBehaviour
             string.Equals(launchFrom, "homepage", StringComparison.OrdinalIgnoreCase) &&
             string.Equals(location, "sidebar_card", StringComparison.OrdinalIgnoreCase);
 
+        Debug.Log(
+            $"[DouyinSidebarRevisit] 入口识别：scene={LatestScene}, launchFrom={launchFrom}, location={location}, returnedFromSidebar={returnedFromSidebar}",
+            this);
         SetReturnedFromSidebar(returnedFromSidebar);
     }
 

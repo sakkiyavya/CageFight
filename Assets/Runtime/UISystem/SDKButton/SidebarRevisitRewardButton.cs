@@ -1,30 +1,46 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-/// <summary>点击前往侧边栏；确认复访后再次点击，同时领取全局金币和钻石。</summary>
+/// <summary>首页侧边栏入口。保留原脚本名以兼容序列化引用，不发放奖励。</summary>
 [DisallowMultipleComponent]
 public sealed class SidebarRevisitRewardButton : MonoBehaviour, IPointerClickHandler
 {
-    private const int GoldRewardAmount = 100;
-    private const int DiamondRewardAmount = 10;
+    private DouyinSidebarRevisit _sidebar;
+
+    private void Start()
+    {
+        _sidebar = DouyinSidebarRevisit.Instance;
+        if (_sidebar != null)
+            _sidebar.SidebarSupportChanged += RefreshVisibility;
+        RefreshVisibility(_sidebar != null && _sidebar.IsSidebarSupported);
+    }
+
+    private void OnDestroy()
+    {
+        // 不在 OnDisable 退订：入口隐藏后仍需响应异步能力检测结果。
+        if (_sidebar != null)
+            _sidebar.SidebarSupportChanged -= RefreshVisibility;
+    }
+
+    private void RefreshVisibility(bool supported)
+    {
+#if UNITY_EDITOR
+        // 编辑器保留入口用于布局检查，不模拟真实平台成功。
+        gameObject.SetActive(true);
+#else
+        gameObject.SetActive(supported);
+#endif
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        var sidebar = DouyinSidebarRevisit.Instance;
-        var info = UserGlobalInfo.Instance;
-        if (sidebar == null || info == null) return;
-        var persistence = info.GetComponent<UserGlobalInfoPersistence>();
-        if (persistence != null && !persistence.IsLoaded) return;
-
-        if (!sidebar.IsReturnedFromSidebar)
-        {
-            sidebar.NavigateToSidebarFromUserClick();
-            return;
-        }
-
-        // 先消费本次复访，避免余额变化事件触发重入或多个按钮重复领取。
-        sidebar.ConsumeSidebarReturn();
-        info.SetGoldBarCount((int)System.Math.Min(int.MaxValue, (long)info.GoldBarCount + GoldRewardAmount));
-        info.SetDiamondCount((int)System.Math.Min(int.MaxValue, (long)info.DiamondCount + DiamondRewardAmount));
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+        MenuClickFeedback.PlayUiClickSound(this);
+#if UNITY_EDITOR
+        Debug.Log("[Sidebar] 编辑器仅预览入口；请在抖音开发者工具或真机测试侧边栏跳转。", this);
+#else
+        if (_sidebar != null)
+            _sidebar.NavigateToSidebarFromUserClick();
+#endif
     }
 }
